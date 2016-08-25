@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueHrLib", "BlueHrLib\BlueHrLib.csproj", "{E261AE5C-6988-4FF1-9D90-D52BB6C0A029}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueHrWeb", "BlueHrWeb\BlueHrWeb.csproj", "{1C009774-E648-4512-8D28-26D2599BEC16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueHrClient", "BlueHrClient\BlueHrClient.csproj", "{93B51B28-7E3D-4011-AC5C-DD3B373A5842}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E261AE5C-6988-4FF1-9D90-D52BB6C0A029}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E261AE5C-6988-4FF1-9D90-D52BB6C0A029}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E261AE5C-6988-4FF1-9D90-D52BB6C0A029}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E261AE5C-6988-4FF1-9D90-D52BB6C0A029}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C009774-E648-4512-8D28-26D2599BEC16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C009774-E648-4512-8D28-26D2599BEC16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C009774-E648-4512-8D28-26D2599BEC16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C009774-E648-4512-8D28-26D2599BEC16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93B51B28-7E3D-4011-AC5C-DD3B373A5842}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93B51B28-7E3D-4011-AC5C-DD3B373A5842}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93B51B28-7E3D-4011-AC5C-DD3B373A5842}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93B51B28-7E3D-4011-AC5C-DD3B373A5842}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
