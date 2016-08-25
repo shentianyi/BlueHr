@@ -11,6 +11,9 @@ namespace BlueHrWeb
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquery-plug-in").Include(
+                   "~/Scripts/jquery-popModal.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -24,8 +27,15 @@ namespace BlueHrWeb
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                     "~/Content/bootstrap.css",
+                     "~/Content/site.css",
+                     "~/Content/pagination.css",
+                     "~/Content/filter.css",
+                     "~/Content/jquery-popModal.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/company").Include(
+                    "~/Scripts/company.js"));
+
         }
     }
 }

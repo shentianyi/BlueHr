@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BlueHrWeb.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="pageSize" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="db" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Data Source=WANGSONG-PC\MSSQLSERVER2008R;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa;Password=123456@</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
