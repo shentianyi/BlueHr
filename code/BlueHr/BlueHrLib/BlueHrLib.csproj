@@ -48,6 +48,8 @@
       <DependentUpon>BlueHr.dbml</DependentUpon>
     </Compile>
     <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Data\Enum\AttendanceRecordSourceType.cs" />
+    <Compile Include="Data\Enum\SystemCertificateType.cs" />
     <Compile Include="Data\Model\Search\CompanySearchModel.cs" />
     <Compile Include="Data\Model\StaffIdCard.cs" />
     <Compile Include="Data\Repository\IDataContextFactory.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="Data\Repository\Interface\ICompanyRepository.cs" />
     <Compile Include="Data\Repository\IRepository.cs" />
     <Compile Include="Data\Repository\RepositoryBase.cs" />
+    <Compile Include="CusException\SystemCertificateTypeNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
