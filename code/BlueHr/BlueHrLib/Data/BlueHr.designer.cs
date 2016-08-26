@@ -998,6 +998,8 @@ namespace BlueHrLib.Data
 		
 		private System.DateTime _createdAt;
 		
+		private bool _isManualCal;
+		
 		private EntityRef<Staff> _Staff;
 		
     #region 可扩展性方法定义
@@ -1018,6 +1020,8 @@ namespace BlueHrLib.Data
     partial void OnremarkChanged();
     partial void OncreatedAtChanging(System.DateTime value);
     partial void OncreatedAtChanged();
+    partial void OnisManualCalChanging(bool value);
+    partial void OnisManualCalChanged();
     #endregion
 		
 		public AttendanceRecordCal()
@@ -1166,6 +1170,26 @@ namespace BlueHrLib.Data
 					this._createdAt = value;
 					this.SendPropertyChanged("createdAt");
 					this.OncreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isManualCal", DbType="Bit NOT NULL")]
+		public bool isManualCal
+		{
+			get
+			{
+				return this._isManualCal;
+			}
+			set
+			{
+				if ((this._isManualCal != value))
+				{
+					this.OnisManualCalChanging(value);
+					this.SendPropertyChanging();
+					this._isManualCal = value;
+					this.SendPropertyChanged("isManualCal");
+					this.OnisManualCalChanged();
 				}
 			}
 		}

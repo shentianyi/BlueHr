@@ -19,6 +19,7 @@ CREATE TABLE [dbo].[AttendanceRecordCal](
 	[actWorkingHour] [float] NOT NULL,
 	[remark] [text] NULL,
 	[createdAt] [datetime] NOT NULL,
+        [isManualCal] [bit] NOT NULL,
  CONSTRAINT [PK_AttendanceRecordCal] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
