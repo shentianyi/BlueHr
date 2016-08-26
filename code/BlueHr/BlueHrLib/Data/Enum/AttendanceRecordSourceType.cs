@@ -21,6 +21,6 @@ namespace BlueHrLib.Data.Enum
         /// <summary>
         /// 人工录入
         /// </summary>
-        MuanualCreate = 300
+        ManualCreate = 300
     }
 }
