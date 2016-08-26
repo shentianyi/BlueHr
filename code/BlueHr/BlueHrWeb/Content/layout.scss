@@ -1,0 +1,329 @@
+﻿//Basic Colors
+$turquoise: #1abc9c !global; //蓝绿色
+$green-sea: #16a085 !global; // 深绿色  lightseagreen
+
+$emerald: #2ecc71 !global; //宝石绿
+$nephritis: #27ae60 !global; //深色
+
+$peter-river: #3498db !global; //浅蓝色
+$light-blue: #bce8f1 !global;
+$high-blue: #31708f !global;
+$brlize-hole: #2980b9 !global; //深蓝色  steelblue
+
+$amethyst: #9b59b6 !global; //紫色
+$wisteria: #8e44ad !global; //深紫色
+
+$wet-asphalt: #34495e !global; // 沥青色
+$midnight-blue: #2c3e50 !global; //午夜蓝  接近黑色
+
+$sun-flower: #f1c40f !global; // 浅黄色  向日葵
+$light-yellow: #fcf8e3 !global; //超级浅黄色
+$shallow-yellow: #faebcc !global;
+$high-yellow: #8a6d3b !global;
+$orange: #f39c12 !global; //  橘黄色   橘子
+
+$carrot: #e67e22 !global; // 深黄色   胡萝卜
+$pumpkin: #d35400 !global; // 黄红色  南瓜
+
+$alizarin: #e74c3c !global; // 浅红色   茜素
+$high-red: #a94442 !global;
+$pomegranate: #c0392b !global; // 红色   石榴
+
+$clouds: #ecf0f1 !global; // 白色    云彩
+$silver: #bdc3c7 !global; //银色   银色
+
+$light-grey: #ddd !global; // 浅灰色
+$concrete: #95a5a6 !global; //  浅灰色   混凝土
+$asbestos: #7f8c8d !global; // 深灰色  石棉
+
+.main-nav {
+     min-width: 700px;
+    .nav-top{
+        position:fixed;
+        display:flex;
+        display:-ms-flexbox;
+        top:0;
+        height:40px;
+        width: 100%;
+        padding: 5px;
+        line-height:30px;
+        background:-webkit-gradient(linear, 0 0, 0 100%, from($peter-river), to($brlize-hole));
+        background:-moz-linear-gradient(top, $peter-river,$brlize-hole);
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=$peter-river,endColorstr=$brlize-hole,grandientType=1);
+
+        color: $clouds;
+
+        .nav-right{
+            display:flex;
+            display:-ms-flexbox;
+            position: absolute;
+            right: 10px;
+            .nav-user{
+                cursor:pointer;
+            }
+            .nav-logout{
+                cursor:pointer;
+                margin:0 20px 0 30px;
+            }
+        }
+    }
+
+    .main-content{
+        position:absolute;
+        top:40px;
+        bottom:0;
+        left:0;
+        right:0;
+        display:flex;
+        display:-ms-flexbox;
+        .nav-left{
+            width:180px;
+            min-width:150px;
+            background: $brlize-hole;
+
+            .active{
+                background: $peter-river;
+            }
+
+            dl{
+                margin:0;
+                border-bottom: 1px dashed $silver;
+                &:first-child{
+                    border-top: 1px solid $silver;
+                }
+            }
+
+            dt{
+                padding-left:20px;
+                color:$clouds;
+                font-size:14px;
+                position:relative;
+                line-height:48px;
+                cursor:pointer;
+                i{
+                    position:absolute;
+                    right:10px;
+                    top:15px;
+                    font-size:.9em;
+                }
+                a{
+                    color:$clouds;
+                    line-height:25px;
+                    &:hover, &:active, &:link{
+                        text-decoration:none;
+                    }
+                }
+            }
+            
+            dd{
+                background-color:$brlize-hole;
+                padding-left:30px;
+                a{
+                    color:$clouds;
+                    line-height:25px;
+                    &:hover, &:active, &:link{
+                        text-decoration:none;
+                    }
+                }
+            }
+
+        }
+        .nav-content{
+            min-width: 600px;
+            width:100%;
+            padding:10px;
+            background: #f2f2f2;
+        }
+    }
+ }
+
+//Button
+@mixin marco-btn($marco-bg: $concrete, $marco-color:#f5f5f5) {
+  min-width: 60px;
+  padding: 4px 9px;
+  margin: 5px 0;
+  background: $marco-bg;
+  color: $marco-color;
+  border: 1px solid $marco-bg;
+  &:hover, &:link {
+    outline: none;
+  }
+  &:active {
+    border: 1px solid $marco-bg;
+    background: $marco-color;
+    color: $marco-bg;
+    outline: none;
+    a{
+    	color: $marco-bg;
+    }
+  }
+  &[disabled] {
+    cursor: not-allowed;
+    background: #999;
+    border-color: #999;
+    color: #fff;
+  }
+  a{
+  	color: $marco-color;
+  	&:hover{
+  		text-decoration: none;
+  	}
+  }
+}
+
+.macro-bgroup {
+  .active {
+    background: transparent;
+    color: $midnight-blue;
+    font-weight: bold;
+  }
+  button {
+    margin-left: -5px;
+  }
+}
+
+.marco-btn {
+  @include marco-btn;
+}
+
+.marco-btn-default {
+  @include marco-btn($wet-asphalt);
+}
+
+.marco-btn-primary {
+  @include marco-btn($brlize-hole);
+}
+
+.marco-btn-success {
+  @include marco-btn($green-sea);
+}
+
+.marco-btn-warning {
+  @include marco-btn($shallow-yellow, $high-yellow);
+}
+
+.marco-btn-danger {
+  @include marco-btn($pomegranate);
+}
+
+//Input
+@mixin marco-ninput($marco-bg: $concrete, $marco-color: #f2f2f2 ) {
+  border: 1px solid $marco-bg;
+  display: table;
+  margin: 5px 0;
+  span {
+    width: 1%;
+    min-width: 60px;
+    display: table-cell;
+    background: $marco-bg;
+    color: $marco-color;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  input, select {
+    border: none;
+    margin: 0;
+    padding: 6px;
+    width: 100%;
+    display: table-cell;
+    &[disabled] {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.marco-igroup {
+  @include marco-ninput;
+}
+
+.marco-igroup-default {
+  @include marco-ninput($wet-asphalt);
+}
+
+.marco-igroup-primary {
+  @include marco-ninput($peter-river);
+}
+
+.marco-igroup-success {
+  @include marco-ninput($green-sea);
+}
+
+.marco-igroup-warning {
+  @include marco-ninput($shallow-yellow, $high-yellow);
+}
+
+.marco-igroup-danger {
+  @include marco-ninput($pomegranate);
+}
+
+//Panel
+@mixin marco-panel-head($marco-bg: $concrete, $marco-color: #f2f2f2) {
+  height: 30px;
+  line-height: 20px;
+  padding: 5px;
+  font-size: 1.3em;
+  background: $marco-bg;
+  color: $marco-color;
+}
+
+@mixin marco-npanel($marco-border: $silver, $marco-bg: $concrete, $marco-color: #f2f2f2) {
+  margin-top: 10px;
+  border: 2px solid $marco-border;
+  .marco-nheading {
+    @include marco-panel-head($marco-bg, $marco-color);
+  }
+
+  .marco-nbody {
+    padding: 5px;
+    min-height: 40px;
+  }
+}
+
+.marco-npanel {
+  @include marco-npanel;
+}
+
+.marco-npanel-default {
+  @include marco-npanel($midnight-blue, $wet-asphalt);
+}
+
+.marco-npanel-primary {
+  @include marco-npanel($brlize-hole, $peter-river);
+}
+
+.marco-npanel-success {
+  @include marco-npanel($green-sea, $turquoise);
+}
+
+.marco-npanel-warning {
+  @include marco-npanel($shallow-yellow, $light-yellow, $high-yellow);
+}
+
+.marco-npanel-danger {
+  @include marco-npanel($pomegranate, $alizarin);
+}
+
+.marco-breadcrumb{
+	li + li:before{
+		color: $high-blue;
+	}
+
+	margin: 0;
+	border-radius: 0;
+	border-top-right-radius: 20px;
+	background: $light-grey;
+	color: $high-blue;
+	a{
+		color: $pumpkin;
+		text-decoration: none; 
+		&:hover{
+			background: transparent;
+			color: $pomegranate;
+		}
+	}
+}
