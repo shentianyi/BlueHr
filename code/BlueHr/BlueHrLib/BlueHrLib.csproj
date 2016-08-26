@@ -49,6 +49,7 @@
     </Compile>
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Data\Model\Search\CompanySearchModel.cs" />
+    <Compile Include="Data\Model\StaffIdCard.cs" />
     <Compile Include="Data\Repository\IDataContextFactory.cs" />
     <Compile Include="Data\Repository\Implement\CompanyRepository.cs" />
     <Compile Include="Data\Repository\Interface\ICompanyRepository.cs" />
@@ -61,7 +62,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Service\Implement\CompanyService.cs" />
+    <Compile Include="Service\Implement\StaffService.cs" />
     <Compile Include="Service\Interface\ICompanyService.cs" />
+    <Compile Include="Service\Interface\IStaffService.cs" />
     <Compile Include="Service\ServiceBase.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -60,19 +60,8 @@
       <Column Name="effectiveEnd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="institution" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="CertificateType_Certificate" Member="CertificateType" ThisKey="certificateTypeId" OtherKey="id" Type="CertificateType" IsForeignKey="true" />
       <Association Name="Staff_Certificate" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CertificateType" Member="CertificateType">
-    <Type Name="CertificateType">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="isSystem" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="isNecessary" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="CertificateType_Certificate" Member="Certificate" ThisKey="id" OtherKey="certificateTypeId" Type="Certificate" />
-      <Association Name="CertificateType_JobCertificate" Member="JobCertificate" ThisKey="id" OtherKey="certificateTypeId" Type="JobCertificate" />
+      <Association Name="CertificateType_Certificate" Member="CertificateType" ThisKey="certificateTypeId" OtherKey="id" Type="CertificateType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Company" Member="Company">
@@ -157,8 +146,8 @@
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="jobTitleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="certificateTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="CertificateType_JobCertificate" Member="CertificateType" ThisKey="certificateTypeId" OtherKey="id" Type="CertificateType" IsForeignKey="true" />
       <Association Name="JobTitle_JobCertificate" Member="JobTitle" ThisKey="jobTitleId" OtherKey="id" Type="JobTitle" IsForeignKey="true" />
+      <Association Name="CertificateType_JobCertificate" Member="CertificateType" ThisKey="certificateTypeId" OtherKey="id" Type="CertificateType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.JobTitle" Member="JobTitle">
@@ -219,6 +208,7 @@
       <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="sex" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Column Name="birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ethnic" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="firstCompanyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="totalCompanySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="companyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -263,6 +253,18 @@
       <Association Name="InsureType_Staff" Member="InsureType" ThisKey="insureTypeId" OtherKey="id" Type="InsureType" IsForeignKey="true" />
       <Association Name="JobTitle_Staff" Member="JobTitle" ThisKey="jobTitleId" OtherKey="id" Type="JobTitle" IsForeignKey="true" />
       <Association Name="StaffType_Staff" Member="StaffType" ThisKey="staffTypeId" OtherKey="id" Type="StaffType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CertificateType" Member="CertificateType">
+    <Type Name="CertificateType">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="isSystem" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="isNecessary" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="systemCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="CertificateType_Certificate" Member="Certificate" ThisKey="id" OtherKey="certificateTypeId" Type="Certificate" />
+      <Association Name="CertificateType_JobCertificate" Member="JobCertificate" ThisKey="id" OtherKey="certificateTypeId" Type="JobCertificate" />
     </Type>
   </Table>
 </Database>

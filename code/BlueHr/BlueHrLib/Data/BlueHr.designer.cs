@@ -45,9 +45,6 @@ namespace BlueHrLib.Data
     partial void InsertCertificate(Certificate instance);
     partial void UpdateCertificate(Certificate instance);
     partial void DeleteCertificate(Certificate instance);
-    partial void InsertCertificateType(CertificateType instance);
-    partial void UpdateCertificateType(CertificateType instance);
-    partial void DeleteCertificateType(CertificateType instance);
     partial void InsertCompany(Company instance);
     partial void UpdateCompany(Company instance);
     partial void DeleteCompany(Company instance);
@@ -90,6 +87,9 @@ namespace BlueHrLib.Data
     partial void InsertStaff(Staff instance);
     partial void UpdateStaff(Staff instance);
     partial void DeleteStaff(Staff instance);
+    partial void InsertCertificateType(CertificateType instance);
+    partial void UpdateCertificateType(CertificateType instance);
+    partial void DeleteCertificateType(CertificateType instance);
     #endregion
 		
 		public BlueHrDataContext() : 
@@ -167,14 +167,6 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<Certificate>();
-			}
-		}
-		
-		public System.Data.Linq.Table<CertificateType> CertificateType
-		{
-			get
-			{
-				return this.GetTable<CertificateType>();
 			}
 		}
 		
@@ -295,6 +287,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<Staff>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CertificateType> CertificateType
+		{
+			get
+			{
+				return this.GetTable<CertificateType>();
 			}
 		}
 	}
@@ -1225,9 +1225,9 @@ namespace BlueHrLib.Data
 		
 		private string _remark;
 		
-		private EntityRef<CertificateType> _CertificateType;
-		
 		private EntityRef<Staff> _Staff;
+		
+		private EntityRef<CertificateType> _CertificateType;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -1253,8 +1253,8 @@ namespace BlueHrLib.Data
 		
 		public Certificate()
 		{
-			this._CertificateType = default(EntityRef<CertificateType>);
 			this._Staff = default(EntityRef<Staff>);
+			this._CertificateType = default(EntityRef<CertificateType>);
 			OnCreated();
 		}
 		
@@ -1426,40 +1426,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CertificateType_Certificate", Storage="_CertificateType", ThisKey="certificateTypeId", OtherKey="id", IsForeignKey=true)]
-		public CertificateType CertificateType
-		{
-			get
-			{
-				return this._CertificateType.Entity;
-			}
-			set
-			{
-				CertificateType previousValue = this._CertificateType.Entity;
-				if (((previousValue != value) 
-							|| (this._CertificateType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._CertificateType.Entity = null;
-						previousValue.Certificate.Remove(this);
-					}
-					this._CertificateType.Entity = value;
-					if ((value != null))
-					{
-						value.Certificate.Add(this);
-						this._certificateTypeId = value.id;
-					}
-					else
-					{
-						this._certificateTypeId = default(int);
-					}
-					this.SendPropertyChanged("CertificateType");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_Certificate", Storage="_Staff", ThisKey="staffNr", OtherKey="nr", IsForeignKey=true)]
 		public Staff Staff
 		{
@@ -1494,193 +1460,37 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CertificateType")]
-	public partial class CertificateType : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _name;
-		
-		private string _remark;
-		
-		private bool _isSystem;
-		
-		private bool _isNecessary;
-		
-		private EntitySet<Certificate> _Certificate;
-		
-		private EntitySet<JobCertificate> _JobCertificate;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OnremarkChanging(string value);
-    partial void OnremarkChanged();
-    partial void OnisSystemChanging(bool value);
-    partial void OnisSystemChanged();
-    partial void OnisNecessaryChanging(bool value);
-    partial void OnisNecessaryChanged();
-    #endregion
-		
-		public CertificateType()
-		{
-			this._Certificate = new EntitySet<Certificate>(new Action<Certificate>(this.attach_Certificate), new Action<Certificate>(this.detach_Certificate));
-			this._JobCertificate = new EntitySet<JobCertificate>(new Action<JobCertificate>(this.attach_JobCertificate), new Action<JobCertificate>(this.detach_JobCertificate));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CertificateType_Certificate", Storage="_CertificateType", ThisKey="certificateTypeId", OtherKey="id", IsForeignKey=true)]
+		public CertificateType CertificateType
 		{
 			get
 			{
-				return this._id;
+				return this._CertificateType.Entity;
 			}
 			set
 			{
-				if ((this._id != value))
+				CertificateType previousValue = this._CertificateType.Entity;
+				if (((previousValue != value) 
+							|| (this._CertificateType.HasLoadedOrAssignedValue == false)))
 				{
-					this.OnidChanging(value);
 					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
+					if ((previousValue != null))
+					{
+						this._CertificateType.Entity = null;
+						previousValue.Certificate.Remove(this);
+					}
+					this._CertificateType.Entity = value;
+					if ((value != null))
+					{
+						value.Certificate.Add(this);
+						this._certificateTypeId = value.id;
+					}
+					else
+					{
+						this._certificateTypeId = default(int);
+					}
+					this.SendPropertyChanged("CertificateType");
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="VarChar(255)")]
-		public string remark
-		{
-			get
-			{
-				return this._remark;
-			}
-			set
-			{
-				if ((this._remark != value))
-				{
-					this.OnremarkChanging(value);
-					this.SendPropertyChanging();
-					this._remark = value;
-					this.SendPropertyChanged("remark");
-					this.OnremarkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isSystem", DbType="Bit NOT NULL")]
-		public bool isSystem
-		{
-			get
-			{
-				return this._isSystem;
-			}
-			set
-			{
-				if ((this._isSystem != value))
-				{
-					this.OnisSystemChanging(value);
-					this.SendPropertyChanging();
-					this._isSystem = value;
-					this.SendPropertyChanged("isSystem");
-					this.OnisSystemChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isNecessary", DbType="Bit NOT NULL")]
-		public bool isNecessary
-		{
-			get
-			{
-				return this._isNecessary;
-			}
-			set
-			{
-				if ((this._isNecessary != value))
-				{
-					this.OnisNecessaryChanging(value);
-					this.SendPropertyChanging();
-					this._isNecessary = value;
-					this.SendPropertyChanged("isNecessary");
-					this.OnisNecessaryChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CertificateType_Certificate", Storage="_Certificate", ThisKey="id", OtherKey="certificateTypeId")]
-		public EntitySet<Certificate> Certificate
-		{
-			get
-			{
-				return this._Certificate;
-			}
-			set
-			{
-				this._Certificate.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CertificateType_JobCertificate", Storage="_JobCertificate", ThisKey="id", OtherKey="certificateTypeId")]
-		public EntitySet<JobCertificate> JobCertificate
-		{
-			get
-			{
-				return this._JobCertificate;
-			}
-			set
-			{
-				this._JobCertificate.Assign(value);
 			}
 		}
 		
@@ -1702,30 +1512,6 @@ namespace BlueHrLib.Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Certificate(Certificate entity)
-		{
-			this.SendPropertyChanging();
-			entity.CertificateType = this;
-		}
-		
-		private void detach_Certificate(Certificate entity)
-		{
-			this.SendPropertyChanging();
-			entity.CertificateType = null;
-		}
-		
-		private void attach_JobCertificate(JobCertificate entity)
-		{
-			this.SendPropertyChanging();
-			entity.CertificateType = this;
-		}
-		
-		private void detach_JobCertificate(JobCertificate entity)
-		{
-			this.SendPropertyChanging();
-			entity.CertificateType = null;
 		}
 	}
 	
@@ -3065,9 +2851,9 @@ namespace BlueHrLib.Data
 		
 		private int _certificateTypeId;
 		
-		private EntityRef<CertificateType> _CertificateType;
-		
 		private EntityRef<JobTitle> _JobTitle;
+		
+		private EntityRef<CertificateType> _CertificateType;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -3083,8 +2869,8 @@ namespace BlueHrLib.Data
 		
 		public JobCertificate()
 		{
-			this._CertificateType = default(EntityRef<CertificateType>);
 			this._JobTitle = default(EntityRef<JobTitle>);
+			this._CertificateType = default(EntityRef<CertificateType>);
 			OnCreated();
 		}
 		
@@ -3156,40 +2942,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CertificateType_JobCertificate", Storage="_CertificateType", ThisKey="certificateTypeId", OtherKey="id", IsForeignKey=true)]
-		public CertificateType CertificateType
-		{
-			get
-			{
-				return this._CertificateType.Entity;
-			}
-			set
-			{
-				CertificateType previousValue = this._CertificateType.Entity;
-				if (((previousValue != value) 
-							|| (this._CertificateType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._CertificateType.Entity = null;
-						previousValue.JobCertificate.Remove(this);
-					}
-					this._CertificateType.Entity = value;
-					if ((value != null))
-					{
-						value.JobCertificate.Add(this);
-						this._certificateTypeId = value.id;
-					}
-					else
-					{
-						this._certificateTypeId = default(int);
-					}
-					this.SendPropertyChanged("CertificateType");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_JobCertificate", Storage="_JobTitle", ThisKey="jobTitleId", OtherKey="id", IsForeignKey=true)]
 		public JobTitle JobTitle
 		{
@@ -3220,6 +2972,40 @@ namespace BlueHrLib.Data
 						this._jobTitleId = default(int);
 					}
 					this.SendPropertyChanged("JobTitle");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CertificateType_JobCertificate", Storage="_CertificateType", ThisKey="certificateTypeId", OtherKey="id", IsForeignKey=true)]
+		public CertificateType CertificateType
+		{
+			get
+			{
+				return this._CertificateType.Entity;
+			}
+			set
+			{
+				CertificateType previousValue = this._CertificateType.Entity;
+				if (((previousValue != value) 
+							|| (this._CertificateType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CertificateType.Entity = null;
+						previousValue.JobCertificate.Remove(this);
+					}
+					this._CertificateType.Entity = value;
+					if ((value != null))
+					{
+						value.JobCertificate.Add(this);
+						this._certificateTypeId = value.id;
+					}
+					else
+					{
+						this._certificateTypeId = default(int);
+					}
+					this.SendPropertyChanged("CertificateType");
 				}
 			}
 		}
@@ -4301,6 +4087,8 @@ namespace BlueHrLib.Data
 		
 		private System.Nullable<System.DateTime> _birthday;
 		
+		private string _ethnic;
+		
 		private System.Nullable<System.DateTime> _firstCompanyEmployAt;
 		
 		private System.Nullable<double> _totalCompanySeniority;
@@ -4399,6 +4187,8 @@ namespace BlueHrLib.Data
     partial void OnsexChanged();
     partial void OnbirthdayChanging(System.Nullable<System.DateTime> value);
     partial void OnbirthdayChanged();
+    partial void OnethnicChanging(string value);
+    partial void OnethnicChanged();
     partial void OnfirstCompanyEmployAtChanging(System.Nullable<System.DateTime> value);
     partial void OnfirstCompanyEmployAtChanged();
     partial void OntotalCompanySeniorityChanging(System.Nullable<double> value);
@@ -4555,6 +4345,26 @@ namespace BlueHrLib.Data
 					this._birthday = value;
 					this.SendPropertyChanged("birthday");
 					this.OnbirthdayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ethnic", DbType="VarChar(50)")]
+		public string ethnic
+		{
+			get
+			{
+				return this._ethnic;
+			}
+			set
+			{
+				if ((this._ethnic != value))
+				{
+					this.OnethnicChanging(value);
+					this.SendPropertyChanging();
+					this._ethnic = value;
+					this.SendPropertyChanged("ethnic");
+					this.OnethnicChanged();
 				}
 			}
 		}
@@ -4771,7 +4581,7 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary photo
 		{
 			get
@@ -5580,6 +5390,244 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.Staff = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CertificateType")]
+	public partial class CertificateType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _name;
+		
+		private string _remark;
+		
+		private bool _isSystem;
+		
+		private bool _isNecessary;
+		
+		private System.Nullable<int> _systemCode;
+		
+		private EntitySet<Certificate> _Certificate;
+		
+		private EntitySet<JobCertificate> _JobCertificate;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnremarkChanging(string value);
+    partial void OnremarkChanged();
+    partial void OnisSystemChanging(bool value);
+    partial void OnisSystemChanged();
+    partial void OnisNecessaryChanging(bool value);
+    partial void OnisNecessaryChanged();
+    partial void OnsystemCodeChanging(System.Nullable<int> value);
+    partial void OnsystemCodeChanged();
+    #endregion
+		
+		public CertificateType()
+		{
+			this._Certificate = new EntitySet<Certificate>(new Action<Certificate>(this.attach_Certificate), new Action<Certificate>(this.detach_Certificate));
+			this._JobCertificate = new EntitySet<JobCertificate>(new Action<JobCertificate>(this.attach_JobCertificate), new Action<JobCertificate>(this.detach_JobCertificate));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="VarChar(255)")]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this.OnremarkChanging(value);
+					this.SendPropertyChanging();
+					this._remark = value;
+					this.SendPropertyChanged("remark");
+					this.OnremarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isSystem", DbType="Bit NOT NULL")]
+		public bool isSystem
+		{
+			get
+			{
+				return this._isSystem;
+			}
+			set
+			{
+				if ((this._isSystem != value))
+				{
+					this.OnisSystemChanging(value);
+					this.SendPropertyChanging();
+					this._isSystem = value;
+					this.SendPropertyChanged("isSystem");
+					this.OnisSystemChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isNecessary", DbType="Bit NOT NULL")]
+		public bool isNecessary
+		{
+			get
+			{
+				return this._isNecessary;
+			}
+			set
+			{
+				if ((this._isNecessary != value))
+				{
+					this.OnisNecessaryChanging(value);
+					this.SendPropertyChanging();
+					this._isNecessary = value;
+					this.SendPropertyChanged("isNecessary");
+					this.OnisNecessaryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_systemCode", DbType="Int")]
+		public System.Nullable<int> systemCode
+		{
+			get
+			{
+				return this._systemCode;
+			}
+			set
+			{
+				if ((this._systemCode != value))
+				{
+					this.OnsystemCodeChanging(value);
+					this.SendPropertyChanging();
+					this._systemCode = value;
+					this.SendPropertyChanged("systemCode");
+					this.OnsystemCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CertificateType_Certificate", Storage="_Certificate", ThisKey="id", OtherKey="certificateTypeId")]
+		public EntitySet<Certificate> Certificate
+		{
+			get
+			{
+				return this._Certificate;
+			}
+			set
+			{
+				this._Certificate.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CertificateType_JobCertificate", Storage="_JobCertificate", ThisKey="id", OtherKey="certificateTypeId")]
+		public EntitySet<JobCertificate> JobCertificate
+		{
+			get
+			{
+				return this._JobCertificate;
+			}
+			set
+			{
+				this._JobCertificate.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Certificate(Certificate entity)
+		{
+			this.SendPropertyChanging();
+			entity.CertificateType = this;
+		}
+		
+		private void detach_Certificate(Certificate entity)
+		{
+			this.SendPropertyChanging();
+			entity.CertificateType = null;
+		}
+		
+		private void attach_JobCertificate(JobCertificate entity)
+		{
+			this.SendPropertyChanging();
+			entity.CertificateType = this;
+		}
+		
+		private void detach_JobCertificate(JobCertificate entity)
+		{
+			this.SendPropertyChanging();
+			entity.CertificateType = null;
 		}
 	}
 }
