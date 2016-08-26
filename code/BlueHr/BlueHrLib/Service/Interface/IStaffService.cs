@@ -35,7 +35,8 @@ namespace BlueHrLib.Service.Interface
         /// 创建员工信息，并设立是否系统验证
         /// </summary>
         /// <param name="card"></param>
+        /// <param name="isIdChecked"></param>
         /// <returns></returns>
-        bool CreateInfoAndSetCheck(StaffIdCard card,bool isSystemChecked=true);
+        bool CreateInfoAndSetCheck(StaffIdCard card,bool isIdChecked = true);
     }
 }
