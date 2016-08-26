@@ -1,5 +1,4 @@
-﻿using Brilliantech.Framwork.Utils.LogUtil;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,29 +11,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BlueHrClient
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// WarningWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class WarningWindow : MetroWindow
     {
-        public MainWindow()
+        public WarningWindow()
         {
             InitializeComponent();
         }
+        private void checkinClick(object sender, RoutedEventArgs e)
+        {
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            LogUtil.Logger.Error("hello");
         }
-        private void setter_Click(object sender, RoutedEventArgs e)
+        private void closeClick(object sender, RoutedEventArgs e)
         {
-            SettingWindow win = new SettingWindow();
-            win.ShowDialog();
+            this.Close();
         }
     }
 }
