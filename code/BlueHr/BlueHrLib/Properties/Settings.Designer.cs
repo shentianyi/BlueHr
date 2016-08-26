@@ -33,5 +33,16 @@ namespace BlueHrLib.Properties {
                 return ((string)(this["BlueHrConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=S2\\SQLSERVER2008R2;Initial Catalog=BlueHr;Persist Security Info=True;" +
+            "User ID=sa;Password=1")]
+        public string BlueHrConnectionString1 {
+            get {
+                return ((string)(this["BlueHrConnectionString1"]));
+            }
+        }
     }
 }

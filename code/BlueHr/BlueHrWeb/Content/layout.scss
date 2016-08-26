@@ -30,6 +30,7 @@ $high-red: #a94442 !global;
 $pomegranate: #c0392b !global; // 红色   石榴
 
 $clouds: #ecf0f1 !global; // 白色    云彩
+$dark-white:#f2f2f2 !global;
 $silver: #bdc3c7 !global; //银色   银色
 
 $light-grey: #ddd !global; // 浅灰色
@@ -50,7 +51,6 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
         background:-webkit-gradient(linear, 0 0, 0 100%, from($peter-river), to($brlize-hole));
         background:-moz-linear-gradient(top, $peter-river,$brlize-hole);
         filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=$peter-river,endColorstr=$brlize-hole,grandientType=1);
-
         color: $clouds;
 
         .nav-right{
@@ -87,7 +87,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 
             dl{
                 margin:0;
-                border-bottom: 1px dashed $silver;
+                border-bottom: 1px solid $silver;
                 &:first-child{
                     border-top: 1px solid $silver;
                 }
@@ -132,7 +132,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
             min-width: 600px;
             width:100%;
             padding:10px;
-            background: #f2f2f2;
+            background: $dark-white;
         }
     }
  }
@@ -214,6 +214,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
   span {
     width: 1%;
     min-width: 60px;
+    padding: 4px 10px;
     display: table-cell;
     background: $marco-bg;
     color: $marco-color;
@@ -223,12 +224,15 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    i{
+        cursor:pointer;
+    }
   }
 
   input, select {
     border: none;
     margin: 0;
-    padding: 6px;
+    padding: 7px;
     width: 100%;
     display: table-cell;
     &[disabled] {
@@ -308,6 +312,50 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
   @include marco-npanel($pomegranate, $alizarin);
 }
 
+/*Table*/
+.table {
+  background: white;
+  text-align: center;
+  margin-bottom: 0;
+  margin-top:-2px;
+  th {
+    text-align: center;
+    border-bottom: 1px solid $light-grey !important;
+  }
+}
+
+@mixin table-heading {
+  background: $clouds;
+  padding: 10px;
+  border-bottom: 2px solid $dark-white;
+  font-size: 1.3em;
+  i {
+    margin-right: 10px;
+  }
+}
+
+.table-heading {
+  @include table-heading;
+}
+
+.usual-table {
+  background:white;
+  padding: 0;
+  margin-top: 10px;
+  border: 2px solid $peter-river;
+  .table-heading {
+    @include table-heading;
+    margin: 0;
+    color: $clouds;
+    background:-webkit-gradient(linear, 0 0, 0 100%, from(lighten($peter-river, 5%)), to(lighten($brlize-hole, 5%)));
+    background:-moz-linear-gradient(top, lighten($peter-river, 5%),lighten($brlize-hole, 5%));
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=lighten($peter-river, 5%),endColorstr=lighten($brlize-hole, 5%),grandientType=1);
+  }
+  .table-body{
+      overflow:auto;
+  }
+}
+
 .marco-breadcrumb{
 	li + li:before{
 		color: $high-blue;
@@ -326,4 +374,16 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 			color: $pomegranate;
 		}
 	}
+}
+
+.current-position{
+    margin-bottom:-10px;
+    color: $asbestos;
+    font-size: .9em;
+    background: transparent;
+}
+
+.hr-grey{
+    border-style:dashed;
+    border-color: #999;
 }

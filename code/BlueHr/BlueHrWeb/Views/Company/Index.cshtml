@@ -1,48 +1,111 @@
-﻿@model IPagedList<BlueHrLib.Data.Company>
+﻿@using MvcPaging
+
+@model IPagedList<BlueHrLib.Data.Company>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "公司管理";
 }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<ol class="breadcrumb current-position">
+    您的位置：
+    <li>公司管理</li>
+</ol>
 
-<div class="col-md-12" style="padding:0;margin-top:110px;">
-    <table class="table table-bordered" style="margin-top:110px;">
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Remark
-            </th>
-            <th></th>
-        </tr>
-        @if (Model != null)
-        {
-            foreach (var item in Model)
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+<hr class="hr-grey"/>
+
+<div class="row" style="margin:0;">
+    <form action="/Company/Search" method="get">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="display:flex;">
+            <div class="marco-igroup-primary">
+                <span>公司名称</span>
+                <input type="text" name="Name" id="Name" value="@ViewBag.Query.Name" placeholder="公司名称" />
+            </div>
+            <button type="submit" class="marco-btn-primary">
+                <i class="glyphicon glyphicon-search"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="usual-table">
+        <div class="table-heading">
+            公司列表
+            <div class="pull-right" style="margin-top:-12px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </div>
+
+        </div>
+        <div class="table-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>公司名称</th>
+                        <th>公司地址</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.remark)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                    </td>
-                </tr>
-            }
-        }
-    </table>
+                foreach (var item in Model)
+                {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.remark)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("编辑", "Edit", new { id = item.id }) |
+                                    @Html.ActionLink("详情", "Details", new { id = item.id }) |
+                                    @Html.ActionLink("删除", "Delete", new { id = item.id })
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+        <div class="clearfix pagination">
+            <div class="pagination-inner">
+                @if (Model != null)
+            {
+                if (ViewBag.Query != null)
+                {
+
+                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
+                        @html
+                    }
+                    else
+                    {
+                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
 </div>
 
 @Scripts.Render("~/bundles/company")
 
 <script type="text/javascript">
     Layout.init();
+    Company.init();
 </script>

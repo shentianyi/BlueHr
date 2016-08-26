@@ -38,6 +38,7 @@ namespace BlueHrWeb
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      "~/Content/bootstrap.css",
                      "~/Content/site.css",
+                     "~/Content/input-style.css",
                      "~/Content/pagination.css",
                      "~/Content/jquery-popModal.css"));
 

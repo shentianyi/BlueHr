@@ -45,9 +45,6 @@ namespace BlueHrLib.Data
     partial void InsertCertificate(Certificate instance);
     partial void UpdateCertificate(Certificate instance);
     partial void DeleteCertificate(Certificate instance);
-    partial void InsertCompany(Company instance);
-    partial void UpdateCompany(Company instance);
-    partial void DeleteCompany(Company instance);
     partial void InsertDegreeType(DegreeType instance);
     partial void UpdateDegreeType(DegreeType instance);
     partial void DeleteDegreeType(DegreeType instance);
@@ -90,10 +87,13 @@ namespace BlueHrLib.Data
     partial void InsertCertificateType(CertificateType instance);
     partial void UpdateCertificateType(CertificateType instance);
     partial void DeleteCertificateType(CertificateType instance);
+    partial void InsertCompany(Company instance);
+    partial void UpdateCompany(Company instance);
+    partial void DeleteCompany(Company instance);
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -167,14 +167,6 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<Certificate>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Company> Company
-		{
-			get
-			{
-				return this.GetTable<Company>();
 			}
 		}
 		
@@ -295,6 +287,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<CertificateType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Company> Company
+		{
+			get
+			{
+				return this.GetTable<Company>();
 			}
 		}
 	}
@@ -1512,172 +1512,6 @@ namespace BlueHrLib.Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Company")]
-	public partial class Company : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _name;
-		
-		private string _remark;
-		
-		private EntitySet<Department> _Department;
-		
-		private EntitySet<Staff> _Staff;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OnremarkChanging(string value);
-    partial void OnremarkChanged();
-    #endregion
-		
-		public Company()
-		{
-			this._Department = new EntitySet<Department>(new Action<Department>(this.attach_Department), new Action<Department>(this.detach_Department));
-			this._Staff = new EntitySet<Staff>(new Action<Staff>(this.attach_Staff), new Action<Staff>(this.detach_Staff));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="VarChar(255)")]
-		public string remark
-		{
-			get
-			{
-				return this._remark;
-			}
-			set
-			{
-				if ((this._remark != value))
-				{
-					this.OnremarkChanging(value);
-					this.SendPropertyChanging();
-					this._remark = value;
-					this.SendPropertyChanged("remark");
-					this.OnremarkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Department", Storage="_Department", ThisKey="id", OtherKey="companyId")]
-		public EntitySet<Department> Department
-		{
-			get
-			{
-				return this._Department;
-			}
-			set
-			{
-				this._Department.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Staff", Storage="_Staff", ThisKey="id", OtherKey="companyId")]
-		public EntitySet<Staff> Staff
-		{
-			get
-			{
-				return this._Staff;
-			}
-			set
-			{
-				this._Staff.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Department(Department entity)
-		{
-			this.SendPropertyChanging();
-			entity.Company = this;
-		}
-		
-		private void detach_Department(Department entity)
-		{
-			this.SendPropertyChanging();
-			entity.Company = null;
-		}
-		
-		private void attach_Staff(Staff entity)
-		{
-			this.SendPropertyChanging();
-			entity.Company = this;
-		}
-		
-		private void detach_Staff(Staff entity)
-		{
-			this.SendPropertyChanging();
-			entity.Company = null;
 		}
 	}
 	
@@ -4163,8 +3997,6 @@ namespace BlueHrLib.Data
 		
 		private EntitySet<ShiftSchedule> _ShiftSchedule;
 		
-		private EntityRef<Company> _Company;
-		
 		private EntityRef<DegreeType> _DegreeType;
 		
 		private EntityRef<Department> _Department;
@@ -4174,6 +4006,8 @@ namespace BlueHrLib.Data
 		private EntityRef<JobTitle> _JobTitle;
 		
 		private EntityRef<StaffType> _StaffType;
+		
+		private EntityRef<Company> _Company;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -4260,12 +4094,12 @@ namespace BlueHrLib.Data
 			this._FullMemberRecord = new EntitySet<FullMemberRecord>(new Action<FullMemberRecord>(this.attach_FullMemberRecord), new Action<FullMemberRecord>(this.detach_FullMemberRecord));
 			this._ResignRecord = new EntitySet<ResignRecord>(new Action<ResignRecord>(this.attach_ResignRecord), new Action<ResignRecord>(this.detach_ResignRecord));
 			this._ShiftSchedule = new EntitySet<ShiftSchedule>(new Action<ShiftSchedule>(this.attach_ShiftSchedule), new Action<ShiftSchedule>(this.detach_ShiftSchedule));
-			this._Company = default(EntityRef<Company>);
 			this._DegreeType = default(EntityRef<DegreeType>);
 			this._Department = default(EntityRef<Department>);
 			this._InsureType = default(EntityRef<InsureType>);
 			this._JobTitle = default(EntityRef<JobTitle>);
 			this._StaffType = default(EntityRef<StaffType>);
+			this._Company = default(EntityRef<Company>);
 			OnCreated();
 		}
 		
@@ -5084,40 +4918,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Staff", Storage="_Company", ThisKey="companyId", OtherKey="id", IsForeignKey=true)]
-		public Company Company
-		{
-			get
-			{
-				return this._Company.Entity;
-			}
-			set
-			{
-				Company previousValue = this._Company.Entity;
-				if (((previousValue != value) 
-							|| (this._Company.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Company.Entity = null;
-						previousValue.Staff.Remove(this);
-					}
-					this._Company.Entity = value;
-					if ((value != null))
-					{
-						value.Staff.Add(this);
-						this._companyId = value.id;
-					}
-					else
-					{
-						this._companyId = default(int);
-					}
-					this.SendPropertyChanged("Company");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DegreeType_Staff", Storage="_DegreeType", ThisKey="degreeTypeId", OtherKey="id", IsForeignKey=true)]
 		public DegreeType DegreeType
 		{
@@ -5284,6 +5084,40 @@ namespace BlueHrLib.Data
 						this._staffTypeId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("StaffType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Staff", Storage="_Company", ThisKey="companyId", OtherKey="id", IsForeignKey=true)]
+		public Company Company
+		{
+			get
+			{
+				return this._Company.Entity;
+			}
+			set
+			{
+				Company previousValue = this._Company.Entity;
+				if (((previousValue != value) 
+							|| (this._Company.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Company.Entity = null;
+						previousValue.Staff.Remove(this);
+					}
+					this._Company.Entity = value;
+					if ((value != null))
+					{
+						value.Staff.Add(this);
+						this._companyId = value.id;
+					}
+					else
+					{
+						this._companyId = default(int);
+					}
+					this.SendPropertyChanged("Company");
 				}
 			}
 		}
@@ -5628,6 +5462,196 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.CertificateType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Company")]
+	public partial class Company : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _name;
+		
+		private string _address;
+		
+		private string _remark;
+		
+		private EntitySet<Department> _Department;
+		
+		private EntitySet<Staff> _Staff;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnaddressChanging(string value);
+    partial void OnaddressChanged();
+    partial void OnremarkChanging(string value);
+    partial void OnremarkChanged();
+    #endregion
+		
+		public Company()
+		{
+			this._Department = new EntitySet<Department>(new Action<Department>(this.attach_Department), new Action<Department>(this.detach_Department));
+			this._Staff = new EntitySet<Staff>(new Action<Staff>(this.attach_Staff), new Action<Staff>(this.detach_Staff));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_address", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string address
+		{
+			get
+			{
+				return this._address;
+			}
+			set
+			{
+				if ((this._address != value))
+				{
+					this.OnaddressChanging(value);
+					this.SendPropertyChanging();
+					this._address = value;
+					this.SendPropertyChanged("address");
+					this.OnaddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="VarChar(255)")]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this.OnremarkChanging(value);
+					this.SendPropertyChanging();
+					this._remark = value;
+					this.SendPropertyChanged("remark");
+					this.OnremarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Department", Storage="_Department", ThisKey="id", OtherKey="companyId")]
+		public EntitySet<Department> Department
+		{
+			get
+			{
+				return this._Department;
+			}
+			set
+			{
+				this._Department.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Staff", Storage="_Staff", ThisKey="id", OtherKey="companyId")]
+		public EntitySet<Staff> Staff
+		{
+			get
+			{
+				return this._Staff;
+			}
+			set
+			{
+				this._Staff.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Department(Department entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company = this;
+		}
+		
+		private void detach_Department(Department entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company = null;
+		}
+		
+		private void attach_Staff(Staff entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company = this;
+		}
+		
+		private void detach_Staff(Staff entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company = null;
 		}
 	}
 }
