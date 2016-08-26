@@ -24,22 +24,25 @@ namespace BlueHrWeb
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/layout.js"
+                      ));
 
             bundles.Add(new ScriptBundle("~/bundles/vue").Include(
                      "~/Scripts/vue.js",
                      "~/Scripts/vue.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/company").Include(
+                    "~/Scripts/company.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      "~/Content/bootstrap.css",
                      "~/Content/site.css",
                      "~/Content/pagination.css",
-                     "~/Content/filter.css",
                      "~/Content/jquery-popModal.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/company").Include(
-                    "~/Scripts/company.js"));
-
+            bundles.Add(new StyleBundle("~/Content/layout").Include(
+                     "~/Content/layout.css"));
         }
     }
 }
