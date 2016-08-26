@@ -47,6 +47,7 @@
       <Column Name="actWorkingHour" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="createdAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="isManualCal" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="Staff_AttendanceRecordCal" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
     </Type>
   </Table>
