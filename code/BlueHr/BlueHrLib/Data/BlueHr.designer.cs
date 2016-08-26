@@ -972,7 +972,7 @@ namespace BlueHrLib.Data
 		
 		private string _remark;
 		
-		private byte _isDefault;
+		private bool _isDefault;
 		
 		private string _staffNr;
 		
@@ -992,7 +992,7 @@ namespace BlueHrLib.Data
     partial void OnbankAddressChanged();
     partial void OnremarkChanging(string value);
     partial void OnremarkChanged();
-    partial void OnisDefaultChanging(byte value);
+    partial void OnisDefaultChanging(bool value);
     partial void OnisDefaultChanged();
     partial void OnstaffNrChanging(string value);
     partial void OnstaffNrChanged();
@@ -1104,8 +1104,8 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isDefault", DbType="TinyInt NOT NULL")]
-		public byte isDefault
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isDefault", DbType="Bit NOT NULL")]
+		public bool isDefault
 		{
 			get
 			{
@@ -1527,9 +1527,9 @@ namespace BlueHrLib.Data
 		
 		private string _remark;
 		
-		private byte _isSystem;
+		private bool _isSystem;
 		
-		private byte _isNecessary;
+		private bool _isNecessary;
 		
 		private EntitySet<Certificate> _Certificate;
 		
@@ -1545,9 +1545,9 @@ namespace BlueHrLib.Data
     partial void OnnameChanged();
     partial void OnremarkChanging(string value);
     partial void OnremarkChanged();
-    partial void OnisSystemChanging(byte value);
+    partial void OnisSystemChanging(bool value);
     partial void OnisSystemChanged();
-    partial void OnisNecessaryChanging(byte value);
+    partial void OnisNecessaryChanging(bool value);
     partial void OnisNecessaryChanged();
     #endregion
 		
@@ -1618,8 +1618,8 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isSystem", DbType="TinyInt NOT NULL")]
-		public byte isSystem
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isSystem", DbType="Bit NOT NULL")]
+		public bool isSystem
 		{
 			get
 			{
@@ -1638,8 +1638,8 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isNecessary", DbType="TinyInt NOT NULL")]
-		public byte isNecessary
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isNecessary", DbType="Bit NOT NULL")]
+		public bool isNecessary
 		{
 			get
 			{
@@ -2654,7 +2654,7 @@ namespace BlueHrLib.Data
 		
 		private string _staffNr;
 		
-		private byte _isPassCheck;
+		private bool _isPassCheck;
 		
 		private System.Nullable<System.DateTime> _beFullAt;
 		
@@ -2676,7 +2676,7 @@ namespace BlueHrLib.Data
     partial void OnidChanged();
     partial void OnstaffNrChanging(string value);
     partial void OnstaffNrChanged();
-    partial void OnisPassCheckChanging(byte value);
+    partial void OnisPassCheckChanging(bool value);
     partial void OnisPassCheckChanged();
     partial void OnbeFullAtChanging(System.Nullable<System.DateTime> value);
     partial void OnbeFullAtChanged();
@@ -2740,8 +2740,8 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isPassCheck", DbType="TinyInt NOT NULL")]
-		public byte isPassCheck
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isPassCheck", DbType="Bit NOT NULL")]
+		public bool isPassCheck
 		{
 			get
 			{
@@ -4311,7 +4311,7 @@ namespace BlueHrLib.Data
 		
 		private int _workStatus;
 		
-		private byte _isOnTrial;
+		private bool _isOnTrial;
 		
 		private System.Nullable<System.DateTime> _trialOverAt;
 		
@@ -4335,6 +4335,8 @@ namespace BlueHrLib.Data
 		
 		private string _id;
 		
+		private bool _isIdChecked;
+		
 		private string _phone;
 		
 		private string _contactName;
@@ -4349,7 +4351,7 @@ namespace BlueHrLib.Data
 		
 		private System.Nullable<int> _insureTypeId;
 		
-		private byte _isPayCPF;
+		private bool _isPayCPF;
 		
 		private System.Nullable<System.DateTime> _contractExpireAt;
 		
@@ -4407,7 +4409,7 @@ namespace BlueHrLib.Data
     partial void OncompanySeniorityChanged();
     partial void OnworkStatusChanging(int value);
     partial void OnworkStatusChanged();
-    partial void OnisOnTrialChanging(byte value);
+    partial void OnisOnTrialChanging(bool value);
     partial void OnisOnTrialChanged();
     partial void OntrialOverAtChanging(System.Nullable<System.DateTime> value);
     partial void OntrialOverAtChanged();
@@ -4431,6 +4433,8 @@ namespace BlueHrLib.Data
     partial void OnaddressChanged();
     partial void OnidChanging(string value);
     partial void OnidChanged();
+    partial void OnisIdCheckedChanging(bool value);
+    partial void OnisIdCheckedChanged();
     partial void OnphoneChanging(string value);
     partial void OnphoneChanged();
     partial void OncontactNameChanging(string value);
@@ -4445,7 +4449,7 @@ namespace BlueHrLib.Data
     partial void OnresidenceTypeChanged();
     partial void OninsureTypeIdChanging(System.Nullable<int> value);
     partial void OninsureTypeIdChanged();
-    partial void OnisPayCPFChanging(byte value);
+    partial void OnisPayCPFChanging(bool value);
     partial void OnisPayCPFChanged();
     partial void OncontractExpireAtChanging(System.Nullable<System.DateTime> value);
     partial void OncontractExpireAtChanged();
@@ -4655,8 +4659,8 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isOnTrial", DbType="TinyInt NOT NULL")]
-		public byte isOnTrial
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isOnTrial", DbType="Bit NOT NULL")]
+		public bool isOnTrial
 		{
 			get
 			{
@@ -4767,7 +4771,7 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary photo
 		{
 			get
@@ -4911,6 +4915,26 @@ namespace BlueHrLib.Data
 					this._id = value;
 					this.SendPropertyChanged("id");
 					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isIdChecked", DbType="Bit NOT NULL")]
+		public bool isIdChecked
+		{
+			get
+			{
+				return this._isIdChecked;
+			}
+			set
+			{
+				if ((this._isIdChecked != value))
+				{
+					this.OnisIdCheckedChanging(value);
+					this.SendPropertyChanging();
+					this._isIdChecked = value;
+					this.SendPropertyChanged("isIdChecked");
+					this.OnisIdCheckedChanged();
 				}
 			}
 		}
@@ -5059,8 +5083,8 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isPayCPF", DbType="TinyInt NOT NULL")]
-		public byte isPayCPF
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isPayCPF", DbType="Bit NOT NULL")]
+		public bool isPayCPF
 		{
 			get
 			{
