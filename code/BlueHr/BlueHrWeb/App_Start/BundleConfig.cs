@@ -24,9 +24,13 @@ namespace BlueHrWeb
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js",
-                      "~/Scripts/layout.js"
+                      "~/Scripts/respond.js"
                       ));
+
+            bundles.Add(new ScriptBundle("~/bundles/layout").Include(
+                "~/Scripts/layout.js",
+                "~/Scripts/jquery.mCustomScrollbar.concat.min.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/vue").Include(
                      "~/Scripts/vue.js",
@@ -36,14 +40,21 @@ namespace BlueHrWeb
                     "~/Scripts/company.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                     "~/Content/bootstrap.css",
                      "~/Content/site.css",
+                     "~/Content/bootstrap.css",
+                     "~/Content/font-awesome.css",
                      "~/Content/input-style.css",
                      "~/Content/pagination.css",
                      "~/Content/jquery-popModal.css"));
 
             bundles.Add(new StyleBundle("~/Content/layout").Include(
-                     "~/Content/layout.css"));
+                     "~/Content/layout.css",
+                     "~/Content/jquery.mCustomScrollbar.css"
+                     ));
+
+            bundles.Add(new StyleBundle("~/Content/company").Include(
+                    "~/Content/company.css"
+                ));
         }
     }
 }

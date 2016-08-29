@@ -10,5 +10,7 @@ namespace BlueHrLib.Data.Repository.Interface
     public interface ICompanyRepository
     {
         IQueryable<Company> Search(CompanySearchModel searchModel);
+
+        bool Create(Company company);
     }
 }

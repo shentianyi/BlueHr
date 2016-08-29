@@ -11,5 +11,6 @@ namespace BlueHrLib.Service.Interface
     public interface ICompanyService
     {
         IQueryable<Company> Search(CompanySearchModel searchModel);
+        bool Create(Company company);
     }
 }

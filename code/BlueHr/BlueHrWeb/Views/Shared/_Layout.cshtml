@@ -11,6 +11,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jquery-plug-in")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/layout")
     @Scripts.Render("~/bundles/vue")
     @RenderSection("scripts", required: false)
 </head>
@@ -44,9 +45,8 @@
 
             <div class="nav-right">
                 <div class="nav-user">
-                    欢迎您，Admin
-                    <i class="caret"></i>
-
+                    <span> 欢迎您，Admin </span>
+                    <i class="caret" style="border-top: 4px solid #ecf0f1;" ></i>
                     @*注销*@
                 </div>
             </div>

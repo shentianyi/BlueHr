@@ -6,14 +6,21 @@
     ViewBag.Title = "公司管理";
 }
 
+@Styles.Render("~/Content/company")
+
+
+<style>
+   
+</style>
+
 <ol class="breadcrumb current-position">
     您的位置：
     <li>公司管理</li>
 </ol>
 
-@*<p>
+<p>
         @Html.ActionLink("Create New", "Create")
-    </p>*@
+</p>
 
 <hr class="hr-grey"/>
 
@@ -22,7 +29,7 @@
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="display:flex;">
             <div class="marco-igroup-primary">
                 <span>公司名称</span>
-                <input type="text" name="Name" id="Name" value="@ViewBag.Query.Name" placeholder="公司名称" />
+                <input type="text" name="Name" id="Name" placeholder="公司名称" value="@ViewBag.Query.Name" />
             </div>
             <button type="submit" class="marco-btn-primary">
                 <i class="glyphicon glyphicon-search"></i>
@@ -36,14 +43,14 @@
         <div class="table-heading">
             公司列表
             <div class="pull-right" style="margin-top:-12px;">
-                <button class="marco-btn-primary">
+                <button class="marco-btn-primary open-btn">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                     <span>创建</span>
                 </button>
             </div>
 
         </div>
-        <div class="table-body">
+        <div class="table-body content_3">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -61,6 +68,9 @@
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.name)
+                                    <span class="badge pull-right marco-badge" title="公司部门">
+                                        <a href="#">10</a>
+                                    </span>
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.address)
@@ -77,7 +87,7 @@
                         }
                     }
                 </tbody>
-            </table>
+            </table>    
         </div>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
@@ -100,7 +110,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 @Scripts.Render("~/bundles/company")

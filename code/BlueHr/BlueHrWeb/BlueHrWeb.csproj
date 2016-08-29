@@ -256,10 +256,13 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
     <Content Include="Content\input-style.css" />
     <Content Include="Content\jquery-popModal.css" />
+    <Content Include="Content\jquery.mCustomScrollbar.css" />
     <Content Include="Content\pagination.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\font-awesome\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -271,6 +274,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\layout.scss" />
+    <Content Include="fonts\font-awesome\fontawesome-webfont.eot" />
+    <Content Include="fonts\font-awesome\fontawesome-webfont.ttf" />
+    <Content Include="fonts\font-awesome\fontawesome-webfont.woff" />
+    <Content Include="fonts\font-awesome\fontawesome-webfont.woff2" />
+    <Content Include="fonts\font-awesome\FontAwesome.otf" />
+    <Content Include="Content\company.scss" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -281,6 +290,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-popModal.js" />
+    <Content Include="Scripts\jquery.mCustomScrollbar.concat.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />

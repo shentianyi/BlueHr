@@ -14,7 +14,14 @@ namespace BlueHrLib.Service.Implement
     public class CompanyService : ServiceBase, ICompanyService
     {
         public CompanyService(string dbString) : base(dbString) { }
-        
+
+        public bool Create(Company company)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            ICompanyRepository companyRep = new CompanyRepository(dc);
+            return companyRep.Create(company);
+        }
+
         public IQueryable<Company> Search(CompanySearchModel searchModel)
         {
             DataContext dc = new DataContext(this.DbString);
