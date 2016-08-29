@@ -22,11 +22,32 @@ namespace BlueHrLib.Service.Implement
             return companyRep.Create(company);
         }
 
+        public bool DeleteById(int id)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            ICompanyRepository companyRep = new CompanyRepository(dc);
+            return companyRep.DeleteById(id);
+        }
+
+        public Company FindById(int id)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            ICompanyRepository companyRep = new CompanyRepository(dc);
+            return companyRep.FindById(id);
+        }
+
         public IQueryable<Company> Search(CompanySearchModel searchModel)
         {
             DataContext dc = new DataContext(this.DbString);
             ICompanyRepository companyRep = new CompanyRepository(dc);
             return companyRep.Search(searchModel);
+        }
+
+        public bool Update(Company company)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            ICompanyRepository companyRep = new CompanyRepository(dc);
+            return companyRep.Update(company);
         }
     }
 }

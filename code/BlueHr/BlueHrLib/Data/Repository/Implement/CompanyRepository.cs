@@ -19,9 +19,39 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public bool Create(Company company)
         {
-            this.context.GetTable<Company>().InsertOnSubmit(company);
-            this.context.SubmitChanges();
-            return true;
+            try
+            {
+                this.context.GetTable<Company>().InsertOnSubmit(company);
+                this.context.SubmitChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            
+        }
+
+        public bool DeleteById(int id)
+        {
+            Company cp = this.context.GetTable<Company>().FirstOrDefault(c => c.id.Equals(id));
+
+            if(cp != null)
+            {
+                this.context.GetTable<Company>().DeleteOnSubmit(cp);
+                this.context.SubmitChanges();
+                return true;
+            }else
+            {
+                return false;
+            }
+        }
+
+        public Company FindById(int id)
+        {
+            Company cp = this.context.GetTable<Company>().FirstOrDefault(c => c.id.Equals(id));
+            return cp;
         }
 
         public IQueryable<Company> Search(CompanySearchModel searchModel)
@@ -32,6 +62,26 @@ namespace BlueHrLib.Data.Repository.Implement
                 companies = companies.Where(c => c.name.Contains(searchModel.Name));
             }
             return companies;
+        }
+
+        public bool Update(Company company)
+        {
+            Company cp = this.context.GetTable<Company>().FirstOrDefault(c => c.id.Equals(company.id));
+
+            if (cp != null)
+            {
+                cp.name = company.name;
+                cp.address = company.address;
+                cp.remark = company.remark;
+
+                this.context.SubmitChanges();
+                return true;
+            }else
+            {
+                return false;
+            }
+
+
         }
     }
 }

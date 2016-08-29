@@ -8,6 +8,9 @@ using BlueHrLib.Data;
 using BlueHrLib.Data.Model;
 using BlueHrLib.Data.Enum;
 using BlueHrLib.CusException;
+using BlueHrLib.Data.Model.Search;
+using BlueHrLib.Data.Repository.Interface;
+using BlueHrLib.Data.Repository.Implement;
 
 namespace BlueHrLib.Service.Implement
 {
@@ -109,6 +112,13 @@ namespace BlueHrLib.Service.Implement
         {
             DataContext dc = new DataContext(this.DbString);
             return dc.Context.GetTable<ShiftScheduleView>().Where(s => s.scheduleAt.Date.Equals(date.Date) || (s.scheduleAt.Equals(date.Date.AddDays(-1)) && s.shiftType.Equals(ShiftType.Tommorrow))).Select(s => s.staffNr).ToList();
+        }
+
+        public IQueryable<Staff> Search(StaffSearchModel searchModel)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            IStaffRepository staffRep = new StaffRepository(dc);
+            return staffRep.Search(searchModel);
         }
     }
 }

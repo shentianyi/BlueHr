@@ -8,6 +8,7 @@ Company.init = function () {
     });
 
     $('.table-body').mCustomScrollbar({
-        scrollInertia: 600,        autoDraggerLength: false
+        scrollInertia: 600,
+        autoDraggerLength: false
     });
 }

@@ -16,27 +16,6 @@
     @RenderSection("scripts", required: false)
 </head>
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("应用程序名称", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("主页", "Index", "Home")</li>
-                        <li>@Html.ActionLink("关于", "About", "Home")</li>
-                        <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
-                    </ul>
-                    @Html.Partial("_LoginPartial")
-                </div>
-            </div>
-        </div>*@
-
     <div class="main-nav">
         <div class="nav-top">
             <div class="nav-name">
@@ -74,7 +53,7 @@
                         <i class="glyphicon glyphicon-chevron-right"></i>
                     </dt>
                     <dd><a href="#">权限管理</a></dd>
-                    <dd><a href="#">员工管理</a></dd>
+                    <dd>@Html.ActionLink("员工管理", "Index", "Staff")</dd>
                 </dl>
 
                 <dl class="nav-company">
@@ -106,8 +85,6 @@
         $(function(){
             $(".nav-left dd").hide();
             $(".nav-left dt").click(function () {
-                $(".nav-left dt").css({ "background-color": "transparent" })
-                $(this).css({ "background-color": "#3498db" });
                 $(this).parent().find('dd').slideToggle();
                 if ($(this).find('i').hasClass('glyphicon-chevron-right')) {
                     $(this).find('i').removeClass('glyphicon-chevron-right');

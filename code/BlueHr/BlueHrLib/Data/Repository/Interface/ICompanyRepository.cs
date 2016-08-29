@@ -12,5 +12,11 @@ namespace BlueHrLib.Data.Repository.Interface
         IQueryable<Company> Search(CompanySearchModel searchModel);
 
         bool Create(Company company);
+
+        Company FindById(int id);
+
+        bool Update(Company company);
+
+        bool DeleteById(int id);
     }
 }
