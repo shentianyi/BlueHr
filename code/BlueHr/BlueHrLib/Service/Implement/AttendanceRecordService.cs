@@ -53,7 +53,7 @@ namespace BlueHrLib.Service.Implement
                     exceptions[shiftDate] = new List<AttendanceExceptionType>();
 
 
-                  //  DateTime shiftStart = shift.scheduleAt.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : -1).Add(shift.startAt);
+                    //  DateTime shiftStart = shift.scheduleAt.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : -1).Add(shift.startAt);
 
                     DateTime shiftStart = shift.scheduleAt.Add(shift.startAt);
                     DateTime shiftEnd = shift.scheduleAt.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : 1).Add(shift.endAt);
@@ -69,7 +69,8 @@ namespace BlueHrLib.Service.Implement
                         /// 创建异常，班次旷工，考勤的时间为 0
                         exceptions[shiftDate].Add(AttendanceExceptionType.ShiftAbsence);
                     }
-                    else {
+                    else
+                    {
 
                         /// 清洗短时间内的重复打卡数据
                         MarkRepeatRecord(records, (float)setting.repeatAttendanceRecordTime.Value);
@@ -80,7 +81,8 @@ namespace BlueHrLib.Service.Implement
                             /// 创建异常，考勤记录不完整，考勤的时间为 0
                             exceptions[shiftDate].Add(AttendanceExceptionType.MessRecord);
                         }
-                        else {
+                        else
+                        {
                             // 判断迟到
                             DateTime firstAt = validRecrods.First().recordAt;
                             if (firstAt.AddMinutes(0 - setting.lateExceptionTime.Value) > shiftStart)
@@ -131,31 +133,36 @@ namespace BlueHrLib.Service.Implement
                 {
                     /// 手动修改的不会被修改实际值
                     List<AttendanceRecordCal> _updateCals = subDc.Context.GetTable<AttendanceRecordCal>().Where(s => staffAttendCals.Keys.Contains(s.staffNr) && (staffAttendCals[dic.Key].Select(ss => ss.attendanceDate).ToList().Contains(s.attendanceDate))).ToList();
-                    foreach(var u in _updateCals)
+                    foreach (var u in _updateCals)
                     {
                         var c = dic.Value.Where(d => d.attendanceDate.Equals(u.attendanceDate)).FirstOrDefault();
 
-                        if (c != null )
+                        if (c != null)
                         {
-                            u.oriWorkingHour =  c.oriWorkingHour;
-                            if( u.isManualCal == false)
+                            u.oriWorkingHour = u.actWorkingHour = c.oriWorkingHour;
+                            u.isManualCal = false;
+                            if (c != null)
                             {
-                                u.actWorkingHour = c.oriWorkingHour;
-                                u.isManualCal = false;
+                                u.oriWorkingHour = c.oriWorkingHour;
+                                if (u.isManualCal == false)
+                                {
+                                    u.actWorkingHour = c.oriWorkingHour;
+                                    u.isManualCal = false;
+                                }
+                                u.createdAt = DateTime.Now;
+                                u.isException = c.isException;
+                                u.exceptionCodes = c.exceptionCodes;
                             }
-                            u.createdAt = DateTime.Now;
-                            u.isException = c.isException;
-                            u.exceptionCodes = c.exceptionCodes;
                         }
+                        List<AttendanceRecordCal> _insertCals = dic.Value.Where(s => !_updateCals.Select(ss => ss.attendanceDate).Contains(s.attendanceDate)).ToList();
+                        insertCals.AddRange(_insertCals);
                     }
-                    List<AttendanceRecordCal> _insertCals = dic.Value.Where(s => !_updateCals.Select(ss => ss.attendanceDate).Contains(s.attendanceDate)).ToList();
-                    insertCals.AddRange(_insertCals);
+                    subDc.Context.GetTable<AttendanceRecordCal>().InsertAllOnSubmit(insertCals);
+                    subDc.Context.SubmitChanges();
+
+                    /// scope 完成
+                    scope.Complete();
                 }
-                subDc.Context.GetTable<AttendanceRecordCal>().InsertAllOnSubmit(insertCals);
-                subDc.Context.SubmitChanges();
-                
-                /// scope 完成
-                scope.Complete();
             }
         }
 

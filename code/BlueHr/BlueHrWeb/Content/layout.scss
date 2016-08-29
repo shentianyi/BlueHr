@@ -19,6 +19,7 @@ $midnight-blue: #2c3e50 !global; //午夜蓝  接近黑色
 $sun-flower: #f1c40f !global; // 浅黄色  向日葵
 $light-yellow: #fcf8e3 !global; //超级浅黄色
 $shallow-yellow: #faebcc !global;
+$flat-yellow: #E67E22 !global;
 $high-yellow: #8a6d3b !global;
 $orange: #f39c12 !global; //  橘黄色   橘子
 
@@ -211,7 +212,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
   border: 1px solid $marco-bg;
   display: table;
   margin: 5px 0;
-  span {
+  span, label {
     width: 1%;
     min-width: 60px;
     padding: 4px 10px;
@@ -267,8 +268,8 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 
 //Panel
 @mixin marco-panel-head($marco-bg: $concrete, $marco-color: #f2f2f2) {
-  height: 30px;
-  line-height: 20px;
+  height: 40px;
+  line-height: 30px;
   padding: 5px;
   font-size: 1.3em;
   background: $marco-bg;
@@ -322,6 +323,9 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
     text-align: center;
     border-bottom: 1px solid $light-grey !important;
   }
+  td{
+      vertical-align:middle;
+  }
 }
 
 @mixin table-heading {
@@ -356,6 +360,30 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
   }
 }
 
+//label and textarea
+
+.marco-textarea{
+    margin-top:10px;
+    label, span{
+        border: 1px solid $brlize-hole;
+        padding: 8px 10px;
+        border-bottom-color: $brlize-hole;
+        margin-bottom:-1px;
+        background:$peter-river;
+        color:$clouds;
+    }
+
+    textarea{
+        padding: 10px;
+        resize: none;
+        width:100%;
+        border-color: $peter-river;
+        &[disabled] {
+            cursor: not-allowed;
+        }
+    }
+}
+
 .marco-breadcrumb{
 	li + li:before{
 		color: $high-blue;
@@ -386,4 +414,39 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 .hr-grey{
     border-style:dashed;
     border-color: #999;
+}
+
+@mixin optionIcon($marco-bg:$peter-river, $marco-color:$clouds){
+    &:hover{
+        text-decoration:none;
+    }
+    i{
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        border: 2px solid $marco-bg;
+        line-height:20px;
+        vertical-align:middle;
+        color:$marco-bg;
+        &:hover{
+            background:$marco-bg;
+            color:$marco-color;
+        }
+    }
+}
+
+.option-icon-primary{
+    @include optionIcon;
+}
+
+.option-icon-success{
+    @include optionIcon($marco-bg:$emerald);
+}
+
+.option-icon-warning{
+    @include optionIcon($marco-bg:$flat-yellow);
+}
+
+.option-icon-danger{
+    @include optionIcon($marco-bg:$pomegranate);
 }

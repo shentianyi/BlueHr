@@ -13,22 +13,22 @@ using System.Web.Mvc;
 
 namespace BlueHrWeb.Controllers
 {
-    public class CompanyController : Controller
+    public class StaffController : Controller
     {
         // GET: Company
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
 
-            CompanySearchModel q = new CompanySearchModel();
+            StaffSearchModel q = new StaffSearchModel();
 
-            ICompanyService ss = new CompanyService(Settings.Default.db);
+            IStaffService ss = new StaffService(Settings.Default.db);
 
-            IPagedList<Company> companies = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<Staff> staffs = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
-            return View(companies);
+            return View(staffs);
         }
 
         public ActionResult Search([Bind(Include = "Name")] CompanySearchModel q)

@@ -161,7 +161,7 @@
         <classShapeMoniker Id="10894eea-6d2e-40dc-b66e-9500661ba47b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11.40625 : 10.3805261230469); (11.40625 : 14.2053450520833); (11.7916666666667 : 14.2053450520833 : JumpStart); (11.9583333333333 : 14.2053450520833 : JumpEnd); (12.25 : 14.2053450520833)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(11.40625 : 10.3805261230469); (11.40625 : 14.2053450520833); (12.25 : 14.2053450520833)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/ExtraWorkType/ExtraWorkType_ExtraWorkRecord" />
       <nodes>
         <classShapeMoniker Id="13d7f0ca-7775-4245-bc99-2f49e490ea35" />
@@ -252,7 +252,7 @@
         <classShapeMoniker Id="3b6818ec-d695-4926-b2ff-428a5a82ef03" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 15.2053864542643); (9.25 : 15.2053864542643)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.5 : 15.2053864542643); (8.79166666666667 : 15.2053864542643 : JumpStart); (8.95833333333333 : 15.2053864542643 : JumpEnd); (9.25 : 15.2053864542643)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/Staff/Staff_ShiftSchedule" />
       <nodes>
         <classShapeMoniker Id="74cba827-6b5b-476a-8350-474bc71d6182" />

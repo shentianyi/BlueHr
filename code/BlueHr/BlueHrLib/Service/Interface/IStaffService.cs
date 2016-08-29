@@ -1,5 +1,6 @@
 ﻿using BlueHrLib.Data;
 using BlueHrLib.Data.Model;
+using BlueHrLib.Data.Model.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,5 +46,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="date"></param>
         /// <returns></returns>
         List<string> GetOnShiftStaffs(DateTime date);
+
+        IQueryable<Staff> Search(StaffSearchModel searchModel);
     }
 }
