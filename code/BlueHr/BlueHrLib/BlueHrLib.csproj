@@ -43,8 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="CusException\SystemCertificateTypeNotFoundException.cs" />
     <Compile Include="CusException\SystemSettingNotSetException.cs" />
+    <Compile Include="CusException\SystemCertificateTypeNotFoundException.cs" />
     <Compile Include="Data\AttendanceRecordCal.cs" />
     <Compile Include="Data\AttendanceRecordDetail.cs" />
     <Compile Include="Data\BlueHr.designer.cs">

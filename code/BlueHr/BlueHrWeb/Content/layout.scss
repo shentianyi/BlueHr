@@ -19,6 +19,7 @@ $midnight-blue: #2c3e50 !global; //午夜蓝  接近黑色
 $sun-flower: #f1c40f !global; // 浅黄色  向日葵
 $light-yellow: #fcf8e3 !global; //超级浅黄色
 $shallow-yellow: #faebcc !global;
+$flat-yellow: #E67E22 !global;
 $high-yellow: #8a6d3b !global;
 $orange: #f39c12 !global; //  橘黄色   橘子
 
@@ -439,13 +440,13 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 }
 
 .option-icon-success{
-    @include optionIcon($emerald, $clouds);
+    @include optionIcon($marco-bg:$emerald);
 }
 
 .option-icon-warning{
-    @include optionIcon($high-yellow, $clouds);
+    @include optionIcon($marco-bg:$flat-yellow);
 }
 
 .option-icon-danger{
-    @include optionIcon($pomegranate, $clouds);
+    @include optionIcon($marco-bg:$pomegranate);
 }
