@@ -35,6 +35,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,6 +60,7 @@
     <Compile Include="Data\Enum\ShiftType.cs" />
     <Compile Include="Data\Enum\SystemCertificateType.cs" />
     <Compile Include="Data\Enum\WorkStatus.cs" />
+    <Compile Include="Data\Model\PageViewModel\CompanyInfoModel.cs" />
     <Compile Include="Data\Model\Search\AttendanceRecordDetailSearchModel.cs" />
     <Compile Include="Data\Model\Search\StaffSearchModel.cs" />
     <Compile Include="Data\Model\Search\CompanySearchModel.cs" />

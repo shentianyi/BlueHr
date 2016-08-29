@@ -38,6 +38,8 @@ $light-grey: #ddd !global; // 浅灰色
 $concrete: #95a5a6 !global; //  浅灰色   混凝土
 $asbestos: #7f8c8d !global; // 深灰色  石棉
 
+
+
 .main-nav {
      min-width: 700px;
     .nav-top{
@@ -49,9 +51,12 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
         width: 100%;
         padding: 5px;
         line-height:30px;
-        background:-webkit-gradient(linear, 0 0, 0 100%, from($peter-river), to($brlize-hole));
+        /*background:-webkit-gradient(linear, 0 0, 0 100%, from($peter-river), to($brlize-hole));
         background:-moz-linear-gradient(top, $peter-river,$brlize-hole);
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=$peter-river,endColorstr=$brlize-hole,grandientType=1);
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=$peter-river,endColorstr=$brlize-hole);*/
+        /*-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=$peter-river, endColorstr=$brlize-hole)";*/
+        background: $midnight-blue;  
+         
         color: $clouds;
 
         .nav-right{
@@ -236,6 +241,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
     padding: 7px;
     width: 100%;
     display: table-cell;
+    line-height: 10px;
     &[disabled] {
       cursor: not-allowed;
     }
@@ -351,9 +357,11 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
     @include table-heading;
     margin: 0;
     color: $clouds;
-    background:-webkit-gradient(linear, 0 0, 0 100%, from(lighten($peter-river, 5%)), to(lighten($brlize-hole, 5%)));
+    /*background:-webkit-gradient(linear, 0 0, 0 100%, from(lighten($peter-river, 5%)), to(lighten($brlize-hole, 5%)));
     background:-moz-linear-gradient(top, lighten($peter-river, 5%),lighten($brlize-hole, 5%));
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=lighten($peter-river, 5%),endColorstr=lighten($brlize-hole, 5%),grandientType=1);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=lighten($peter-river, 5%),endColorstr=lighten($brlize-hole, 5%),grandientType=1);*/
+
+    background: $peter-river;
   }
   .table-body{
       overflow:auto;
@@ -382,26 +390,6 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
             cursor: not-allowed;
         }
     }
-}
-
-.marco-breadcrumb{
-	li + li:before{
-		color: $high-blue;
-	}
-
-	margin: 0;
-	border-radius: 0;
-	border-top-right-radius: 20px;
-	background: $light-grey;
-	color: $high-blue;
-	a{
-		color: $pumpkin;
-		text-decoration: none; 
-		&:hover{
-			background: transparent;
-			color: $pomegranate;
-		}
-	}
 }
 
 .current-position{
