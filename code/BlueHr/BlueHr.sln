@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueHrWeb", "BlueHrWeb\Blue
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueHrClient", "BlueHrClient\BlueHrClient.csproj", "{93B51B28-7E3D-4011-AC5C-DD3B373A5842}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueHrLibTests", "BlueHrLibTests\BlueHrLibTests.csproj", "{3EBE122B-64A9-4B3F-8B83-4F070734551F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{93B51B28-7E3D-4011-AC5C-DD3B373A5842}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93B51B28-7E3D-4011-AC5C-DD3B373A5842}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93B51B28-7E3D-4011-AC5C-DD3B373A5842}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EBE122B-64A9-4B3F-8B83-4F070734551F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EBE122B-64A9-4B3F-8B83-4F070734551F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EBE122B-64A9-4B3F-8B83-4F070734551F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EBE122B-64A9-4B3F-8B83-4F070734551F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
