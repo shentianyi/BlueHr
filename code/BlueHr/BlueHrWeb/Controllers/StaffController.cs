@@ -31,19 +31,19 @@ namespace BlueHrWeb.Controllers
             return View(staffs);
         }
 
-        public ActionResult Search([Bind(Include = "Name")] CompanySearchModel q)
+        public ActionResult Search([Bind(Include = "Nr, Name, Id, Sex, JobTitleId, CompanyId, DepartmentId, CompanyEmployAtFrom, CompanyEmployAtTo, IsOnTrial")] StaffSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
-            ICompanyService ss = new CompanyService(Settings.Default.db);
+            IStaffService ss = new StaffService(Settings.Default.db);
 
-            IPagedList<Company> companies = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<Staff> staffs = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
-            return View("Index", companies);
+            return View("Index", staffs);
         }
 
 

@@ -28,6 +28,9 @@ namespace BlueHrWeb.Controllers
 
             ViewBag.Query = q;
 
+            CompanyInfoModel info = ss.GetCompanyInfo(q);
+            ViewBag.Info = info;
+
             return View(companies);
         }
 

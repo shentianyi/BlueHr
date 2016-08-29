@@ -13,7 +13,6 @@ namespace BlueHrLib.Service.Implement.Tests
     public class AttendanceRecordServiceTests
     {
         [TestMethod()]
-
         public void CalculateAttendeRcordTest()
         {
             AttendanceRecordService ars = new AttendanceRecordService(Settings.Default.db);
