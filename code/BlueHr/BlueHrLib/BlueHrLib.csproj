@@ -49,7 +49,9 @@
       <DependentUpon>BlueHr.dbml</DependentUpon>
     </Compile>
     <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Data\Enum\AttendanceExceptionType.cs" />
     <Compile Include="Data\Enum\AttendanceRecordSourceType.cs" />
+    <Compile Include="Data\Enum\ShiftType.cs" />
     <Compile Include="Data\Enum\SystemCertificateType.cs" />
     <Compile Include="Data\Model\Search\CompanySearchModel.cs" />
     <Compile Include="Data\Model\StaffIdCard.cs" />
@@ -58,14 +60,17 @@
     <Compile Include="Data\Repository\Interface\ICompanyRepository.cs" />
     <Compile Include="Data\Repository\IRepository.cs" />
     <Compile Include="Data\Repository\RepositoryBase.cs" />
+    <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service\Implement\AttendanceRecordService.cs" />
     <Compile Include="Service\Implement\CompanyService.cs" />
     <Compile Include="Service\Implement\StaffService.cs" />
+    <Compile Include="Service\Interface\IAttendanceRecordService.cs" />
     <Compile Include="Service\Interface\ICompanyService.cs" />
     <Compile Include="Service\Interface\IStaffService.cs" />
     <Compile Include="Service\ServiceBase.cs" />

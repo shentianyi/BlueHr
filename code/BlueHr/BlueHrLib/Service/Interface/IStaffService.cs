@@ -38,5 +38,12 @@ namespace BlueHrLib.Service.Interface
         /// <param name="isIdChecked"></param>
         /// <returns></returns>
         bool CreateInfoAndSetCheck(StaffIdCard card,bool isIdChecked = true);
+
+        /// <summary>
+        /// 根据日期，获取排班的员工工号
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        List<string> GetOnShiftStaffs(DateTime date);
     }
 }
