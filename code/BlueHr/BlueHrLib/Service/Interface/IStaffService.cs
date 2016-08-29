@@ -48,5 +48,7 @@ namespace BlueHrLib.Service.Interface
         List<string> GetOnShiftStaffs(DateTime date);
 
         IQueryable<Staff> Search(StaffSearchModel searchModel);
+
+        void Creates(List<Staff> staffs);
     }
 }

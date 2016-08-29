@@ -120,5 +120,12 @@ namespace BlueHrLib.Service.Implement
             IStaffRepository staffRep = new StaffRepository(dc);
             return staffRep.Search(searchModel);
         }
+
+        public void Creates(List<Staff> staffs)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            dc.Context.GetTable<Staff>().InsertAllOnSubmit(staffs);
+            dc.Context.SubmitChanges();
+        }
     }
 }

@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BlueHrLib</RootNamespace>
     <AssemblyName>BlueHrLib</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,6 +58,7 @@
     <Compile Include="Data\Enum\AttendanceRecordSourceType.cs" />
     <Compile Include="Data\Enum\ShiftType.cs" />
     <Compile Include="Data\Enum\SystemCertificateType.cs" />
+    <Compile Include="Data\Enum\WorkStatus.cs" />
     <Compile Include="Data\Model\Search\AttendanceRecordDetailSearchModel.cs" />
     <Compile Include="Data\Model\Search\StaffSearchModel.cs" />
     <Compile Include="Data\Model\Search\CompanySearchModel.cs" />
