@@ -129,16 +129,20 @@ namespace BlueHrLib.Service.Implement
                 List<AttendanceRecordCal> updateCals = new List<AttendanceRecordCal>();
                 foreach (var dic in staffAttendCals)
                 {
-                    /// 手动修改的也会被删除
+                    /// 手动修改的不会被修改实际值
                     List<AttendanceRecordCal> _updateCals = subDc.Context.GetTable<AttendanceRecordCal>().Where(s => staffAttendCals.Keys.Contains(s.staffNr) && (staffAttendCals[dic.Key].Select(ss => ss.attendanceDate).ToList().Contains(s.attendanceDate))).ToList();
                     foreach(var u in _updateCals)
                     {
                         var c = dic.Value.Where(d => d.attendanceDate.Equals(u.attendanceDate)).FirstOrDefault();
 
-                        if (c != null)
+                        if (c != null )
                         {
-                            u.oriWorkingHour = u.actWorkingHour = c.oriWorkingHour;
-                            u.isManualCal = false;
+                            u.oriWorkingHour =  c.oriWorkingHour;
+                            if( u.isManualCal == false)
+                            {
+                                u.actWorkingHour = c.oriWorkingHour;
+                                u.isManualCal = false;
+                            }
                             u.createdAt = DateTime.Now;
                             u.isException = c.isException;
                             u.exceptionCodes = c.exceptionCodes;
