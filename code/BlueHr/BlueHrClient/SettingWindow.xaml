@@ -21,13 +21,13 @@
                     <TextBox x:Name="timeTextBox" TextWrapping="Wrap" Text="1" VerticalAlignment="Center" Margin="5"/>
                     <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Text="秒" VerticalAlignment="Center"/>
                 </DockPanel>
-                <CheckBox x:Name="autoCheckinBox" Content="自动提交"  Checked="autoCheckinBoxChecked" IsChecked="True"/>
+                <CheckBox x:Name="autoCheckinBox" Content="自动提交"  Checked="autoCheckinBoxChecked"/>
             </UniformGrid>
         </GroupBox>
 
         <GroupBox x:Name="save" Grid.Row="1" Header="保存" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Height="100" Width="400" Background="Transparent">
             <UniformGrid Rows="2">
-                <CheckBox x:Name="saveNotes" Content="保存记录"/>
+                <CheckBox x:Name="saveNotes" Content="保存记录" Checked="saveNotesSelected" Unchecked="saveNotesUnSelected"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -35,8 +35,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock x:Name="pathTextBlock" Grid.Column="0" Text="保存位置：" VerticalAlignment="Center"/>
-                    <TextBox x:Name="pathTextBox" Grid.Column="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-                    <Button x:Name="button" Grid.Column="2" Content="。。。" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Click="saveAddClick"/>
+                    <TextBox x:Name="pathTextBox" Grid.Column="1" AcceptsReturn="False" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                    <Button x:Name="saveButton" Grid.Column="2" Content="。。。" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Click="saveAddClick"/>
                 </Grid>
             </UniformGrid>
         </GroupBox>

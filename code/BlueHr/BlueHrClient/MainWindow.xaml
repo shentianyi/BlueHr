@@ -35,7 +35,8 @@
             <ColumnDefinition Width="2.5*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <UniformGrid Rows="8" Grid.Column="0">
+        <UniformGrid Rows="9" Grid.Column="0">
+            <TextBlock x:Name="ID1" Style="{StaticResource titleStyle}" Text="ID:&#x0009;" />
             <TextBlock x:Name="textBlock" Style="{StaticResource titleStyle}" Text="姓名:&#x0009;" />
             <TextBlock x:Name="textBlock1"  Style="{StaticResource titleStyle}" Text="性别:&#x0009;"/>
             <TextBlock x:Name="textBlock2"  Style="{StaticResource titleStyle}" Text="出生:&#x0009;"/>
@@ -45,8 +46,8 @@
             <TextBlock x:Name="textBlock6"  Style="{StaticResource titleStyle}" Text="有效日期:"/>
             <TextBlock x:Name="textBlock7"  Style="{StaticResource titleStyle}" Text="办证机关:"/>
         </UniformGrid>
-        <UniformGrid Rows="8" Grid.Column="1">
-            <TextBlock x:Name="textBlock0" Style="{StaticResource contentStyle}" Text="张三" />
+        <UniformGrid Rows="9" Grid.Column="1">
+            <TextBlock x:Name="ID" Style="{StaticResource contentStyle}" Text="411330199303024812" />
             <TextBlock x:Name="textBlock01"  Style="{StaticResource contentStyle}" Text="男"/>
             <TextBlock x:Name="textBlock02"  Style="{StaticResource contentStyle}" Text="1993年4月2日"/>
             <TextBlock x:Name="textBlock03"  Style="{StaticResource contentStyle}" Text="汉族"/>
@@ -59,10 +60,13 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Image x:Name="image" Width="200"/>
 
-            <TextBlock x:Name="msgBlock" Grid.Row="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="ACCEPT" FontSize="70" VerticalAlignment="Top"/>
+            <TextBlock x:Name="msgBlock" Grid.Row="1" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="70" VerticalAlignment="Top"/>
+            <Button x:Name="button" Grid.Row="2" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Top" Width="75" Click="buttonForTest"/>
+
         </Grid>
     </Grid>
 </controls:MetroWindow>
