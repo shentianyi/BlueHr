@@ -104,5 +104,11 @@ namespace BlueHrLib.Service.Implement
                 dc.Context.GetTable<Certificate>().InsertOnSubmit(cer);
             }
         }
+
+        public List<string> GetOnShiftStaffs(DateTime date)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            return dc.Context.GetTable<ShiftScheduleView>().Where(s => s.scheduleAt.Date.Equals(date.Date) || (s.scheduleAt.Equals(date.Date.AddDays(-1)) && s.shiftType.Equals(ShiftType.Tommorrow))).Select(s => s.staffNr).ToList();
+        }
     }
 }

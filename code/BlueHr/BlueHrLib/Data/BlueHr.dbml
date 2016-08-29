@@ -294,4 +294,31 @@
       <Association Name="StaffType_Staff" Member="StaffType" ThisKey="staffTypeId" OtherKey="id" Type="StaffType" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.SystemSetting" Member="SystemSetting">
+    <Type Name="SystemSetting">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="daysBeforeAlertStaffGoFull" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="goFullAlertMails" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="unCertifacteAlertMails" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="attendanceExceptionAlertMails" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="repeatAttendanceRecordTime" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="validAttendanceRecordTime" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="lateExceptionTime" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="earlyLeaveExceptionTime" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ShiftScheduleView" Member="ShiftScheduleView">
+    <Type Name="ShiftScheduleView">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="scheduleAt" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="shiftId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="startAt" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="endAt" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="shiftType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>
