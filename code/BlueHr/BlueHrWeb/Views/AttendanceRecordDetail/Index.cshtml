@@ -1,0 +1,63 @@
+﻿@model IEnumerable<BlueHrLib.Data.AttendanceRecordDetail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.staffNr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.recordAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.soureType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isCalculated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isRepeatedData)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.staffNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.recordAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.soureType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isCalculated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isRepeatedData)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

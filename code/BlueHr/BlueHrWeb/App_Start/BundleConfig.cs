@@ -12,7 +12,8 @@ namespace BlueHrWeb
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery-plug-in").Include(
-                   "~/Scripts/jquery-popModal.js"));
+                   "~/Scripts/jquery-popModal.js",
+                   "~/Scripts/jquery.datetimepicker.full.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -40,7 +41,8 @@ namespace BlueHrWeb
                      "~/Content/site.css",
                      "~/Content/input-style.css",
                      "~/Content/pagination.css",
-                     "~/Content/jquery-popModal.css"));
+                     "~/Content/jquery-popModal.css",
+                     "~/Content/jquery.datetimepicker.css"));
 
             bundles.Add(new StyleBundle("~/Content/layout").Include(
                      "~/Content/layout.css"));

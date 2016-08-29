@@ -57,10 +57,13 @@
     <Compile Include="Data\Enum\AttendanceRecordSourceType.cs" />
     <Compile Include="Data\Enum\ShiftType.cs" />
     <Compile Include="Data\Enum\SystemCertificateType.cs" />
+    <Compile Include="Data\Model\Search\AttendanceRecordDetailSearchModel.cs" />
     <Compile Include="Data\Model\Search\CompanySearchModel.cs" />
     <Compile Include="Data\Model\StaffIdCard.cs" />
     <Compile Include="Data\Repository\IDataContextFactory.cs" />
+    <Compile Include="Data\Repository\Implement\AttendanceRecordDetailRepository.cs" />
     <Compile Include="Data\Repository\Implement\CompanyRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAttendanceRecordDetailRepository.cs" />
     <Compile Include="Data\Repository\Interface\ICompanyRepository.cs" />
     <Compile Include="Data\Repository\IRepository.cs" />
     <Compile Include="Data\Repository\RepositoryBase.cs" />
