@@ -23,6 +23,12 @@ namespace BlueHrLib.Data.Enum
         /// </summary>
         Absence = 300,
 
+        /// <summary>
+        /// 班次旷工
+        /// 某日安排了多个班次，只出席了某些班次
+        /// </summary>
+        ShiftAbsence=301,
+
 
         /// <summary>
         /// 未到应上班工时

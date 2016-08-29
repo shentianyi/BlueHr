@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BlueHrLib.Service.Implement;
+using BlueHrClient.Config;
 
 namespace BlueHrClient
 {
@@ -35,6 +37,24 @@ namespace BlueHrClient
         {
             SettingWindow win = new SettingWindow();
             win.ShowDialog();
+           
+        }
+
+        private void buttonForTest(object sender, RoutedEventArgs e)
+        {
+             WarningWindow win = new WarningWindow();
+            // if (StaffService.CheckStaffById(ID.Text))
+            // {
+            if (BaseConfig.AutoCheckin)
+            {
+                msgBlock.Text = "ACCEPT";
+            }
+            else
+            {
+                msgBlock.Text = "ERROR";
+                win.ShowDialog();
+            }
+           // }
         }
     }
 }

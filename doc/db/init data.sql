@@ -26,7 +26,7 @@ INSERT INTO [BlueHr].[dbo].[SystemSetting]
            ,[lateExceptionTime]
            ,[earlyLeaveExceptionTime])
      VALUES
-           (5,	NULL,	NULL,	NULL,	20,	3,	30,	30)
+           (5,	NULL,	NULL,	NULL,	20,	2,	30,	30)
 GO
 
 

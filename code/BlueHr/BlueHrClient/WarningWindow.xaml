@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BlueHrClient"
         mc:Ignorable="d"
-    Title="警告" Height="200" Width="400">
+    Title="警告" Height="200" Width="400" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.5*"/>
