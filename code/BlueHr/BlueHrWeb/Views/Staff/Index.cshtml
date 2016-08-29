@@ -1,40 +1,25 @@
 ﻿@using MvcPaging
 
-@model IPagedList<BlueHrLib.Data.Company>
+@model IPagedList<BlueHrLib.Data.Staff>
 
 @{
-    ViewBag.Title = "公司管理";
+    ViewBag.Title = "Index";
 }
-
-@Styles.Render("~/Content/company")
 
 <ol class="breadcrumb current-position">
     您的位置：
-    <li>公司管理</li>
+    <li>用户管理</li>
+    <li>员工管理</li>
 </ol>
 
 <hr class="hr-grey" />
 
-<div class="row" style="margin:0;">
-    <form action="/Company/Search" method="get">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="display:flex;">
-            <div class="marco-igroup-primary">
-                <span>公司名称</span>
-                <input type="text" name="Name" id="Name" placeholder="公司名称" value="@ViewBag.Query.Name" />
-            </div>
-            <button type="submit" class="marco-btn-primary">
-                <i class="glyphicon glyphicon-search"></i>
-            </button>
-        </div>
-    </form>
-</div>
-
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="usual-table">
         <div class="table-heading">
-            公司列表
+            员工列表
             <div class="pull-right" style="margin-top:-12px;">
-                <a href="/Company/Create">
+                <a href="/Staff/Create">
                     <button class="marco-btn-primary">
                         <i class="glyphicon glyphicon-plus-sign"></i>
                         <span>创建</span>
@@ -46,9 +31,11 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>公司名称</th>
-                        <th>公司地址</th>
-                        <th>备注</th>
+                        <th>员工号</th>
+                        <th>员工姓名</th>
+                        <th>员工性别</th>
+                        <th>身份证号码</th>
+                        <th>员工职位</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -59,25 +46,26 @@
                 {
                             <tr>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.nr)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.name)
-                                    <span class="badge pull-right marco-badge" title="公司部门">
-                                        <a href="@Url.Action("FindByCompanyId", "Department", new { companyId = item.id})">
-                                            @ViewBag.Info.departmentCount
-                                        </a>
-                                    </span>
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.address)
+                                    @Html.DisplayFor(modelItem => item.sex)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.remark)
+                                    @Html.DisplayFor(modelItem => item.id)
                                 </td>
                                 <td>
-                                    <a href="/Company/Delete/@item.id" class="option-icon-primary" title="详情">
+                                    @Html.DisplayFor(modelItem => item.jobTitleId)
+                                </td>
+                                <td>
+                                    <a href="/Staff/Delete/@item.id" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>
                                     </a>
 
-                                    <a href="/Company/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                    <a href="/Staff/Edit/@item.id" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
                                     </a>
 
@@ -89,6 +77,7 @@
             </table>
         </div>
     </div>
+
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
         <div class="clearfix pagination">
             <div class="pagination-inner">
@@ -98,6 +87,7 @@
                 {
 
                     var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))
                         .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
                         @html
                     }
@@ -111,10 +101,7 @@
     </div>
 </div>
 
-
-@Scripts.Render("~/bundles/company")
-
 <script type="text/javascript">
     Layout.init();
-    Company.init();
 </script>
+

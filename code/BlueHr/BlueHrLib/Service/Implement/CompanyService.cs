@@ -36,6 +36,18 @@ namespace BlueHrLib.Service.Implement
             return companyRep.FindById(id);
         }
 
+        public CompanyInfoModel GetCompanyInfo(CompanySearchModel searchModel)
+        {
+            CompanyInfoModel info = new CompanyInfoModel();
+            DataContext dc = new DataContext(this.DbString);
+            ICompanyRepository companyRep = new CompanyRepository(dc);
+            IQueryable<Company> company = companyRep.Search(searchModel);
+
+            info.departmentCount = dc.Context.GetTable<Department>().Where(c=>c.companyId.Equals(company.First().id)).Count();
+
+            return info;
+        }
+
         public IQueryable<Company> Search(CompanySearchModel searchModel)
         {
             DataContext dc = new DataContext(this.DbString);
