@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BlueHrClient.Config;
+using System.Runtime.InteropServices;
 
 namespace BlueHrClient
 {
@@ -27,6 +28,12 @@ namespace BlueHrClient
             Config();
 
         }
+        [DllImport("SynIDCardAPI.dll", EntryPoint = "Syn_FindReader", CharSet = CharSet.Ansi)]
+        public static extern int Syn_FindReader();
+        [DllImport("SynIDCardAPI.dll", EntryPoint = "Syn_OpenPort", CharSet = CharSet.Ansi)]
+        public static extern int Syn_OpenPort(int iPort);
+        [DllImport("SynIDCardAPI.dll", EntryPoint = "Syn_ResetSAM", CharSet = CharSet.Ansi)]
+        public static extern int Syn_ResetSAM(int iPort, int iIfOpen);
         public void Config()
         {
             autoCheckinBox.IsChecked = BaseConfig.AutoCheckin;
@@ -73,6 +80,33 @@ namespace BlueHrClient
         private void saveNotesUnSelected(object sender, RoutedEventArgs e)
         {
             BaseConfig.SaveNotes = (bool)saveNotes.IsChecked;
+        }
+
+        private void resetClick(object sender, RoutedEventArgs e)
+        {
+            int nRet, nPort;
+            string stmp;
+            nPort = Convert.ToInt32(Syn_FindReader());
+            if (Syn_OpenPort(nPort) == 0)
+            {
+                nRet = Syn_ResetSAM(nPort, 0);
+                if (nRet == 0)
+                {
+                    stmp = Convert.ToString(System.DateTime.Now) + " 复位SAM模块成功";
+                    MessageBox.Show("复位SAM模块成功");
+                }
+                else
+                {
+                    stmp = Convert.ToString(System.DateTime.Now) + " 复位SAM模块失败";
+                    MessageBox.Show("复位SAM模块失败");
+                }
+            }
+            else
+            {
+                stmp = Convert.ToString(System.DateTime.Now) + "  打开端口失败";
+                MessageBox.Show("打开端口失败");
+            }
+
         }
     }
 }

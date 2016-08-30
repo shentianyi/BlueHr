@@ -36,25 +36,28 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <UniformGrid Rows="9" Grid.Column="0">
-            <TextBlock x:Name="ID1" Style="{StaticResource titleStyle}" Text="ID:&#x0009;" />
+            
             <TextBlock x:Name="textBlock" Style="{StaticResource titleStyle}" Text="姓名:&#x0009;" />
             <TextBlock x:Name="textBlock1"  Style="{StaticResource titleStyle}" Text="性别:&#x0009;"/>
-            <TextBlock x:Name="textBlock2"  Style="{StaticResource titleStyle}" Text="出生:&#x0009;"/>
-            <TextBlock x:Name="textBlock3"  Style="{StaticResource titleStyle}" Text="民族:&#x0009;"/>
+            <TextBlock x:Name="textBlock2"  Style="{StaticResource titleStyle}" Text="民族:&#x0009;"/>
+            <TextBlock x:Name="textBlock3"  Style="{StaticResource titleStyle}" Text="出生日期:"/>
             <TextBlock x:Name="textBlock4"  Style="{StaticResource titleStyle}" Text="地址:&#x0009;" />
-            <TextBlock x:Name="textBlock5"  Style="{StaticResource titleStyle}" Text="办证日期:"/>
-            <TextBlock x:Name="textBlock6"  Style="{StaticResource titleStyle}" Text="有效日期:"/>
-            <TextBlock x:Name="textBlock7"  Style="{StaticResource titleStyle}" Text="办证机关:"/>
+            <TextBlock x:Name="ID1" Style="{StaticResource titleStyle}" Text="身份证号:" />
+            <TextBlock x:Name="textBlock7"  Style="{StaticResource titleStyle}" Text="签发机关:"/>
+            <TextBlock x:Name="textBlock5"  Style="{StaticResource titleStyle}" Text="开始日期:"/>
+            <TextBlock x:Name="textBlock6"  Style="{StaticResource titleStyle}" Text="结束日期:"/>
+
         </UniformGrid>
         <UniformGrid Rows="9" Grid.Column="1">
-            <TextBlock x:Name="ID" Style="{StaticResource contentStyle}" Text="411330199303024812" />
-            <TextBlock x:Name="textBlock01"  Style="{StaticResource contentStyle}" Text="男"/>
-            <TextBlock x:Name="textBlock02"  Style="{StaticResource contentStyle}" Text="1993年4月2日"/>
-            <TextBlock x:Name="textBlock03"  Style="{StaticResource contentStyle}" Text="汉族"/>
-            <TextBlock x:Name="textBlock04"  Style="{StaticResource contentStyle}" Text="上海市浦东新区川沙新镇某某路某某弄333号" />
-            <TextBlock x:Name="textBlock05"  Style="{StaticResource contentStyle}" Text="1993年4月2日"/>
-            <TextBlock x:Name="textBlock06"  Style="{StaticResource contentStyle}" Text="1993年4月2日"/>
-            <TextBlock x:Name="textBlock07"  Style="{StaticResource contentStyle}" Text="上海市浦东新区川沙新镇某某路某某弄"/>
+            <TextBlock x:Name="Name" Style="{StaticResource contentStyle}" Text="张三" />
+            <TextBlock x:Name="Sex" Style="{StaticResource contentStyle}" Text="男" />
+            <TextBlock x:Name="Nation"  Style="{StaticResource contentStyle}" Text="汉"/>
+            <TextBlock x:Name="Born"  Style="{StaticResource contentStyle}" Text="19930303"/>
+            <TextBlock x:Name="Address"  Style="{StaticResource contentStyle}" Text="上海市浦东新区川沙新镇某某路某某弄"/>
+            <TextBlock x:Name="ID"  Style="{StaticResource contentStyle}" Text="422409549585994939239"/>
+            <TextBlock x:Name="GrantDept"  Style="{StaticResource contentStyle}" Text="派出所333号" />
+            <TextBlock x:Name="UserLifeBegin"  Style="{StaticResource contentStyle}" Text="1993年4月2日"/>
+            <TextBlock x:Name="UserLifeEnd"  Style="{StaticResource contentStyle}" Text="1993年4月2日"/>
         </UniformGrid>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
