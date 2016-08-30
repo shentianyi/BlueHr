@@ -12,9 +12,12 @@
             <RowDefinition Height="1.8*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <GroupBox x:Name="view" Grid.Row="0" Header="显示" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Height="150" Width="400" Background="Transparent">
+        <GroupBox x:Name="view" Grid.Row="0" Header="设置" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Height="150" Width="400" Background="Transparent">
             <UniformGrid Rows="3" >
-                <CheckBox x:Name="soundBox" Content="声音"/>
+                <UniformGrid Columns="2">
+                    <CheckBox x:Name="soundBox" Content="声音"/>
+                    <Button x:Name="resetButton" Content="复位" Height="18" Width="40" HorizontalAlignment="Right" Click="resetClick"/>
+                </UniformGrid>
                 <DockPanel>
                     <CheckBox x:Name="msgShowBox" Content="弹框提示" Checked="msgShowBoxChecked"/>
                     <TextBlock x:Name="textBlock" HorizontalAlignment="Left" VerticalAlignment="Center" Text="提示信息持续时间" Margin="60,0,0,0"/>
