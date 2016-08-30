@@ -1,6 +1,6 @@
 ﻿@model BlueHrLib.Data.Staff
 
-<div id="staff">
+<div id="staff" style="margin:10px;">
     <ol class="breadcrumb current-position">
         您的位置：
         <li>用户管理</li>
@@ -15,297 +15,331 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <fieldset>
-            <legend>基础信息</legend>
-
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-danger">
-                    <span>工号 *</span>
-                    @Html.EditorFor(model => model.nr)
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-danger">
-                    <span>姓名 *</span>
-                    @Html.EditorFor(model => model.name)
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>性别</span>
-                    @Html.EditorFor(model => model.sex)
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>身份证号</span>
-                    @Html.EditorFor(model => model.id)
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>出生日期</span>
-                    @Html.EditorFor(model => model.birthday)
-                </div>
+        <div class="marco-npanel-normal">
+            <div class="marco-nheading">
+                <span>基础信息</span>
             </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>民族</span>
-                    @Html.EditorFor(model => model.ethnic)
+            <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-danger">
+                        <span>工号 *</span>
+                        @Html.EditorFor(model => model.nr)
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>联系电话</span>
-                    @Html.EditorFor(model => model.phone)
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-danger">
+                        <span>姓名 *</span>
+                        @Html.EditorFor(model => model.name)
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>户口地址</span>
-                    @Html.EditorFor(model => model.residenceAddress)
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>性别</span>
+                        @Html.EditorFor(model => model.sex)
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>通讯地址</span>
-                    @Html.EditorFor(model => model.address)
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>身份证号</span>
+                        @Html.EditorFor(model => model.id)
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-danger">
-                    <span>户口性质 *</span>
-                    <select>
-                        <option>农村</option>
-                        <option>城镇</option>
-                    </select>
-
-                    @*@Html.EditorFor(model => model.residenceType)*@
-
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>出生日期</span>
+                        @Html.EditorFor(model => model.birthday)
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>人员类别</span>
-                    <select>
-                        <option>正式员工</option>
-                        <option>实习生</option>
-                    </select>
-                    @*@Html.EditorFor(model => model.staffTypeId)*@
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>民族</span>
+                        @Html.EditorFor(model => model.ethnic)
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>最高学历</span>
-                    <select>
-                        <option>专科</option>
-                        <option>本科</option>
-                        <option>硕士</option>
-                        <option>博士</option>
-                    </select>
-                    @*@Html.EditorFor(model => model.degreeTypeId)*@
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>联系电话</span>
+                        @Html.EditorFor(model => model.phone)
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>所学专业</span>
-                    @Html.EditorFor(model => model.speciality)
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>户口地址</span>
+                        @Html.EditorFor(model => model.residenceAddress)
+                    </div>
                 </div>
-            </div>
-        </fieldset>
 
-        <fieldset>
-            <legend>照片</legend>
-        </fieldset>
-
-        <fieldset>
-            <legend>紧急联系人</legend>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>姓名</span>
-                    @Html.EditorFor(model => model.contactName)
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>通讯地址</span>
+                        @Html.EditorFor(model => model.address)
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>电话</span>
-                    @Html.EditorFor(model => model.contactPhone)
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-danger">
+                        <span>户口性质 *</span>
+                        <select>
+                            <option>农村</option>
+                            <option>城镇</option>
+                        </select>
+
+                        @*@Html.EditorFor(model => model.residenceType)*@
+
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>与员工关系</span>
-                    @Html.EditorFor(model => model.contactFamilyMemberType)
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>人员类别</span>
+                        <select>
+                            <option>正式员工</option>
+                            <option>实习生</option>
+                        </select>
+                        @*@Html.EditorFor(model => model.staffTypeId)*@
+                    </div>
                 </div>
-            </div>
-        </fieldset>
 
-        <fieldset>
-            <legend>工作经历</legend>
-
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>最初进厂日期</span>
-                    @Html.EditorFor(model => model.firstCompanyEmployAt)
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>最高学历</span>
+                        <select>
+                            <option>专科</option>
+                            <option>本科</option>
+                            <option>硕士</option>
+                            <option>博士</option>
+                        </select>
+                        @*@Html.EditorFor(model => model.degreeTypeId)*@
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>进厂日期</span>
-                    @Html.EditorFor(model => model.companyEmployAt)
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>所学专业</span>
+                        @Html.EditorFor(model => model.speciality)
+                    </div>
                 </div>
-            </div>
-        </fieldset>
-
-
-
-        <fieldset>
-            <legend>职位信息</legend>
-
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-danger">
-                    <span>公司 *</span>
-                    <select>
-                        <option>A</option>
-                        <option>B</option>
-                    </select>
-
-                    @*@Html.EditorFor(model => model.companyId)*@
-
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-danger">
-                    <span>部门 *</span>
-                    <select>
-                        <option>A</option>
-                        <option>B</option>
-                        <option>C</option>
-                    </select>
-
-                    @*@Html.EditorFor(model => model.departmentId)*@
-
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-danger">
-                    <span>职位 *</span>
-                    <select>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option> 
-                    </select>
-
-                    @*@Html.EditorFor(model => model.jobTitleId)*@
-
-                </div>
-            </div>
-
-            @*//TODO: 什么字段*@ 
-
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:70px;">
-                <div class="marco-textarea">
-                    <span>备注信息</span>
-                    <textarea name="remark"></textarea>
-                </div>
-            </div>
-        </fieldset>
-
-        <fieldset>
-            <legend>合同信息</legend>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="height: 40px;">
-                <div class="marco-igroup-primary">
-                    <span>是否在试用</span>
-                    <select>
-                        <option>否</option>
-                        <option>是</option>
-                    </select>
-
-                    @*@Html.EditorFor(model => model.isOnTrial)*@
-
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>试用到期日期</span>
-                    @Html.EditorFor(model => model.trialOverAt)
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>保险种类</span>
-                    @Html.EditorFor(model => model.insureTypeId)
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>是否交公积金</span>
-                    <select>
-                        <option>是</option>
-                        <option>否</option>
-                    </select>
-                    @*@Html.EditorFor(model => model.isPayCPF)*@
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>合同到期日期</span>
-                    @Html.EditorFor(model => model.contractExpireAt)
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>合同签订次数</span>
-                    @Html.EditorFor(model => model.contractCount)
-                </div>
-            </div>
-
-            @*//TODO: 什么字段*@
-
-            @*<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:80px;">
-                <div class="marco-textarea">
-                    <span>合同备注</span>
-                    <textarea name="remark"></textarea>
-                </div>
-            </div>*@
-        </fieldset>
-
-        <fieldset>
-            <legend>银行卡信息</legend>
-
-
-        </fieldset>
-
-        <fieldset>
-            <legend>子女信息</legend>
-
-
-
-        </fieldset>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
+
+        <div class="marco-npanel-normal">
+            <div class="marco-nheading">
+                <span>照片</span>
+            </div>
+
+            <div class="marco-nbody row">
+
+            </div>
+        </div>
+
+        <div class="marco-npanel-normal">
+            <div class="marco-nheading">
+                <span>紧急联系人</span>
+            </div>
+
+            <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>姓名</span>
+                        @Html.EditorFor(model => model.contactName)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>电话</span>
+                        @Html.EditorFor(model => model.contactPhone)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>与员工关系</span>
+                        @Html.EditorFor(model => model.contactFamilyMemberType)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="marco-npanel-normal">
+            <div class="marco-nheading">
+                <span>工作经历</span>
+            </div>
+
+            <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>最初进厂日期</span>
+                        @Html.EditorFor(model => model.firstCompanyEmployAt)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>进厂日期</span>
+                        @Html.EditorFor(model => model.companyEmployAt)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="marco-npanel-normal">
+            <div class="marco-nheading">
+                <span>职位信息</span>
+            </div>
+
+            <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-danger">
+                        <span>公司 *</span>
+                        <select>
+                            <option>A</option>
+                            <option>B</option>
+                        </select>
+
+                        @*@Html.EditorFor(model => model.companyId)*@
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-danger">
+                        <span>部门 *</span>
+                        <select>
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                        </select>
+
+                        @*@Html.EditorFor(model => model.departmentId)*@
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-danger">
+                        <span>职位 *</span>
+                        <select>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+
+                        @*@Html.EditorFor(model => model.jobTitleId)*@
+
+                    </div>
+                </div>
+
+                @*//TODO: 什么字段*@
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:70px;">
+                    <div class="marco-textarea">
+                        <span>备注信息</span>
+                        <textarea name="remark"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="marco-npanel-normal">
+            <div class="marco-nheading">
+                <span>合同信息</span>
+            </div>
+
+            <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="height: 40px;">
+                    <div class="marco-igroup-primary">
+                        <span>是否在试用</span>
+                        <select>
+                            <option>否</option>
+                            <option>是</option>
+                        </select>
+
+                        @*@Html.EditorFor(model => model.isOnTrial)*@
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>试用到期日期</span>
+                        @Html.EditorFor(model => model.trialOverAt)
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>保险种类</span>
+                        @Html.EditorFor(model => model.insureTypeId)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>是否交公积金</span>
+                        <select>
+                            <option>是</option>
+                            <option>否</option>
+                        </select>
+                        @*@Html.EditorFor(model => model.isPayCPF)*@
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>合同到期日期</span>
+                        @Html.EditorFor(model => model.contractExpireAt)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>合同签订次数</span>
+                        @Html.EditorFor(model => model.contractCount)
+                    </div>
+                </div>
+
+                @*//TODO: 什么字段*@
+
+                @*<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:80px;">
+                        <div class="marco-textarea">
+                            <span>合同备注</span>
+                            <textarea name="remark"></textarea>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+
+        <div class="marco-npanel-normal">
+            <div class="marco-nheading">
+                <span>银行卡信息</span>
+            </div>
+
+            <div class="marco-nbody row">
+            </div>
+        </div>
+
+        <div class="marco-npanel-normal">
+            <div class="marco-nheading">
+                <span>子女信息</span>
+            </div>
+
+            <div class="marco-nbody row">
+            </div>
+        </div>
+
+        <button class="marco-btn-primary" type="submit">
+            创建
+        </button>
     }
 </div>
 
 <script type="text/javascript">
     Layout.init();
-    console.log($('.nav-content').css('height'));
-    console.log($(document).height());
-    console.log($(window).height());
-    console.log(document.body.scrollHeight);
+    $('.content_3').css({ height: $(window).height() - 50 + 'px' });
+    $(".content_3").mCustomScrollbar({
+        scrollInertia: 600,
+        autoDraggerLength: false,
+        scrollButtons: {
+            enable: true
+        },
+        advanced: { autoScrollOnFocus: false }
+    });
 </script>

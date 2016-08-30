@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@ViewBag.Title - HR</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/layout")
@@ -16,89 +17,67 @@
     @RenderSection("scripts", required: false)
 </head>
 <body style="overflow:hidden;">
-    <div class="main-nav">
-        <div class="nav-top">
-            <div class="nav-name">
-                德晋人事管理系统
-            </div>
-
-            <div class="nav-right">
-                <div class="nav-user">
-                    <span> 欢迎您，Admin </span>
-                    <i class="caret" style="border-top: 4px solid #ecf0f1;" ></i>
-                    @*注销*@
-                </div>
-            </div>
+    <nav class="navbar navbar-inverse main-nav" style="margin-bottom:0;">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">HR</a>
         </div>
-        <div class="main-content">
-            <div class="nav-left">
-                <dl>
-                    <dt>
-                        基础数据
-                        <i class="glyphicon glyphicon-chevron-right"></i>
-                    </dt>
-                    <dd><a href="#">职位管理</a></dd>
-                    <dd><a href="#">人员类别管理</a></dd>
-                    <dd><a href="#">学历管理</a></dd>
-                    <dd><a href="#">证照类管理</a></dd>
-                    <dd><a href="#">保险类别管理</a></dd>
-                    <dd><a href="#">离职原因管理</a></dd>
-                    <dd><a href="#">缺勤类型管理</a></dd>
-                    <dd><a href="#">加班类型管理</a></dd>
-                </dl>
 
-                <dl>
-                    <dt class="nav-user">
-                        用户管理
-                        <i class="glyphicon glyphicon-chevron-right"></i>
-                    </dt>
-                    <dd><a href="#">权限管理</a></dd>
-                    <dd class="nav-staff">@Html.ActionLink("员工管理", "Index", "Staff")</dd>
-                </dl>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">用户管理<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">权限管理</a></li>
+                        <li><a href="#">@Html.ActionLink("员工管理", "Index", "Staff")</a></li>
+                    </ul>
+                </li>
 
-                <dl class="nav-company">
-                    <dt>
-                        @Html.ActionLink("公司管理", "Index", "Company")
-                    </dt>
-                </dl>
+                <li>
+                    @Html.ActionLink("公司管理", "Index", "Company")
+                </li>
 
-                <dl>
-                    <dt><a href="#">部门管理</a></dt>
-                </dl>
+                <li>
+                    <a href="#">部门管理</a>
+                </li>
 
-                <dl>
-                    <dt>
-                        考勤管理
-                        <i class="glyphicon glyphicon-chevron-right"></i>
-                    </dt>
-                    <dd><a href="/AttendanceRecordDetail">详细记录管理</a></dd>
-                </dl>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">考勤管理<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">权限管理</a></li>
+                        <li><a href="#">@Html.ActionLink("员工管理", "Index", "Staff")</a></li>
+                    </ul>
+                </li>
+            </ul>
+               
 
-                <dl>
-                    <dt><a href="#">班次管理</a></dt>
-                </dl>
-
-            </div>
-            <div class="nav-content content_3">
-                @RenderBody()
-            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        欢迎你， Admin
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">注销</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
+    </nav>
+
+    <div class="content_3">
+        @RenderBody()
     </div>
 
     <script type="text/javascript">
-        $(function(){
-            $(".nav-left dd").hide();
-            $(".nav-left dt").click(function () {
-                $(this).parent().find('dd').slideToggle();
-                if ($(this).find('i').hasClass('glyphicon-chevron-right')) {
-                    $(this).find('i').removeClass('glyphicon-chevron-right');
-                    $(this).find('i').addClass('glyphicon-chevron-down');
-                } else {
-                    $(this).find('i').removeClass('glyphicon-chevron-down');
-                    $(this).find('i').addClass('glyphicon-chevron-right');
-                }
-            });
-        })
+        $('.content_3').css({ height: $(window).height() - 40 + 'px' });
     </script>
 </body>
 </html>
