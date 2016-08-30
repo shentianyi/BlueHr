@@ -8,7 +8,7 @@
 
 @Styles.Render("~/Content/company")
 
-<ol class="breadcrumb current-position">
+<ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>公司管理</li>
 </ol>
@@ -17,14 +17,19 @@
 
 <div class="row" style="margin:0;">
     <form action="/Company/Search" method="get">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="display:flex;">
-            <div class="marco-igroup-primary">
-                <span>公司名称</span>
-                <input type="text" name="Name" id="Name" placeholder="公司名称" value="@ViewBag.Query.Name" />
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-8 col-md-8 col-sm-7 col-xs-6">
+                <div class="marco-igroup-primary">
+                    <span>公司名称</span>
+                    <input type="text" name="Name" id="Name" placeholder="公司名称" value="@ViewBag.Query.Name" />
+                </div>
+            </div>    
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
+                <button type="submit" class="marco-btn-success">
+                    <i class="glyphicon glyphicon-search"></i>
+                    搜索
+                </button>
             </div>
-            <button type="submit" class="marco-btn-primary">
-                <i class="glyphicon glyphicon-search"></i>
-            </button>
         </div>
     </form>
 </div>

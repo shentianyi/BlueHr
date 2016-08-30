@@ -6,7 +6,7 @@
     ViewBag.Title = "Index";
 }
 
-<ol class="breadcrumb current-position">
+<ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>用户管理</li>
     <li>员工管理</li>
@@ -95,11 +95,12 @@
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>进厂日期从</span>
-                    <input type="text" name="CompanyEmployAtFrom" id="CompanyEmployAtFrom" value="@ViewBag.Query.CompanyEmployAtFrom" placeholder="进厂日期"/>
-                    <span>到</span>
+                    <input type="text" style="max-width: 200px;" name="CompanyEmployAtFrom" id="CompanyEmployAtFrom" value="@ViewBag.Query.CompanyEmployAtFrom" placeholder="进厂日期"/>
+                    <span style="width: 50px;">到</span>
                     <input type="text" name="CompanyEmployAtTo" id="CompanyEmployAtTo" value="@ViewBag.Query.CompanyEmployAtTo" placeholder="进厂日期" />
                 </div>
             </div>
+
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>是否为试用期</span>
@@ -206,10 +207,10 @@
 
     $('.nav-content').css({ overflow: 'hidden' });
 
-    $('.table-body').css({ height: $(window).height() - 300 + 'px' });
+    $('.table-body').css({ height: $(window).height() - 310 + 'px' });
 
     $(window).resize(function () {
-        $('.table-body').css({ height: $(window).height() - 300 + 'px' });
+        $('.table-body').css({ height: $(window).height() - 310 + 'px' });
     });
 
     $('.table-body').mCustomScrollbar({
