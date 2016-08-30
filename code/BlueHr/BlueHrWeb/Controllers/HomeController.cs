@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BlueHrLib.Log;
+using Brilliantech.Framwork.Utils.LogUtil;
+//using BlueHrLib.Log;
 
 namespace BlueHrWeb.Controllers
 {
     public class HomeController : Controller
     {
-        ILogger logger = LogFactory.CreateLogger(typeof(HomeController));
+       // ILogger logger = LogFactory.CreateLogger(typeof(HomeController));
 
         public ActionResult Index()
         {
-            logger.Info("Home控制器");
+            LogUtil.Logger.Info("Home控制器");
             return View();
         }
 

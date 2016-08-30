@@ -39,9 +39,6 @@ namespace BlueHrLib.Data
     partial void InsertAbsenceType(AbsenceType instance);
     partial void UpdateAbsenceType(AbsenceType instance);
     partial void DeleteAbsenceType(AbsenceType instance);
-    partial void InsertAttendanceRecordDetail(AttendanceRecordDetail instance);
-    partial void UpdateAttendanceRecordDetail(AttendanceRecordDetail instance);
-    partial void DeleteAttendanceRecordDetail(AttendanceRecordDetail instance);
     partial void InsertBankCard(BankCard instance);
     partial void UpdateBankCard(BankCard instance);
     partial void DeleteBankCard(BankCard instance);
@@ -99,10 +96,13 @@ namespace BlueHrLib.Data
     partial void InsertAttendanceRecordCal(AttendanceRecordCal instance);
     partial void UpdateAttendanceRecordCal(AttendanceRecordCal instance);
     partial void DeleteAttendanceRecordCal(AttendanceRecordCal instance);
+    partial void InsertAttendanceRecordDetail(AttendanceRecordDetail instance);
+    partial void UpdateAttendanceRecordDetail(AttendanceRecordDetail instance);
+    partial void DeleteAttendanceRecordDetail(AttendanceRecordDetail instance);
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString2, mappingSource)
 		{
 			OnCreated();
 		}
@@ -160,14 +160,6 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<Attachment>();
-			}
-		}
-		
-		public System.Data.Linq.Table<AttendanceRecordDetail> AttendanceRecordDetail
-		{
-			get
-			{
-				return this.GetTable<AttendanceRecordDetail>();
 			}
 		}
 		
@@ -336,6 +328,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<AttendanceRecordCal>();
+			}
+		}
+		
+		public System.Data.Linq.Table<AttendanceRecordDetail> AttendanceRecordDetail
+		{
+			get
+			{
+				return this.GetTable<AttendanceRecordDetail>();
 			}
 		}
 	}
@@ -993,229 +993,6 @@ namespace BlueHrLib.Data
 				{
 					this._attachmentAbleType = value;
 				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AttendanceRecordDetail")]
-	public partial class AttendanceRecordDetail : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _staffNr;
-		
-		private System.DateTime _recordAt;
-		
-		private System.DateTime _createdAt;
-		
-		private string _soureType;
-		
-		private bool _isCalculated;
-		
-		private EntityRef<Staff> _Staff;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnstaffNrChanging(string value);
-    partial void OnstaffNrChanged();
-    partial void OnrecordAtChanging(System.DateTime value);
-    partial void OnrecordAtChanged();
-    partial void OncreatedAtChanging(System.DateTime value);
-    partial void OncreatedAtChanged();
-    partial void OnsoureTypeChanging(string value);
-    partial void OnsoureTypeChanged();
-    partial void OnisCalculatedChanging(bool value);
-    partial void OnisCalculatedChanged();
-    #endregion
-		
-		public AttendanceRecordDetail()
-		{
-			this._Staff = default(EntityRef<Staff>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string staffNr
-		{
-			get
-			{
-				return this._staffNr;
-			}
-			set
-			{
-				if ((this._staffNr != value))
-				{
-					if (this._Staff.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnstaffNrChanging(value);
-					this.SendPropertyChanging();
-					this._staffNr = value;
-					this.SendPropertyChanged("staffNr");
-					this.OnstaffNrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_recordAt", DbType="DateTime NOT NULL")]
-		public System.DateTime recordAt
-		{
-			get
-			{
-				return this._recordAt;
-			}
-			set
-			{
-				if ((this._recordAt != value))
-				{
-					this.OnrecordAtChanging(value);
-					this.SendPropertyChanging();
-					this._recordAt = value;
-					this.SendPropertyChanged("recordAt");
-					this.OnrecordAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdAt", DbType="Date NOT NULL")]
-		public System.DateTime createdAt
-		{
-			get
-			{
-				return this._createdAt;
-			}
-			set
-			{
-				if ((this._createdAt != value))
-				{
-					this.OncreatedAtChanging(value);
-					this.SendPropertyChanging();
-					this._createdAt = value;
-					this.SendPropertyChanged("createdAt");
-					this.OncreatedAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soureType", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string soureType
-		{
-			get
-			{
-				return this._soureType;
-			}
-			set
-			{
-				if ((this._soureType != value))
-				{
-					this.OnsoureTypeChanging(value);
-					this.SendPropertyChanging();
-					this._soureType = value;
-					this.SendPropertyChanged("soureType");
-					this.OnsoureTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isCalculated", DbType="Bit NOT NULL")]
-		public bool isCalculated
-		{
-			get
-			{
-				return this._isCalculated;
-			}
-			set
-			{
-				if ((this._isCalculated != value))
-				{
-					this.OnisCalculatedChanging(value);
-					this.SendPropertyChanging();
-					this._isCalculated = value;
-					this.SendPropertyChanged("isCalculated");
-					this.OnisCalculatedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_AttendanceRecordDetail", Storage="_Staff", ThisKey="staffNr", OtherKey="nr", IsForeignKey=true)]
-		public Staff Staff
-		{
-			get
-			{
-				return this._Staff.Entity;
-			}
-			set
-			{
-				Staff previousValue = this._Staff.Entity;
-				if (((previousValue != value) 
-							|| (this._Staff.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Staff.Entity = null;
-						previousValue.AttendanceRecordDetail.Remove(this);
-					}
-					this._Staff.Entity = value;
-					if ((value != null))
-					{
-						value.AttendanceRecordDetail.Add(this);
-						this._staffNr = value.nr;
-					}
-					else
-					{
-						this._staffNr = default(string);
-					}
-					this.SendPropertyChanged("Staff");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -4677,8 +4454,6 @@ namespace BlueHrLib.Data
 		
 		private EntitySet<AbsenceRecrod> _AbsenceRecrod;
 		
-		private EntitySet<AttendanceRecordDetail> _AttendanceRecordDetail;
-		
 		private EntitySet<BankCard> _BankCard;
 		
 		private EntitySet<Certificate> _Certificate;
@@ -4692,6 +4467,8 @@ namespace BlueHrLib.Data
 		private EntitySet<ShiftSchedule> _ShiftSchedule;
 		
 		private EntitySet<AttendanceRecordCal> _AttendanceRecordCal;
+		
+		private EntitySet<AttendanceRecordDetail> _AttendanceRecordDetail;
 		
 		private EntityRef<Company> _Company;
 		
@@ -4784,7 +4561,6 @@ namespace BlueHrLib.Data
 		public Staff()
 		{
 			this._AbsenceRecrod = new EntitySet<AbsenceRecrod>(new Action<AbsenceRecrod>(this.attach_AbsenceRecrod), new Action<AbsenceRecrod>(this.detach_AbsenceRecrod));
-			this._AttendanceRecordDetail = new EntitySet<AttendanceRecordDetail>(new Action<AttendanceRecordDetail>(this.attach_AttendanceRecordDetail), new Action<AttendanceRecordDetail>(this.detach_AttendanceRecordDetail));
 			this._BankCard = new EntitySet<BankCard>(new Action<BankCard>(this.attach_BankCard), new Action<BankCard>(this.detach_BankCard));
 			this._Certificate = new EntitySet<Certificate>(new Action<Certificate>(this.attach_Certificate), new Action<Certificate>(this.detach_Certificate));
 			this._FamilyMemeber = new EntitySet<FamilyMemeber>(new Action<FamilyMemeber>(this.attach_FamilyMemeber), new Action<FamilyMemeber>(this.detach_FamilyMemeber));
@@ -4792,6 +4568,7 @@ namespace BlueHrLib.Data
 			this._ResignRecord = new EntitySet<ResignRecord>(new Action<ResignRecord>(this.attach_ResignRecord), new Action<ResignRecord>(this.detach_ResignRecord));
 			this._ShiftSchedule = new EntitySet<ShiftSchedule>(new Action<ShiftSchedule>(this.attach_ShiftSchedule), new Action<ShiftSchedule>(this.detach_ShiftSchedule));
 			this._AttendanceRecordCal = new EntitySet<AttendanceRecordCal>(new Action<AttendanceRecordCal>(this.attach_AttendanceRecordCal), new Action<AttendanceRecordCal>(this.detach_AttendanceRecordCal));
+			this._AttendanceRecordDetail = new EntitySet<AttendanceRecordDetail>(new Action<AttendanceRecordDetail>(this.attach_AttendanceRecordDetail), new Action<AttendanceRecordDetail>(this.detach_AttendanceRecordDetail));
 			this._Company = default(EntityRef<Company>);
 			this._DegreeType = default(EntityRef<DegreeType>);
 			this._Department = default(EntityRef<Department>);
@@ -5113,7 +4890,7 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary photo
 		{
 			get
@@ -5538,19 +5315,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_AttendanceRecordDetail", Storage="_AttendanceRecordDetail", ThisKey="nr", OtherKey="staffNr")]
-		public EntitySet<AttendanceRecordDetail> AttendanceRecordDetail
-		{
-			get
-			{
-				return this._AttendanceRecordDetail;
-			}
-			set
-			{
-				this._AttendanceRecordDetail.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_BankCard", Storage="_BankCard", ThisKey="nr", OtherKey="staffNr")]
 		public EntitySet<BankCard> BankCard
 		{
@@ -5639,6 +5403,19 @@ namespace BlueHrLib.Data
 			set
 			{
 				this._AttendanceRecordCal.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_AttendanceRecordDetail", Storage="_AttendanceRecordDetail", ThisKey="nr", OtherKey="staffNr")]
+		public EntitySet<AttendanceRecordDetail> AttendanceRecordDetail
+		{
+			get
+			{
+				return this._AttendanceRecordDetail;
+			}
+			set
+			{
+				this._AttendanceRecordDetail.Assign(value);
 			}
 		}
 		
@@ -5878,18 +5655,6 @@ namespace BlueHrLib.Data
 			entity.Staff = null;
 		}
 		
-		private void attach_AttendanceRecordDetail(AttendanceRecordDetail entity)
-		{
-			this.SendPropertyChanging();
-			entity.Staff = this;
-		}
-		
-		private void detach_AttendanceRecordDetail(AttendanceRecordDetail entity)
-		{
-			this.SendPropertyChanging();
-			entity.Staff = null;
-		}
-		
 		private void attach_BankCard(BankCard entity)
 		{
 			this.SendPropertyChanging();
@@ -5969,6 +5734,18 @@ namespace BlueHrLib.Data
 		}
 		
 		private void detach_AttendanceRecordCal(AttendanceRecordCal entity)
+		{
+			this.SendPropertyChanging();
+			entity.Staff = null;
+		}
+		
+		private void attach_AttendanceRecordDetail(AttendanceRecordDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Staff = this;
+		}
+		
+		private void detach_AttendanceRecordDetail(AttendanceRecordDetail entity)
 		{
 			this.SendPropertyChanging();
 			entity.Staff = null;
@@ -6705,6 +6482,229 @@ namespace BlueHrLib.Data
 					if ((value != null))
 					{
 						value.AttendanceRecordCal.Add(this);
+						this._staffNr = value.nr;
+					}
+					else
+					{
+						this._staffNr = default(string);
+					}
+					this.SendPropertyChanged("Staff");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AttendanceRecordDetail")]
+	public partial class AttendanceRecordDetail : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _staffNr;
+		
+		private System.DateTime _recordAt;
+		
+		private System.Nullable<System.DateTime> _createdAt;
+		
+		private string _soureType;
+		
+		private bool _isCalculated;
+		
+		private EntityRef<Staff> _Staff;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnstaffNrChanging(string value);
+    partial void OnstaffNrChanged();
+    partial void OnrecordAtChanging(System.DateTime value);
+    partial void OnrecordAtChanged();
+    partial void OncreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OncreatedAtChanged();
+    partial void OnsoureTypeChanging(string value);
+    partial void OnsoureTypeChanged();
+    partial void OnisCalculatedChanging(bool value);
+    partial void OnisCalculatedChanged();
+    #endregion
+		
+		public AttendanceRecordDetail()
+		{
+			this._Staff = default(EntityRef<Staff>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string staffNr
+		{
+			get
+			{
+				return this._staffNr;
+			}
+			set
+			{
+				if ((this._staffNr != value))
+				{
+					if (this._Staff.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnstaffNrChanging(value);
+					this.SendPropertyChanging();
+					this._staffNr = value;
+					this.SendPropertyChanged("staffNr");
+					this.OnstaffNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_recordAt", DbType="DateTime NOT NULL")]
+		public System.DateTime recordAt
+		{
+			get
+			{
+				return this._recordAt;
+			}
+			set
+			{
+				if ((this._recordAt != value))
+				{
+					this.OnrecordAtChanging(value);
+					this.SendPropertyChanging();
+					this._recordAt = value;
+					this.SendPropertyChanged("recordAt");
+					this.OnrecordAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> createdAt
+		{
+			get
+			{
+				return this._createdAt;
+			}
+			set
+			{
+				if ((this._createdAt != value))
+				{
+					this.OncreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._createdAt = value;
+					this.SendPropertyChanged("createdAt");
+					this.OncreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_soureType", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string soureType
+		{
+			get
+			{
+				return this._soureType;
+			}
+			set
+			{
+				if ((this._soureType != value))
+				{
+					this.OnsoureTypeChanging(value);
+					this.SendPropertyChanging();
+					this._soureType = value;
+					this.SendPropertyChanged("soureType");
+					this.OnsoureTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isCalculated", DbType="Bit NOT NULL")]
+		public bool isCalculated
+		{
+			get
+			{
+				return this._isCalculated;
+			}
+			set
+			{
+				if ((this._isCalculated != value))
+				{
+					this.OnisCalculatedChanging(value);
+					this.SendPropertyChanging();
+					this._isCalculated = value;
+					this.SendPropertyChanged("isCalculated");
+					this.OnisCalculatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_AttendanceRecordDetail", Storage="_Staff", ThisKey="staffNr", OtherKey="nr", IsForeignKey=true)]
+		public Staff Staff
+		{
+			get
+			{
+				return this._Staff.Entity;
+			}
+			set
+			{
+				Staff previousValue = this._Staff.Entity;
+				if (((previousValue != value) 
+							|| (this._Staff.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Staff.Entity = null;
+						previousValue.AttendanceRecordDetail.Remove(this);
+					}
+					this._Staff.Entity = value;
+					if ((value != null))
+					{
+						value.AttendanceRecordDetail.Add(this);
 						this._staffNr = value.nr;
 					}
 					else

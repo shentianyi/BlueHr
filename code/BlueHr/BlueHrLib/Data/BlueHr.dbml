@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHr" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=WANGSONG-PC\MSSQLSERVER2008R;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=Charlot-PC\MSSQLSERVER20082;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString2" Provider="System.Data.SqlClient" />
   <Table Name="dbo.AbsenceRecrod" Member="AbsenceRecrod">
     <Type Name="AbsenceRecrod">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -36,17 +36,6 @@
       <Column Name="path" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="attachmentAbleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="attachmentAbleType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.AttendanceRecordDetail" Member="AttendanceRecordDetail">
-    <Type Name="AttendanceRecordDetail">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="recordAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="createdAt" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="soureType" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="isCalculated" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="Staff_AttendanceRecordDetail" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.BankCard" Member="BankCard">
@@ -264,7 +253,6 @@
       <Column Name="totalSeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="Staff_AbsenceRecrod" Member="AbsenceRecrod" ThisKey="nr" OtherKey="staffNr" Type="AbsenceRecrod" />
-      <Association Name="Staff_AttendanceRecordDetail" Member="AttendanceRecordDetail" ThisKey="nr" OtherKey="staffNr" Type="AttendanceRecordDetail" />
       <Association Name="Staff_BankCard" Member="BankCard" ThisKey="nr" OtherKey="staffNr" Type="BankCard" />
       <Association Name="Staff_Certificate" Member="Certificate" ThisKey="nr" OtherKey="staffNr" Type="Certificate" />
       <Association Name="Staff_ExtraWorkRecord" Member="ExtraWorkRecord" ThisKey="nr" OtherKey="staffNr" Type="ExtraWorkRecord" />
@@ -273,6 +261,7 @@
       <Association Name="Staff_ResignRecord" Member="ResignRecord" ThisKey="nr" OtherKey="staffNr" Type="ResignRecord" />
       <Association Name="Staff_ShiftSchedule" Member="ShiftSchedule" ThisKey="nr" OtherKey="staffNr" Type="ShiftSchedule" />
       <Association Name="Staff_AttendanceRecordCal" Member="AttendanceRecordCal" ThisKey="nr" OtherKey="staffNr" Type="AttendanceRecordCal" />
+      <Association Name="Staff_AttendanceRecordDetail" Member="AttendanceRecordDetail" ThisKey="nr" OtherKey="staffNr" Type="AttendanceRecordDetail" />
       <Association Name="Company_Staff" Member="Company" ThisKey="companyId" OtherKey="id" Type="Company" IsForeignKey="true" />
       <Association Name="DegreeType_Staff" Member="DegreeType" ThisKey="degreeTypeId" OtherKey="id" Type="DegreeType" IsForeignKey="true" />
       <Association Name="Department_Staff" Member="Department" ThisKey="departmentId" OtherKey="id" Type="Department" IsForeignKey="true" />
@@ -321,6 +310,17 @@
       <Column Name="isException" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="exceptionCodes" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="Staff_AttendanceRecordCal" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AttendanceRecordDetail" Member="AttendanceRecordDetail">
+    <Type Name="AttendanceRecordDetail">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="recordAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="soureType" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="isCalculated" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Staff_AttendanceRecordDetail" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

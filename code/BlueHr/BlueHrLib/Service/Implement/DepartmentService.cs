@@ -1,7 +1,7 @@
 ﻿using BlueHrLib.Data;
 using BlueHrLib.Data.Repository.Implement;
 using BlueHrLib.Data.Repository.Interface;
-using BlueHrLib.Log;
+//using BlueHrLib.Log;
 using BlueHrLib.Service.Interface;
 
 namespace BlueHrLib.Service.Implement
@@ -9,7 +9,7 @@ namespace BlueHrLib.Service.Implement
     public class DepartmentService : ServiceBase, IDepartmentService
     {
 
-        ILogger logger = LogFactory.CreateLogger(typeof(DepartmentService));
+        //ILogger logger = LogFactory.CreateLogger(typeof(DepartmentService));
 
         IDepartmentRepository depRep;
 

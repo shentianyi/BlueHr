@@ -15,7 +15,7 @@ namespace TestCon
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(" 1. create staff \n 2.create shiftshedule\n 3.create record\n");
+            Console.WriteLine(" 1. create staff \n 2.create shiftshedule\n 3.create record\n 4.calcualte staff attendance");
             string ke = Console.ReadLine();
             DateTime st = DateTime.Now;
             switch (ke)
@@ -28,6 +28,12 @@ namespace TestCon
                     break;
                 case "3":
                     CreateAttRecord();
+                    break;
+                case "4":
+                    Console.WriteLine("input date:");
+                    DateTime date = DateTime.Parse( Console.ReadLine()).Date;
+                    AttendanceRecordService ars = new AttendanceRecordService(Settings.Default.db);
+                    ars.CalculateAttendRecord(date);
                     break;
                 default:
                     break;

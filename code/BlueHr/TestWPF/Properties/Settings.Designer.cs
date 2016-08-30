@@ -25,8 +25,8 @@ namespace TestWPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=WANGSONG-PC\\MSSQLSERVER2008R;Initial Catalog=BlueHr;Persist Security " +
-            "Info=True;User ID=sa;Password=123456@")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=Charlot-PC\\MSSQLSERVER20082;Initial Catalog=BlueHr;Persist Security I" +
+            "nfo=True;User ID=sa;Password=123456@")]
         public string db {
             get {
                 return ((string)(this["db"]));
