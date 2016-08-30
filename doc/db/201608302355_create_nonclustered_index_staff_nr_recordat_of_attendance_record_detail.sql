@@ -1,0 +1,12 @@
+USE [BlueHr]
+GO
+
+/****** Object:  Index [NONCLUSTERED_KEY_StaffNrAsc_RecrodAtDesc]    Script Date: 08/31/2016 01:04:48 ******/
+CREATE NONCLUSTERED INDEX [NONCLUSTERED_KEY_StaffNrAsc_RecrodAtDesc] ON [dbo].[AttendanceRecordDetail] 
+(
+	[staffNr] ASC,
+	[recordAt] DESC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+
+

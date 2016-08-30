@@ -11,6 +11,16 @@ namespace BlueHrLib.Data
     {
         public bool isRepeatedData { get; set; }
 
+        public DateTime recordAtDate
+        {
+            get { return this.recordAt.Date; }
+        }
+
+        public TimeSpan recordAtTime
+        {
+            get { return this.recordAt.TimeOfDay; }
+        }
+
 
     }
 }

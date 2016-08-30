@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using BlueHrLib.Data.Model.Search;
+using BlueHrLib.Data.Repository.Interface;
+using BlueHrLib.Data.Repository.Implement;
 
 namespace BlueHrLib.Service.Implement
 {
@@ -166,7 +169,13 @@ namespace BlueHrLib.Service.Implement
             }
         }
 
-        public void MarkRepeatRecord(List<AttendanceRecordDetail> records, float repeatFlag)
+        public IQueryable<AttendanceRecordDetail> SearchDetail(AttendanceRecordDetailSearchModel searchModel)
+        {
+            IAttendanceRecordDetailRepository rep = new AttendanceRecordDetailRepository(new DataContext(this.DbString));
+            return rep.Search(searchModel);
+        }
+
+        private void MarkRepeatRecord(List<AttendanceRecordDetail> records, float repeatFlag)
         {
             for(int i=0;i<records.Count-1;i++)
             {
@@ -174,7 +183,7 @@ namespace BlueHrLib.Service.Implement
             }
         }
 
-        public void MarkRepeatRecordCompare(AttendanceRecordDetail baseRecord,List<AttendanceRecordDetail> records, float repeatFlag)
+        private void MarkRepeatRecordCompare(AttendanceRecordDetail baseRecord,List<AttendanceRecordDetail> records, float repeatFlag)
         {
             foreach (var r in records)
             {

@@ -3,15 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BlueHrLib.Data;
+using BlueHrLib.Data.Model.Search;
+using BlueHrLib.Service.Implement;
+using BlueHrLib.Service.Interface;
+using BlueHrWeb.Helpers;
+using BlueHrWeb.Properties;
+using MvcPaging;
 
 namespace BlueHrWeb.Controllers
 {
     public class AttendanceRecordDetailController : Controller
     {
         // GET: AttendanceRecordDetail
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View();
+            int pageIndex = PagingHelper.GetPageIndex(page);
+            AttendanceRecordDetailSearchModel q = new AttendanceRecordDetailSearchModel();
+            IAttendanceRecordService ss = new AttendanceRecordService(Settings.Default.db);
+         
+            IPagedList<AttendanceRecordDetail> records = ss.SearchDetail(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+
+            return View(records);
+        }
+
+        public ActionResult Search([Bind(Include = "StaffNr")] AttendanceRecordDetailSearchModel q)
+        {
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            IAttendanceRecordService ss = new AttendanceRecordService(Settings.Default.db);
+
+            IPagedList<AttendanceRecordDetail> records = ss.SearchDetail(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+
+            return View("Index", records);
         }
     }
 }
