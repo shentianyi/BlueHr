@@ -59,7 +59,7 @@ namespace BlueHrLib.Data.Repository.Implement
             IQueryable<Company> companies = this.context.Company;
             if (!string.IsNullOrEmpty(searchModel.Name))
             {
-                companies = companies.Where(c => c.name.Contains(searchModel.Name));
+                companies = companies.Where(c => c.name.Contains(searchModel.Name.Trim()));
             }
             return companies;
         }

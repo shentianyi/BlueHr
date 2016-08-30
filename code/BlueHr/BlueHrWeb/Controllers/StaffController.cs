@@ -1,5 +1,6 @@
 ﻿using BlueHrLib.Data;
 using BlueHrLib.Data.Model.Search;
+using BlueHrLib.Helper;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
 using BlueHrWeb.Helpers;
@@ -28,6 +29,9 @@ namespace BlueHrWeb.Controllers
 
             ViewBag.Query = q;
 
+            SetIsOnTrialList(null);
+            SetSexList(null);
+
             return View(staffs);
         }
 
@@ -42,6 +46,9 @@ namespace BlueHrWeb.Controllers
             IPagedList<Staff> staffs = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
+
+            SetIsOnTrialList(q.IsOnTrial);
+            SetSexList(q.Sex);
 
             return View("Index", staffs);
         }
@@ -131,6 +138,56 @@ namespace BlueHrWeb.Controllers
             {
                 return View();
             }
+        }
+
+        private void SetIsOnTrialList(int? type, bool allowBlank = true)
+        {
+            List<EnumItem> item = EnumHelper.GetList(typeof(IsOnTrail));
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in item)
+            {
+                if (type.HasValue && type.ToString().Equals(it.Value))
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                }
+            }
+            ViewData["isOnTrialList"] = select;
+        }
+
+        private void SetSexList(int? type, bool allowBlank = true)
+        {
+            List<EnumItem> item = EnumHelper.GetList(typeof(Sex));
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in item)
+            {
+                if (type.HasValue && type.ToString().Equals(it.Value))
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                }
+            }
+            ViewData["sexList"] = select;
         }
     }
 }

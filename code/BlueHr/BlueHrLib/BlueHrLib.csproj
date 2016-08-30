@@ -57,8 +57,10 @@
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Data\Enum\AttendanceExceptionType.cs" />
     <Compile Include="Data\Enum\AttendanceRecordSourceType.cs" />
+    <Compile Include="Data\Enum\EnumItem.cs" />
     <Compile Include="Data\Enum\ShiftType.cs" />
     <Compile Include="Data\Enum\SystemCertificateType.cs" />
+    <Compile Include="Data\Enum\StaffEnum.cs" />
     <Compile Include="Data\Model\Department.cs" />
     <Compile Include="Data\Enum\WorkStatus.cs" />
     <Compile Include="Data\Model\PageViewModel\CompanyInfoModel.cs" />
