@@ -23,22 +23,22 @@ namespace BlueHrLib.Data.Repository.Implement
 
             if (!string.IsNullOrWhiteSpace(searchModel.Nr))
             {
-                staffs = staffs.Where(c => c.nr.Contains(searchModel.Nr));
+                staffs = staffs.Where(c => c.nr.Contains(searchModel.Nr.Trim()));
             }
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
             {
-                staffs = staffs.Where(c => c.name.Contains(searchModel.Name));
+                staffs = staffs.Where(c => c.name.Contains(searchModel.Name.Trim()));
             }
 
             if (!string.IsNullOrWhiteSpace(searchModel.Id))
             {
-                staffs = staffs.Where(c => c.id.Contains(searchModel.Id));
+                staffs = staffs.Where(c => c.id.Contains(searchModel.Id.Trim()));
             }
 
-            if (!string.IsNullOrWhiteSpace(searchModel.Sex))
+            if (searchModel.Sex.HasValue)
             {
-                staffs = staffs.Where(c => c.sex.Contains(searchModel.Sex));
+                staffs = staffs.Where(c => c.sex.Equals(searchModel.Sex));
             }
 
             if (searchModel.JobTitleId.HasValue)

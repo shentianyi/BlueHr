@@ -12,6 +12,7 @@ Layout.init = function () {
         case "Staff":
             $('.nav-user').addClass('active');
             $('.nav-staff').addClass('active');
+            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
             break;
         default:
             break;
@@ -35,4 +36,37 @@ Layout.init = function () {
             vueName.actionBtn = deleteBtn;
         }
     }
+}
+
+Layout.datepicker = function (date_picker) {
+    $(date_picker).datetimepicker({
+        formatDate: 'Y/m/d',
+        timepicker: false
+    });
+}
+
+Layout.datetimepicker = function (date_time_picker) {
+    $(date_time_picker).datetimepicker();
+}
+
+Layout.rangedatepicker = function (date_picker_start, date_picker_end) {
+    $(date_picker_start).datetimepicker({
+        format: 'Y/m/d',
+        onShow: function (ct) {
+            this.setOptions({
+                maxDate: $(date_picker_end).val() ? $(date_picker_end).val() : false
+            })
+        },
+        timepicker: false
+    });
+
+    $(date_picker_end).datetimepicker({
+        format: 'Y/m/d',
+        onShow: function (ct) {
+            this.setOptions({
+                minDate: $(date_picker_start).val() ? $(date_picker_start).val() : false
+            })
+        },
+        timepicker: false
+    });
 }

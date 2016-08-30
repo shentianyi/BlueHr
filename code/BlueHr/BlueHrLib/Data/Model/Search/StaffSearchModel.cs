@@ -11,7 +11,8 @@ namespace BlueHrLib.Data.Model.Search
         public string Nr { get; set; }
         public string Name { get; set; }
         public string Id { get; set; }
-        public string Sex { get; set; }
+        public int? Sex { get; set; }
+
         public int? JobTitleId { get; set; }
         //二级联动
         public int? CompanyId { get; set; }
@@ -20,6 +21,6 @@ namespace BlueHrLib.Data.Model.Search
         public DateTime? CompanyEmployAtFrom { get; set; }
         public DateTime? CompanyEmployAtTo { get; set; }
 
-        public bool? IsOnTrial { get; set; }
+        public int? IsOnTrial { get; set; }
     }
 }
