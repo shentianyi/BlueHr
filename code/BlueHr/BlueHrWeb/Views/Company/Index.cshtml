@@ -62,7 +62,8 @@
                                     @Html.DisplayFor(modelItem => item.name)
                                     <span class="badge pull-right marco-badge" title="公司部门">
                                         <a href="@Url.Action("FindByCompanyId", "Department", new { companyId = item.id})">
-                                            @ViewBag.Info.departmentCount
+                                            @*@ViewBag.Info.departmentCount*@
+                                            部门
                                         </a>
                                     </span>
                                 </td>

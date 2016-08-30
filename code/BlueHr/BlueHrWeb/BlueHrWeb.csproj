@@ -347,6 +347,8 @@
     <Content Include="Views\AttendanceRecordDetail\Index.cshtml" />
     <Content Include="Views\Company\_PartialCompany.cshtml" />
     <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Views\Staff\Create.cshtml" />
+    <Content Include="Views\Staff\_PartialStaff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,6 +9,10 @@ Layout.init = function () {
             $('.nav-company').addClass('active');
             PageAction('#company', '新建公司', '编辑公司', '公司详情', '创建', '更新', '删除');
             break;
+        case "Staff":
+            $('.nav-user').addClass('active');
+            $('.nav-staff').addClass('active');
+            break;
         default:
             break;
     }

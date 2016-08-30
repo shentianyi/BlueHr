@@ -66,7 +66,10 @@ namespace BlueHrLib.Data.Repository.Implement
                 staffs = staffs.Where(c => c.companyEmployAt < searchModel.CompanyEmployAtTo);
             }
 
-            staffs = staffs.Where(c => c.isOnTrial.Equals(searchModel.IsOnTrial));
+            if (searchModel.IsOnTrial.HasValue)
+            {
+                staffs = staffs.Where(c => c.isOnTrial.Equals(searchModel.IsOnTrial));
+            }
 
             return staffs;
         }

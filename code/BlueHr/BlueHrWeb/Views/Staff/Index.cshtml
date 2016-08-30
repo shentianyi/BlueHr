@@ -14,6 +14,106 @@
 
 <hr class="hr-grey" />
 
+
+@*Search*@
+<div class="search">
+    <form action="/Staff/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>身份证</span>
+                    <input type="text" name="Id" id="Id" value="@ViewBag.Query.Id" placeholder="身份证号码" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>员工号</span>
+                    <input type="text" name="Nr" id="Nr" value="@ViewBag.Query.Nr" placeholder="员工号" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>姓名</span>
+                    <input type="text" name="Name" id="Name" value="@ViewBag.Query.Name" placeholder="姓名" />
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-bgroup">
+                    <button type="submit" class="marco-btn-success pull-left">
+                        <i class="fa fa-search"></i>
+                        <span>搜索</span>
+                    </button>
+
+                    <button type="button" class="marco-btn-primary advanced-filter-btn pull-right" title="高级搜索">
+                        <i class="fa fa-filter"></i>
+                        <span>高级搜索</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="advanced-filter row" style="margin:0;display:none;z-index: 10000;">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>性别</span>
+                    <select>
+                        <option>男</option>
+                        <option>女</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>公司</span>
+                    <select>
+                        <option>0</option>
+                        <option>1</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>部门</span>
+                    <select>
+                        <option>001</option>
+                        <option>002</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>职位</span>
+                    <select>
+                        <option>0001</option>
+                        <option>0002</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>进厂日期从</span>
+                    <input type="text" name="CompanyEmployAtFrom" id="CompanyEmployAtFrom" value="@ViewBag.Query.CompanyEmployAtFrom" placeholder="进厂日期"/>
+                    <span>到</span>
+                    <input type="text" name="CompanyEmployAtTo" id="CompanyEmployAtTo" value="@ViewBag.Query.CompanyEmployAtTo" placeholder="进厂日期" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>是否为试用期</span>
+                    <select>
+                        <option>是</option>
+                        <option>否</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@*list show*@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="usual-table">
         <div class="table-heading">
@@ -68,7 +168,6 @@
                                     <a href="/Staff/Edit/@item.id" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-
                                 </td>
                             </tr>
                         }
@@ -103,5 +202,29 @@
 
 <script type="text/javascript">
     Layout.init();
+    //不允许滚动
+
+    $('.nav-content').css({ overflow: 'hidden' });
+
+    $('.table-body').css({ height: $(window).height() - 300 + 'px' });
+
+    $(window).resize(function () {
+        $('.table-body').css({ height: $(window).height() - 300 + 'px' });
+    });
+
+    $('.table-body').mCustomScrollbar({
+        scrollInertia: 600,
+        autoDraggerLength: false
+    });
+
+   
+    $('.advanced-filter-btn').click(function () {
+        var Display = $('.advanced-filter').css('display');
+        if (Display === "none") {
+            $('.advanced-filter').slideDown();
+        } else {
+            $('.advanced-filter').slideUp();
+        }
+    });
 </script>
 

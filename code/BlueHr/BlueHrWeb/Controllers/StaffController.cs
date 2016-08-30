@@ -61,15 +61,15 @@ namespace BlueHrWeb.Controllers
 
         // POST: Company/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Name, remark, address")] Company company)
+        public ActionResult Create([Bind(Include = "Name, remark, address")] Staff staff)
         {
             try
             {
                 // TODO: Add insert logic here
 
-                ICompanyService cs = new CompanyService(Settings.Default.db);
+                IStaffService ss = new StaffService(Settings.Default.db);
 
-                cs.Create(company);
+                //ss.Create(staff);
 
                 return RedirectToAction("Index");
             }

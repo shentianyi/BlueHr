@@ -15,7 +15,7 @@
     @Scripts.Render("~/bundles/vue")
     @RenderSection("scripts", required: false)
 </head>
-<body>
+<body style="overflow:hidden;">
     <div class="main-nav">
         <div class="nav-top">
             <div class="nav-name">
@@ -48,12 +48,12 @@
                 </dl>
 
                 <dl>
-                    <dt>
+                    <dt class="nav-user">
                         用户管理
                         <i class="glyphicon glyphicon-chevron-right"></i>
                     </dt>
                     <dd><a href="#">权限管理</a></dd>
-                    <dd>@Html.ActionLink("员工管理", "Index", "Staff")</dd>
+                    <dd class="nav-staff">@Html.ActionLink("员工管理", "Index", "Staff")</dd>
                 </dl>
 
                 <dl class="nav-company">
@@ -79,7 +79,7 @@
                 </dl>
 
             </div>
-            <div class="nav-content">
+            <div class="nav-content content_3">
                 @RenderBody()
             </div>
         </div>
