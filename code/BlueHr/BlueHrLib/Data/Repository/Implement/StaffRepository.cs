@@ -17,6 +17,23 @@ namespace BlueHrLib.Data.Repository.Implement
             this.context = dc.Context as BlueHrDataContext;
         }
 
+        public bool Create(Staff staff)
+        {
+            if (staff != null)
+            {
+                try
+                {
+                    this.context.GetTable<Staff>().InsertOnSubmit(staff);
+                    this.context.SubmitChanges();
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public IQueryable<Staff> Search(StaffSearchModel searchModel)
         {
             IQueryable<Staff> staffs = this.context.Staff;

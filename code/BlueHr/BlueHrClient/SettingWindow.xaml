@@ -29,18 +29,31 @@
         </GroupBox>
 
         <GroupBox x:Name="save" Grid.Row="1" Header="保存" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Height="100" Width="400" Background="Transparent">
-            <UniformGrid Rows="2">
+            <UniformGrid Rows="3">
                 <CheckBox x:Name="saveNotes" Content="保存记录" Checked="saveNotesSelected" Unchecked="saveNotesUnSelected"/>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="pathTextBlock" Grid.Column="0" Text="保存位置：" VerticalAlignment="Center"/>
-                    <TextBox x:Name="pathTextBox" Grid.Column="1" AcceptsReturn="False" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
-                    <Button x:Name="saveButton" Grid.Column="2" Content="。。。" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Click="saveAddClick"/>
-                </Grid>
+                <DockPanel>
+                    <TextBlock x:Name="filePathTitle" Text="文档位置：" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="filePath" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center"
+                               Cursor="Hand"
+                               Foreground="Blue" 
+                               TextDecorations="Baseline" 
+                               MouseDown="filePathClick"
+                               FontStyle="Italic"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock x:Name="photoPathTitle" Text="照片位置：" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="photoPath" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Center" 
+                               Cursor="Hand"
+                               Foreground="Blue"  
+                               TextDecorations="Baseline"
+                               MouseDown="photoPathClick"
+                               FontStyle="Italic"/>
+                </DockPanel>
+
             </UniformGrid>
         </GroupBox>
     </Grid>

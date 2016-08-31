@@ -40,8 +40,9 @@ Layout.init = function () {
 
 Layout.datepicker = function (date_picker) {
     $(date_picker).datetimepicker({
-        formatDate: 'Y/m/d',
-        timepicker: false
+        timepicker: false,
+        format: 'Y-m-d',
+        mask: true
     });
 }
 

@@ -240,6 +240,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Bundler.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttendanceRecordDetailController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
@@ -291,6 +292,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\mCSB_buttons.png" />
+    <Content Include="README.txt" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -312,7 +314,6 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <None Include="Properties\PublishProfiles\BlueHrPubConfig.pubxml" />
     <None Include="Properties\PublishProfiles\BlueHrWebPubConfig.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -443,9 +444,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\packages\Delegate.SassBuilder.1.4.0\build\Delegate.SassBuilder.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Delegate.SassBuilder.1.4.0\build\Delegate.SassBuilder.targets'))" />
   </Target>
-  <Import Project="..\packages\Delegate.SassBuilder.1.4.0\build\Delegate.SassBuilder.targets" Condition="Exists('..\packages\Delegate.SassBuilder.1.4.0\build\Delegate.SassBuilder.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

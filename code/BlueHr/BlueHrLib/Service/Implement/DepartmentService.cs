@@ -1,4 +1,7 @@
-﻿using BlueHrLib.Data;
+﻿using System;
+using System.Linq;
+using BlueHrLib.Data;
+using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Implement;
 using BlueHrLib.Data.Repository.Interface;
 //using BlueHrLib.Log;
@@ -29,9 +32,19 @@ namespace BlueHrLib.Service.Implement
             return depRep.DeleteById(id);
         }
 
+        public IQueryable<Department> FindByCompanyId(int? id)
+        {
+            return depRep.FindByCompanyId(id);
+        }
+
         public Department FindById(int id)
         {
             return depRep.FindById(id);
+        }
+
+        public IQueryable<Department> Search(DepartmentSearchModel searchModel)
+        {
+            return depRep.Search(searchModel);
         }
 
         public bool Update(Department department)

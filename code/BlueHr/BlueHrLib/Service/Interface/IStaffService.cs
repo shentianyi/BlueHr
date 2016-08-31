@@ -57,5 +57,7 @@ namespace BlueHrLib.Service.Interface
         IQueryable<Staff> Search(StaffSearchModel searchModel);
 
         void Creates(List<Staff> staffs);
+
+        void Create(Staff staff);
     }
 }

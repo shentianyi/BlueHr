@@ -128,9 +128,18 @@ namespace BlueHrLib.Service.Implement
             dc.Context.SubmitChanges();
         }
 
+
         public Staff FindByNr(string nr)
         {
           return  new DataContext(this.DbString).Context.GetTable<Staff>().FirstOrDefault(s => s.nr.Equals(nr));
+        }
+
+        public void Create(Staff staff)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            IStaffRepository staffRep = new StaffRepository(dc);
+
+            staffRep.Create(staff);
         }
     }
 }
