@@ -9,5 +9,15 @@ namespace BlueHrLib.Data.Repository.Interface
     interface IStaffTypeRepository
     {
         IQueryable<StaffType> Search(StaffTypeSearchModel searchModel);
+
+        IQueryable<StaffType> FindByAll();
+
+        bool Create(StaffType staffType);
+
+        StaffType FindById(int id);
+
+        bool Update(StaffType staffType);
+
+        bool DeleteById(int id);
     }
 }

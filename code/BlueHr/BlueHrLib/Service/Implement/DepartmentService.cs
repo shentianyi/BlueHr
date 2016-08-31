@@ -14,7 +14,7 @@ namespace BlueHrLib.Service.Implement
 
         //ILogger logger = LogFactory.CreateLogger(typeof(DepartmentService));
 
-        IDepartmentRepository depRep;
+        private IDepartmentRepository depRep;
 
         public DepartmentService(string dbString) : base(dbString)
         {
@@ -22,8 +22,6 @@ namespace BlueHrLib.Service.Implement
         }
         public bool Create(Department department)
         {
-            var dc = new DataContext(this.DbString);
-
             return depRep.Create(department);
         }
 

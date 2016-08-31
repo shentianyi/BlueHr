@@ -3,8 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="db" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Data Source=WANGSONG-PC\MSSQLSERVER2008R;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa;Password=123456@"
-            providerName="System.Data.SqlClient</Value>
+      <Value Profile="(Default)">Data Source=Charlot-PC\MSSQLSERVER20082;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa;Password=123456@</Value>
+    </Setting>
+    <Setting Name="connString" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Data Source=(local)\sqlexpress;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa;Password=st_glodenABC</Value>
     </Setting>
   </Settings>
 </SettingsFile>

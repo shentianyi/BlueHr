@@ -57,6 +57,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Service\Implement\AttendanceRecordServiceTests.cs" />
+    <Compile Include="Service\Implement\CompanyService.cs" />
+    <Compile Include="Service\Implement\DepartmentServiceTest.cs" />
+    <Compile Include="Service\Implement\StaffTypeServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlueHrLib\BlueHrLib.csproj">

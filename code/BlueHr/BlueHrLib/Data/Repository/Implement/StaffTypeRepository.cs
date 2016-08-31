@@ -16,6 +16,61 @@ namespace BlueHrLib.Data.Repository.Implement
             this.context = dataContextFactory.Context as BlueHrDataContext;
         }
 
+        public bool Create(StaffType staffType)
+        {
+            try
+            {
+                this.context.GetTable<StaffType>().InsertOnSubmit(staffType);
+                this.context.SubmitChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteById(int id)
+        {
+            var staffType = this.context.GetTable<StaffType>().FirstOrDefault(c => c.id.Equals(id));
+            if (staffType != null)
+            {
+                this.context.GetTable<StaffType>().DeleteOnSubmit(staffType);
+                this.context.SubmitChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public IQueryable<StaffType> FindByAll()
+        {
+            return this.context.GetTable<StaffType>().Where(s => true);
+        }
+
+        public StaffType FindById(int id)
+        {
+            return this.context.GetTable<StaffType>().FirstOrDefault(c => c.id.Equals(id));
+        }
+
+        public bool Update(StaffType staffType)
+        {
+            var st = this.context.GetTable<StaffType>().FirstOrDefault(c => c.id.Equals(staffType.id));
+            if (st != null)
+            {
+                st.name = staffType.name;
+                st.remark = staffType.remark;
+                this.context.SubmitChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public IQueryable<StaffType> Search(StaffTypeSearchModel searchModel)
         {
             IQueryable<StaffType> stafftypes = this.context.StaffType;
