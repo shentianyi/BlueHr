@@ -236,7 +236,7 @@ namespace BlueHrClient
             {
                 if (BaseConfig.Sound)
                 {
-                    player.PlaySync();
+                    player.Play();
                 }
                 if (BaseConfig.AutoCheckin)
                 {
