@@ -127,5 +127,10 @@ namespace BlueHrLib.Service.Implement
             dc.Context.GetTable<Staff>().InsertAllOnSubmit(staffs);
             dc.Context.SubmitChanges();
         }
+
+        public Staff FindByNr(string nr)
+        {
+          return  new DataContext(this.DbString).Context.GetTable<Staff>().FirstOrDefault(s => s.nr.Equals(nr));
+        }
     }
 }

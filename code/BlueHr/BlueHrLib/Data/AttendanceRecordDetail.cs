@@ -20,7 +20,15 @@ namespace BlueHrLib.Data
         {
             get { return this.recordAt.TimeOfDay; }
         }
+        public string recordAtDateStr
+        {
+            get { return this.recordAt.ToString("yyyy-MM-dd"); }
+        }
 
+        public string recordAtTimeStr
+        {
+            get { return this.recordAt.ToString("HH:mm"); }
+        }
 
     }
 }

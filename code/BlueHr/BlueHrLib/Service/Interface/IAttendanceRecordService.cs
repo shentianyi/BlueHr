@@ -22,5 +22,19 @@ namespace BlueHrLib.Service.Interface
         /// <param name="searchModel"></param>
         /// <returns></returns>
         IQueryable<AttendanceRecordDetail> SearchDetail(AttendanceRecordDetailSearchModel searchModel);
+
+        /// <summary>
+        /// 批量创建详细考勤数据
+        /// </summary>
+        /// <param name="records"></param>
+        void CreateDetails(List<AttendanceRecordDetail> records);
+
+        /// <summary>
+        /// 根据员工号和考勤时间查询详细记录
+        /// </summary>
+        /// <param name="nr"></param>
+        /// <param name="recordAt"></param>
+        /// <returns></returns>
+        AttendanceRecordDetail FindDetailByStaffAndRecordAt(string nr, DateTime recordAt);
     }
 }

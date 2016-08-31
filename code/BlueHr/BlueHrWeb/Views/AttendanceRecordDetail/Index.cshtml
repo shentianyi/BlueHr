@@ -27,6 +27,10 @@
                     搜索
                 </button>
             </div>
+            
+            </div>
+        <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
+            <button class="btn btn-warning import-button-dialog" title="Import" data-toggle="tooltip" data-placement="bottom" type="button" style="width:100px;margin-left:20px;">导入打卡记录</button>
         </div>
     </form>
 </div>
@@ -50,8 +54,8 @@
                     <tr>
                         <th>&nbsp;</th>
                         <th>工号</th>
-                        <th>考勤日期</th>
-                        <th>考勤时间</th>
+                        <th>打卡日期</th>
+                        <th>打卡时间</th>
 
                         <th>操作</th>
                     </tr>
@@ -68,10 +72,10 @@
                                     @Html.DisplayFor(modelItem => item.staffNr)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.recordAtDate)
+                                    @Html.DisplayFor(modelItem => item.recordAtDateStr)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.recordAtTime)
+                                    @Html.DisplayFor(modelItem => item.recordAtTimeStr)
                                 </td>
                                 <td>
                                     <a href="/AttendanceRecordDetail/Delete/@item.id" class="option-icon-primary" title="详情">
@@ -111,3 +115,37 @@
         </div>
     </div>
 </div>
+
+<!--导入数据-->
+<div id="dialog_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+       导入考勤打卡记录
+    </div>
+    <div class="dialogModal_content">
+        <strong>选择数据文件:</strong>
+        <hr />
+        <input class="item-data-uploader" type="file" name="files[]" data-url="/AttendanceRecordDetail/Import" />
+        <div class="item-data-uploader-preview" style="display:none;"></div>
+        <hr />
+        <a href="~/Template/考勤记录导入文件模板.xlsx" target="_blank">下载文件模板</a>
+    </div>
+    <div class="dialogModal_footer">
+        <button type="submit" class="btn btn-primary ff" style="width:200px;"  >OK</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    
+    $('.import-button-dialog').click(function () {
+        $('#dialog_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+                data_upload(".item-data-uploader");
+            },
+            onClose: function () { },
+        });
+    }); 
+
+</script>

@@ -250,6 +250,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\PagingHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -265,17 +266,30 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\company.css">
+      <DependentUpon>company.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\company.min.css">
+      <DependentUpon>company.css</DependentUpon>
+    </Content>
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\input-style.css" />
     <Content Include="Content\jquery-popModal.css" />
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\jquery.mCustomScrollbar.css" />
+    <Content Include="Content\layout.css">
+      <DependentUpon>layout.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\layout.min.css">
+      <DependentUpon>layout.css</DependentUpon>
+    </Content>
     <Content Include="Content\pagination.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\font-awesome\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\loading.gif" />
     <Content Include="Images\mCSB_buttons.png" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
@@ -294,7 +308,12 @@
     <Content Include="log4.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Properties\PublishProfiles\BlueHrPubConfig.pubxml" />
+    <None Include="Properties\PublishProfiles\BlueHrWebPubConfig.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -305,7 +324,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-popModal.js" />
+    <Content Include="Scripts\jquery-ui-1.9.1.custom.min.js" />
     <Content Include="Scripts\jquery.datetimepicker.full.js" />
+    <Content Include="Scripts\jquery.file.upload\jquery.fileupload.js" />
+    <Content Include="Scripts\jquery.file.upload\jquery.iframe-transport.js" />
+    <Content Include="Scripts\jquery.file.upload\upload.file.data.js" />
     <Content Include="Scripts\jquery.mCustomScrollbar.concat.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -361,9 +384,12 @@
     <Content Include="Views\Staff\Index.cshtml" />
     <Content Include="Views\Staff\Create.cshtml" />
     <Content Include="Views\Staff\_PartialStaff.cshtml" />
+    <Content Include="Views\Shared\_HandlingMsgDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Template\" />
+    <Folder Include="TmpFile\" />
     <Folder Include="Views\Department\" />
   </ItemGroup>
   <ItemGroup>

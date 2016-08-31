@@ -10,6 +10,8 @@ using BlueHrLib.Service.Interface;
 using BlueHrWeb.Helpers;
 using BlueHrWeb.Properties;
 using MvcPaging;
+using BlueHrLib.Helper.Excel;
+using BlueHrLib.Data.Message;
 
 namespace BlueHrWeb.Controllers
 {
@@ -21,7 +23,7 @@ namespace BlueHrWeb.Controllers
             int pageIndex = PagingHelper.GetPageIndex(page);
             AttendanceRecordDetailSearchModel q = new AttendanceRecordDetailSearchModel();
             IAttendanceRecordService ss = new AttendanceRecordService(Settings.Default.db);
-         
+
             IPagedList<AttendanceRecordDetail> records = ss.SearchDetail(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
@@ -42,6 +44,16 @@ namespace BlueHrWeb.Controllers
             ViewBag.Query = q;
 
             return View("Index", records);
+        }
+
+        public ActionResult Import()
+        {
+            var ff = Request.Files[0];
+            string fileName = FileHelper.SaveAsTmp(ff);
+            AttendanceRecordDetailExcelHelper helper = new AttendanceRecordDetailExcelHelper(Settings.Default.db, fileName);
+            ImportMessage msg = helper.Import();
+
+            return Json(msg);
         }
     }
 }

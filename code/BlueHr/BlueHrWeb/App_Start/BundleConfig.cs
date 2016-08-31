@@ -8,12 +8,23 @@ namespace BlueHrWeb
         // 有关绑定的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+        //    bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+        //            "~/Scripts/jquery-1.11.2.min.js",
+        //            "~/Scripts/jquery.ui.widget.js",
+        //            "~/Scripts/jquery-ui-1.9.1.custom.min.js"
+        //            ));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui-1.9.1.custom.min.js"
+                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery-plug-in").Include(
                    "~/Scripts/jquery-popModal.js",
-                   "~/Scripts/jquery.datetimepicker.full.js"));
+                   "~/Scripts/jquery.datetimepicker.full.js",
+                   "~/Scripts/jquery.file.upload/jquery.fileupload.js",
+                   "~/Scripts/jquery.file.upload/jquery.iframe-transport.js",
+                   "~/Scripts/jquery.file.upload/upload.file.data.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

@@ -8,6 +8,6 @@ namespace BlueHrLib.CusException
 {
     public class SystemSettingNotSetException : Exception
     {
-        public SystemSettingNotSetException() : base("系统设置未初始化，请联系数据管理员！") { }
+        public SystemSettingNotSetException() : base("系统设置未初始化，请联系系统管理员！") { }
     }
 }

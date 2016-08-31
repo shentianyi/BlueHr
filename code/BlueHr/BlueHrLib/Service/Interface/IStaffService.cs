@@ -19,6 +19,13 @@ namespace BlueHrLib.Service.Interface
         Staff FindByStaffId(string id);
 
         /// <summary>
+        /// 根据员工号查询员工
+        /// </summary>
+        /// <param name="nr">员工号</param>
+        /// <returns></returns>
+        Staff FindByNr(string nr);
+
+        /// <summary>
         /// 通过身份证号验证员工
         /// </summary>
         /// <param name="id"></param>

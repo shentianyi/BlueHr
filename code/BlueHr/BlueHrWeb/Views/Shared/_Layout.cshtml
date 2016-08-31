@@ -9,13 +9,15 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/layout")
     @Scripts.Render("~/bundles/modernizr") 
-    @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jquery-plug-in")
-    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/layout")
     @Scripts.Render("~/bundles/vue")
     @RenderSection("scripts", required: false)
+     
 </head>
+
 <body style="overflow:hidden;">
     <nav class="navbar navbar-inverse main-nav" style="margin-bottom:0;">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -80,4 +82,5 @@
         $('.body-content').css({ height: $(window).height() - 40 + 'px' });
     </script>
 </body>
+@Html.Partial("_HandlingMsgDialog")
 </html>

@@ -16,7 +16,7 @@ namespace BlueHrLib.Data.Enum
         /// <summary>
         /// 文件导入
         /// </summary>
-        FileImport200,
+        FileImport=200,
 
         /// <summary>
         /// 人工录入
