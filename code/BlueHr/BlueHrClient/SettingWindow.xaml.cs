@@ -40,20 +40,9 @@ namespace BlueHrClient
             msgShowBox.IsChecked = !autoCheckinBox.IsChecked;
             timeTextBox.IsEnabled = (bool)msgShowBox.IsChecked;
             timeTextBox.Text = BaseConfig.TimeForMsg.ToString();
-            pathTextBox.Text = BaseConfig.SavePath;
+            filePath.Text = BaseConfig.SavePath;
+            photoPath.Text = BaseConfig.SavePathPhoto;
             saveNotes.IsChecked = BaseConfig.SaveNotes;
-            pathTextBox.IsEnabled = BaseConfig.SaveNotes;
-            saveButton.IsEnabled = BaseConfig.SaveNotes;
-        }
-        private void saveAddClick(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
-            fbd.ShowDialog();
-            if (fbd.SelectedPath != string.Empty)
-            {
-                this.pathTextBox.Text = fbd.SelectedPath;
-                BaseConfig.SavePath = this.pathTextBox.Text;
-            }
         }
 
         private void msgShowBoxChecked(object sender, RoutedEventArgs e)
@@ -73,8 +62,6 @@ namespace BlueHrClient
         private void saveNotesSelected(object sender, RoutedEventArgs e)
         {
             BaseConfig.SaveNotes = (bool)saveNotes.IsChecked;
-            pathTextBox.IsEnabled = true;
-            saveButton.IsEnabled = true;
         }
 
         private void saveNotesUnSelected(object sender, RoutedEventArgs e)
@@ -84,27 +71,59 @@ namespace BlueHrClient
 
         private void resetClick(object sender, RoutedEventArgs e)
         {
-            int nRet, nPort;
-            string stmp;
-            nPort = Convert.ToInt32(Syn_FindReader());
-            if (Syn_OpenPort(nPort) == 0)
+            MessageBoxResult result = MessageBox.Show("确定要复位？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
             {
-                nRet = Syn_ResetSAM(nPort, 0);
-                if (nRet == 0)
+                int nRet, nPort;
+                string stmp;
+                nPort = Convert.ToInt32(Syn_FindReader());
+                if (Syn_OpenPort(nPort) == 0)
                 {
-                    stmp = Convert.ToString(System.DateTime.Now) + " 复位SAM模块成功";
-                    MessageBox.Show("复位SAM模块成功");
+                    nRet = Syn_ResetSAM(nPort, 0);
+                    if (nRet == 0)
+                    {
+                        stmp = Convert.ToString(System.DateTime.Now) + " 复位SAM模块成功";
+                        MessageBox.Show("复位SAM模块成功");
+                    }
+                    else
+                    {
+                        stmp = Convert.ToString(System.DateTime.Now) + " 复位SAM模块失败";
+                        MessageBox.Show("复位SAM模块失败");
+                    }
                 }
                 else
                 {
-                    stmp = Convert.ToString(System.DateTime.Now) + " 复位SAM模块失败";
-                    MessageBox.Show("复位SAM模块失败");
+                    stmp = Convert.ToString(System.DateTime.Now) + "  打开端口失败";
+                    MessageBox.Show("打开端口失败");
                 }
+
             }
-            else
+            if (result == MessageBoxResult.No)
             {
-                stmp = Convert.ToString(System.DateTime.Now) + "  打开端口失败";
-                MessageBox.Show("打开端口失败");
+                this.Close();
+            }
+            
+        }
+
+        private void filePathClick(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
+            fbd.ShowDialog();
+            if (fbd.SelectedPath != string.Empty)
+            {
+                filePath.Text = fbd.SelectedPath;
+                BaseConfig.SavePath = filePath.Text;
+            }
+        }
+
+        private void photoPathClick(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
+            fbd.ShowDialog();
+            if (fbd.SelectedPath != string.Empty)
+            {
+                photoPath.Text = fbd.SelectedPath;
+                BaseConfig.SavePathPhoto = photoPath.Text;
             }
 
         }

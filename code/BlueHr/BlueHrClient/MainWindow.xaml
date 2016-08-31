@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BlueHrClient"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="900" ResizeMode="CanMinimize">
+        Title="MainWindow" Height="550" Width="800" ResizeMode="CanMinimize"  Loaded="MetroWindow_Loaded" Closed="Window_Closing">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <Button Content="设置" Click="setter_Click"/>
@@ -49,26 +49,25 @@
 
         </UniformGrid>
         <UniformGrid Rows="9" Grid.Column="1">
-            <TextBlock x:Name="Name" Style="{StaticResource contentStyle}" Text="张三" />
-            <TextBlock x:Name="Sex" Style="{StaticResource contentStyle}" Text="男" />
-            <TextBlock x:Name="Nation"  Style="{StaticResource contentStyle}" Text="汉"/>
-            <TextBlock x:Name="Born"  Style="{StaticResource contentStyle}" Text="19930303"/>
-            <TextBlock x:Name="Address"  Style="{StaticResource contentStyle}" Text="上海市浦东新区川沙新镇某某路某某弄"/>
-            <TextBlock x:Name="ID"  Style="{StaticResource contentStyle}" Text="422409549585994939239"/>
-            <TextBlock x:Name="GrantDept"  Style="{StaticResource contentStyle}" Text="派出所333号" />
-            <TextBlock x:Name="UserLifeBegin"  Style="{StaticResource contentStyle}" Text="1993年4月2日"/>
-            <TextBlock x:Name="UserLifeEnd"  Style="{StaticResource contentStyle}" Text="1993年4月2日"/>
+            <TextBlock x:Name="Name" Style="{StaticResource contentStyle}" />
+            <TextBlock x:Name="Sex" Style="{StaticResource contentStyle}" />
+            <TextBlock x:Name="Nation"  Style="{StaticResource contentStyle}"/>
+            <TextBlock x:Name="Born"  Style="{StaticResource contentStyle}"/>
+            <TextBlock x:Name="Address"  Style="{StaticResource contentStyle}"/>
+            <TextBlock x:Name="ID"  Style="{StaticResource contentStyle}"/>
+            <TextBlock x:Name="GrantDept"  Style="{StaticResource contentStyle}"/>
+            <TextBlock x:Name="UserLifeBegin"  Style="{StaticResource contentStyle}"/>
+            <TextBlock x:Name="UserLifeEnd"  Style="{StaticResource contentStyle}"/>
         </UniformGrid>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.3*"/>
             </Grid.RowDefinitions>
-            <Image x:Name="image" Width="200"/>
-
-            <TextBlock x:Name="msgBlock" Grid.Row="1" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="70" VerticalAlignment="Top"/>
-            <Button x:Name="button" Grid.Row="2" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Top" Width="75" Click="buttonForTest"/>
+            <Image x:Name="photo" UseLayoutRounding="True" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="msgBlock" Grid.Row="1" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="70" VerticalAlignment="Center"/>
+            <TextBlock x:Name="Status" Grid.Row="3" HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
 
         </Grid>
     </Grid>

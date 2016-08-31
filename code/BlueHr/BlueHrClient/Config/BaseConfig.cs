@@ -14,7 +14,10 @@ namespace BlueHrClient.Config
         private static bool autoCheckin;
         public static bool saveNotes;
         private static string savePath;
+        private static string savePathPhoto;
         public static int timeForMsg;
+        public static int nRet;
+        public static int nPort;
 
 
         static BaseConfig()
@@ -25,7 +28,10 @@ namespace BlueHrClient.Config
             autoCheckin =bool.Parse( config.Get("AutoCheckin"));
             saveNotes = bool.Parse(config.Get("SaveNotes"));
             savePath = config.Get("SavePath");
+            savePathPhoto = config.Get("SavePathPhoto");
             timeForMsg = int.Parse(config.Get("TimeForMsg"));
+            nRet = int.Parse(config.Get("NRet"));
+            nPort = int.Parse(config.Get("NPort"));
         }
 
         public static bool AutoCheckin
@@ -70,6 +76,20 @@ namespace BlueHrClient.Config
                 config.Save();
             }
         }
+        public static string SavePathPhoto
+        {
+            get
+            {
+                return savePathPhoto;
+            }
+
+            set
+            {
+                savePathPhoto = value;
+                config.Set("SavePathPhoto", value);
+                config.Save();
+            }
+        }
         public static int TimeForMsg
         {
             get
@@ -80,6 +100,34 @@ namespace BlueHrClient.Config
             {
                 timeForMsg = value;
                 config.Set("TimeForMsg", value);
+                config.Save();
+            }
+        }
+
+        public static int NRet
+        {
+            get
+            {
+                return nRet;
+            }
+            set
+            {
+                nRet = value;
+                config.Set("NRet", value);
+                config.Save();
+            }
+        }
+
+        public static int NPort
+        {
+            get
+            {
+                return nPort;
+            }
+            set
+            {
+                nPort = value;
+                config.Set("NPort", value);
                 config.Save();
             }
         }
