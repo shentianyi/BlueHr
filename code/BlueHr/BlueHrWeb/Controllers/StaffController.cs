@@ -69,6 +69,18 @@ namespace BlueHrWeb.Controllers
         // GET: Company/Create
         public ActionResult Create()
         {
+            SetIsOnTrialList(0);
+            SetSexList(0);
+            SetJobTitleList(null);
+            SetCompanyList(null);
+            SetDepartmentList(null, null);
+            SetStaffTypeList(null);
+            SetDegreeTypeList(null);
+            SetInSureTypeList(null);
+            SetIsPayCPFList(0);
+            SetResidenceTypeList(0);
+
+
             return View();
         }
 
@@ -79,11 +91,8 @@ namespace BlueHrWeb.Controllers
             try
             {
                 // TODO: Add insert logic here
-
                 IStaffService ss = new StaffService(Settings.Default.db);
-
-                //ss.Create(staff);
-
+                ss.Create(staff);
                 return RedirectToAction("Index");
             }
             catch
@@ -196,6 +205,55 @@ namespace BlueHrWeb.Controllers
             ViewData["sexList"] = select;
         }
 
+        private void SetIsPayCPFList(int? type, bool allowBlank = true)
+        {
+            List<EnumItem> item = EnumHelper.GetList(typeof(IsPayCPF));
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in item)
+            {
+                if (type.HasValue && type.ToString().Equals(it.Value))
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                }
+            }
+            ViewData["isPayCPFList"] = select;
+        }
+
+        private void SetResidenceTypeList(int? type, bool allowBlank = true)
+        {
+            List<EnumItem> item = EnumHelper.GetList(typeof(ResidenceType));
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in item)
+            {
+                if (type.HasValue && type.ToString().Equals(it.Value))
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                }
+            }
+            ViewData["residenceTypeList"] = select;
+        }
 
         private void SetJobTitleList(int? type, bool allowBlank = true)
         {
@@ -224,6 +282,93 @@ namespace BlueHrWeb.Controllers
                 }
             }
             ViewData["jobTitleList"] = select;
+        }
+
+        private void SetStaffTypeList(int? type, bool allowBlank = true)
+        {
+            IStaffTypeService sts = new StaffTypeService(Settings.Default.db);
+
+            StaffTypeSearchModel stsm = new StaffTypeSearchModel();
+
+            List<StaffType> st = sts.Search(stsm).ToList();
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in st)
+            {
+                if (type.HasValue && type.ToString().Equals(it.id))
+                {
+                    select.Add(new SelectListItem { Text = it.name, Value = it.id.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.name, Value = it.id.ToString(), Selected = false });
+                }
+            }
+            ViewData["staffTypeList"] = select;
+        }
+
+        private void SetInSureTypeList(int? type, bool allowBlank = true)
+        {
+            IInSureTypeService ists = new InSureTypeService(Settings.Default.db);
+
+            InSureTypeSearchModel istsm = new InSureTypeSearchModel();
+
+            List<InsureType> it = ists.Search(istsm).ToList();
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var item in it)
+            {
+                if (type.HasValue && type.ToString().Equals(item.id))
+                {
+                    select.Add(new SelectListItem { Text = item.name, Value = item.id.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = item.name, Value = item.id.ToString(), Selected = false });
+                }
+            }
+            ViewData["inSureTypeList"] = select;
+        }
+
+        private void SetDegreeTypeList(int? type, bool allowBlank = true)
+        {
+            IDegreeTypeService dts = new DegreeTypeService(Settings.Default.db);
+
+            DegreeTypeSearchModel dtsm = new DegreeTypeSearchModel();
+
+            List<DegreeType> dt = dts.Search(dtsm).ToList();
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in dt)
+            {
+                if (type.HasValue && type.ToString().Equals(it.id))
+                {
+                    select.Add(new SelectListItem { Text = it.name, Value = it.id.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.name, Value = it.id.ToString(), Selected = false });
+                }
+            }
+            ViewData["degreeTypeList"] = select;
         }
 
         [HttpGet]
@@ -312,5 +457,7 @@ namespace BlueHrWeb.Controllers
             }
             ViewData["companyList"] = select;
         }
+
+
     }
 }

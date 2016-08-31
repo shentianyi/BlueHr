@@ -69,7 +69,6 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>部门</span>
-                    @*<select name="DepartmentId" id="DepartmentId"></select>*@
                     @Html.DropDownList("DepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
@@ -225,13 +224,6 @@
         async: false,
         success: function (data) {
             Department = data;
-            //var companyId = new Array();
-            //$.each(data, function (i, item) {
-            //    companyId.push(i);
-            //    $.each(item, function (j, it) {
-            //        Department.push({ id: j, name: it });
-            //    });
-            //})
         },
         error: function () {
             console.log("Error");

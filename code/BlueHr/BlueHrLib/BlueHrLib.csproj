@@ -73,6 +73,9 @@
     <Compile Include="Data\Model\PageViewModel\CompanyInfoModel.cs" />
     <Compile Include="Data\Model\Search\AttendanceRecordDetailSearchModel.cs" />
     <Compile Include="Data\Model\Search\DepartmentSearchModel.cs" />
+    <Compile Include="Data\Model\Search\DegreeTypeSearchModel.cs" />
+    <Compile Include="Data\Model\Search\InSureTypeSearchModel.cs" />
+    <Compile Include="Data\Model\Search\StaffTypeSearchModel.cs" />
     <Compile Include="Data\Model\Search\JobTitleSearchModel.cs" />
     <Compile Include="Data\Model\Search\StaffSearchModel.cs" />
     <Compile Include="Data\Model\Search\CompanySearchModel.cs" />
@@ -81,11 +84,17 @@
     <Compile Include="Data\Repository\Implement\AttendanceRecordDetailRepository.cs" />
     <Compile Include="Data\Repository\Implement\CompanyRepository.cs" />
     <Compile Include="Data\Repository\Implement\DepartmentRepository.cs" />
+    <Compile Include="Data\Repository\Implement\DegreeTypeRepository.cs" />
+    <Compile Include="Data\Repository\Implement\InSureTypeRepository.cs" />
+    <Compile Include="Data\Repository\Implement\StaffTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\JobTitleRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAttendanceRecordDetailRepository.cs" />
     <Compile Include="Data\Repository\Implement\StaffRepository.cs" />
     <Compile Include="Data\Repository\Interface\ICompanyRepository.cs" />
     <Compile Include="Data\Repository\Interface\IDepartmentRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IDegreeTypeRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IInSureTypeRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IStaffTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IJobTitleRepository.cs" />
     <Compile Include="Data\Repository\Interface\IStaffRepository.cs" />
     <Compile Include="Data\Repository\IRepository.cs" />
@@ -99,6 +108,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Service\Implement\AttendanceRecordService.cs" />
+    <Compile Include="Service\Implement\DegreeTypeService.cs" />
+    <Compile Include="Service\Implement\InSureTypeService.cs" />
+    <Compile Include="Service\Implement\StaffTypeService.cs" />
     <Compile Include="Service\Implement\JobTitleService.cs" />
     <Compile Include="Service\Implement\CompanyService.cs" />
     <Compile Include="Service\Implement\DepartmentService.cs" />
@@ -106,6 +118,9 @@
     <Compile Include="Service\Interface\IAttendanceRecordService.cs" />
     <Compile Include="Service\Interface\ICompanyService.cs" />
     <Compile Include="Service\Interface\IDepartmentService.cs" />
+    <Compile Include="Service\Interface\IDegreeTypeService.cs" />
+    <Compile Include="Service\Interface\IInSureTypeService.cs" />
+    <Compile Include="Service\Interface\IStaffTypeService.cs" />
     <Compile Include="Service\Interface\IJobTitleService.cs" />
     <Compile Include="Service\Interface\IStaffService.cs" />
     <Compile Include="Service\ServiceBase.cs" />

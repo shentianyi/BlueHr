@@ -127,5 +127,14 @@ namespace BlueHrLib.Service.Implement
             dc.Context.GetTable<Staff>().InsertAllOnSubmit(staffs);
             dc.Context.SubmitChanges();
         }
+
+        public void Create(Staff staff)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            IStaffRepository staffRep = new StaffRepository(dc);
+
+            staffRep.Create(staff);
+        }
+
     }
 }
