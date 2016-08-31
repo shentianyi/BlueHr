@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Interface;
 
 namespace BlueHrLib.Data.Repository.Implement
@@ -45,9 +46,29 @@ namespace BlueHrLib.Data.Repository.Implement
             }
         }
 
+        public IQueryable<Department> FindByCompanyId(int? id)
+        {
+            IQueryable<Department> departments = this.context.Department;
+            if (id.HasValue)
+            {
+                departments = departments.Where(c => c.companyId.Equals(id));
+            }
+            return departments;
+        }
+
         public Department FindById(int id)
         {
             return this.context.GetTable<Department>().FirstOrDefault(c => c.id.Equals(id));
+        }
+
+        public IQueryable<Department> Search(DepartmentSearchModel searchModel)
+        {
+            IQueryable<Department> departments = this.context.Department;
+            if (!string.IsNullOrEmpty(searchModel.Name))
+            {
+                departments = departments.Where(c => c.name.Contains(searchModel.Name.Trim()));
+            }
+            return departments;
         }
 
         public bool Update(Department department)

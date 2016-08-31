@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlueHrLib.Data.Model.Search;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace BlueHrLib.Data.Repository.Interface
 {
     public interface IDepartmentRepository
     {
+        IQueryable<Department> Search(DepartmentSearchModel searchModel);
+        IQueryable<Department> FindByCompanyId(int? id);
 
         bool Create(Department department);
 

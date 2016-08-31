@@ -7,6 +7,7 @@ using BlueHrWeb.Helpers;
 using BlueHrWeb.Properties;
 using MvcPaging;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -31,6 +32,9 @@ namespace BlueHrWeb.Controllers
 
             SetIsOnTrialList(null);
             SetSexList(null);
+            SetJobTitleList(null);
+            SetCompanyList(null);
+            SetDepartmentList(null, null);
 
             return View(staffs);
         }
@@ -49,10 +53,12 @@ namespace BlueHrWeb.Controllers
 
             SetIsOnTrialList(q.IsOnTrial);
             SetSexList(q.Sex);
+            SetJobTitleList(q.JobTitleId);
+            SetCompanyList(q.CompanyId);
+            SetDepartmentList(q.CompanyId, q.DepartmentId);
 
             return View("Index", staffs);
         }
-
 
         // GET: Company/Details/5
         public ActionResult Details(int id)
@@ -188,6 +194,123 @@ namespace BlueHrWeb.Controllers
                 }
             }
             ViewData["sexList"] = select;
+        }
+
+
+        private void SetJobTitleList(int? type, bool allowBlank = true)
+        {
+            IJobTitleService js = new JobTitleService(Settings.Default.db);
+
+            JobTitleSearchModel jtsm = new JobTitleSearchModel();
+
+            List<JobTitle> jt =  js.Search(jtsm).ToList();
+
+            List <SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in jt)
+            {
+                if (type.HasValue && type.ToString().Equals(it.id))
+                {
+                    select.Add(new SelectListItem { Text = it.name, Value = it.id.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.name, Value = it.id.ToString(), Selected = false });
+                }
+            }
+            ViewData["jobTitleList"] = select;
+        }
+
+        [HttpGet]
+        public JsonResult GetCompanyAndDepartment()
+        {
+            ICompanyService cs = new CompanyService(Settings.Default.db);
+            CompanySearchModel csm = new CompanySearchModel();
+            List<Company> companies = cs.Search(csm).ToList();
+            IDepartmentService ds = new DepartmentService(Settings.Default.db);
+
+            Dictionary<string, Dictionary<string, string>> departments = new Dictionary<string, Dictionary<string, string>>();
+
+            foreach (var company in companies)
+            {
+                List<Department> deps = ds.FindByCompanyId(company.id).ToList();
+                Dictionary<string, string> department = new Dictionary<string, string>();
+
+                foreach(var dep in deps)
+                {
+                    department.Add(dep.id.ToString(), dep.name);
+                }
+
+                departments.Add(company.id.ToString(), department);
+            }
+
+            return Json(departments, JsonRequestBehavior.AllowGet);
+        }
+
+        private void SetDepartmentList(int? companyId, int? type, bool allowBlank = true)
+        {
+            IDepartmentService ds = new DepartmentService(Settings.Default.db);
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            List<Department> departments = new List<Department>();
+            if (companyId.HasValue)
+            {
+                departments = ds.FindByCompanyId(companyId).ToList();
+
+                if (allowBlank)
+                {
+                    select.Add(new SelectListItem { Text = "", Value = "" });
+                }
+
+                foreach(var department in departments)
+                {
+                    if (type.HasValue && type.ToString().Equals(department.id))
+                    {
+                        select.Add(new SelectListItem { Text = department.name, Value = department.id.ToString(), Selected = true });
+                    }
+                    else
+                    {
+                        select.Add(new SelectListItem { Text = department.name, Value = department.id.ToString(), Selected = false });
+                    }
+                }
+            }
+
+            ViewData["departmentList"] = select;
+        }
+
+        private void SetCompanyList(int? type, bool allowBlank = true)
+        {
+            ICompanyService cs = new CompanyService(Settings.Default.db);
+
+            CompanySearchModel csm = new CompanySearchModel();
+
+            List<Company> companies = cs.Search(csm).ToList();
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var company in companies)
+            {
+                if (type.HasValue && type.ToString().Equals(company.id))
+                {
+                    select.Add(new SelectListItem { Text = company.name, Value = company.id.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = company.name, Value = company.id.ToString(), Selected = false });
+                }
+            }
+            ViewData["companyList"] = select;
         }
     }
 }

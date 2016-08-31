@@ -14,7 +14,6 @@
 
 <hr class="hr-grey" />
 
-
 @*Search*@
 <div class="search">
     <form action="/Staff/Search" method="get">
@@ -64,35 +63,27 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>公司</span>
-                    <select>
-                        <option>0</option>
-                        <option>1</option>
-                    </select>
+                    @Html.DropDownList("CompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>部门</span>
-                    <select>
-                        <option>001</option>
-                        <option>002</option>
-                    </select>
+                    @*<select name="DepartmentId" id="DepartmentId"></select>*@
+                    @Html.DropDownList("DepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>职位</span>
-                    <select>
-                        <option>0001</option>
-                        <option>0002</option>
-                    </select>
+                    @Html.DropDownList("JobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>进厂日期从</span>
-                    <input type="text" class="date_picker_start" name="CompanyEmployAtFrom" id="CompanyEmployAtFrom" value="@ViewBag.Query.CompanyEmployAtFrom" placeholder="进厂日期"/>
+                    <input type="text" class="date_picker_start" name="CompanyEmployAtFrom" id="CompanyEmployAtFrom" value="@ViewBag.Query.CompanyEmployAtFrom" placeholder="进厂日期" />
                     <span>到</span>
                     <input type="text" class="date_picker_end" name="CompanyEmployAtTo" id="CompanyEmployAtTo" value="@ViewBag.Query.CompanyEmployAtTo" placeholder="进厂日期" />
                 </div>
@@ -199,6 +190,7 @@
 <script type="text/javascript">
     Layout.init();
     Layout.rangedatepicker('#CompanyEmployAtFrom', '#CompanyEmployAtTo');
+
     //不允许滚动
     $('.nav-content').css({ overflow: 'hidden' });
 
@@ -215,14 +207,48 @@
         autoDraggerLength: false
     });
 
-   
     $('.advanced-filter-btn').click(function () {
         var Display = $('.advanced-filter').css('display');
+
         if (Display === "none") {
             $('.advanced-filter').slideDown();
         } else {
             $('.advanced-filter').slideUp();
         }
     });
+
+    var Department = new Array();
+
+    $.ajax({
+        url: '/Staff/GetCompanyAndDepartment',
+        type: 'get',
+        async: false,
+        success: function (data) {
+            Department = data;
+            //var companyId = new Array();
+            //$.each(data, function (i, item) {
+            //    companyId.push(i);
+            //    $.each(item, function (j, it) {
+            //        Department.push({ id: j, name: it });
+            //    });
+            //})
+        },
+        error: function () {
+            console.log("Error");
+        }
+    });
+
+    $('#CompanyId').change(function () {
+        $('#DepartmentId').empty();
+
+        var companyID = $('#CompanyId').find("option:selected").val();
+        var Html = "";
+
+        for (dep in Department[companyID]) {
+            Html += '<option value=' + dep + '>' + Department[companyID][dep] + '</option>';
+        }
+
+        $(Html).appendTo('#DepartmentId');
+    })
 </script>
 
