@@ -13,6 +13,7 @@ namespace BlueHrClient.Config
         private static ConfigUtil config;
         private static bool autoCheckin;
         public static bool saveNotes;
+        public static bool sound;
         private static string savePath;
         private static string savePathPhoto;
         public static int timeForMsg;
@@ -27,6 +28,7 @@ namespace BlueHrClient.Config
 
             autoCheckin =bool.Parse( config.Get("AutoCheckin"));
             saveNotes = bool.Parse(config.Get("SaveNotes"));
+            sound = bool.Parse(config.Get("Sound"));
             savePath = config.Get("SavePath");
             savePathPhoto = config.Get("SavePathPhoto");
             timeForMsg = int.Parse(config.Get("TimeForMsg"));
@@ -45,6 +47,20 @@ namespace BlueHrClient.Config
             {
                 autoCheckin = value;
                 config.Set("AutoCheckin", value);
+                config.Save();
+            }
+        }
+        public static bool Sound
+        {
+            get
+            {
+                return sound;
+            }
+
+            set
+            {
+                sound = value;
+                config.Set("Sound", value);
                 config.Save();
             }
         }

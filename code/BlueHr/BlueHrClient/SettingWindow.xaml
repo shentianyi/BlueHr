@@ -15,7 +15,7 @@
         <GroupBox x:Name="view" Grid.Row="0" Header="设置" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Height="150" Width="400" Background="Transparent">
             <UniformGrid Rows="3" >
                 <UniformGrid Columns="2">
-                    <CheckBox x:Name="soundBox" Content="声音"/>
+                    <CheckBox x:Name="soundBox" Content="声音" Checked="soungChecked" Unchecked="soundUnChecked"/>
                     <Button x:Name="resetButton" Content="复位" Height="18" Width="40" HorizontalAlignment="Right" Click="resetClick"/>
                 </UniformGrid>
                 <DockPanel>

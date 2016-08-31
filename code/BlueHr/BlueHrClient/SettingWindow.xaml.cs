@@ -43,6 +43,7 @@ namespace BlueHrClient
             filePath.Text = BaseConfig.SavePath;
             photoPath.Text = BaseConfig.SavePathPhoto;
             saveNotes.IsChecked = BaseConfig.SaveNotes;
+            soundBox.IsChecked = BaseConfig.Sound;
         }
 
         private void msgShowBoxChecked(object sender, RoutedEventArgs e)
@@ -126,6 +127,16 @@ namespace BlueHrClient
                 BaseConfig.SavePathPhoto = photoPath.Text;
             }
 
+        }
+
+        private void soungChecked(object sender, RoutedEventArgs e)
+        {
+            BaseConfig.Sound = true;
+        }
+
+        private void soundUnChecked(object sender, RoutedEventArgs e)
+        {
+            BaseConfig.Sound = false;
         }
     }
 }

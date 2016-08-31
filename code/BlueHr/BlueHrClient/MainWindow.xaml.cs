@@ -23,6 +23,7 @@ using BlueHrClient.Properties;
 using BlueHrLib.Data;
 using System.Windows.Threading;
 using BlueHrLib.Data.Model;
+using System.Media;
 
 namespace BlueHrClient
 {
@@ -33,6 +34,8 @@ namespace BlueHrClient
     public partial class MainWindow : MetroWindow
     {
         DispatcherTimer timer = new DispatcherTimer();
+        SoundPlayer player = new SoundPlayer("alarm.WAV");
+       
 
         public MainWindow()
         {
@@ -152,7 +155,7 @@ namespace BlueHrClient
 
         private void loadData()
         {
-
+            player.LoadAsync();
             byte[] cPath = new byte[255];
             cPath = System.Text.Encoding.Default.GetBytes(BaseConfig.SavePathPhoto);
             Syn_SetPhotoPath(2, ref cPath[0]);
@@ -231,6 +234,10 @@ namespace BlueHrClient
             Staff staff = staffService.FindByStaffId(ID.Text);
             if (staff == null)
             {
+                if (BaseConfig.Sound)
+                {
+                    player.PlaySync();
+                }
                 if (BaseConfig.AutoCheckin)
                 {
                     if (getData())
