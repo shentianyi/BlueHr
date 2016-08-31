@@ -1,7 +1,7 @@
 USE [BlueHr]
 GO
 
-/****** Object:  View [dbo].[AttendanceRecordDetailView]    Script Date: 08/31/2016 00:09:17 ******/
+/****** Object:  View [dbo].[AttendanceRecordDetailView]    Script Date: 08/31/2016 09:24:19 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -16,7 +16,7 @@ SELECT     dbo.AttendanceRecordDetail.id AS Expr1, dbo.AttendanceRecordDetail.st
                       dbo.Staff.trialOverAt, dbo.Staff.companyId, dbo.Staff.departmentId, dbo.Staff.jobTitleId, dbo.Staff.photo, dbo.Staff.staffTypeId, dbo.Staff.degreeTypeId, 
                       dbo.Staff.speciality, dbo.Staff.residenceAddress, dbo.Staff.address, dbo.Staff.id, dbo.Staff.isIdChecked, dbo.Staff.phone, dbo.Staff.contactName, 
                       dbo.Staff.contactPhone, dbo.Staff.contactFamilyMemberType, dbo.Staff.domicile, dbo.Staff.residenceType, dbo.Staff.insureTypeId, dbo.Staff.isPayCPF, 
-                      dbo.Staff.contractExpireAt, dbo.Staff.contractCount, dbo.Staff.totalSeniority, dbo.Staff.remark
+                      dbo.Staff.contractExpireAt, dbo.Staff.contractCount, dbo.Staff.totalSeniority, dbo.Staff.remark, dbo.AttendanceRecordDetail.device
 FROM         dbo.AttendanceRecordDetail INNER JOIN
                       dbo.Staff ON dbo.AttendanceRecordDetail.staffNr = dbo.Staff.nr
 

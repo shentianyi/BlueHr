@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHr" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=Charlot-PC\MSSQLSERVER20082;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString2" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=WANGSONG-PC\MSSQLSERVER2008R;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString3" Provider="System.Data.SqlClient" />
   <Table Name="dbo.AbsenceRecrod" Member="AbsenceRecrod">
     <Type Name="AbsenceRecrod">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -320,7 +320,53 @@
       <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="soureType" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
       <Column Name="isCalculated" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="device" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="Staff_AttendanceRecordDetail" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AttendanceRecordDetailView" Member="AttendanceRecordDetailView">
+    <Type Name="AttendanceRecordDetailView">
+      <Column Name="Expr1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="recordAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="soureType" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="isCalculated" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="sex" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ethnic" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="firstCompanyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="totalCompanySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="companyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="companySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="workStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isOnTrial" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="trialOverAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="companyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="departmentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="jobTitleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="photo" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="staffTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="degreeTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="speciality" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="residenceAddress" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="id" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="isIdChecked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactPhone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactFamilyMemberType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="domicile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="residenceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="insureTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isPayCPF" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="contractExpireAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="contractCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="totalSeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="device" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
