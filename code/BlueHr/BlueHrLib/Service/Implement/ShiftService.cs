@@ -18,7 +18,7 @@ namespace BlueHrLib.Service.Implement
     {
         public ShiftService(string dbString) : base(dbString) { }
 
-        public List<TaskRound> All()
+        public List<Shift> All()
         {
             IShiftRepository rep = new ShiftRepository(new DataContext(this.DbString));
 

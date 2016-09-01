@@ -59,6 +59,7 @@
     <Compile Include="Service\Implement\AttendanceRecordServiceTests.cs" />
     <Compile Include="Service\Implement\CompanyService.cs" />
     <Compile Include="Service\Implement\DepartmentServiceTest.cs" />
+    <Compile Include="Service\Implement\JobTitleServiceTest.cs" />
     <Compile Include="Service\Implement\StaffTypeServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>

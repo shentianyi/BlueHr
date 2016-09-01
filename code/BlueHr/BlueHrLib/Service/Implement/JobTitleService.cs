@@ -1,25 +1,44 @@
-﻿using BlueHrLib.Service.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using BlueHrLib.Data;
 using BlueHrLib.Data.Model.Search;
-using BlueHrLib.Data.Repository.Interface;
 using BlueHrLib.Data.Repository.Implement;
+using BlueHrLib.Data.Repository.Interface;
+using BlueHrLib.Service.Interface;
 
 namespace BlueHrLib.Service.Implement
 {
     public class JobTitleService : ServiceBase, IJobTitleService
     {
-        public JobTitleService(string dbString) : base(dbString) { }
+        private IJobTitleRepository jobTitleRep;
+
+        public JobTitleService(string dbString) : base(dbString)
+        {
+            jobTitleRep = new JobTitleRepository(this.Context);
+        }
 
         public IQueryable<JobTitle> Search(JobTitleSearchModel searchModel)
         {
-            DataContext dc = new DataContext(this.DbString);
-            IJobTitleRepository jobTitleRep = new JobTitleRepository(dc);
             return jobTitleRep.Search(searchModel);
+        }
+
+        public bool Create(JobTitle department)
+        {
+            return jobTitleRep.Create(department);
+        }
+
+        public bool DeleteById(int id)
+        {
+            return jobTitleRep.DeleteById(id);
+        }
+
+        public JobTitle FindById(int id)
+        {
+            return jobTitleRep.FindById(id);
+        }
+
+        public bool Update(JobTitle department)
+        {
+            return jobTitleRep.Update(department);
         }
     }
 }

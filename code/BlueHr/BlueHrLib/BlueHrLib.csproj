@@ -82,7 +82,9 @@
     <Compile Include="Data\Enum\WorkStatus.cs" />
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
+    <Compile Include="Data\Repository\Implement\ShiftRepository.cs" />
     <Compile Include="Data\Repository\Implement\TaskRoundRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IShiftRoundRepository.cs" />
     <Compile Include="Data\Repository\Interface\ITaskRoundRepository.cs" />
     <Compile Include="Data\TaskRound.cs" />
     <Compile Include="Helper\JSONHelper.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="Service\Implement\AttendanceRecordService.cs" />
     <Compile Include="Service\Implement\DegreeTypeService.cs" />
     <Compile Include="Service\Implement\InSureTypeService.cs" />
+    <Compile Include="Service\Implement\ShiftService.cs" />
     <Compile Include="Service\Implement\TaskRoundService.cs" />
     <Compile Include="Service\Implement\StaffTypeService.cs" />
     <Compile Include="Service\Implement\JobTitleService.cs" />
@@ -147,6 +150,7 @@
     <Compile Include="Service\Interface\IDepartmentService.cs" />
     <Compile Include="Service\Interface\IDegreeTypeService.cs" />
     <Compile Include="Service\Interface\IInSureTypeService.cs" />
+    <Compile Include="Service\Interface\IShiftService.cs" />
     <Compile Include="Service\Interface\ITaskRoundService.cs" />
     <Compile Include="Service\Interface\IStaffTypeService.cs" />
     <Compile Include="Service\Interface\IJobTitleService.cs" />

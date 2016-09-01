@@ -6,7 +6,7 @@
       <Value Profile="(Default)">50</Value>
     </Setting>
     <Setting Name="db" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Data Source=WANGSONG-PC\MSSQLSERVER2008R;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa;Password=123456@</Value>
+      <Value Profile="(Default)">Data Source=(local)\sqlexpress;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa;Password=st_glodenABC</Value>
     </Setting>
   </Settings>
 </SettingsFile>
