@@ -44,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -79,7 +80,10 @@
     <Compile Include="Data\Enum\WorkStatus.cs" />
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
-    <Compile Include="Data\Model\MQTask.cs" />
+    <Compile Include="Helper\JSONHelper.cs" />
+    <Compile Include="MQTask\Parameter\CalAtt.cs" />
+    <Compile Include="MQTask\TaskDispatcher.cs" />
+    <Compile Include="MQTask\TaskSetting.cs" />
     <Compile Include="Data\Model\PageViewModel\CompanyInfoModel.cs" />
     <Compile Include="Data\Model\Search\AttendanceRecordDetailSearchModel.cs" />
     <Compile Include="Data\Model\Search\DepartmentSearchModel.cs" />
@@ -116,6 +120,7 @@
     <Compile Include="Helper\Excel\AttendanceRecordDetailExcelHelper.cs" />
     <Compile Include="Helper\Excel\ExcelHelperBase.cs" />
     <Compile Include="Helper\FileHelper.cs" />
+    <Compile Include="MQTask\TaskType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
