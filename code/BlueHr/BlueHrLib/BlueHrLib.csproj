@@ -59,6 +59,8 @@
     <Compile Include="Common\Patterns\Singleton.cs" />
     <Compile Include="CusException\SystemSettingNotSetException.cs" />
     <Compile Include="CusException\SystemCertificateTypeNotFoundException.cs" />
+    <Compile Include="CusException\TaskTypeNotSupportException.cs" />
+    <Compile Include="CusException\TaskRoundNotFoundException.cs" />
     <Compile Include="Data\AttendanceRecordCal.cs" />
     <Compile Include="Data\AttendanceRecordDetailView.cs" />
     <Compile Include="Data\AttendanceRecordDetail.cs" />
@@ -80,6 +82,9 @@
     <Compile Include="Data\Enum\WorkStatus.cs" />
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
+    <Compile Include="Data\Repository\Implement\TaskRoundRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ITaskRoundRepository.cs" />
+    <Compile Include="Data\TaskRound.cs" />
     <Compile Include="Helper\JSONHelper.cs" />
     <Compile Include="MQTask\Parameter\CalAtt.cs" />
     <Compile Include="MQTask\TaskDispatcher.cs" />
@@ -120,6 +125,7 @@
     <Compile Include="Helper\Excel\AttendanceRecordDetailExcelHelper.cs" />
     <Compile Include="Helper\Excel\ExcelHelperBase.cs" />
     <Compile Include="Helper\FileHelper.cs" />
+    <Compile Include="Data\Enum\TaskRoundStatus.cs" />
     <Compile Include="MQTask\TaskType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -130,6 +136,7 @@
     <Compile Include="Service\Implement\AttendanceRecordService.cs" />
     <Compile Include="Service\Implement\DegreeTypeService.cs" />
     <Compile Include="Service\Implement\InSureTypeService.cs" />
+    <Compile Include="Service\Implement\TaskRoundService.cs" />
     <Compile Include="Service\Implement\StaffTypeService.cs" />
     <Compile Include="Service\Implement\JobTitleService.cs" />
     <Compile Include="Service\Implement\CompanyService.cs" />
@@ -140,6 +147,7 @@
     <Compile Include="Service\Interface\IDepartmentService.cs" />
     <Compile Include="Service\Interface\IDegreeTypeService.cs" />
     <Compile Include="Service\Interface\IInSureTypeService.cs" />
+    <Compile Include="Service\Interface\ITaskRoundService.cs" />
     <Compile Include="Service\Interface\IStaffTypeService.cs" />
     <Compile Include="Service\Interface\IJobTitleService.cs" />
     <Compile Include="Service\Interface\IStaffService.cs" />

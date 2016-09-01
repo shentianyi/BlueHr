@@ -22,10 +22,10 @@ namespace BlueHrLib.Service.Implement
         /// 将Detail的数据计算到Cal中
         /// 将班次结束点日期等于date日期，结束点时间小于等于date时间的班次考勤进行计算
         /// </summary>
-        /// <param name="date">计算的时间</param>
+        /// <param name="dateTime">计算的时间</param>
         /// <param name="shiftCodes">班次代码</param>
         /// <param name="searchModel">需要计算的员工的查询条件, **NOT IMPLEMENT**</param>
-        public void CalculateAttendRecord(DateTime date, List<string> shiftCodes = null, StaffSearchModel searchModel = null)
+        public void CalculateAttendRecord(DateTime dateTime, List<string> shiftCodes = null, StaffSearchModel searchModel = null)
         {
             DataContext dc = new DataContext(this.DbString);
             /// 判断配置
@@ -36,7 +36,7 @@ namespace BlueHrLib.Service.Implement
             /// 查找员工的排班
             //IStaffService staffService = new StaffService(this.DbString);
             //List<Staff> staffs = staffService.Search(searchModel).ToList();
-            var allShiftShedulesQ = dc.Context.GetTable<ShiftScheduleView>().Where(s => s.fullEndAt.Value <= date && s.fullEndAt.Value.Date.Equals(date.Date));
+            var allShiftShedulesQ = dc.Context.GetTable<ShiftScheduleView>().Where(s => s.fullEndAt.Value <= dateTime && s.fullEndAt.Value.Date.Equals(dateTime.Date));
             if (shiftCodes != null && shiftCodes.Count > 0)
             {
                 allShiftShedulesQ = allShiftShedulesQ.Where(s => shiftCodes.Contains(s.code));
@@ -75,7 +75,7 @@ namespace BlueHrLib.Service.Implement
 
                 foreach (var shift in staffShitSchedules)
                 {
-                    DateTime shiftDate = date.Date.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : -1);
+                    DateTime shiftDate = dateTime.Date.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : -1);
 
                     totalWorkingHours[shiftDate] = 0;
                     exceptions[shiftDate] = new List<AttendanceExceptionType>();

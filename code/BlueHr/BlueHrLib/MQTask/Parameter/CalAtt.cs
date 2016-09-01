@@ -8,7 +8,7 @@ namespace BlueHrLib.MQTask.Parameter
     [Serializable]
     public class CalAtt
     {
-        public DateTime Date { get; set; }
+        public DateTime AttDateTime { get; set; }
         public List<string> ShiftCodes { get; set; }
     }
 }

@@ -248,6 +248,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TaskRoundController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -345,7 +346,9 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Template\keep.txt" />
     <Content Include="TmpFile\keep.txt" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -392,6 +395,7 @@
     <Content Include="Views\Shared\Search\_CompanyAndDepartmentBar.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
     <Content Include="Views\Staff\Edit.cshtml" />
+    <Content Include="Views\TaskRound\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -99,10 +99,13 @@ namespace BlueHrLib.Data
     partial void InsertAttendanceRecordDetail(AttendanceRecordDetail instance);
     partial void UpdateAttendanceRecordDetail(AttendanceRecordDetail instance);
     partial void DeleteAttendanceRecordDetail(AttendanceRecordDetail instance);
+    partial void InsertTaskRound(TaskRound instance);
+    partial void UpdateTaskRound(TaskRound instance);
+    partial void DeleteTaskRound(TaskRound instance);
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString4, mappingSource)
 		{
 			OnCreated();
 		}
@@ -344,6 +347,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<ShiftScheduleView>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TaskRound> TaskRound
+		{
+			get
+			{
+				return this.GetTable<TaskRound>();
 			}
 		}
 	}
@@ -7566,6 +7577,212 @@ namespace BlueHrLib.Data
 				{
 					this._fullEndAt = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TaskRound")]
+	public partial class TaskRound : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _taskStatus;
+		
+		private System.DateTime _createdAt;
+		
+		private int _taskType;
+		
+		private System.Nullable<System.DateTime> _finishAt;
+		
+		private string _result;
+		
+		private System.Guid _uuid;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OntaskStatusChanging(int value);
+    partial void OntaskStatusChanged();
+    partial void OncreatedAtChanging(System.DateTime value);
+    partial void OncreatedAtChanged();
+    partial void OntaskTypeChanging(int value);
+    partial void OntaskTypeChanged();
+    partial void OnfinishAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnfinishAtChanged();
+    partial void OnresultChanging(string value);
+    partial void OnresultChanged();
+    partial void OnuuidChanging(System.Guid value);
+    partial void OnuuidChanged();
+    #endregion
+		
+		public TaskRound()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_taskStatus", DbType="Int NOT NULL")]
+		public int taskStatus
+		{
+			get
+			{
+				return this._taskStatus;
+			}
+			set
+			{
+				if ((this._taskStatus != value))
+				{
+					this.OntaskStatusChanging(value);
+					this.SendPropertyChanging();
+					this._taskStatus = value;
+					this.SendPropertyChanged("taskStatus");
+					this.OntaskStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdAt", DbType="DateTime NOT NULL")]
+		public System.DateTime createdAt
+		{
+			get
+			{
+				return this._createdAt;
+			}
+			set
+			{
+				if ((this._createdAt != value))
+				{
+					this.OncreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._createdAt = value;
+					this.SendPropertyChanged("createdAt");
+					this.OncreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_taskType", DbType="Int NOT NULL")]
+		public int taskType
+		{
+			get
+			{
+				return this._taskType;
+			}
+			set
+			{
+				if ((this._taskType != value))
+				{
+					this.OntaskTypeChanging(value);
+					this.SendPropertyChanging();
+					this._taskType = value;
+					this.SendPropertyChanged("taskType");
+					this.OntaskTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_finishAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> finishAt
+		{
+			get
+			{
+				return this._finishAt;
+			}
+			set
+			{
+				if ((this._finishAt != value))
+				{
+					this.OnfinishAtChanging(value);
+					this.SendPropertyChanging();
+					this._finishAt = value;
+					this.SendPropertyChanged("finishAt");
+					this.OnfinishAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_result", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string result
+		{
+			get
+			{
+				return this._result;
+			}
+			set
+			{
+				if ((this._result != value))
+				{
+					this.OnresultChanging(value);
+					this.SendPropertyChanging();
+					this._result = value;
+					this.SendPropertyChanged("result");
+					this.OnresultChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uuid", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid uuid
+		{
+			get
+			{
+				return this._uuid;
+			}
+			set
+			{
+				if ((this._uuid != value))
+				{
+					this.OnuuidChanging(value);
+					this.SendPropertyChanging();
+					this._uuid = value;
+					this.SendPropertyChanged("uuid");
+					this.OnuuidChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

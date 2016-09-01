@@ -36,6 +36,8 @@
                 </button>
 
                 <button class="pull-right marco-btn-primary import-button-dialog" title="Import" type="button">导入打卡记录</button>
+                <button class="glyphicon glyphicon-dashboard cal-att-button-dialog" title="Import" type="button">新建计算任务</button>
+
             </div>
 </form>
 </div>
@@ -141,6 +143,26 @@
     @*<div class="dialogModal_footer">
         <button type="submit" class="btn btn-primary ff" style="width:200px;"  >OK</button>
     </div>*@
+</div>
+
+
+<!--计算任务-->
+<div id="dialog_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        新建考勤计算任务
+    </div>
+    <div class="dialogModal_content">
+        <strong>选择时间*:</strong>
+        <input type="text" name="CalDate" id="CalDate" class="datetimepicker" placeholder="考勤时间(必选)" value="@DateTime.Now.ToString("yyyy-MM-dd hh:mm")" />
+        <hr />
+        <strong>选择班次:</strong>
+
+        <hr />
+        <a href="~/Template/考勤记录导入文件模板.xlsx" target="_blank">下载文件模板</a>
+    </div>
+    <div class="dialogModal_footer">
+            <button type="submit" class="btn btn-primary ff" style="width:200px;"  >OK</button>
+        </div>
 </div>
 
 <script type="text/javascript">

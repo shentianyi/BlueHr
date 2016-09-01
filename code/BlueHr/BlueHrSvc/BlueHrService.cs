@@ -53,6 +53,7 @@ namespace BlueHrSvc
                     LogUtil.Logger.Info("获取到任务信息：");
                     LogUtil.Logger.Info(msg);
                     TaskSetting ts=msg.Body as TaskSetting;
+                    new TaskDispatcher(Settings.Default.db).Dispatch(ts);
                 }
 
                 LogUtil.Logger.Info("任务运行结束");

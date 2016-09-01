@@ -13,7 +13,7 @@ namespace BlueHrLib.MQTask
         /// 包含：
         /// CalAtt - 计算考勤
         /// </summary>
-        public string TaskType { get; set; }
+        public TaskType TaskType { get; set; }
 
         /// <summary>
         /// 任务创建时间

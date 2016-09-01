@@ -55,5 +55,36 @@ namespace BlueHrWeb.Controllers
 
             return Json(msg);
         }
+
+
+        private void SetJobTitleList(int? type, bool allowBlank = true)
+        {
+            IJobTitleService js = new JobTitleService(Settings.Default.db);
+
+            JobTitleSearchModel jtsm = new JobTitleSearchModel();
+
+            List<JobTitle> jt = js.Search(jtsm).ToList();
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in jt)
+            {
+                if (type.HasValue && type.ToString().Equals(it.id))
+                {
+                    select.Add(new SelectListItem { Text = it.name, Value = it.id.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.name, Value = it.id.ToString(), Selected = false });
+                }
+            }
+            ViewData["jobTitleList"] = select;
+        }
+
     }
 }

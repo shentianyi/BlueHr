@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -10,11 +11,13 @@ namespace BlueHrLib.MQTask
         /// <summary>
         /// 计算考勤信息
         /// </summary>
-        CalAtt,
+        [Description("计算考勤")]
+        CalAtt=100,
 
         /// <summary>
         /// 发送邮件
         /// </summary>
-        SendMail
+        [Description("发送邮件")]
+        SendMail=200
     }
 }

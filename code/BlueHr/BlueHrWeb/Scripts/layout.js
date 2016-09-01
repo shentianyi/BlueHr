@@ -18,6 +18,8 @@ Layout.init = function () {
             $('.nav-staff').addClass('active');
             PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
             break;
+        case "TaskRound":
+            $('.nav-taskround').addClass('active');
         default:
             break;
     }
