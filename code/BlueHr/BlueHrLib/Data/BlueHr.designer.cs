@@ -315,14 +315,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<ShiftScheduleView> ShiftScheduleView
-		{
-			get
-			{
-				return this.GetTable<ShiftScheduleView>();
-			}
-		}
-		
 		public System.Data.Linq.Table<AttendanceRecordCal> AttendanceRecordCal
 		{
 			get
@@ -344,6 +336,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<AttendanceRecordDetailView>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ShiftScheduleView> ShiftScheduleView
+		{
+			get
+			{
+				return this.GetTable<ShiftScheduleView>();
 			}
 		}
 	}
@@ -6014,195 +6014,6 @@ namespace BlueHrLib.Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ShiftScheduleView")]
-	public partial class ShiftScheduleView
-	{
-		
-		private int _id;
-		
-		private string _staffNr;
-		
-		private System.DateTime _scheduleAt;
-		
-		private int _shiftId;
-		
-		private string _code;
-		
-		private string _name;
-		
-		private System.TimeSpan _startAt;
-		
-		private System.TimeSpan _endAt;
-		
-		private int _shiftType;
-		
-		private string _remark;
-		
-		public ShiftScheduleView()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this._id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string staffNr
-		{
-			get
-			{
-				return this._staffNr;
-			}
-			set
-			{
-				if ((this._staffNr != value))
-				{
-					this._staffNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_scheduleAt", DbType="Date NOT NULL")]
-		public System.DateTime scheduleAt
-		{
-			get
-			{
-				return this._scheduleAt;
-			}
-			set
-			{
-				if ((this._scheduleAt != value))
-				{
-					this._scheduleAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_shiftId", DbType="Int NOT NULL")]
-		public int shiftId
-		{
-			get
-			{
-				return this._shiftId;
-			}
-			set
-			{
-				if ((this._shiftId != value))
-				{
-					this._shiftId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_code", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string code
-		{
-			get
-			{
-				return this._code;
-			}
-			set
-			{
-				if ((this._code != value))
-				{
-					this._code = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this._name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startAt", DbType="Time NOT NULL")]
-		public System.TimeSpan startAt
-		{
-			get
-			{
-				return this._startAt;
-			}
-			set
-			{
-				if ((this._startAt != value))
-				{
-					this._startAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endAt", DbType="Time NOT NULL")]
-		public System.TimeSpan endAt
-		{
-			get
-			{
-				return this._endAt;
-			}
-			set
-			{
-				if ((this._endAt != value))
-				{
-					this._endAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_shiftType", DbType="Int NOT NULL")]
-		public int shiftType
-		{
-			get
-			{
-				return this._shiftType;
-			}
-			set
-			{
-				if ((this._shiftType != value))
-				{
-					this._shiftType = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="VarChar(255)")]
-		public string remark
-		{
-			get
-			{
-				return this._remark;
-			}
-			set
-			{
-				if ((this._remark != value))
-				{
-					this._remark = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AttendanceRecordCal")]
 	public partial class AttendanceRecordCal : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -7529,6 +7340,231 @@ namespace BlueHrLib.Data
 				if ((this._departmentName != value))
 				{
 					this._departmentName = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ShiftScheduleView")]
+	public partial class ShiftScheduleView
+	{
+		
+		private int _id;
+		
+		private string _staffNr;
+		
+		private System.DateTime _scheduleAt;
+		
+		private int _shiftId;
+		
+		private string _code;
+		
+		private string _name;
+		
+		private System.TimeSpan _startAt;
+		
+		private System.TimeSpan _endAt;
+		
+		private int _shiftType;
+		
+		private string _remark;
+		
+		private System.Nullable<System.DateTime> _fullStartAt;
+		
+		private System.Nullable<System.DateTime> _fullEndAt;
+		
+		public ShiftScheduleView()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string staffNr
+		{
+			get
+			{
+				return this._staffNr;
+			}
+			set
+			{
+				if ((this._staffNr != value))
+				{
+					this._staffNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_scheduleAt", DbType="Date NOT NULL")]
+		public System.DateTime scheduleAt
+		{
+			get
+			{
+				return this._scheduleAt;
+			}
+			set
+			{
+				if ((this._scheduleAt != value))
+				{
+					this._scheduleAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_shiftId", DbType="Int NOT NULL")]
+		public int shiftId
+		{
+			get
+			{
+				return this._shiftId;
+			}
+			set
+			{
+				if ((this._shiftId != value))
+				{
+					this._shiftId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_code", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this._code = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this._name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startAt", DbType="Time NOT NULL")]
+		public System.TimeSpan startAt
+		{
+			get
+			{
+				return this._startAt;
+			}
+			set
+			{
+				if ((this._startAt != value))
+				{
+					this._startAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endAt", DbType="Time NOT NULL")]
+		public System.TimeSpan endAt
+		{
+			get
+			{
+				return this._endAt;
+			}
+			set
+			{
+				if ((this._endAt != value))
+				{
+					this._endAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_shiftType", DbType="Int NOT NULL")]
+		public int shiftType
+		{
+			get
+			{
+				return this._shiftType;
+			}
+			set
+			{
+				if ((this._shiftType != value))
+				{
+					this._shiftType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="VarChar(255)")]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this._remark = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fullStartAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> fullStartAt
+		{
+			get
+			{
+				return this._fullStartAt;
+			}
+			set
+			{
+				if ((this._fullStartAt != value))
+				{
+					this._fullStartAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fullEndAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> fullEndAt
+		{
+			get
+			{
+				return this._fullEndAt;
+			}
+			set
+			{
+				if ((this._fullEndAt != value))
+				{
+					this._fullEndAt = value;
 				}
 			}
 		}

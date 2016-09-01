@@ -14,7 +14,8 @@ namespace BlueHrLib.Service.Interface
         /// 将Detail的数据计算到Cal中
         /// </summary>
         /// <param name="date">计算的时间</param>
-        void CalculateAttendRecord(DateTime date);
+        /// <param name="searchModel">需要计算的员工的查询条件</param>
+        void CalculateAttendRecord(DateTime date, StaffSearchModel searchModel);
 
         /// <summary>
         /// 搜索详细考勤信息

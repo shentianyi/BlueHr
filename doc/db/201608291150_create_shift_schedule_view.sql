@@ -1,7 +1,7 @@
 USE [BlueHr]
 GO
 
-/****** Object:  View [dbo].[ShiftScheduleView]    Script Date: 08/29/2016 11:57:19 ******/
+/****** Object:  View [dbo].[ShiftScheduleView]    Script Date: 09/01/2016 14:57:45 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,7 +11,8 @@ GO
 CREATE VIEW [dbo].[ShiftScheduleView]
 AS
 SELECT     dbo.ShiftSchedule.id, dbo.ShiftSchedule.staffNr, dbo.ShiftSchedule.scheduleAt, dbo.ShiftSchedule.shiftId, dbo.Shift.code, dbo.Shift.name, dbo.Shift.startAt, 
-                      dbo.Shift.endAt, dbo.Shift.shiftType, dbo.Shift.remark
+                      dbo.Shift.endAt, dbo.Shift.shiftType, dbo.Shift.remark, CONVERT(DATETIME, dbo.ShiftSchedule.scheduleAt) + CONVERT(DATETIME, dbo.Shift.startAt) AS fullStartAt, 
+                      CONVERT(DATETIME, dbo.ShiftSchedule.scheduleAt) + CONVERT(DATETIME, dbo.Shift.endAt) AS fullEndAt
 FROM         dbo.Shift INNER JOIN
                       dbo.ShiftSchedule ON dbo.Shift.id = dbo.ShiftSchedule.shiftId
 
@@ -22,7 +23,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+         Configuration = "(H (1[24] 4[37] 2[20] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -119,7 +120,7 @@ Begin DesignProperties =
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
          Column = 1440
-         Alias = 900
+         Alias = 2370
          Table = 3000
          Output = 720
          Append = 1400

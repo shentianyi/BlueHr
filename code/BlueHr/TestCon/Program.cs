@@ -15,8 +15,18 @@ namespace TestCon
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(" 1. create staff \n 2.create shiftshedule\n 3.create record\n 4.calcualte staff attendance");
+            Console.WriteLine(" 1. create staff \n 2.create shiftshedule\n 3.create record\n 4.calcualte staff attendance \n 5. PRESS q to quit.");
             string ke = Console.ReadLine();
+            while (!ke.Equals("q")) {
+                Cmd(ke);
+                ke = Console.ReadLine();
+            }
+            Console.WriteLine("quiting....press ENTER....");
+            Console.Read();
+        }
+        static void Cmd(string ke)
+        {
+           
             DateTime st = DateTime.Now;
             switch (ke)
             {
@@ -30,19 +40,18 @@ namespace TestCon
                     CreateAttRecord();
                     break;
                 case "4":
-                    Console.WriteLine("input date:");
-                    DateTime date = DateTime.Parse( Console.ReadLine()).Date;
+                    Console.WriteLine("input date(default is DateTime.now):");
+                    string dates = Console.ReadLine();
+                    DateTime date = string.IsNullOrEmpty(dates)? DateTime.Now : DateTime.Parse(dates);
                     AttendanceRecordService ars = new AttendanceRecordService(Settings.Default.db);
-                    ars.CalculateAttendRecord(date);
+                    ars.CalculateAttendRecord(date, new StaffSearchModel());
                     break;
                 default:
                     break;
             }
 
             Console.WriteLine((DateTime.Now - st).TotalMilliseconds);
-            Console.Read();
         }
-
         static void CreateStaffs()
         {
             int n = 0;

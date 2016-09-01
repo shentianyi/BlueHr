@@ -22,25 +22,38 @@ namespace BlueHrLib.Service.Implement
         /// 将Detail的数据计算到Cal中
         /// </summary>
         /// <param name="date">计算的时间</param>
-        public void CalculateAttendRecord(DateTime date)
+        /// <param name="searchModel">需要计算的员工的查询条件</param>
+        public void CalculateAttendRecord(DateTime date, StaffSearchModel searchModel)
         {
             DataContext dc = new DataContext(this.DbString);
-            /// 全部员工
-            List<Staff> staffs = dc.Context.GetTable<Staff>().ToList();
+            /// 判断配置
             SystemSetting setting = dc.Context.GetTable<SystemSetting>().FirstOrDefault();
             if (setting == null)
                 throw new SystemSettingNotSetException();
 
+            /// 查找员工的排班
+            //IStaffService staffService = new StaffService(this.DbString);
+            //List<Staff> staffs = staffService.Search(searchModel).ToList();
+            List<ShiftScheduleView> allShiftShedules = dc.Context.GetTable<ShiftScheduleView>().Where(s => s.fullEndAt.Value <= date && s.fullEndAt.Value.Date.Equals(date.Date)).ToList();
+            Dictionary<string, List<ShiftScheduleView>> allStaffShitSchedules = new Dictionary<string, List<ShiftScheduleView>>();
+            foreach (var ssv in allShiftShedules)
+            {
+                if (!allStaffShitSchedules.ContainsKey(ssv.staffNr))
+                {
+                    allStaffShitSchedules.Add(ssv.staffNr, new List<ShiftScheduleView>());
+                }
+                allStaffShitSchedules[ssv.staffNr].Add(ssv);
+            }
             Dictionary<string, List<AttendanceRecordCal>> staffAttendCals = new Dictionary<string, List<AttendanceRecordCal>>();
 
             /// 循环每一个员工
-            foreach (Staff staff in staffs)
+            foreach (var staffShiftShedule in allStaffShitSchedules)
             {
                 Dictionary<DateTime, double> totalWorkingHours = new Dictionary<DateTime, double>();
                 Dictionary<DateTime, List<AttendanceExceptionType>> exceptions = new Dictionary<DateTime, List<AttendanceExceptionType>>();
                 // 获取今日、昨日的所有排班
-                List<ShiftScheduleView> staffShitSchedules = dc.Context.GetTable<ShiftScheduleView>()
-                    .Where(s => s.staffNr.Equals(staff.nr) && (s.scheduleAt.Date.Equals(date.Date) || (s.scheduleAt.Equals(date.Date.AddDays(-1)) && s.shiftType.Equals((int)ShiftType.Tommorrow)))).ToList();
+                List<ShiftScheduleView> staffShitSchedules = staffShiftShedule.Value;// dc.Context.GetTable<ShiftScheduleView>()
+                                                                                     // .Where(s => s.staffNr.Equals(staff.nr) && (s.scheduleAt.Date.Equals(date.Date) || (s.scheduleAt.Equals(date.Date.AddDays(-1)) && s.shiftType.Equals((int)ShiftType.Tommorrow)))).ToList();
 
                 if (staffShitSchedules.Count == 0)
                 {
@@ -54,7 +67,7 @@ namespace BlueHrLib.Service.Implement
 
                 foreach (var shift in staffShitSchedules)
                 {
-                    DateTime shiftDate = date.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : -1);
+                    DateTime shiftDate = date.Date.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : -1);
 
                     totalWorkingHours[shiftDate] = 0;
                     exceptions[shiftDate] = new List<AttendanceExceptionType>();
@@ -68,7 +81,8 @@ namespace BlueHrLib.Service.Implement
                     DateTime sq = shiftStart.AddHours(0 - setting.validAttendanceRecordTime.Value);
                     DateTime eq = shiftEnd.AddHours(setting.validAttendanceRecordTime.Value);
 
-                    List<AttendanceRecordDetail> records = staff.AttendanceRecordDetail.Where(s => s.recordAt >= sq && s.recordAt <= eq).ToList().OrderBy(s => s.recordAt).ToList();
+                    List<AttendanceRecordDetail> records = dc.Context.GetTable<AttendanceRecordDetail>().Where(s => s.staffNr.Equals(staffShiftShedule.Key) && s.recordAt >= sq && s.recordAt <= eq).OrderBy(s => s.recordAt).ToList();
+                    //staff.AttendanceRecordDetail.Where(s => s.recordAt >= sq && s.recordAt <= eq).ToList().OrderBy(s => s.recordAt).ToList();
 
                     if (records.Count == 0)
                     {
@@ -121,12 +135,20 @@ namespace BlueHrLib.Service.Implement
                         }
                     }
                 }
-                staffAttendCals.Add(staff.nr, new List<AttendanceRecordCal>());
+                staffAttendCals.Add(staffShiftShedule.Key, new List<AttendanceRecordCal>());
                 // 创建, 计算过的出勤时间
                 foreach (var dic in totalWorkingHours)
                 {
-                    AttendanceRecordCal cal = new AttendanceRecordCal() { attendanceExceptions = exceptions[dic.Key], createdAt = DateTime.Now, oriWorkingHour = dic.Value, actWorkingHour = dic.Value, staffNr = staff.nr, attendanceDate = dic.Key };
-                    staffAttendCals[staff.nr].Add(cal);
+                    AttendanceRecordCal cal = new AttendanceRecordCal()
+                    {
+                        attendanceExceptions = exceptions[dic.Key],
+                        createdAt = DateTime.Now,
+                        oriWorkingHour = dic.Value,
+                        actWorkingHour = dic.Value,
+                        staffNr = staffShiftShedule.Key,
+                        attendanceDate = dic.Key
+                    };
+                    staffAttendCals[staffShiftShedule.Key].Add(cal);
                 }
 
             }
@@ -161,9 +183,10 @@ namespace BlueHrLib.Service.Implement
                                 u.exceptionCodes = c.exceptionCodes;
                             }
                         }
-                        List<AttendanceRecordCal> _insertCals = dic.Value.Where(s => !_updateCals.Select(ss => ss.attendanceDate).Contains(s.attendanceDate)).ToList();
-                        insertCals.AddRange(_insertCals);
+                      
                     }
+                    List<AttendanceRecordCal> _insertCals = dic.Value.Where(s => !_updateCals.Select(ss => ss.attendanceDate).Contains(s.attendanceDate)).ToList();
+                        insertCals.AddRange(_insertCals);
                     subDc.Context.GetTable<AttendanceRecordCal>().InsertAllOnSubmit(insertCals);
                     subDc.Context.SubmitChanges();
 
@@ -201,13 +224,9 @@ namespace BlueHrLib.Service.Implement
         /// <param name="records"></param>
         public void CreateDetails(List<AttendanceRecordDetail> records)
         {
-
             DataContext dc = new DataContext(this.DbString);
-
             dc.Context.GetTable<AttendanceRecordDetail>().InsertAllOnSubmit(records);
-
             dc.Context.SubmitChanges();
-
         }
 
         /// <summary>
@@ -222,6 +241,7 @@ namespace BlueHrLib.Service.Implement
 
             return dc.Context.GetTable<AttendanceRecordDetail>().FirstOrDefault(s => s.staffNr.Equals(nr) && s.recordAt.Equals(recordAt));
         }
+
         private void MarkRepeatRecord(List<AttendanceRecordDetail> records, float repeatFlag)
         {
             for(int i=0;i<records.Count-1;i++)
