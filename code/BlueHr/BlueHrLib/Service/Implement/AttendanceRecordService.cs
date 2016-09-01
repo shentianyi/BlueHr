@@ -183,6 +183,17 @@ namespace BlueHrLib.Service.Implement
             IAttendanceRecordDetailRepository rep = new AttendanceRecordDetailRepository(new DataContext(this.DbString));
             return rep.Search(searchModel);
         }
+        
+        /// <summary>
+        /// 搜索详细考勤信息视图, 包含员工的信息
+        /// </summary>
+        /// <param name="searchModel"></param>
+        /// <returns></returns>
+        public IQueryable<AttendanceRecordDetailView> SearchDetailView(AttendanceRecordDetailSearchModel searchModel)
+        {
+            IAttendanceRecordDetailViewRepository rep = new AttendanceRecordDetailViewRepository(new DataContext(this.DbString));
+            return rep.Search(searchModel);
+        }
 
         /// <summary>
         /// 批量创建详细考勤数据
