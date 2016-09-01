@@ -168,7 +168,8 @@
 .marco-igroup {
   border: 1px solid #95a5a6;
   display: table;
-  margin: 5px 0; }
+  margin: 5px 0;
+  height: 40px; }
   .marco-igroup span, .marco-igroup label {
     width: 1%;
     min-width: 60px;
@@ -188,18 +189,18 @@
     border: none;
     margin: 0;
     padding: 7px;
+    height: 38px;
     width: 100%;
     /*display: table-cell;*/
     line-height: 10px; }
     .marco-igroup input[disabled], .marco-igroup select[disabled] {
       cursor: not-allowed; }
-  .marco-igroup select option {
-    height: 40px; }
 
 .marco-igroup-default {
   border: 1px solid #34495e;
   display: table;
-  margin: 5px 0; }
+  margin: 5px 0;
+  height: 40px; }
   .marco-igroup-default span, .marco-igroup-default label {
     width: 1%;
     min-width: 60px;
@@ -219,18 +220,18 @@
     border: none;
     margin: 0;
     padding: 7px;
+    height: 38px;
     width: 100%;
     /*display: table-cell;*/
     line-height: 10px; }
     .marco-igroup-default input[disabled], .marco-igroup-default select[disabled] {
       cursor: not-allowed; }
-  .marco-igroup-default select option {
-    height: 40px; }
 
 .marco-igroup-primary {
   border: 1px solid #3498db;
   display: table;
-  margin: 5px 0; }
+  margin: 5px 0;
+  height: 40px; }
   .marco-igroup-primary span, .marco-igroup-primary label {
     width: 1%;
     min-width: 60px;
@@ -250,18 +251,18 @@
     border: none;
     margin: 0;
     padding: 7px;
+    height: 38px;
     width: 100%;
     /*display: table-cell;*/
     line-height: 10px; }
     .marco-igroup-primary input[disabled], .marco-igroup-primary select[disabled] {
       cursor: not-allowed; }
-  .marco-igroup-primary select option {
-    height: 40px; }
 
 .marco-igroup-success {
   border: 1px solid #16a085;
   display: table;
-  margin: 5px 0; }
+  margin: 5px 0;
+  height: 40px; }
   .marco-igroup-success span, .marco-igroup-success label {
     width: 1%;
     min-width: 60px;
@@ -281,18 +282,18 @@
     border: none;
     margin: 0;
     padding: 7px;
+    height: 38px;
     width: 100%;
     /*display: table-cell;*/
     line-height: 10px; }
     .marco-igroup-success input[disabled], .marco-igroup-success select[disabled] {
       cursor: not-allowed; }
-  .marco-igroup-success select option {
-    height: 40px; }
 
 .marco-igroup-warning {
   border: 1px solid #faebcc;
   display: table;
-  margin: 5px 0; }
+  margin: 5px 0;
+  height: 40px; }
   .marco-igroup-warning span, .marco-igroup-warning label {
     width: 1%;
     min-width: 60px;
@@ -312,18 +313,18 @@
     border: none;
     margin: 0;
     padding: 7px;
+    height: 38px;
     width: 100%;
     /*display: table-cell;*/
     line-height: 10px; }
     .marco-igroup-warning input[disabled], .marco-igroup-warning select[disabled] {
       cursor: not-allowed; }
-  .marco-igroup-warning select option {
-    height: 40px; }
 
 .marco-igroup-danger {
   border: 1px solid #c0392b;
   display: table;
-  margin: 5px 0; }
+  margin: 5px 0;
+  height: 40px; }
   .marco-igroup-danger span, .marco-igroup-danger label {
     width: 1%;
     min-width: 60px;
@@ -343,13 +344,12 @@
     border: none;
     margin: 0;
     padding: 7px;
+    height: 38px;
     width: 100%;
     /*display: table-cell;*/
     line-height: 10px; }
     .marco-igroup-danger input[disabled], .marco-igroup-danger select[disabled] {
       cursor: not-allowed; }
-  .marco-igroup-danger select option {
-    height: 40px; }
 
 .marco-npanel {
   margin-top: 10px;

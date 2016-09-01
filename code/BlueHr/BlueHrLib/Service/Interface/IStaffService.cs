@@ -58,6 +58,6 @@ namespace BlueHrLib.Service.Interface
 
         void Creates(List<Staff> staffs);
 
-        void Create(Staff staff);
+        bool Create(Staff staff);
     }
 }

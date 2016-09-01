@@ -18,7 +18,17 @@
     </div>
 </div>*@
 
-@PartialViewHelper.CompanyAndDepartmentDropDownList(this.Html,ViewBag.Query.CompanyId,ViewBag.Query.DepartmentId)
+
+@*有可能 ViewBag.Query 不存在*@
+@if (ViewBag.Query!=null)
+{
+    @PartialViewHelper.CompanyAndDepartmentDropDownList(this.Html, ViewBag.Query.CompanyId, ViewBag.Query.DepartmentId)
+}
+else
+{
+    @PartialViewHelper.CompanyAndDepartmentDropDownList(this.Html, null, null)
+}
+
 
 <script type="text/javascript">
     var Department = new Array();
@@ -31,7 +41,7 @@
             Department = data;
         },
         error: function () {
-            console.log("Error");
+            console.log("获取公司和部门信息出错");
         }
     });
 

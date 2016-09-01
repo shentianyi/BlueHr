@@ -117,10 +117,10 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th>身份证号码</th>
                         <th>员工号</th>
                         <th>员工姓名</th>
                         <th>员工性别</th>
-                        <th>身份证号码</th>
                         <th>员工职位</th>
                         <th>操作</th>
                     </tr>
@@ -132,6 +132,9 @@
                 {
                             <tr>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.id)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.nr)
                                 </td>
                                 <td>
@@ -139,9 +142,6 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.sex)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.id)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.jobTitleId)

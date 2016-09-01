@@ -80,20 +80,27 @@ namespace BlueHrWeb.Controllers
             SetIsPayCPFList(0);
             SetResidenceTypeList(0);
 
-
             return View();
         }
 
         // POST: Company/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Name, remark, address")] Staff staff)
+        public ActionResult Create([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt, CompanyEmployAt, WorkStatus, "+
+            "IsOnTrial, TrialOverAt, CompanyId, DepartmentId, JobTitleId, Photo, StaffTypeId, DegreeTypeId, Speciality, ResidenceAddress, Address, Id, Phone,"+
+            "ContactName, ContactPhone, ContactFamilyMemberType, Domicile, ResidenceType, InSureTypeId, IsPayCPF, ContractExpireAt, ContractCount, Ethnic, Remark")] Staff staff)
         {
             try
             {
                 // TODO: Add insert logic here
                 IStaffService ss = new StaffService(Settings.Default.db);
-                ss.Create(staff);
-                return RedirectToAction("Index");
+                bool result = ss.Create(staff);
+                if (result)
+                {
+                    return RedirectToAction("Index");
+                }else
+                {
+                    return View();
+                }
             }
             catch
             {

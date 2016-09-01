@@ -49,7 +49,7 @@ namespace BlueHrWeb.Helpers.View
                 }
             }
             /// 生成CompanyList
-            list += @"<div class='col - lg - 4 col - md - 4 col - sm - 6 col - xs - 12'>
+            list += @"<div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
                         <div class='marco-igroup-danger'> 
                         <span>公司*</span>";
             list += htmlHeper.DropDownList("CompanyId", companySelect).ToHtmlString();
@@ -83,7 +83,7 @@ namespace BlueHrWeb.Helpers.View
             }
 
             /// 生成DeparmentList
-            list += @"<div class='col - lg - 4 col - md - 4 col - sm - 6 col - xs - 12'>
+            list += @"<div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
                        <div class='marco-igroup-danger'>
                         <span>部门*</span>";
             list += htmlHeper.DropDownList("DepartmentId", departmentSelect).ToHtmlString();
