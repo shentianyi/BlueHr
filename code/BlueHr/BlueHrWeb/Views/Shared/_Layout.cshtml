@@ -38,7 +38,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">用户管理<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">权限管理</a></li>
-                        <li><a href="#">@Html.ActionLink("员工管理", "Index", "Staff")</a></li>
+                        <li>@Html.ActionLink("员工管理", "Index", "Staff")</li>
                     </ul>
                 </li>
 
@@ -53,7 +53,23 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">考勤管理<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/AttendanceRecordDetail">详细记录管理</a></li>
+                        <li>
+                            @Html.ActionLink("详细记录管理", "Index", "AttendanceRecordDetail")
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">基础数据<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("职位信息", "Index", "JobTitle")</li>
+                        <li>@Html.ActionLink("人员类型", "Index", "StaffType")</li>
+                        <li>@Html.ActionLink("学历管理", "Index", "DegreeType")</li>
+                        <li>@Html.ActionLink("证照类型", "Index", "CertificateType")</li>
+                        <li>@Html.ActionLink("保险类型", "Index", "InSureType")</li>
+                        <li>@Html.ActionLink("离职类型", "Index", "ResignType")</li>
+                        <li>@Html.ActionLink("缺勤类型", "Index", "AbsenceType")</li>
+                        <li>@Html.ActionLink("加班类型", "Index", "ExtraWorkType")</li>
                     </ul>
                 </li>
             </ul>

@@ -1,4 +1,6 @@
-﻿@model BlueHrLib.Data.Staff
+﻿
+
+@model BlueHrLib.Data.Staff
 
 <div id="staff" style="margin:10px;">
     <ol class="breadcrumb current-position">
@@ -125,7 +127,11 @@
             </div>
 
             <div class="marco-nbody row">
-
+                <div class="marco-igroup-primary">
+                    <span>选择照片上传</span>
+                    <input type="file" name="photoUpload"  id="photoUpload" />
+                    <input type="hidden" name="photo" id="photo" value="" />
+                </div>
             </div>
         </div>
 
@@ -324,7 +330,7 @@
         }
     });
 
-    $('#CompanyId').change(function () {
+    $('#companyId').change(function () {
         $('#departmentId').empty();
 
         var companyID = $('#companyId').find("option:selected").val();
@@ -336,4 +342,25 @@
 
         $(Html).appendTo('#departmentId');
     })
+
+    function readFile(file) {
+        //if (!/image\/\w+/.test(file.type)) {
+        //    alert("请确保文件为图像类型");
+        //    return false;
+        //}
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            result.innerHTML = '<img src="' + this.result + '" alt=""/>';
+            img_area.innerHTML = '<div class="sitetip">图片img标签展示：</div><img src="' + this.result + '" alt=""/>';
+        }
+    }
+
+    $('#photoUpload').change(function () {
+
+        readFile($(this).val());
+    })
 </script>
+
+<textarea name="result" id="result" cols="30" rows="300"></textarea>
+<p id="img_area"></p>

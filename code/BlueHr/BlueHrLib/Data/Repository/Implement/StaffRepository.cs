@@ -26,8 +26,11 @@ namespace BlueHrLib.Data.Repository.Implement
                     this.context.GetTable<Staff>().InsertOnSubmit(staff);
                     this.context.SubmitChanges();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Console.Write(e);
+
+                    Console.Write(e);
                     return false;
                 }
             }
