@@ -68,6 +68,11 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 departments = departments.Where(c => c.name.Contains(searchModel.Name.Trim()));
             }
+
+            if (searchModel.CompanyId.HasValue)
+            {
+                departments = departments.Where(c => c.companyId.Equals(searchModel.CompanyId));
+            }
             return departments;
         }
 

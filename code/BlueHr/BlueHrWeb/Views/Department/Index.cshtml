@@ -1,29 +1,34 @@
 ﻿@using MvcPaging
 
-@model IPagedList<BlueHrLib.Data.Company>
+@model IPagedList<BlueHrLib.Data.Department>
 
 @{
-    ViewBag.Title = "公司管理";
+    ViewBag.Title = "Index";
 }
-
-@Styles.Render("~/Content/company")
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
-    <li>公司管理</li>
+    <li>部门管理</li>
 </ol>
 
 <hr class="hr-grey" />
 
-<div class="row">
-    <form action="/Company/Search" method="get">
+<div class="row" style="margin:0;">
+    <form action="/Department/Search" method="get">
+        <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
+            <div class="marco-igroup-primary">
+                <span>公司名称</span>
+                @Html.DropDownList("CompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
+            </div>
+        </div>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="col-lg-8 col-md-8 col-sm-7 col-xs-6">
                 <div class="marco-igroup-primary">
-                    <span>公司名称</span>
-                    <input type="text" name="Name" id="Name" placeholder="公司名称" value="@ViewBag.Query.Name" />
+                    <span>部门名称</span>
+                    <input type="text" name="Name" id="Name" placeholder="部门名称" value="@ViewBag.Query.Name" />
+                    @*@Html.DropDownList("DepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)*@
                 </div>
-            </div>    
+            </div>
             <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
                 <button type="submit" class="marco-btn-success">
                     <i class="glyphicon glyphicon-search"></i>
@@ -37,9 +42,9 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="usual-table">
         <div class="table-heading">
-            公司列表
+            部门列表
             <div class="pull-right" style="margin-top:-12px;">
-                <a href="/Company/Create">
+                <a href="/Department/Create">
                     <button class="marco-btn-primary">
                         <i class="glyphicon glyphicon-plus-sign"></i>
                         <span>创建</span>
@@ -51,8 +56,8 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>公司名称</th>
-                        <th>公司地址</th>
+                        <th>所属公司</th>
+                        <th>部门名称</th>
                         <th>备注</th>
                         <th>操作</th>
                     </tr>
@@ -64,26 +69,21 @@
                 {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.name)
-                                    <span class="badge pull-right marco-badge" title="公司部门">
-                                        <a href="@Url.Action("Search", "Department", new { CompanyId = item.id})">
-                                            @*@ViewBag.Info.departmentCount*@
-                                            部门
-                                        </a>
-                                    </span>
+                                    @Html.DisplayFor(modelItem => item.companyId)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.address)
+                                    @Html.DisplayFor(modelItem => item.name)
                                 </td>
+                               
                                 <td>
                                     @Html.DisplayFor(modelItem => item.remark)
                                 </td>
                                 <td>
-                                    <a href="/Company/Delete/@item.id" class="option-icon-primary" title="详情">
+                                    <a href="/Department/Delete/@item.id" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>
                                     </a>
 
-                                    <a href="/Company/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                    <a href="/Department/Edit/@item.id" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                 </td>
@@ -94,6 +94,7 @@
             </table>
         </div>
     </div>
+
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
         <div class="clearfix pagination">
             <div class="pagination-inner">
@@ -101,8 +102,8 @@
             {
                 if (ViewBag.Query != null)
                 {
-
                     var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        .Options(o => o.AddRouteValue("CompanyId", ViewBag.Query.CompanyId))
                         .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
                         @html
                     }
@@ -115,9 +116,6 @@
         </div>
     </div>
 </div>
-
-
-@Scripts.Render("~/bundles/company")
 
 <script type="text/javascript">
     Layout.init();

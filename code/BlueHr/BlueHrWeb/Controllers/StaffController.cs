@@ -457,7 +457,5 @@ namespace BlueHrWeb.Controllers
             }
             ViewData["companyList"] = select;
         }
-
-
     }
 }

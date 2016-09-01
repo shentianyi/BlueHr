@@ -9,6 +9,10 @@ Layout.init = function () {
             $('.nav-company').addClass('active');
             PageAction('#company', '新建公司', '编辑公司', '公司详情', '创建', '更新', '删除');
             break;
+        case "Department":
+            $('.nav-department').addClass('active');
+            PageAction('#department', '新建部门', '编辑部门', '部门详情', '创建', '更新', '删除');
+            break;
         case "Staff":
             $('.nav-user').addClass('active');
             $('.nav-staff').addClass('active');
@@ -36,6 +40,19 @@ Layout.init = function () {
             vueName.actionBtn = deleteBtn;
         }
     }
+}
+
+Layout.TbodyHeight = function (cls, height) {
+    $(cls).css({ height: $(window).height() - height + 'px' });
+
+    $(window).resize(function () {
+        $(cls).css({ height: $(window).height() - height + 'px' });
+    });
+
+    $(cls).mCustomScrollbar({
+        scrollInertia: 600,
+        autoDraggerLength: false
+    });
 }
 
 Layout.datepicker = function (date_picker) {
