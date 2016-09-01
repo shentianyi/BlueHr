@@ -8,6 +8,7 @@ using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
 using TestCon.Properties;
+using Brilliantech.Framwork.Utils.LogUtil;
 
 namespace TestCon
 {
@@ -15,6 +16,13 @@ namespace TestCon
     {
         static void Main(string[] args)
         {
+            try {
+                int.Parse("&*^Df");
+            }catch(Exception ex)
+            {
+
+                LogUtil.Logger.Error("服务运行时出错", ex);
+            }
             Console.WriteLine(" 1. create staff \n 2.create shiftshedule\n 3.create record\n 4.calcualte staff attendance \n 5. PRESS q to quit.");
             string ke = Console.ReadLine();
             while (!ke.Equals("q")) {
@@ -44,7 +52,7 @@ namespace TestCon
                     string dates = Console.ReadLine();
                     DateTime date = string.IsNullOrEmpty(dates)? DateTime.Now : DateTime.Parse(dates);
                     AttendanceRecordService ars = new AttendanceRecordService(Settings.Default.db);
-                    ars.CalculateAttendRecord(date, new StaffSearchModel());
+                    ars.CalculateAttendRecord(date ,new List<string>() { "晚" });
                     break;
                 default:
                     break;

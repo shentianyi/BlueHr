@@ -79,6 +79,7 @@
     <Compile Include="Data\Enum\WorkStatus.cs" />
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
+    <Compile Include="Data\Model\MQTask.cs" />
     <Compile Include="Data\Model\PageViewModel\CompanyInfoModel.cs" />
     <Compile Include="Data\Model\Search\AttendanceRecordDetailSearchModel.cs" />
     <Compile Include="Data\Model\Search\DepartmentSearchModel.cs" />
