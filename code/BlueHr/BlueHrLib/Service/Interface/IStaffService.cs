@@ -59,5 +59,7 @@ namespace BlueHrLib.Service.Interface
         void Creates(List<Staff> staffs);
 
         bool Create(Staff staff);
+
+        Staff FindById(int id);
     }
 }

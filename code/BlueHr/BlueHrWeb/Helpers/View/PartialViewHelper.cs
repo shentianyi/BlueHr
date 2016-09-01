@@ -52,7 +52,7 @@ namespace BlueHrWeb.Helpers.View
             list += @"<div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
                         <div class='marco-igroup-danger'> 
                         <span>公司*</span>";
-            list += htmlHeper.DropDownList("CompanyId", companySelect).ToHtmlString();
+            list += htmlHeper.DropDownList("companyId", companySelect).ToHtmlString();
             list += @"  </div>
                      </div>";
 
@@ -61,6 +61,7 @@ namespace BlueHrWeb.Helpers.View
             List<SelectListItem> departmentSelect = new List<SelectListItem>();
 
             List<Department> departments = new List<Department>();
+
             if (companyId.HasValue)
             {
                 departments = ds.FindByCompanyId(companyId).ToList();
@@ -86,7 +87,7 @@ namespace BlueHrWeb.Helpers.View
             list += @"<div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
                        <div class='marco-igroup-danger'>
                         <span>部门*</span>";
-            list += htmlHeper.DropDownList("DepartmentId", departmentSelect).ToHtmlString();
+            list += htmlHeper.DropDownList("departmentId", departmentSelect).ToHtmlString();
             list += @"</div></div>";
             return new MvcHtmlString(list);
         }

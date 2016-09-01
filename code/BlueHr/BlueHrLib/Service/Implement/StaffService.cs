@@ -141,5 +141,13 @@ namespace BlueHrLib.Service.Implement
 
             return staffRep.Create(staff);
         }
+
+        public Staff FindById(int id)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            IStaffRepository staffRep = new StaffRepository(dc);
+
+            return staffRep.FindById(id);
+        }
     }
 }

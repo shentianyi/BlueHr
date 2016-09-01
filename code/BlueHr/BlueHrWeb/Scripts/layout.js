@@ -57,9 +57,8 @@ Layout.TbodyHeight = function (cls, height) {
 
 Layout.datepicker = function (date_picker) {
     $(date_picker).datetimepicker({
-        timepicker: false,
         format: 'Y-m-d',
-        mask: true
+        timepicker: false
     });
 }
 
@@ -69,7 +68,7 @@ Layout.datetimepicker = function (date_time_picker) {
 
 Layout.rangedatepicker = function (date_picker_start, date_picker_end) {
     $(date_picker_start).datetimepicker({
-        format: 'Y/m/d',
+        format: 'Y-m-d',
         onShow: function (ct) {
             this.setOptions({
                 maxDate: $(date_picker_end).val() ? $(date_picker_end).val() : false
@@ -79,7 +78,7 @@ Layout.rangedatepicker = function (date_picker_start, date_picker_end) {
     });
 
     $(date_picker_end).datetimepicker({
-        format: 'Y/m/d',
+        format: 'Y-m-d',
         onShow: function (ct) {
             this.setOptions({
                 minDate: $(date_picker_start).val() ? $(date_picker_start).val() : false

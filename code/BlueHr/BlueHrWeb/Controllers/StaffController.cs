@@ -54,8 +54,8 @@ namespace BlueHrWeb.Controllers
             SetIsOnTrialList(q.IsOnTrial);
             SetSexList(q.Sex);
             SetJobTitleList(q.JobTitleId);
-            SetCompanyList(q.CompanyId);
-            SetDepartmentList(q.CompanyId, q.DepartmentId);
+            SetCompanyList(q.companyId);
+            SetDepartmentList(q.companyId, q.departmentId);
 
             return View("Index", staffs);
         }
@@ -69,7 +69,7 @@ namespace BlueHrWeb.Controllers
         // GET: Company/Create
         public ActionResult Create()
         {
-            SetIsOnTrialList(0);
+            SetIsOnTrialList(false);
             SetSexList(0);
             SetJobTitleList(null);
             SetCompanyList(null);
@@ -77,7 +77,7 @@ namespace BlueHrWeb.Controllers
             SetStaffTypeList(null);
             SetDegreeTypeList(null);
             SetInSureTypeList(null);
-            SetIsPayCPFList(0);
+            SetIsPayCPFList(false);
             SetResidenceTypeList(0);
 
             return View();
@@ -85,9 +85,10 @@ namespace BlueHrWeb.Controllers
 
         // POST: Company/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt, CompanyEmployAt, WorkStatus, "+
-            "IsOnTrial, TrialOverAt, CompanyId, DepartmentId, JobTitleId, Photo, StaffTypeId, DegreeTypeId, Speciality, ResidenceAddress, Address, Id, Phone,"+
-            "ContactName, ContactPhone, ContactFamilyMemberType, Domicile, ResidenceType, InSureTypeId, IsPayCPF, ContractExpireAt, ContractCount, Ethnic, Remark")] Staff staff)
+        public ActionResult Create([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt, CompanyEmployAt,"+
+            " WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
+            "Speciality, ResidenceAddress, Address, Id, Phone, ContactName, ContactPhone, ContactFamilyMemberType, Domicile, "+
+            "ResidenceType, inSureTypeId, IsPayCPF, ContractExpireAt, ContractCount, Ethnic, Remark")] Staff staff)
         {
             try
             {
@@ -109,24 +110,45 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: Company/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string nr)
         {
-            ICompanyService cs = new CompanyService(Settings.Default.db);
+            IStaffService ss = new StaffService(Settings.Default.db);
 
-            Company cp = cs.FindById(id);
+            Staff staff = ss.FindByNr(nr);
 
-            return View(cp);
+            if (staff != null)
+            {
+                SetIsOnTrialList(staff.isOnTrial);
+                SetSexList(Convert.ToInt16(staff.sex));
+                SetJobTitleList(staff.jobTitleId);
+                SetCompanyList(staff.companyId);
+                SetDepartmentList(staff.companyId, staff.departmentId);
+                SetStaffTypeList(staff.staffTypeId);
+                SetDegreeTypeList(staff.degreeTypeId);
+                SetInSureTypeList(staff.insureTypeId);
+                SetIsPayCPFList(staff.isPayCPF);
+                SetResidenceTypeList(staff.residenceType);
+            }
+
+            StaffSearchModel q = new StaffSearchModel();
+
+            q.companyId = staff.companyId;
+            q.departmentId = staff.departmentId;
+
+            ViewBag.Query = q;
+
+            return View(staff);
         }
 
         // POST: Company/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id, name, address, remark")] Company company)
+        public ActionResult Edit([Bind(Include = "id, name, address, remark")] Staff staff)
         {
             try
             {
                 // TODO: Add update logic here
-                ICompanyService cs = new CompanyService(Settings.Default.db);
-                cs.Update(company);
+                IStaffService cs = new StaffService(Settings.Default.db);
+                //cs.Update(staff);
                 return RedirectToAction("Index");
             }
             catch
@@ -134,17 +156,6 @@ namespace BlueHrWeb.Controllers
                 return View();
             }
         }
-
-        // GET: Company/Delete/5
-        public ActionResult Delete(int id)
-        {
-            ICompanyService cs = new CompanyService(Settings.Default.db);
-
-            Company cp = cs.FindById(id);
-
-            return View(cp);
-        }
-
         // POST: Company/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
@@ -162,9 +173,10 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        private void SetIsOnTrialList(int? type, bool allowBlank = true)
+        private void SetIsOnTrialList(bool? type, bool allowBlank = true)
         {
-            List<EnumItem> item = EnumHelper.GetList(typeof(IsOnTrail));
+            List<EnumItem> item = new List<EnumItem>() { new EnumItem() { Text = "是", Value = "true" }, new EnumItem() { Text = "否", Value = "false" } };
+                //EnumHelper.GetList(typeof(IsOnTrail));
 
             List<SelectListItem> select = new List<SelectListItem>();
 
@@ -212,9 +224,9 @@ namespace BlueHrWeb.Controllers
             ViewData["sexList"] = select;
         }
 
-        private void SetIsPayCPFList(int? type, bool allowBlank = true)
+        private void SetIsPayCPFList(bool? type, bool allowBlank = true)
         {
-            List<EnumItem> item = EnumHelper.GetList(typeof(IsPayCPF));
+            List<EnumItem> item = new List<EnumItem>() { new EnumItem() { Text = "是", Value = "true" }, new EnumItem() { Text = "否", Value = "false" } };
 
             List<SelectListItem> select = new List<SelectListItem>();
 

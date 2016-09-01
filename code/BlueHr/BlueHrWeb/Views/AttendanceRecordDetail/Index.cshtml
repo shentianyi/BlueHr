@@ -108,8 +108,8 @@
                 {
 
                     var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                        .Options(o => o.AddRouteValue("CompanyId", ViewBag.Query.CompanyId))
-                        .Options(o => o.AddRouteValue("DepartmentId", ViewBag.Query.DepartmentId))
+                        .Options(o => o.AddRouteValue("CompanyId", ViewBag.Query.companyId))
+                        .Options(o => o.AddRouteValue("DepartmentId", ViewBag.Query.departmentId))
                         .Options(o => o.AddRouteValue("StaffNr", ViewBag.Query.StaffNr))
                         .Options(o => o.AddRouteValue("RecordAtFrom", ViewBag.Query.RecordAtFrom))
                         .Options(o => o.AddRouteValue("RecordAtEnd", ViewBag.Query.RecordAtEnd));

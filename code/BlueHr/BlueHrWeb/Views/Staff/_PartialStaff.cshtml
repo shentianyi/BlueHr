@@ -38,8 +38,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>&nbsp;&nbsp;&nbsp;性&nbsp;別&nbsp;&nbsp;&nbsp;</span>
-                        @*@Html.EditorFor(model => model.sex)*@
-                        @Html.DropDownList("Sex", ViewData["sexList"] as IEnumerable<SelectListItem>)
+                        @Html.DropDownList("sex", ViewData["sexList"] as IEnumerable<SelectListItem>)
                     </div>
                 </div>
 
@@ -51,7 +50,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
+                    <div class="marco-igroup-danger">
                         <span>身份证号</span>
                         @Html.EditorFor(model => model.id)
                     </div>

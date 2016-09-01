@@ -12,5 +12,7 @@ namespace BlueHrLib.Data.Repository.Interface
         IQueryable<Staff> Search(StaffSearchModel searchModel);
 
         bool Create(Staff staff);
+
+        Staff FindById(int id);
     }
 }
