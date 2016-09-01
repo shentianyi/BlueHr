@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "_CompanyAndDepartmentBar";
+}
+
+<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+    <div class="marco-igroup-danger">
+        <span>公司 *</span>
+        @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
+    </div>
+</div>
+<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+    <div class="marco-igroup-danger">
+        <span>部门 *</span>
+        @Html.DropDownList("departmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
+    </div>
+</div>
+<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+    <div class="marco-igroup-danger">
+        <span>职位 *</span>
+        @Html.DropDownList("jobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
+    </div>
+</div>
