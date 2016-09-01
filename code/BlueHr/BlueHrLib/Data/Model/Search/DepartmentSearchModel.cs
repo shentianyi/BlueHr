@@ -9,5 +9,7 @@ namespace BlueHrLib.Data.Model.Search
    public class DepartmentSearchModel
     {
         public string Name { get; set; }
+
+        public int? CompanyId { get; set; }
     }
 }
