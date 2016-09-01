@@ -14,25 +14,30 @@
 <hr class="hr-grey" />
  <div class="row">
     <form action="/AttendanceRecordDetail/Search" method="get">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <div class="col-lg-8 col-md-8 col-sm-7 col-xs-6">
+            @Html.Partial("Search/_CompanyAndDepartmentBar")
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
-                    <span>工号</span>
-                    <input type="text" name="StaffNr" id="StaffNr" placeholder="工号" value="@ViewBag.Query.StaffNr" />
+                  <span>工号</span>
+                  <input type="text" name="StaffNr" id="StaffNr" placeholder="工号" value="@ViewBag.Query.StaffNr"/>
                 </div>
             </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"> 
+                    <div class="marco-igroup-primary">
+                        <span>刷卡时间</span>
+                        <input type="text" name="RecordAtFrom" id="RecordAtFrom" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.RecordAtFrom" /><span>~ </span><input type="text" name="RecordAtEnd" id="RecordAtEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.RecordAtEnd" />
+                    </div>
+            </div>
+     
             <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
                 <button type="submit" class="marco-btn-success">
                     <i class="glyphicon glyphicon-search"></i>
                     搜索
                 </button>
+
+                <button class="btn btn-warning import-button-dialog" title="Import" data-toggle="tooltip" data-placement="bottom" type="button" style="width:100px;margin-left:20px;">导入打卡记录</button>
             </div>
-            
-            </div>
-        <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
-            <button class="btn btn-warning import-button-dialog" title="Import" data-toggle="tooltip" data-placement="bottom" type="button" style="width:100px;margin-left:20px;">导入打卡记录</button>
-        </div>
-    </form>
+</form>
 </div>
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -103,7 +108,11 @@
                 {
 
                     var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                        .Options(o => o.AddRouteValue("StaffNr", ViewBag.Query.StaffNr));
+                        .Options(o => o.AddRouteValue("CompanyId", ViewBag.Query.CompanyId))
+                        .Options(o => o.AddRouteValue("DepartmentId", ViewBag.Query.DepartmentId))
+                        .Options(o => o.AddRouteValue("StaffNr", ViewBag.Query.StaffNr))
+                        .Options(o => o.AddRouteValue("RecordAtFrom", ViewBag.Query.RecordAtFrom))
+                        .Options(o => o.AddRouteValue("RecordAtEnd", ViewBag.Query.RecordAtEnd));
                         @html
                     }
                     else
@@ -135,7 +144,10 @@
 </div>
 
 <script type="text/javascript">
-    
+    $('.datetimepicker').datetimepicker({
+        format: 'Y-m-d H:i',
+        defaultTime: '00:00'
+    });
     $('.import-button-dialog').click(function () {
         $('#dialog_content').dialogModal({
             onOkBut: function () {

@@ -253,6 +253,7 @@
     </Compile>
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\PagingHelper.cs" />
+    <Compile Include="Helpers\View\PartialViewHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -386,6 +387,7 @@
     <Content Include="Views\Staff\Create.cshtml" />
     <Content Include="Views\Staff\_PartialStaff.cshtml" />
     <Content Include="Views\Shared\_HandlingMsgDialog.cshtml" />
+    <Content Include="Views\Shared\Search\_CompanyAndDepartmentBar.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

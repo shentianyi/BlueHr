@@ -30,6 +30,17 @@ namespace BlueHrLib.Data.Repository.Implement
                 q = q.Where(s => s.staffNr.Equals(searchModel.StaffNrAct));
             }
 
+            if (searchModel.CompanyId.HasValue)
+            {
+                q = q.Where(s => s.companyId.Equals(searchModel.CompanyId.Value));
+            }
+
+            
+            if (searchModel.DepartmentId.HasValue)
+            {
+                q = q.Where(s => s.departmentId.Equals(searchModel.DepartmentId.Value));
+            }
+
             if (searchModel.RecordAtFrom.HasValue)
             {
                 q = q.Where(s => s.recordAt >= searchModel.RecordAtFrom);

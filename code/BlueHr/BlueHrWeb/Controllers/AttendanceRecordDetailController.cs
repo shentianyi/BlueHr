@@ -31,7 +31,7 @@ namespace BlueHrWeb.Controllers
             return View(records);
         }
 
-        public ActionResult Search([Bind(Include = "StaffNr")] AttendanceRecordDetailSearchModel q)
+        public ActionResult Search([Bind(Include = "CompanyId,DepartmentId,StaffNr,RecordAtFrom,RecordAtEnd")] AttendanceRecordDetailSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);

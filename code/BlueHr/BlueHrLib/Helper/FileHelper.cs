@@ -43,7 +43,7 @@ namespace BlueHrLib.Helper
         /// <returns></returns>
         public static string GetDownloadTmpFilePath(string fullPath)
         {
-            return Path.Combine(TMP_FILE_DIR, Path.GetFileName(fullPath));
+            return Path.Combine("/",TMP_FILE_DIR, Path.GetFileName(fullPath));
         }
     }
 }
