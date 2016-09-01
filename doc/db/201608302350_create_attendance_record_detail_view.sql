@@ -1,7 +1,7 @@
 USE [BlueHr]
 GO
 
-/****** Object:  View [dbo].[AttendanceRecordDetailView]    Script Date: 08/31/2016 09:24:19 ******/
+/****** Object:  View [dbo].[AttendanceRecordDetailView]    Script Date: 09/01/2016 10:06:32 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -10,15 +10,17 @@ GO
 
 CREATE VIEW [dbo].[AttendanceRecordDetailView]
 AS
-SELECT     dbo.AttendanceRecordDetail.id AS Expr1, dbo.AttendanceRecordDetail.staffNr, dbo.AttendanceRecordDetail.recordAt, dbo.AttendanceRecordDetail.createdAt, 
+SELECT     dbo.AttendanceRecordDetail.id, dbo.AttendanceRecordDetail.staffNr, dbo.AttendanceRecordDetail.recordAt, dbo.AttendanceRecordDetail.createdAt, 
                       dbo.AttendanceRecordDetail.soureType, dbo.AttendanceRecordDetail.isCalculated, dbo.Staff.name, dbo.Staff.sex, dbo.Staff.birthday, dbo.Staff.ethnic, 
                       dbo.Staff.firstCompanyEmployAt, dbo.Staff.totalCompanySeniority, dbo.Staff.companyEmployAt, dbo.Staff.companySeniority, dbo.Staff.workStatus, dbo.Staff.isOnTrial, 
                       dbo.Staff.trialOverAt, dbo.Staff.companyId, dbo.Staff.departmentId, dbo.Staff.jobTitleId, dbo.Staff.photo, dbo.Staff.staffTypeId, dbo.Staff.degreeTypeId, 
-                      dbo.Staff.speciality, dbo.Staff.residenceAddress, dbo.Staff.address, dbo.Staff.id, dbo.Staff.isIdChecked, dbo.Staff.phone, dbo.Staff.contactName, 
+                      dbo.Staff.speciality, dbo.Staff.residenceAddress, dbo.Staff.address, dbo.Staff.id AS staffId, dbo.Staff.isIdChecked, dbo.Staff.phone, dbo.Staff.contactName, 
                       dbo.Staff.contactPhone, dbo.Staff.contactFamilyMemberType, dbo.Staff.domicile, dbo.Staff.residenceType, dbo.Staff.insureTypeId, dbo.Staff.isPayCPF, 
-                      dbo.Staff.contractExpireAt, dbo.Staff.contractCount, dbo.Staff.totalSeniority, dbo.Staff.remark, dbo.AttendanceRecordDetail.device
+                      dbo.Staff.contractExpireAt, dbo.Staff.contractCount, dbo.Staff.totalSeniority, dbo.Staff.remark, dbo.AttendanceRecordDetail.device, 
+                      dbo.Department.name AS departmentName
 FROM         dbo.AttendanceRecordDetail INNER JOIN
-                      dbo.Staff ON dbo.AttendanceRecordDetail.staffNr = dbo.Staff.nr
+                      dbo.Staff ON dbo.AttendanceRecordDetail.staffNr = dbo.Staff.nr INNER JOIN
+                      dbo.Department ON dbo.Staff.departmentId = dbo.Department.id
 
 GO
 
@@ -27,7 +29,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+         Configuration = "(H (1[32] 4[29] 2[20] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -111,7 +113,17 @@ Begin DesignProperties =
                Right = 566
             End
             DisplayFlags = 280
-            TopColumn = 15
+            TopColumn = 25
+         End
+         Begin Table = "Department"
+            Begin Extent = 
+               Top = 6
+               Left = 604
+               Bottom = 142
+               Right = 831
+            End
+            DisplayFlags = 280
+            TopColumn = 0
          End
       End
    End

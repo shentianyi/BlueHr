@@ -102,7 +102,7 @@ namespace BlueHrLib.Data
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString3, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -4898,7 +4898,7 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary photo
 		{
 			get
@@ -6773,7 +6773,7 @@ namespace BlueHrLib.Data
 	public partial class AttendanceRecordDetailView
 	{
 		
-		private int _Expr1;
+		private int _id;
 		
 		private string _staffNr;
 		
@@ -6825,7 +6825,7 @@ namespace BlueHrLib.Data
 		
 		private string _address;
 		
-		private string _id;
+		private string _staffId;
 		
 		private bool _isIdChecked;
 		
@@ -6855,22 +6855,24 @@ namespace BlueHrLib.Data
 		
 		private string _device;
 		
+		private string _departmentName;
+		
 		public AttendanceRecordDetailView()
 		{
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Expr1", DbType="Int NOT NULL")]
-		public int Expr1
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
 		{
 			get
 			{
-				return this._Expr1;
+				return this._id;
 			}
 			set
 			{
-				if ((this._Expr1 != value))
+				if ((this._id != value))
 				{
-					this._Expr1 = value;
+					this._id = value;
 				}
 			}
 		}
@@ -7179,7 +7181,7 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary photo
 		{
 			get
@@ -7275,18 +7277,18 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffId", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string staffId
 		{
 			get
 			{
-				return this._id;
+				return this._staffId;
 			}
 			set
 			{
-				if ((this._id != value))
+				if ((this._staffId != value))
 				{
-					this._id = value;
+					this._staffId = value;
 				}
 			}
 		}
@@ -7511,6 +7513,22 @@ namespace BlueHrLib.Data
 				if ((this._device != value))
 				{
 					this._device = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departmentName", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string departmentName
+		{
+			get
+			{
+				return this._departmentName;
+			}
+			set
+			{
+				if ((this._departmentName != value))
+				{
+					this._departmentName = value;
 				}
 			}
 		}

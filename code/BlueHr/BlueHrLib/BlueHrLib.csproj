@@ -59,6 +59,7 @@
     <Compile Include="CusException\SystemSettingNotSetException.cs" />
     <Compile Include="CusException\SystemCertificateTypeNotFoundException.cs" />
     <Compile Include="Data\AttendanceRecordCal.cs" />
+    <Compile Include="Data\AttendanceRecordDetailView.cs" />
     <Compile Include="Data\AttendanceRecordDetail.cs" />
     <Compile Include="Data\BlueHr.designer.cs">
       <AutoGen>True</AutoGen>
@@ -89,6 +90,7 @@
     <Compile Include="Data\Model\Search\CompanySearchModel.cs" />
     <Compile Include="Data\Model\StaffIdCard.cs" />
     <Compile Include="Data\Repository\IDataContextFactory.cs" />
+    <Compile Include="Data\Repository\Implement\AttendanceRecordDetailViewRepository.cs" />
     <Compile Include="Data\Repository\Implement\AttendanceRecordDetailRepository.cs" />
     <Compile Include="Data\Repository\Implement\CompanyRepository.cs" />
     <Compile Include="Data\Repository\Implement\DepartmentRepository.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Data\Repository\Implement\InSureTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\StaffTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\JobTitleRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAttendanceRecordDetailViewRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAttendanceRecordDetailRepository.cs" />
     <Compile Include="Data\Repository\Implement\StaffRepository.cs" />
     <Compile Include="Data\Repository\Interface\ICompanyRepository.cs" />

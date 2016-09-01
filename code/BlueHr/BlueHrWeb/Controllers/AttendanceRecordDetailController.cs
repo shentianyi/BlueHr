@@ -24,7 +24,7 @@ namespace BlueHrWeb.Controllers
             AttendanceRecordDetailSearchModel q = new AttendanceRecordDetailSearchModel();
             IAttendanceRecordService ss = new AttendanceRecordService(Settings.Default.db);
 
-            IPagedList<AttendanceRecordDetail> records = ss.SearchDetail(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<AttendanceRecordDetailView> records = ss.SearchDetailView(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
@@ -39,7 +39,7 @@ namespace BlueHrWeb.Controllers
 
             IAttendanceRecordService ss = new AttendanceRecordService(Settings.Default.db);
 
-            IPagedList<AttendanceRecordDetail> records = ss.SearchDetail(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<AttendanceRecordDetailView> records = ss.SearchDetailView(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
