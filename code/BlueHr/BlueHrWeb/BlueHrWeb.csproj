@@ -253,6 +253,7 @@
     </Compile>
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\PagingHelper.cs" />
+    <Compile Include="Helpers\View\PartialViewHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

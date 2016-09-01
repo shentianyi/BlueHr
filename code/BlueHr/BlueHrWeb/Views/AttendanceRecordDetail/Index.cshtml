@@ -14,6 +14,7 @@
 <hr class="hr-grey" />
  <div class="row">
     <form action="/AttendanceRecordDetail/Search" method="get">
+            @Html.Partial("Search/_CompanyAndDepartmentBar")
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                   <span>工号</span>
@@ -27,7 +28,7 @@
                         <input type="text" name="RecordAtFrom" id="RecordAtFrom" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.RecordAtFrom" /><span>~ </span><input type="text" name="RecordAtEnd" id="RecordAtEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.RecordAtEnd" />
                     </div>
             </div>
-
+     
             <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
                 <button type="submit" class="marco-btn-success">
                     <i class="glyphicon glyphicon-search"></i>
@@ -107,7 +108,11 @@
                 {
 
                     var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                        .Options(o => o.AddRouteValue("StaffNr", ViewBag.Query.StaffNr));
+                        .Options(o => o.AddRouteValue("CompanyId", ViewBag.Query.CompanyId))
+                        .Options(o => o.AddRouteValue("DepartmentId", ViewBag.Query.DepartmentId))
+                        .Options(o => o.AddRouteValue("StaffNr", ViewBag.Query.StaffNr))
+                        .Options(o => o.AddRouteValue("RecordAtFrom", ViewBag.Query.RecordAtFrom))
+                        .Options(o => o.AddRouteValue("RecordAtEnd", ViewBag.Query.RecordAtEnd));
                         @html
                     }
                     else

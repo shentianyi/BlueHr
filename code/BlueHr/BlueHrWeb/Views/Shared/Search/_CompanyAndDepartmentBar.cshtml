@@ -1,23 +1,50 @@
-﻿
+﻿@using BlueHrWeb.Helpers.View
+
 @{
     ViewBag.Title = "_CompanyAndDepartmentBar";
 }
 
-<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+
+@*<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
     <div class="marco-igroup-danger">
         <span>公司 *</span>
-        @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
+        @Html.DropDownList("CompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
     </div>
 </div>
 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
     <div class="marco-igroup-danger">
         <span>部门 *</span>
-        @Html.DropDownList("departmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
+        @Html.DropDownList("DepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
     </div>
-</div>
-<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-    <div class="marco-igroup-danger">
-        <span>职位 *</span>
-        @Html.DropDownList("jobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
-    </div>
-</div>
+</div>*@
+
+@PartialViewHelper.CompanyAndDepartmentDropDownList(this.Html,ViewBag.Query.CompanyId,ViewBag.Query.DepartmentId)
+
+<script type="text/javascript">
+    var Department = new Array();
+
+    $.ajax({
+        url: '/Staff/GetCompanyAndDepartment',
+        type: 'get',
+        async: false,
+        success: function (data) {
+            Department = data;
+        },
+        error: function () {
+            console.log("Error");
+        }
+    });
+
+    $('#CompanyId').change(function () {
+        $('#DepartmentId').empty();
+
+        var companyID = $('#CompanyId').find("option:selected").val();
+        var Html = "";
+
+        for (dep in Department[companyID]) {
+            Html += '<option value=' + dep + '>' + Department[companyID][dep] + '</option>';
+        }
+
+        $(Html).appendTo('#DepartmentId');
+    })
+</script>
