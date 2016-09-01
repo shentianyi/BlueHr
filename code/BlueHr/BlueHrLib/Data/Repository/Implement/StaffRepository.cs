@@ -29,12 +29,25 @@ namespace BlueHrLib.Data.Repository.Implement
                 catch (Exception e)
                 {
                     Console.Write(e);
-
-                    Console.Write(e);
                     return false;
                 }
             }
             return true;
+        }
+
+        public Staff FindById(int id)
+        {
+            try
+            {
+                Staff sf = this.context.GetTable<Staff>().FirstOrDefault(c => c.id.Equals(id));
+                return sf;
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+
+                return null;
+            }
         }
 
         public IQueryable<Staff> Search(StaffSearchModel searchModel)
@@ -66,14 +79,14 @@ namespace BlueHrLib.Data.Repository.Implement
                 staffs = staffs.Where(c => c.jobTitleId.Equals(searchModel.JobTitleId));
             }
 
-            if (searchModel.CompanyId.HasValue)
+            if (searchModel.companyId.HasValue)
             {
-                staffs = staffs.Where(c => c.companyId.Equals(searchModel.CompanyId));
+                staffs = staffs.Where(c => c.companyId.Equals(searchModel.companyId));
             }
 
-            if (searchModel.DepartmentId.HasValue)
+            if (searchModel.departmentId.HasValue)
             {
-                staffs = staffs.Where(c => c.departmentId.Equals(searchModel.DepartmentId));
+                staffs = staffs.Where(c => c.departmentId.Equals(searchModel.departmentId));
             }
 
             if (searchModel.CompanyEmployAtFrom.HasValue)

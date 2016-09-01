@@ -63,13 +63,13 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>公司</span>
-                    @Html.DropDownList("CompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
+                    @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>部门</span>
-                    @Html.DropDownList("DepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
+                    @Html.DropDownList("departmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -151,7 +151,7 @@
                                         <i class="fa fa-eye"></i>
                                     </a>
 
-                                    <a href="/Staff/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                    <a href="/Staff/Edit/@item.nr" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                 </td>
@@ -170,6 +170,9 @@
             {
                 if (ViewBag.Query != null)
                 {
+
+                    
+                    //TODO: 添加其他搜索条件
 
                     var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
                         .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))

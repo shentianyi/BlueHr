@@ -6,9 +6,11 @@
 
 
 @*有可能 ViewBag.Query 不存在*@
+@*TODO:// 在Edit 的时候，ViewBag.Query 也不存在 在Edit的时候，定义 ViewBag.Query = StaffSearchModel q . Delete 的时候也是一样*@
+
 @if (ViewBag.Query!=null)
 {
-    @PartialViewHelper.CompanyAndDepartmentDropDownList(this.Html, ViewBag.Query.CompanyId, ViewBag.Query.DepartmentId)
+    @PartialViewHelper.CompanyAndDepartmentDropDownList(this.Html, ViewBag.Query.companyId, ViewBag.Query.departmentId)
 }
 else
 {
@@ -31,16 +33,16 @@ else
         }
     });
 
-    $('#CompanyId').change(function () {
-        $('#DepartmentId').empty();
+    $('#companyId').change(function () {
+        $('#departmentId').empty();
 
-        var companyID = $('#CompanyId').find("option:selected").val();
+        var companyID = $('#companyId').find("option:selected").val();
         var Html = "";
 
         for (dep in Department[companyID]) {
             Html += '<option value=' + dep + '>' + Department[companyID][dep] + '</option>';
         }
 
-        $(Html).appendTo('#DepartmentId');
+        $(Html).appendTo('#departmentId');
     })
 </script>

@@ -17,8 +17,8 @@ namespace BlueHrLib.Data.Model.Search
         /// </summary>
         public string StaffNrAct { get; set; }
 
-        public int? CompanyId { get; set; }
-        public int? DepartmentId { get; set; }
+        public int? companyId { get; set; }
+        public int? departmentId { get; set; }
 
         /// <summary>
         /// 起始打卡时间

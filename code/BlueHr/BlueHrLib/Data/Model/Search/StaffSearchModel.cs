@@ -15,12 +15,12 @@ namespace BlueHrLib.Data.Model.Search
 
         public int? JobTitleId { get; set; }
         //二级联动
-        public int? CompanyId { get; set; }
-        public int? DepartmentId { get; set; }
+        public int? companyId { get; set; }
+        public int? departmentId { get; set; }
 
         public DateTime? CompanyEmployAtFrom { get; set; }
         public DateTime? CompanyEmployAtTo { get; set; }
 
-        public int? IsOnTrial { get; set; }
+        public bool? IsOnTrial { get; set; }
     }
 }

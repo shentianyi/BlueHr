@@ -30,15 +30,15 @@ namespace BlueHrLib.Data.Repository.Implement
                 q = q.Where(s => s.staffNr.Equals(searchModel.StaffNrAct));
             }
 
-            if (searchModel.CompanyId.HasValue)
+            if (searchModel.companyId.HasValue)
             {
-                q = q.Where(s => s.companyId.Equals(searchModel.CompanyId.Value));
+                q = q.Where(s => s.companyId.Equals(searchModel.companyId.Value));
             }
 
             
-            if (searchModel.DepartmentId.HasValue)
+            if (searchModel.departmentId.HasValue)
             {
-                q = q.Where(s => s.departmentId.Equals(searchModel.DepartmentId.Value));
+                q = q.Where(s => s.departmentId.Equals(searchModel.departmentId.Value));
             }
 
             if (searchModel.RecordAtFrom.HasValue)
