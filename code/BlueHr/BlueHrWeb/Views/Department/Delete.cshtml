@@ -1,0 +1,14 @@
+﻿@model BlueHrLib.Data.Company
+
+@{
+    ViewBag.Title = "删除部门";
+}
+@Html.Partial("_PartialDepartment")
+
+<script type="text/javascript">
+    $('#name').attr("disabled", "disabled");
+    $('#CompanyId').attr("disabled", "disabled");
+    $('#remark').attr("disabled", "disabled");
+    $('button[type="submit"]').removeClass('marco-btn-primary');
+    $('button[type="submit"]').addClass('marco-btn-danger');
+</script>
