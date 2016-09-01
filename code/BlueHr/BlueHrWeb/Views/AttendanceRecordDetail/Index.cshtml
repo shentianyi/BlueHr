@@ -12,7 +12,7 @@
 </ol>
 
 <hr class="hr-grey" />
- <div class="row">
+ <div class="row" style="margin:0;">
     <form action="/AttendanceRecordDetail/Search" method="get">
             @Html.Partial("Search/_CompanyAndDepartmentBar")
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"> 
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"> 
                     <div class="marco-igroup-primary">
                         <span>刷卡时间</span>
                         <input type="text" name="RecordAtFrom" id="RecordAtFrom" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.RecordAtFrom" /><span>~ </span><input type="text" name="RecordAtEnd" id="RecordAtEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.RecordAtEnd" />
@@ -35,7 +35,7 @@
                     搜索
                 </button>
 
-                <button class="btn btn-warning import-button-dialog" title="Import" data-toggle="tooltip" data-placement="bottom" type="button" style="width:100px;margin-left:20px;">导入打卡记录</button>
+                <button class="pull-right marco-btn-primary import-button-dialog" title="Import" type="button">导入打卡记录</button>
             </div>
 </form>
 </div>

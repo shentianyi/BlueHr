@@ -25,23 +25,31 @@
             <div class="marco-nbody row">
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-danger">
-                        <span>工号 *</span>
+                        <span>&nbsp;&nbsp;&nbsp;工&nbsp;号 *&nbsp;</span>
                         @Html.EditorFor(model => model.nr)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-danger">
-                        <span>姓名 *</span>
+                        <span>&nbsp;&nbsp;&nbsp;姓&nbsp;名 *&nbsp;</span>
                         @Html.EditorFor(model => model.name)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <span>性别</span>
+                        <span>&nbsp;&nbsp;&nbsp;性&nbsp;別&nbsp;&nbsp;&nbsp;</span>
                         @*@Html.EditorFor(model => model.sex)*@
                         @Html.DropDownList("Sex", ViewData["sexList"] as IEnumerable<SelectListItem>)
                     </div>
                 </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>&nbsp;&nbsp;&nbsp;民&nbsp;族&nbsp;&nbsp;&nbsp;</span>
+                        @Html.EditorFor(model => model.ethnic)
+                    </div>
+                </div>
+
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>身份证号</span>
@@ -54,14 +62,7 @@
                         @Html.EditorFor(model => model.birthday, new { htmlAttributes = new { @class = "date-picker" } })
                     </div>
                 </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>民族</span>
-                        @Html.EditorFor(model => model.ethnic)
-                    </div>
-                </div>
-
+                
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>联系电话</span>
@@ -85,14 +86,14 @@
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <span>户籍</span>
+                        <span>&nbsp;&nbsp;&nbsp;户&nbsp;籍&nbsp;&nbsp;&nbsp;</span>
                         @Html.EditorFor(model => model.domicile)
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-danger">
-                        <span>户口性质 *</span>
+                        <span>户口性质</span>
 
                         @Html.DropDownList("residenceType", ViewData["residenceTypeList"] as IEnumerable<SelectListItem>)
                     </div>
@@ -123,14 +124,33 @@
 
         <div class="marco-npanel-normal">
             <div class="marco-nheading">
+                <span>职位信息</span>
+            </div>
+
+            <div class="marco-nbody row">
+                @Html.Partial("Search/_CompanyAndDepartmentBar")
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-danger">
+                        <span>职位 *</span>
+                        @Html.DropDownList("jobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="marco-npanel-normal">
+            <div class="marco-nheading">
                 <span>照片</span>
             </div>
 
             <div class="marco-nbody row">
-                <div class="marco-igroup-primary">
-                    <span>选择照片上传</span>
-                    <input type="file" name="photoUpload"  id="photoUpload" />
-                    <input type="hidden" name="photo" id="photo" value="" />
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>选择照片上传</span>
+                        <input type="file" name="photoUpload" id="photoUpload" />
+                        <input type="hidden" name="photo" id="photo" value="" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -185,49 +205,13 @@
 
         <div class="marco-npanel-normal">
             <div class="marco-nheading">
-                <span>职位信息</span>
-            </div>
-
-            <div class="marco-nbody row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
-                        <span>公司 *</span>
-                        @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
-                        <span>部门 *</span>
-                        @Html.DropDownList("departmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
-                        <span>职位 *</span>
-                        @Html.DropDownList("jobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-
-                @*//TODO: 什么字段*@
-
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:70px;">
-                    <div class="marco-textarea">
-                        <span>备注信息</span>
-                        <textarea name="remark"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="marco-npanel-normal">
-            <div class="marco-nheading">
                 <span>合同信息</span>
             </div>
 
             <div class="marco-nbody row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="height: 40px;">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <span>是否在试用</span>
+                        <span>&nbsp;&nbsp;是否在试用&nbsp;&nbsp;</span>
                         @Html.DropDownList("isOnTrial", ViewData["isOnTrialList"] as IEnumerable<SelectListItem>)
                     </div>
                 </div>
@@ -241,7 +225,7 @@
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <span>保险种类</span>
+                        <span>&nbsp;&nbsp;&nbsp;保险种类&nbsp;&nbsp;&nbsp;&nbsp;</span>
 
                         @Html.DropDownList("insureTypeId", ViewData["inSureTypeList"] as IEnumerable<SelectListItem>)
                     </div>
@@ -265,15 +249,6 @@
                         @Html.EditorFor(model => model.contractCount)
                     </div>
                 </div>
-
-                @*//TODO: 什么字段*@
-
-                @*<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:80px;">
-                        <div class="marco-textarea">
-                            <span>合同备注</span>
-                            <textarea name="remark"></textarea>
-                        </div>
-                    </div>*@
             </div>
         </div>
 
@@ -294,9 +269,21 @@
             <div class="marco-nbody row">
             </div>
         </div>
+        <div class="marco-npanel-normal">
+            <div class="marco-nheading">
+                <span>备注信息</span>
+            </div>
 
-        <button class="marco-btn-primary" type="submit">
-            创建
+            <div class="marco-nbody">
+                <div class="marco-textarea" style="margin-top:5px;">
+                    <textarea name="remark"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <button class="marco-btn-primary" type="submit" style="position:fixed; bottom:0; right:20px;">
+            <i class="fa fa-plus-circle"></i>
+            <span>创建</span>
         </button>
     }
 </div>
@@ -306,61 +293,12 @@
     Layout.rangedatepicker('.date-start-picker', '.date-end-picker');
     Layout.datepicker('.date-picker');
 
-    $('#staff').css({ height: $(window).height() - 50 + 'px' });
+    $('#staff').css({ height: $(window).height() - 60 + 'px' });
     $("#staff").mCustomScrollbar({
         scrollInertia: 600,
         autoDraggerLength: false,
-        scrollButtons: {
-            enable: true
-        },
         advanced: { autoScrollOnFocus: false }
     });
 
-    var Department = new Array();
-
-    $.ajax({
-        url: '/Staff/GetCompanyAndDepartment',
-        type: 'get',
-        async: false,
-        success: function (data) {
-            Department = data;
-        },
-        error: function () {
-            console.log("Error");
-        }
-    });
-
-    $('#companyId').change(function () {
-        $('#departmentId').empty();
-
-        var companyID = $('#companyId').find("option:selected").val();
-        var Html = "";
-
-        for (dep in Department[companyID]) {
-            Html += '<option value=' + dep + '>' + Department[companyID][dep] + '</option>';
-        }
-
-        $(Html).appendTo('#departmentId');
-    })
-
-    function readFile(file) {
-        //if (!/image\/\w+/.test(file.type)) {
-        //    alert("请确保文件为图像类型");
-        //    return false;
-        //}
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function (e) {
-            result.innerHTML = '<img src="' + this.result + '" alt=""/>';
-            img_area.innerHTML = '<div class="sitetip">图片img标签展示：</div><img src="' + this.result + '" alt=""/>';
-        }
-    }
-
-    $('#photoUpload').change(function () {
-
-        readFile($(this).val());
-    })
+   
 </script>
-
-<textarea name="result" id="result" cols="30" rows="300"></textarea>
-<p id="img_area"></p>

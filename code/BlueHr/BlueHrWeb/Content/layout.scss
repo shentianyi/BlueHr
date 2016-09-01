@@ -116,6 +116,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
   border: 1px solid $marco-bg;
   display: table;
   margin: 5px 0;
+  height: 40px;
   span, label {
     width: 1%;
     min-width: 60px;
@@ -138,18 +139,13 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
     border: none;
     margin: 0;
     padding: 7px;
+    height: 38px;
     width: 100%;
     /*display: table-cell;*/
     line-height: 10px;
     &[disabled] {
       cursor: not-allowed;
     }
-  }
-
-  select{
-      option{
-          height: 40px;
-      }
   }
 }
 
