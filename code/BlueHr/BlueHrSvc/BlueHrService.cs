@@ -44,18 +44,8 @@ namespace BlueHrSvc
             timer.Stop();
             try
             {
-                MessageQueue mq = new MessageQueue(Settings.Default.queue);
-                mq.Formatter = new XmlMessageFormatter(new Type[1] { typeof(TaskSetting) });
-                Message msg = mq.Receive();
-
-                if (msg != null)
-                {
-                    LogUtil.Logger.Info("获取到任务信息：");
-                    LogUtil.Logger.Info(msg);
-                    TaskSetting ts=msg.Body as TaskSetting;
-                    new TaskDispatcher(Settings.Default.db).Dispatch(ts);
-                }
-
+                LogUtil.Logger.Info("获取任务信息....");
+                new TaskDispatcher(Settings.Default.db, Settings.Default.queue).FetchMQMessage();
                 LogUtil.Logger.Info("任务运行结束");
             }
             catch (Exception ex)

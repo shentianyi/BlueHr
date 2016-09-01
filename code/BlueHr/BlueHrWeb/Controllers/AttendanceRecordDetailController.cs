@@ -12,6 +12,9 @@ using BlueHrWeb.Properties;
 using MvcPaging;
 using BlueHrLib.Helper.Excel;
 using BlueHrLib.Data.Message;
+using BlueHrLib.MQTask;
+using BlueHrLib.MQTask.Parameter;
+using BlueHrLib.Helper;
 
 namespace BlueHrWeb.Controllers
 {
@@ -27,7 +30,7 @@ namespace BlueHrWeb.Controllers
             IPagedList<AttendanceRecordDetailView> records = ss.SearchDetailView(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
-
+            SetShiftList();
             return View(records);
         }
 
@@ -42,48 +45,77 @@ namespace BlueHrWeb.Controllers
             IPagedList<AttendanceRecordDetailView> records = ss.SearchDetailView(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
-
+            SetShiftList();
             return View("Index", records);
         }
 
         public ActionResult Import()
         {
             var ff = Request.Files[0];
-            string fileName = FileHelper.SaveAsTmp(ff);
+            string fileName = BlueHrWeb.Helpers.FileHelper.SaveAsTmp(ff);
             AttendanceRecordDetailExcelHelper helper = new AttendanceRecordDetailExcelHelper(Settings.Default.db, fileName);
             ImportMessage msg = helper.Import();
 
             return Json(msg);
         }
-
-
-        private void SetJobTitleList(int? type, bool allowBlank = true)
+        [HttpPost]
+        public ActionResult Calculate()
         {
-            IJobTitleService js = new JobTitleService(Settings.Default.db);
+            ResultMessage msg = new ResultMessage();
 
-            JobTitleSearchModel jtsm = new JobTitleSearchModel();
+            try
+            {
+                CalAtt calAttParam = new CalAtt()
+                {
+                    AttDateTime = DateTime.Parse(Request.Form.Get("DateTime")),
 
-            List<JobTitle> jt = js.Search(jtsm).ToList();
+                };
+                if (!string.IsNullOrEmpty(Request.Form.Get("ShiftCode")))
+                {
+                    calAttParam.ShiftCodes = new List<string>()
+                {
+                    Request.Form.Get("ShiftCode")
+                };
+                }
+                TaskSetting task = new TaskSetting()
+                {
+                    TaskCreateAt = DateTime.Now,
+                    TaskType = TaskType.CalAtt,
+                    JsonParameter = JSONHelper.stringify(calAttParam)
+
+                };
+
+                //ICalculateService cs = new CalculateService(Settings.Default.db);
+                //cs.Start(Settings.Default.mrpQueue, setting);
+                new TaskDispatcher(Settings.Default.queue).SendMQMessage(task);
+                msg.Success = true;
+                msg.Content = "计算任务新建成功，请到系统任务页面查看结果!";
+            }
+            catch (Exception e)
+            {
+                msg.Content = e.Message;
+            }
+
+            return Json(msg);
+        }
+
+
+        private void SetShiftList()
+        {
+            IShiftService ss = new ShiftService(Settings.Default.db);
+
+
+            List<Shift> jt = ss.All();
 
             List<SelectListItem> select = new List<SelectListItem>();
 
-            if (allowBlank)
-            {
-                select.Add(new SelectListItem { Text = "", Value = "" });
-            }
+            select.Add(new SelectListItem { Text = "", Value = "" });
 
             foreach (var it in jt)
             {
-                if (type.HasValue && type.ToString().Equals(it.id))
-                {
-                    select.Add(new SelectListItem { Text = it.name, Value = it.id.ToString(), Selected = true });
-                }
-                else
-                {
-                    select.Add(new SelectListItem { Text = it.name, Value = it.id.ToString(), Selected = false });
-                }
+                select.Add(new SelectListItem { Text = it.name, Value = it.code.ToString(), Selected = false });
             }
-            ViewData["jobTitleList"] = select;
+            ViewData["shiftList"] = select;
         }
 
     }

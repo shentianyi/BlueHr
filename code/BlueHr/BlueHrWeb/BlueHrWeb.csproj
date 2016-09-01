@@ -278,6 +278,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\input-style.css" />
     <Content Include="Content\jquery-popModal.css" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\jquery.mCustomScrollbar.css" />
     <Content Include="Content\layout.css">

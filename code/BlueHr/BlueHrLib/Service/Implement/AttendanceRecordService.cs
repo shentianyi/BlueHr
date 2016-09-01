@@ -165,11 +165,40 @@ namespace BlueHrLib.Service.Implement
             //{
             DataContext subDc = new DataContext(this.DbString);
             List<AttendanceRecordCal> insertCals = new List<AttendanceRecordCal>();
-            List<AttendanceRecordCal> updateCals = new List<AttendanceRecordCal>();
+
             foreach (var dic in staffAttendCals)
             {
+                string nrsq = string.Format(",{0},", string.Join(",", staffAttendCals.Keys));
+                // string dateq = string.Format(",{0},", string.Join(",", staffAttendCals[dic.Key].Select(ss => ss.attendanceDate.ToString("yyyy-MM-dd")).ToList()));
                 /// 手动修改的不会被修改实际值
-                List<AttendanceRecordCal> _updateCals = subDc.Context.GetTable<AttendanceRecordCal>().Where(s => staffAttendCals.Keys.Contains(s.staffNr) && (staffAttendCals[dic.Key].Select(ss => ss.attendanceDate).ToList().Contains(s.attendanceDate))).ToList();
+                //List<AttendanceRecordCal> _updateCals = subDc.Context.GetTable<AttendanceRecordCal>()
+                //    .Where(s => staffAttendCals.Keys.Contains(s.staffNr)
+                //    && (staffAttendCals[dic.Key].Select(ss => ss.attendanceDate).ToList()
+                //    .Contains(s.attendanceDate))).ToList();
+                //List<AttendanceRecordCal> _updateCals = subDc.Context.GetTable<AttendanceRecordCal>()
+                // .AsEnumerable()
+                //.Join(staffAttendCals.Keys,s=>s.staffNr,ci=>ci, (s,ci)=> s)
+                //.Join(staffAttendCals[dic.Key].Select(ss => ss.attendanceDate).ToList(),sss=>sss.attendanceDate,cci=>cci,(sss,cci)=>sss).ToList();
+
+                List<AttendanceRecordCal> _updateCals = new List<AttendanceRecordCal>();
+                IQueryable<AttendanceRecordCal> _updateCalsQ = dc.Context.GetTable<AttendanceRecordCal>()
+             .Where(s => nrsq.IndexOf("," + s.staffNr + ",") != -1);
+                if (staffAttendCals[dic.Key].Count == 0)
+                {
+
+                }
+               else if (staffAttendCals[dic.Key].Count == 1)
+                {
+                    _updateCals = _updateCalsQ.Where(s => s.attendanceDate.Equals(staffAttendCals[dic.Key].First())).ToList();
+                }
+                else
+                {
+                    _updateCals = _updateCalsQ.Where(s => staffAttendCals[dic.Key].Select(ss => ss.attendanceDate).ToList().Contains(s.attendanceDate)).ToList();
+                }
+
+                //.Where(ss => dateq.IndexOf("," + ss.attendanceDate.ToString("yyyy-MM-dd") + ",") != -1).ToList();
+
+
                 foreach (var u in _updateCals)
                 {
                     var c = dic.Value.Where(d => d.attendanceDate.Equals(u.attendanceDate)).FirstOrDefault();
@@ -195,13 +224,16 @@ namespace BlueHrLib.Service.Implement
                 }
                 List<AttendanceRecordCal> _insertCals = dic.Value.Where(s => !_updateCals.Select(ss => ss.attendanceDate).Contains(s.attendanceDate)).ToList();
                 insertCals.AddRange(_insertCals);
-                subDc.Context.GetTable<AttendanceRecordCal>().InsertAllOnSubmit(insertCals);
-                subDc.Context.SubmitChanges();
 
                 /// scope 完成
                 //  scope.Complete();
                 // }
             }
+
+            subDc.Context.GetTable<AttendanceRecordCal>().InsertAllOnSubmit(insertCals);
+
+            subDc.Context.SubmitChanges();
+
         }
 
         /// <summary>

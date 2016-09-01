@@ -18,7 +18,7 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public List<Shift> All()
         {
-            return this.context.GetTable<Shift>().All().ToString();
+            return this.context.GetTable<Shift>().ToList();
         }
     }
 }

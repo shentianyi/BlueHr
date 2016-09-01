@@ -44,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
@@ -59,6 +60,7 @@
     <Compile Include="Common\Patterns\Singleton.cs" />
     <Compile Include="CusException\SystemSettingNotSetException.cs" />
     <Compile Include="CusException\SystemCertificateTypeNotFoundException.cs" />
+    <Compile Include="CusException\MQPathNotFoundException.cs" />
     <Compile Include="CusException\TaskTypeNotSupportException.cs" />
     <Compile Include="CusException\TaskRoundNotFoundException.cs" />
     <Compile Include="Data\AttendanceRecordCal.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="Data\Enum\SystemCertificateType.cs" />
     <Compile Include="Data\Enum\StaffEnum.cs" />
     <Compile Include="Data\Message\ImportMessage.cs" />
+    <Compile Include="Data\Message\ResultMessage.cs" />
     <Compile Include="Data\Message\ValidateMessage.cs" />
     <Compile Include="Data\Model\Department.cs" />
     <Compile Include="Data\Enum\WorkStatus.cs" />
