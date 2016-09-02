@@ -60,14 +60,48 @@ namespace BlueHrLib.Service.Implement
         /// <param name="nr"></param>
         /// <param name="recordAt"></param>
         /// <returns></returns>
-       public AttendanceRecordDetail FindDetailByStaffAndRecordAt(string nr, DateTime recordAt)
+        public AttendanceRecordDetail FindDetailByStaffAndRecordAt(string nr, DateTime recordAt)
         {
             DataContext dc = new DataContext(this.DbString);
 
             return dc.Context.GetTable<AttendanceRecordDetail>().FirstOrDefault(s => s.staffNr.Equals(nr) && s.recordAt.Equals(recordAt));
         }
 
-        
-       
+        /// <summary>
+        /// 根据员工号和日期获取员工的详细打卡记录视图
+        /// 重点是，根据日期来判断排班，然后通过排班来查找所有的记录
+        /// 如果排班时间开始都是在当前日期的排班，但是计算时要用下面废弃的！
+        /// **如果排班的结束时间的HH:mm小于日期的HH:mm，并且结束时间的天等于（或加1等于）日期的天
+        /// schedule视图里的fullEnd时间已经是根据排班类型计算过的了 -废弃，Charlot 2016.09.02**
+        /// </summary>
+        /// <param name="nr"></param>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        public List<AttendanceRecordDetailView> GetDetailsViewByStaffAndDate(string nr, DateTime datetime)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            List<AttendanceRecordDetailView> records = new List<AttendanceRecordDetailView>();
+
+            /// 获取所有排班
+            List<ShiftScheduleView> shifts= dc.Context.GetTable<ShiftScheduleView>().Where(s =>s.staffNr.Equals(nr) && s.scheduleAt.Date.Equals(datetime.Date)).ToList();
+            /// 系统配置
+            SystemSetting setting = dc.Context.GetTable<SystemSetting>().FirstOrDefault();
+            if (setting == null)
+                throw new SystemSettingNotSetException();
+
+            foreach(ShiftScheduleView s in shifts)
+            {
+                DateTime sq = s.fullStartAt.Value.AddHours(0-setting.validAttendanceRecordTime.Value);
+                DateTime eq = s.fullEndAt.Value.AddHours(setting.validAttendanceRecordTime.Value);
+
+                List<AttendanceRecordDetailView> shiftAttendRecords = dc.Context.GetTable<AttendanceRecordDetailView>().Where(ss=>ss.recordAt>=sq && ss.recordAt<=eq && ss.staffNr.Equals(nr)).OrderBy(ss=>ss.recordAt).ToList() ;//new List<AttendanceRecordDetailView>();
+
+                records.AddRange(shiftAttendRecords);
+            }
+
+            records = records.Distinct().ToList();
+            
+            return records;
+        }
     }
 }

@@ -33,14 +33,13 @@ namespace BlueHrLib.Service.Implement
             if (setting == null)
                 throw new SystemSettingNotSetException();
 
-            /// 查找员工的排班
+            /// 查找员工的需要被计算的排班
             //IStaffService staffService = new StaffService(this.DbString);
             //List<Staff> staffs = staffService.Search(searchModel).ToList();
             var allShiftShedulesQ = dc.Context.GetTable<ShiftScheduleView>().Where(s => s.fullEndAt.Value <= dateTime && s.fullEndAt.Value.Date.Equals(dateTime.Date));
             if (shiftCodes != null && shiftCodes.Count > 0)
             {
                 allShiftShedulesQ = allShiftShedulesQ.Where(s => shiftCodes.Contains(s.code));
-
             }
             List<ShiftScheduleView> allShiftShedules = allShiftShedulesQ.ToList();
             Dictionary<string, List<ShiftScheduleView>> allStaffShitSchedules = new Dictionary<string, List<ShiftScheduleView>>();
@@ -75,16 +74,18 @@ namespace BlueHrLib.Service.Implement
 
                 foreach (var shift in staffShitSchedules)
                 {
-                    DateTime shiftDate = dateTime.Date.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : -1);
-
-                    totalWorkingHours[shiftDate] = 0;
+                    DateTime shiftDate = shift.fullStartAt.Value.Date;// dateTime.Date.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : -1);
+                    if (!totalWorkingHours.ContainsKey(shiftDate))
+                    {
+                        totalWorkingHours.Add(shiftDate, 0);
+                    }
                     exceptions[shiftDate] = new List<AttendanceExceptionType>();
 
 
                     //  DateTime shiftStart = shift.scheduleAt.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : -1).Add(shift.startAt);
 
-                    DateTime shiftStart = shift.scheduleAt.Add(shift.startAt);
-                    DateTime shiftEnd = shift.scheduleAt.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : 1).Add(shift.endAt);
+                    DateTime shiftStart = shift.fullStartAt.Value;//shift.scheduleAt.Add(shift.startAt);
+                    DateTime shiftEnd = shift.fullEndAt.Value; //shift.scheduleAt.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : 1).Add(shift.endAt);
 
                     DateTime sq = shiftStart.AddHours(0 - setting.validAttendanceRecordTime.Value);
                     DateTime eq = shiftEnd.AddHours(setting.validAttendanceRecordTime.Value);
