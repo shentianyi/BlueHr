@@ -61,5 +61,8 @@ namespace BlueHrLib.Service.Interface
         bool Create(Staff staff);
 
         Staff FindById(int id);
+
+        bool DeleteByNr(string nr);
+
     }
 }

@@ -9,6 +9,7 @@ using MvcPaging;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,11 +31,7 @@ namespace BlueHrWeb.Controllers
 
             ViewBag.Query = q;
 
-            SetIsOnTrialList(null);
-            SetSexList(null);
-            SetJobTitleList(null);
-            SetCompanyList(null);
-            SetDepartmentList(null, null);
+            SetDropDownList(null);
 
             return View(staffs);
         }
@@ -49,13 +46,15 @@ namespace BlueHrWeb.Controllers
 
             IPagedList<Staff> staffs = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
-            ViewBag.Query = q;
+            Staff staff = new Staff();
+            staff.companyId = Convert.ToInt16(q.companyId);
+            staff.departmentId = Convert.ToInt16(q.departmentId);
+            staff.sex = Convert.ToString(q.Sex);
+            staff.jobTitleId = q.JobTitleId;
+            staff.isOnTrial = Convert.ToBoolean(q.IsOnTrial);
+            SetDropDownList(staff);
 
-            SetIsOnTrialList(q.IsOnTrial);
-            SetSexList(q.Sex);
-            SetJobTitleList(q.JobTitleId);
-            SetCompanyList(q.companyId);
-            SetDepartmentList(q.companyId, q.departmentId);
+            ViewBag.Query = q;
 
             return View("Index", staffs);
         }
@@ -69,16 +68,7 @@ namespace BlueHrWeb.Controllers
         // GET: Company/Create
         public ActionResult Create()
         {
-            SetIsOnTrialList(false);
-            SetSexList(0);
-            SetJobTitleList(null);
-            SetCompanyList(null);
-            SetDepartmentList(null, null);
-            SetStaffTypeList(null);
-            SetDegreeTypeList(null);
-            SetInSureTypeList(null);
-            SetIsPayCPFList(false);
-            SetResidenceTypeList(0);
+            SetDropDownList(null);
 
             return View();
         }
@@ -90,20 +80,15 @@ namespace BlueHrWeb.Controllers
             "Speciality, ResidenceAddress, Address, Id, Phone, ContactName, ContactPhone, ContactFamilyMemberType, Domicile, "+
             "ResidenceType, inSureTypeId, IsPayCPF, ContractExpireAt, ContractCount, Ethnic, Remark")] Staff staff)
         {
-            try
+            // TODO: Add insert logic here
+            IStaffService ss = new StaffService(Settings.Default.db);
+
+            bool result = ss.Create(staff);
+            if (result)
             {
-                // TODO: Add insert logic here
-                IStaffService ss = new StaffService(Settings.Default.db);
-                bool result = ss.Create(staff);
-                if (result)
-                {
-                    return RedirectToAction("Index");
-                }else
-                {
-                    return View();
-                }
+                return RedirectToAction("Index");
             }
-            catch
+            else
             {
                 return View();
             }
@@ -116,19 +101,7 @@ namespace BlueHrWeb.Controllers
 
             Staff staff = ss.FindByNr(nr);
 
-            if (staff != null)
-            {
-                SetIsOnTrialList(staff.isOnTrial);
-                SetSexList(Convert.ToInt16(staff.sex));
-                SetJobTitleList(staff.jobTitleId);
-                SetCompanyList(staff.companyId);
-                SetDepartmentList(staff.companyId, staff.departmentId);
-                SetStaffTypeList(staff.staffTypeId);
-                SetDegreeTypeList(staff.degreeTypeId);
-                SetInSureTypeList(staff.insureTypeId);
-                SetIsPayCPFList(staff.isPayCPF);
-                SetResidenceTypeList(staff.residenceType);
-            }
+            SetDropDownList(staff);
 
             StaffSearchModel q = new StaffSearchModel();
 
@@ -156,27 +129,78 @@ namespace BlueHrWeb.Controllers
                 return View();
             }
         }
+
+        // GET: Company/Delete/5
+        public ActionResult Delete(string nr)
+        {
+            IStaffService ss = new StaffService(Settings.Default.db);
+
+            Staff staff = ss.FindByNr(nr);
+
+            SetDropDownList(staff);
+
+            StaffSearchModel q = new StaffSearchModel();
+
+            q.companyId = staff.companyId;
+            q.departmentId = staff.departmentId;
+
+            ViewBag.Query = q;
+
+            return View(staff);
+        }
+
         // POST: Company/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string nr, FormCollection collection)
         {
-            try
+            // TODO: Add delete logic here
+            IStaffService ss = new StaffService(Settings.Default.db);
+
+            bool result = ss.DeleteByNr(nr);
+            if (result)
             {
-                // TODO: Add delete logic here
-                ICompanyService cs = new CompanyService(Settings.Default.db);
-                cs.DeleteById(id);
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
                 return View();
+            }
+        }
+
+        private void SetDropDownList(Staff staff)
+        {
+            if (staff != null)
+            {
+                SetIsOnTrialList(staff.isOnTrial);
+                SetSexList(Convert.ToInt16(staff.sex));
+                SetJobTitleList(staff.jobTitleId);
+                SetCompanyList(staff.companyId);
+                SetDepartmentList(staff.companyId, staff.departmentId);
+                SetStaffTypeList(staff.staffTypeId);
+                SetDegreeTypeList(staff.degreeTypeId);
+                SetInSureTypeList(staff.insureTypeId);
+                SetIsPayCPFList(staff.isPayCPF);
+                SetResidenceTypeList(staff.residenceType);
+            }
+            else
+            {
+                SetIsOnTrialList(false);
+                SetSexList(0);
+                SetJobTitleList(null);
+                SetCompanyList(null);
+                SetDepartmentList(null, null);
+                SetStaffTypeList(null);
+                SetDegreeTypeList(null);
+                SetInSureTypeList(null);
+                SetIsPayCPFList(false);
+                SetResidenceTypeList(0);
             }
         }
 
         private void SetIsOnTrialList(bool? type, bool allowBlank = true)
         {
             List<EnumItem> item = new List<EnumItem>() { new EnumItem() { Text = "是", Value = "true" }, new EnumItem() { Text = "否", Value = "false" } };
-                //EnumHelper.GetList(typeof(IsOnTrail));
+            //EnumHelper.GetList(typeof(IsOnTrail));
 
             List<SelectListItem> select = new List<SelectListItem>();
 
@@ -280,9 +304,9 @@ namespace BlueHrWeb.Controllers
 
             JobTitleSearchModel jtsm = new JobTitleSearchModel();
 
-            List<JobTitle> jt =  js.Search(jtsm).ToList();
+            List<JobTitle> jt = js.Search(jtsm).ToList();
 
-            List <SelectListItem> select = new List<SelectListItem>();
+            List<SelectListItem> select = new List<SelectListItem>();
 
             if (allowBlank)
             {
@@ -405,7 +429,7 @@ namespace BlueHrWeb.Controllers
                 List<Department> deps = ds.FindByCompanyId(company.id).ToList();
                 Dictionary<string, string> department = new Dictionary<string, string>();
 
-                foreach(var dep in deps)
+                foreach (var dep in deps)
                 {
                     department.Add(dep.id.ToString(), dep.name);
                 }
@@ -432,7 +456,7 @@ namespace BlueHrWeb.Controllers
                     select.Add(new SelectListItem { Text = "", Value = "" });
                 }
 
-                foreach(var department in departments)
+                foreach (var department in departments)
                 {
                     if (type.HasValue && type.ToString().Equals(department.id))
                     {
