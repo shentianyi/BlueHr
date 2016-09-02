@@ -58,6 +58,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Common\Extensions\CollectionExtensions.cs" />
     <Compile Include="Common\Patterns\Singleton.cs" />
+    <Compile Include="CusException\DataNotFoundException.cs" />
     <Compile Include="CusException\SystemSettingNotSetException.cs" />
     <Compile Include="CusException\SystemCertificateTypeNotFoundException.cs" />
     <Compile Include="CusException\MQPathNotFoundException.cs" />

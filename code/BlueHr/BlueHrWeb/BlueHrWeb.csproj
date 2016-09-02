@@ -403,6 +403,7 @@
     <Content Include="Views\Department\Create.cshtml" />
     <Content Include="Views\Department\_PartialDepartment.cshtml" />
     <Content Include="Views\AttendanceRecordCal\Index.cshtml" />
+    <Content Include="Views\AttendanceRecordCal\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

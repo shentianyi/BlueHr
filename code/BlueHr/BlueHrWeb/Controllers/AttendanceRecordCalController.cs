@@ -48,13 +48,41 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: AttendanceRecordDetail/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
-            ICompanyService cs = new CompanyService(Settings.Default.db);
+            IAttendanceRecordCalService ss = new AttendanceRecordCalService(Settings.Default.db);
+            AttendanceRecordCalView record = ss.FindViewById(id);
+            return View(record);
+        }
 
-            Company cp = cs.FindById(id);
+        // POST: AttendanceRecordDetail/UpdateActHour/5
+        /// <summary>
+        /// 修改实际工时
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult UpdateActHour(int id)
+        {
+            ResultMessage msg = new ResultMessage();
+            double actHour = 0;
+            if (!double.TryParse(Request.Form["actWorkingHourRound"], out actHour))
+            {
+                msg.Content = "实际工时必须是数字";
+                return Json(msg);
+            }
+            bool handled = false;
+            if (!bool.TryParse(Request.Form["isExceptionHandled"], out handled))
+            {
+                msg.Content = "是否处理值非法，请刷新页面重新填写";
+                return Json(msg);
+            }
 
-            return View(cp);
+
+            IAttendanceRecordCalService ss = new AttendanceRecordCalService(Settings.Default.db);
+            msg = ss.UpdateActHourById(id, actHour, handled);
+            return Json(msg);
         }
 
     }
