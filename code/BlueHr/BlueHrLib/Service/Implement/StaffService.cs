@@ -149,5 +149,13 @@ namespace BlueHrLib.Service.Implement
 
             return staffRep.FindById(id);
         }
+
+        public bool DeleteByNr(string nr)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            IStaffRepository staffRep = new StaffRepository(dc);
+
+            return staffRep.DeleteByNr(nr);
+        }
     }
 }

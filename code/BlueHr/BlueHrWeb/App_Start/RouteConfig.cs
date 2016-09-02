@@ -19,6 +19,12 @@ namespace BlueHrWeb
             );
 
             routes.MapRoute(
+              name: "StaffDelete",
+              url: "Staff/Delete/{nr}",
+              defaults: new { controller = "Staff", action = "Delete", nr = UrlParameter.Optional }
+           );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

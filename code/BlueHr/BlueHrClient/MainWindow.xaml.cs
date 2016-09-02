@@ -25,6 +25,8 @@ using System.Windows.Threading;
 using BlueHrLib.Data.Model;
 using System.Media;
 using BlueHrClient.Escape;
+using System.Drawing;
+
 
 namespace BlueHrClient
 {
@@ -200,6 +202,9 @@ namespace BlueHrClient
             {
                 uint mLen = 0;
                 uint iLen = 0;
+
+                //System.Diagnostics.Debug.Assert(Syn_ReadBaseMsg(BaseConfig.NPort, msg, ref mLen, img, ref iLen, 0) == 0);
+
                 if (Syn_ReadBaseMsg(BaseConfig.NPort, msg, ref mLen, img, ref iLen, 0) == 0)
                 {
                     string card = Marshal.PtrToStringUni(msg);
@@ -215,40 +220,47 @@ namespace BlueHrClient
                     CardMsg.UserLifeEnd = new string(cartb, 102, 8);
                     Status.Text = "读取成功";
                     // Checkin();
-
-                    System.IFormatProvider format = new System.Globalization.CultureInfo("zh-CN", true);
-                    string begindatetime = DateTime.ParseExact(CardMsg.UserLifeBegin, "yyyyMMdd", format).ToString();
-                    string enddatetime = DateTime.ParseExact(CardMsg.UserLifeEnd, "yyyyMMdd", format).ToString();
                     Name.Text = CardMsg.Name;
-                    Sex.Text =escape.SexEscape(CardMsg.Sex);
-                    Nation.Text =escape.NationEscape(CardMsg.Nation);
-                    Born.Text = CardMsg.Born;
+                    Sex.Text = escape.SexEscape(CardMsg.Sex);
+                    Nation.Text = escape.NationEscape(CardMsg.Nation);
+                    Born.Text =escape.DateEscape(CardMsg.Born);
                     Address.Text = CardMsg.Address;
                     ID.Text = CardMsg.IDCardNo;
                     GrantDept.Text = CardMsg.GrantDept;
-                    UserLifeBegin.Text = begindatetime;
-                    UserLifeEnd.Text = CardMsg.UserLifeEnd;
+                    UserLifeBegin.Text = escape.DateEscape(CardMsg.UserLifeBegin);
+                    UserLifeEnd.Text = escape.DateEscape(CardMsg.UserLifeEnd);
 
 
+                    //  System.IO.MemoryStream ms = new System.IO.MemoryStream(img);
+                    //  Image photo = System.Drawing.Image.FromStream(ms);
+                    string imgs = Marshal.PtrToStringUni(img);
+                    char[] photo = imgs.ToCharArray();
+                    MessageBox.Show(photo.ToString());
 
                     //string imgs = Convert.ToBase64String(img);
-                   //MessageBox.Show(img.ToString());
+                    //MessageBox.Show(img[0].ToString());
+
+
                     //MemoryStream stream = new MemoryStream(img);
+                    //System.Drawing.Image photo = System.Drawing.Image.FromStream(stream);
+                    //photo.Save(BaseConfig.SavePathPhoto+"\\"+"test.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
+
                     //System.Drawing.Image mimg = System.Drawing.Image.FromStream(stream);
                     //mimg.Save("xxx.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
 
                     if (BaseConfig.SaveNotes)
                     {
                         stmp[0] = Convert.ToString(System.DateTime.Now);
-                        stmp[1] = "  姓名:" + CardMsg.Name;
-                        stmp[2] = "  性别:" + CardMsg.Sex;
-                        stmp[3] = "  民族:" + CardMsg.Nation;
-                        stmp[4] = "  身份证号:" + CardMsg.IDCardNo;
-                        stmp[5] = "  出生日期:" + CardMsg.Born;
-                        stmp[6] = "  地址:" + CardMsg.Address;
-                        stmp[7] = "  发证机关:" + CardMsg.GrantDept;
-                        stmp[8] = "  有效期开始:" + CardMsg.UserLifeBegin;
-                        stmp[9] = "  有效期结束:" + CardMsg.UserLifeEnd;
+                        stmp[1] = "  姓名:" + Name.Text;
+                        stmp[2] = "  性别:" + Sex.Text;
+                        stmp[3] = "  民族:" + Nation.Text;
+                        stmp[4] = "  身份证号:" + ID.Text;
+                        stmp[5] = "  出生日期:" + Born.Text;
+                        stmp[6] = "  地址:" + Address.Text;
+                        stmp[7] = "  发证机关:" + GrantDept.Text;
+                        stmp[8] = "  有效期开始:" + UserLifeBegin.Text;
+                        stmp[9] = "  有效期结束:" + UserLifeEnd.Text;
                         string timeForName = System.DateTime.Now.ToString("yyyy_MM_dd");
                         FileStream file = new FileStream(BaseConfig.SavePath + "\\" + timeForName + "记录.txt", FileMode.Append, FileAccess.Write);
                         StreamWriter stingForWrite = new StreamWriter(file);
@@ -264,15 +276,16 @@ namespace BlueHrClient
                     Status.Text = "请放卡...";
                 }
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 MessageBox.Show(e.ToString());
             }
             finally
             {
                 Marshal.FreeHGlobal(msg);
-                Marshal.FreeHGlobal(img);
+                //Marshal.FreeHGlobal(img);
             }
-        
+
             //if (Syn_ReadMsg(BaseConfig.NPort, 0, ref CardMsg) == 0)
             //{
             //    Name.Text = CardMsg.Name;
@@ -336,11 +349,11 @@ namespace BlueHrClient
                     if (getData())
                     {
                         msgBlock.Text = "ACCEPT";
-                        msgBlock.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2786E4"));
+                        msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
                     }
                     else {
                         msgBlock.Text = "ERROR";
-                        msgBlock.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EA0000"));
+                        msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));
                     }
 
                    // byte[] cPath = new byte[255];
@@ -357,19 +370,19 @@ namespace BlueHrClient
                         if (getData())
                         {
                             msgBlock.Text = "ACCEPT";
-                            msgBlock.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2786E4"));
+                            msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
                         }
                         else
                         {
                             msgBlock.Text = "ERROR";
-                            msgBlock.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EA0000"));
+                            msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
                         }
                     }
                 }
             }
             else {
                 msgBlock.Text = "ACCEPT";
-                msgBlock.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2786E4"));
+                msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
             }
 
         }

@@ -35,6 +35,22 @@ namespace BlueHrLib.Data.Repository.Implement
             return true;
         }
 
+        public bool DeleteByNr(string nr)
+        {
+            Staff sf = this.context.GetTable<Staff>().FirstOrDefault(c => c.nr.Equals(nr));
+
+            if (sf != null)
+            {
+                this.context.GetTable<Staff>().DeleteOnSubmit(sf);
+                this.context.SubmitChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public Staff FindById(int id)
         {
             try
