@@ -22,5 +22,15 @@ namespace BlueHrWeb.Helpers
         }
 
 
+        public static string SaveUploadImage(HttpPostedFileBase file)
+        {
+            string filePath = LibFileHelper.CreateFullUPloadImageFilePath(Path.GetFileName(file.FileName));
+            file.SaveAs(filePath);
+
+            string fileName = filePath.Split('\\')[filePath.Split('\\').Length - 1];
+
+            return fileName;
+        }
+
     }
 }

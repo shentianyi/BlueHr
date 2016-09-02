@@ -9,6 +9,7 @@ namespace BlueHrLib.Helper
     public class FileHelper
     {
         public const string TMP_FILE_DIR = "TmpFile";
+        public const string UPLOAD_IMAGE = "UploadImage";
 
         /// <summary>
         /// 创建临时文件路径
@@ -32,6 +33,26 @@ namespace BlueHrLib.Helper
                 return Path.Combine(dir,
                   DateTime.Now.ToString("yyyyMMddHHmmss") + "_错误文件_" + Guid.NewGuid().ToString() + Path.GetExtension(fileName));
             
+            }
+        }
+
+        public static string CreateFullUPloadImageFilePath(string fileName, bool isErrorFile = false)
+        {
+            string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UPLOAD_IMAGE);
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+            if (!isErrorFile)
+            {
+                return Path.Combine(dir,
+                   DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + (fileName.Length > 70 ? Guid.NewGuid().ToString() + Path.GetExtension(fileName) : fileName));
+            }
+            else
+            {
+                return Path.Combine(dir,
+                  DateTime.Now.ToString("yyyyMMddHHmmss") + "_错误文件_" + Guid.NewGuid().ToString() + Path.GetExtension(fileName));
+
             }
         }
 
