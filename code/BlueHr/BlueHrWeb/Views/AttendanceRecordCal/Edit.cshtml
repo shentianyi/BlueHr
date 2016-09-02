@@ -1,0 +1,77 @@
+﻿@model BlueHrLib.Data.AttendanceRecordCalView
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>调整工时</li>
+</ol>
+@if (Model != null) {
+    <span>
+        考勤日期：@Model.attendanceDateStr
+        是否异常：@Model.isExceptionStr
+    </span>
+    <span>
+     部门：@Model.departmentName    
+    </span>
+
+    <span>
+        工号：@Model.staffNr
+    </span>
+
+    <span>
+        姓名：@Model.name
+    </span>
+
+    <span>
+        考勤工时：<span id="actWorkingHourRoundDisplay">@Model.actWorkingHourRound</span>
+    </span>
+    <span>
+        调整为:@Html.EditorFor(model => model.actWorkingHourRound, new { htmlAttributes = new { @class = "form-control" } })
+    </span>
+    <span>
+        是否处理：<input type="checkbox" checked="checked" id="isExceptionHandled"/>
+    </span>
+    <span>
+        <button type="submit" class="marco-btn-success" onclick="updateActWorkingHour()">
+            <i class="glyphicon glyphicon-ok"></i>
+            确定
+        </button>
+    </span>
+    <input type="hidden" id="record-id" value="@Model.id" />
+}
+else {
+    <span>未找到记录，请联系管理员</span>
+}
+<script type="text/javascript">
+    
+    function updateActWorkingHour() {
+        if (confirm("确认提交修改？")) {
+            var hour = $("#actWorkingHourRound").val();
+            var id=$("#record-id").val();
+            var handled = $("#isExceptionHandled").is(':checked');
+            console.log(hour);
+            console.log(id);
+            console.log(handled);
+
+            if (isNaN(hour)) {
+                alert("请填写正确的数字");
+                return;
+            }
+
+            $.post("/AttendanceRecordCal/UpdateActHour/" + id, { actWorkingHourRound: hour, isExceptionHandled: handled }, function (data) {
+                if (data.Success) {
+                    alert("调整成功！");
+                    $("#actWorkingHourRoundDisplay").text(hour);
+                } else {
+                    alert("调整失败："+data.Content);
+                }
+            }, "json");
+        }
+    }
+
+   
+</script>
+ 

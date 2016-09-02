@@ -36,6 +36,11 @@
                 </button>
 
                 <button class="pull-right marco-btn-primary import-button-dialog" title="Import" type="button">导入打卡记录</button>
+
+                <button type="button" class="marco-btn-danger cal-att-button-dialog">
+                    <i class="glyphicon glyphicon-dashboard"></i>
+                    新建计算任务
+                </button>
             </div>
 </form>
 </div>
@@ -44,14 +49,6 @@
     <div class="usual-table">
         <div class="table-heading">
             考勤详细数据列表
-            <div class="pull-right" style="margin-top:-12px;">
-                <a href="/AttendanceRecordDetail/Create">
-                    <button class="marco-btn-primary">
-                        <i class="glyphicon glyphicon-plus-sign"></i>
-                        <span>创建</span>
-                    </button>
-                </a>
-            </div>
         </div>
         <div class="table-body content_3">
             <table class="table table-bordered">
@@ -143,11 +140,40 @@
     </div>*@
 </div>
 
+
+<!--计算任务-->
+<div id="dialog_cal_att_content" class="cal_att_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        新建考勤计算任务
+    </div>
+    <div class="dialogModal_content">
+        <strong>选择时间(必选):</strong>
+        <input type="text" name="CalDate" id="CalDate" class="current-datetimepicker" placeholder="考勤时间" value="@DateTime.Now.ToString("yyyy-MM-dd hh:00")" />
+        <hr />
+        <strong>选择班次(可选):</strong>
+         @Html.DropDownList("ShiftCode", ViewData["shiftList"] as IEnumerable<SelectListItem>)
+        <hr />
+        
+    </div>
+    <div class="dialogModal_footer">
+            <button type="button" class="btn btn-primary" style="width:200px;" onclick="calculateAttendance()">确定</button>
+
+        <button type="button" class="btn btn-warning" style="width:200px;" onclick="cancelCalculateAttendance()">取消</button>
+        </div>
+</div>
+
 <script type="text/javascript">
+    Layout.init();
+    Layout.TbodyHeight('.table-body', 350);
+
     $('.datetimepicker').datetimepicker({
         format: 'Y-m-d H:i',
         defaultTime: '00:00'
     });
+    $('.current-datetimepicker').datetimepicker({
+                    format: 'Y-m-d H:i'
+                });
+ 
     $('.import-button-dialog').click(function () {
         $('#dialog_content').dialogModal({
             onOkBut: function () {
@@ -156,8 +182,61 @@
             onLoad: function () {
                 data_upload(".item-data-uploader");
             },
-            onClose: function () { },
+            onClose: function () {
+
+            },
         });
-    }); 
+    });
+    var dialog;
+
+    dialog = $(".cal_att_content").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 350,
+        modal: true
+    });
+
+
+
+    $('.cal-att-button-dialog').click(function () {
+        if (dialog != null)
+            dialog.dialog("open");
+    });
+
+    function calculateAttendance() {
+        var dateTime = $("#CalDate").val();
+        var shiftCode = $("#ShiftCode").val();
+
+        if (dateTime.length == 0) {
+            alert("请选择时间");
+            return false;
+        }
+
+        $.ajax({
+            type: 'POST',
+            datatype: 'JSON',
+            url: '/AttendanceRecordDetail/Calculate',
+            data:{
+                DateTime: dateTime,
+                ShiftCode:shiftCode
+            },
+            success: function (data) {
+                if (data.Success) {
+                    alert(data.Content);
+                    if (dialog != null)
+                        dialog.dialog("close");
+                } else {
+                    alert(data.Content);
+                }
+            },
+            error: function (data) {
+                alert("无法请求到服务，请检查确认之后再运行。");
+            }
+        });
+    }
+    function cancelCalculateAttendance() {
+        if (dialog != null)
+            dialog.dialog("close");
+    }
 
 </script>

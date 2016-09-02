@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlueHrLib.Data.Repository.Implement
 {
-    public class AttendanceRecordDetailRepository : RepositoryBase<Company>, IAttendanceRecordDetailRepository
+    public class AttendanceRecordDetailRepository : RepositoryBase<AttendanceRecordDetail>, IAttendanceRecordDetailRepository
     {
         private BlueHrDataContext context;
 

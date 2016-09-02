@@ -58,7 +58,8 @@ namespace BlueHrWeb
                      "~/Content/input-style.css",
                      "~/Content/pagination.css",
                      "~/Content/jquery-popModal.css",
-                     "~/Content/jquery.datetimepicker.css"));
+                     "~/Content/jquery.datetimepicker.css",
+                     "~/Content/jquery-ui.css"));
 
             bundles.Add(new StyleBundle("~/Content/layout").Include(
                      "~/Content/layout.css",

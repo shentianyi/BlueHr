@@ -2,6 +2,7 @@
 using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.Excel;
 using BlueHrLib.Service.Implement;
+using BlueHrLib.Service.Interface;
 using Brilliantech.Framwork.Utils.LogUtil;
 using OfficeOpenXml;
 using System;
@@ -108,7 +109,7 @@ namespace BlueHrLib.Helper.Excel
 
                             /// 数据写入数据库
                             List<AttendanceRecordDetail> details = AttendanceRecordDetailExcelModel.Convert(records);
-                            AttendanceRecordService ss = new AttendanceRecordService(this.DbString);
+                            IAttendanceRecordDetailService ss = new AttendanceRecordDetailService(this.DbString);
                             ss.CreateDetails(details);
 
                         }

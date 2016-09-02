@@ -56,6 +56,9 @@
                         <li>
                             @Html.ActionLink("详细记录管理", "Index", "AttendanceRecordDetail")
                         </li>
+                        <li>
+                            @Html.ActionLink("统计记录管理", "Index", "AttendanceRecordCal")
+                        </li>
                     </ul>
                 </li>
 
@@ -71,6 +74,10 @@
                         <li>@Html.ActionLink("缺勤类型", "Index", "AbsenceType")</li>
                         <li>@Html.ActionLink("加班类型", "Index", "ExtraWorkType")</li>
                     </ul>
+                </li>
+
+                <li>
+                    @Html.ActionLink("系统任务", "Index", "TaskRound")
                 </li>
             </ul>
                

@@ -24,6 +24,7 @@ using BlueHrLib.Data;
 using System.Windows.Threading;
 using BlueHrLib.Data.Model;
 using System.Media;
+using BlueHrClient.Escape;
 
 namespace BlueHrClient
 {
@@ -82,7 +83,8 @@ namespace BlueHrClient
         public static extern int Syn_SelectIDCard(int iPort, ref byte pucSN, int iIfOpen);
         [DllImport("SynIDCardAPI.dll", EntryPoint = "Syn_ReadMsg", CharSet = CharSet.Ansi)]
         public static extern int Syn_ReadMsg(int iPortID, int iIfOpen, ref IDCardData pIDCardData);
-
+        [DllImport("SynIDCardAPI.dll", EntryPoint = "Syn_ReadBaseMsg", CharSet = CharSet.Ansi)]
+        public static extern int Syn_ReadBaseMsg(int iPort, IntPtr pucCHMsg, ref uint puiCHMsgLen, IntPtr pucPHMsg, ref uint puiPHMsgLen, int iIfOpen);
 
         /***********************设置附加功能函数 ************************/
         [DllImport("SynIDCardAPI.dll", EntryPoint = "Syn_SetPhotoPath", CharSet = CharSet.Ansi)]
@@ -101,8 +103,8 @@ namespace BlueHrClient
         public static extern int Syn_SetUserLifeBType(int iType);
         [DllImport("SynIDCardAPI.dll", EntryPoint = "Syn_SetUserLifeEType", CharSet = CharSet.Ansi)]
         public static extern int Syn_SetUserLifeEType(int iType, int iOption);
-        [DllImport("SynIDCardAPI.dll", EntryPoint = "Syn_PhotoToStrBase64", CharSet = CharSet.Ansi)]
-        public static extern int Syn_PhotoToStrBase64(ref byte cBase64, ref uint iLen);
+        [DllImport("SynIDCardAPI.dll", EntryPoint = "Syn_StrBase64ToPhoto", CharSet = CharSet.Ansi)]
+        public static extern int Syn_StrBase64ToPhoto(string cBase64, int iLen, string cPhotoName);
 
 
 
@@ -155,11 +157,15 @@ namespace BlueHrClient
 
         private void loadData()
         {
+            if (!System.IO.Directory.Exists(BaseConfig.SavePathPhoto))
+                System.IO.Directory.CreateDirectory(BaseConfig.SavePathPhoto);
+            if (!System.IO.Directory.Exists(BaseConfig.SavePath))
+                System.IO.Directory.CreateDirectory(BaseConfig.SavePath);
             player.LoadAsync();
             byte[] cPath = new byte[255];
             cPath = System.Text.Encoding.Default.GetBytes(BaseConfig.SavePathPhoto);
             Syn_SetPhotoPath(2, ref cPath[0]);
-            Syn_SetPhotoType(1);
+           // Syn_SetPhotoType(1);
             Syn_SetPhotoName(3);
             Syn_SetSexType(1);
             Syn_SetNationType(2);
@@ -177,59 +183,146 @@ namespace BlueHrClient
         private void readIDCard()
         {
             IDCardData CardMsg = new IDCardData();
-            string[] stmp = new string[15];
+            string[] stmp = new string[11];
             byte[] pucIIN = new byte[4];
             byte[] pucSN = new byte[8];
             Syn_StartFindIDCard(BaseConfig.NPort, ref pucIIN[0], 0);
             Syn_SelectIDCard(BaseConfig.NPort, ref pucSN[0], 0);
-            if (Syn_ReadMsg(BaseConfig.NPort, 0, ref CardMsg) == 0)
-            {
+            //MessageBox.Show(Syn_ReadMsg(1001, 1, ref CardMsg).ToString());
 
-                Name.Text = CardMsg.Name;
-                Sex.Text = CardMsg.Sex;
-                Nation.Text = CardMsg.Nation;
-                Born.Text = CardMsg.Born;
-                Address.Text = CardMsg.Address;
-                ID.Text = CardMsg.IDCardNo;
-                GrantDept.Text = CardMsg.GrantDept;
-                UserLifeBegin.Text = CardMsg.UserLifeBegin;
-                UserLifeEnd.Text = CardMsg.UserLifeEnd;
-                photo.Source = new BitmapImage(new Uri(CardMsg.PhotoFileName, UriKind.Absolute));
-                RenderOptions.SetBitmapScalingMode(photo, BitmapScalingMode.Fant);
-                Checkin();
-                Status.Text = "读取成功";
-                if (BaseConfig.SaveNotes)
+            Escaper escape = new Escaper();
+            string cardMsg = new string(' ', 256);  //身份证基本信息返回长度为256
+            string imgMsg = new string(' ', 1024);  //身份证图片信息返回长度为1024
+            IntPtr msg = Marshal.StringToHGlobalAnsi(cardMsg);  //身份证基本信息
+            IntPtr img = Marshal.StringToHGlobalAnsi(imgMsg);   //身份证图片
+            //byte[] img = new byte[1024];
+            try
+            {
+                uint mLen = 0;
+                uint iLen = 0;
+                if (Syn_ReadBaseMsg(BaseConfig.NPort, msg, ref mLen, img, ref iLen, 0) == 0)
                 {
-                    stmp[0] = Convert.ToString(System.DateTime.Now);
-                    stmp[1] = "  姓名:" + CardMsg.Name;
-                    stmp[2] = "  性别:" + CardMsg.Sex;
-                    stmp[3] = "  民族:" + CardMsg.Nation;
-                    stmp[4] = "  身份证号:" + CardMsg.IDCardNo;
-                    stmp[5] = "  出生日期:" + CardMsg.Born;
-                    stmp[6] = "  地址:" + CardMsg.Address;
-                    stmp[7] = "  发证机关:" + CardMsg.GrantDept;
-                    stmp[8] = "  有效期开始:" + CardMsg.UserLifeBegin;
-                    stmp[9] = "  有效期结束:" + CardMsg.UserLifeEnd;
-                    stmp[10] = "  照片文件名:" + CardMsg.PhotoFileName;
-                    string timeForName = System.DateTime.Now.ToString("yyyy_MM_dd");
-                    FileStream file = new FileStream(BaseConfig.SavePath + "\\" + timeForName + "记录.txt", FileMode.Append, FileAccess.Write);
-                    StreamWriter stingForWrite = new StreamWriter(file); 
-                    for (int i = 0; i <= 9; i++)
+                    string card = Marshal.PtrToStringUni(msg);
+                    char[] cartb = card.ToCharArray();
+                    CardMsg.Name = (new string(cartb, 0, 15)).Trim();
+                    CardMsg.Sex = new string(cartb, 15, 1);
+                    CardMsg.Nation = new string(cartb, 16, 2);
+                    CardMsg.Born = new string(cartb, 18, 8);
+                    CardMsg.Address = (new string(cartb, 26, 35)).Trim();
+                    CardMsg.IDCardNo = new string(cartb, 61, 18);
+                    CardMsg.GrantDept = (new string(cartb, 79, 15)).Trim();
+                    CardMsg.UserLifeBegin = new string(cartb, 94, 8);
+                    CardMsg.UserLifeEnd = new string(cartb, 102, 8);
+                    Status.Text = "读取成功";
+                    // Checkin();
+
+                    System.IFormatProvider format = new System.Globalization.CultureInfo("zh-CN", true);
+                    string begindatetime = DateTime.ParseExact(CardMsg.UserLifeBegin, "yyyyMMdd", format).ToString();
+                    string enddatetime = DateTime.ParseExact(CardMsg.UserLifeEnd, "yyyyMMdd", format).ToString();
+                    Name.Text = CardMsg.Name;
+                    Sex.Text =escape.SexEscape(CardMsg.Sex);
+                    Nation.Text =escape.NationEscape(CardMsg.Nation);
+                    Born.Text = CardMsg.Born;
+                    Address.Text = CardMsg.Address;
+                    ID.Text = CardMsg.IDCardNo;
+                    GrantDept.Text = CardMsg.GrantDept;
+                    UserLifeBegin.Text = begindatetime;
+                    UserLifeEnd.Text = CardMsg.UserLifeEnd;
+
+
+
+                    //string imgs = Convert.ToBase64String(img);
+                   //MessageBox.Show(img.ToString());
+                    //MemoryStream stream = new MemoryStream(img);
+                    //System.Drawing.Image mimg = System.Drawing.Image.FromStream(stream);
+                    //mimg.Save("xxx.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                    if (BaseConfig.SaveNotes)
                     {
-                        stingForWrite.WriteLine(stmp[i]);
+                        stmp[0] = Convert.ToString(System.DateTime.Now);
+                        stmp[1] = "  姓名:" + CardMsg.Name;
+                        stmp[2] = "  性别:" + CardMsg.Sex;
+                        stmp[3] = "  民族:" + CardMsg.Nation;
+                        stmp[4] = "  身份证号:" + CardMsg.IDCardNo;
+                        stmp[5] = "  出生日期:" + CardMsg.Born;
+                        stmp[6] = "  地址:" + CardMsg.Address;
+                        stmp[7] = "  发证机关:" + CardMsg.GrantDept;
+                        stmp[8] = "  有效期开始:" + CardMsg.UserLifeBegin;
+                        stmp[9] = "  有效期结束:" + CardMsg.UserLifeEnd;
+                        string timeForName = System.DateTime.Now.ToString("yyyy_MM_dd");
+                        FileStream file = new FileStream(BaseConfig.SavePath + "\\" + timeForName + "记录.txt", FileMode.Append, FileAccess.Write);
+                        StreamWriter stingForWrite = new StreamWriter(file);
+                        for (int i = 0; i <= 9; i++)
+                        {
+                            stingForWrite.WriteLine(stmp[i]);
+                        }
+                        stingForWrite.Close();
                     }
-                    stingForWrite.Close();
+                }
+                else
+                {
+                    Status.Text = "请放卡...";
                 }
             }
-            else
-            {
-                Status.Text = "请放卡...";
+            catch (Exception e) {
+                MessageBox.Show(e.ToString());
             }
+            finally
+            {
+                Marshal.FreeHGlobal(msg);
+                Marshal.FreeHGlobal(img);
+            }
+        
+            //if (Syn_ReadMsg(BaseConfig.NPort, 0, ref CardMsg) == 0)
+            //{
+            //    Name.Text = CardMsg.Name;
+            //    Sex.Text = CardMsg.Sex;
+            //    Nation.Text = CardMsg.Nation;
+            //    Born.Text = CardMsg.Born;
+            //    Address.Text = CardMsg.Address;
+            //    ID.Text = CardMsg.IDCardNo;
+            //    GrantDept.Text = CardMsg.GrantDept;
+            //    UserLifeBegin.Text = CardMsg.UserLifeBegin;
+            //    UserLifeEnd.Text = CardMsg.UserLifeEnd;
+
+            //    photo.Source = new BitmapImage(new Uri(CardMsg.PhotoFileName, UriKind.Absolute));
+            //   // RenderOptions.SetBitmapScalingMode(photo, BitmapScalingMode.Fant);
+            //    Checkin();
+            //    Status.Text = "读取成功";
+            //    if (BaseConfig.SaveNotes)
+            //    {
+            //        stmp[0] = Convert.ToString(System.DateTime.Now);
+            //        stmp[1] = "  姓名:" + CardMsg.Name;
+            //        stmp[2] = "  性别:" + CardMsg.Sex;
+            //        stmp[3] = "  民族:" + CardMsg.Nation;
+            //        stmp[4] = "  身份证号:" + CardMsg.IDCardNo;
+            //        stmp[5] = "  出生日期:" + CardMsg.Born;
+            //        stmp[6] = "  地址:" + CardMsg.Address;
+            //        stmp[7] = "  发证机关:" + CardMsg.GrantDept;
+            //        stmp[8] = "  有效期开始:" + CardMsg.UserLifeBegin;
+            //        stmp[9] = "  有效期结束:" + CardMsg.UserLifeEnd;
+            //        stmp[10] = "  照片文件名:" + CardMsg.PhotoFileName;
+            //        string timeForName = System.DateTime.Now.ToString("yyyy_MM_dd");
+            //        FileStream file = new FileStream(BaseConfig.SavePath + "\\" + timeForName + "记录.txt", FileMode.Append, FileAccess.Write);
+            //        StreamWriter stingForWrite = new StreamWriter(file); 
+            //        for (int i = 0; i <= 9; i++)
+            //        {
+            //            stingForWrite.WriteLine(stmp[i]);
+            //        }
+            //        stingForWrite.Close();
+            //    }
+            //}
+            //else
+            //{
+            //    Status.Text = "请放卡...";
+            //}
 
         }
+
+
         private void Checkin()
         {
-            WarningWindow win = new WarningWindow();
+           // WarningWindow win = new WarningWindow();
             IStaffService staffService = new StaffService(Settings.Default.db);
             Staff staff = staffService.FindByStaffId(ID.Text);
             if (staff == null)

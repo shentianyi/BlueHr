@@ -20,10 +20,12 @@ namespace BlueHrLib.Service.Implement
 
         /// <summary>
         /// 将Detail的数据计算到Cal中
+        /// 将班次结束点日期等于date日期，结束点时间小于等于date时间的班次考勤进行计算
         /// </summary>
-        /// <param name="date">计算的时间</param>
-        /// <param name="searchModel">需要计算的员工的查询条件</param>
-        public void CalculateAttendRecord(DateTime date, StaffSearchModel searchModel)
+        /// <param name="dateTime">计算的时间</param>
+        /// <param name="shiftCodes">班次代码</param>
+        /// <param name="searchModel">需要计算的员工的查询条件, **NOT IMPLEMENT**</param>
+        public void CalculateAttendRecord(DateTime dateTime, List<string> shiftCodes = null, StaffSearchModel searchModel = null)
         {
             DataContext dc = new DataContext(this.DbString);
             /// 判断配置
@@ -34,7 +36,13 @@ namespace BlueHrLib.Service.Implement
             /// 查找员工的排班
             //IStaffService staffService = new StaffService(this.DbString);
             //List<Staff> staffs = staffService.Search(searchModel).ToList();
-            List<ShiftScheduleView> allShiftShedules = dc.Context.GetTable<ShiftScheduleView>().Where(s => s.fullEndAt.Value <= date && s.fullEndAt.Value.Date.Equals(date.Date)).ToList();
+            var allShiftShedulesQ = dc.Context.GetTable<ShiftScheduleView>().Where(s => s.fullEndAt.Value <= dateTime && s.fullEndAt.Value.Date.Equals(dateTime.Date));
+            if (shiftCodes != null && shiftCodes.Count > 0)
+            {
+                allShiftShedulesQ = allShiftShedulesQ.Where(s => shiftCodes.Contains(s.code));
+
+            }
+            List<ShiftScheduleView> allShiftShedules = allShiftShedulesQ.ToList();
             Dictionary<string, List<ShiftScheduleView>> allStaffShitSchedules = new Dictionary<string, List<ShiftScheduleView>>();
             foreach (var ssv in allShiftShedules)
             {
@@ -67,7 +75,7 @@ namespace BlueHrLib.Service.Implement
 
                 foreach (var shift in staffShitSchedules)
                 {
-                    DateTime shiftDate = date.Date.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : -1);
+                    DateTime shiftDate = dateTime.Date.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : -1);
 
                     totalWorkingHours[shiftDate] = 0;
                     exceptions[shiftDate] = new List<AttendanceExceptionType>();
@@ -153,94 +161,84 @@ namespace BlueHrLib.Service.Implement
 
             }
 
-            using (TransactionScope scope = new TransactionScope())
-            {
-                DataContext subDc = new DataContext(this.DbString);
-                List<AttendanceRecordCal> insertCals = new List<AttendanceRecordCal>();
-                List<AttendanceRecordCal> updateCals = new List<AttendanceRecordCal>();
-                foreach (var dic in staffAttendCals)
-                {
-                    /// 手动修改的不会被修改实际值
-                    List<AttendanceRecordCal> _updateCals = subDc.Context.GetTable<AttendanceRecordCal>().Where(s => staffAttendCals.Keys.Contains(s.staffNr) && (staffAttendCals[dic.Key].Select(ss => ss.attendanceDate).ToList().Contains(s.attendanceDate))).ToList();
-                    foreach (var u in _updateCals)
-                    {
-                        var c = dic.Value.Where(d => d.attendanceDate.Equals(u.attendanceDate)).FirstOrDefault();
+            //using (TransactionScope scope = new TransactionScope())
+            //{
+            DataContext subDc = new DataContext(this.DbString);
+            List<AttendanceRecordCal> insertCals = new List<AttendanceRecordCal>();
 
+            foreach (var dic in staffAttendCals)
+            {
+               // string nrsq = string.Format(",{0},", string.Join(",", staffAttendCals.Keys));
+                // string dateq = string.Format(",{0},", string.Join(",", staffAttendCals[dic.Key].Select(ss => ss.attendanceDate.ToString("yyyy-MM-dd")).ToList()));
+                /// 手动修改的不会被修改实际值
+                //List<AttendanceRecordCal> _updateCals = subDc.Context.GetTable<AttendanceRecordCal>()
+                //    .Where(s => staffAttendCals.Keys.Contains(s.staffNr)
+                //    && (staffAttendCals[dic.Key].Select(ss => ss.attendanceDate).ToList()
+                //    .Contains(s.attendanceDate))).ToList();
+                //List<AttendanceRecordCal> _updateCals = subDc.Context.GetTable<AttendanceRecordCal>()
+                // .AsEnumerable()
+                //.Join(staffAttendCals.Keys,s=>s.staffNr,ci=>ci, (s,ci)=> s)
+                //.Join(staffAttendCals[dic.Key].Select(ss => ss.attendanceDate).ToList(),sss=>sss.attendanceDate,cci=>cci,(sss,cci)=>sss).ToList();
+
+                List<AttendanceRecordCal> _updateCals = new List<AttendanceRecordCal>();
+                //   IQueryable<AttendanceRecordCal> _updateCalsQ = dc.Context.GetTable<AttendanceRecordCal>()
+                //.Where(s => nrsq.IndexOf("," + s.staffNr + ",") != -1);
+                IQueryable<AttendanceRecordCal> _updateCalsQ = dc.Context.GetTable<AttendanceRecordCal>()
+             .Where(s => s.staffNr.Equals(dic.Key));
+                if (staffAttendCals[dic.Key].Count == 0)
+                {
+
+                }
+               else if (staffAttendCals[dic.Key].Count == 1)
+                {
+                    _updateCals = _updateCalsQ.Where(s => s.attendanceDate.Equals(staffAttendCals[dic.Key].First().attendanceDate)).ToList();
+                }
+                else
+                {
+                    _updateCals = _updateCalsQ.Where(s => staffAttendCals[dic.Key].Select(ss => ss.attendanceDate).ToList().Contains(s.attendanceDate)).ToList();
+                }
+
+                //.Where(ss => dateq.IndexOf("," + ss.attendanceDate.ToString("yyyy-MM-dd") + ",") != -1).ToList();
+
+
+                foreach (var u in _updateCals)
+                {
+                    var c = dic.Value.Where(d => d.attendanceDate.Equals(u.attendanceDate)).FirstOrDefault();
+
+                    if (c != null)
+                    {
+                        u.oriWorkingHour = u.actWorkingHour = c.oriWorkingHour;
+                        u.isManualCal = false;
                         if (c != null)
                         {
-                            u.oriWorkingHour = u.actWorkingHour = c.oriWorkingHour;
-                            u.isManualCal = false;
-                            if (c != null)
+                            u.oriWorkingHour = c.oriWorkingHour;
+                            if (u.isManualCal == false)
                             {
-                                u.oriWorkingHour = c.oriWorkingHour;
-                                if (u.isManualCal == false)
-                                {
-                                    u.actWorkingHour = c.oriWorkingHour;
-                                    u.isManualCal = false;
-                                }
-                                u.createdAt = DateTime.Now;
-                                u.isException = c.isException;
-                                u.exceptionCodes = c.exceptionCodes;
+                                u.actWorkingHour = c.oriWorkingHour;
+                                u.isManualCal = false;
                             }
+                            u.createdAt = DateTime.Now;
+                            u.isException = c.isException;
+                            u.exceptionCodes = c.exceptionCodes;
                         }
-                      
                     }
-                    List<AttendanceRecordCal> _insertCals = dic.Value.Where(s => !_updateCals.Select(ss => ss.attendanceDate).Contains(s.attendanceDate)).ToList();
-                        insertCals.AddRange(_insertCals);
-                    subDc.Context.GetTable<AttendanceRecordCal>().InsertAllOnSubmit(insertCals);
-                    subDc.Context.SubmitChanges();
 
-                    /// scope 完成
-                    scope.Complete();
                 }
+                List<AttendanceRecordCal> _insertCals = dic.Value.Where(s => !_updateCals.Select(ss => ss.attendanceDate).Contains(s.attendanceDate)).ToList();
+                insertCals.AddRange(_insertCals);
+
+                /// scope 完成
+                //  scope.Complete();
+                // }
             }
+
+            subDc.Context.GetTable<AttendanceRecordCal>().InsertAllOnSubmit(insertCals);
+
+            subDc.Context.SubmitChanges();
+
         }
 
-        /// <summary>
-        /// 搜索详细考勤信息
-        /// </summary>
-        /// <param name="searchModel"></param>
-        /// <returns></returns>
-        public IQueryable<AttendanceRecordDetail> SearchDetail(AttendanceRecordDetailSearchModel searchModel)
-        {
-            IAttendanceRecordDetailRepository rep = new AttendanceRecordDetailRepository(new DataContext(this.DbString));
-            return rep.Search(searchModel);
-        }
         
-        /// <summary>
-        /// 搜索详细考勤信息视图, 包含员工的信息
-        /// </summary>
-        /// <param name="searchModel"></param>
-        /// <returns></returns>
-        public IQueryable<AttendanceRecordDetailView> SearchDetailView(AttendanceRecordDetailSearchModel searchModel)
-        {
-            IAttendanceRecordDetailViewRepository rep = new AttendanceRecordDetailViewRepository(new DataContext(this.DbString));
-            return rep.Search(searchModel);
-        }
-
-        /// <summary>
-        /// 批量创建详细考勤数据
-        /// </summary>
-        /// <param name="records"></param>
-        public void CreateDetails(List<AttendanceRecordDetail> records)
-        {
-            DataContext dc = new DataContext(this.DbString);
-            dc.Context.GetTable<AttendanceRecordDetail>().InsertAllOnSubmit(records);
-            dc.Context.SubmitChanges();
-        }
-
-        /// <summary>
-        /// 根据员工号和考勤时间查询详细记录
-        /// </summary>
-        /// <param name="nr"></param>
-        /// <param name="recordAt"></param>
-        /// <returns></returns>
-       public AttendanceRecordDetail FindDetailByStaffAndRecordAt(string nr, DateTime recordAt)
-        {
-            DataContext dc = new DataContext(this.DbString);
-
-            return dc.Context.GetTable<AttendanceRecordDetail>().FirstOrDefault(s => s.staffNr.Equals(nr) && s.recordAt.Equals(recordAt));
-        }
 
         private void MarkRepeatRecord(List<AttendanceRecordDetail> records, float repeatFlag)
         {
@@ -258,5 +256,6 @@ namespace BlueHrLib.Service.Implement
             }
         }
 
+       
     }
 }

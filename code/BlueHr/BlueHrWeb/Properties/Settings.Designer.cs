@@ -34,11 +34,20 @@ namespace BlueHrWeb.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=WANGSONG-PC\\MSSQLSERVER2008R;Initial Catalog=BlueHr;Persist Security " +
-            "Info=True;User ID=sa;Password=123456@")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=charlot-pc\\MSSQLSERVER20082;Initial Catalog=BlueHr;Persist Security I" +
+            "nfo=True;User ID=sa;Password=123456@")]
         public string db {
             get {
                 return ((string)(this["db"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\Private$\\blueHrQueue")]
+        public string queue {
+            get {
+                return ((string)(this["queue"]));
             }
         }
     }

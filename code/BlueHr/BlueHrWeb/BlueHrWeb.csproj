@@ -242,12 +242,14 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Bundler.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AttendanceRecordCalController.cs" />
     <Compile Include="Controllers\AttendanceRecordDetailController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TaskRoundController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -277,6 +279,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\input-style.css" />
     <Content Include="Content\jquery-popModal.css" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\jquery.mCustomScrollbar.css" />
     <Content Include="Content\layout.css">
@@ -345,7 +348,9 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Template\keep.txt" />
     <Content Include="TmpFile\keep.txt" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -392,6 +397,13 @@
     <Content Include="Views\Shared\Search\_CompanyAndDepartmentBar.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
     <Content Include="Views\Staff\Edit.cshtml" />
+    <Content Include="Views\TaskRound\Index.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Department\Delete.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\_PartialDepartment.cshtml" />
+    <Content Include="Views\AttendanceRecordCal\Index.cshtml" />
+    <Content Include="Views\AttendanceRecordCal\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

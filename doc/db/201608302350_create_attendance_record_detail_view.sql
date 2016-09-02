@@ -1,7 +1,7 @@
 USE [BlueHr]
 GO
 
-/****** Object:  View [dbo].[AttendanceRecordDetailView]    Script Date: 09/01/2016 10:06:32 ******/
+/****** Object:  View [dbo].[AttendanceRecordDetailView]    Script Date: 09/02/2016 13:28:28 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -16,7 +16,7 @@ SELECT     dbo.AttendanceRecordDetail.id, dbo.AttendanceRecordDetail.staffNr, db
                       dbo.Staff.trialOverAt, dbo.Staff.companyId, dbo.Staff.departmentId, dbo.Staff.jobTitleId, dbo.Staff.photo, dbo.Staff.staffTypeId, dbo.Staff.degreeTypeId, 
                       dbo.Staff.speciality, dbo.Staff.residenceAddress, dbo.Staff.address, dbo.Staff.id AS staffId, dbo.Staff.isIdChecked, dbo.Staff.phone, dbo.Staff.contactName, 
                       dbo.Staff.contactPhone, dbo.Staff.contactFamilyMemberType, dbo.Staff.domicile, dbo.Staff.residenceType, dbo.Staff.insureTypeId, dbo.Staff.isPayCPF, 
-                      dbo.Staff.contractExpireAt, dbo.Staff.contractCount, dbo.Staff.totalSeniority, dbo.Staff.remark, dbo.AttendanceRecordDetail.device, 
+                      dbo.Staff.contractExpireAt, dbo.Staff.contractCount, dbo.Staff.totalSeniority, dbo.Staff.remark AS staffRemark, dbo.AttendanceRecordDetail.device, 
                       dbo.Department.name AS departmentName
 FROM         dbo.AttendanceRecordDetail INNER JOIN
                       dbo.Staff ON dbo.AttendanceRecordDetail.staffNr = dbo.Staff.nr INNER JOIN
@@ -91,7 +91,7 @@ Begin DesignProperties =
    End
    Begin DiagramPane = 
       Begin Origin = 
-         Top = 0
+         Top = -576
          Left = 0
       End
       Begin Tables = 

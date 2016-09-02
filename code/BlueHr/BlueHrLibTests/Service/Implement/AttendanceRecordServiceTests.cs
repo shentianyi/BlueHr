@@ -16,8 +16,7 @@ namespace BlueHrLib.Service.Implement.Tests
         public void CalculateAttendeRcordTest()
         {
             AttendanceRecordService ars = new AttendanceRecordService(Settings.Default.db);
-            ars.CalculateAttendRecord(DateTime.Now.Date,new Data.Model.Search.StaffSearchModel());
-          
+            ars.CalculateAttendRecord(DateTime.Now.Date,null,new Data.Model.Search.StaffSearchModel());    
         }
     }
 }

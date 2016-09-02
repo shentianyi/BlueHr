@@ -8,6 +8,7 @@ using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
 using TestCon.Properties;
+using Brilliantech.Framwork.Utils.LogUtil;
 
 namespace TestCon
 {
@@ -15,14 +16,60 @@ namespace TestCon
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(" 1. create staff \n 2.create shiftshedule\n 3.create record\n 4.calcualte staff attendance \n 5. PRESS q to quit.");
-            string ke = Console.ReadLine();
-            while (!ke.Equals("q")) {
-                Cmd(ke);
-                ke = Console.ReadLine();
-            }
-            Console.WriteLine("quiting....press ENTER....");
+            Console.WriteLine(double.Parse(".1"));
+            
+            //DataContext dc = new DataContext(Settings.Default.db);
+            //List<string> staffNrs = new List<string>();
+            //List<DateTime> datetime = new List<DateTime>();
+            //for(int i = 0; i < 3000; i++)
+            //{
+            //    staffNrs.Add(i.ToString()+"n");
+            //    datetime.Add(DateTime.Now.AddDays(0 - i).Date);
+            //}
+
+
+            //string nrsq = string.Format(",{0},", string.Join(",", staffNrs));
+            //string dateq = string.Format(",{0},", string.Join(",", datetime.Select(ss => ss.ToString("yyyy-MM-dd")).ToList()));
+
+            //IQueryable<AttendanceRecordCal> cq = dc.Context.GetTable<AttendanceRecordCal>()
+            //  .Where(s => nrsq.IndexOf("," + s.staffNr + ",") != -1)
+            //  .Where(ss=> dateq.IndexOf("," + ss.attendanceDate.ToString("yyyy-MM-dd") + ",")!=-1).Take(20);
+
+
+            ////List<AttendanceRecordCal> _updateCals = dc.Context.GetTable<AttendanceRecordCal>()
+            ////   .AsEnumerable()
+            ////  .Join(staffNrs, s => s.staffNr, ci => ci, (s, ci) => s)
+            ////  .Join(datetime, sss => sss.attendanceDate, cci => cci, (sss, cci) => sss).ToList();
+            //// List<AttendanceRecordDetailView> _updateCals = dc.Context.GetTable<AttendanceRecordDetailView>()
+            ////   .AsEnumerable()
+            ////  .Join(staffNrs, s => s.staffNr, ci => ci, (s, ci) => s)
+            ////.Join(datetime, sss => sss.recordAtDate, cci => cci, (sss, cci) => sss)
+            ////   .ToList();
+
+            //IQueryable<AttendanceRecordDetailView> q = dc.Context.GetTable<AttendanceRecordDetailView>()
+            //  .Where(s => ("," + string.Join(",", staffNrs.ToArray()) + ",").IndexOf("," + s.staffNr + ",") != -1).Take(20);
+
+            //List<AttendanceRecordDetailView> li = q.ToList();
+
             Console.Read();
+            //try
+            //{
+            //    int.Parse("&*^Df");
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    LogUtil.Logger.Error("服务运行时出错", ex);
+            //}
+            //Console.WriteLine(" 1. create staff \n 2.create shiftshedule\n 3.create record\n 4.calcualte staff attendance \n 5. PRESS q to quit.");
+            //string ke = Console.ReadLine();
+            //while (!ke.Equals("q"))
+            //{
+            //    Cmd(ke);
+            //    ke = Console.ReadLine();
+            //}
+            //Console.WriteLine("quiting....press ENTER....");
+            //Console.Read();
         }
         static void Cmd(string ke)
         {
@@ -44,7 +91,7 @@ namespace TestCon
                     string dates = Console.ReadLine();
                     DateTime date = string.IsNullOrEmpty(dates)? DateTime.Now : DateTime.Parse(dates);
                     AttendanceRecordService ars = new AttendanceRecordService(Settings.Default.db);
-                    ars.CalculateAttendRecord(date, new StaffSearchModel());
+                    ars.CalculateAttendRecord(date ,new List<string>() { "晚" });
                     break;
                 default:
                     break;

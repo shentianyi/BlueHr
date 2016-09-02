@@ -88,7 +88,7 @@ namespace BlueHrLib.Data.Model.Excel
                 }
                 else
                 {
-                    AttendanceRecordDetail detail = new AttendanceRecordService(dbString).FindDetailByStaffAndRecordAt(this.StaffNr, this.RecordAt.Value);
+                    AttendanceRecordDetail detail = new AttendanceRecordDetailService(dbString).FindDetailByStaffAndRecordAt(this.StaffNr, this.RecordAt.Value);
                     if (detail != null)
                     {
                         msg.Contents.Add("打卡记录已存在，不可重复导入");

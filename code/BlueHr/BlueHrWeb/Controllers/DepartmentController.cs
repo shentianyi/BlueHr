@@ -1,28 +1,30 @@
-﻿using BlueHrLib.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using BlueHrLib.Data;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
 using BlueHrWeb.Helpers;
 using BlueHrWeb.Properties;
+using Brilliantech.Framwork.Utils.LogUtil;
 using MvcPaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace BlueHrWeb.Controllers
 {
     public class DepartmentController : Controller
     {
-        // GET: Department
+
+        IDepartmentService departmentService = new DepartmentService(Settings.Default.db);
+
+        #region 部门列表
+
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
             DepartmentSearchModel q = new DepartmentSearchModel();
-            IDepartmentService ds = new DepartmentService(Settings.Default.db);
-
-            IPagedList<Department> departments = ds.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<Department> departments = departmentService.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
@@ -31,25 +33,41 @@ namespace BlueHrWeb.Controllers
             return View(departments);
         }
 
-        // GET: Department/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Department/Create
+        #endregion
+
+        #region 创建部门
+
+
+
         public ActionResult Create()
         {
+            //读取所有公司列表
+            SetCompanyList(null);
             return View();
         }
 
-        // POST: Department/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                var companyId = collection["CompanyId"];
+                var departmentName = collection["name"];
+                var departmentRemark = collection["remark"];
+
+                var department = new Department()
+                {
+                    name = departmentName,
+                    remark = departmentRemark,
+                    companyId = int.Parse(companyId)
+                };
+
+                this.departmentService.Create(department);
 
                 return RedirectToAction("Index");
             }
@@ -59,41 +77,64 @@ namespace BlueHrWeb.Controllers
             }
         }
 
+        #endregion
+
+        #region 编辑部门
+
         // GET: Department/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var department = this.departmentService.FindById(id);
+
+            SetCompanyList(department.companyId, false);
+
+            return View(department);
         }
 
-        // POST: Department/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
-
+                var department = this.departmentService.FindById(id);
+                if (department != null)
+                {
+                    department.name = collection["name"];
+                    department.remark = collection["remark"];
+                    this.departmentService.Update(department);
+                }
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
+                LogUtil.Logger.ErrorFormat("编辑部门时发生错误，详情：{0}", ex.Message);
                 return View();
             }
         }
 
-        // GET: Department/Delete/5
+        #endregion
+
+        #region 删除部门
+
         public ActionResult Delete(int id)
         {
+            var department = this.departmentService.FindById(id);
+            SetCompanyList(department.companyId, false);
             return View();
         }
 
-        // POST: Department/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                var department = this.departmentService.FindById(id);
+                if (null != department)
+                {
+                    this.departmentService.DeleteById(id);
+                }
+                //IStaffService staffService = new StaffService(Settings.Default.db);
+                //TODO:如果该部门下有员工，则不能删除该部门
 
                 return RedirectToAction("Index");
             }
@@ -102,6 +143,8 @@ namespace BlueHrWeb.Controllers
                 return View();
             }
         }
+
+        #endregion
 
         public ActionResult Search([Bind(Include = "Name, CompanyId")] DepartmentSearchModel q)
         {
@@ -119,6 +162,7 @@ namespace BlueHrWeb.Controllers
 
             return View("Index", departments);
         }
+
         private void SetCompanyList(int? type, bool allowBlank = true)
         {
             ICompanyService cs = new CompanyService(Settings.Default.db);
@@ -136,7 +180,7 @@ namespace BlueHrWeb.Controllers
 
             foreach (var company in companies)
             {
-                if (type.HasValue && type.ToString().Equals(company.id))
+                if (type.HasValue && type.Value == company.id)
                 {
                     select.Add(new SelectListItem { Text = company.name, Value = company.id.ToString(), Selected = true });
                 }

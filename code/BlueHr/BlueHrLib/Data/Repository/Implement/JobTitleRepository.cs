@@ -1,9 +1,7 @@
-﻿using BlueHrLib.Data.Repository.Interface;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
 using BlueHrLib.Data.Model.Search;
+using BlueHrLib.Data.Repository.Interface;
 
 namespace BlueHrLib.Data.Repository.Implement
 {
@@ -24,6 +22,56 @@ namespace BlueHrLib.Data.Repository.Implement
                 jobtitles = jobtitles.Where(c => c.name.Contains(searchModel.Name.Trim()));
             }
             return jobtitles;
+        }
+
+        public bool Create(JobTitle title)
+        {
+            try
+            {
+                this.context.GetTable<JobTitle>().InsertOnSubmit(title);
+                this.context.SubmitChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteById(int id)
+        {
+            var dep = this.context.GetTable<JobTitle>().FirstOrDefault(c => c.id.Equals(id));
+            if (dep != null)
+            {
+                this.context.GetTable<JobTitle>().DeleteOnSubmit(dep);
+                this.context.SubmitChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public JobTitle FindById(int id)
+        {
+            return this.context.GetTable<JobTitle>().FirstOrDefault(c => c.id.Equals(id));
+        }
+
+        public bool Update(JobTitle title)
+        {
+            var dep = this.context.GetTable<JobTitle>().FirstOrDefault(c => c.id.Equals(title.id));
+            if (dep != null)
+            {
+                dep.name = title.name;
+                dep.remark = title.remark;
+                this.context.SubmitChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

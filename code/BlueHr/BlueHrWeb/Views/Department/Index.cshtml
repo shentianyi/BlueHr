@@ -3,7 +3,7 @@
 @model IPagedList<BlueHrLib.Data.Department>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "部门管理";
 }
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
@@ -64,17 +64,17 @@
                 </thead>
                 <tbody>
                     @if (Model != null)
-            {
-                foreach (var item in Model)
-                {
+                    {
+                        foreach (var item in Model)
+                        {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.companyId)
+                                    @Html.DisplayFor(modelItem => item.Company.name)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.name)
                                 </td>
-                               
+
                                 <td>
                                     @Html.DisplayFor(modelItem => item.remark)
                                 </td>
@@ -99,12 +99,12 @@
         <div class="clearfix pagination">
             <div class="pagination-inner">
                 @if (Model != null)
-            {
-                if (ViewBag.Query != null)
                 {
-                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                        .Options(o => o.AddRouteValue("CompanyId", ViewBag.Query.CompanyId))
-                        .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
+                    if (ViewBag.Query != null)
+                    {
+                        var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                            .Options(o => o.AddRouteValue("CompanyId", ViewBag.Query.CompanyId))
+                            .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
                         @html
                     }
                     else
