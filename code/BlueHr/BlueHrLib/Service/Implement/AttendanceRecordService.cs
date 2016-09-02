@@ -168,7 +168,7 @@ namespace BlueHrLib.Service.Implement
 
             foreach (var dic in staffAttendCals)
             {
-                string nrsq = string.Format(",{0},", string.Join(",", staffAttendCals.Keys));
+               // string nrsq = string.Format(",{0},", string.Join(",", staffAttendCals.Keys));
                 // string dateq = string.Format(",{0},", string.Join(",", staffAttendCals[dic.Key].Select(ss => ss.attendanceDate.ToString("yyyy-MM-dd")).ToList()));
                 /// 手动修改的不会被修改实际值
                 //List<AttendanceRecordCal> _updateCals = subDc.Context.GetTable<AttendanceRecordCal>()
@@ -181,8 +181,10 @@ namespace BlueHrLib.Service.Implement
                 //.Join(staffAttendCals[dic.Key].Select(ss => ss.attendanceDate).ToList(),sss=>sss.attendanceDate,cci=>cci,(sss,cci)=>sss).ToList();
 
                 List<AttendanceRecordCal> _updateCals = new List<AttendanceRecordCal>();
+                //   IQueryable<AttendanceRecordCal> _updateCalsQ = dc.Context.GetTable<AttendanceRecordCal>()
+                //.Where(s => nrsq.IndexOf("," + s.staffNr + ",") != -1);
                 IQueryable<AttendanceRecordCal> _updateCalsQ = dc.Context.GetTable<AttendanceRecordCal>()
-             .Where(s => nrsq.IndexOf("," + s.staffNr + ",") != -1);
+             .Where(s => s.staffNr.Equals(dic.Key));
                 if (staffAttendCals[dic.Key].Count == 0)
                 {
 
