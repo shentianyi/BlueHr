@@ -25,7 +25,7 @@ namespace BlueHrWeb.Controllers
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
             AttendanceRecordCalSearchModel q = new AttendanceRecordCalSearchModel();
-            IAttendanceRecordService ss = new AttendanceRecordService(Settings.Default.db);
+            IAttendanceRecordCalService ss = new AttendanceRecordCalService(Settings.Default.db);
 
             IPagedList<AttendanceRecordCalView> records = ss.SearchCalView(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
@@ -40,12 +40,22 @@ namespace BlueHrWeb.Controllers
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
-            IAttendanceRecordService ss = new AttendanceRecordService(Settings.Default.db);
+            IAttendanceRecordCalService ss = new AttendanceRecordCalService(Settings.Default.db);
             IPagedList<AttendanceRecordCalView> records = ss.SearchCalView(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
             return View("Index", records);
         }
-         
+
+        // GET: AttendanceRecordDetail/Edit/5
+        public ActionResult Edit(int id)
+        {
+            ICompanyService cs = new CompanyService(Settings.Default.db);
+
+            Company cp = cs.FindById(id);
+
+            return View(cp);
+        }
+
     }
 }

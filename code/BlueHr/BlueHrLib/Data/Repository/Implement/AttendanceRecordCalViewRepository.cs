@@ -17,6 +17,11 @@ namespace BlueHrLib.Data.Repository.Implement
             this.context = dc.Context as BlueHrDataContext;
         }
 
+        public AttendanceRecordCalView FindById(int id)
+        {
+            return this.context.GetTable<AttendanceRecordCalView>().FirstOrDefault(s => s.id.Equals(id));
+        }
+
         public IQueryable<AttendanceRecordCalView> Search(AttendanceRecordCalSearchModel searchModel)
         {
             IQueryable<AttendanceRecordCalView> q = this.context.AttendanceRecordCalView;

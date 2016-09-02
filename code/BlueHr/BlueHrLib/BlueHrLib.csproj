@@ -88,9 +88,11 @@
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
     <Compile Include="Data\Model\Search\AttendanceRecordCalSearchModel.cs" />
     <Compile Include="Data\Repository\Implement\AttendanceRecordCalViewRepository.cs" />
+    <Compile Include="Data\Repository\Implement\AttendanceRecordCalRepository.cs" />
     <Compile Include="Data\Repository\Implement\ShiftRepository.cs" />
     <Compile Include="Data\Repository\Implement\TaskRoundRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAttendanceRecordCalViewRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAttendanceRecordCalRepository.cs" />
     <Compile Include="Data\Repository\Interface\IShiftRoundRepository.cs" />
     <Compile Include="Data\Repository\Interface\ITaskRoundRepository.cs" />
     <Compile Include="Data\TaskRound.cs" />
@@ -142,6 +144,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service\Implement\AttendanceRecordCalService.cs" />
+    <Compile Include="Service\Implement\AttendanceRecordDetailService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordService.cs" />
     <Compile Include="Service\Implement\DegreeTypeService.cs" />
     <Compile Include="Service\Implement\InSureTypeService.cs" />
@@ -152,6 +156,8 @@
     <Compile Include="Service\Implement\CompanyService.cs" />
     <Compile Include="Service\Implement\DepartmentService.cs" />
     <Compile Include="Service\Implement\StaffService.cs" />
+    <Compile Include="Service\Interface\IAttendanceRecordCalService.cs" />
+    <Compile Include="Service\Interface\IAttendanceRecordDetailService.cs" />
     <Compile Include="Service\Interface\IAttendanceRecordService.cs" />
     <Compile Include="Service\Interface\ICompanyService.cs" />
     <Compile Include="Service\Interface\IDepartmentService.cs" />

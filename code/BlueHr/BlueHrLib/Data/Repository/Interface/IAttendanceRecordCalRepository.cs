@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace BlueHrLib.Data.Repository.Interface
 {
-    public interface IAttendanceRecordCalViewRepository
-    {
-        AttendanceRecordCalView FindById(int id);
-
-        IQueryable<AttendanceRecordCalView> Search(AttendanceRecordCalSearchModel searchModel);
+    public interface IAttendanceRecordCalRepository
+    { 
 
     }
 }

@@ -61,6 +61,7 @@
                         <th>实际工时</th>
                         <th>是否异常</th>
                         <th>是否处理</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,6 +95,11 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.isExceptionHandledStr)
+                                </td>
+                                <td>
+                                    <a href="/AttendanceRecordCal/Edit/@item.id" target="_blank">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </a>
                                 </td>
                             </tr>
                         }
