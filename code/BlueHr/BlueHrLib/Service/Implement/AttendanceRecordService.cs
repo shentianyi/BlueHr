@@ -191,7 +191,7 @@ namespace BlueHrLib.Service.Implement
                 }
                else if (staffAttendCals[dic.Key].Count == 1)
                 {
-                    _updateCals = _updateCalsQ.Where(s => s.attendanceDate.Equals(staffAttendCals[dic.Key].First())).ToList();
+                    _updateCals = _updateCalsQ.Where(s => s.attendanceDate.Equals(staffAttendCals[dic.Key].First().attendanceDate)).ToList();
                 }
                 else
                 {
@@ -261,6 +261,17 @@ namespace BlueHrLib.Service.Implement
         }
 
         /// <summary>
+        /// 搜索计算考勤信息视图, 包含员工的信息
+        /// </summary>
+        /// <param name="searchModel"></param>
+        /// <returns></returns>
+        public IQueryable<AttendanceRecordCalView> SearchCalView(AttendanceRecordCalSearchModel searchModel)
+        {
+            IAttendanceRecordCalViewRepository rep = new AttendanceRecordCalViewRepository(new DataContext(this.DbString));
+            return rep.Search(searchModel);
+        }
+
+        /// <summary>
         /// 批量创建详细考勤数据
         /// </summary>
         /// <param name="records"></param>
@@ -300,5 +311,6 @@ namespace BlueHrLib.Service.Implement
             }
         }
 
+       
     }
 }

@@ -19,11 +19,11 @@ namespace BlueHrWeb.Helpers.View
         /// <summary>
         /// 公司和部门
         /// </summary>
-        /// <param name="htmlHeper"></param>
+        /// <param name="htmlHelper"></param>
         /// <param name="companyId"></param>
         /// <param name="departmentId"></param>
         /// <returns></returns>
-        public static MvcHtmlString CompanyAndDepartmentDropDownList(this HtmlHelper htmlHeper, int? companyId, int? departmentId)
+        public static MvcHtmlString CompanyAndDepartmentDropDownList(this HtmlHelper htmlHelper, int? companyId, int? departmentId)
         {
             var list = string.Empty;
 
@@ -52,7 +52,7 @@ namespace BlueHrWeb.Helpers.View
             list += @"<div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
                         <div class='marco-igroup-danger'> 
                         <span>公司*</span>";
-            list += htmlHeper.DropDownList("companyId", companySelect).ToHtmlString();
+            list += htmlHelper.DropDownList("companyId", companySelect).ToHtmlString();
             list += @"  </div>
                      </div>";
 
@@ -87,8 +87,42 @@ namespace BlueHrWeb.Helpers.View
             list += @"<div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
                        <div class='marco-igroup-danger'>
                         <span>部门*</span>";
-            list += htmlHeper.DropDownList("departmentId", departmentSelect).ToHtmlString();
+            list += htmlHelper.DropDownList("departmentId", departmentSelect).ToHtmlString();
             list += @"</div></div>";
+            return new MvcHtmlString(list);
+        }
+
+        /// <summary>
+        /// 是/否 下拉框
+        /// </summary>
+        /// <param name="htmlHelper"></param>
+        /// <param name="yn"></param>
+        /// <returns></returns>
+        public static MvcHtmlString BoolDropDownList(this HtmlHelper htmlHelper,string id,bool? yn)
+        {
+            var list = string.Empty;
+
+            List<EnumItem> item = new List<EnumItem>() { new EnumItem() { Text = "是", Value = "true" }, new EnumItem() { Text = "否", Value = "false" } };
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            
+                select.Add(new SelectListItem { Text = "", Value = "" });
+             
+            foreach (var it in item)
+            {
+                if (yn.HasValue && yn.ToString().ToLower().Equals(it.Value))
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                }
+            }
+
+            list += htmlHelper.DropDownList(id, select).ToHtmlString();
+
             return new MvcHtmlString(list);
         }
     }

@@ -20,6 +20,7 @@ namespace BlueHrLib.Data
                 if(this._attendanceExceptions!=null && this._attendanceExceptions.Count > 0)
                 {
                     this.isException = true;
+                    this.isExceptionHandled = false;
                     this.exceptionCodes = string.Join(",", this._attendanceExceptions.ToArray());
                 }
             }

@@ -34,6 +34,13 @@ namespace BlueHrLib.Service.Interface
         IQueryable<AttendanceRecordDetailView> SearchDetailView(AttendanceRecordDetailSearchModel searchModel);
 
         /// <summary>
+        /// 搜索计算考勤信息视图, 包含员工的信息
+        /// </summary>
+        /// <param name="searchModel"></param>
+        /// <returns></returns>
+        IQueryable<AttendanceRecordCalView> SearchCalView(AttendanceRecordCalSearchModel searchModel);
+
+        /// <summary>
         /// 批量创建详细考勤数据
         /// </summary>
         /// <param name="records"></param>

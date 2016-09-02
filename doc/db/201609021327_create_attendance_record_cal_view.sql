@@ -1,25 +1,26 @@
 USE [BlueHr]
 GO
 
-/****** Object:  View [dbo].[AttendanceRecordDetailView]    Script Date: 09/02/2016 13:28:28 ******/
+/****** Object:  View [dbo].[AttendanceRecordCalView]    Script Date: 09/02/2016 13:34:15 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE VIEW [dbo].[AttendanceRecordDetailView]
+CREATE VIEW [dbo].[AttendanceRecordCalView]
 AS
-SELECT     dbo.AttendanceRecordDetail.id, dbo.AttendanceRecordDetail.staffNr, dbo.AttendanceRecordDetail.recordAt, dbo.AttendanceRecordDetail.createdAt, 
-                      dbo.AttendanceRecordDetail.soureType, dbo.AttendanceRecordDetail.isCalculated, dbo.Staff.name, dbo.Staff.sex, dbo.Staff.birthday, dbo.Staff.ethnic, 
+SELECT     dbo.AttendanceRecordCal.id, dbo.AttendanceRecordCal.staffNr, dbo.AttendanceRecordCal.oriWorkingHour, dbo.AttendanceRecordCal.attendanceDate, 
+                      dbo.AttendanceRecordCal.actWorkingHour, dbo.AttendanceRecordCal.remark, dbo.AttendanceRecordCal.createdAt, dbo.AttendanceRecordCal.isManualCal, 
+                      dbo.AttendanceRecordCal.isException, dbo.AttendanceRecordCal.exceptionCodes, dbo.Staff.name, dbo.Staff.nr, dbo.Staff.sex, dbo.Staff.birthday, dbo.Staff.ethnic, 
                       dbo.Staff.firstCompanyEmployAt, dbo.Staff.totalCompanySeniority, dbo.Staff.companyEmployAt, dbo.Staff.companySeniority, dbo.Staff.workStatus, dbo.Staff.isOnTrial, 
                       dbo.Staff.trialOverAt, dbo.Staff.companyId, dbo.Staff.departmentId, dbo.Staff.jobTitleId, dbo.Staff.photo, dbo.Staff.staffTypeId, dbo.Staff.degreeTypeId, 
-                      dbo.Staff.speciality, dbo.Staff.residenceAddress, dbo.Staff.address, dbo.Staff.id AS staffId, dbo.Staff.isIdChecked, dbo.Staff.phone, dbo.Staff.contactName, 
+                      dbo.Staff.speciality, dbo.Staff.residenceAddress, dbo.Staff.address, dbo.Staff.id AS staffid, dbo.Staff.isIdChecked, dbo.Staff.phone, dbo.Staff.contactName, 
                       dbo.Staff.contactPhone, dbo.Staff.contactFamilyMemberType, dbo.Staff.domicile, dbo.Staff.residenceType, dbo.Staff.insureTypeId, dbo.Staff.isPayCPF, 
-                      dbo.Staff.contractExpireAt, dbo.Staff.contractCount, dbo.Staff.totalSeniority, dbo.Staff.remark AS staffRemark, dbo.AttendanceRecordDetail.device, 
-                      dbo.Department.name AS departmentName
-FROM         dbo.AttendanceRecordDetail INNER JOIN
-                      dbo.Staff ON dbo.AttendanceRecordDetail.staffNr = dbo.Staff.nr INNER JOIN
+                      dbo.Staff.contractExpireAt, dbo.Staff.contractCount, dbo.Staff.totalSeniority, dbo.Department.name AS departmentName, dbo.Staff.remark AS staffRemark, 
+                      dbo.AttendanceRecordCal.isExceptionHandled
+FROM         dbo.AttendanceRecordCal INNER JOIN
+                      dbo.Staff ON dbo.AttendanceRecordCal.staffNr = dbo.Staff.nr INNER JOIN
                       dbo.Department ON dbo.Staff.departmentId = dbo.Department.id
 
 GO
@@ -29,7 +30,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[32] 4[29] 2[20] 3) )"
+         Configuration = "(H (1[30] 4[31] 2[20] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -91,36 +92,36 @@ Begin DesignProperties =
    End
    Begin DiagramPane = 
       Begin Origin = 
-         Top = -576
+         Top = -192
          Left = 0
       End
       Begin Tables = 
-         Begin Table = "AttendanceRecordDetail"
+         Begin Table = "AttendanceRecordCal"
             Begin Extent = 
                Top = 6
                Left = 38
-               Bottom = 205
-               Right = 184
+               Bottom = 234
+               Right = 199
             End
             DisplayFlags = 280
             TopColumn = 0
          End
          Begin Table = "Staff"
             Begin Extent = 
-               Top = 5
-               Left = 349
-               Bottom = 215
-               Right = 566
+               Top = 26
+               Left = 677
+               Bottom = 304
+               Right = 894
             End
             DisplayFlags = 280
-            TopColumn = 25
+            TopColumn = 21
          End
          Begin Table = "Department"
             Begin Extent = 
-               Top = 6
-               Left = 604
-               Bottom = 142
-               Right = 831
+               Top = 136
+               Left = 260
+               Bottom = 255
+               Right = 402
             End
             DisplayFlags = 280
             TopColumn = 0
@@ -136,8 +137,8 @@ Begin DesignProperties =
    Begin CriteriaPane = 
       Begin ColumnWidths = 11
          Column = 1440
-         Alias = 900
-         Table = 1830
+         Alias = 1905
+         Table = 1170
          Output = 720
          Append = 1400
          NewValue = 1170
@@ -151,10 +152,10 @@ Begin DesignProperties =
       End
    End
 End
-' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'AttendanceRecordDetailView'
+' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'AttendanceRecordCalView'
 GO
 
-EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'AttendanceRecordDetailView'
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'AttendanceRecordCalView'
 GO
 
 

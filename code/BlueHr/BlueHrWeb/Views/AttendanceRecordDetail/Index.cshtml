@@ -49,14 +49,6 @@
     <div class="usual-table">
         <div class="table-heading">
             考勤详细数据列表
-            <div class="pull-right" style="margin-top:-12px;">
-                <a href="/AttendanceRecordDetail/Create">
-                    <button class="marco-btn-primary">
-                        <i class="glyphicon glyphicon-plus-sign"></i>
-                        <span>创建</span>
-                    </button>
-                </a>
-            </div>
         </div>
         <div class="table-body content_3">
             <table class="table table-bordered">
@@ -171,6 +163,9 @@
 </div>
 
 <script type="text/javascript">
+    Layout.init();
+    Layout.TbodyHeight('.table-body', 350);
+
     $('.datetimepicker').datetimepicker({
         format: 'Y-m-d H:i',
         defaultTime: '00:00'

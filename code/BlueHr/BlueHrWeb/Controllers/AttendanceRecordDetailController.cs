@@ -67,8 +67,7 @@ namespace BlueHrWeb.Controllers
             {
                 CalAtt calAttParam = new CalAtt()
                 {
-                    AttDateTime = DateTime.Parse(Request.Form.Get("DateTime")),
-
+                    AttDateTime = DateTime.Parse(Request.Form.Get("DateTime"))
                 };
                 if (!string.IsNullOrEmpty(Request.Form.Get("ShiftCode")))
                 {

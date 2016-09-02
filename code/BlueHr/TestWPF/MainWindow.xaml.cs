@@ -18,6 +18,8 @@ using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
 using Brilliantech.Framwork.Utils.LogUtil;
 using TestWPF.Properties;
+using BlueHrLib.MQTask.Parameter;
+using BlueHrLib.Helper;
 
 namespace TestWPF
 {
@@ -72,6 +74,32 @@ namespace TestWPF
             }
 
             timer.Start();
+        }
+
+        private void button_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime startDateTime =DateTime.Parse( startDate.Text +" "+ timeTB.Text);
+
+            DateTime endDateTime = DateTime.Parse(endDate.Text + " " + timeTB.Text);
+            
+            for(DateTime dt = startDateTime; dt <= endDateTime; dt=dt.AddDays(1))
+            {
+                CalAtt calAttParam = new CalAtt()
+                {
+                    AttDateTime = dt
+                };
+             
+                TaskSetting task = new TaskSetting()
+                {
+                    TaskCreateAt = DateTime.Now,
+                    TaskType = TaskType.CalAtt,
+                    JsonParameter = JSONHelper.stringify(calAttParam)
+
+                }; 
+                new TaskDispatcher(Settings.Default.queue).SendMQMessage(task);
+            }
+
+            MessageBox.Show("OK");
         }
     }
 }

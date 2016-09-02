@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button x:Name="button" Content="Start" HorizontalAlignment="Left" Margin="198,101,0,0" VerticalAlignment="Top" Width="110" Height="86" Click="button_Click"/>
+        <Button x:Name="button" Content="StartRun" HorizontalAlignment="Left" Margin="332,116,0,0" VerticalAlignment="Top" Width="110" Height="86" Click="button_Click"/>
+        <Button x:Name="button_Copy" Content="DispatchCalTask" HorizontalAlignment="Left" Margin="57,116,0,0" VerticalAlignment="Top" Width="110" Height="86" Click="button_Copy_Click"  />
+        <DatePicker HorizontalAlignment="Left" Margin="70,53,0,0" VerticalAlignment="Top" Name="startDate"/>
+        <Label x:Name="label" Content="---" HorizontalAlignment="Left" Margin="164,52,0,0" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" Margin="204,53,0,0" VerticalAlignment="Top" Name="endDate"/>
+        <TextBox x:Name="timeTB" HorizontalAlignment="Left" Height="23" Margin="70,17,0,0" TextWrapping="Wrap" Text="23:00" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="label1" Content="Time:" HorizontalAlignment="Left" Margin="11,16,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label2" Content="Date:" HorizontalAlignment="Left" Margin="11,53,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
