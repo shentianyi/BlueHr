@@ -268,6 +268,7 @@
             <div class="marco-nbody row">
             </div>
         </div>
+
         <div class="marco-npanel-normal">
             <div class="marco-nheading">
                 <span>备注信息</span>
@@ -288,6 +289,87 @@
 </div>
 
 <script type="text/javascript">
+    data_upload('#photoUpload');
+
+    function data_upload(idStr, format, callback) {
+        console.log(2)
+        var valid = true;
+        var reg = /(\.|\/)(jpg|png|gif)$/i;
+        if (format != null) {
+            if (format != false) {
+                reg = new RegExp('(\.|\/)(' + format + ')$', 'i');
+            } else {
+                reg = null;
+            }
+        }
+
+        $(idStr).fileupload({
+            url: '/Staff/UploadImage',
+            type:'post',
+            singleFileUploads: false,
+            acceptFileTypes: /(\.|\/)(jpg|png|gif)$/i,
+            dataType: 'json',
+            change: function (e, data) {
+                console.log(3);
+                valid = true;
+                $.each(data.files, function (index, file) {
+                    console.log(3);
+                    var msg = "上传中 ... ...";
+                    if (reg) {
+                        if (!reg.test(file.name)) {
+                            msg = '格式错误';
+                            alert(msg);
+                            valid = false;
+                            return;
+                        }
+                        show_handle_dialog();
+                        console.log('reg' + reg);
+                    }
+                });
+            },
+            add: function (e, data) {
+                if (valid)
+                    if (data.submit != null)
+                        data.submit();
+                
+                console.log("ADD")
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            },
+            success: function (data) {
+                console.log("Success");
+                console.log(data);
+
+                if (callback) {
+                    console.log("CallBack");
+                    console.log(callback);
+
+                    callback(data);
+                    hide_handle_dialog();
+                } else {
+                    hide_handle_dialog();
+                    if (data.Success) {
+                        console.log("上传成功" + data.Content)
+                        $('#photo').val(data.Content);
+                    } else {
+                        if (data.ErrorFileFeed) {
+                            console.log("上传失败" + data.Content)
+                        } else {
+                            console.log("上传失败" + data.Content)
+                        }
+                    }
+                }
+            },
+            done: function (e, data) {
+
+                console.log("DONE");
+            }
+        });
+    }
+
+
+
     Layout.init();
     Layout.rangedatepicker('.date-start-picker', '.date-end-picker');
     Layout.datepicker('.date-picker');

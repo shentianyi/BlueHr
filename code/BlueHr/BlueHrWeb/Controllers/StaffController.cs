@@ -1,4 +1,5 @@
 ﻿using BlueHrLib.Data;
+using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Helper;
 using BlueHrLib.Service.Implement;
@@ -165,6 +166,17 @@ namespace BlueHrWeb.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult uploadImage()
+        {
+            var ff = Request.Files[0];
+
+            string fileName = Helpers.FileHelper.SaveUploadImage(ff);
+            ResultMessage msg = new ResultMessage() { Success = true };
+            msg.Content = fileName;
+            return Json(msg);
+           // return Json(fileName, JsonRequestBehavior.DenyGet);
         }
 
         private void SetDropDownList(Staff staff)
