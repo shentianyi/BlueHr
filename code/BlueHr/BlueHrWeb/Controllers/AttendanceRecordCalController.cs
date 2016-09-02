@@ -53,6 +53,14 @@ namespace BlueHrWeb.Controllers
         {
             IAttendanceRecordCalService ss = new AttendanceRecordCalService(Settings.Default.db);
             AttendanceRecordCalView record = ss.FindViewById(id);
+
+            if (record != null)
+            {
+                List<AttendanceRecordDetailView> records = new List<AttendanceRecordDetailView>();
+                IAttendanceRecordDetailService s = new AttendanceRecordDetailService(Settings.Default.db);
+                records = s.GetDetailsViewByStaffAndDate(record.staffNr, record.attendanceDate.Add(new TimeSpan(23, 59, 59)));
+                ViewData["attendRecords"] = records;
+            }
             return View(record);
         }
 

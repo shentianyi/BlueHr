@@ -38,5 +38,16 @@ namespace BlueHrLib.Service.Interface
         /// <param name="recordAt"></param>
         /// <returns></returns>
         AttendanceRecordDetail FindDetailByStaffAndRecordAt(string nr, DateTime recordAt);
+
+        /// <summary>
+        /// 根据员工号和日期获取员工的详细打卡记录视图
+        /// 重点是，根据日期来判断排班，然后通过排班来查找所有的记录
+        /// 如果排班的结束时间的HH:mm小于日期的HH:mm，并且结束时间的天等于（或加1等于）日期的天
+        /// schedule视图里的fullEnd时间已经是根据排班类型计算过的了
+        /// </summary>
+        /// <param name="nr"></param>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        List<AttendanceRecordDetailView> GetDetailsViewByStaffAndDate(string nr, DateTime datetime);
     }
 }
