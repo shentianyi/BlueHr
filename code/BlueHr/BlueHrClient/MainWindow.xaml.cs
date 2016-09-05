@@ -208,7 +208,7 @@ namespace BlueHrClient
                 if (Syn_ReadBaseMsg(BaseConfig.NPort, msg, ref mLen, img, ref iLen, 0) == 0)
                 {
                     string card = Marshal.PtrToStringUni(msg);
-                    char[] cartb = card.ToCharArray();
+                    char[] cartb = card.ToCharArray(); 
                     CardMsg.Name = (new string(cartb, 0, 15)).Trim();
                     CardMsg.Sex = new string(cartb, 15, 1);
                     CardMsg.Nation = new string(cartb, 16, 2);
@@ -219,7 +219,6 @@ namespace BlueHrClient
                     CardMsg.UserLifeBegin = new string(cartb, 94, 8);
                     CardMsg.UserLifeEnd = new string(cartb, 102, 8);
                     Status.Text = "读取成功";
-                    // Checkin();
                     Name.Text = CardMsg.Name;
                     Sex.Text = escape.SexEscape(CardMsg.Sex);
                     Nation.Text = escape.NationEscape(CardMsg.Nation);
@@ -229,13 +228,13 @@ namespace BlueHrClient
                     GrantDept.Text = CardMsg.GrantDept;
                     UserLifeBegin.Text = escape.DateEscape(CardMsg.UserLifeBegin);
                     UserLifeEnd.Text = escape.DateEscape(CardMsg.UserLifeEnd);
-
+                    Checkin();
 
                     //  System.IO.MemoryStream ms = new System.IO.MemoryStream(img);
                     //  Image photo = System.Drawing.Image.FromStream(ms);
                     string imgs = Marshal.PtrToStringUni(img);
                     char[] photo = imgs.ToCharArray();
-                    MessageBox.Show(photo.ToString());
+                 //   MessageBox.Show(photo.ToString());
 
                     //string imgs = Convert.ToBase64String(img);
                     //MessageBox.Show(img[0].ToString());
@@ -400,7 +399,8 @@ namespace BlueHrClient
             cardData.effectiveEnd = Convert.ToDateTime(UserLifeEnd.Text);
             cardData.institution = GrantDept.Text;
             // cardData.photo = 
-            return staffService.CheckStaffAndUpdateInfo(cardData); 
+            //return staffService.CheckStaffAndUpdateInfo(cardData); 
+            return staffService.CreateInfoAndSetCheck(cardData, true);
         }
 
     }

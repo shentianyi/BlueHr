@@ -75,6 +75,7 @@ namespace BlueHrLib.Service.Implement
                 ethnic = card.ethnic,
                 birthday = card.birthday,
                 residenceAddress = card.residenceAddress,
+                id=card.id,
                 isIdChecked=isIdChecked
             };
             DataContext dc = new DataContext(this.DbString);
