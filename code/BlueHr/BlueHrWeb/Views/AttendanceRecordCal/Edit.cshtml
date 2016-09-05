@@ -37,6 +37,13 @@
     <span>
         是否处理：<input type="checkbox" checked="checked" id="isExceptionHandled"/>
     </span>
+    <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
+        <div class="marco-igroup-primary">
+            备注:
+            <textarea name="remark" id="remark">@Model.remark</textarea>
+        </div>
+    </div>
+
     <span>
         <button type="submit" class="marco-btn-success" onclick="updateActWorkingHour()">
             <i class="glyphicon glyphicon-ok"></i>
@@ -108,7 +115,7 @@ else {
                 return;
             }
 
-            $.post("/AttendanceRecordCal/UpdateActHour/" + id, { actWorkingHourRound: hour, isExceptionHandled: handled }, function (data) {
+            $.post("/AttendanceRecordCal/UpdateActHour/" + id, { actWorkingHourRound: hour, isExceptionHandled: handled,remark: $("#remark").val() }, function (data) {
                 if (data.Success) {
                     alert("调整成功！");
                     $("#actWorkingHourRoundDisplay").text(hour);

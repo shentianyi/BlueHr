@@ -44,8 +44,9 @@ namespace BlueHrLib.Service.Implement
         /// <param name="id"></param>
         /// <param name="actHour">实际工时</param>
         /// <param name="isExceptionHandled">是否处理了异常</param>
+        /// <param name="remark">备注</param>
         /// <returns></returns>
-        public   ResultMessage UpdateActHourById(int id, double actHour, bool isExceptionHandled)
+        public ResultMessage UpdateActHourById(int id, double actHour, bool isExceptionHandled,string remark)
         {
             ResultMessage msg = new ResultMessage();
             try {
@@ -60,7 +61,7 @@ namespace BlueHrLib.Service.Implement
                 record.actWorkingHour = actHour;
                 record.isManualCal = true;
                 record.isExceptionHandled = isExceptionHandled;
-
+                record.remark = remark;
                 dc.Context.SubmitChanges();
                 msg.Success = true;
             } catch(Exception ex)
@@ -69,5 +70,22 @@ namespace BlueHrLib.Service.Implement
             }
             return msg;
         }
+
+        /// <summary>
+        /// 根据时间获取未处理的异常统计列表
+        /// </summary>
+        /// <param name="fromDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="exceptionHandled"></param>
+        /// <returns></returns>
+        public List<AttendanceRecordCalExceptionView> GetCalExceptionHandleList(DateTime fromDate, DateTime endDate, bool exceptionHandled = false)
+        {
+            DataContext dc = new DataContext(this.DbString);
+
+            return dc.Context.GetTable<AttendanceRecordCalExceptionView>()
+                .Where(s => s.attendanceDate >= fromDate && s.attendanceDate <= endDate && s.isExceptionHandled==exceptionHandled)
+                .OrderByDescending(s=>s.attendanceDate).ToList();
+        }
+
     }
 }

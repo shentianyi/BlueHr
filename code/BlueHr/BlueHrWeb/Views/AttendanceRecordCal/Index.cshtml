@@ -33,7 +33,8 @@
                         @PartialViewHelper.BoolDropDownList(this.Html, "IsExceptionHandled", ViewBag.Query.IsExceptionHandled)
                     </div>
             </div>
-         
+
+    
             <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
                 <button type="submit" class="marco-btn-success">
                     <i class="glyphicon glyphicon-search"></i>
@@ -60,6 +61,7 @@
                         <th>计算工时</th>
                         <th>实际工时</th>
                         <th>是否异常</th>
+                        <th>原因</th>
                         <th>是否处理</th>
                         <th>&nbsp;</th>
                     </tr>
@@ -92,6 +94,9 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.isExceptionStr)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem=>item.exceptionStr)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.isExceptionHandledStr)

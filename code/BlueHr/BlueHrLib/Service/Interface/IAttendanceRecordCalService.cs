@@ -32,7 +32,17 @@ namespace BlueHrLib.Service.Interface
         /// <param name="id"></param>
         /// <param name="actHour">实际工时</param>
         /// <param name="isExceptionHandled">是否处理了异常</param>
+        /// <param name="remark">备注</param>
         /// <returns></returns>
-        ResultMessage UpdateActHourById(int id,double actHour, bool isExceptionHandled); 
+        ResultMessage UpdateActHourById(int id,double actHour, bool isExceptionHandled,string remark);
+
+        /// <summary>
+        /// 根据时间获取未处理的异常统计列表
+        /// </summary>
+        /// <param name="fromDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="exceptionHandled"></param>
+        /// <returns></returns>
+        List<AttendanceRecordCalExceptionView> GetCalExceptionHandleList(DateTime fromDate, DateTime endDate, bool exceptionHandled = false);
     }
 }
