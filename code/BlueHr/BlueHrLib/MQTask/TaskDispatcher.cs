@@ -16,13 +16,13 @@ namespace BlueHrLib.MQTask
     public class TaskDispatcher
     {
         public string DbString { get; set; }
-        public string MQPath{get;set;}
+        public string MQPath { get; set; }
 
         public TaskDispatcher() { }
         public TaskDispatcher(string mqPath) { this.MQPath = mqPath; }
-        public TaskDispatcher(string dbString,string mqPath) { this.DbString = dbString; this.MQPath=mqPath;}
+        public TaskDispatcher(string dbString, string mqPath) { this.DbString = dbString; this.MQPath = mqPath; }
 
-        public void SendMQMessage(TaskSetting ts)
+        private void SendMQMessage(TaskSetting ts)
         {
             if (!MessageQueue.Exists(this.MQPath))
             {
@@ -32,7 +32,7 @@ namespace BlueHrLib.MQTask
             MessageQueue mq = new MessageQueue(this.MQPath);
             Message msg = new Message();
             msg.Body = ts;
-            msg.Formatter= new XmlMessageFormatter(new Type[1] { typeof(TaskSetting) });
+            msg.Formatter = new XmlMessageFormatter(new Type[1] { typeof(TaskSetting) });
             mq.Send(msg);
         }
 
@@ -65,12 +65,16 @@ namespace BlueHrLib.MQTask
                     case TaskType.CalAtt:
                         CalAttParameter calAtt = JSONHelper.parse<CalAttParameter>(ts.JsonParameter);
                         IAttendanceRecordService ars = new AttendanceRecordService(this.DbString);
-                        ars.CalculateAttendRecord(calAtt.AttDateTime, calAtt.ShiftCodes);
+                        ars.CalculateAttendRecord(calAtt.AttCalculateDateTime, calAtt.ShiftCodes);
+                        // add send email to queue
+                        SendAttWarnMessage(calAtt.AttCalculateDateTime,calAtt.ShiftCodes);
                         break;
                     case TaskType.SendMail:
                         break;
                     case TaskType.SendAttExceptionMail:
-
+                        AttWarnEmailParameter attWarn = JSONHelper.parse<AttWarnEmailParameter>(ts.JsonParameter);
+                        IAttendanceRecordCalService arcs = new AttendanceRecordCalService(this.DbString);
+                        arcs.SendWarnEmail(attWarn.AttWarnDate);
                         break;
                     default:
                         throw new TaskTypeNotSupportException();
@@ -93,5 +97,57 @@ namespace BlueHrLib.MQTask
                 throw new Exception(msg, ex);
             }
         }
+
+        /// <summary>
+        /// 发送计算考勤的消息
+        /// </summary>
+        public void SendCalculateAttMessage(DateTime calculateAt, List<string> shiftCodes = null)
+        {
+            CalAttParameter calAttParam = new CalAttParameter()
+            {
+                AttCalculateDateTime = calculateAt,
+                ShiftCodes = shiftCodes
+            };
+
+            TaskSetting task = new TaskSetting()
+            {
+                TaskCreateAt = DateTime.Now,
+                TaskType = TaskType.CalAtt,
+                JsonParameter = JSONHelper.stringify(calAttParam)
+
+            };
+
+            SendMQMessage(task);
+        }
+
+        /// <summary>
+        /// 发送考勤异常的消息
+        /// </summary>
+        /// <param name="calculateAt"></param>
+        public void SendAttWarnMessage(DateTime calculateAt, List<string> shiftCodes)
+        {
+            IShiftScheduleService sss = new ShiftSheduleService(this.DbString);
+            List<ShiftScheduleView> shifts = sss.GetDetailViewByDateTime(calculateAt);
+            foreach (var shift in shifts)
+            {
+                AttWarnEmailParameter attWarnParam = new AttWarnEmailParameter()
+                {
+                    AttWarnDate = shift.scheduleAt
+                };
+
+
+                TaskSetting task = new TaskSetting()
+                {
+                    TaskCreateAt = DateTime.Now,
+                    TaskType = TaskType.SendAttExceptionMail,
+                    JsonParameter = JSONHelper.stringify(attWarnParam)
+
+                };
+
+                SendMQMessage(task);
+            }
+        }
+
+
     }
 }

@@ -105,7 +105,7 @@ namespace BlueHrLib.Data
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString3, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString4, mappingSource)
 		{
 			OnCreated();
 		}
@@ -8517,7 +8517,7 @@ namespace BlueHrLib.Data
 		
 		private string _systemHost;
 		
-		private string _emaiSMTPlHost;
+		private string _emaiSMTPHost;
 		
 		private string _emailUser;
 		
@@ -8549,8 +8549,8 @@ namespace BlueHrLib.Data
     partial void OnearlyLeaveExceptionTimeChanged();
     partial void OnsystemHostChanging(string value);
     partial void OnsystemHostChanged();
-    partial void OnemaiSMTPlHostChanging(string value);
-    partial void OnemaiSMTPlHostChanged();
+    partial void OnemaiSMTPHostChanging(string value);
+    partial void OnemaiSMTPHostChanged();
     partial void OnemailUserChanging(string value);
     partial void OnemailUserChanged();
     partial void OnemailPwdChanging(string value);
@@ -8764,22 +8764,22 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_emaiSMTPlHost", DbType="VarChar(50)")]
-		public string emaiSMTPlHost
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_emaiSMTPHost", DbType="VarChar(50)")]
+		public string emaiSMTPHost
 		{
 			get
 			{
-				return this._emaiSMTPlHost;
+				return this._emaiSMTPHost;
 			}
 			set
 			{
-				if ((this._emaiSMTPlHost != value))
+				if ((this._emaiSMTPHost != value))
 				{
-					this.OnemaiSMTPlHostChanging(value);
+					this.OnemaiSMTPHostChanging(value);
 					this.SendPropertyChanging();
-					this._emaiSMTPlHost = value;
-					this.SendPropertyChanged("emaiSMTPlHost");
-					this.OnemaiSMTPlHostChanged();
+					this._emaiSMTPHost = value;
+					this.SendPropertyChanged("emaiSMTPHost");
+					this.OnemaiSMTPHostChanged();
 				}
 			}
 		}

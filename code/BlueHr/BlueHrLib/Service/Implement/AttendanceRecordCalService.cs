@@ -12,6 +12,8 @@ using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Interface;
 using BlueHrLib.Data.Repository.Implement;
 using BlueHrLib.Data.Message;
+using BlueHrLib.Helper;
+using System.Collections.Specialized;
 
 namespace BlueHrLib.Service.Implement
 {
@@ -87,5 +89,39 @@ namespace BlueHrLib.Service.Implement
                 .OrderByDescending(s=>s.attendanceDate).ToList();
         }
 
+        /// <summary>
+        /// 发送考勤异常提醒邮件
+        /// </summary>
+        /// <param name="date"></param>
+        public void SendWarnEmail(DateTime date)
+        {
+            DataContext dc = new DataContext(this.DbString);
+
+            AttendanceRecordCalExceptionView record = dc.Context.GetTable<AttendanceRecordCalExceptionView>().
+                FirstOrDefault(s => s.attendanceDate.Equals(date) && s.isExceptionHandled == false);
+
+            if (record != null && record.isExceptionHandledCount > 0)
+            {
+                SystemSetting setting = dc.Context.GetTable<SystemSetting>().FirstOrDefault();
+
+                if (setting == null)
+                    throw new SystemSettingNotSetException();
+                NameValueCollection values = new NameValueCollection();
+                values.Add("date", date.ToString("yyyy-MM-dd"));
+                values.Add("count", record.isExceptionHandledCount.Value.ToString());
+                values.Add("host", setting.systemHost);
+                string body = EmailHelper.Build("AttendanceWarn.html", values);
+
+                EmailHelper.SendEmail(setting.emaiSMTPHost,
+                    setting.emailUser,
+                   setting.emailAddress,
+                   setting.emailPwd,
+                   setting.attendanceExceptionAlertMails,
+                   "考勤异常提醒",
+                   body);
+            }
+
+        }
     }
 }
+

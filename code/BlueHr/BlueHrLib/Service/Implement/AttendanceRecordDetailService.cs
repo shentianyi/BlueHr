@@ -83,7 +83,7 @@ namespace BlueHrLib.Service.Implement
             List<AttendanceRecordDetailView> records = new List<AttendanceRecordDetailView>();
 
             /// 获取所有排班
-            List<ShiftScheduleView> shifts= dc.Context.GetTable<ShiftScheduleView>().Where(s =>s.staffNr.Equals(nr) && s.scheduleAt.Date.Equals(datetime.Date)).ToList();
+            List<ShiftScheduleView> shifts= dc.Context.GetTable<ShiftScheduleView>().Where(s =>s.staffNr.Equals(nr) && s.fullStartAt.Value.Date.Equals(datetime.Date) && s.fullEndAt.Value<datetime).ToList();
             /// 系统配置
             SystemSetting setting = dc.Context.GetTable<SystemSetting>().FirstOrDefault();
             if (setting == null)

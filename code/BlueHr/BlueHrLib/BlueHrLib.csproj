@@ -45,6 +45,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Messaging" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
@@ -163,6 +164,7 @@
     <Compile Include="Service\Implement\InSureTypeService.cs" />
     <Compile Include="Service\Implement\BankCardService.cs" />
     <Compile Include="Service\Implement\ShiftService.cs" />
+    <Compile Include="Service\Implement\ShiftSheduleService.cs" />
     <Compile Include="Service\Implement\TaskRoundService.cs" />
     <Compile Include="Service\Implement\StaffTypeService.cs" />
     <Compile Include="Service\Implement\JobTitleService.cs" />
@@ -178,6 +180,7 @@
     <Compile Include="Service\Interface\IDegreeTypeService.cs" />
     <Compile Include="Service\Interface\IInSureTypeService.cs" />
     <Compile Include="Service\Interface\IBankCardService.cs" />
+    <Compile Include="Service\Interface\IShiftScheduleService.cs" />
     <Compile Include="Service\Interface\IShiftService.cs" />
     <Compile Include="Service\Interface\ITaskRoundService.cs" />
     <Compile Include="Service\Interface\IStaffTypeService.cs" />

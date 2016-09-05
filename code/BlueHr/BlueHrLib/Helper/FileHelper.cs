@@ -10,6 +10,8 @@ namespace BlueHrLib.Helper
     {
         public const string TMP_FILE_DIR = "TmpFile";
         public const string UPLOAD_IMAGE = "UploadImage";
+        public const string EMAIL_TEMPLATE_PATH = "EmailTemplate";
+        public const string ATT_WARN_EMAIL_TEMPLATE_NAME = "AttendanceWarn.html";
 
         /// <summary>
         /// 创建临时文件路径

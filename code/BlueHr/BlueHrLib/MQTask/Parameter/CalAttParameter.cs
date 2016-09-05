@@ -11,7 +11,7 @@ namespace BlueHrLib.MQTask.Parameter
         /// <summary>
         /// 计算时间
         /// </summary>
-        public DateTime AttDateTime { get; set; }
+        public DateTime AttCalculateDateTime { get; set; }
 
         /// <summary>
         /// 班次列表
