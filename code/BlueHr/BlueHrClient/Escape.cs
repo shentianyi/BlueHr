@@ -23,6 +23,20 @@ namespace BlueHrClient.Escape
             }
             return sexCN;
         }
+        public string SexEscapeForUpdate(string sex)
+        {
+            string sexCN = "";
+            switch (sex)
+            {
+                case "男":
+                    sexCN = "0";
+                    break;
+                default:
+                    sexCN = "1";
+                    break;
+            }
+            return sexCN;
+        }
         public string DateEscape(string date)
         {
             // return DateTime.ParseExact(date, "yyyyMMdd", new CultureInfo("zh-CN"), DateTimeStyles.AllowWhiteSpaces).ToString();
