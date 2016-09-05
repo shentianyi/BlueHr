@@ -1,6 +1,4 @@
-﻿
-
-@model BlueHrLib.Data.Staff
+﻿@model BlueHrLib.Data.Staff
 
 <div id="staff" style="margin:10px;">
     <ol class="breadcrumb current-position">
@@ -11,6 +9,10 @@
     </ol>
 
     <hr class="hr-grey" />
+
+    <blockquote class="marco-blockquote-success">
+        <span>基本信息</span>
+    </blockquote>
 
     @using (Html.BeginForm())
     {
@@ -61,7 +63,7 @@
                         @Html.EditorFor(model => model.birthday, new { htmlAttributes = new { @class = "date-picker" } })
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>联系电话</span>
@@ -127,6 +129,13 @@
             </div>
 
             <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-danger">
+                        <span>状态 *</span>
+                        @Html.DropDownList("workStatus", ViewData["workStatusList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+
                 @Html.Partial("Search/_CompanyAndDepartmentBar")
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -144,13 +153,21 @@
             </div>
 
             <div class="marco-nbody row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>选择照片上传</span>
-                        <input type="file" name="photoUpload" id="photoUpload" />
-                        <input type="hidden" name="photo" id="photo" value="" />
+                <div class="photoleft">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>选择照片上传</span>
+                            <input type="file" name="photoUpload" id="photoUpload" onchange="Staff.create_image_preview(this)" />
+
+                            @Html.EditorFor(model => model.photo, new { htmlAttributes = new { type = "hidden" } })
+                        </div>
+                        <div class="marco-igroup-warning">
+                            <span id="photoName"></span>
+                        </div>
                     </div>
                 </div>
+
+                <div id="photopreview"></div>
             </div>
         </div>
 
@@ -251,21 +268,173 @@
             </div>
         </div>
 
+        <hr class="hr-grey" />
+
+        <blockquote class="marco-blockquote-success">
+            附加信息
+        </blockquote>
+
         <div class="marco-npanel-normal">
             <div class="marco-nheading">
                 <span>银行卡信息</span>
+                <span style="font-size:.9em;color:#2980b9;">要想添加多张银行卡，请在新建完成之后之后进入<code>编辑</code>界面添加</span>
             </div>
 
             <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>银行</span>
+
+                        @if (Model != null)
+                        {
+                            foreach (var bankCard in Model.BankCard)
+                            {
+                                if (bankCard.staffNr == Model.nr)
+                                {
+                                    <input type="text" value="@bankCard.bank" />
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <input type="text" name="bank" id="bank" />
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>卡号</span>
+
+                        @if (Model != null)
+                        {
+                            foreach (var bankCard in Model.BankCard)
+                            {
+                                if (bankCard.staffNr == Model.nr)
+                                {
+                                    <input type="text" name="bankCard" value="@bankCard.nr" />
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <input type="text" name="bankCard" />
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>开户行</span>
+
+                        @if (Model != null)
+                        {
+                            foreach (var bankCard in Model.BankCard)
+                            {
+                                if (bankCard.staffNr == Model.nr)
+                                {
+                                    <input type="text" name="bankAddress" value="@bankCard.bankAddress" />
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <input type="text" name="bankAddress" />
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 com-sm-12 col-xs-12" style="margin-top:60px;">
+                    <div class="marco-textarea">
+                        <span>备注</span>
+                        @if (Model != null)
+                        {
+                            foreach (var bankCard in Model.BankCard)
+                            {
+                                if (bankCard.staffNr == Model.nr)
+                                {
+                                    <textarea name="bankRemark">@bankCard.remark</textarea>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <textarea name="bankRemark"></textarea>
+                        }
+                    </div>
+                </div>
+
             </div>
         </div>
 
         <div class="marco-npanel-normal">
             <div class="marco-nheading">
                 <span>子女信息</span>
+                <span style="font-size:.9em;color:#2980b9;">要想添加多个，请在新建完成之后进入<code>编辑</code>界面添加</span>
             </div>
 
             <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>姓名</span>
+
+                        @if (Model != null)
+                        {
+                            foreach (var familyMember in Model.FamilyMemeber)
+                            {
+                                if (familyMember.staffNr == Model.nr)
+                                {
+                                    <input type="text" name="familyName" value="@familyMember.memberName" />
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <input type="text" name="familyName" />
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span style="cursor:help" title="填写女儿/儿子">关系</span>
+                        @if (Model != null)
+                        {
+                            foreach (var familyMember in Model.FamilyMemeber)
+                            {
+                                if (familyMember.staffNr == Model.nr)
+                                {
+                                    <input type="text" name="familyType" value="@familyMember.familyMemberType" />
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <input type="text" name="familyType" placeholder="女儿/儿子"/>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>
+                            出生日期
+                        </span>
+                        @if (Model != null)
+                        {
+                            foreach (var familyMember in Model.FamilyMemeber)
+                            {
+                                if (familyMember.staffNr == Model.nr)
+                                {
+                                    <input type="text" name="familyBirthday" value="@familyMember.birthday" class="date-picker" />
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <input type="text" name="familyBirthday" class="date-picker" />
+                        }
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -276,7 +445,7 @@
 
             <div class="marco-nbody">
                 <div class="marco-textarea" style="margin-top:5px;">
-                    <textarea name="remark"></textarea>
+                    <textarea name="remark" rows="5"></textarea>
                 </div>
             </div>
         </div>
@@ -288,98 +457,13 @@
     }
 </div>
 
+
+@Scripts.Render("~/bundles/staff")
+
 <script type="text/javascript">
-    data_upload('#photoUpload');
-
-    function data_upload(idStr, format, callback) {
-        console.log(2)
-        var valid = true;
-        var reg = /(\.|\/)(jpg|png|gif)$/i;
-        if (format != null) {
-            if (format != false) {
-                reg = new RegExp('(\.|\/)(' + format + ')$', 'i');
-            } else {
-                reg = null;
-            }
-        }
-
-        $(idStr).fileupload({
-            url: '/Staff/UploadImage',
-            type:'post',
-            singleFileUploads: false,
-            acceptFileTypes: /(\.|\/)(jpg|png|gif)$/i,
-            dataType: 'json',
-            change: function (e, data) {
-                console.log(3);
-                valid = true;
-                $.each(data.files, function (index, file) {
-                    console.log(3);
-                    var msg = "上传中 ... ...";
-                    if (reg) {
-                        if (!reg.test(file.name)) {
-                            msg = '格式错误';
-                            alert(msg);
-                            valid = false;
-                            return;
-                        }
-                        show_handle_dialog();
-                        console.log('reg' + reg);
-                    }
-                });
-            },
-            add: function (e, data) {
-                if (valid)
-                    if (data.submit != null)
-                        data.submit();
-                
-                console.log("ADD")
-            },
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-            },
-            success: function (data) {
-                console.log("Success");
-                console.log(data);
-
-                if (callback) {
-                    console.log("CallBack");
-                    console.log(callback);
-
-                    callback(data);
-                    hide_handle_dialog();
-                } else {
-                    hide_handle_dialog();
-                    if (data.Success) {
-                        console.log("上传成功" + data.Content)
-                        $('#photo').val(data.Content);
-                    } else {
-                        if (data.ErrorFileFeed) {
-                            console.log("上传失败" + data.Content)
-                        } else {
-                            console.log("上传失败" + data.Content)
-                        }
-                    }
-                }
-            },
-            done: function (e, data) {
-
-                console.log("DONE");
-            }
-        });
-    }
-
-
-
     Layout.init();
     Layout.rangedatepicker('.date-start-picker', '.date-end-picker');
     Layout.datepicker('.date-picker');
-
-    $('#staff').css({ height: $(window).height() - 60 + 'px' });
-    $("#staff").mCustomScrollbar({
-        scrollInertia: 600,
-        autoDraggerLength: false,
-        advanced: { autoScrollOnFocus: false }
-    });
-
-   
+    Layout.TbodyHeight('#staff', 80);
+    Staff.image_upload('#photoUpload');
 </script>

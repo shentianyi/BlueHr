@@ -19,30 +19,5 @@ else
 
 
 <script type="text/javascript">
-    var Department = new Array();
-
-    $.ajax({
-        url: '/Staff/GetCompanyAndDepartment',
-        type: 'get',
-        async: false,
-        success: function (data) {
-            Department = data;
-        },
-        error: function () {
-            console.log("获取公司和部门信息出错");
-        }
-    });
-
-    $('#companyId').change(function () {
-        $('#departmentId').empty();
-
-        var companyID = $('#companyId').find("option:selected").val();
-        var Html = "";
-
-        for (dep in Department[companyID]) {
-            Html += '<option value=' + dep + '>' + Department[companyID][dep] + '</option>';
-        }
-
-        $(Html).appendTo('#departmentId');
-    })
+    Layout.CompanyAndDepartment('#companyId', '#departmentId');
 </script>

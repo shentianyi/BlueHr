@@ -46,7 +46,7 @@ namespace BlueHrLib.Helper
             if (!isErrorFile)
             {
                 return Path.Combine(dir,
-                   DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + (fileName.Length > 70 ? Guid.NewGuid().ToString() + Path.GetExtension(fileName) : fileName));
+                   DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + (fileName.Length > 30 ? fileName.Substring(0, 30) + Path.GetExtension(fileName) : fileName));
             }
             else
             {

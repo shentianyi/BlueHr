@@ -232,7 +232,7 @@
       <Column Name="companyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="departmentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="jobTitleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="photo" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="photo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="staffTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="degreeTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="speciality" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />

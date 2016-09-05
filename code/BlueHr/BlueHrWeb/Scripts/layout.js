@@ -44,6 +44,35 @@ Layout.init = function () {
     }
 }
 
+Layout.CompanyAndDepartment = function (companyId, departmentId) {
+    var Department = new Array();
+
+    $.ajax({
+        url: '/Staff/GetCompanyAndDepartment',
+        type: 'get',
+        async: false,
+        success: function (data) {
+            Department = data;
+        },
+        error: function () {
+            console.log("获取公司和部门信息出错");
+        }
+    });
+
+    $(companyId).change(function () {
+        $(departmentId).empty();
+
+        var companyID = $('#companyId').find("option:selected").val();
+        var Html = "";
+
+        for (dep in Department[companyID]) {
+            Html += '<option value=' + dep + '>' + Department[companyID][dep] + '</option>';
+        }
+
+        $(Html).appendTo(departmentId);
+    })
+}
+
 Layout.TbodyHeight = function (cls, height) {
     $(cls).css({ height: $(window).height() - height + 'px' });
 
@@ -53,7 +82,8 @@ Layout.TbodyHeight = function (cls, height) {
 
     $(cls).mCustomScrollbar({
         scrollInertia: 600,
-        autoDraggerLength: false
+        autoDraggerLength: false,
+        advanced: { autoScrollOnFocus: false }
     });
 }
 

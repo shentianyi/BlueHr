@@ -170,13 +170,18 @@
             {
                 if (ViewBag.Query != null)
                 {
-
-                    
                     //TODO: 添加其他搜索条件
-
                     var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
                         .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))
-                        .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
+                        .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name))
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Id))
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Sex))
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.JobTitleId))
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.companyId))
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.departmentId))
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.CompanyEmployAtFrom))
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.CompanyEmployAtTo))
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.IsOnTrial));
                         @html
                     }
                     else
@@ -189,25 +194,13 @@
     </div>
 </div>
 
+@Scripts.Render("~/bundles/staff")
+
 <script type="text/javascript">
     Layout.init();
+    Layout.CompanyAndDepartment('#companyId', '#departmentId');
     Layout.rangedatepicker('#CompanyEmployAtFrom', '#CompanyEmployAtTo');
-
-    //不允许滚动
-    $('.nav-content').css({ overflow: 'hidden' });
-
-    $('.table-body').css({ height: $(window).height() - 310 + 'px' });
-
-    console.log($('.table-body').css('height'));
-
-    $(window).resize(function () {
-        $('.table-body').css({ height: $(window).height() - 310 + 'px' });
-    });
-
-    $('.table-body').mCustomScrollbar({
-        scrollInertia: 600,
-        autoDraggerLength: false
-    });
+    Layout.TbodyHeight('.table-body', 310);
 
     $('.advanced-filter-btn').click(function () {
         var Display = $('.advanced-filter').css('display');
@@ -218,32 +211,5 @@
             $('.advanced-filter').slideUp();
         }
     });
-
-    var Department = new Array();
-
-    $.ajax({
-        url: '/Staff/GetCompanyAndDepartment',
-        type: 'get',
-        async: false,
-        success: function (data) {
-            Department = data;
-        },
-        error: function () {
-            console.log("Error");
-        }
-    });
-
-    $('#CompanyId').change(function () {
-        $('#DepartmentId').empty();
-
-        var companyID = $('#CompanyId').find("option:selected").val();
-        var Html = "";
-
-        for (dep in Department[companyID]) {
-            Html += '<option value=' + dep + '>' + Department[companyID][dep] + '</option>';
-        }
-
-        $(Html).appendTo('#DepartmentId');
-    })
 </script>
 

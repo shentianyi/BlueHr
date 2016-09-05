@@ -1,4 +1,5 @@
 ﻿using BlueHrLib.Data;
+using BlueHrLib.Data.Enum;
 using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Helper;
@@ -82,15 +83,94 @@ namespace BlueHrWeb.Controllers
             "ResidenceType, inSureTypeId, IsPayCPF, ContractExpireAt, ContractCount, Ethnic, Remark")] Staff staff)
         {
             // TODO: Add insert logic here
+
+            //银行卡信息
+            string bank = null, bankCard = null, bankAddress = null, bankRemark = null;
+            if(!string.IsNullOrWhiteSpace(Request.Form["bank"])){
+                bank = Request.Form["bank"];
+            }
+
+            if (!string.IsNullOrWhiteSpace(Request.Form["bankCard"]))
+            {
+                bankCard = Request.Form["bankCard"];
+            }
+
+            if (!string.IsNullOrWhiteSpace(Request.Form["bankAddress"]))
+            {
+                bankAddress = Request.Form["bankAddress"];
+            }
+
+            if (!string.IsNullOrWhiteSpace(Request.Form["bankRemark"]))
+            {
+                bankRemark = Request.Form["bankRemark"];
+            }
+
+            BankCard bankCardDB = new BankCard();
+            bankCardDB.nr = bankCard;
+            bankCardDB.bankAddress = bankAddress;
+            bankCardDB.bank = bank;
+            bankCardDB.remark = bankRemark;
+            bankCardDB.staffNr = staff.nr;
+
+            staff.BankCard.Add(bankCardDB);
+
+            //子女信息
+            string familyName = null, familyType = null, familyBirthday = null;
+            if (!string.IsNullOrWhiteSpace(Request.Form["familyName"]))
+            {
+                familyName = Request.Form["familyName"];
+            }
+
+            if (!string.IsNullOrWhiteSpace(Request.Form["familyType"]))
+            {
+                familyType = Request.Form["familyType"];
+            }
+
+            if (!string.IsNullOrWhiteSpace(Request.Form["familyBirthday"]))
+            {
+                familyBirthday = Request.Form["familyBirthday"];
+            }
+
+            FamilyMemeber familyMember = new FamilyMemeber();
+            familyMember.memberName = familyName;
+            familyMember.familyMemberType = familyType;
+            //强制类型转换，多测试
+            familyMember.birthday = Convert.ToDateTime(familyBirthday);
+            familyMember.staffNr = staff.nr;
+
             IStaffService ss = new StaffService(Settings.Default.db);
 
             bool result = ss.Create(staff);
+
             if (result)
             {
+                SetDropDownList(staff);
+
+                //添加银行卡和子女信息
+                IBankCardService bcs = new BankCardService(Settings.Default.db);
+
+                bool bankResult =  bcs.Create(bankCardDB);
+
+                if (!bankResult)
+                {
+                    SetDropDownList(null);
+                    return View();
+                }
+
+                IFamilyMemberService fms = new FamilyMemberService(Settings.Default.db);
+                bool familyResult = fms.Create(familyMember);
+
+                if (!familyResult)
+                {
+                    SetDropDownList(null);
+                    return View();
+                }
+
                 return RedirectToAction("Index");
             }
             else
             {
+                SetDropDownList(null);
                 return View();
             }
         }
@@ -175,7 +255,8 @@ namespace BlueHrWeb.Controllers
             string fileName = Helpers.FileHelper.SaveUploadImage(ff);
             ResultMessage msg = new ResultMessage() { Success = true };
             msg.Content = fileName;
-            return Json(msg);
+            //防止IE直接下载json数据
+            return Json(msg, "text/html");
            // return Json(fileName, JsonRequestBehavior.DenyGet);
         }
 
@@ -193,6 +274,7 @@ namespace BlueHrWeb.Controllers
                 SetInSureTypeList(staff.insureTypeId);
                 SetIsPayCPFList(staff.isPayCPF);
                 SetResidenceTypeList(staff.residenceType);
+                SetWorkStatusList(staff.workStatus);
             }
             else
             {
@@ -206,6 +288,7 @@ namespace BlueHrWeb.Controllers
                 SetInSureTypeList(null);
                 SetIsPayCPFList(false);
                 SetResidenceTypeList(0);
+                SetWorkStatusList(100);
             }
         }
 
@@ -283,6 +366,31 @@ namespace BlueHrWeb.Controllers
                 }
             }
             ViewData["isPayCPFList"] = select;
+        }
+
+        private void SetWorkStatusList(int? type, bool allowBlank = true)
+        {
+            List<EnumItem> item = EnumHelper.GetList(typeof(WorkStatus));
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in item)
+            {
+                if (type.HasValue && type.ToString().Equals(it.Value))
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                }
+            }
+            ViewData["workStatusList"] = select;
         }
 
         private void SetResidenceTypeList(int? type, bool allowBlank = true)

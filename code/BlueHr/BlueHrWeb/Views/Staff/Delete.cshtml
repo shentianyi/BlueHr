@@ -7,8 +7,12 @@
 @Html.Partial("_PartialStaff")
 
 <script type="text/javascript">
+    Staff.other_image_preview('#photoName', '#photo', '#photopreview');
+
+    //使之不可编辑
     $('input').attr('disabled', 'disabled');
     $('select').attr('disabled', 'disabled');
+    $('textarea').attr('disabled', 'disabled');
     $('button[type="submit"]').removeClass('marco-btn-primary');
     $('button[type="submit"]').addClass('marco-btn-danger');
 </script>

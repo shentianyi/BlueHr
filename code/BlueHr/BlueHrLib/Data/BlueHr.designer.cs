@@ -4439,7 +4439,7 @@ namespace BlueHrLib.Data
 		
 		private System.Nullable<int> _jobTitleId;
 		
-		private System.Data.Linq.Binary _photo;
+		private string _photo;
 		
 		private System.Nullable<int> _staffTypeId;
 		
@@ -4543,7 +4543,7 @@ namespace BlueHrLib.Data
     partial void OndepartmentIdChanged();
     partial void OnjobTitleIdChanging(System.Nullable<int> value);
     partial void OnjobTitleIdChanged();
-    partial void OnphotoChanging(System.Data.Linq.Binary value);
+    partial void OnphotoChanging(string value);
     partial void OnphotoChanged();
     partial void OnstaffTypeIdChanging(System.Nullable<int> value);
     partial void OnstaffTypeIdChanged();
@@ -4917,8 +4917,8 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
-		public System.Data.Linq.Binary photo
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="VarChar(50)", UpdateCheck=UpdateCheck.Never)]
+		public string photo
 		{
 			get
 			{

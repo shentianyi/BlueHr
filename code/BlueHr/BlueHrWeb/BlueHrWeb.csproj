@@ -114,6 +114,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -343,6 +344,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\staff.js" />
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -404,6 +406,7 @@
     <Content Include="Views\Department\_PartialDepartment.cshtml" />
     <Content Include="Views\AttendanceRecordCal\Index.cshtml" />
     <Content Include="Views\AttendanceRecordCal\Edit.cshtml" />
+    <Content Include="Views\Staff\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

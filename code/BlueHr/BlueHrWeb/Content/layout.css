@@ -577,3 +577,39 @@
     background: #c0392b;
     color: #ecf0f1; }
 
+.marco-blockquote-default {
+  border-color: #2c3e50;
+  color: #2c3e50;
+  background: #ecf0f1;
+  font-weight: bold; }
+
+.marco-blockquote-primary {
+  border-color: #3498db;
+  color: #3498db;
+  background: #ecf0f1;
+  font-weight: bold; }
+
+.marco-blockquote-info {
+  border-color: #bce8f1;
+  color: #bce8f1;
+  background: #ecf0f1;
+  font-weight: bold; }
+
+.marco-blockquote-success {
+  border-color: #16a085;
+  color: #16a085;
+  background: #ecf0f1;
+  font-weight: bold; }
+
+.marco-blockquote-warning {
+  border-color: #e67e22;
+  color: #e67e22;
+  background: #ecf0f1;
+  font-weight: bold; }
+
+.marco-blockquote-danger {
+  border-color: #c0392b;
+  color: #c0392b;
+  background: #ecf0f1;
+  font-weight: bold; }
+

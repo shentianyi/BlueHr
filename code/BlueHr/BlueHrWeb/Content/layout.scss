@@ -342,3 +342,35 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 .option-icon-danger{
     @include optionIcon($marco-bg:$pomegranate);
 }
+
+
+@mixin blockquote($marco-bg:$clouds, $marco-color: $peter-river){
+    border-color: $marco-color;
+    color: $marco-color;
+    background:$marco-bg;
+    font-weight:bold;
+}
+
+.marco-blockquote-default{
+    @include blockquote($clouds, $midnight-blue);
+}
+
+.marco-blockquote-primary{
+    @include blockquote($clouds, $peter-river);
+}
+
+.marco-blockquote-info{
+    @include blockquote($clouds, $light-blue);
+}
+
+.marco-blockquote-success{
+    @include blockquote($clouds, $green-sea);
+}
+
+.marco-blockquote-warning{
+    @include blockquote($clouds, $carrot);
+}
+
+.marco-blockquote-danger{
+    @include blockquote($clouds, $pomegranate);
+}
