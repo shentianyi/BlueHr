@@ -365,6 +365,14 @@ namespace BlueHrLib.Data
 				return this.GetTable<AttendanceRecordDetailView>();
 			}
 		}
+		
+		public System.Data.Linq.Table<AttendanceRecordCalExceptionView> AttendanceRecordCalExceptionView
+		{
+			get
+			{
+				return this.GetTable<AttendanceRecordCalExceptionView>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AbsenceRecrod")]
@@ -7213,7 +7221,7 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary photo
 		{
 			get
@@ -8321,7 +8329,7 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary photo
 		{
 			get
@@ -8669,6 +8677,69 @@ namespace BlueHrLib.Data
 				if ((this._departmentName != value))
 				{
 					this._departmentName = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AttendanceRecordCalExceptionView")]
+	public partial class AttendanceRecordCalExceptionView
+	{
+		
+		private System.DateTime _attendanceDate;
+		
+		private System.Nullable<bool> _isExceptionHandled;
+		
+		private System.Nullable<int> _isExceptionHandledCount;
+		
+		public AttendanceRecordCalExceptionView()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_attendanceDate", DbType="DateTime NOT NULL")]
+		public System.DateTime attendanceDate
+		{
+			get
+			{
+				return this._attendanceDate;
+			}
+			set
+			{
+				if ((this._attendanceDate != value))
+				{
+					this._attendanceDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isExceptionHandled", DbType="Bit")]
+		public System.Nullable<bool> isExceptionHandled
+		{
+			get
+			{
+				return this._isExceptionHandled;
+			}
+			set
+			{
+				if ((this._isExceptionHandled != value))
+				{
+					this._isExceptionHandled = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isExceptionHandledCount", DbType="Int")]
+		public System.Nullable<int> isExceptionHandledCount
+		{
+			get
+			{
+				return this._isExceptionHandledCount;
+			}
+			set
+			{
+				if ((this._isExceptionHandledCount != value))
+				{
+					this._isExceptionHandledCount = value;
 				}
 			}
 		}

@@ -25,6 +25,20 @@ namespace BlueHrLib.Helper
                 return enumValue.ToString();
         }
 
+        public static string GetDescriptionByFiledName(string name, Type type)
+        {
+            string desc = string.Empty;
+            var values = Enum.GetValues(type);
+            foreach (Enum v in values)
+            {
+                if (v.ToString().Equals(name))
+                {
+                    desc = GetDescription(v);
+                    break;
+                }
+            }
+            return desc;
+        }
         public static List<EnumItem> GetList(Type type)
         {
             List<EnumItem> arraylist = new List<EnumItem>();

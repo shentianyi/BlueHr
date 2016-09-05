@@ -1,4 +1,5 @@
 ﻿using BlueHrLib.Data.Enum;
+using BlueHrLib.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,5 +36,26 @@ namespace BlueHrLib.Data
             get { return Math.Round(this.actWorkingHour, 2); }
         }
 
+        public List<string> exceptionStrs
+        {
+            get
+            {
+                return this.exceptionCodes.Split(',').ToList();
+            }
+        }
+
+        public string exceptionStr
+        {
+            get
+            {
+                string es = string.Empty;
+                List<string> strs = this.exceptionStrs;
+                foreach(var s in strs)
+                {
+                    es += EnumHelper.GetDescriptionByFiledName(s,typeof(AttendanceExceptionType))+";";
+                }
+                return es;
+            }
+        }
     }
 }

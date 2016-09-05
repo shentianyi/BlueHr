@@ -89,8 +89,40 @@ namespace BlueHrWeb.Controllers
 
 
             IAttendanceRecordCalService ss = new AttendanceRecordCalService(Settings.Default.db);
-            msg = ss.UpdateActHourById(id, actHour, handled);
+            msg = ss.UpdateActHourById(id, actHour, handled,Request.Form["remark"]);
             return Json(msg);
+        }
+
+        public ActionResult ExceptionList()
+        {
+            IAttendanceRecordCalService ss = new AttendanceRecordCalService(Settings.Default.db);
+            DateTime startDate = DateTime.Now.Date.AddDays(-20);
+            DateTime endDate = DateTime.Now.Date;
+            if (!string.IsNullOrEmpty(Request.Form["startDate"]))
+            {
+                DateTime.TryParse(Request.Form["startDate"], out startDate);
+            }
+            if (!string.IsNullOrEmpty(Request.Form["endDate"]))
+            {
+                DateTime.TryParse(Request.Form["endDate"], out endDate);
+            }
+
+
+            List<AttendanceRecordCalExceptionView> records = ss.GetCalExceptionHandleList(startDate, endDate);
+            for (var d = startDate; d <= endDate; d = d.AddDays(1))
+            {
+                if (records.Where(s => s.attendanceDate.Equals(d)).FirstOrDefault() == null)
+                {
+                    records.Add(new AttendanceRecordCalExceptionView()
+                    {
+                        attendanceDate = d,
+                        isExceptionHandledCount = 0
+                    });
+                }
+            }
+            records = records.OrderByDescending(s => s.attendanceDate).ToList();
+
+            return View(records);
         }
 
     }
