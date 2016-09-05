@@ -289,10 +289,9 @@
                         {
                             foreach (var bankCard in Model.BankCard)
                             {
-                                if (bankCard.staffNr == Model.nr)
-                                {
+                                 
                                     <input type="text" value="@bankCard.bank" />
-                                }
+                                
                             }
                         }
                         else
@@ -309,10 +308,9 @@
                         {
                             foreach (var bankCard in Model.BankCard)
                             {
-                                if (bankCard.staffNr == Model.nr)
-                                {
+                                
                                     <input type="text" name="bankCard" value="@bankCard.nr" />
-                                }
+                                
                             }
                         }
                         else
@@ -349,10 +347,9 @@
                         {
                             foreach (var bankCard in Model.BankCard)
                             {
-                                if (bankCard.staffNr == Model.nr)
-                                {
+                                  
                                     <textarea name="bankRemark">@bankCard.remark</textarea>
-                                }
+                                
                             }
                         }
                         else
@@ -380,10 +377,9 @@
                         {
                             foreach (var familyMember in Model.FamilyMemeber)
                             {
-                                if (familyMember.staffNr == Model.nr)
-                                {
+                                
                                     <input type="text" name="familyName" value="@familyMember.memberName" />
-                                }
+                                
                             }
                         }
                         else
@@ -400,10 +396,9 @@
                         {
                             foreach (var familyMember in Model.FamilyMemeber)
                             {
-                                if (familyMember.staffNr == Model.nr)
-                                {
+                                 
                                     <input type="text" name="familyType" value="@familyMember.familyMemberType" />
-                                }
+                                 
                             }
                         }
                         else
@@ -422,10 +417,9 @@
                         {
                             foreach (var familyMember in Model.FamilyMemeber)
                             {
-                                if (familyMember.staffNr == Model.nr)
-                                {
+                                
                                     <input type="text" name="familyBirthday" value="@familyMember.birthday" class="date-picker" />
-                                }
+                                 
                             }
                         }
                         else
@@ -451,8 +445,7 @@
         </div>
 
         <button class="marco-btn-primary" type="submit" style="position:fixed; bottom:0; right:20px;">
-            <i class="fa fa-plus-circle"></i>
-            <span>创建</span>
+            <span>{{actionBtn}}</span>
         </button>
     }
 </div>
