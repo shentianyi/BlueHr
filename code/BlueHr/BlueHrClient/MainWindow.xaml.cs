@@ -328,9 +328,7 @@ namespace BlueHrClient
             //{
             //    Status.Text = "请放卡...";
             //}
-
         }
-
 
         private void Checkin()
         {
@@ -351,10 +349,9 @@ namespace BlueHrClient
                         msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
                     }
                     else {
-                        msgBlock.Text = "待更新";
+                        msgBlock.Text = "不存在";
                         msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));
                     }
-                 
                 }
                 else
                 {
@@ -369,17 +366,54 @@ namespace BlueHrClient
                         }
                         else
                         {
-                            msgBlock.Text = "待更新";
+                            msgBlock.Text = "不存在";
                             msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));
                         }
                     }
                 }
             }
             else {
-                msgBlock.Text = "通 过";
-                msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
-            }
+                if (staff.isIdChecked)
+                {
+                    msgBlock.Text = "通 过";
+                    msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
+                }
+                else
+                {
+                    if (BaseConfig.AutoCheckin)
+                    {
+                        if (upDate())
+                        {
+                            msgBlock.Text = "通 过";
+                            msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
+                        }
+                        else
+                        {
+                            msgBlock.Text = "待更新";
+                            msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));
+                        }
+                    }
+                    else
+                    {
+                        // win.ShowDialog();
+                        MessageBoxResult result = MessageBox.Show("       是否同步？", "错误", MessageBoxButton.OKCancel, MessageBoxImage.Hand);
+                        if (result == MessageBoxResult.OK)
+                        {
+                            if (upDate())
+                            {
+                                msgBlock.Text = "通 过";
+                                msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
+                            }
+                            else
+                            {
+                                msgBlock.Text = "待更新";
+                                msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));
+                            }
+                        }
+                    }
 
+                }
+            }
         }
         private bool getData()
         {
@@ -395,8 +429,22 @@ namespace BlueHrClient
             cardData.effectiveEnd = Convert.ToDateTime(UserLifeEnd.Text);
             cardData.institution = GrantDept.Text;
             // cardData.photo = 
-            //return staffService.CheckStaffAndUpdateInfo(cardData); 
-            return staffService.CreateInfoAndSetCheck(cardData, true);
+            return staffService.CreateInfoAndSetCheck(cardData);
+        }
+        private bool upDate()
+        {
+            IStaffService staffService = new StaffService(Settings.Default.db);
+            StaffIdCard cardData = new StaffIdCard();
+            cardData.id = ID.Text;
+            cardData.name = Name.Text;
+            cardData.sex = escape.SexEscapeForUpdate(Sex.Text);
+            cardData.ethnic = Nation.Text;
+            cardData.birthday = Convert.ToDateTime(Born.Text);
+            cardData.residenceAddress = Address.Text;
+            cardData.effectiveFrom = Convert.ToDateTime(UserLifeBegin.Text);
+            cardData.effectiveEnd = Convert.ToDateTime(UserLifeEnd.Text);
+            cardData.institution = GrantDept.Text;
+            return staffService.CheckStaffAndUpdateInfo(cardData); 
         }
 
     }
