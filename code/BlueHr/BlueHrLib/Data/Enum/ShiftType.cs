@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BlueHrLib.Data.Enum
 {
+    /// <summary>
+    /// 班次类型
+    /// </summary>
     public enum ShiftType
     {
         /// <summary>
