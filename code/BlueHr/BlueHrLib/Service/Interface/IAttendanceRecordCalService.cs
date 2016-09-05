@@ -44,5 +44,6 @@ namespace BlueHrLib.Service.Interface
         /// <param name="exceptionHandled"></param>
         /// <returns></returns>
         List<AttendanceRecordCalExceptionView> GetCalExceptionHandleList(DateTime fromDate, DateTime endDate, bool exceptionHandled = false);
+        
     }
 }
