@@ -9,39 +9,51 @@
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
+    <li>考勤管理</li>
     <li>考勤统计数据</li>
 </ol>
 
 <hr class="hr-grey" />
  <div class="row" style="margin:0;">
-    <form action="/AttendanceRecordCal/Search" method="get">
-            @Html.Partial("Search/_CompanyAndDepartmentBar")
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                  <span>工号</span>
-                  <input type="text" name="StaffNr" id="StaffNr" placeholder="工号" value="@ViewBag.Query.StaffNr"/>
-                </div>
-            </div>
+     <form action="/AttendanceRecordCal/Search" method="get">
+         @Html.Partial("Search/_CompanyAndDepartmentBar")
+         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+             <div class="marco-igroup-primary">
+                 <span>工号</span>
+                 <input type="text" name="StaffNr" id="StaffNr" placeholder="工号" value="@ViewBag.Query.StaffNr" />
+             </div>
+         </div>
 
-            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12"> 
-                    <div class="marco-igroup-primary">
-                        <span>考勤日期</span>
-                        <input type="text" name="AttendanceDateFrom" id="AttendanceDateFrom" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.AttendanceDateFrom" /><span>~ </span><input type="text" name="AttendanceDateEnd" id="AttendanceDateEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.AttendanceDateEnd" />
-                        <span>是否异常</span>
-                        @PartialViewHelper.BoolDropDownList(this.Html, "IsException", ViewBag.Query.IsException)
-                        <span>是否已处理</span>
-                        @PartialViewHelper.BoolDropDownList(this.Html, "IsExceptionHandled", ViewBag.Query.IsExceptionHandled)
-                    </div>
-            </div>
+         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+             <div class="marco-igroup-primary">
+                 <span>是否异常</span>
+                 @PartialViewHelper.BoolDropDownList(this.Html, "IsException", ViewBag.Query.IsException)
+             </div>
+         </div>
 
-    
-            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
-                <button type="submit" class="marco-btn-success">
-                    <i class="glyphicon glyphicon-search"></i>
-                    搜索
-                </button>
-            </div>
-</form>
+         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+             <div class="marco-igroup-primary">
+                 <span>考勤日期</span>
+                 <input type="text" name="AttendanceDateFrom" id="AttendanceDateFrom" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.AttendanceDateFrom" />
+                 <span>~ </span>
+                 <input type="text" name="AttendanceDateEnd" id="AttendanceDateEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.AttendanceDateEnd" />
+             </div>
+         </div>
+
+         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+             <div class="marco-igroup-primary">
+                 <span>是否已处理</span>
+                 @PartialViewHelper.BoolDropDownList(this.Html, "IsExceptionHandled", ViewBag.Query.IsExceptionHandled)
+             </div>
+         </div>
+
+         <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
+             <button type="submit" class="marco-btn-success" style="width: 150px; height:40px;">
+                 <i class="glyphicon glyphicon-search"></i>
+                 搜索
+             </button>
+         </div>
+     </form>
 </div>
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -144,7 +156,7 @@
 
 <script type="text/javascript">
     Layout.init();
-    Layout.TbodyHeight('.table-body', 350);
+    Layout.TbodyHeight('.table-body', 410);
 
     $('.datetimepicker').datetimepicker({
         format: 'Y-m-d',
