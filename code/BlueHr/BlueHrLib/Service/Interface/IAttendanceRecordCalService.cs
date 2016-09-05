@@ -44,6 +44,12 @@ namespace BlueHrLib.Service.Interface
         /// <param name="exceptionHandled"></param>
         /// <returns></returns>
         List<AttendanceRecordCalExceptionView> GetCalExceptionHandleList(DateTime fromDate, DateTime endDate, bool exceptionHandled = false);
-        
+
+
+        /// <summary>
+        /// 发送考勤异常邮件
+        /// </summary>
+        /// <param name="date"></param>
+        void SendWarnEmail(DateTime date);
     }
 }

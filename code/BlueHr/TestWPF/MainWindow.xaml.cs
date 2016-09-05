@@ -81,22 +81,12 @@ namespace TestWPF
             DateTime startDateTime =DateTime.Parse( startDate.Text +" "+ timeTB.Text);
 
             DateTime endDateTime = DateTime.Parse(endDate.Text + " " + timeTB.Text);
-            
-            for(DateTime dt = startDateTime; dt <= endDateTime; dt=dt.AddDays(1))
-            {
-                CalAttParameter calAttParam = new CalAttParameter()
-                {
-                    AttDateTime = dt
-                };
-             
-                TaskSetting task = new TaskSetting()
-                {
-                    TaskCreateAt = DateTime.Now,
-                    TaskType = TaskType.CalAtt,
-                    JsonParameter = JSONHelper.stringify(calAttParam)
 
-                }; 
-                new TaskDispatcher(Settings.Default.queue).SendMQMessage(task);
+            TaskDispatcher dtt = new TaskDispatcher(Settings.Default.queue);
+
+            for (DateTime dt = startDateTime; dt <= endDateTime; dt=dt.AddDays(1))
+            {
+                dtt.SendCalculateAttMessage(dt.Date.AddHours(23));
             }
 
             MessageBox.Show("OK");

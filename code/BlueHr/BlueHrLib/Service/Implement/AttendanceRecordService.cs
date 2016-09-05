@@ -39,7 +39,14 @@ namespace BlueHrLib.Service.Implement
             var allShiftShedulesQ = dc.Context.GetTable<ShiftScheduleView>().Where(s => s.fullEndAt.Value <= dateTime && s.fullEndAt.Value.Date.Equals(dateTime.Date));
             if (shiftCodes != null && shiftCodes.Count > 0)
             {
-                allShiftShedulesQ = allShiftShedulesQ.Where(s => shiftCodes.Contains(s.code));
+                if (shiftCodes.Count > 1)
+                {
+                    allShiftShedulesQ = allShiftShedulesQ.Where(s => shiftCodes.Contains(s.code));
+                }
+                else
+                {
+                    allShiftShedulesQ = allShiftShedulesQ.Where(s => s.code.Equals(shiftCodes.First()));
+                }
             }
             List<ShiftScheduleView> allShiftShedules = allShiftShedulesQ.ToList();
             Dictionary<string, List<ShiftScheduleView>> allStaffShitSchedules = new Dictionary<string, List<ShiftScheduleView>>();

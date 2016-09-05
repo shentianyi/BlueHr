@@ -65,28 +65,16 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                CalAttParameter calAttParam = new CalAttParameter()
-                {
-                    AttDateTime = DateTime.Parse(Request.Form.Get("DateTime"))
-                };
+                TaskDispatcher td=new TaskDispatcher(Settings.Default.queue);
+                DateTime calculateAt = DateTime.Parse(Request.Form.Get("DateTime"));
+               List< string> shiftCodes = null;
+                 
                 if (!string.IsNullOrEmpty(Request.Form.Get("ShiftCode")))
                 {
-                    calAttParam.ShiftCodes = new List<string>()
-                {
-                    Request.Form.Get("ShiftCode")
+                    shiftCodes = new List<string>() { Request.Form.Get("ShiftCode") };
                 };
-                }
-                TaskSetting task = new TaskSetting()
-                {
-                    TaskCreateAt = DateTime.Now,
-                    TaskType = TaskType.CalAtt,
-                    JsonParameter = JSONHelper.stringify(calAttParam)
-
-                };
-
-                //ICalculateService cs = new CalculateService(Settings.Default.db);
-                //cs.Start(Settings.Default.mrpQueue, setting);
-                new TaskDispatcher(Settings.Default.queue).SendMQMessage(task);
+                td.SendCalculateAttMessage(calculateAt, shiftCodes);
+                
                 msg.Success = true;
                 msg.Content = "计算任务新建成功，请到系统任务页面查看结果!";
             }

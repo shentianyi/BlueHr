@@ -17,5 +17,7 @@ namespace BlueHrLib.Service.Interface
         /// </summary>
         /// <returns></returns>
         List<Shift> All();
+
+        
     }
 }

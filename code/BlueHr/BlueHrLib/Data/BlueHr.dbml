@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHr" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=WANGSONG-PC\MSSQLSERVER2008R;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString3" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=Charlot-PC\MSSQLSERVER20082;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString4" Provider="System.Data.SqlClient" />
   <Table Name="dbo.AbsenceRecrod" Member="AbsenceRecrod">
     <Type Name="AbsenceRecrod">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -441,7 +441,7 @@
       <Column Name="lateExceptionTime" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="earlyLeaveExceptionTime" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="systemHost" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="emaiSMTPlHost" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="emaiSMTPHost" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="emailUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="emailPwd" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="emailAddress" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
