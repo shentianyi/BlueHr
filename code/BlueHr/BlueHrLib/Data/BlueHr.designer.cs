@@ -87,9 +87,6 @@ namespace BlueHrLib.Data
     partial void InsertShiftSchedule(ShiftSchedule instance);
     partial void UpdateShiftSchedule(ShiftSchedule instance);
     partial void DeleteShiftSchedule(ShiftSchedule instance);
-    partial void InsertSystemSetting(SystemSetting instance);
-    partial void UpdateSystemSetting(SystemSetting instance);
-    partial void DeleteSystemSetting(SystemSetting instance);
     partial void InsertAttendanceRecordDetail(AttendanceRecordDetail instance);
     partial void UpdateAttendanceRecordDetail(AttendanceRecordDetail instance);
     partial void DeleteAttendanceRecordDetail(AttendanceRecordDetail instance);
@@ -102,10 +99,13 @@ namespace BlueHrLib.Data
     partial void InsertStaff(Staff instance);
     partial void UpdateStaff(Staff instance);
     partial void DeleteStaff(Staff instance);
+    partial void InsertSystemSetting(SystemSetting instance);
+    partial void UpdateSystemSetting(SystemSetting instance);
+    partial void DeleteSystemSetting(SystemSetting instance);
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString5, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString3, mappingSource)
 		{
 			OnCreated();
 		}
@@ -302,14 +302,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<SystemSetting> SystemSetting
-		{
-			get
-			{
-				return this.GetTable<SystemSetting>();
-			}
-		}
-		
 		public System.Data.Linq.Table<AttendanceRecordDetail> AttendanceRecordDetail
 		{
 			get
@@ -371,6 +363,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<Staff>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SystemSetting> SystemSetting
+		{
+			get
+			{
+				return this.GetTable<SystemSetting>();
 			}
 		}
 	}
@@ -4386,260 +4386,6 @@ namespace BlueHrLib.Data
 						this._staffNr = default(string);
 					}
 					this.SendPropertyChanged("Staff");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SystemSetting")]
-	public partial class SystemSetting : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private System.Nullable<double> _daysBeforeAlertStaffGoFull;
-		
-		private string _goFullAlertMails;
-		
-		private string _unCertifacteAlertMails;
-		
-		private string _attendanceExceptionAlertMails;
-		
-		private System.Nullable<double> _repeatAttendanceRecordTime;
-		
-		private System.Nullable<double> _validAttendanceRecordTime;
-		
-		private System.Nullable<double> _lateExceptionTime;
-		
-		private System.Nullable<double> _earlyLeaveExceptionTime;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OndaysBeforeAlertStaffGoFullChanging(System.Nullable<double> value);
-    partial void OndaysBeforeAlertStaffGoFullChanged();
-    partial void OngoFullAlertMailsChanging(string value);
-    partial void OngoFullAlertMailsChanged();
-    partial void OnunCertifacteAlertMailsChanging(string value);
-    partial void OnunCertifacteAlertMailsChanged();
-    partial void OnattendanceExceptionAlertMailsChanging(string value);
-    partial void OnattendanceExceptionAlertMailsChanged();
-    partial void OnrepeatAttendanceRecordTimeChanging(System.Nullable<double> value);
-    partial void OnrepeatAttendanceRecordTimeChanged();
-    partial void OnvalidAttendanceRecordTimeChanging(System.Nullable<double> value);
-    partial void OnvalidAttendanceRecordTimeChanged();
-    partial void OnlateExceptionTimeChanging(System.Nullable<double> value);
-    partial void OnlateExceptionTimeChanged();
-    partial void OnearlyLeaveExceptionTimeChanging(System.Nullable<double> value);
-    partial void OnearlyLeaveExceptionTimeChanged();
-    #endregion
-		
-		public SystemSetting()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_daysBeforeAlertStaffGoFull", DbType="Float")]
-		public System.Nullable<double> daysBeforeAlertStaffGoFull
-		{
-			get
-			{
-				return this._daysBeforeAlertStaffGoFull;
-			}
-			set
-			{
-				if ((this._daysBeforeAlertStaffGoFull != value))
-				{
-					this.OndaysBeforeAlertStaffGoFullChanging(value);
-					this.SendPropertyChanging();
-					this._daysBeforeAlertStaffGoFull = value;
-					this.SendPropertyChanged("daysBeforeAlertStaffGoFull");
-					this.OndaysBeforeAlertStaffGoFullChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_goFullAlertMails", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string goFullAlertMails
-		{
-			get
-			{
-				return this._goFullAlertMails;
-			}
-			set
-			{
-				if ((this._goFullAlertMails != value))
-				{
-					this.OngoFullAlertMailsChanging(value);
-					this.SendPropertyChanging();
-					this._goFullAlertMails = value;
-					this.SendPropertyChanged("goFullAlertMails");
-					this.OngoFullAlertMailsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unCertifacteAlertMails", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string unCertifacteAlertMails
-		{
-			get
-			{
-				return this._unCertifacteAlertMails;
-			}
-			set
-			{
-				if ((this._unCertifacteAlertMails != value))
-				{
-					this.OnunCertifacteAlertMailsChanging(value);
-					this.SendPropertyChanging();
-					this._unCertifacteAlertMails = value;
-					this.SendPropertyChanged("unCertifacteAlertMails");
-					this.OnunCertifacteAlertMailsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_attendanceExceptionAlertMails", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string attendanceExceptionAlertMails
-		{
-			get
-			{
-				return this._attendanceExceptionAlertMails;
-			}
-			set
-			{
-				if ((this._attendanceExceptionAlertMails != value))
-				{
-					this.OnattendanceExceptionAlertMailsChanging(value);
-					this.SendPropertyChanging();
-					this._attendanceExceptionAlertMails = value;
-					this.SendPropertyChanged("attendanceExceptionAlertMails");
-					this.OnattendanceExceptionAlertMailsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repeatAttendanceRecordTime", DbType="Float")]
-		public System.Nullable<double> repeatAttendanceRecordTime
-		{
-			get
-			{
-				return this._repeatAttendanceRecordTime;
-			}
-			set
-			{
-				if ((this._repeatAttendanceRecordTime != value))
-				{
-					this.OnrepeatAttendanceRecordTimeChanging(value);
-					this.SendPropertyChanging();
-					this._repeatAttendanceRecordTime = value;
-					this.SendPropertyChanged("repeatAttendanceRecordTime");
-					this.OnrepeatAttendanceRecordTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_validAttendanceRecordTime", DbType="Float")]
-		public System.Nullable<double> validAttendanceRecordTime
-		{
-			get
-			{
-				return this._validAttendanceRecordTime;
-			}
-			set
-			{
-				if ((this._validAttendanceRecordTime != value))
-				{
-					this.OnvalidAttendanceRecordTimeChanging(value);
-					this.SendPropertyChanging();
-					this._validAttendanceRecordTime = value;
-					this.SendPropertyChanged("validAttendanceRecordTime");
-					this.OnvalidAttendanceRecordTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lateExceptionTime", DbType="Float")]
-		public System.Nullable<double> lateExceptionTime
-		{
-			get
-			{
-				return this._lateExceptionTime;
-			}
-			set
-			{
-				if ((this._lateExceptionTime != value))
-				{
-					this.OnlateExceptionTimeChanging(value);
-					this.SendPropertyChanging();
-					this._lateExceptionTime = value;
-					this.SendPropertyChanged("lateExceptionTime");
-					this.OnlateExceptionTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_earlyLeaveExceptionTime", DbType="Float")]
-		public System.Nullable<double> earlyLeaveExceptionTime
-		{
-			get
-			{
-				return this._earlyLeaveExceptionTime;
-			}
-			set
-			{
-				if ((this._earlyLeaveExceptionTime != value))
-				{
-					this.OnearlyLeaveExceptionTimeChanging(value);
-					this.SendPropertyChanging();
-					this._earlyLeaveExceptionTime = value;
-					this.SendPropertyChanged("earlyLeaveExceptionTime");
-					this.OnearlyLeaveExceptionTimeChanged();
 				}
 			}
 		}
@@ -8742,6 +8488,380 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.Staff = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SystemSetting")]
+	public partial class SystemSetting : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private System.Nullable<double> _daysBeforeAlertStaffGoFull;
+		
+		private string _goFullAlertMails;
+		
+		private string _unCertifacteAlertMails;
+		
+		private string _attendanceExceptionAlertMails;
+		
+		private System.Nullable<double> _repeatAttendanceRecordTime;
+		
+		private System.Nullable<double> _validAttendanceRecordTime;
+		
+		private System.Nullable<double> _lateExceptionTime;
+		
+		private System.Nullable<double> _earlyLeaveExceptionTime;
+		
+		private string _systemHost;
+		
+		private string _emaiSMTPlHost;
+		
+		private string _emailUser;
+		
+		private string _emailPwd;
+		
+		private string _emailAddress;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OndaysBeforeAlertStaffGoFullChanging(System.Nullable<double> value);
+    partial void OndaysBeforeAlertStaffGoFullChanged();
+    partial void OngoFullAlertMailsChanging(string value);
+    partial void OngoFullAlertMailsChanged();
+    partial void OnunCertifacteAlertMailsChanging(string value);
+    partial void OnunCertifacteAlertMailsChanged();
+    partial void OnattendanceExceptionAlertMailsChanging(string value);
+    partial void OnattendanceExceptionAlertMailsChanged();
+    partial void OnrepeatAttendanceRecordTimeChanging(System.Nullable<double> value);
+    partial void OnrepeatAttendanceRecordTimeChanged();
+    partial void OnvalidAttendanceRecordTimeChanging(System.Nullable<double> value);
+    partial void OnvalidAttendanceRecordTimeChanged();
+    partial void OnlateExceptionTimeChanging(System.Nullable<double> value);
+    partial void OnlateExceptionTimeChanged();
+    partial void OnearlyLeaveExceptionTimeChanging(System.Nullable<double> value);
+    partial void OnearlyLeaveExceptionTimeChanged();
+    partial void OnsystemHostChanging(string value);
+    partial void OnsystemHostChanged();
+    partial void OnemaiSMTPlHostChanging(string value);
+    partial void OnemaiSMTPlHostChanged();
+    partial void OnemailUserChanging(string value);
+    partial void OnemailUserChanged();
+    partial void OnemailPwdChanging(string value);
+    partial void OnemailPwdChanged();
+    partial void OnemailAddressChanging(string value);
+    partial void OnemailAddressChanged();
+    #endregion
+		
+		public SystemSetting()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_daysBeforeAlertStaffGoFull", DbType="Float")]
+		public System.Nullable<double> daysBeforeAlertStaffGoFull
+		{
+			get
+			{
+				return this._daysBeforeAlertStaffGoFull;
+			}
+			set
+			{
+				if ((this._daysBeforeAlertStaffGoFull != value))
+				{
+					this.OndaysBeforeAlertStaffGoFullChanging(value);
+					this.SendPropertyChanging();
+					this._daysBeforeAlertStaffGoFull = value;
+					this.SendPropertyChanged("daysBeforeAlertStaffGoFull");
+					this.OndaysBeforeAlertStaffGoFullChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_goFullAlertMails", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string goFullAlertMails
+		{
+			get
+			{
+				return this._goFullAlertMails;
+			}
+			set
+			{
+				if ((this._goFullAlertMails != value))
+				{
+					this.OngoFullAlertMailsChanging(value);
+					this.SendPropertyChanging();
+					this._goFullAlertMails = value;
+					this.SendPropertyChanged("goFullAlertMails");
+					this.OngoFullAlertMailsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unCertifacteAlertMails", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string unCertifacteAlertMails
+		{
+			get
+			{
+				return this._unCertifacteAlertMails;
+			}
+			set
+			{
+				if ((this._unCertifacteAlertMails != value))
+				{
+					this.OnunCertifacteAlertMailsChanging(value);
+					this.SendPropertyChanging();
+					this._unCertifacteAlertMails = value;
+					this.SendPropertyChanged("unCertifacteAlertMails");
+					this.OnunCertifacteAlertMailsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_attendanceExceptionAlertMails", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string attendanceExceptionAlertMails
+		{
+			get
+			{
+				return this._attendanceExceptionAlertMails;
+			}
+			set
+			{
+				if ((this._attendanceExceptionAlertMails != value))
+				{
+					this.OnattendanceExceptionAlertMailsChanging(value);
+					this.SendPropertyChanging();
+					this._attendanceExceptionAlertMails = value;
+					this.SendPropertyChanged("attendanceExceptionAlertMails");
+					this.OnattendanceExceptionAlertMailsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_repeatAttendanceRecordTime", DbType="Float")]
+		public System.Nullable<double> repeatAttendanceRecordTime
+		{
+			get
+			{
+				return this._repeatAttendanceRecordTime;
+			}
+			set
+			{
+				if ((this._repeatAttendanceRecordTime != value))
+				{
+					this.OnrepeatAttendanceRecordTimeChanging(value);
+					this.SendPropertyChanging();
+					this._repeatAttendanceRecordTime = value;
+					this.SendPropertyChanged("repeatAttendanceRecordTime");
+					this.OnrepeatAttendanceRecordTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_validAttendanceRecordTime", DbType="Float")]
+		public System.Nullable<double> validAttendanceRecordTime
+		{
+			get
+			{
+				return this._validAttendanceRecordTime;
+			}
+			set
+			{
+				if ((this._validAttendanceRecordTime != value))
+				{
+					this.OnvalidAttendanceRecordTimeChanging(value);
+					this.SendPropertyChanging();
+					this._validAttendanceRecordTime = value;
+					this.SendPropertyChanged("validAttendanceRecordTime");
+					this.OnvalidAttendanceRecordTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lateExceptionTime", DbType="Float")]
+		public System.Nullable<double> lateExceptionTime
+		{
+			get
+			{
+				return this._lateExceptionTime;
+			}
+			set
+			{
+				if ((this._lateExceptionTime != value))
+				{
+					this.OnlateExceptionTimeChanging(value);
+					this.SendPropertyChanging();
+					this._lateExceptionTime = value;
+					this.SendPropertyChanged("lateExceptionTime");
+					this.OnlateExceptionTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_earlyLeaveExceptionTime", DbType="Float")]
+		public System.Nullable<double> earlyLeaveExceptionTime
+		{
+			get
+			{
+				return this._earlyLeaveExceptionTime;
+			}
+			set
+			{
+				if ((this._earlyLeaveExceptionTime != value))
+				{
+					this.OnearlyLeaveExceptionTimeChanging(value);
+					this.SendPropertyChanging();
+					this._earlyLeaveExceptionTime = value;
+					this.SendPropertyChanged("earlyLeaveExceptionTime");
+					this.OnearlyLeaveExceptionTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_systemHost", DbType="VarChar(50)")]
+		public string systemHost
+		{
+			get
+			{
+				return this._systemHost;
+			}
+			set
+			{
+				if ((this._systemHost != value))
+				{
+					this.OnsystemHostChanging(value);
+					this.SendPropertyChanging();
+					this._systemHost = value;
+					this.SendPropertyChanged("systemHost");
+					this.OnsystemHostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_emaiSMTPlHost", DbType="VarChar(50)")]
+		public string emaiSMTPlHost
+		{
+			get
+			{
+				return this._emaiSMTPlHost;
+			}
+			set
+			{
+				if ((this._emaiSMTPlHost != value))
+				{
+					this.OnemaiSMTPlHostChanging(value);
+					this.SendPropertyChanging();
+					this._emaiSMTPlHost = value;
+					this.SendPropertyChanged("emaiSMTPlHost");
+					this.OnemaiSMTPlHostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_emailUser", DbType="VarChar(50)")]
+		public string emailUser
+		{
+			get
+			{
+				return this._emailUser;
+			}
+			set
+			{
+				if ((this._emailUser != value))
+				{
+					this.OnemailUserChanging(value);
+					this.SendPropertyChanging();
+					this._emailUser = value;
+					this.SendPropertyChanged("emailUser");
+					this.OnemailUserChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_emailPwd", DbType="VarChar(50)")]
+		public string emailPwd
+		{
+			get
+			{
+				return this._emailPwd;
+			}
+			set
+			{
+				if ((this._emailPwd != value))
+				{
+					this.OnemailPwdChanging(value);
+					this.SendPropertyChanging();
+					this._emailPwd = value;
+					this.SendPropertyChanged("emailPwd");
+					this.OnemailPwdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_emailAddress", DbType="VarChar(50)")]
+		public string emailAddress
+		{
+			get
+			{
+				return this._emailAddress;
+			}
+			set
+			{
+				if ((this._emailAddress != value))
+				{
+					this.OnemailAddressChanging(value);
+					this.SendPropertyChanging();
+					this._emailAddress = value;
+					this.SendPropertyChanged("emailAddress");
+					this.OnemailAddressChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

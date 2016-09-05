@@ -84,7 +84,7 @@ namespace TestWPF
             
             for(DateTime dt = startDateTime; dt <= endDateTime; dt=dt.AddDays(1))
             {
-                CalAtt calAttParam = new CalAtt()
+                CalAttParameter calAttParam = new CalAttParameter()
                 {
                     AttDateTime = dt
                 };

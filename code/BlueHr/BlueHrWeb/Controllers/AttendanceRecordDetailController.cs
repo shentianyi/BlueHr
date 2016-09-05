@@ -65,7 +65,7 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                CalAtt calAttParam = new CalAtt()
+                CalAttParameter calAttParam = new CalAttParameter()
                 {
                     AttDateTime = DateTime.Parse(Request.Form.Get("DateTime"))
                 };

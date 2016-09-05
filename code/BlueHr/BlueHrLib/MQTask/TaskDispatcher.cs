@@ -63,7 +63,7 @@ namespace BlueHrLib.MQTask
                 switch (ts.TaskType)
                 {
                     case TaskType.CalAtt:
-                        CalAtt calAtt = JSONHelper.parse<CalAtt>(ts.JsonParameter);
+                        CalAttParameter calAtt = JSONHelper.parse<CalAttParameter>(ts.JsonParameter);
                         IAttendanceRecordService ars = new AttendanceRecordService(this.DbString);
                         ars.CalculateAttendRecord(calAtt.AttDateTime, calAtt.ShiftCodes);
                         break;

@@ -107,8 +107,8 @@
     <Compile Include="Data\TaskRound.cs" />
     <Compile Include="Helper\EmailHelper.cs" />
     <Compile Include="Helper\JSONHelper.cs" />
-    <Compile Include="MQTask\Parameter\AttWarnParameter.cs" />
-    <Compile Include="MQTask\Parameter\CalAtt.cs" />
+    <Compile Include="MQTask\Parameter\AttWarnEmailParameter.cs" />
+    <Compile Include="MQTask\Parameter\CalAttParameter.cs" />
     <Compile Include="MQTask\TaskDispatcher.cs" />
     <Compile Include="MQTask\TaskSetting.cs" />
     <Compile Include="Data\Model\PageViewModel\CompanyInfoModel.cs" />

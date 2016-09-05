@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHr" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=S2\SQLSERVER2008R2;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString5" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=WANGSONG-PC\MSSQLSERVER2008R;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString3" Provider="System.Data.SqlClient" />
   <Table Name="dbo.AbsenceRecrod" Member="AbsenceRecrod">
     <Type Name="AbsenceRecrod">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -215,19 +215,6 @@
       <Association Name="Staff_ShiftSchedule" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.SystemSetting" Member="SystemSetting">
-    <Type Name="SystemSetting">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="daysBeforeAlertStaffGoFull" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="goFullAlertMails" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="unCertifacteAlertMails" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="attendanceExceptionAlertMails" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="repeatAttendanceRecordTime" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="validAttendanceRecordTime" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="lateExceptionTime" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="earlyLeaveExceptionTime" Type="System.Double" DbType="Float" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.AttendanceRecordDetail" Member="AttendanceRecordDetail">
     <Type Name="AttendanceRecordDetail">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -440,6 +427,24 @@
       <Association Name="InsureType_Staff" Member="InsureType" ThisKey="insureTypeId" OtherKey="id" Type="InsureType" IsForeignKey="true" />
       <Association Name="JobTitle_Staff" Member="JobTitle" ThisKey="jobTitleId" OtherKey="id" Type="JobTitle" IsForeignKey="true" />
       <Association Name="StaffType_Staff" Member="StaffType" ThisKey="staffTypeId" OtherKey="id" Type="StaffType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SystemSetting" Member="SystemSetting">
+    <Type Name="SystemSetting">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="daysBeforeAlertStaffGoFull" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="goFullAlertMails" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="unCertifacteAlertMails" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="attendanceExceptionAlertMails" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="repeatAttendanceRecordTime" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="validAttendanceRecordTime" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="lateExceptionTime" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="earlyLeaveExceptionTime" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="systemHost" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="emaiSMTPlHost" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="emailUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="emailPwd" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="emailAddress" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
