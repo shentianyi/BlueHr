@@ -45,7 +45,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="card"></param>
         /// <param name="isIdChecked"></param>
         /// <returns></returns>
-        bool CreateInfoAndSetCheck(StaffIdCard card,bool isIdChecked = true);
+        bool CreateInfoAndSetCheck(StaffIdCard card,bool isIdChecked = false);
 
         /// <summary>
         /// 根据日期，获取排班的员工工号

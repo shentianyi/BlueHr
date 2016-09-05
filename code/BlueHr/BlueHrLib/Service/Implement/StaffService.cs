@@ -57,7 +57,7 @@ namespace BlueHrLib.Service.Implement
                 }
                 // 将是否已经身份证验证置为true
                 staff.isIdChecked = true;
-              //  this.CreateOrUpdateIdCertificate(dc, staff, card);
+                this.CreateOrUpdateIdCertificate(dc, staff, card);
                
                 dc.Context.SubmitChanges();
                 return true;
@@ -65,7 +65,7 @@ namespace BlueHrLib.Service.Implement
             return false;
         }
 
-        public bool CreateInfoAndSetCheck(StaffIdCard card, bool isIdChecked = true)
+        public bool CreateInfoAndSetCheck(StaffIdCard card, bool isIdChecked = false)
         {
             Staff staff = new Staff()
             {

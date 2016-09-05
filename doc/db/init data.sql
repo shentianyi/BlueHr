@@ -24,9 +24,10 @@ INSERT INTO [BlueHr].[dbo].[SystemSetting]
            ,[repeatAttendanceRecordTime]
            ,[validAttendanceRecordTime]
            ,[lateExceptionTime]
-           ,[earlyLeaveExceptionTime])
+           ,[earlyLeaveExceptionTime],
+            [systemHost])
      VALUES
-           (5,	NULL,	NULL,	NULL,	20,	2,	30,	30)
+           (5,	NULL,	NULL,	NULL,	20,	2,	30,	30, 'http://localhost/')
 GO
 
 
