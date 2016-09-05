@@ -50,7 +50,7 @@ namespace BlueHrWeb.Helpers.View
             }
             /// 生成CompanyList
             list += @"<div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
-                        <div class='marco-igroup-danger'> 
+                        <div class='marco-igroup-primary'> 
                         <span>公司*</span>";
             list += htmlHelper.DropDownList("companyId", companySelect).ToHtmlString();
             list += @"  </div>
@@ -85,7 +85,7 @@ namespace BlueHrWeb.Helpers.View
 
             /// 生成DeparmentList
             list += @"<div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
-                       <div class='marco-igroup-danger'>
+                       <div class='marco-igroup-primary'>
                         <span>部门*</span>";
             list += htmlHelper.DropDownList("departmentId", departmentSelect).ToHtmlString();
             list += @"</div></div>";

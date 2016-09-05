@@ -181,17 +181,17 @@ namespace BlueHrWeb.Controllers
             IStaffService ss = new StaffService(Settings.Default.db);
 
             Staff staff = ss.FindByNr(nr);
+     
+                SetDropDownList(staff);
 
-            SetDropDownList(staff);
+                StaffSearchModel q = new StaffSearchModel();
 
-            StaffSearchModel q = new StaffSearchModel();
+                q.companyId = staff.companyId;
+                q.departmentId = staff.departmentId;
 
-            q.companyId = staff.companyId;
-            q.departmentId = staff.departmentId;
+                ViewBag.Query = q;
 
-            ViewBag.Query = q;
-
-            return View(staff);
+                return View(staff);
         }
 
         // POST: Company/Edit/5
@@ -279,7 +279,7 @@ namespace BlueHrWeb.Controllers
             else
             {
                 SetIsOnTrialList(false);
-                SetSexList(0);
+                SetSexList(null);
                 SetJobTitleList(null);
                 SetCompanyList(null);
                 SetDepartmentList(null, null);
