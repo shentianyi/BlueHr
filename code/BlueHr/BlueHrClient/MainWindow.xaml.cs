@@ -38,7 +38,8 @@ namespace BlueHrClient
     {
         DispatcherTimer timer = new DispatcherTimer();
         SoundPlayer player = new SoundPlayer("alarm.WAV");
-       
+        Escaper escape = new Escaper();
+
 
         public MainWindow()
         {
@@ -192,7 +193,6 @@ namespace BlueHrClient
             Syn_SelectIDCard(BaseConfig.NPort, ref pucSN[0], 0);
             //MessageBox.Show(Syn_ReadMsg(1001, 1, ref CardMsg).ToString());
 
-            Escaper escape = new Escaper();
             string cardMsg = new string(' ', 256);  //身份证基本信息返回长度为256
             string imgMsg = new string(' ', 1024);  //身份证图片信息返回长度为1024
             IntPtr msg = Marshal.StringToHGlobalAnsi(cardMsg);  //身份证基本信息
@@ -347,18 +347,14 @@ namespace BlueHrClient
                 {
                     if (getData())
                     {
-                        msgBlock.Text = "ACCEPT";
+                        msgBlock.Text = "通 过";
                         msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
                     }
                     else {
-                        msgBlock.Text = "ERROR";
+                        msgBlock.Text = "待更新";
                         msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));
                     }
-
-                   // byte[] cPath = new byte[255];
-                    //uint[] iBaud = new uint[1];
                  
-                   // if (Syn_PhotoToStrBase64(ref cPath[0],ref iBaud[0]) == 0)
                 }
                 else
                 {
@@ -368,19 +364,19 @@ namespace BlueHrClient
                     {
                         if (getData())
                         {
-                            msgBlock.Text = "ACCEPT";
+                            msgBlock.Text = "通 过";
                             msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
                         }
                         else
                         {
-                            msgBlock.Text = "ERROR";
-                            msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
+                            msgBlock.Text = "待更新";
+                            msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));
                         }
                     }
                 }
             }
             else {
-                msgBlock.Text = "ACCEPT";
+                msgBlock.Text = "通 过";
                 msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
             }
 
@@ -391,7 +387,7 @@ namespace BlueHrClient
             StaffIdCard cardData = new StaffIdCard();
             cardData.id = ID.Text;
             cardData.name = Name.Text;
-            cardData.sex = Sex.Text;
+            cardData.sex = escape.SexEscapeForUpdate(Sex.Text);
             cardData.ethnic = Nation.Text;
             cardData.birthday = Convert.ToDateTime(Born.Text);
             cardData.residenceAddress = Address.Text;
