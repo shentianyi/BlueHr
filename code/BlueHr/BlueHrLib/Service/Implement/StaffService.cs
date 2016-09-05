@@ -57,7 +57,7 @@ namespace BlueHrLib.Service.Implement
                 }
                 // 将是否已经身份证验证置为true
                 staff.isIdChecked = true;
-                this.CreateOrUpdateIdCertificate(dc, staff, card);
+              //  this.CreateOrUpdateIdCertificate(dc, staff, card);
                
                 dc.Context.SubmitChanges();
                 return true;
@@ -79,7 +79,7 @@ namespace BlueHrLib.Service.Implement
                 isIdChecked=isIdChecked
             };
             DataContext dc = new DataContext(this.DbString);
-            this.CreateOrUpdateIdCertificate(dc, staff, card);
+          //  this.CreateOrUpdateIdCertificate(dc, staff, card);
             dc.Context.GetTable<Staff>().InsertOnSubmit(staff);
             dc.Context.SubmitChanges();
             return true;
