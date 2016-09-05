@@ -18,6 +18,12 @@ namespace BlueHrLib.MQTask
         /// 发送邮件
         /// </summary>
         [Description("发送邮件")]
-        SendMail=200
+        SendMail=200,
+
+        /// <summary>
+        /// 发送邮件
+        /// </summary>
+        [Description("发送考勤异常邮件")]
+        SendAttExceptionMail = 201
     }
 }

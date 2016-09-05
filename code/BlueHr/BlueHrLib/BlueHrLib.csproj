@@ -105,7 +105,9 @@
     <Compile Include="Data\Repository\Interface\IShiftRoundRepository.cs" />
     <Compile Include="Data\Repository\Interface\ITaskRoundRepository.cs" />
     <Compile Include="Data\TaskRound.cs" />
+    <Compile Include="Helper\EmailHelper.cs" />
     <Compile Include="Helper\JSONHelper.cs" />
+    <Compile Include="MQTask\Parameter\AttWarnParameter.cs" />
     <Compile Include="MQTask\Parameter\CalAtt.cs" />
     <Compile Include="MQTask\TaskDispatcher.cs" />
     <Compile Include="MQTask\TaskSetting.cs" />
@@ -207,6 +209,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\Log\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EmailTemplate\AttendanceWarn.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

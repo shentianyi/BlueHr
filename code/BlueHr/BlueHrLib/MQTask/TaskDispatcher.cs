@@ -58,7 +58,7 @@ namespace BlueHrLib.MQTask
             TaskRound taskRound = null;
             try
             {
-                  taskRound = trs.Create(ts.TaskType);
+                taskRound = trs.Create(ts.TaskType);
 
                 switch (ts.TaskType)
                 {
@@ -68,6 +68,9 @@ namespace BlueHrLib.MQTask
                         ars.CalculateAttendRecord(calAtt.AttDateTime, calAtt.ShiftCodes);
                         break;
                     case TaskType.SendMail:
+                        break;
+                    case TaskType.SendAttExceptionMail:
+
                         break;
                     default:
                         throw new TaskTypeNotSupportException();
@@ -81,7 +84,7 @@ namespace BlueHrLib.MQTask
                 {
                     if (taskRound != null)
                     {
-                        trs.FinishTaskByUniqId(taskRound.uuid,msg,true);
+                        trs.FinishTaskByUniqId(taskRound.uuid, msg, true);
                     }
                 }
                 catch
