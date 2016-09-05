@@ -106,7 +106,7 @@ namespace BlueHrLib.Service.Implement
 
                 if (setting == null)
                     throw new SystemSettingNotSetException();
-                NameValueCollection values = new NameValueCollection();
+                Dictionary<string,string> values = new Dictionary<string,string>();
                 values.Add("date", date.ToString("yyyy-MM-dd"));
                 values.Add("count", record.isExceptionHandledCount.Value.ToString());
                 values.Add("host", setting.systemHost);
@@ -118,7 +118,7 @@ namespace BlueHrLib.Service.Implement
                    setting.emailPwd,
                    setting.attendanceExceptionAlertMails,
                    "考勤异常提醒",
-                   body);
+                   body,true);
             }
 
         }

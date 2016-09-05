@@ -19,10 +19,11 @@ namespace BlueHrLib.Helper
         /// <param name="user"></param>
         /// <param name="address"></param>
         /// <param name="pwd"></param>
-        /// <param name="toEmails">收件人地址，多个以分号分隔</param>
+        /// <param name="toEmails">收件人地址，多个以逗号分隔</param>
         /// <param name="subject"></param>
         /// <param name="body"></param>
-        public static void SendEmail(string host, string user, string address, string pwd, string toEmails, string subject, string body)
+        /// <param name="isHtml"></param>
+        public static void SendEmail(string host, string user, string address, string pwd, string toEmails, string subject, string body,bool isHtml=false)
         {
             using (SmtpClient server = new SmtpClient(host))
             {
@@ -33,6 +34,9 @@ namespace BlueHrLib.Helper
                     mail.To.Add(toEmails);
                     mail.Subject = subject;
                     mail.Body = body;
+                    //内容编码、格式
+                    mail.BodyEncoding = System.Text.Encoding.UTF8;
+                    mail.IsBodyHtml = isHtml;
 
                     server.Send(mail);
                 }
@@ -48,7 +52,7 @@ namespace BlueHrLib.Helper
         /// <param name="prefix"></param>
         /// <param name="postfix"></param>
         /// <returns></returns>
-        public static string Build(string templateName, NameValueCollection values=null, string prefix = "$", string postfix = "$")
+        public static string Build(string templateName, Dictionary<string,string> values=null, string prefix = "$", string postfix = "$")
         {
             string template = string.Empty;
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FileHelper.EMAIL_TEMPLATE_PATH, templateName);
@@ -59,7 +63,7 @@ namespace BlueHrLib.Helper
 
                 if (values != null)
                 {
-                    foreach (DictionaryEntry entry in values)
+                    foreach (var entry in values)
                     {
                         template = template.Replace(string.Format("{0}{1}{2}", prefix, entry.Key, postfix), entry.Value.ToString());
                     }

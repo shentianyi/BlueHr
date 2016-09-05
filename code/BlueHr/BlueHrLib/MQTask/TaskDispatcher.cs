@@ -127,24 +127,29 @@ namespace BlueHrLib.MQTask
         public void SendAttWarnMessage(DateTime calculateAt, List<string> shiftCodes)
         {
             IShiftScheduleService sss = new ShiftSheduleService(this.DbString);
-            List<ShiftScheduleView> shifts = sss.GetDetailViewByDateTime(calculateAt);
-            foreach (var shift in shifts)
+            List<ShiftScheduleView> shifts = sss.GetDetailViewByDateTime(calculateAt,shiftCodes);
+            if (shifts.Count > 0)
             {
-                AttWarnEmailParameter attWarnParam = new AttWarnEmailParameter()
+                List<DateTime> datetimes = shifts.Select(s => s.scheduleAt).Distinct().ToList();
+                foreach (var dt in datetimes)
                 {
-                    AttWarnDate = shift.scheduleAt
-                };
+                    AttWarnEmailParameter attWarnParam = new AttWarnEmailParameter()
+                    {
+                        AttWarnDate = dt,
+                        ShiftCodes=shiftCodes
+                    };
 
 
-                TaskSetting task = new TaskSetting()
-                {
-                    TaskCreateAt = DateTime.Now,
-                    TaskType = TaskType.SendAttExceptionMail,
-                    JsonParameter = JSONHelper.stringify(attWarnParam)
+                    TaskSetting task = new TaskSetting()
+                    {
+                        TaskCreateAt = DateTime.Now,
+                        TaskType = TaskType.SendAttExceptionMail,
+                        JsonParameter = JSONHelper.stringify(attWarnParam)
 
-                };
+                    };
 
-                SendMQMessage(task);
+                    SendMQMessage(task);
+                }
             }
         }
 
