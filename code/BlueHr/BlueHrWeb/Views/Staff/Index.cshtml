@@ -174,14 +174,14 @@
                     var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
                         .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))
                         .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name))
-                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Id))
-                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Sex))
-                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.JobTitleId))
-                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.companyId))
-                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.departmentId))
-                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.CompanyEmployAtFrom))
-                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.CompanyEmployAtTo))
-                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.IsOnTrial));
+                        .Options(o => o.AddRouteValue("Id", ViewBag.Query.Id))
+                        .Options(o => o.AddRouteValue("Sex", ViewBag.Query.Sex))
+                        .Options(o => o.AddRouteValue("JobTitleId", ViewBag.Query.JobTitleId))
+                        .Options(o => o.AddRouteValue("companyId", ViewBag.Query.companyId))
+                        .Options(o => o.AddRouteValue("departmentId", ViewBag.Query.departmentId))
+                        .Options(o => o.AddRouteValue("CompanyEmployAtFrom", ViewBag.Query.CompanyEmployAtFrom))
+                        .Options(o => o.AddRouteValue("CompanyEmployAtTo", ViewBag.Query.CompanyEmployAtTo))
+                        .Options(o => o.AddRouteValue("IsOnTrial", ViewBag.Query.IsOnTrial));
                         @html
                     }
                     else
@@ -200,7 +200,7 @@
     Layout.init();
     Layout.CompanyAndDepartment('#companyId', '#departmentId');
     Layout.rangedatepicker('#CompanyEmployAtFrom', '#CompanyEmployAtTo');
-    Layout.TbodyHeight('.table-body', 310);
+    ////Layout.TbodyHeight('.table-body', 310);
 
     $('.advanced-filter-btn').click(function () {
         var Display = $('.advanced-filter').css('display');

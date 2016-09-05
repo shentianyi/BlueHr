@@ -18,7 +18,7 @@
      
 </head>
 
-<body style="overflow:hidden;">
+<body style="overflow:auto;">
     <nav class="navbar navbar-inverse main-nav" style="margin-bottom:0;">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -60,8 +60,8 @@
                             @Html.ActionLink("统计记录管理", "Index", "AttendanceRecordCal")
                         </li>
                         <li>
-    @Html.ActionLink("异常统计管理", "ExceptionList", "AttendanceRecordCal")
-</li>
+                            @Html.ActionLink("异常统计管理", "ExceptionList", "AttendanceRecordCal")
+                        </li>
                     </ul>
                 </li>
 
@@ -102,10 +102,6 @@
     <div class="body-content content_3">
         @RenderBody()
     </div>
-
-    <script type="text/javascript">
-        $('.body-content').css({ height: $(window).height() - 40 + 'px' });
-    </script>
 </body>
 @Html.Partial("_HandlingMsgDialog")
 </html>
