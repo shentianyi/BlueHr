@@ -1,9 +1,9 @@
-ï»¿@model BlueHrLib.Data.JobTitle
+@model BlueHrLib.Data.DegreeType
 
-<div id="jobtitle" style="margin:10px;">
+<div id="degreetype" style="margin:10px;">
     <ol class="breadcrumb current-position">
-        æ‚¨çš„ä½ç½®ï¼š
-        <li>@Html.ActionLink("èŒä½ç®¡ç†", "Index")</li>
+        ÄúµÄÎ»ÖÃ£º
+        <li>@Html.ActionLink("Ñ§Àú¹ÜÀí", "Index")</li>
         <li>{{action}}</li>
     </ol>
 
@@ -33,26 +33,26 @@
 
             <div class="marco-nbody">
                 <div class="marco-igroup-primary">
-                    <label for="name">èŒä½åç§°</label>
+                    <label for="name">Ñ§ÀúÃû³Æ</label>
                     @if (Model != null)
                     {
                         @Html.EditorFor(model => model.name)
                     }
                     else
                     {
-                        <input type="text" name="name" placeholder="èŒä½åç§°" />
+                        <input type="text" name="name" placeholder="Ñ§ÀúÃû³Æ" />
                     }
                 </div>
 
                 <div class="marco-textarea">
-                    <label for="remark">å¤‡æ³¨</label>
+                    <label for="remark">±¸×¢</label>
                     @if (Model != null)
-                {
+                    {
                         @Html.TextAreaFor(model => model.remark)
                     }
                     else
                     {
-                        <textarea name="remark" placeholder="å¤‡æ³¨"></textarea>
+                        <textarea name="remark" placeholder="±¸×¢"></textarea>
                     }
                 </div>
             </div>
@@ -63,7 +63,7 @@
 <script type="text/javascript">
     Layout.init();
 
-    //æ§åˆ¶textareaé«˜åº¦
+    //¿ØÖÆtextarea¸ß¶È
     $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     $(window).resize(function () {
         $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });

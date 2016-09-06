@@ -246,12 +246,14 @@
     <Compile Include="Controllers\AttendanceRecordCalController.cs" />
     <Compile Include="Controllers\AttendanceRecordDetailController.cs" />
     <Compile Include="Controllers\CertificateTypeController.cs" />
+    <Compile Include="Controllers\DegreeTypeController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\StaffTypeController.cs" />
     <Compile Include="Controllers\TaskRoundController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -421,6 +423,16 @@
     <Content Include="Views\CertificateType\Edit.cshtml" />
     <Content Include="Views\CertificateType\Delete.cshtml" />
     <Content Include="Views\CertificateType\_PartialCertificateType.cshtml" />
+    <Content Include="Views\DegreeType\Create.cshtml" />
+    <Content Include="Views\DegreeType\Delete.cshtml" />
+    <Content Include="Views\DegreeType\Edit.cshtml" />
+    <Content Include="Views\DegreeType\Index.cshtml" />
+    <Content Include="Views\DegreeType\_PartialDegreeType.cshtml" />
+    <Content Include="Views\StaffType\Index.cshtml" />
+    <Content Include="Views\StaffType\Create.cshtml" />
+    <Content Include="Views\StaffType\Edit.cshtml" />
+    <Content Include="Views\StaffType\Delete.cshtml" />
+    <Content Include="Views\StaffType\_PartialStaffType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

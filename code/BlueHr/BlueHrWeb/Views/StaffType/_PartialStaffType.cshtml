@@ -1,9 +1,10 @@
-﻿@model BlueHrLib.Data.JobTitle
+﻿
+@model BlueHrLib.Data.StaffType
 
-<div id="jobtitle" style="margin:10px;">
+<div id="stafftype" style="margin:10px;">
     <ol class="breadcrumb current-position">
         您的位置：
-        <li>@Html.ActionLink("职位管理", "Index")</li>
+        <li>@Html.ActionLink("人员类型管理", "Index")</li>
         <li>{{action}}</li>
     </ol>
 
@@ -33,14 +34,14 @@
 
             <div class="marco-nbody">
                 <div class="marco-igroup-primary">
-                    <label for="name">职位名称</label>
+                    <label for="name">人员类型名称</label>
                     @if (Model != null)
                     {
                         @Html.EditorFor(model => model.name)
                     }
                     else
                     {
-                        <input type="text" name="name" placeholder="职位名称" />
+                        <input type="text" name="name" placeholder="人员类型名称" />
                     }
                 </div>
 

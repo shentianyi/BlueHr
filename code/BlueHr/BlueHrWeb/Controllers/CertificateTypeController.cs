@@ -1,6 +1,8 @@
 ﻿using BlueHrLib.Data;
+using BlueHrLib.Data.Enum;
 using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
+using BlueHrLib.Helper;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
 using BlueHrWeb.Helpers;
@@ -60,12 +62,13 @@ namespace BlueHrWeb.Controllers
         // GET: CertificateType/Create
         public ActionResult Create()
         {
+            SetDropDownList(null);
             return View();
         }
 
         // POST: CertificateType/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Name, remark,isNecessary,isSystem")] CertificateType certf)
+        public ActionResult Create([Bind(Include = "Name,remark,isSystem,isNecessary,systemCode")] CertificateType certf)
         {
             try
             {
@@ -88,22 +91,33 @@ namespace BlueHrWeb.Controllers
 
             CertificateType certf = cs.FindById(id);
 
+            SetDropDownList(certf);
+
             return View(certf);
         }
 
         // POST: CertificateType/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id, remark,isNecessary,isSystem")] CertificateType certf)
+        public ActionResult Edit([Bind(Include = "id,Name, remark,isSystem,isNecessary,systemCode")] CertificateType certf)
         {
             try
             {
                 // TODO: Add update logic here
                 ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
-                cs.Update(certf);
-                return RedirectToAction("Index");
-            }
-            catch
+                bool updateResult = cs.Update(certf);
+                if (!updateResult)
+                {
+                    SetDropDownList(certf);
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+             }
+            catch(Exception ex)
             {
+                SetDropDownList(null);
                 return View();
             }
         }
@@ -113,9 +127,9 @@ namespace BlueHrWeb.Controllers
         {
             ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
 
-            CertificateType cp = cs.FindById(id);
-
-            return View(cp);
+            CertificateType certf = cs.FindById(id);
+            SetDropDownList(certf);
+            return View(certf);
         }
 
         // POST: CertificateType/Delete/5
@@ -133,6 +147,111 @@ namespace BlueHrWeb.Controllers
             {
                 return View();
             }
+        }
+
+        private void SetDropDownList(CertificateType certf)
+        {
+            if (certf != null)
+            {
+                SetSystemCertificateTypeList(certf.systemCode);
+                SetIsSystemList(certf.isSystem);
+                SetIsNecessaryList(certf.isNecessary);
+            }
+            else
+            {
+                //SetIsOnTrialList(false);
+                //SetSexList(null);
+                //SetJobTitleList(null);
+                //SetCompanyList(null);
+                //SetDepartmentList(null, null);
+                //SetStaffTypeList(null);
+                //SetDegreeTypeList(null);
+                //SetInSureTypeList(null);
+                //SetIsPayCPFList(false);
+                //SetResidenceTypeList(0);
+                //SetWorkStatusList(100);
+                SetSystemCertificateTypeList(100);
+                SetIsSystemList(null);
+                SetIsNecessaryList(null);
+            }
+        }
+
+        private void SetSystemCertificateTypeList(int? type, bool allowBlank = true)
+        {
+            List<EnumItem> item = EnumHelper.GetList(typeof(SystemCertificateType));
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in item)
+            {
+                if (type.HasValue && type.ToString().Equals(it.Value))
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                }
+            }
+            ViewData["systemCertificateTypeList"] = select;
+        }
+
+        private void SetIsSystemList(bool? type, bool allowBlank = true)
+        {
+            List<EnumItem> item = new List<EnumItem>() { new EnumItem() { Text = "是", Value = "true" }, new EnumItem() { Text = "否", Value = "false" } };
+            //EnumHelper.GetList(typeof(IsOnTrail));
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in item)
+            {
+                if (type.HasValue && type.ToString().Equals(it.Value))
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                }
+            }
+            ViewData["isSystemList"] = select;
+        }
+
+        //isNecessaryList
+        private void SetIsNecessaryList(bool? type, bool allowBlank = true)
+        {
+            List<EnumItem> item = new List<EnumItem>() { new EnumItem() { Text = "是", Value = "true" }, new EnumItem() { Text = "否", Value = "false" } };
+            //EnumHelper.GetList(typeof(IsOnTrail));
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in item)
+            {
+                if (type.HasValue && type.ToString().Equals(it.Value))
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                }
+            }
+            ViewData["isNecessaryList"] = select;
         }
     }
 }

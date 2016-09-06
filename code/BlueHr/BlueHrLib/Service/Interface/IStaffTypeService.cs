@@ -1,5 +1,6 @@
 ﻿using BlueHrLib.Data;
 using BlueHrLib.Data.Model;
+using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
 using System;
 using System.Collections.Generic;
@@ -43,5 +44,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         bool DeleteById(int id);
+
+        StaffTypeInfoModel GetStaffTypeInfo(StaffTypeSearchModel searchModel);
     }
 }

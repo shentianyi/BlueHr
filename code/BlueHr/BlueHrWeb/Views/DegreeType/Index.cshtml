@@ -1,27 +1,27 @@
 @using MvcPaging
 
-@model IPagedList<BlueHrLib.Data.JobTitle>
+@model IPagedList<BlueHrLib.Data.DegreeType>
 
 @{
-    ViewBag.Title = "职位管理";
+    ViewBag.Title = "学历管理";
 }
 
-@*@Styles.Render("~/Content/degreetype")*@
+@Styles.Render("~/Content/degreetype")
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
-    <li>职位管理</li>
+    <li>学历管理</li>
 </ol>
 
 <hr class="hr-grey" />
 
 <div class="row">
-    <form action="/JobTitle/Search" method="get">
+    <form action="/DegreeType/Search" method="get">
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="col-lg-8 col-md-8 col-sm-7 col-xs-6">
                 <div class="marco-igroup-primary">
-                    <span>职位名称</span>
-                    <input type="text" name="Name" id="Name" placeholder="职位名称" value="@ViewBag.Query.Name" />
+                    <span>学历名称</span>
+                    <input type="text" name="Name" id="Name" placeholder="学历名称" value="@ViewBag.Query.Name" />
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
@@ -37,9 +37,9 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="usual-table">
         <div class="table-heading">
-            职位列表
+            学历列表
             <div class="pull-right" style="margin-top:-12px;">
-                <a href="/JobTitle/Create">
+                <a href="/DegreeType/Create">
                     <button class="marco-btn-primary">
                         <i class="glyphicon glyphicon-plus-sign"></i>
                         <span>创建</span>
@@ -51,7 +51,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>职位名称</th>
+                        <th>学历名称</th>
                         <th>备注</th>
                         <th>操作</th>
                     </tr>
@@ -70,11 +70,11 @@
                                     @Html.DisplayFor(modelItem => item.remark)
                                 </td>
                                 <td>
-                                    <a href="/JobTitle/Delete/@item.id" class="option-icon-primary" title="详情">
+                                    <a href="/DegreeType/Delete/@item.id" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>
                                     </a>
 
-                                    <a href="/JobTitle/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                    <a href="/DegreeType/Edit/@item.id" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                 </td>
@@ -108,7 +108,7 @@
 </div>
 
 
-@*@Scripts.Render("~/bundles/degreetype")*@
+@Scripts.Render("~/bundles/degreetype")
 
 <script type="text/javascript">
     Layout.init();

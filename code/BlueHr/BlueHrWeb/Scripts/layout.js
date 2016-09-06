@@ -31,6 +31,14 @@ Layout.init = function () {
             $('.nav-jobtitle').addClass('active');
             PageAction('#jobtitle', '新建职位', '编辑职位', '职位详情', '创建', '更新', '删除');
             break;
+        case "DegreeType":
+            $('.nav-degreetype').addClass('active');
+            PageAction('#degreetype', '新建学历', '编辑学历', '学历详情', '创建', '更新', '删除');
+            break;
+        case "StaffType":
+            $('.nav-stafftype').addClass('active');
+            PageAction('#stafftype', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
+            break;
         case "TaskRound":
             $('.nav-taskround').addClass('active');
         default:

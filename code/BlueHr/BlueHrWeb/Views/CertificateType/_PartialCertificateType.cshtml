@@ -35,31 +35,19 @@
                 <div class="marco-igroup-primary">
                     <label for="name">证照名称</label>
                     @if (Model != null)
-                {
+                    {
                         @Html.EditorFor(model => model.name)
                     }
                     else
                     {
                         <input type="text" name="name" placeholder="证照名称" />
                     }
-                </div>
-
-                @*<div class="marco-textarea">
-                    <label for="address">公司地址</label>
-                    @if (Model != null)
-                {
-                        @Html.TextAreaFor(model => model.address)
-                    }
-                    else
-                    {
-                        <textarea name="address" placeholder="公司地址"></textarea>
-                    }
-                </div>*@
+                </div> 
 
                 <div class="marco-textarea">
                     <label for="remark">证照备注</label>
                     @if (Model != null)
-                {
+                    {
                         @Html.TextAreaFor(model => model.remark)
                     }
                     else
@@ -67,6 +55,31 @@
                         <textarea name="remark" placeholder="证照备注"></textarea>
                     }
                 </div>
+
+                <div class="marco-nbody row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-danger">
+                            <span>证书类别 </span>
+                            @Html.DropDownList("systemCode", ViewData["systemCertificateTypeList"] as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
+
+                    @*@Html.Partial("Search/_CompanyAndDepartmentBar")*@
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>&nbsp;&nbsp;是否系统&nbsp;&nbsp;</span>
+                            @Html.DropDownList("isSystem", ViewData["isSystemList"] as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-danger">
+                            <span>是否必须 </span>
+                            @Html.DropDownList("isNecessary", ViewData["isNecessaryList"] as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
+                </div>   
             </div>
         </div>
     }
