@@ -58,8 +58,10 @@ namespace BlueHrLib.MQTask
             TaskRound taskRound = null;
             try
             {
-                taskRound = trs.Create(ts.TaskType);
-
+                if (ts.LogTaskRound)
+                {
+                    taskRound = trs.Create(ts.TaskType);
+                }
                 switch (ts.TaskType)
                 {
                     case TaskType.CalAtt:
@@ -84,9 +86,12 @@ namespace BlueHrLib.MQTask
             catch (Exception ex)
             {
                 string msg = string.Format("{0}: {1}", ex.Message, ex.StackTrace);
+
+                LogUtil.Logger.Error("任务执行错误：", ex);
+
                 try
                 {
-                    if (taskRound != null)
+                    if (ts.LogTaskRound && taskRound != null)
                     {
                         trs.FinishTaskByUniqId(taskRound.uuid, msg, true);
                     }
@@ -113,8 +118,8 @@ namespace BlueHrLib.MQTask
             {
                 TaskCreateAt = DateTime.Now,
                 TaskType = TaskType.CalAtt,
-                JsonParameter = JSONHelper.stringify(calAttParam)
-
+                JsonParameter = JSONHelper.stringify(calAttParam),
+                LogTaskRound=true
             };
 
             SendMQMessage(task);
@@ -127,7 +132,7 @@ namespace BlueHrLib.MQTask
         public void SendAttWarnMessage(DateTime calculateAt, List<string> shiftCodes)
         {
             IShiftScheduleService sss = new ShiftSheduleService(this.DbString);
-            List<ShiftScheduleView> shifts = sss.GetDetailViewByDateTime(calculateAt,shiftCodes);
+            List<ShiftScheduleView> shifts = sss.GetDetailViewByDateTime(calculateAt, shiftCodes);
             if (shifts.Count > 0)
             {
                 List<DateTime> datetimes = shifts.Select(s => s.scheduleAt).Distinct().ToList();
@@ -136,7 +141,7 @@ namespace BlueHrLib.MQTask
                     AttWarnEmailParameter attWarnParam = new AttWarnEmailParameter()
                     {
                         AttWarnDate = dt,
-                        ShiftCodes=shiftCodes
+                        ShiftCodes = shiftCodes
                     };
 
 
@@ -144,8 +149,8 @@ namespace BlueHrLib.MQTask
                     {
                         TaskCreateAt = DateTime.Now,
                         TaskType = TaskType.SendAttExceptionMail,
-                        JsonParameter = JSONHelper.stringify(attWarnParam)
-
+                        JsonParameter = JSONHelper.stringify(attWarnParam),
+                        LogTaskRound = false
                     };
 
                     SendMQMessage(task);
@@ -153,6 +158,19 @@ namespace BlueHrLib.MQTask
             }
         }
 
+        /// <summary>
+        /// 发送转正提醒消息
+        /// </summary>
+        public void SendToBeFullMemberMessage()
+        {
+            TaskSetting task = new TaskSetting()
+            {
+                TaskCreateAt = DateTime.Now,
+                TaskType = TaskType.ToFullMemeberWarn,
+                LogTaskRound = false
+            };
 
+            SendMQMessage(task);
+        }
     }
 }
