@@ -13,6 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
@@ -558,6 +559,40 @@ namespace BlueHrWeb.Controllers
             }
 
             return Json(departments, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 员工转正
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ToFullMemeber(string nr)
+        {
+            IStaffService ss = new StaffService(Settings.Default.db);
+            Staff staff = ss.FindByNr(nr);
+            return View(staff);
+        }
+
+        /// <summary>
+        /// 执行员工转正
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult DoToFullMemeber([Bind(Include = "staffNr, isPassCheck, beFullAt, checkAt,beFullChecker,checkScore,remark")] FullMemberRecord record)
+        {
+            ResultMessage msg = new ResultMessage();
+            if (record.isPassCheck)
+            {
+                if (record.beFullAt == null)
+                {
+                    msg.Content = "请填写转正日期";
+                    return Json(msg);
+                }
+            }
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+            msg = ss.ToFullMember(record);
+
+            return Json(msg);
         }
 
         private void SetDepartmentList(int? companyId, int? type, bool allowBlank = true)

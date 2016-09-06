@@ -408,6 +408,7 @@
     <Content Include="Views\AttendanceRecordCal\Edit.cshtml" />
     <Content Include="Views\Staff\Delete.cshtml" />
     <Content Include="Views\AttendanceRecordCal\ExceptionList.cshtml" />
+    <Content Include="Views\Staff\ToFullMemeber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

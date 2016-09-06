@@ -3,7 +3,26 @@
 @{
     ViewBag.Title = "Delete";
 }
+<div>
+    @{ 
+        var toFullTitle = Model.CanTobeFullMember ? "可转正" : "已转正";
+        var toFullUrl = Model.CanTobeFullMember ? "/Staff/ToFullMemeber?nr=" + Model.nr : "#";
+    }
+    <a href="@toFullUrl" class="marco-btn-primary advanced-filter-btn pull-right" title="@toFullTitle">
+        <i class="glyphicon glyphicon-repeat"></i>
+        <span>转正</span>
+    </a>
 
+    <a href="" class="marco-btn-primary advanced-filter-btn pull-right" title="调 岗">
+        <i class="glyphicon glyphicon-refresh"></i>
+        <span>调 岗</span>
+    </a>
+    
+    <a href="" class="marco-btn-primary advanced-filter-btn pull-right" title="离 职">
+        <i class="glyphicon glyphicon-random"></i>
+        <span>离 职</span>
+    </a>
+</div>
 @Html.Partial("_PartialStaff")
 
 <script type="text/javascript">

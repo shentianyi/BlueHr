@@ -1,0 +1,98 @@
+﻿@using BlueHrLib.Data
+
+@model BlueHrLib.Data.Staff
+
+@{
+    ViewBag.Title = "员工转正";
+}
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>员工转正</li>
+</ol>
+
+@if (Model != null)
+{
+    <span>
+        员工姓名：@Model.name
+    </span>
+
+    <span>
+        员工号：@Model.nr
+    </span>
+
+
+    <span>
+        是否通过试用：<input type="checkbox" checked="checked" id="isPassCheck" />
+    </span>
+    <span>
+        转正日期： <input type="text" class="datetimepicker"  id="beFullAt" />
+    </span>
+
+    <span>
+        考核日期： <input type="text" class="datetimepicker" id="checkAt" />
+    </span>
+
+    <span>
+        试用期分数： <input type="text"   id="checkScore" />
+    </span>
+
+    <span>
+        最终考核人： <input type="text" id="beFullChecker" />
+    </span>
+
+    <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
+        <div class="marco-igroup-primary">
+            备注:
+            <textarea name="remark" id="remark"></textarea>
+        </div>
+    </div>
+    <span>
+        <button type="submit" class="marco-btn-success" onclick="toFullMember()">
+            <i class="glyphicon glyphicon-ok"></i>
+            确定
+        </button>
+    </span>
+    <input type="hidden" id="staffNr" value="@Model.nr" />
+
+}
+
+<script type="text/javascript">
+    Layout.datepicker('.datetimepicker');
+
+    function toFullMember() {
+        if (confirm("确认提交转正？")) {
+
+            var nr = $("#staffNr").val();
+            var isPassCheck = $("#isPassCheck").is(':checked');
+            var beFullAt = $("#beFullAt").val();
+            var checkAt = $("#checkAt").val();
+            var checkScore = $("#checkScore").val();
+            var beFullChecker = $("#beFullChecker").val();
+            var remark = $("#remark").val();
+
+
+            if (isPassCheck && beFullAt.length == 0) {
+                alert("请填写转正日期");
+                return;
+            }
+
+
+            if (checkScore.length > 0) {
+                if (isNaN(checkScore)) {
+                    alert("请填写正确的数字");
+                    return;
+                }
+            }
+
+            $.post("/Staff/DoToFullMemeber/", { staffNr:nr, isPassCheck:isPassCheck, beFullAt:beFullAt, checkAt:checkAt, beFullChecker:beFullChecker, checkScore:checkScore, remark:remark}, function (data) {
+                if (data.Success) {
+                    alert("转正成功！");
+                    window.location = "/Staff/Delete/" + nr;
+                
+                } else {
+                    alert("转正失败：" + data.Content);
+                }
+            }, "json");
+        }
+    }
+</script>

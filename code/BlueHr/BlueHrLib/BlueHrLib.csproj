@@ -79,6 +79,7 @@
     <Compile Include="Data\Enum\AttendanceExceptionType.cs" />
     <Compile Include="Data\Enum\AttendanceRecordSourceType.cs" />
     <Compile Include="Data\Enum\EnumItem.cs" />
+    <Compile Include="Data\Enum\MessageRecordType.cs" />
     <Compile Include="Data\Enum\ShiftType.cs" />
     <Compile Include="Data\Enum\SystemCertificateType.cs" />
     <Compile Include="Data\Enum\StaffEnum.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Data\Repository\Interface\IBankCardRepository.cs" />
     <Compile Include="Data\Repository\Interface\IShiftRoundRepository.cs" />
     <Compile Include="Data\Repository\Interface\ITaskRoundRepository.cs" />
+    <Compile Include="Data\Staff.cs" />
     <Compile Include="Data\TaskRound.cs" />
     <Compile Include="Helper\EmailHelper.cs" />
     <Compile Include="Helper\JSONHelper.cs" />
