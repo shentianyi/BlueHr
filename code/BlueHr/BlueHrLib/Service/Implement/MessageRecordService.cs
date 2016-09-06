@@ -56,5 +56,19 @@ namespace BlueHrLib.Service.Implement
                 LogUtil.Logger.Error("创建消息记录失败", ex);
             }
         }
+
+
+        /// <summary>
+        /// 创建员工转正提醒
+        /// </summary>
+        /// <param name="datetime"></param>
+        public void CreateToFullMemberMessage(DateTime datetime)
+        {
+            List<Staff> staffs = new StaffService(this.DbString).GetToBeFullsLessThanDate(datetime);
+            foreach (var staff in staffs)
+            {
+                Create(staff.nr, null, MessageRecordType.StaffToFullMemberAlert,MessageRecordTypeHelper.GetToBeFullMemeberMsg(staff));
+            }
+        }
     }
 }

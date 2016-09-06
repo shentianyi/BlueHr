@@ -1,4 +1,5 @@
-﻿using BlueHrLib.Data.Enum;
+﻿using BlueHrLib.Data;
+using BlueHrLib.Data.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,11 @@ namespace BlueHrLib.Service.Interface
         /// <param name="text"></param>
         /// <param name="isSystem"></param>
         void Create(string staffNr, int? operatorId, MessageRecordType type, string text,bool isSystem=true);
+
+        /// <summary>
+        /// 创建员工转正提醒
+        /// </summary>
+        /// <param name="datetime"></param>
+        void CreateToFullMemberMessage(DateTime datetime);
     }
 }

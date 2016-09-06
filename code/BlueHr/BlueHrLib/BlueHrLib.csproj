@@ -34,12 +34,21 @@
     <Reference Include="Brilliantech.Framwork">
       <HintPath>..\ThridPart\Brilliantech.Framwork.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Logging">
+      <HintPath>..\ThridPart\Common.Logging.3.0.0\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\ThridPart\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\ThridPart\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\ThridPart\Quartz.2.3.3\lib\net40\Quartz.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -81,6 +90,7 @@
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Data\Enum\AttendanceExceptionType.cs" />
     <Compile Include="Data\Enum\AttendanceRecordSourceType.cs" />
+    <Compile Include="Data\Enum\CronJobType.cs" />
     <Compile Include="Data\Enum\EnumItem.cs" />
     <Compile Include="Data\Enum\MessageRecordType.cs" />
     <Compile Include="Data\Enum\ShiftType.cs" />
@@ -114,6 +124,10 @@
     <Compile Include="Helper\EmailHelper.cs" />
     <Compile Include="Helper\JSONHelper.cs" />
     <Compile Include="Helper\MessageRecordTypeHelper.cs" />
+    <Compile Include="MQTask\Job\JobBase.cs" />
+    <Compile Include="MQTask\Job\ToFullMemberJob.cs" />
+    <Compile Include="MQTask\Job\ToFullMemberJobTrigger.cs" />
+    <Compile Include="MQTask\Job\TriggerBase.cs" />
     <Compile Include="MQTask\Parameter\AttWarnEmailParameter.cs" />
     <Compile Include="MQTask\Parameter\CalAttParameter.cs" />
     <Compile Include="MQTask\TaskDispatcher.cs" />
@@ -170,6 +184,7 @@
     <Compile Include="Service\Implement\InSureTypeService.cs" />
     <Compile Include="Service\Implement\BankCardService.cs" />
     <Compile Include="Service\Implement\MessageRecordService.cs" />
+    <Compile Include="Service\Implement\QuartzJobService.cs" />
     <Compile Include="Service\Implement\ShiftService.cs" />
     <Compile Include="Service\Implement\ShiftSheduleService.cs" />
     <Compile Include="Service\Implement\TaskRoundService.cs" />
@@ -190,6 +205,7 @@
     <Compile Include="Service\Interface\IMessageRecordService.cs" />
     <Compile Include="Service\Interface\IShiftScheduleService.cs" />
     <Compile Include="Service\Interface\IShiftService.cs" />
+    <Compile Include="Service\Interface\IQuartzJobService.cs" />
     <Compile Include="Service\Interface\ITaskRoundService.cs" />
     <Compile Include="Service\Interface\IStaffTypeService.cs" />
     <Compile Include="Service\Interface\IJobTitleService.cs" />

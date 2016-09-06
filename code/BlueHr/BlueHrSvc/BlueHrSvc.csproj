@@ -36,6 +36,12 @@
     <Reference Include="Brilliantech.Framwork">
       <HintPath>..\ThridPart\Brilliantech.Framwork.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Logging">
+      <HintPath>..\ThridPart\Common.Logging.3.0.0\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\ThridPart\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\ThridPart\log4net.dll</HintPath>
     </Reference>
@@ -61,7 +67,6 @@
     <Compile Include="BlueHrService.Designer.cs">
       <DependentUpon>BlueHrService.cs</DependentUpon>
     </Compile>
-    <Compile Include="Job\ToFullMemberJobTrigger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>

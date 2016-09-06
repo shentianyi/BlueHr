@@ -85,7 +85,10 @@ namespace BlueHrLib.MQTask
                     default:
                         throw new TaskTypeNotSupportException();
                 }
-                trs.FinishTaskByUniqId(taskRound.uuid, "任务运行成功");
+                if (ts.LogTaskRound && taskRound != null)
+                {
+                    trs.FinishTaskByUniqId(taskRound.uuid, "任务运行成功");
+                }
             }
             catch (Exception ex)
             {

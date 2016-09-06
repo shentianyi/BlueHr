@@ -1,4 +1,9 @@
-﻿using BlueHrLib.MQTask;
+﻿using BlueHrLib.Data;
+using BlueHrLib.Data.Enum;
+using BlueHrLib.MQTask;
+using BlueHrLib.MQTask.Job;
+using BlueHrLib.Service.Implement;
+using BlueHrLib.Service.Interface;
 using BlueHrSvc.Properties;
 using Brilliantech.Framwork.Utils.LogUtil;
 using Quartz;
@@ -38,16 +43,8 @@ namespace BlueHrSvc
                     this.Stop();
                     return;
                 }
-                // 定义定时任务
-                ISchedulerFactory sf = new StdSchedulerFactory();
-                Scheduler = sf.GetScheduler();
-
-                // 循环消息
-                timer = new System.Timers.Timer();
-                timer.Interval = Settings.Default.interval;
-                timer.Enabled = true;
-                timer.Elapsed += Timer_Elapsed;
-                timer.Start();
+                
+                Load();
 
                 LogUtil.Logger.Info("服务启动【成功】");
             }
@@ -61,6 +58,49 @@ namespace BlueHrSvc
             }
         }
 
+        /// <summary>
+        /// 加载配置
+        /// </summary>
+        private void Load(bool startTimer = true)
+        {
+            LogUtil.Logger.Info("【加载配置】");
+            if (timer != null)
+            {
+                timer.Stop();
+                timer = null;
+            }
+            if (Scheduler != null)
+            {
+                Scheduler.Shutdown();
+                Scheduler = null;
+            }
+
+            IQuartzJobService jobService = new QuartzJobService(Settings.Default.db);
+            List<QuartzJob> toFullJobs = jobService.GetByType(CronJobType.ToFullWarn);
+
+            // 定义定时任务
+            ISchedulerFactory sf = new StdSchedulerFactory();
+            Scheduler = sf.GetScheduler();
+            ToFullMemberJobTrigger trigger = new ToFullMemberJobTrigger(toFullJobs,Settings.Default.db);
+
+            foreach (var t in trigger.Triggers)
+            {
+                Scheduler.ScheduleJob(trigger.Job, t);
+            }
+
+            Scheduler.Start();
+
+            // 循环消息
+            timer = new System.Timers.Timer();
+            timer.Interval = Settings.Default.interval;
+            timer.Enabled = true;
+            timer.Elapsed += Timer_Elapsed;
+            if (startTimer)
+            {
+                timer.Start();
+            }
+        }
+
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             timer.Stop();
@@ -71,9 +111,8 @@ namespace BlueHrSvc
                 td.FetchMQMessage();
                 if (td.IsRestartSvc)
                 {
-                    ServiceController service = new ServiceController(this.ServiceName);
-                    service.Stop();
-                    service.Start();
+                    /// ！重启启动就是重新加载一些参数和配置！
+                    Load(false);
                 }
                 LogUtil.Logger.Info("任务运行结束");
             }
@@ -99,7 +138,7 @@ namespace BlueHrSvc
                     timer.Stop();
                     timer.Enabled = false;
                 }
-              
+
                 LogUtil.Logger.Info("服务停止【成功】");
             }
             catch (Exception ex)

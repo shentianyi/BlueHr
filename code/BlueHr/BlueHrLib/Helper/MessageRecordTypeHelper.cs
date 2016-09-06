@@ -1,4 +1,5 @@
-﻿using BlueHrLib.Data.Enum;
+﻿using BlueHrLib.Data;
+using BlueHrLib.Data.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,10 @@ namespace BlueHrLib.Helper
             MessageRecordType.StaffAttAlert,
             MessageRecordType.StaffToFullMemberAlert
         };
+
+        public static string GetToBeFullMemeberMsg(Staff staff)
+        {
+            return string.Format("员工:{0}({1})的转正日期为{2},请进行操作", staff.nr, staff.name, staff.trialOverAtStr);
+        }
     }
 }

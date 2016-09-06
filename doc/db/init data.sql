@@ -30,4 +30,15 @@ INSERT INTO [BlueHr].[dbo].[SystemSetting]
            (5,	NULL,	NULL,	NULL,	20,	2,	30,	30, 'http://localhost/')
 GO
 
+-- 建立自动任务
+-- 每天23:30分运行QuartzJob, 计算转正提醒
+INSERT INTO [BlueHr].[dbo].[QuartzJob]
+           ([cronSchedule]
+           ,[params]
+           ,[jobType])
+     VALUES
+           ('0 30 23 * * ? *'
+           ,null
+           ,100)
+GO
 

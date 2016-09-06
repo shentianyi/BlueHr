@@ -105,6 +105,9 @@ namespace BlueHrLib.Data
     partial void InsertMessageRecord(MessageRecord instance);
     partial void UpdateMessageRecord(MessageRecord instance);
     partial void DeleteMessageRecord(MessageRecord instance);
+    partial void InsertQuartzJob(QuartzJob instance);
+    partial void UpdateQuartzJob(QuartzJob instance);
+    partial void DeleteQuartzJob(QuartzJob instance);
     #endregion
 		
 		public BlueHrDataContext() : 
@@ -382,6 +385,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<MessageRecord>();
+			}
+		}
+		
+		public System.Data.Linq.Table<QuartzJob> QuartzJob
+		{
+			get
+			{
+				return this.GetTable<QuartzJob>();
 			}
 		}
 	}
@@ -9129,6 +9140,140 @@ namespace BlueHrLib.Data
 					this._url = value;
 					this.SendPropertyChanged("url");
 					this.OnurlChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.QuartzJob")]
+	public partial class QuartzJob : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _cronSchedule;
+		
+		private string _params;
+		
+		private System.Nullable<int> _jobType;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OncronScheduleChanging(string value);
+    partial void OncronScheduleChanged();
+    partial void OnparamsChanging(string value);
+    partial void OnparamsChanged();
+    partial void OnjobTypeChanging(System.Nullable<int> value);
+    partial void OnjobTypeChanged();
+    #endregion
+		
+		public QuartzJob()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cronSchedule", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string cronSchedule
+		{
+			get
+			{
+				return this._cronSchedule;
+			}
+			set
+			{
+				if ((this._cronSchedule != value))
+				{
+					this.OncronScheduleChanging(value);
+					this.SendPropertyChanging();
+					this._cronSchedule = value;
+					this.SendPropertyChanged("cronSchedule");
+					this.OncronScheduleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="params", Storage="_params", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string @params
+		{
+			get
+			{
+				return this._params;
+			}
+			set
+			{
+				if ((this._params != value))
+				{
+					this.OnparamsChanging(value);
+					this.SendPropertyChanging();
+					this._params = value;
+					this.SendPropertyChanged("@params");
+					this.OnparamsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_jobType", DbType="Int")]
+		public System.Nullable<int> jobType
+		{
+			get
+			{
+				return this._jobType;
+			}
+			set
+			{
+				if ((this._jobType != value))
+				{
+					this.OnjobTypeChanging(value);
+					this.SendPropertyChanging();
+					this._jobType = value;
+					this.SendPropertyChanged("jobType");
+					this.OnjobTypeChanged();
 				}
 			}
 		}
