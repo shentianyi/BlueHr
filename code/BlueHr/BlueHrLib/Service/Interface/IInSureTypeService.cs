@@ -1,5 +1,6 @@
 ﻿using BlueHrLib.Data;
 using BlueHrLib.Data.Model;
+using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,15 @@ namespace BlueHrLib.Service.Interface
     public interface IInSureTypeService
     {
         IQueryable<InsureType> Search(InSureTypeSearchModel searchModel);
+
+        InsureType FindById(int id);
+
+        bool Create(InsureType title);
+
+        bool Update(InsureType title);
+
+        bool DeleteById(int id);
+
+        InSureTypeInfoModel GetInsureTypeInfo(InSureTypeSearchModel searchModel);
     }
 }

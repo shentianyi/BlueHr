@@ -103,6 +103,7 @@
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
     <Compile Include="Data\Model\PageViewModel\CertificateTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\DegreeTypeInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\InSureTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\JobTitleInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\StaffTypeInfoModel.cs" />
     <Compile Include="Data\Model\Search\AttendanceRecordCalSearchModel.cs" />

@@ -9,5 +9,13 @@ namespace BlueHrLib.Data.Repository.Interface
     interface IInSureTypeRepository
     {
         IQueryable<InsureType> Search(InSureTypeSearchModel searchModel);
+
+        bool Create(InsureType jobTitle);
+
+        InsureType FindById(int id);
+
+        bool Update(InsureType jobTitle);
+
+        bool DeleteById(int id);
     }
 }

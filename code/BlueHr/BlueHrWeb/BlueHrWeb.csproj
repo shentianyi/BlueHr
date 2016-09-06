@@ -248,6 +248,7 @@
     <Compile Include="Controllers\CertificateTypeController.cs" />
     <Compile Include="Controllers\DegreeTypeController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\InSureTypeController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
@@ -433,6 +434,11 @@
     <Content Include="Views\StaffType\Edit.cshtml" />
     <Content Include="Views\StaffType\Delete.cshtml" />
     <Content Include="Views\StaffType\_PartialStaffType.cshtml" />
+    <Content Include="Views\InSureType\Index.cshtml" />
+    <Content Include="Views\InSureType\Create.cshtml" />
+    <Content Include="Views\InSureType\Edit.cshtml" />
+    <Content Include="Views\InSureType\Delete.cshtml" />
+    <Content Include="Views\InSureType\_PartialInSureType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

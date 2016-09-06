@@ -25,5 +25,54 @@ namespace BlueHrLib.Data.Repository.Implement
             }
             return inSuretypes;
         }
+        public bool Create(InsureType title)
+        {
+            try
+            {
+                this.context.GetTable<InsureType>().InsertOnSubmit(title);
+                this.context.SubmitChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteById(int id)
+        {
+            var dep = this.context.GetTable<InsureType>().FirstOrDefault(c => c.id.Equals(id));
+            if (dep != null)
+            {
+                this.context.GetTable<InsureType>().DeleteOnSubmit(dep);
+                this.context.SubmitChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public InsureType FindById(int id)
+        {
+            return this.context.GetTable<InsureType>().FirstOrDefault(c => c.id.Equals(id));
+        }
+
+        public bool Update(InsureType title)
+        {
+            var dep = this.context.GetTable<InsureType>().FirstOrDefault(c => c.id.Equals(title.id));
+            if (dep != null)
+            {
+                dep.name = title.name;
+                dep.remark = title.remark;
+                this.context.SubmitChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
