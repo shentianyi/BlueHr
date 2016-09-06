@@ -40,6 +40,7 @@ namespace BlueHrLib.Service.Implement
                 bool isUrl = MessageRecordTypeHelper.UrlTypes.Contains(type);
                 MessageRecord record = new MessageRecord()
                 {
+                    createdAt=DateTime.Now,
                     staffNr = staffNr,
                     messageType = (int)type,
                     text = text,

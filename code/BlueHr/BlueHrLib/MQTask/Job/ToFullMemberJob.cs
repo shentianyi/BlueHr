@@ -14,9 +14,13 @@ namespace BlueHrLib.MQTask.Job
         public void Execute(IJobExecutionContext context)
         {
             try
-            { 
-                IMessageRecordService mrs = new MessageRecordService(context.JobDetail.JobDataMap["dbString"].ToString());
-                mrs.CreateToFullMemberMessage(DateTime.Now);
+            {
+              //  LogUtil.Logger.Info(context.JobDetail.JobDataMap["dbString"].ToString());
+              //  LogUtil.Logger.Info(context.JobDetail.JobDataMap["queuePath"].ToString());
+
+                TaskDispatcher td = new TaskDispatcher(context.JobDetail.JobDataMap["dbString"].ToString(), 
+                    context.JobDetail.JobDataMap["queuePath"].ToString());
+                td.SendToBeFullMemberMessage();
             }
             catch (Exception ex)
             {

@@ -37,6 +37,9 @@ namespace BlueHrLib.MQTask
             mq.Send(msg);
         }
 
+        /// <summary>
+        /// 获取消息
+        /// </summary>
         public void FetchMQMessage()
         {
             MessageQueue mq = new MessageQueue(this.MQPath);
@@ -53,6 +56,10 @@ namespace BlueHrLib.MQTask
 
         }
 
+        /// <summary>
+        /// 分发任务
+        /// </summary>
+        /// <param name="ts"></param>
         public void Dispatch(TaskSetting ts)
         {
             ITaskRoundService trs = new TaskRoundService(this.DbString);
@@ -70,7 +77,7 @@ namespace BlueHrLib.MQTask
                         IAttendanceRecordService ars = new AttendanceRecordService(this.DbString);
                         ars.CalculateAttendRecord(calAtt.AttCalculateDateTime, calAtt.ShiftCodes);
                         // add send email to queue
-                        SendAttWarnMessage(calAtt.AttCalculateDateTime,calAtt.ShiftCodes);
+                        SendAttWarnMessage(calAtt.AttCalculateDateTime, calAtt.ShiftCodes);
                         break;
                     case TaskType.SendMail:
                         break;
@@ -78,6 +85,10 @@ namespace BlueHrLib.MQTask
                         AttWarnEmailParameter attWarn = JSONHelper.parse<AttWarnEmailParameter>(ts.JsonParameter);
                         IAttendanceRecordCalService arcs = new AttendanceRecordCalService(this.DbString);
                         arcs.SendWarnEmail(attWarn.AttWarnDate);
+                        break;
+                    case TaskType.ToFullMemeberWarn:
+                        IMessageRecordService mrs = new MessageRecordService(this.DbString);
+                        mrs.CreateToFullMemberMessage(ts.TaskCreateAt.Date);
                         break;
                     case TaskType.ReStartSvc:
                         this.IsRestartSvc = true;
@@ -172,9 +183,7 @@ namespace BlueHrLib.MQTask
         {
             TaskSetting task = new TaskSetting()
             {
-                TaskCreateAt = DateTime.Now,
-                TaskType = TaskType.ToFullMemeberWarn,
-                LogTaskRound = false
+                TaskType = TaskType.ToFullMemeberWarn
             };
 
             SendMQMessage(task);
@@ -193,5 +202,6 @@ namespace BlueHrLib.MQTask
 
             SendMQMessage(task);
         }
+
     }
 }

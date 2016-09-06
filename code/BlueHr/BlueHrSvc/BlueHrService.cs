@@ -81,7 +81,7 @@ namespace BlueHrSvc
             // 定义定时任务
             ISchedulerFactory sf = new StdSchedulerFactory();
             Scheduler = sf.GetScheduler();
-            ToFullMemberJobTrigger trigger = new ToFullMemberJobTrigger(toFullJobs,Settings.Default.db);
+            ToFullMemberJobTrigger trigger = new ToFullMemberJobTrigger(toFullJobs,Settings.Default.db,Settings.Default.queue);
 
             foreach (var t in trigger.Triggers)
             {

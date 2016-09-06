@@ -15,12 +15,16 @@ namespace BlueHrLib.MQTask.Job
     {
         private static string groupId = "ToFullMemberJobGroup";
         
-        public ToFullMemberJobTrigger(List<QuartzJob> jobs,string dbString):base(jobs,dbString)
+        public ToFullMemberJobTrigger(List<QuartzJob> jobs,string dbString,string queuePath):base(jobs)
         {
+            //LogUtil.Logger.Info(dbString);
+            //LogUtil.Logger.Info(queuePath);
+
             this.Job  = JobBuilder.Create<ToFullMemberJob>()
                     .WithIdentity("ToFullMemberJob", groupId)
                     .Build();
-            this.Job.JobDataMap.Add("dbString", this.DbString);
+            this.Job.JobDataMap.Add("queuePath",  queuePath);
+            this.Job.JobDataMap.Add("dbString", dbString);
 
             this.Triggers = new List<ICronTrigger>();
             int i = 1;

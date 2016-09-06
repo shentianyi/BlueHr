@@ -11,7 +11,7 @@ namespace BlueHrLib.MQTask.Job
     {
         public string DbString { get; set; }
         public TriggerBase() { }
-        public TriggerBase(List<QuartzJob> jobs,string dbString) { this.Jobs = jobs; this.DbString = dbString;}
+        public TriggerBase(List<QuartzJob> jobs) { this.Jobs = jobs; }
         
         
         /// <summary>
