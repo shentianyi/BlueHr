@@ -39,7 +39,7 @@ namespace BlueHrClient
         DispatcherTimer timer = new DispatcherTimer();
         SoundPlayer player = new SoundPlayer("alarm.WAV");
         Escaper escape = new Escaper();
-
+        public static string[] withErrorMessage = new string[2];
 
         public MainWindow()
         {
@@ -208,7 +208,7 @@ namespace BlueHrClient
                 if (Syn_ReadBaseMsg(BaseConfig.NPort, msg, ref mLen, img, ref iLen, 0) == 0)
                 {
                     string card = Marshal.PtrToStringUni(msg);
-                    char[] cartb = card.ToCharArray(); 
+                    char[] cartb = card.ToCharArray();
                     CardMsg.Name = (new string(cartb, 0, 15)).Trim();
                     CardMsg.Sex = new string(cartb, 15, 1);
                     CardMsg.Nation = new string(cartb, 16, 2);
@@ -222,34 +222,29 @@ namespace BlueHrClient
                     Name.Text = CardMsg.Name;
                     Sex.Text = escape.SexEscape(CardMsg.Sex);
                     Nation.Text = escape.NationEscape(CardMsg.Nation);
-                    Born.Text =escape.DateEscape(CardMsg.Born);
+                    Born.Text = escape.DateEscape(CardMsg.Born);
                     Address.Text = CardMsg.Address;
                     ID.Text = CardMsg.IDCardNo;
                     GrantDept.Text = CardMsg.GrantDept;
                     UserLifeBegin.Text = escape.DateEscape(CardMsg.UserLifeBegin);
                     UserLifeEnd.Text = escape.DateEscape(CardMsg.UserLifeEnd);
-                    Checkin();
+                    Link.Text = "--";
+                    if (referForCheck())
+                    {
+                        msgBlock.Text = "通 过";
+                        msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
 
-                    //  System.IO.MemoryStream ms = new System.IO.MemoryStream(img);
-                    //  Image photo = System.Drawing.Image.FromStream(ms);
-                    string imgs = Marshal.PtrToStringUni(img);
-                    char[] photo = imgs.ToCharArray();
-                 //   MessageBox.Show(photo.ToString());
-
-                    //string imgs = Convert.ToBase64String(img);
-                    //MessageBox.Show(img[0].ToString());
-
-
-                    //MemoryStream stream = new MemoryStream(img);
-                    //System.Drawing.Image photo = System.Drawing.Image.FromStream(stream);
-                    //photo.Save(BaseConfig.SavePathPhoto+"\\"+"test.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
-
-
-                    //System.Drawing.Image mimg = System.Drawing.Image.FromStream(stream);
-                    //mimg.Save("xxx.jpeg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    else {
+                        msgBlock.Text = "";
+                        //msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));                      
+                    }
 
                     if (BaseConfig.SaveNotes)
-                    {
+                    {         
+                        string timeForName = System.DateTime.Now.ToString("yyyy_MM_dd");
+                        FileStream file = new FileStream(BaseConfig.SavePath + "\\" + timeForName + "记录.txt", FileMode.Append, FileAccess.Write);
+                        StreamWriter stingForWrite = new StreamWriter(file);
                         stmp[0] = Convert.ToString(System.DateTime.Now);
                         stmp[1] = "  姓名:" + Name.Text;
                         stmp[2] = "  性别:" + Sex.Text;
@@ -260,14 +255,12 @@ namespace BlueHrClient
                         stmp[7] = "  发证机关:" + GrantDept.Text;
                         stmp[8] = "  有效期开始:" + UserLifeBegin.Text;
                         stmp[9] = "  有效期结束:" + UserLifeEnd.Text;
-                        string timeForName = System.DateTime.Now.ToString("yyyy_MM_dd");
-                        FileStream file = new FileStream(BaseConfig.SavePath + "\\" + timeForName + "记录.txt", FileMode.Append, FileAccess.Write);
-                        StreamWriter stingForWrite = new StreamWriter(file);
                         for (int i = 0; i <= 9; i++)
                         {
                             stingForWrite.WriteLine(stmp[i]);
                         }
                         stingForWrite.Close();
+                        file.Close();
                     }
                 }
                 else
@@ -282,170 +275,153 @@ namespace BlueHrClient
             finally
             {
                 Marshal.FreeHGlobal(msg);
-                //Marshal.FreeHGlobal(img);
+                Marshal.FreeHGlobal(img);
             }
-
-            //if (Syn_ReadMsg(BaseConfig.NPort, 0, ref CardMsg) == 0)
-            //{
-            //    Name.Text = CardMsg.Name;
-            //    Sex.Text = CardMsg.Sex;
-            //    Nation.Text = CardMsg.Nation;
-            //    Born.Text = CardMsg.Born;
-            //    Address.Text = CardMsg.Address;
-            //    ID.Text = CardMsg.IDCardNo;
-            //    GrantDept.Text = CardMsg.GrantDept;
-            //    UserLifeBegin.Text = CardMsg.UserLifeBegin;
-            //    UserLifeEnd.Text = CardMsg.UserLifeEnd;
-
-            //    photo.Source = new BitmapImage(new Uri(CardMsg.PhotoFileName, UriKind.Absolute));
-            //   // RenderOptions.SetBitmapScalingMode(photo, BitmapScalingMode.Fant);
-            //    Checkin();
-            //    Status.Text = "读取成功";
-            //    if (BaseConfig.SaveNotes)
-            //    {
-            //        stmp[0] = Convert.ToString(System.DateTime.Now);
-            //        stmp[1] = "  姓名:" + CardMsg.Name;
-            //        stmp[2] = "  性别:" + CardMsg.Sex;
-            //        stmp[3] = "  民族:" + CardMsg.Nation;
-            //        stmp[4] = "  身份证号:" + CardMsg.IDCardNo;
-            //        stmp[5] = "  出生日期:" + CardMsg.Born;
-            //        stmp[6] = "  地址:" + CardMsg.Address;
-            //        stmp[7] = "  发证机关:" + CardMsg.GrantDept;
-            //        stmp[8] = "  有效期开始:" + CardMsg.UserLifeBegin;
-            //        stmp[9] = "  有效期结束:" + CardMsg.UserLifeEnd;
-            //        stmp[10] = "  照片文件名:" + CardMsg.PhotoFileName;
-            //        string timeForName = System.DateTime.Now.ToString("yyyy_MM_dd");
-            //        FileStream file = new FileStream(BaseConfig.SavePath + "\\" + timeForName + "记录.txt", FileMode.Append, FileAccess.Write);
-            //        StreamWriter stingForWrite = new StreamWriter(file); 
-            //        for (int i = 0; i <= 9; i++)
-            //        {
-            //            stingForWrite.WriteLine(stmp[i]);
-            //        }
-            //        stingForWrite.Close();
-            //    }
-            //}
-            //else
-            //{
-            //    Status.Text = "请放卡...";
-            //}
+         
         }
 
-        private void Checkin()
+        private bool referForCheck()
         {
-           // WarningWindow win = new WarningWindow();
             IStaffService staffService = new StaffService(Settings.Default.db);
             Staff staff = staffService.FindByStaffId(ID.Text);
+
             if (staff == null)
             {
                 if (BaseConfig.Sound)
                 {
                     player.Play();
                 }
-                if (BaseConfig.AutoCheckin)
-                {
-                    if (getData())
-                    {
-                        msgBlock.Text = "通 过";
-                        msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
-                    }
-                    else {
-                        msgBlock.Text = "不存在";
-                        msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));
-                    }
-                }
-                else
-                {
-                    // win.ShowDialog();
-                    MessageBoxResult result = MessageBox.Show("       是否同步？", "错误", MessageBoxButton.OKCancel, MessageBoxImage.Hand);
-                    if (result == MessageBoxResult.OK)
-                    {
-                        if (getData())
-                        {
-                            msgBlock.Text = "通 过";
-                            msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
-                        }
-                        else
-                        {
-                            msgBlock.Text = "不存在";
-                            msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));
-                        }
-                    }
-                }
+                MessageBoxResult result = MessageBox.Show("请前往网页端创建后扫描", "不存在该身份证信息", MessageBoxButton.OK, MessageBoxImage.Hand);
+                return false;
             }
             else {
-                if (staff.isIdChecked)
+                if (staff.name != Name.Text)
                 {
-                    msgBlock.Text = "通 过";
-                    msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
+                    if (BaseConfig.Sound)
+                    {
+                        player.Play();
+                    }
+                    withErrorMessage[0] = staff.name;
+                    withErrorMessage[1] = staff.id;
+                    WarningWindow win = new WarningWindow();
+                    win.ShowDialog();
+                    return false;
                 }
                 else
                 {
-                    if (BaseConfig.AutoCheckin)
+                    if (!BaseConfig.AutoCheckin)
                     {
-                        if (upDate())
-                        {
-                            msgBlock.Text = "通 过";
-                            msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
-                        }
-                        else
-                        {
-                            msgBlock.Text = "待更新";
-                            msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));
-                        }
+                        MessageBoxResult result = MessageBox.Show("信息核对无误", "正确", MessageBoxButton.OK, MessageBoxImage.None);
                     }
-                    else
-                    {
-                        // win.ShowDialog();
-                        MessageBoxResult result = MessageBox.Show("       是否同步？", "错误", MessageBoxButton.OKCancel, MessageBoxImage.Hand);
-                        if (result == MessageBoxResult.OK)
-                        {
-                            if (upDate())
-                            {
-                                msgBlock.Text = "通 过";
-                                msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
-                            }
-                            else
-                            {
-                                msgBlock.Text = "待更新";
-                                msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));
-                            }
-                        }
-                    }
+                    return true;
 
                 }
             }
         }
-        private bool getData()
-        {
-            IStaffService staffService = new StaffService(Settings.Default.db);
-            StaffIdCard cardData = new StaffIdCard();
-            cardData.id = ID.Text;
-            cardData.name = Name.Text;
-            cardData.sex = escape.SexEscapeForUpdate(Sex.Text);
-            cardData.ethnic = Nation.Text;
-            cardData.birthday = Convert.ToDateTime(Born.Text);
-            cardData.residenceAddress = Address.Text;
-            cardData.effectiveFrom = Convert.ToDateTime(UserLifeBegin.Text);
-            cardData.effectiveEnd = Convert.ToDateTime(UserLifeEnd.Text);
-            cardData.institution = GrantDept.Text;
-            // cardData.photo = 
-            return staffService.CreateInfoAndSetCheck(cardData);
-        }
-        private bool upDate()
-        {
-            IStaffService staffService = new StaffService(Settings.Default.db);
-            StaffIdCard cardData = new StaffIdCard();
-            cardData.id = ID.Text;
-            cardData.name = Name.Text;
-            cardData.sex = escape.SexEscapeForUpdate(Sex.Text);
-            cardData.ethnic = Nation.Text;
-            cardData.birthday = Convert.ToDateTime(Born.Text);
-            cardData.residenceAddress = Address.Text;
-            cardData.effectiveFrom = Convert.ToDateTime(UserLifeBegin.Text);
-            cardData.effectiveEnd = Convert.ToDateTime(UserLifeEnd.Text);
-            cardData.institution = GrantDept.Text;
-            return staffService.CheckStaffAndUpdateInfo(cardData); 
-        }
+
+        //private void Checkin()
+        //{
+        //    IStaffService staffService = new StaffService(Settings.Default.db);
+        //    Staff staff = staffService.FindByStaffId(ID.Text);
+        //    if (staff == null)
+        //    {
+        //        if (BaseConfig.Sound)
+        //        {
+        //            player.Play();
+        //        }
+                
+ 
+
+        //            // win.ShowDialog();
+        //            MessageBoxResult result = MessageBox.Show("员工中不存在该用户信息，请创建后扫描", "错误", MessageBoxButton.OK, MessageBoxImage.Hand);
+        //        //    if (result == MessageBoxResult.OK)
+        //        //    {
+        //        //        if (getData())
+        //        //        {
+        //        //            msgBlock.Text = "通 过";
+        //        //            msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
+        //        //        }
+        //        //        else
+        //        //        {
+        //        //            msgBlock.Text = "不存在";
+        //        //            msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));
+        //        //        }
+        //        //}
+        //    }
+        //    else {
+        //        if (staff.isIdChecked)
+        //        {
+        //            msgBlock.Text = "通 过";
+        //            msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
+        //        }
+        //        else
+        //        {
+        //            if (BaseConfig.AutoCheckin)
+        //            {
+        //                if (upDate())
+        //                {
+        //                    msgBlock.Text = "通 过";
+        //                    msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
+        //                }
+        //                else
+        //                {
+        //                    msgBlock.Text = "待更新";
+        //                    msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));
+        //                }
+        //            }
+        //            else
+        //            {
+        //                // win.ShowDialog();
+        //                MessageBoxResult result = MessageBox.Show("       是否更新？", "警告", MessageBoxButton.OKCancel, MessageBoxImage.Hand);
+        //                if (result == MessageBoxResult.OK)
+        //                {
+        //                    if (upDate())
+        //                    {
+        //                        msgBlock.Text = "通 过";
+        //                        msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
+        //                    }
+        //                    else
+        //                    {
+        //                        msgBlock.Text = "待更新";
+        //                        msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#EA0000"));
+        //                    }
+        //                }
+        //            }
+
+        //        }
+        //    }
+        //}
+        //private bool getData()
+        //{
+        //    IStaffService staffService = new StaffService(Settings.Default.db);
+        //    StaffIdCard cardData = new StaffIdCard();
+        //    cardData.id = ID.Text;
+        //    cardData.name = Name.Text;
+        //    cardData.sex = escape.SexEscapeForUpdate(Sex.Text);
+        //    cardData.ethnic = Nation.Text;
+        //    cardData.birthday = Convert.ToDateTime(Born.Text);
+        //    cardData.residenceAddress = Address.Text;
+        //    cardData.effectiveFrom = Convert.ToDateTime(UserLifeBegin.Text);
+        //    cardData.effectiveEnd = Convert.ToDateTime(UserLifeEnd.Text);
+        //    cardData.institution = GrantDept.Text;
+        //    // cardData.photo = 
+        //    return staffService.CreateInfoAndSetCheck(cardData);
+        //}
+        //private bool upDate()
+        //{
+        //    IStaffService staffService = new StaffService(Settings.Default.db);
+        //    StaffIdCard cardData = new StaffIdCard();
+        //    cardData.id = ID.Text;
+        //    cardData.name = Name.Text;
+        //    cardData.sex = escape.SexEscapeForUpdate(Sex.Text);
+        //    cardData.ethnic = Nation.Text;
+        //    cardData.birthday = Convert.ToDateTime(Born.Text);
+        //    cardData.residenceAddress = Address.Text;
+        //    cardData.effectiveFrom = Convert.ToDateTime(UserLifeBegin.Text);
+        //    cardData.effectiveEnd = Convert.ToDateTime(UserLifeEnd.Text);
+        //    cardData.institution = GrantDept.Text;
+        //    return staffService.CheckStaffAndUpdateInfo(cardData); 
+        //}
 
     }
 }

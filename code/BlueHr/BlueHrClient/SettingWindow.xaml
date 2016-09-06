@@ -6,7 +6,8 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:BlueHrClient"
         mc:Ignorable="d"
-       Title="SettingWindow" Height="400" Width="600" ResizeMode="NoResize">
+        WindowStartupLocation="CenterScreen"
+       Title="设置" Height="400" Width="600" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.8*"/>
@@ -18,13 +19,8 @@
                     <CheckBox x:Name="soundBox" Content="声音" Checked="soungChecked" Unchecked="soundUnChecked"/>
                     <Button x:Name="resetButton" Content="复位" Height="18" Width="40" HorizontalAlignment="Right" Click="resetClick"/>
                 </UniformGrid>
-                <DockPanel>
-                    <CheckBox x:Name="msgShowBox" Content="弹框提示" Checked="msgShowBoxChecked"/>
-                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" VerticalAlignment="Center" Text="提示信息持续时间" Margin="60,0,0,0"/>
-                    <TextBox x:Name="timeTextBox" TextWrapping="Wrap" Text="1" VerticalAlignment="Center" Margin="5"/>
-                    <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Text="秒" VerticalAlignment="Center"/>
-                </DockPanel>
-                <CheckBox x:Name="autoCheckinBox" Content="自动提交"  Checked="autoCheckinBoxChecked"/>
+                <CheckBox x:Name="msgShowBox" Content="弹框提示" Checked="msgShowBoxChecked"/>
+                <CheckBox x:Name="autoCheckinBox" Content="自动确认"  Checked="autoCheckinBoxChecked"/>
             </UniformGrid>
         </GroupBox>
 
