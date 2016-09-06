@@ -1,4 +1,5 @@
 ﻿using BlueHrLib.Data;
+using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model;
 using BlueHrLib.Data.Model.Search;
 using System;
@@ -65,5 +66,11 @@ namespace BlueHrLib.Service.Interface
         Staff FindById(int id);
 
         bool DeleteByNr(string nr);
+
+        /// <summary>
+        /// 员工转正
+        /// </summary>
+        /// <param name="record"></param>
+        ResultMessage ToFullMember(FullMemberRecord record);
     }
 }

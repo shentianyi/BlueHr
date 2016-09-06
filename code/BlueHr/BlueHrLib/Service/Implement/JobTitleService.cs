@@ -40,5 +40,17 @@ namespace BlueHrLib.Service.Implement
         {
             return jobTitleRep.Update(department);
         }
+
+        public JobTitleInfoModel GetJobTitleInfo(JobTitleSearchModel searchModel)
+        {
+            JobTitleInfoModel info = new JobTitleInfoModel();
+            DataContext dc = new DataContext(this.DbString);
+            IJobTitleRepository certfRep = new JobTitleRepository(dc);
+            IQueryable<JobTitle> certfs = certfRep.Search(searchModel);
+
+            info.jobTitleCount = dc.Context.GetTable<JobTitle>().Where(c => c.id.Equals(certfs.First().id)).Count();
+
+            return info;
+        }
     }
 }

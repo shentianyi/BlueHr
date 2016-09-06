@@ -21,9 +21,15 @@ namespace BlueHrLib.MQTask
         SendMail=200,
 
         /// <summary>
-        /// 发送邮件
+        /// 发送考勤异常邮件
         /// </summary>
         [Description("发送考勤异常邮件")]
-        SendAttExceptionMail = 201
+        SendAttExceptionMail = 201,
+
+        /// <summary>
+        /// 员工转正提醒
+        /// </summary>
+        [Description("员工转正提醒")]
+        ToFullMemeberWarn=300
     }
 }

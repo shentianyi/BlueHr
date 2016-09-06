@@ -20,5 +20,7 @@ namespace BlueHrLib.Service.Interface
         bool Update(JobTitle title);
 
         bool DeleteById(int id);
+
+        JobTitleInfoModel GetJobTitleInfo(JobTitleSearchModel searchModel);
     }
 }

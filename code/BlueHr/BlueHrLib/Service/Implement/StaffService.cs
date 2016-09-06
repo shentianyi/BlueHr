@@ -11,6 +11,7 @@ using BlueHrLib.CusException;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Interface;
 using BlueHrLib.Data.Repository.Implement;
+using BlueHrLib.Data.Message;
 
 namespace BlueHrLib.Service.Implement
 {
@@ -58,7 +59,7 @@ namespace BlueHrLib.Service.Implement
                 // 将是否已经身份证验证置为true
                 staff.isIdChecked = true;
                 this.CreateOrUpdateIdCertificate(dc, staff, card);
-               
+
                 dc.Context.SubmitChanges();
                 return true;
             }
@@ -75,17 +76,17 @@ namespace BlueHrLib.Service.Implement
                 ethnic = card.ethnic,
                 birthday = card.birthday,
                 residenceAddress = card.residenceAddress,
-                id=card.id,
-                isIdChecked=isIdChecked
+                id = card.id,
+                isIdChecked = isIdChecked
             };
             DataContext dc = new DataContext(this.DbString);
-          //  this.CreateOrUpdateIdCertificate(dc, staff, card);
+            //  this.CreateOrUpdateIdCertificate(dc, staff, card);
             dc.Context.GetTable<Staff>().InsertOnSubmit(staff);
             dc.Context.SubmitChanges();
             return true;
         }
 
-        private void CreateOrUpdateIdCertificate(DataContext dc,   Staff staff,StaffIdCard card)
+        private void CreateOrUpdateIdCertificate(DataContext dc, Staff staff, StaffIdCard card)
         {
             // 建立身份证的证照信息
             CertificateType ct = dc.Context.GetTable<CertificateType>().FirstOrDefault(s => s.systemCode.Equals(SystemCertificateType.IdCard));
@@ -132,7 +133,7 @@ namespace BlueHrLib.Service.Implement
 
         public Staff FindByNr(string nr)
         {
-          return  new DataContext(this.DbString).Context.GetTable<Staff>().FirstOrDefault(s => s.nr.Equals(nr));
+            return new DataContext(this.DbString).Context.GetTable<Staff>().FirstOrDefault(s => s.nr.Equals(nr));
         }
 
         public bool Create(Staff staff)
@@ -165,6 +166,44 @@ namespace BlueHrLib.Service.Implement
             IStaffRepository staffRep = new StaffRepository(dc);
 
             return staffRep.Update(staff);
+        }
+
+        /// <summary>
+        /// 员工转正
+        /// </summary>
+        /// <param name="record"></param>
+        public ResultMessage ToFullMember( FullMemberRecord record)
+        {
+            ResultMessage msg = new ResultMessage();
+            try
+            {
+                DataContext dc = new DataContext(this.DbString);
+                Staff staff = dc.Context.GetTable<Staff>().FirstOrDefault(s => s.nr.Equals(record.staffNr));
+                if (staff != null)
+                {
+                    if (staff.CanTobeFullMember)
+                    {
+                        if (record.isPassCheck)
+                        {
+                            staff.isOnTrial = false;
+                        }
+                        dc.Context.GetTable<FullMemberRecord>().InsertOnSubmit(record);
+                        dc.Context.SubmitChanges();
+                        msg.Success = true;
+                    }
+                    else {
+                        msg.Content = "员工不可转正";
+                    }
+                }
+                else {
+                    throw new DataNotFoundException();
+                }
+            }
+            catch (Exception ex)
+            {
+                msg.Content = ex.Message;
+            }
+            return msg;
         }
     }
 }

@@ -8,6 +8,11 @@ namespace BlueHrLib.MQTask
     [Serializable]
     public class TaskSetting
     {
+        public TaskSetting()
+        {
+            this.LogTaskRound = true;
+        }
+
         /// <summary>
         /// 任务类型
         /// 包含：
@@ -19,6 +24,12 @@ namespace BlueHrLib.MQTask
         /// 任务创建时间
         /// </summary>
         public DateTime TaskCreateAt { get; set; }
+
+
+        /// <summary>
+        /// 是否记录 TASK ROUND,默认为true
+        /// </summary>
+        public bool LogTaskRound { get; set; }
 
         /// <summary>
         /// Json参数

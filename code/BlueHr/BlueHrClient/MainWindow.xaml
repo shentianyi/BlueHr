@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:BlueHrClient"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="800" ResizeMode="CanMinimize"  Loaded="MetroWindow_Loaded" Closed="Window_Closing">
+        Title="人事管理" Height="550" Width="800" 
+                      WindowStartupLocation="CenterScreen"
+                      ResizeMode="CanMinimize"  Loaded="MetroWindow_Loaded" Closed="Window_Closing">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <Button Content="设置" Click="setter_Click"/>
@@ -32,30 +34,29 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="3.8*"/>
+            <RowDefinition Height="4.5*"/>
             <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Background="	#5F9EA0">
             <TextBlock x:Name="logo" Text="  德晋人事管理系统" VerticalAlignment="Center" FontSize="50"/>
         </Grid>
-        <Grid Grid.Row="1" ShowGridLines="False">
+        <Grid Grid.Row="1" ShowGridLines="False" Background="#76EEC6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2.5*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <UniformGrid Rows="9" Grid.Column="0">
+            <UniformGrid Rows="8" Grid.Column="0">
                 <TextBlock x:Name="textBlock" Style="{StaticResource titleStyle}" Text="姓名:&#x0009;" />
-                <TextBlock x:Name="textBlock1"  Style="{StaticResource titleStyle}" Text="性别:&#x0009;"/>
+                <TextBlock x:Name="textBlock1"  Style="{StaticResource titleStyle}" Text="性别:&#x9;" Margin="0,14,20,14"/>
                 <TextBlock x:Name="textBlock2"  Style="{StaticResource titleStyle}" Text="民族:&#x0009;"/>
                 <TextBlock x:Name="textBlock3"  Style="{StaticResource titleStyle}" Text="出生日期:"/>
-                <TextBlock x:Name="textBlock4"  Style="{StaticResource titleStyle}" Text="地址:&#x0009;" />
+                <TextBlock x:Name="textBlock4"  Style="{StaticResource titleStyle}" Text="住址:&#x0009;" />
                 <TextBlock x:Name="ID1" Style="{StaticResource titleStyle}" Text="身份证号:" />
                 <TextBlock x:Name="textBlock7"  Style="{StaticResource titleStyle}" Text="签发机关:"/>
-                <TextBlock x:Name="textBlock5"  Style="{StaticResource titleStyle}" Text="开始日期:"/>
-                <TextBlock x:Name="textBlock6"  Style="{StaticResource titleStyle}" Text="结束日期:"/>
+                <TextBlock x:Name="textBlock5"  Style="{StaticResource titleStyle}" Text="有效期限:"/>
             </UniformGrid>
-            <UniformGrid Rows="9" Grid.Column="1">
+            <UniformGrid Rows="8" Grid.Column="1">
                 <TextBlock x:Name="Name" Style="{StaticResource contentStyle}" />
                 <TextBlock x:Name="Sex" Style="{StaticResource contentStyle}" />
                 <TextBlock x:Name="Nation"  Style="{StaticResource contentStyle}"/>
@@ -63,8 +64,11 @@
                 <TextBlock x:Name="Address"  Style="{StaticResource contentStyle}"/>
                 <TextBlock x:Name="ID"  Style="{StaticResource contentStyle}"/>
                 <TextBlock x:Name="GrantDept"  Style="{StaticResource contentStyle}"/>
-                <TextBlock x:Name="UserLifeBegin"  Style="{StaticResource contentStyle}"/>
-                <TextBlock x:Name="UserLifeEnd"  Style="{StaticResource contentStyle}"/>
+                <DockPanel>
+                    <TextBlock x:Name="UserLifeBegin"  Style="{StaticResource contentStyle}"/>
+                    <TextBlock x:Name="Link" Style="{StaticResource contentStyle}"/>
+                    <TextBlock x:Name="UserLifeEnd"  Style="{StaticResource contentStyle}"/>
+                </DockPanel>
             </UniformGrid>
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
@@ -75,8 +79,8 @@
                 <TextBlock x:Name="msgBlock" Grid.Row="1" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="70" VerticalAlignment="Center"/>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2">
-            <TextBlock x:Name="Status" HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
+        <Grid Grid.Row="2" Background="#5C5C5C">
+            <TextBlock x:Name="Status" HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="WhiteSmoke"/>
         </Grid>
     </Grid>
 </controls:MetroWindow>

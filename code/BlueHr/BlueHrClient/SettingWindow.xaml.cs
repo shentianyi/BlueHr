@@ -38,8 +38,6 @@ namespace BlueHrClient
         {
             autoCheckinBox.IsChecked = BaseConfig.AutoCheckin;
             msgShowBox.IsChecked = !autoCheckinBox.IsChecked;
-            timeTextBox.IsEnabled = (bool)msgShowBox.IsChecked;
-            timeTextBox.Text = BaseConfig.TimeForMsg.ToString();
             filePath.Text = BaseConfig.SavePath;
             photoPath.Text = BaseConfig.SavePathPhoto;
             saveNotes.IsChecked = BaseConfig.SaveNotes;
@@ -50,14 +48,12 @@ namespace BlueHrClient
         {
             autoCheckinBox.IsChecked = !msgShowBox.IsChecked;
             BaseConfig.AutoCheckin = false;
-            timeTextBox.IsEnabled = true;
         }
 
         private void autoCheckinBoxChecked(object sender, RoutedEventArgs e)
         {
             msgShowBox.IsChecked = !autoCheckinBox.IsChecked;
             BaseConfig.AutoCheckin = true;
-            timeTextBox.IsEnabled = false;
         }
 
         private void saveNotesSelected(object sender, RoutedEventArgs e)

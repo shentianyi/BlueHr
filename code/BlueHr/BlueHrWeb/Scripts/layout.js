@@ -23,6 +23,14 @@ Layout.init = function () {
             $('.nav-staff').addClass('active');
             PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
             break;
+        case "CertificateType":
+            $('.nav-certificatetype').addClass('active');
+            PageAction('#certificatetype', '新建证照类型', '编辑证照类型', '证照类型详情', '创建', '更新', '删除');
+            break;
+        case "JobTitle":
+            $('.nav-jobtitle').addClass('active');
+            PageAction('#jobtitle', '新建职位', '编辑职位', '职位详情', '创建', '更新', '删除');
+            break;
         case "TaskRound":
             $('.nav-taskround').addClass('active');
         default:
@@ -38,8 +46,7 @@ Layout.init = function () {
             }
         });
 
-        if(pathname[pathname.length - 2] == "Edit")
-        {
+        if (pathname[pathname.length - 2] == "Edit") {
             vueName.action = editAction;
             vueName.actionBtn = editBtn;
         } else if (pathname[pathname.length - 2] == "Delete") {

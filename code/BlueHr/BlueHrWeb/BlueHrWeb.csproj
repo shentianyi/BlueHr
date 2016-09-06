@@ -245,7 +245,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttendanceRecordCalController.cs" />
     <Compile Include="Controllers\AttendanceRecordDetailController.cs" />
+    <Compile Include="Controllers\CertificateTypeController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -408,6 +410,17 @@
     <Content Include="Views\AttendanceRecordCal\Edit.cshtml" />
     <Content Include="Views\Staff\Delete.cshtml" />
     <Content Include="Views\AttendanceRecordCal\ExceptionList.cshtml" />
+    <Content Include="Views\Staff\ToFullMemeber.cshtml" />
+    <Content Include="Views\JobTitle\Index.cshtml" />
+    <Content Include="Views\JobTitle\Create.cshtml" />
+    <Content Include="Views\JobTitle\Edit.cshtml" />
+    <Content Include="Views\JobTitle\Delete.cshtml" />
+    <Content Include="Views\JobTitle\_PartialJobTitle.cshtml" />
+    <Content Include="Views\CertificateType\Index.cshtml" />
+    <Content Include="Views\CertificateType\Create.cshtml" />
+    <Content Include="Views\CertificateType\Edit.cshtml" />
+    <Content Include="Views\CertificateType\Delete.cshtml" />
+    <Content Include="Views\CertificateType\_PartialCertificateType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
