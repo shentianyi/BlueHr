@@ -39,6 +39,9 @@
     <Reference Include="log4net">
       <HintPath>..\ThridPart\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\ThridPart\Quartz.2.3.3\lib\net40\Quartz.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
@@ -58,6 +61,7 @@
     <Compile Include="BlueHrService.Designer.cs">
       <DependentUpon>BlueHrService.cs</DependentUpon>
     </Compile>
+    <Compile Include="Job\ToFullMemberJobTrigger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
@@ -108,6 +112,7 @@
       <Name>BlueHrLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

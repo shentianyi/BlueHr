@@ -1,6 +1,8 @@
 ﻿using BlueHrLib.MQTask;
 using BlueHrSvc.Properties;
 using Brilliantech.Framwork.Utils.LogUtil;
+using Quartz;
+using Quartz.Impl;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +18,9 @@ namespace BlueHrSvc
 {
     public partial class BlueHrService : ServiceBase
     {
+        private static IScheduler scheduler;
+        public static IScheduler Scheduler { get { return scheduler; } set { scheduler = value; } }
+
         System.Timers.Timer timer;
         public BlueHrService()
         {
@@ -24,19 +29,36 @@ namespace BlueHrSvc
 
         protected override void OnStart(string[] args)
         {
-            LogUtil.Logger.Info("服务启动中....");
-            if (!MessageQueue.Exists(Settings.Default.queue))
+            try
             {
-                LogUtil.Logger.Info(string.Format("消息队列 {0} 不存在，请先建立!", Settings.Default.db));
-                this.Stop();
-                return;
+                LogUtil.Logger.Info("服务启动中....");
+                if (!MessageQueue.Exists(Settings.Default.queue))
+                {
+                    LogUtil.Logger.Info(string.Format("消息队列 {0} 不存在，请先建立!", Settings.Default.db));
+                    this.Stop();
+                    return;
+                }
+                // 定义定时任务
+                ISchedulerFactory sf = new StdSchedulerFactory();
+                Scheduler = sf.GetScheduler();
+
+                // 循环消息
+                timer = new System.Timers.Timer();
+                timer.Interval = Settings.Default.interval;
+                timer.Enabled = true;
+                timer.Elapsed += Timer_Elapsed;
+                timer.Start();
+
+                LogUtil.Logger.Info("服务启动【成功】");
             }
-            timer = new System.Timers.Timer();
-            timer.Interval = Settings.Default.interval;
-            timer.Enabled = true;
-            timer.Elapsed += Timer_Elapsed;
-            timer.Start();
-            LogUtil.Logger.Info("服务启动【成功】");
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error("服务启动【失败】", ex);
+                if (this.CanStop)
+                {
+                    this.Stop();
+                }
+            }
         }
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -45,7 +67,14 @@ namespace BlueHrSvc
             try
             {
                 LogUtil.Logger.Info("获取任务信息....");
-                new TaskDispatcher(Settings.Default.db, Settings.Default.queue).FetchMQMessage();
+                TaskDispatcher td=    new TaskDispatcher(Settings.Default.db, Settings.Default.queue);
+                td.FetchMQMessage();
+                if (td.IsRestartSvc)
+                {
+                    ServiceController service = new ServiceController(this.ServiceName);
+                    service.Stop();
+                    service.Start();
+                }
                 LogUtil.Logger.Info("任务运行结束");
             }
             catch (Exception ex)
@@ -58,16 +87,25 @@ namespace BlueHrSvc
 
         protected override void OnStop()
         {
-
-            LogUtil.Logger.Info("服务停止中....");
-
-            if (timer != null)
+            try
             {
-                timer.Stop();
-                timer.Enabled = false;
+                LogUtil.Logger.Info("服务停止中....");
+                if (Scheduler != null)
+                {
+                    Scheduler.Shutdown();
+                }
+                if (timer != null)
+                {
+                    timer.Stop();
+                    timer.Enabled = false;
+                }
+              
+                LogUtil.Logger.Info("服务停止【成功】");
             }
-
-            LogUtil.Logger.Info("服务停止【成功】");
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error("服务停止【失败】",ex);
+            }
         }
     }
 }

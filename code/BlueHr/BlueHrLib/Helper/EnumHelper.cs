@@ -39,6 +39,7 @@ namespace BlueHrLib.Helper
             }
             return desc;
         }
+
         public static List<EnumItem> GetList(Type type)
         {
             List<EnumItem> arraylist = new List<EnumItem>();

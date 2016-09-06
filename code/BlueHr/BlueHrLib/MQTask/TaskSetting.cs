@@ -11,6 +11,7 @@ namespace BlueHrLib.MQTask
         public TaskSetting()
         {
             this.LogTaskRound = true;
+            this.TaskCreateAt = DateTime.Now;
         }
 
         /// <summary>

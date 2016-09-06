@@ -70,6 +70,9 @@
     <Compile Include="Data\AttendanceRecordCalView.cs" />
     <Compile Include="Data\AttendanceRecordDetailView.cs" />
     <Compile Include="Data\AttendanceRecordDetail.cs" />
+    <Compile Include="Data\BlueHr.cs">
+      <DependentUpon>BlueHr.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Data\BlueHr.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -110,6 +113,7 @@
     <Compile Include="Data\TaskRound.cs" />
     <Compile Include="Helper\EmailHelper.cs" />
     <Compile Include="Helper\JSONHelper.cs" />
+    <Compile Include="Helper\MessageRecordTypeHelper.cs" />
     <Compile Include="MQTask\Parameter\AttWarnEmailParameter.cs" />
     <Compile Include="MQTask\Parameter\CalAttParameter.cs" />
     <Compile Include="MQTask\TaskDispatcher.cs" />
@@ -165,6 +169,7 @@
     <Compile Include="Service\Implement\DegreeTypeService.cs" />
     <Compile Include="Service\Implement\InSureTypeService.cs" />
     <Compile Include="Service\Implement\BankCardService.cs" />
+    <Compile Include="Service\Implement\MessageRecordService.cs" />
     <Compile Include="Service\Implement\ShiftService.cs" />
     <Compile Include="Service\Implement\ShiftSheduleService.cs" />
     <Compile Include="Service\Implement\TaskRoundService.cs" />
@@ -182,6 +187,7 @@
     <Compile Include="Service\Interface\IDegreeTypeService.cs" />
     <Compile Include="Service\Interface\IInSureTypeService.cs" />
     <Compile Include="Service\Interface\IBankCardService.cs" />
+    <Compile Include="Service\Interface\IMessageRecordService.cs" />
     <Compile Include="Service\Interface\IShiftScheduleService.cs" />
     <Compile Include="Service\Interface\IShiftService.cs" />
     <Compile Include="Service\Interface\ITaskRoundService.cs" />

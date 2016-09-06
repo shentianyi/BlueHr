@@ -91,5 +91,11 @@ namespace TestWPF
 
             MessageBox.Show("OK");
         }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            TaskDispatcher dtt = new TaskDispatcher(Settings.Default.queue);
+            
+        }
     }
 }

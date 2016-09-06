@@ -17,10 +17,11 @@ namespace BlueHrLib.MQTask
     {
         public string DbString { get; set; }
         public string MQPath { get; set; }
+        public bool IsRestartSvc { get; set; }
 
-        public TaskDispatcher() { }
-        public TaskDispatcher(string mqPath) { this.MQPath = mqPath; }
-        public TaskDispatcher(string dbString, string mqPath) { this.DbString = dbString; this.MQPath = mqPath; }
+        public TaskDispatcher() { IsRestartSvc = false; }
+        public TaskDispatcher(string mqPath) { this.MQPath = mqPath;IsRestartSvc = false; }
+        public TaskDispatcher(string dbString, string mqPath) { this.DbString = dbString; this.MQPath = mqPath; IsRestartSvc = false; }
 
         private void SendMQMessage(TaskSetting ts)
         {
@@ -77,6 +78,9 @@ namespace BlueHrLib.MQTask
                         AttWarnEmailParameter attWarn = JSONHelper.parse<AttWarnEmailParameter>(ts.JsonParameter);
                         IAttendanceRecordCalService arcs = new AttendanceRecordCalService(this.DbString);
                         arcs.SendWarnEmail(attWarn.AttWarnDate);
+                        break;
+                    case TaskType.ReStartSvc:
+                        this.IsRestartSvc = true;
                         break;
                     default:
                         throw new TaskTypeNotSupportException();
@@ -167,6 +171,20 @@ namespace BlueHrLib.MQTask
             {
                 TaskCreateAt = DateTime.Now,
                 TaskType = TaskType.ToFullMemeberWarn,
+                LogTaskRound = false
+            };
+
+            SendMQMessage(task);
+        }
+
+        /// <summary>
+        /// 发送后台服务重启消息
+        /// </summary>
+        public void SendRestartSvcMessage()
+        {
+            TaskSetting task = new TaskSetting()
+            {
+                TaskType = TaskType.ReStartSvc,
                 LogTaskRound = false
             };
 
