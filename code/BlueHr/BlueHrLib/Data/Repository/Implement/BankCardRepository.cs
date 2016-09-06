@@ -60,28 +60,6 @@ namespace BlueHrLib.Data.Repository.Implement
             }
         }
 
-        public bool DeleteByNr(string nr)
-        {
-            var bc = this.context.GetTable<BankCard>().FirstOrDefault(c => c.nr.Equals(nr));
-
-            if (bc != null)
-            {
-                try
-                {
-                    this.context.GetTable<BankCard>().DeleteOnSubmit(bc);
-                    this.context.SubmitChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }else
-            {
-                return false;
-            }
-        }
-
         public BankCard FindById(int id)
         {
             return this.context.GetTable<BankCard>().FirstOrDefault(c => c.id.Equals(id));

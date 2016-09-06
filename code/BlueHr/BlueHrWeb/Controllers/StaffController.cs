@@ -92,38 +92,25 @@ namespace BlueHrWeb.Controllers
             {
                 if (!string.IsNullOrWhiteSpace(Request.Form["bankCard"]))
                 {
-                    if (!string.IsNullOrWhiteSpace(Request.Form["bankAddress"]))
+                    string bankTmp = Request.Form["bank"];
+                    string bankCardTmp = Request.Form["bankCard"];
+                    string bankAddressTmp = Request.Form["bankAddress"];
+                    string bankRemarkTmp = Request.Form["bankRemark"];
+
+                    string[] bankArray = bankTmp.Split(',');
+                    string[] bankCardArray = bankCardTmp.Split(',');
+                    string[] bankAddressArray = bankAddressTmp.Split(',');
+                    string[] bankRemarkArray = bankRemarkTmp.Split(',');
+
+                    for(var i = 0; i < bankArray.Length; i++)
                     {
-                        if (!string.IsNullOrWhiteSpace(Request.Form["bankRemark"]))
-                        {
-                            string bankTmp = Request.Form["bank"];
-                            string bankCardTmp = Request.Form["bankCard"];
-                            string bankAddressTmp = Request.Form["bankAddress"];
-                            string bankRemarkTmp = Request.Form["bankRemark"];
-
-                            string[] bankArray = bankTmp.Split(',');
-                            string[] bankCardArray = bankCardTmp.Split(',');
-                            string[] bankAddressArray = bankAddressTmp.Split(',');
-                            string[] bankRemarkArray = bankRemarkTmp.Split(',');
-
-                            for(var i = 0; i < bankArray.Length; i++)
-                            {
-                                BankCard bankCardDB = new BankCard();
-                                bankCardDB.bank = bankArray[i];
-                                bankCardDB.nr = bankCardArray[i];
-                                bankCardDB.bankAddress = bankAddressArray[i];
-                                bankCardDB.remark = bankRemarkArray[i];
-                                bankCardDB.staffNr = staff.nr;
-
-                                bankInfo.Add(bankCardDB);
-                            }
-                        }else
-                        {
-
-                        }
-                    }else
-                    {
-
+                        BankCard bankCardDB = new BankCard();
+                        bankCardDB.bank = bankArray[i];
+                        bankCardDB.nr = bankCardArray[i];
+                        bankCardDB.bankAddress = bankAddressArray[i];
+                        bankCardDB.remark = bankRemarkArray[i];
+                        bankCardDB.staffNr = staff.nr;
+                        bankInfo.Add(bankCardDB);
                     }
                 }
                 else{
@@ -284,10 +271,16 @@ namespace BlueHrWeb.Controllers
 
             StaffSearchModel q = new StaffSearchModel();
 
-            q.companyId = staff.companyId;
-            q.departmentId = staff.departmentId;
-
-            ViewBag.Query = q;
+            try
+            {
+                q.companyId = staff.companyId;
+                q.departmentId = staff.departmentId;
+                ViewBag.Query = q;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
             return View(staff);
         }
@@ -300,16 +293,19 @@ namespace BlueHrWeb.Controllers
             IStaffService ss = new StaffService(Settings.Default.db);
 
             bool result = ss.DeleteByNr(nr);
+
             if (result)
             {
                 return RedirectToAction("Index");
             }
             else
             {
+                SetDropDownList(null);
                 return View();
             }
         }
 
+        //可以考虑 写入银行卡的Controller
         [HttpPost]
         public JsonResult CreateBankCard(string[] bankCard)
         {
@@ -361,7 +357,7 @@ namespace BlueHrWeb.Controllers
             return Json(msg, JsonRequestBehavior.DenyGet);
         }
 
-
+        //可以考虑 写入家庭成员的Controller
         [HttpPost]
         public JsonResult CreateFamily(string[] family)
         {
@@ -393,7 +389,6 @@ namespace BlueHrWeb.Controllers
             return Json(msg, JsonRequestBehavior.DenyGet);
         }
 
-
         [HttpPost]
         public JsonResult DeleteFamilyById(int id)
         {
@@ -415,6 +410,7 @@ namespace BlueHrWeb.Controllers
             return Json(msg, JsonRequestBehavior.DenyGet);
         }
 
+        //上传图片
         public ActionResult uploadImage()
         {
             var ff = Request.Files[0];

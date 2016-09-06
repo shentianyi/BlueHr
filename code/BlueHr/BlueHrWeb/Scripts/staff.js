@@ -145,6 +145,16 @@ Staff.add_bankCard = function (cls, bank, bankCard, bankAddress, bankRemark, ban
     var bankAddressVal = $(bankAddress).val();
     var bankRemarkVal = $(bankRemark).val();
 
+    if (Layout.IsStringNull(bankVal)) {
+        Layout.popMsg('popMsg-warning', '银行不能为空');
+        return false;
+    }
+
+    if (Layout.IsStringNull(bankCardVal)) {
+        Layout.popMsg('popMsg-warning', '银行卡号不能为空');
+        return false;
+    }
+
     var Html = "<div class='col-lg-3 col-md-3 col-sm-6 col-xs-12 " + cls + "'><div class='card-box'>" +
         "<div class='card-heading'><span>" + bankVal + "</span><input type='hidden' name='bank' value='"+bankVal+"' />" +
         "<i class='pull-right fa fa-close remove-card' id='"+bankId+"' style='color:#c0392b;'></i></div>" +
@@ -250,6 +260,21 @@ Staff.add_family = function (familyName, familyType, familyBirthday, familyId) {
     var familyNameVal = $(familyName).val();
     var familyTypeVal = $(familyType).val();
     var familyBirthdayVal = $(familyBirthday).val();
+
+    if (Layout.IsStringNull(familyNameVal)) {
+        Layout.popMsg('popMsg-warning', '子女姓名不能为空');
+        return false;
+    }
+
+    if (Layout.IsStringNull(familyTypeVal)) {
+        Layout.popMsg('popMsg-warning', '成员关系不能为空，请填写 女儿/儿子');
+        return false;
+    }
+
+    if (Layout.IsStringNull(familyBirthdayVal)) {
+        Layout.popMsg('popMsg-warning', '子女出生日期不能为空');
+        return false;
+    }
 
     var Html = "<tr><td><input type='text' class='marco-input-primary' name='familyName' value='" + familyNameVal + "' /></td> " +
         "<td><input type='text' class='marco-input-primary' name='familyType' value='" + familyTypeVal + "' /></td>" +
