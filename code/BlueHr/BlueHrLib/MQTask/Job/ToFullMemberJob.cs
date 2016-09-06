@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BlueHrLib.MQTask.Job
 {
-    public class ToFullMemberJob : JobBase, IJob
+    public class ToFullMemberJob : IJob
     {
         public void Execute(IJobExecutionContext context)
         {

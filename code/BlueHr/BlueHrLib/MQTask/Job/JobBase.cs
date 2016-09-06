@@ -7,6 +7,5 @@ namespace BlueHrLib.MQTask.Job
 {
     public class JobBase
     {
-       
     }
 }

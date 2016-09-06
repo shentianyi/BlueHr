@@ -28,5 +28,6 @@ namespace BlueHrLib.MQTask.Job
         /// 触发器
         /// </summary>
         public List<ICronTrigger> Triggers { get; set; }
+
     }
 }
