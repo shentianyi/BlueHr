@@ -21,8 +21,6 @@ namespace BlueHrLib.Service.Interface
 
         bool DeleteById(int id);
 
-        bool DeleteByNr(string nr);
-
         BankCard CreateFromAjax(BankCard bankCard);
     }
 }

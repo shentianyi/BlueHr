@@ -742,7 +742,10 @@
     font-size: 1.5em;
     text-align: center;
     height: 60px;
-    line-height: 60px; }
+    line-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
   .card-box-default .card-box .card-footer {
     height: 36px;
     line-height: 36px; }
@@ -781,7 +784,10 @@
     font-size: 1.5em;
     text-align: center;
     height: 60px;
-    line-height: 60px; }
+    line-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
   .card-box-primary .card-box .card-footer {
     height: 36px;
     line-height: 36px; }
@@ -820,7 +826,10 @@
     font-size: 1.5em;
     text-align: center;
     height: 60px;
-    line-height: 60px; }
+    line-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
   .card-box-success .card-box .card-footer {
     height: 36px;
     line-height: 36px; }
@@ -859,7 +868,10 @@
     font-size: 1.5em;
     text-align: center;
     height: 60px;
-    line-height: 60px; }
+    line-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
   .card-box-warning .card-box .card-footer {
     height: 36px;
     line-height: 36px; }
@@ -898,7 +910,10 @@
     font-size: 1.5em;
     text-align: center;
     height: 60px;
-    line-height: 60px; }
+    line-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
   .card-box-danger .card-box .card-footer {
     height: 36px;
     line-height: 36px; }
@@ -912,4 +927,104 @@
     .card-box-danger .card-box .card-footer i {
       cursor: help;
       margin-top: 10px; }
+
+.popMsg-default {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  width: 200px;
+  padding: 4px;
+  text-align: center;
+  background: #bdc3c7;
+  color: #2c3e50;
+  border-radius: 5px;
+  z-index: 20000; }
+  .popMsg-default .popMsg-body {
+    height: 40px;
+    padding: 5px;
+    line-height: 30px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: normal; }
+
+.popMsg-primary {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  width: 200px;
+  padding: 4px;
+  text-align: center;
+  background: #3498db;
+  color: white;
+  border-radius: 5px;
+  z-index: 20000; }
+  .popMsg-primary .popMsg-body {
+    height: 40px;
+    padding: 5px;
+    line-height: 30px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: normal; }
+
+.popMsg-success {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  width: 200px;
+  padding: 4px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  border-radius: 5px;
+  z-index: 20000; }
+  .popMsg-success .popMsg-body {
+    height: 40px;
+    padding: 5px;
+    line-height: 30px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: normal; }
+
+.popMsg-warning {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  width: 200px;
+  padding: 4px;
+  text-align: center;
+  background: #f39c12;
+  color: white;
+  border-radius: 5px;
+  z-index: 20000; }
+  .popMsg-warning .popMsg-body {
+    height: 40px;
+    padding: 5px;
+    line-height: 30px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: normal; }
+
+.popMsg-danger {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  width: 200px;
+  padding: 4px;
+  text-align: center;
+  background: #e74c3c;
+  color: white;
+  border-radius: 5px;
+  z-index: 20000; }
+  .popMsg-danger .popMsg-body {
+    height: 40px;
+    padding: 5px;
+    line-height: 30px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: normal; }
 

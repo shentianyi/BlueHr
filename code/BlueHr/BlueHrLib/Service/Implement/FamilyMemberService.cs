@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using BlueHrLib.Data;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Implement;
@@ -39,6 +40,11 @@ namespace BlueHrLib.Service.Implement
         public bool Update(FamilyMemeber familyMember)
         {
             return familyMemberRep.Update(familyMember);
+        }
+
+        public FamilyMemeber CreateFromAjax(FamilyMemeber familyMember)
+        {
+            return familyMemberRep.CreateFromAjax(familyMember);
         }
     }
 }

@@ -93,6 +93,15 @@ Layout.CompanyAndDepartment = function (companyId, departmentId) {
     })
 }
 
+Layout.popMsg = function (cls, content) {
+    var Html = "<div class='" + cls + "'><div class='popMsg-body'> " + content + "</div></div>";
+
+    $(Html).appendTo($('body'));
+
+    window.setTimeout(function () {
+        $("." + cls).slideUp();
+    }, 3000);
+}
 
 //用来设置 body 的高度
 Layout.TbodyHeight = function (cls, height) {
@@ -140,4 +149,12 @@ Layout.rangedatepicker = function (date_picker_start, date_picker_end) {
         },
         timepicker: false
     });
+}
+
+Layout.IsStringNull = function (str) {
+    if (str == null || str == "") {
+        return true;
+    } else {
+        return false;
+    }
 }
