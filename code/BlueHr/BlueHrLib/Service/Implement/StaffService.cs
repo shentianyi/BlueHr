@@ -205,5 +205,22 @@ namespace BlueHrLib.Service.Implement
             }
             return msg;
         }
+
+        /// <summary>
+        /// 获取需要被转中的员工，
+        /// 如果员工的计划转正时间小于参数datetime，则需要被转
+        /// </summary>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        public List<Staff> GetToBeFullsLessThanDate(DateTime datetime)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            SystemSetting setting = dc.Context.GetTable<SystemSetting>().FirstOrDefault();
+            if (setting == null)
+                throw new SystemSettingNotSetException();
+
+            return dc.Context.GetTable<Staff>().Where(s => s.trialOverAt <= datetime.AddDays(setting.daysBeforeAlertStaffGoFull.Value)
+            && s.isOnTrial == true && s.workStatus.Equals((int)WorkStatus.OnWork)).ToList();
+        }
     }
 }

@@ -17,10 +17,11 @@ namespace BlueHrLib.MQTask
     {
         public string DbString { get; set; }
         public string MQPath { get; set; }
+        public bool IsRestartSvc { get; set; }
 
-        public TaskDispatcher() { }
-        public TaskDispatcher(string mqPath) { this.MQPath = mqPath; }
-        public TaskDispatcher(string dbString, string mqPath) { this.DbString = dbString; this.MQPath = mqPath; }
+        public TaskDispatcher() { IsRestartSvc = false; }
+        public TaskDispatcher(string mqPath) { this.MQPath = mqPath;IsRestartSvc = false; }
+        public TaskDispatcher(string dbString, string mqPath) { this.DbString = dbString; this.MQPath = mqPath; IsRestartSvc = false; }
 
         private void SendMQMessage(TaskSetting ts)
         {
@@ -36,6 +37,9 @@ namespace BlueHrLib.MQTask
             mq.Send(msg);
         }
 
+        /// <summary>
+        /// 获取消息
+        /// </summary>
         public void FetchMQMessage()
         {
             MessageQueue mq = new MessageQueue(this.MQPath);
@@ -52,6 +56,10 @@ namespace BlueHrLib.MQTask
 
         }
 
+        /// <summary>
+        /// 分发任务
+        /// </summary>
+        /// <param name="ts"></param>
         public void Dispatch(TaskSetting ts)
         {
             ITaskRoundService trs = new TaskRoundService(this.DbString);
@@ -69,7 +77,7 @@ namespace BlueHrLib.MQTask
                         IAttendanceRecordService ars = new AttendanceRecordService(this.DbString);
                         ars.CalculateAttendRecord(calAtt.AttCalculateDateTime, calAtt.ShiftCodes);
                         // add send email to queue
-                        SendAttWarnMessage(calAtt.AttCalculateDateTime,calAtt.ShiftCodes);
+                        SendAttWarnMessage(calAtt.AttCalculateDateTime, calAtt.ShiftCodes);
                         break;
                     case TaskType.SendMail:
                         break;
@@ -78,10 +86,20 @@ namespace BlueHrLib.MQTask
                         IAttendanceRecordCalService arcs = new AttendanceRecordCalService(this.DbString);
                         arcs.SendWarnEmail(attWarn.AttWarnDate);
                         break;
+                    case TaskType.ToFullMemeberWarn:
+                        IMessageRecordService mrs = new MessageRecordService(this.DbString);
+                        mrs.CreateToFullMemberMessage(ts.TaskCreateAt.Date);
+                        break;
+                    case TaskType.ReStartSvc:
+                        this.IsRestartSvc = true;
+                        break;
                     default:
                         throw new TaskTypeNotSupportException();
                 }
-                trs.FinishTaskByUniqId(taskRound.uuid, "任务运行成功");
+                if (ts.LogTaskRound && taskRound != null)
+                {
+                    trs.FinishTaskByUniqId(taskRound.uuid, "任务运行成功");
+                }
             }
             catch (Exception ex)
             {
@@ -165,12 +183,25 @@ namespace BlueHrLib.MQTask
         {
             TaskSetting task = new TaskSetting()
             {
-                TaskCreateAt = DateTime.Now,
-                TaskType = TaskType.ToFullMemeberWarn,
+                TaskType = TaskType.ToFullMemeberWarn
+            };
+
+            SendMQMessage(task);
+        }
+
+        /// <summary>
+        /// 发送后台服务重启消息
+        /// </summary>
+        public void SendRestartSvcMessage()
+        {
+            TaskSetting task = new TaskSetting()
+            {
+                TaskType = TaskType.ReStartSvc,
                 LogTaskRound = false
             };
 
             SendMQMessage(task);
         }
+
     }
 }

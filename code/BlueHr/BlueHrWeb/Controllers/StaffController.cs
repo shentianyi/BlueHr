@@ -1,4 +1,5 @@
-﻿using BlueHrLib.Data;
+﻿using BlueHrLib;
+using BlueHrLib.Data;
 using BlueHrLib.Data.Enum;
 using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.Search;

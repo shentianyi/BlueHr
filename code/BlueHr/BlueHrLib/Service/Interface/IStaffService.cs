@@ -72,5 +72,13 @@ namespace BlueHrLib.Service.Interface
         /// </summary>
         /// <param name="record"></param>
         ResultMessage ToFullMember(FullMemberRecord record);
+
+        /// <summary>
+        /// 获取需要被转中的员工，
+        /// 如果员工的计划转正时间小于参数datetime，则需要被转
+        /// </summary>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        List<Staff> GetToBeFullsLessThanDate(DateTime datetime);
     }
 }

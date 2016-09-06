@@ -18,5 +18,16 @@ namespace BlueHrLib.Data
                 return (this.workStatus==(int)WorkStatus.OnWork) && this.isOnTrial;
             }
         }
+
+        /// <summary>
+        /// 转正日期
+        /// </summary>
+        public string trialOverAtStr
+        {
+            get
+            {
+                return this.trialOverAt.HasValue ? this.trialOverAt.Value.ToString("yyyy-MM-dd") : string.Empty;
+            }
+        }
     }
 }

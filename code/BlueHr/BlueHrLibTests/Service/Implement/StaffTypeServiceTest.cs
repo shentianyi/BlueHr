@@ -5,6 +5,7 @@ using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
 using BlueHrLibTests.Properties;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BlueHrLib;
 
 namespace BlueHrLibTests.Service.Implement
 {

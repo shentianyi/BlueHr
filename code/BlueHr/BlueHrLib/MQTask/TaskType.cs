@@ -30,6 +30,12 @@ namespace BlueHrLib.MQTask
         /// 员工转正提醒
         /// </summary>
         [Description("员工转正提醒")]
-        ToFullMemeberWarn=300
+        ToFullMemeberWarn=300,
+
+        /// <summary>
+        /// 重启后台服务
+        /// </summary>
+        [Description("重启后台服务")]
+        ReStartSvc = 9999
     }
 }
