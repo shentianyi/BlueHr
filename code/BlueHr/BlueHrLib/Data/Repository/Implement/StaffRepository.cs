@@ -41,9 +41,17 @@ namespace BlueHrLib.Data.Repository.Implement
 
             if (sf != null)
             {
-                this.context.GetTable<Staff>().DeleteOnSubmit(sf);
-                this.context.SubmitChanges();
-                return true;
+                try
+                {
+                    this.context.GetTable<Staff>().DeleteOnSubmit(sf);
+                    this.context.SubmitChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.Write(e);
+                    return false;
+                }
             }
             else
             {
@@ -121,6 +129,59 @@ namespace BlueHrLib.Data.Repository.Implement
             }
 
             return staffs;
+        }
+
+        public bool Update(Staff staff)
+        {
+            try
+            {
+                Staff sf = this.context.GetTable<Staff>().FirstOrDefault(c => c.nr.Equals(staff.nr));
+                if (sf != null)
+                {
+                    sf.nr = staff.nr;
+                    sf.name = staff.name;
+                    sf.sex = staff.sex;
+                    sf.birthday = staff.birthday;
+                    sf.firstCompanyEmployAt = staff.firstCompanyEmployAt;
+                    sf.totalCompanySeniority = staff.totalCompanySeniority;
+                    sf.companyEmployAt = staff.companyEmployAt;
+                    sf.companySeniority = staff.companySeniority;
+                    sf.workStatus = staff.workStatus;
+                    sf.isOnTrial = staff.isOnTrial;
+                    sf.trialOverAt = staff.trialOverAt;
+                    sf.staffTypeId = staff.staffTypeId;
+                    sf.degreeTypeId = staff.degreeTypeId;
+                    sf.speciality = staff.speciality;
+                    sf.residenceAddress = staff.residenceAddress;
+                    sf.address = staff.address;
+                    sf.id = staff.id;
+                    sf.phone = staff.phone;
+                    sf.contactName = staff.contactName;
+                    sf.contactPhone = staff.contactPhone;
+                    sf.contactFamilyMemberType = staff.contactFamilyMemberType;
+                    sf.domicile = staff.domicile;
+                    sf.residenceType = staff.residenceType;
+                    sf.insureTypeId = staff.insureTypeId;
+                    sf.isPayCPF = staff.isPayCPF;
+                    sf.contractExpireAt = staff.contractExpireAt;
+                    sf.contractCount = staff.contractCount;
+                    sf.totalSeniority = staff.totalSeniority;
+                    sf.remark = staff.remark;
+                    sf.ethnic = staff.ethnic;
+                    sf.photo = staff.photo;
+                    sf.workingYears = staff.workingYears;
+
+                    this.context.SubmitChanges();
+                    return true;
+                }else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

@@ -17,5 +17,9 @@ namespace BlueHrLib.Data.Repository.Interface
         bool Update(BankCard bankCard);
 
         bool DeleteById(int id);
+
+        bool DeleteByNr(string nr);
+
+        BankCard CreateFromAjax(BankCard bankCard);
     }
 }

@@ -15,10 +15,14 @@ namespace BlueHrLib.Service.Interface
 
         BankCard FindById(int id);
 
-        bool Create(BankCard title);
+        bool Create(BankCard bankCard);
 
-        bool Update(BankCard title);
+        bool Update(BankCard bankCard);
 
         bool DeleteById(int id);
+
+        bool DeleteByNr(string nr);
+
+        BankCard CreateFromAjax(BankCard bankCard);
     }
 }

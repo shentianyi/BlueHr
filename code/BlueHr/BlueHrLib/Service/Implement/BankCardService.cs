@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using BlueHrLib.Data;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Implement;
@@ -21,9 +22,9 @@ namespace BlueHrLib.Service.Implement
             return bankCardRep.Search(searchModel);
         }
 
-        public bool Create(BankCard department)
+        public bool Create(BankCard bankCard)
         {
-            return bankCardRep.Create(department);
+            return bankCardRep.Create(bankCard);
         }
 
         public bool DeleteById(int id)
@@ -36,9 +37,19 @@ namespace BlueHrLib.Service.Implement
             return bankCardRep.FindById(id);
         }
 
-        public bool Update(BankCard department)
+        public bool Update(BankCard bankCard)
         {
-            return bankCardRep.Update(department);
+            return bankCardRep.Update(bankCard);
+        }
+
+        public bool DeleteByNr(string nr)
+        {
+            return bankCardRep.DeleteByNr(nr);
+        }
+
+        public BankCard CreateFromAjax(BankCard bankCard)
+        {
+            return bankCardRep.CreateFromAjax(bankCard);
         }
     }
 }

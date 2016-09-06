@@ -98,3 +98,54 @@ Staff.other_image_preview = function (photo_name, real_name, photo_preview) {
     img.attr('src', '../../UploadImage/' + $(real_name).val());
 }
 
+Staff.add_bankCard = function (cls, bank, bankCard, bankAddress, bankRemark, bankId) {
+    var bankVal = $(bank).val();
+    var bankCardVal = $(bankCard).val();
+    var bankAddressVal = $(bankAddress).val();
+    var bankRemarkVal = $(bankRemark).val();
+
+    var Html = "<div class='col-lg-3 col-md-3 col-sm-6 col-xs-12 " + cls + "'><div class='card-box'>" +
+        "<div class='card-heading'><span>" + bankVal + "</span><input type='hidden' name='bank' value='"+bankVal+"' />" +
+        "<i class='pull-right fa fa-close remove-card' id='"+bankId+"' style='color:#c0392b;'></i></div>" +
+        "<div class='card-body' name='bankCard'>" + bankCardVal + "<input type='hidden' name='bankCard' value='"+bankCardVal+"' /></div>" +
+        "<div class='card-footer'><span name='bankAddress' >" + bankAddressVal + "</span><input type='hidden' name='bankAddress' value='"+bankAddressVal+"' /> " +
+        "<i class='pull-right fa fa-question-circle' title='备注信息： " + bankRemarkVal + "'></i><input type='hidden' name='bankRemark' value='"+bankRemarkVal+"' /></div></div></div>";
+
+    $(Html).prependTo('.bank-show');
+
+    $(bank).val('');
+    $(bankCard).val('');
+    $(bankAddress).val('');
+    $(bankRemark).val('');
+};
+
+Staff.remove_bankCard = function () {
+    $('.remove-card').click(function () {
+        $(this).parent().parent().parent().remove();
+    });
+}
+
+Staff.add_family = function (familyName, familyType, familyBirthday) {
+    var familyNameVal = $(familyName).val();
+    var familyTypeVal = $(familyType).val();
+    var familyBirthdayVal = $(familyBirthday).val();
+
+    var Html = "<tr><td><input type='text' class='marco-input-primary' name='familyName' value='" + familyNameVal + "' /></td> " +
+        "<td><input type='text' class='marco-input-primary' name='familyType' value='" + familyTypeVal + "' /></td>" +
+        "<td><input type='text' class='marco-input-primary date-picker' name='familyBirthday' value='" + familyBirthdayVal + "' /></td>" +
+        "<td class='option-icon-danger'><i class='fa fa-close remove-family' style='margin-top:3px;'></i></td></tr>";
+
+    $(Html).prependTo('.tbody-family');
+
+    $(familyName).val('');
+    $(familyType).val('');
+    $(familyBirthday).val('');
+
+    Layout.datepicker('.date-picker');
+}
+
+Staff.remove_family = function () {
+    $('.remove-family').click(function () {
+        $(this).parent().parent().remove();
+    });
+}

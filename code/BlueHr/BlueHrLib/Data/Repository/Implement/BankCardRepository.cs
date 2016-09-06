@@ -28,6 +28,25 @@ namespace BlueHrLib.Data.Repository.Implement
             }
         }
 
+        public BankCard CreateFromAjax(BankCard bankCard)
+        {
+            try
+            {
+                this.context.GetTable<BankCard>().InsertOnSubmit(bankCard);
+                this.context.SubmitChanges();
+
+                BankCard bc = this.context.GetTable<BankCard>().Last();
+
+                return bc;
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+
+                return null;
+            }
+        }
+
         public bool DeleteById(int id)
         {
             var bc = this.context.GetTable<BankCard>().FirstOrDefault(c => c.id.Equals(id));
@@ -38,6 +57,28 @@ namespace BlueHrLib.Data.Repository.Implement
                 return true;
             }
             else
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteByNr(string nr)
+        {
+            var bc = this.context.GetTable<BankCard>().FirstOrDefault(c => c.nr.Equals(nr));
+
+            if (bc != null)
+            {
+                try
+                {
+                    this.context.GetTable<BankCard>().DeleteOnSubmit(bc);
+                    this.context.SubmitChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }else
             {
                 return false;
             }

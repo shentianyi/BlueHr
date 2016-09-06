@@ -5,3 +5,15 @@
 }
 
 @Html.Partial("_PartialStaff")
+
+<script type="text/javascript">
+    $('.createBankCardBtn').click(function () {
+        Staff.add_bankCard('card-box-success', '#add_bank', '#add_bankCard', '#add_bankAddress', '#add_bankRemark');
+        Staff.remove_bankCard();
+    });
+
+    $('.createFamilyBtn').click(function () {
+        Staff.add_family('#add_familyName', '#add_familyType', '#add_familyBirthday');
+        Staff.remove_family();
+    });
+</script>

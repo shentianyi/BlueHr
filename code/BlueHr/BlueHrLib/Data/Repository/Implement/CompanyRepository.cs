@@ -74,8 +74,16 @@ namespace BlueHrLib.Data.Repository.Implement
                 cp.address = company.address;
                 cp.remark = company.remark;
 
-                this.context.SubmitChanges();
-                return true;
+                try
+                {
+                    this.context.SubmitChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+
+                    return false;
+                }
             }else
             {
                 return false;

@@ -112,6 +112,36 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 }
 
 //Input
+@mixin marco-input($marco-bg:$peter-river, $marco-color: $clouds){
+    border: 1px solid $marco-bg;
+    color:$marco-color;
+    padding:3px 10px 10px 10px;
+    &[disabled]{
+        border-color: $silver;
+    }
+}
+
+.marco-input-default{
+    @include marco-input($clouds, $midnight-blue);
+}
+
+.marco-input-primary{
+    @include marco-input;
+}
+
+.marco-input-success{
+    @include marco-input($green-sea, $midnight-blue);
+}
+
+.marco-input-warning{
+    @include marco-input($flat-yellow, $midnight-blue);
+}
+
+.marco-input-danger{
+    @include marco-input($pomegranate, $midnight-blue);
+}
+
+//Input Group
 @mixin marco-ninput($marco-bg: $concrete, $marco-color: #f2f2f2 ) {
   border: 1px solid $marco-bg;
   display: table;
@@ -133,6 +163,10 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
     i{
         cursor:pointer;
     }
+
+    &[disabled]{
+        background: $light-grey;
+    }
   }
 
   input, select {
@@ -141,10 +175,11 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
     padding: 7px;
     height: 38px;
     width: 100%;
-    /*display: table-cell;*/
     line-height: 10px;
     &[disabled] {
       cursor: not-allowed;
+      background: $clouds;
+      color: $peter-river;
     }
   }
 }
@@ -292,6 +327,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
         border-color: $peter-river;
         &[disabled] {
             cursor: not-allowed;
+            background:$clouds;
         }
     }
 }
@@ -309,6 +345,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 }
 
 @mixin optionIcon($marco-bg:$peter-river, $marco-color:$clouds){
+    cursor:pointer;
     &:hover{
         text-decoration:none;
     }
@@ -323,6 +360,10 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
         &:hover{
             background:$marco-bg;
             color:$marco-color;
+        }
+        &[disabled]{
+            border-color:$silver;
+            background:$silver;
         }
     }
 }
@@ -373,4 +414,104 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 
 .marco-blockquote-danger{
     @include blockquote($clouds, $pomegranate);
+}
+
+@mixin label($marco-bg: $peter-river, $marco-color: $clouds){
+    background: $marco-bg !important;
+    color: $marco-color!important;
+    padding:3px 5px;
+    font-size: .9em;
+    vertical-align:middle;
+}
+
+.marco-label-default{
+    @include label($clouds, $midnight-blue);
+}
+
+.marco-label-primary{
+    @include label($brlize-hole, $clouds);
+}
+
+.marco-label-success{
+    @include label($green-sea, $clouds);
+}
+
+.marco-label-warning{
+    @include label($orange, $clouds);
+}
+
+.marco-label-danger{
+    @include label($alizarin, $clouds);
+}
+
+
+@mixin card-box($marco-bg: $peter-river, $marco-color:$clouds){
+    .card-box{
+        border: 2px solid $marco-bg;
+        padding: 3px 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        background: $marco-bg;
+        color:$marco-color;
+        .card-heading{
+            height:36px;
+            line-height: 36px;
+            span{
+                font-size:.9em;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                white-space:nowrap;
+                position:absolute;
+                max-width: 220px;
+            }
+            i{
+                cursor:pointer;
+                margin-top:10px;
+            }
+        }
+
+        .card-body{
+            font-size:1.5em;
+            text-align:center;
+            height: 60px;
+            line-height:60px;
+        }
+
+        .card-footer{
+            height:36px;
+            line-height: 36px;
+            span{
+                font-size:.9em;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                white-space:nowrap;
+                position:absolute;
+                max-width: 220px;
+            }
+            i{
+                cursor:help;
+                margin-top:10px;
+            }
+        }
+    }
+}
+
+.card-box-default{
+    @include card-box($clouds, $midnight-blue);
+}
+
+.card-box-primary{
+    @include card-box;
+}
+
+.card-box-success{
+    @include card-box($green-sea, $clouds);
+}
+
+.card-box-warning{
+    @include card-box($flat-yellow, $clouds);
+}
+
+.card-box-danger{
+    @include card-box($alizarin, $clouds);
 }

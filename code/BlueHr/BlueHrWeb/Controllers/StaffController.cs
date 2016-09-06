@@ -84,60 +84,91 @@ namespace BlueHrWeb.Controllers
         {
             // TODO: Add insert logic here
 
-            //银行卡信息
-            string bank = null, bankCard = null, bankAddress = null, bankRemark = null;
-            if(!string.IsNullOrWhiteSpace(Request.Form["bank"])){
-                bank = Request.Form["bank"];
-            }
+            List<BankCard> bankInfo = new List<BankCard>();
 
-            if (!string.IsNullOrWhiteSpace(Request.Form["bankCard"]))
+            if (!string.IsNullOrWhiteSpace(Request.Form["bank"]))
             {
-                bankCard = Request.Form["bankCard"];
-            }
+                if (!string.IsNullOrWhiteSpace(Request.Form["bankCard"]))
+                {
+                    if (!string.IsNullOrWhiteSpace(Request.Form["bankAddress"]))
+                    {
+                        if (!string.IsNullOrWhiteSpace(Request.Form["bankRemark"]))
+                        {
+                            string bankTmp = Request.Form["bank"];
+                            string bankCardTmp = Request.Form["bankCard"];
+                            string bankAddressTmp = Request.Form["bankAddress"];
+                            string bankRemarkTmp = Request.Form["bankRemark"];
 
-            if (!string.IsNullOrWhiteSpace(Request.Form["bankAddress"]))
+                            string[] bankArray = bankTmp.Split(',');
+                            string[] bankCardArray = bankCardTmp.Split(',');
+                            string[] bankAddressArray = bankAddressTmp.Split(',');
+                            string[] bankRemarkArray = bankRemarkTmp.Split(',');
+
+                            for(var i = 0; i < bankArray.Length; i++)
+                            {
+                                BankCard bankCardDB = new BankCard();
+                                bankCardDB.bank = bankArray[i];
+                                bankCardDB.nr = bankCardArray[i];
+                                bankCardDB.bankAddress = bankAddressArray[i];
+                                bankCardDB.remark = bankRemarkArray[i];
+                                bankCardDB.staffNr = staff.nr;
+
+                                bankInfo.Add(bankCardDB);
+                            }
+                        }else
+                        {
+
+                        }
+                    }else
+                    {
+
+                    }
+                }
+                else{
+
+                }
+            }else
             {
-                bankAddress = Request.Form["bankAddress"];
+
             }
 
-            if (!string.IsNullOrWhiteSpace(Request.Form["bankRemark"]))
-            {
-                bankRemark = Request.Form["bankRemark"];
-            }
+            List<FamilyMemeber> familyInfo = new List<FamilyMemeber>();
 
-            BankCard bankCardDB = new BankCard();
-            bankCardDB.nr = bankCard;
-            bankCardDB.bankAddress = bankAddress;
-            bankCardDB.bank = bank;
-            bankCardDB.remark = bankRemark;
-            bankCardDB.staffNr = staff.nr;
-
-            staff.BankCard.Add(bankCardDB);
-
-            //子女信息
-            string familyName = null, familyType = null, familyBirthday = null;
             if (!string.IsNullOrWhiteSpace(Request.Form["familyName"]))
             {
-                familyName = Request.Form["familyName"];
-            }
+                if (!string.IsNullOrWhiteSpace(Request.Form["familyType"]))
+                {
+                    if (!string.IsNullOrWhiteSpace(Request.Form["familyBirthday"]))
+                    {
+                        string familyNameTmp = Request.Form["familyName"];
+                        string familyTypeTmp = Request.Form["familyType"];
+                        string familyBirthdayTmp = Request.Form["familyBirthday"];
 
-            if (!string.IsNullOrWhiteSpace(Request.Form["familyType"]))
+                        string[] familyNameArray = familyNameTmp.Split(',');
+                        string[] familyTypeArray = familyTypeTmp.Split(',');
+                        string[] familyBirthdayArray = familyBirthdayTmp.Split(',');
+
+                        for (var i = 0; i < familyNameArray.Length; i++)
+                        {
+                            FamilyMemeber familyMemberDB = new FamilyMemeber();
+                            familyMemberDB.memberName = familyNameArray[i];
+                            familyMemberDB.familyMemberType = familyTypeArray[i];
+                            familyMemberDB.birthday = Convert.ToDateTime(familyBirthdayArray[i]);
+                            familyMemberDB.staffNr = staff.nr;
+                            familyInfo.Add(familyMemberDB);
+                        }
+                    }
+                    else
+                    {
+                    }
+
+                }else
+                {
+                }
+            }else
             {
-                familyType = Request.Form["familyType"];
             }
-
-            if (!string.IsNullOrWhiteSpace(Request.Form["familyBirthday"]))
-            {
-                familyBirthday = Request.Form["familyBirthday"];
-            }
-
-            FamilyMemeber familyMember = new FamilyMemeber();
-            familyMember.memberName = familyName;
-            familyMember.familyMemberType = familyType;
-            //强制类型转换，多测试
-            familyMember.birthday = Convert.ToDateTime(familyBirthday);
-            familyMember.staffNr = staff.nr;
-
+            
             IStaffService ss = new StaffService(Settings.Default.db);
 
             bool result = ss.Create(staff);
@@ -149,21 +180,28 @@ namespace BlueHrWeb.Controllers
                 //添加银行卡和子女信息
                 IBankCardService bcs = new BankCardService(Settings.Default.db);
 
-                bool bankResult =  bcs.Create(bankCardDB);
-
-                if (!bankResult)
+                for(var i=0; i < bankInfo.Count; i++)
                 {
-                    SetDropDownList(null);
-                    return View();
+                    bool bankResult = bcs.Create(bankInfo[i]);
+
+                    if (!bankResult)
+                    {
+                        SetDropDownList(null);
+                        return View();
+                    }
                 }
 
                 IFamilyMemberService fms = new FamilyMemberService(Settings.Default.db);
-                bool familyResult = fms.Create(familyMember);
 
-                if (!familyResult)
+                for(var j= 0; j < familyInfo.Count; j++)
                 {
-                    SetDropDownList(null);
-                    return View();
+                    bool familyResult = fms.Create(familyInfo[j]);
+
+                    if (!familyResult)
+                    {
+                        SetDropDownList(null);
+                        return View();
+                    }
                 }
 
                 return RedirectToAction("Index");
@@ -181,32 +219,46 @@ namespace BlueHrWeb.Controllers
             IStaffService ss = new StaffService(Settings.Default.db);
 
             Staff staff = ss.FindByNr(nr);
-     
-                SetDropDownList(staff);
+            SetDropDownList(staff);
 
-                StaffSearchModel q = new StaffSearchModel();
+            StaffSearchModel q = new StaffSearchModel();
+            q.companyId = staff.companyId;
+            q.departmentId = staff.departmentId;
+            ViewBag.Query = q;
 
-                q.companyId = staff.companyId;
-                q.departmentId = staff.departmentId;
-
-                ViewBag.Query = q;
-
-                return View(staff);
+            return View(staff);
         }
 
         // POST: Company/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id, name, address, remark")] Staff staff)
+        public ActionResult Edit([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt, CompanyEmployAt,"+
+            " WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
+            "Speciality, ResidenceAddress, Address, Id, Phone, ContactName, ContactPhone, ContactFamilyMemberType, Domicile, "+
+            "ResidenceType, inSureTypeId, IsPayCPF, ContractExpireAt, ContractCount, Ethnic, Remark")] Staff staff)
         {
             try
             {
                 // TODO: Add update logic here
+
+                //获取信息 进行编辑
+                //银行卡和子女信息 使用ajax 进行更新和删除
+
                 IStaffService cs = new StaffService(Settings.Default.db);
-                //cs.Update(staff);
-                return RedirectToAction("Index");
+                bool updateResult= cs.Update(staff);
+
+                if (!updateResult)
+                {
+                    SetDropDownList(staff);
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
             catch
             {
+                SetDropDownList(null);
                 return View();
             }
         }
@@ -246,6 +298,77 @@ namespace BlueHrWeb.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpPost]
+        public JsonResult CreateBankCard(string[] bankCard)
+        {
+            BankCard bc = new BankCard();
+
+            bc.bank = bankCard[0];
+            bc.nr = bankCard[1];
+            bc.bankAddress = bankCard[2];
+            bc.remark = bankCard[3];
+            bc.staffNr = bankCard[4];
+
+            IBankCardService bcs = new BankCardService(Settings.Default.db);
+
+            BankCard bankCardReturn = bcs.CreateFromAjax(bc);
+            
+            ResultMessage msg;
+
+            if (bankCardReturn != null)
+            {
+                msg = new ResultMessage() { Success = true };
+                msg.Content = bankCardReturn.id.ToString();
+            }else
+            {
+                msg = new ResultMessage() { Success = false };
+                msg.Content = "新增失败";
+            }
+
+            return Json(msg, JsonRequestBehavior.DenyGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteBankCardById(int id)
+        {
+            IBankCardService bcs = new BankCardService(Settings.Default.db);
+
+            bool deleteBankCardResult= bcs.DeleteById(id);
+
+            ResultMessage msg = new ResultMessage() { Success = deleteBankCardResult };
+
+            if (deleteBankCardResult)
+            {
+                msg.Content = "删除成功";
+            }else
+            {
+                msg.Content = "删除失败";
+            }
+
+            return Json(msg, JsonRequestBehavior.DenyGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteFamilyById(int id)
+        {
+            IFamilyMemberService fms = new FamilyMemberService(Settings.Default.db);
+
+            bool deleteFamilyResult = fms.DeleteById(id);
+
+            ResultMessage msg = new ResultMessage() { Success = deleteFamilyResult };
+
+            if (deleteFamilyResult)
+            {
+                msg.Content = "删除成功";
+            }
+            else
+            {
+                msg.Content = "删除失败";
+            }
+
+            return Json(msg, JsonRequestBehavior.DenyGet);
         }
 
         public ActionResult uploadImage()

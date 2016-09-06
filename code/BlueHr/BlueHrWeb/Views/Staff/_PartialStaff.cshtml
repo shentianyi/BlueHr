@@ -55,6 +55,18 @@
                     <div class="marco-igroup-danger">
                         <span>身份证号</span>
                         @Html.EditorFor(model => model.id)
+
+                        @if (Model != null)
+                        {
+                            if (Model.isIdChecked)
+                            {
+                                <span class="marco-label-success">已验证</span>
+                            }
+                            else
+                            {
+                                <span class="marco-label-danger" title="请通过客户端进行身份证验证" style="cursor:help;">未验证</span>
+                            }
+                        }
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -123,25 +135,27 @@
             </div>
         </div>
 
-        <div class="marco-npanel-normal">
-            <div class="marco-nheading">
-                <span>职位信息</span>
-            </div>
-
-            <div class="marco-nbody row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
-                        <span>状态 *</span>
-                        @Html.DropDownList("workStatus", ViewData["workStatusList"] as IEnumerable<SelectListItem>)
-                    </div>
+        <div class="position">
+            <div class="marco-npanel-normal">
+                <div class="marco-nheading">
+                    <span>职位信息</span>
                 </div>
 
-                @Html.Partial("Search/_CompanyAndDepartmentBar")
+                <div class="marco-nbody row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-danger">
+                            <span>状态 *</span>
+                            @Html.DropDownList("workStatus", ViewData["workStatusList"] as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
 
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
-                        <span>职位 *</span>
-                        @Html.DropDownList("jobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
+                    @Html.Partial("Search/_CompanyAndDepartmentBar")
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-danger">
+                            <span>职位 *</span>
+                            @Html.DropDownList("jobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
+                        </div>
                     </div>
                 </div>
             </div>
@@ -204,16 +218,48 @@
             </div>
 
             <div class="marco-nbody row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>最初进厂日期</span>
                         @Html.EditorFor(model => model.firstCompanyEmployAt, new { htmlAttributes = new { @class = "date-start-picker" } })
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>进厂总工龄</span>
+                        @Html.EditorFor(model => model.totalCompanySeniority, new { htmlAttributes = new { type = "number" } })
+                        <span class="marco-label-default">年</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>进厂日期</span>
                         @Html.EditorFor(model => model.companyEmployAt, new { htmlAttributes = new { @class = "date-end-picker" } })
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>工龄</span>
+                        @Html.EditorFor(model => model.companySeniority, new { htmlAttributes = new { type = "number" } })
+                        <span class="marco-label-default">年</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>参加工作年限</span>
+                        @Html.EditorFor(model => model.workingYears, new { htmlAttributes = new { type = "number" } })
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>累计工龄</span>
+                        @Html.EditorFor(model => model.totalSeniority)
+                        <span class="marco-label-default">年</span>
                     </div>
                 </div>
             </div>
@@ -277,158 +323,135 @@
         <div class="marco-npanel-normal">
             <div class="marco-nheading">
                 <span>银行卡信息</span>
-                <span style="font-size:.9em;color:#2980b9;">要想添加多张银行卡，请在新建完成之后之后进入<code>编辑</code>界面添加</span>
+                <span style="font-size:.9em;color:#2980b9;"> （<code>银行</code>和<code>卡号</code>必填） </span>
             </div>
 
-            <div class="marco-nbody row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>银行</span>
+            <div class="marco-nbody">
+                <div class="row">
+                    <div class="add-bankCard">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-success">
+                                <span>银行 *</span>
+                                <input type="text" id="add_bank" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-success">
+                                <span>卡号 *</span>
+                                <input type="text" id="add_bankCard" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>开户行地址</span>
+                                <input type="text" id="add_bankAddress" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>备注</span>
+                                <input type="text" id="add_bankRemark" />
 
-                        @if (Model != null)
-                        {
-                            foreach (var bankCard in Model.BankCard)
-                            {
-                                 
-                                    <input type="text" value="@bankCard.bank" />
-                                
-                            }
-                        }
-                        else
-                        {
-                            <input type="text" name="bank" id="bank" />
-                        }
+                                <span class="createBankCardBtn" style="cursor:pointer;">
+                                    <i class="fa fa-plus-circle"></i>
+                                    添加
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>卡号</span>
+                <hr class="hr-grey" />
 
-                        @if (Model != null)
+                <div class="row bank-show">
+                    @*Edit Delete 显示 信息 *@
+                    @if (Model != null)
+                    {
+                        foreach (var bankCard in Model.BankCard)
                         {
-                            foreach (var bankCard in Model.BankCard)
-                            {
-                                
-                                    <input type="text" name="bankCard" value="@bankCard.nr" />
-                                
-                            }
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 card-box-primary">
+                                <div class="card-box">
+                                    <div class="card-heading">
+                                        <span>@bankCard.bank</span>
+                                        <i class="pull-right fa fa-close remove-card" id="@bankCard.id" style="color:#c0392b;"></i>
+                                        <input type="hidden" name="bank" value="@bankCard.bank" />
+                                    </div>
+                                    <div class="card-body">
+                                        @bankCard.nr
+                                        <input type="hidden" name="bankCard" value="@bankCard.nr" />
+                                    </div>
+                                    <div class="card-footer">
+                                        @bankCard.bankAddress
+                                        <input type="hidden" name="bankAddress" value="@bankCard.bankAddress" />
+                                        <i class="pull-right fa fa-question-circle" title="备注信息： @bankCard.remark"></i>
+                                        <input type="hidden" name="bankRemark" value="@bankCard.remark" />
+                                    </div>
+                                </div>
+                            </div>
                         }
-                        else
-                        {
-                            <input type="text" name="bankCard" />
-                        }
-                    </div>
+                    }
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>开户行</span>
-
-                        @if (Model != null)
-                        {
-                            foreach (var bankCard in Model.BankCard)
-                            {
-                                if (bankCard.staffNr == Model.nr)
-                                {
-                                    <input type="text" name="bankAddress" value="@bankCard.bankAddress" />
-                                }
-                            }
-                        }
-                        else
-                        {
-                            <input type="text" name="bankAddress" />
-                        }
-                    </div>
-                </div>
-
-                <div class="col-lg-12 col-md-12 com-sm-12 col-xs-12" style="margin-top:60px;">
-                    <div class="marco-textarea">
-                        <span>备注</span>
-                        @if (Model != null)
-                        {
-                            foreach (var bankCard in Model.BankCard)
-                            {
-                                  
-                                    <textarea name="bankRemark">@bankCard.remark</textarea>
-                                
-                            }
-                        }
-                        else
-                        {
-                            <textarea name="bankRemark"></textarea>
-                        }
-                    </div>
-                </div>
-
             </div>
         </div>
 
         <div class="marco-npanel-normal">
             <div class="marco-nheading">
                 <span>子女信息</span>
-                <span style="font-size:.9em;color:#2980b9;">要想添加多个，请在新建完成之后进入<code>编辑</code>界面添加</span>
             </div>
 
-            <div class="marco-nbody row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>姓名</span>
+            <div class="marco-nbody">
 
-                        @if (Model != null)
-                        {
-                            foreach (var familyMember in Model.FamilyMemeber)
-                            {
-                                
-                                    <input type="text" name="familyName" value="@familyMember.memberName" />
-                                
-                            }
-                        }
-                        else
-                        {
-                            <input type="text" name="familyName" />
-                        }
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-success">
+                            <span>姓名 *</span>
+                            <input type="text" id="add_familyName" />
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-success">
+                            <span>关系 *</span>
+                            <input type="text" id="add_familyType" placeholder="女儿/儿子" />
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-success">
+                            <span>出生日期 *</span>
+                            <input type="text" id="add_familyBirthday" class="date-picker" />
+                            <span class="createFamilyBtn" style="cursor:pointer;">
+                                <i class="fa fa-plus-circle"></i>
+                                添加
+                            </span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span style="cursor:help" title="填写女儿/儿子">关系</span>
+                <hr class="hr-grey" />
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>关系</th>
+                            <th>出生日期</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody-family">
+                        @*Edit Delete 显示 信息 *@
                         @if (Model != null)
                         {
-                            foreach (var familyMember in Model.FamilyMemeber)
+                            foreach (var family in Model.FamilyMemeber)
                             {
-                                 
-                                    <input type="text" name="familyType" value="@familyMember.familyMemberType" />
-                                 
+                                <tr>
+                                    <td><input type="text" class="marco-input-primary" name="familyName" value="@family.memberName" /></td>
+                                    <td><input type="text" class="marco-input-primary" name="familyType" value="@family.familyMemberType" /></td>
+                                    <td><input type="text" class="marco-input-primary date-picker" name="familyBirthday" value="@family.birthday" /></td>
+                                    <td class="option-icon-danger"><i class='fa fa-close remove-family' id="@family.id" style='margin-top:3px;'></i></td>
+                                </tr>
                             }
                         }
-                        else
-                        {
-                            <input type="text" name="familyType" placeholder="女儿/儿子"/>
-                        }
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>
-                            出生日期
-                        </span>
-                        @if (Model != null)
-                        {
-                            foreach (var familyMember in Model.FamilyMemeber)
-                            {
-                                
-                                    <input type="text" name="familyBirthday" value="@familyMember.birthday" class="date-picker" />
-                                 
-                            }
-                        }
-                        else
-                        {
-                            <input type="text" name="familyBirthday" class="date-picker" />
-                        }
-                    </div>
-                </div>
-
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -444,12 +467,11 @@
             </div>
         </div>
 
-        <button class="marco-btn-primary" type="submit" style="position:fixed; bottom:0; right:20px;">
+        <button class="submit-btn marco-btn-primary" type="submit" style="position:fixed; bottom:0; right:20px;">
             <span>{{actionBtn}}</span>
         </button>
     }
 </div>
-
 
 @Scripts.Render("~/bundles/staff")
 
@@ -457,6 +479,5 @@
     Layout.init();
     Layout.rangedatepicker('.date-start-picker', '.date-end-picker');
     Layout.datepicker('.date-picker');
-    //Layout.TbodyHeight('#staff', 80);
     Staff.image_upload('#photoUpload');
 </script>

@@ -117,8 +117,8 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>身份证号码</th>
                         <th>员工号</th>
+                        <th>身份证号码</th>
                         <th>员工姓名</th>
                         <th>员工性别</th>
                         <th>员工职位</th>
@@ -132,13 +132,21 @@
                 {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.id)
-                                </td>
-                                <td>
                                     @Html.DisplayFor(modelItem => item.nr)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.id)
+                                </td>
+                                <td>
                                     @Html.DisplayFor(modelItem => item.name)
+
+                                    @if (item.isIdChecked)
+                                    {
+                                        <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">已验证</span>
+                                    }else
+                                    {
+                                        <span class="pull-right marco-label-danger" title="身份证已经还未验证" style="cursor:help;">未验证</span>
+                                    }
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.sex)
@@ -200,7 +208,6 @@
     Layout.init();
     Layout.CompanyAndDepartment('#companyId', '#departmentId');
     Layout.rangedatepicker('#CompanyEmployAtFrom', '#CompanyEmployAtTo');
-    ////Layout.TbodyHeight('.table-body', 310);
 
     $('.advanced-filter-btn').click(function () {
         var Display = $('.advanced-filter').css('display');

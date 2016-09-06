@@ -1,6 +1,11 @@
 ﻿var Layout = {};
 
 Layout.init = function () {
+    window.console = window.console || (function () {
+        var c = {}; c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function () { };
+        return c;
+    })();
+
     $('.nav-left dt').removeClass('active');
     var pathname = window.location.pathname.split('/');
 
@@ -73,6 +78,8 @@ Layout.CompanyAndDepartment = function (companyId, departmentId) {
     })
 }
 
+
+//用来设置 body 的高度
 Layout.TbodyHeight = function (cls, height) {
     $(cls).css({ height: $(window).height() - height + 'px' });
 
