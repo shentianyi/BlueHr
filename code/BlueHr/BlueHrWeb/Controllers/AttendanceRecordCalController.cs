@@ -98,13 +98,13 @@ namespace BlueHrWeb.Controllers
             IAttendanceRecordCalService ss = new AttendanceRecordCalService(Settings.Default.db);
             DateTime startDate = DateTime.Now.Date.AddDays(-20);
             DateTime endDate = DateTime.Now.Date;
-            if (!string.IsNullOrEmpty(Request.Form["startDate"]))
+            if (!string.IsNullOrEmpty(Request.QueryString["startDate"]))
             {
-                DateTime.TryParse(Request.Form["startDate"], out startDate);
+                DateTime.TryParse(Request.QueryString["startDate"], out startDate);
             }
-            if (!string.IsNullOrEmpty(Request.Form["endDate"]))
+            if (!string.IsNullOrEmpty(Request.QueryString["endDate"]))
             {
-                DateTime.TryParse(Request.Form["endDate"], out endDate);
+                DateTime.TryParse(Request.QueryString["endDate"], out endDate);
             }
 
 
@@ -121,6 +121,9 @@ namespace BlueHrWeb.Controllers
                 }
             }
             records = records.OrderByDescending(s => s.attendanceDate).ToList();
+
+            ViewBag.startDate = startDate.ToString("yyyy-MM-dd");
+            ViewBag.endDate = endDate.ToString("yyyy-MM-dd");
 
             return View(records);
         }

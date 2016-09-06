@@ -6,10 +6,33 @@
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
+    <li>考勤管理</li>
     <li>异常统计列表</li>
 </ol>
-
 <hr class="hr-grey" />
+<div class="row" style="margin:0;">
+    <form action="/AttendanceRecordCal/ExceptionList" method="get">
+
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>考勤日期</span>
+                <input type="text" name="startDate" id="startDate" class="datetimepicker" placeholder="开始" value="@ViewBag.startDate" />
+                <span>~ </span>
+                <input type="text" name="endDate" id="endDate" class="datetimepicker" placeholder="结束" value="@ViewBag.endDate" />
+            </div>
+        </div>
+         
+
+        <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
+            <button type="submit" class="marco-btn-success" style="width: 150px; height:40px;">
+                <i class="glyphicon glyphicon-search"></i>
+                搜索
+            </button>
+        </div>
+    </form>
+</div>
+
+
 <div style="padding:0 20px 10px 20px;">
     <div class="usual-table">
         <div class="table-heading">
@@ -49,5 +72,5 @@
 </div>
 <script type="text/javascript">
     Layout.init();
-    //Layout.TbodyHeight('.table-body', 200);
+    Layout.datepicker('.datetimepicker');
 </script>
