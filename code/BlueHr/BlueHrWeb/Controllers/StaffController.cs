@@ -79,10 +79,10 @@ namespace BlueHrWeb.Controllers
 
         // POST: Company/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt, CompanyEmployAt,"+
-            " WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
+        public ActionResult Create([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
+            "companySeniority, WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
             "Speciality, ResidenceAddress, Address, Id, Phone, ContactName, ContactPhone, ContactFamilyMemberType, Domicile, "+
-            "ResidenceType, inSureTypeId, IsPayCPF, ContractExpireAt, ContractCount, Ethnic, Remark")] Staff staff)
+            "ResidenceType, inSureTypeId, IsPayCPF, ContractExpireAt, ContractCount,totalSeniority, Ethnic, Remark, workingYears")] Staff staff)
         {
             // TODO: Add insert logic here
 
@@ -223,20 +223,28 @@ namespace BlueHrWeb.Controllers
             Staff staff = ss.FindByNr(nr);
             SetDropDownList(staff);
 
-            StaffSearchModel q = new StaffSearchModel();
-            q.companyId = staff.companyId;
-            q.departmentId = staff.departmentId;
-            ViewBag.Query = q;
+            try
+            {
+                StaffSearchModel q = new StaffSearchModel();
+                q.companyId = staff.companyId;
+                q.departmentId = staff.departmentId;
+                ViewBag.Query = q;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
             return View(staff);
         }
 
         // POST: Company/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt, CompanyEmployAt,"+
-            " WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
+        public ActionResult Edit([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
+            "companySeniority, WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
             "Speciality, ResidenceAddress, Address, Id, Phone, ContactName, ContactPhone, ContactFamilyMemberType, Domicile, "+
-            "ResidenceType, inSureTypeId, IsPayCPF, ContractExpireAt, ContractCount, Ethnic, Remark")] Staff staff)
+            "ResidenceType, inSureTypeId, IsPayCPF, ContractExpireAt, ContractCount,totalSeniority, Ethnic, Remark, workingYears")] Staff staff)
         {
             try
             {
@@ -322,6 +330,7 @@ namespace BlueHrWeb.Controllers
             if (bankCardReturn != null)
             {
                 msg = new ResultMessage() { Success = true };
+                //将ID返回给前端用来删除
                 msg.Content = bankCardReturn.id.ToString();
             }else
             {
@@ -351,6 +360,39 @@ namespace BlueHrWeb.Controllers
 
             return Json(msg, JsonRequestBehavior.DenyGet);
         }
+
+
+        [HttpPost]
+        public JsonResult CreateFamily(string[] family)
+        {
+            FamilyMemeber fm = new FamilyMemeber();
+
+            fm.memberName = family[0];
+            fm.familyMemberType = family[1];
+            fm.birthday = Convert.ToDateTime(family[2]);
+            fm.staffNr = family[3];
+
+            IFamilyMemberService fms = new FamilyMemberService(Settings.Default.db);
+
+            FamilyMemeber familyReturn = fms.CreateFromAjax(fm);
+
+            ResultMessage msg;
+
+            if (familyReturn != null)
+            {
+                msg = new ResultMessage() { Success = true };
+                //将ID返回给前端用来删除
+                msg.Content = familyReturn.id.ToString();
+            }
+            else
+            {
+                msg = new ResultMessage() { Success = false };
+                msg.Content = "新增失败";
+            }
+
+            return Json(msg, JsonRequestBehavior.DenyGet);
+        }
+
 
         [HttpPost]
         public JsonResult DeleteFamilyById(int id)

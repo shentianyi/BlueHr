@@ -14,85 +14,20 @@
 
     Staff.other_image_preview('#photoName', '#photo', '#photopreview');
 
+    //保证只能删除后再新添加
+    $('.tbody-family input').attr('disabled', 'disabled');
+
+
     $('.createBankCardBtn').click(function () {
-        var bank = $('#add_bank').val();
-        var bankCard = $('#add_bankCard').val();
-        var bankAddress = $('#add_bankAddress').val();
-        var bankRemark = $('#add_bankRemark').val();
-        var staffNr = $('#nr').val();
-
-        var arr = [bank, bankCard, bankAddress, bankRemark, staffNr];
-
-        $.ajax({
-            url: '/Staff/CreateBankCard',
-            type: 'post',
-            data: {
-                bankCard: arr
-            },
-            success: function (data) {
-                console.log(JSON.stringify(data));
-                if (data.Success) {
-                    Staff.add_bankCard('card-box-success', '#add_bank', '#add_bankCard', '#add_bankAddress', '#add_bankRemark', data.Content);
-                } else {
-                    console.log(data.Content);
-                }
-            },
-            error: function () {
-                console.log("Ajax 请求失败！");
-            }
-        })
+        Staff.createBankCard('card-box-success', '#add_bank', '#add_bankCard', '#add_bankAddress', '#add_bankRemark');
     });
 
-    $('.remove-card').click(function () {
-        var this_card = $(this);
-        var Id = $(this).attr('id');
 
-        $.ajax({
-            url: '/Staff/DeleteBankCardById',
-            type: 'post',
-            data: {
-                id: Id
-            },
-            success: function (data) {
-                if (data.Success) {
-                    this_card.parent().parent().parent().remove();
-                    //删除成功
-                    console.log(data.Content);
-                } else {
-                    //删除失败
-                    console.log(data.Content);
-                }
-            },
-            error: function () {
-                console.log("ajax 请求失败!");
-            }
-        })
-    });
-
-    $('.remove-family').click(function () {
-        var this_family = $(this);
-        var Id = $(this).attr('id');
-
-        $.ajax({
-            url: '/Staff/DeleteFamilyById',
-            type: 'post',
-            data: {
-                id: Id
-            },
-            success: function (data) {
-                if (data.Success) {
-                    this_family.parent().parent().remove();
-                    //删除成功
-                    console.log(data.Content);
-                } else {
-                    //删除失败
-                    console.log(data.Content);
-                }
-            },
-            error: function () {
-                console.log("ajax 请求失败！")
-            }
-        })
-    });
+    $('.createFamilyBtn').click(function () {
+        Staff.createFamily('#add_familyName', '#add_familyType', '#add_familyBirthday');
+    })
+    //保证刚进入界面就可以删除
+    Staff.remove_bankCard_ById();
+    Staff.remove_family_ById();
 </script>
 

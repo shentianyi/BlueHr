@@ -20,5 +20,7 @@ namespace BlueHrLib.Service.Interface
         bool Update(FamilyMemeber fm);
 
         bool DeleteById(int id);
+
+        FamilyMemeber CreateFromAjax(FamilyMemeber familyMember);
     }
 }

@@ -35,9 +35,7 @@ namespace BlueHrLib.Data.Repository.Implement
                 this.context.GetTable<BankCard>().InsertOnSubmit(bankCard);
                 this.context.SubmitChanges();
 
-                BankCard bc = this.context.GetTable<BankCard>().Last();
-
-                return bc;
+                return bankCard;
             }
             catch (Exception e)
             {

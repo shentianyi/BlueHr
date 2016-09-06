@@ -28,6 +28,23 @@ namespace BlueHrLib.Data.Repository.Implement
             }
         }
 
+        public FamilyMemeber CreateFromAjax(FamilyMemeber familyMember)
+        {
+            try
+            {
+                this.context.GetTable<FamilyMemeber>().InsertOnSubmit(familyMember);
+                this.context.SubmitChanges();
+
+                return familyMember;
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+
+                return null;
+            }
+        }
+
         public bool DeleteById(int id)
         {
             var fm = this.context.GetTable<FamilyMemeber>().FirstOrDefault(c => c.id.Equals(id));
