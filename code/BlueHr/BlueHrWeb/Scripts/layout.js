@@ -88,7 +88,7 @@ Layout.CompanyAndDepartment = function (companyId, departmentId) {
     $(companyId).change(function () {
         $(departmentId).empty();
 
-        var companyID = $('#companyId').find("option:selected").val();
+        var companyID = $(companyId).find("option:selected").val();
         var Html = "";
 
         for (dep in Department[companyID]) {

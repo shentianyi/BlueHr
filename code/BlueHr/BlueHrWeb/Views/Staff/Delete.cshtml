@@ -24,19 +24,85 @@
             </button>
         </a>
 
-        <a href="#" title="调 岗">
-            <button class="marco-btn-primary pull-right">
-                <i class="glyphicon glyphicon-refresh"></i>
-                <span>调 岗</span>
-            </button>
-        </a>
+        <button class="marco-btn-primary pull-right change-job">
+            <i class="glyphicon glyphicon-refresh"></i>
+            <span>调 岗</span>
+        </button>
     </div>
 </div>
+
+<div id="change_job_content" style="display:none; width: 50%; position:fixed; top: 30%; left: 25%;z-index: 999999;">
+    <div class="marco-npanel-primary">
+        <div class="marco-nheading">
+            调岗
+            <i class="fa fa-close pull-right close-change-job"></i>
+        </div>
+
+        <div class="marco-nbody" style="background: #f2f2f2;">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>公司</span>
+                        @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>部门</span>
+                        @Html.DropDownList("departmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>职位</span>
+                        @Html.DropDownList("JobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+            </div>
+
+            <hr class="hr-grey" />
+            <div class="row" style="margin:0;">
+                <button type="button" class="marco-btn-primary pull-right change-job-btn">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="fullpage-overlay"></div>
 
 @Html.Partial("_PartialStaff")
 
 <script type="text/javascript">
     Staff.other_image_preview('#photoName', '#photo', '#photopreview');
+
+    $('.change-job').click(function () {
+        //调岗
+        $('#change_job_content select').removeAttr('disabled');
+        $('#fullpage-overlay').css({ display: 'block' });
+        $('#change_job_content').show();
+
+        $('.close-change-job').click(function () {
+            $('#change_job_content').css({ display: 'none' });
+            $('#fullpage-overlay').css({ display: 'none' });
+        });
+
+        $('.change-job-btn').click(function () {
+            var Dialog = $(this).parent().parent();
+
+            var CompanyID = Dialog.find('#companyId').val();
+            var DepartmentID = Dialog.find('#departmentId').val();
+            var JobTitleID = Dialog.find('#JobTitleId').val();
+
+            console.log(">>>>");
+            console.log(CompanyID);
+            console.log(DepartmentID);
+            console.log(JobTitleID);
+
+            //发送ajax请求
+
+
+        });
+    });
 
     //使之不可编辑
     $('input').attr('disabled', 'disabled');

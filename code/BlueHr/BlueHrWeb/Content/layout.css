@@ -1,34 +1,36 @@
-﻿#menu {
+﻿.main-nav #menu {
   margin: 0;
   padding: 0;
   list-style: none;
   background-color: #2c3e50; }
-  #menu ul {
+  .main-nav #menu ul {
     margin: 0;
     padding: 0;
     list-style: none; }
-  #menu:before {
+  .main-nav #menu:before {
     content: "";
     display: table; }
-  #menu:after {
+  .main-nav #menu:after {
     content: "";
     display: table;
     clear: both; }
-  #menu li {
+  .main-nav #menu li {
     float: left;
-    border-right: 1px solid #ecf0f1;
+    border-right: 1px solid #34495e;
     position: relative; }
-    #menu li .caret {
+    .main-nav #menu li .caret {
       border-top-color: #ecf0f1; }
-  #menu a {
+    .main-nav #menu li:last-child {
+      border: none; }
+  .main-nav #menu a {
     float: left;
     padding: 12px 26px;
     color: #ecf0f1;
     font-size: 12px;
     text-decoration: none; }
-  #menu li:hover > a {
+  .main-nav #menu li:hover > a {
     color: #ecf0f1; }
-  #menu ul {
+  .main-nav #menu ul {
     opacity: 0;
     visibility: hidden;
     position: absolute;
@@ -43,31 +45,31 @@
     -ms-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out; }
-  #menu li:hover > ul {
+  .main-nav #menu li:hover > ul {
     opacity: 1;
     visibility: visible;
     margin: 0; }
-  #menu ul ul {
+  .main-nav #menu ul ul {
     top: 0;
     left: 150px;
     margin: 0 0 0 20px; }
-  #menu ul li {
+  .main-nav #menu ul li {
     float: none;
     border-right: none;
     border-bottom: 1px solid #34495e;
     text-align: center; }
-    #menu ul li:last-child {
+    .main-nav #menu ul li:last-child {
       -moz-box-shadow: none;
       -webkit-box-shadow: none;
       box-shadow: none;
       border-bottom-color: transparent; }
-  #menu ul a {
+  .main-nav #menu ul a {
     width: 115px;
     display: block;
     white-space: nowrap;
     float: none;
     text-transform: none; }
-    #menu ul a:hover {
+    .main-nav #menu ul a:hover {
       background-color: #34495e;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px; }
@@ -519,6 +521,11 @@
     font-size: 1.3em;
     background: #95a5a6;
     color: #f2f2f2; }
+    .marco-npanel .marco-nheading i {
+      cursor: pointer;
+      color: #e74c3c; }
+      .marco-npanel .marco-nheading i:hover {
+        color: #f2f2f2; }
   .marco-npanel .marco-nbody {
     padding: 5px;
     min-height: 40px; }
@@ -533,6 +540,11 @@
     font-size: 1.3em;
     background: #ecf0f1;
     color: #34495e; }
+    .marco-npanel-normal .marco-nheading i {
+      cursor: pointer;
+      color: #e74c3c; }
+      .marco-npanel-normal .marco-nheading i:hover {
+        color: #34495e; }
   .marco-npanel-normal .marco-nbody {
     padding: 5px;
     min-height: 40px; }
@@ -547,6 +559,11 @@
     font-size: 1.3em;
     background: #34495e;
     color: #f2f2f2; }
+    .marco-npanel-default .marco-nheading i {
+      cursor: pointer;
+      color: #e74c3c; }
+      .marco-npanel-default .marco-nheading i:hover {
+        color: #f2f2f2; }
   .marco-npanel-default .marco-nbody {
     padding: 5px;
     min-height: 40px; }
@@ -561,6 +578,11 @@
     font-size: 1.3em;
     background: #3498db;
     color: #f2f2f2; }
+    .marco-npanel-primary .marco-nheading i {
+      cursor: pointer;
+      color: #e74c3c; }
+      .marco-npanel-primary .marco-nheading i:hover {
+        color: #f2f2f2; }
   .marco-npanel-primary .marco-nbody {
     padding: 5px;
     min-height: 40px; }
@@ -575,6 +597,11 @@
     font-size: 1.3em;
     background: #1abc9c;
     color: #f2f2f2; }
+    .marco-npanel-success .marco-nheading i {
+      cursor: pointer;
+      color: #e74c3c; }
+      .marco-npanel-success .marco-nheading i:hover {
+        color: #f2f2f2; }
   .marco-npanel-success .marco-nbody {
     padding: 5px;
     min-height: 40px; }
@@ -589,6 +616,11 @@
     font-size: 1.3em;
     background: #fcf8e3;
     color: #8a6d3b; }
+    .marco-npanel-warning .marco-nheading i {
+      cursor: pointer;
+      color: #e74c3c; }
+      .marco-npanel-warning .marco-nheading i:hover {
+        color: #8a6d3b; }
   .marco-npanel-warning .marco-nbody {
     padding: 5px;
     min-height: 40px; }
@@ -603,6 +635,11 @@
     font-size: 1.3em;
     background: #e74c3c;
     color: #f2f2f2; }
+    .marco-npanel-danger .marco-nheading i {
+      cursor: pointer;
+      color: #e74c3c; }
+      .marco-npanel-danger .marco-nheading i:hover {
+        color: #f2f2f2; }
   .marco-npanel-danger .marco-nbody {
     padding: 5px;
     min-height: 40px; }

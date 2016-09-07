@@ -13,6 +13,21 @@
     z-index: 888889;
 }
 
+#fullpage-overlay {
+    display: none;
+    background: black /*{bgColorOverlay}*/ 50% /*{bgOverlayXPos}*/ 50% /*{bgOverlayYPos}*/ repeat-x /*{bgOverlayRepeat}*/;
+    opacity: .5;
+    filter: Alpha(Opacity=50) /*{opacityOverlay}*/;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom:0;
+    right:0;
+    width: 100%;
+    height: 100%;
+    z-index: 888889;
+}
+
 #handle-dialog-modal {
     position: absolute;
     top: 40%;
