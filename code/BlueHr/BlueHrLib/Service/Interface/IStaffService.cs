@@ -67,6 +67,7 @@ namespace BlueHrLib.Service.Interface
 
         bool DeleteByNr(string nr);
 
+        bool ChangeJob(string[] changeJob);
         /// <summary>
         /// 员工转正
         /// </summary>

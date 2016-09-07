@@ -17,7 +17,7 @@
             </button>
         </a>
 
-        <a href="@toFullUrl" title="@toFullTitle">
+        <a href="@tofullurl" title="@tofulltitle">
             <button class="marco-btn-success pull-right">
                 <i class="glyphicon glyphicon-repeat"></i>
                 <span>转正</span>
@@ -62,6 +62,7 @@
 
             <hr class="hr-grey" />
             <div class="row" style="margin:0;">
+                <span class="pull-left error-msg" style="color:red;margin-left:10px;"></span>
                 <button type="button" class="marco-btn-primary pull-right change-job-btn">确定</button>
             </div>
         </div>
@@ -93,13 +94,53 @@
             var DepartmentID = Dialog.find('#departmentId').val();
             var JobTitleID = Dialog.find('#JobTitleId').val();
 
-            console.log(">>>>");
-            console.log(CompanyID);
-            console.log(DepartmentID);
-            console.log(JobTitleID);
+            var StaffNr = $('#nr').val();
+            
+            if (Layout.IsStringNull(StaffNr)) {
+                $('.error-msg').html("员工号找不到");
+                return false;
+            }
+
+            //这三个是否要进行 空值 判断？
+            // 调岗必须填写岗位信息
+            if (Layout.IsStringNull(CompanyID)) {
+                $('.error-msg').html("公司不能为空");
+                return false;
+            }
+
+            if (Layout.IsStringNull(DepartmentID)) {
+                $('.error-msg').html("部门不能为空");
+                return false;
+            }
+
+            if (Layout.IsStringNull(JobTitleID)) {
+                $('.error-msg').html("职位不能为空");
+                return false;
+            }
 
             //发送ajax请求
+            var Jobs = [StaffNr, CompanyID, DepartmentID, JobTitleID];
 
+            $.ajax({
+                url: '/Staff/changeJob',
+                type: 'post',
+                data: {
+                    changeJob: Jobs
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data.Success) {
+                        Layout.popMsg('popModal-success', data.Content);
+                        window.location.reload();
+                    } else {
+                        Layout.popMsg('popModal-danger', data.Content);
+                    }
+                },
+                error: function () {
+                    console.log("Something Error!");
+                    Layout.popMsg('.popModal-danger', "Ajax 请求失败！");
+                }
+            });
 
         });
     });

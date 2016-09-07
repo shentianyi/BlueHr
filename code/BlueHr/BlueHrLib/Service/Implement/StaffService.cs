@@ -17,7 +17,10 @@ namespace BlueHrLib.Service.Implement
 {
     public class StaffService : ServiceBase, IStaffService
     {
-        public StaffService(string dbString) : base(dbString) { }
+        private IStaffRepository staffRep;
+        public StaffService(string dbString) : base(dbString) {
+            staffRep = new StaffRepository(this.Context);        
+        }
 
         public Staff FindByStaffId(string id)
         {
@@ -118,8 +121,6 @@ namespace BlueHrLib.Service.Implement
 
         public IQueryable<Staff> Search(StaffSearchModel searchModel)
         {
-            DataContext dc = new DataContext(this.DbString);
-            IStaffRepository staffRep = new StaffRepository(dc);
             return staffRep.Search(searchModel);
         }
 
@@ -138,33 +139,21 @@ namespace BlueHrLib.Service.Implement
 
         public bool Create(Staff staff)
         {
-            DataContext dc = new DataContext(this.DbString);
-            IStaffRepository staffRep = new StaffRepository(dc);
-
             return staffRep.Create(staff);
         }
 
         public Staff FindById(int id)
         {
-            DataContext dc = new DataContext(this.DbString);
-            IStaffRepository staffRep = new StaffRepository(dc);
-
             return staffRep.FindById(id);
         }
 
         public bool DeleteByNr(string nr)
         {
-            DataContext dc = new DataContext(this.DbString);
-            IStaffRepository staffRep = new StaffRepository(dc);
-
             return staffRep.DeleteByNr(nr);
         }
 
         public bool Update(Staff staff)
         {
-            DataContext dc = new DataContext(this.DbString);
-            IStaffRepository staffRep = new StaffRepository(dc);
-
             return staffRep.Update(staff);
         }
 
@@ -221,6 +210,40 @@ namespace BlueHrLib.Service.Implement
 
             return dc.Context.GetTable<Staff>().Where(s => s.trialOverAt <= datetime.AddDays(setting.daysBeforeAlertStaffGoFull.Value)
             && s.isOnTrial == true && s.workStatus.Equals((int)WorkStatus.OnWork)).ToList();
+        }
+
+        public bool ChangeJob(string[] changeJob)
+        {
+            //是否要判断
+            string StaffNr = changeJob[0];
+            int CompanyId = Convert.ToInt16(changeJob[1]);
+            int DepartmentId = Convert.ToInt16(changeJob[2]);
+            int JobTitleId = Convert.ToInt16(changeJob[3]);
+
+            DataContext dc = new DataContext(this.DbString);
+            Staff staff = dc.Context.GetTable<Staff>().FirstOrDefault(s => s.nr.Equals(StaffNr));
+
+            if (staff != null)
+            {
+                staff.companyId = CompanyId;
+                staff.departmentId = DepartmentId;
+                staff.jobTitleId = JobTitleId;
+
+                try
+                {
+                    dc.Context.SubmitChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+                
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

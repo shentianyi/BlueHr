@@ -213,19 +213,19 @@ namespace BlueHrWeb.Controllers
 
             Staff staff = ss.FindByNr(nr);
             SetDropDownList(staff);
+            StaffSearchModel q = new StaffSearchModel();
 
             try
             {
-                StaffSearchModel q = new StaffSearchModel();
                 q.companyId = staff.companyId;
                 q.departmentId = staff.departmentId;
-                ViewBag.Query = q;
             }
             catch (Exception)
             {
-
-                throw;
+                q.companyId = null;
+                q.departmentId = null;
             }
+            ViewBag.Query = q;
 
             return View(staff);
         }
@@ -428,6 +428,35 @@ namespace BlueHrWeb.Controllers
            // return Json(fileName, JsonRequestBehavior.DenyGet);
         }
 
+
+        [HttpPost]
+        public JsonResult changeJob(string[] changeJob)
+        {
+            //string StaffNr = changeJob[0];
+            //int CompanyId = Convert.ToInt16(changeJob[1]);
+            //int DepartmentId = Convert.ToInt16(changeJob[2]);
+            //int JobTitleId = Convert.ToInt16(changeJob[3]);
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+
+            bool JobReturn = ss.ChangeJob(changeJob); 
+
+            ResultMessage msg;
+
+            if (JobReturn)
+            {
+                msg = new ResultMessage() { Success = true };
+                //将ID返回给前端用来删除
+                msg.Content = "调岗成功";
+            }
+            else
+            {
+                msg = new ResultMessage() { Success = false };
+                msg.Content = "调岗失败";
+            }
+
+            return Json(msg, JsonRequestBehavior.DenyGet);
+        }
         private void SetDropDownList(Staff staff)
         {
             if (staff != null)
