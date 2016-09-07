@@ -1,0 +1,107 @@
+﻿@using MvcPaging
+@model IPagedList<BlueHrLib.Data.ResignType>
+@{
+    ViewBag.Title = "离职类型管理";
+}
+@*@Styles.Render("~/Content/degreetype")*@
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>离职类型管理</li>
+</ol>
+<hr class="hr-grey" />
+<div class="row" style="margin:0;">
+    <form action="/ResignType/Search" method="get">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>离职类型名称</span>
+                <input type="text" name="Name" id="Name" placeholder="离职类型名称" value="@ViewBag.Query.Name" />
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
+            <button type="submit" class="marco-btn-success">
+                <i class="glyphicon glyphicon-search"></i>
+                搜索
+            </button>
+        </div>
+    </form>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="usual-table">
+        <div class="table-heading">
+            离职类型列表
+            <div class="pull-right" style="margin-top:-12px;">
+                <a href="/ResignType/Create">
+                    <button class="marco-btn-primary">
+                        <i class="glyphicon glyphicon-plus-sign"></i>
+                        <span>创建</span>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="table-body content_3">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>离职类型名称</th>
+                        <th>编码</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.code)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.remark)
+                                </td>
+                                <td>
+                                    <a href="/ResignType/Delete/@item.id" class="option-icon-primary" title="详情">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="/ResignType/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+        <div class="clearfix pagination">
+            <div class="pagination-inner">
+                @if (Model != null)
+                {
+                    if (ViewBag.Query != null)
+                    {
+
+                        var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                            .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
+                        @html
+                    }
+                    else
+                    {
+                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@Scripts.Render("~/bundles/degreetype")*@
+<script type="text/javascript">
+    Layout.init();
+    Layout.TbodyHeight('.table-body', 310);
+</script>

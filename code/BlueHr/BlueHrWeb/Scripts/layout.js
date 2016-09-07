@@ -43,8 +43,11 @@ Layout.init = function () {
         case "InSureType":
             $('.nav-insuretype').addClass('active');
             PageAction('#insuretype', '新建保险类别', '编辑保险类别', '保险类别详情', '创建', '更新', '删除');
+            break; 
+        case "ResignType":
+            $('.nav-resigntype').addClass('active');
+            PageAction('#resigntype', '新建离职类型', '编辑离职类型', '离职类型详情', '创建', '更新', '删除');
             break;
-            
         case "TaskRound":
             $('.nav-taskround').addClass('active');
         default:
