@@ -181,7 +181,7 @@ namespace BlueHrLib.Service.Implement
                 Staff staff = dc.Context.GetTable<Staff>().FirstOrDefault(s => s.nr.Equals(record.staffNr));
                 if (staff != null)
                 {
-                    if (staff.CanTobeFullMember)
+                    if (staff.canTobeFullMember)
                     {
                         if (record.isPassCheck)
                         {
