@@ -133,6 +133,7 @@
                         <th>公司</th>
                         <th>部门</th>
                         <th>职位</th>
+                        <th>是否备全证照</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -180,6 +181,11 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.JobTitle.name)
                                 </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IsHasAllCertificate)
+                                </td>
+
                                 <td>
                                     <a href="/Staff/Delete/@item.nr" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>
