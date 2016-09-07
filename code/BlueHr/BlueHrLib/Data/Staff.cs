@@ -69,7 +69,7 @@ namespace BlueHrLib.Data
         {
             get
             {
-                return this.sex.Equals("0") ? "男" : "女"; 
+                return string.IsNullOrEmpty(this.sex) ? "" : this.sex.Equals("0") ? "男" : "女"; 
             }
         }
     }
