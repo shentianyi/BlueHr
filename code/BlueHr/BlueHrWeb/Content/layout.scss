@@ -573,3 +573,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 .popMsg-danger{
     @include popMsg($alizarin);
 }
+
+@-moz-document url-prefix() {
+  fieldset { display: table-cell; }
+}

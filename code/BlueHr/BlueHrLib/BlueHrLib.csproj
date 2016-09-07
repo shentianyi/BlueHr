@@ -41,6 +41,10 @@
     <Reference Include="log4net">
       <HintPath>..\ThridPart\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Quartz, Version=2.3.3.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ThridPart\Quartz.2.3.3\lib\net40\Quartz.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
@@ -88,7 +92,6 @@
     <Compile Include="Data\Message\ImportMessage.cs" />
     <Compile Include="Data\Message\ResultMessage.cs" />
     <Compile Include="Data\Message\ValidateMessage.cs" />
-    <Compile Include="Data\Model\CompanyPartial.cs" />
     <Compile Include="Data\Model\Department.cs" />
     <Compile Include="Data\Enum\WorkStatus.cs" />
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
@@ -129,7 +132,6 @@
     <Compile Include="MQTask\Parameter\CalAttParameter.cs" />
     <Compile Include="MQTask\TaskDispatcher.cs" />
     <Compile Include="MQTask\TaskSetting.cs" />
-    <Compile Include="Data\Model\PageViewModel\CompanyInfoModel.cs" />
     <Compile Include="Data\Model\Search\AttendanceRecordDetailSearchModel.cs" />
     <Compile Include="Data\Model\Search\DepartmentSearchModel.cs" />
     <Compile Include="Data\Model\Search\DegreeTypeSearchModel.cs" />
@@ -177,6 +179,7 @@
     <Compile Include="Service\Implement\AttendanceRecordDetailService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordService.cs" />
     <Compile Include="Service\Implement\CertificateTypeService.cs" />
+    <Compile Include="Service\Implement\CompanyService.cs" />
     <Compile Include="Service\Implement\FamilyMemberService.cs" />
     <Compile Include="Service\Implement\DegreeTypeService.cs" />
     <Compile Include="Service\Implement\InSureTypeService.cs" />
@@ -188,15 +191,14 @@
     <Compile Include="Service\Implement\TaskRoundService.cs" />
     <Compile Include="Service\Implement\StaffTypeService.cs" />
     <Compile Include="Service\Implement\JobTitleService.cs" />
-    <Compile Include="Service\Implement\CompanyService.cs" />
     <Compile Include="Service\Implement\DepartmentService.cs" />
     <Compile Include="Service\Implement\StaffService.cs" />
     <Compile Include="Service\Interface\IAttendanceRecordCalService.cs" />
     <Compile Include="Service\Interface\IAttendanceRecordDetailService.cs" />
     <Compile Include="Service\Interface\IAttendanceRecordService.cs" />
     <Compile Include="Service\Interface\ICertificateTypeService.cs" />
-    <Compile Include="Service\Interface\IFamilyMemberService.cs" />
     <Compile Include="Service\Interface\ICompanyService.cs" />
+    <Compile Include="Service\Interface\IFamilyMemberService.cs" />
     <Compile Include="Service\Interface\IDepartmentService.cs" />
     <Compile Include="Service\Interface\IDegreeTypeService.cs" />
     <Compile Include="Service\Interface\IInSureTypeService.cs" />
