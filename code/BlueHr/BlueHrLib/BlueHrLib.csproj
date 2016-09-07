@@ -96,17 +96,20 @@
     <Compile Include="Data\Enum\WorkStatus.cs" />
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\AbsenceTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\CertificateTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\DegreeTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\InSureTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\JobTitleInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\ResignTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\StaffTypeInfoModel.cs" />
+    <Compile Include="Data\Model\Search\AbsenceTypeSearchModel.cs" />
     <Compile Include="Data\Model\Search\AttendanceRecordCalSearchModel.cs" />
     <Compile Include="Data\Model\Search\BankCardSearchModel.cs" />
     <Compile Include="Data\Model\Search\CertificateTypeSearchModel.cs" />
     <Compile Include="Data\Model\Search\FamilyMemberSearchModel.cs" />
     <Compile Include="Data\Model\Search\ResignTypeSearchModel.cs" />
+    <Compile Include="Data\Repository\Implement\AbsenceTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\AttendanceRecordCalViewRepository.cs" />
     <Compile Include="Data\Repository\Implement\AttendanceRecordCalRepository.cs" />
     <Compile Include="Data\Repository\Implement\CertificateTypeRepository.cs" />
@@ -115,6 +118,7 @@
     <Compile Include="Data\Repository\Implement\ResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\ShiftRepository.cs" />
     <Compile Include="Data\Repository\Implement\TaskRoundRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAbsenceTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAttendanceRecordCalViewRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAttendanceRecordCalRepository.cs" />
     <Compile Include="Data\Repository\Interface\ICertificateTypeRepository.cs" />
@@ -180,6 +184,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service\Implement\AbsenceTypeService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordCalService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordDetailService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordService.cs" />
@@ -199,6 +204,7 @@
     <Compile Include="Service\Implement\JobTitleService.cs" />
     <Compile Include="Service\Implement\DepartmentService.cs" />
     <Compile Include="Service\Implement\StaffService.cs" />
+    <Compile Include="Service\Interface\IAbsenceTypeService.cs" />
     <Compile Include="Service\Interface\IAttendanceRecordCalService.cs" />
     <Compile Include="Service\Interface\IAttendanceRecordDetailService.cs" />
     <Compile Include="Service\Interface\IAttendanceRecordService.cs" />

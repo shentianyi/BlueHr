@@ -48,6 +48,11 @@ Layout.init = function () {
             $('.nav-resigntype').addClass('active');
             PageAction('#resigntype', '新建离职类型', '编辑离职类型', '离职类型详情', '创建', '更新', '删除');
             break;
+        case "AbsenceType":
+            $('.nav-absencetype').addClass('active');
+            PageAction('#absencetype', '新建缺勤类型', '编辑缺勤类型', '缺勤类型详情', '创建', '更新', '删除');
+            break;
+            
         case "TaskRound":
             $('.nav-taskround').addClass('active');
         default:

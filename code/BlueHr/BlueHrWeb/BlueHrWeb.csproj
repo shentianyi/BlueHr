@@ -242,6 +242,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Bundler.cs" />
+    <Compile Include="Controllers\AbsenceTypeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttendanceRecordCalController.cs" />
     <Compile Include="Controllers\AttendanceRecordDetailController.cs" />
@@ -451,6 +452,11 @@
     <Content Include="Views\ResignType\Edit.cshtml" />
     <Content Include="Views\ResignType\Delete.cshtml" />
     <Content Include="Views\ResignType\_PartialResignType.cshtml" />
+    <Content Include="Views\AbsenceType\Index.cshtml" />
+    <Content Include="Views\AbsenceType\Create.cshtml" />
+    <Content Include="Views\AbsenceType\Edit.cshtml" />
+    <Content Include="Views\AbsenceType\Delete.cshtml" />
+    <Content Include="Views\AbsenceType\_PartialAbsenceType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
