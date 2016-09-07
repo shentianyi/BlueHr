@@ -92,7 +92,7 @@ Staff.other_image_preview = function (photo_name, real_name, photo_preview) {
     $(photo_name).html($(real_name).val().substring($(real_name).val().indexOf('_') + 1));
 
     var div = $(photo_preview);
-    div.html('<img id=imghead>');
+    div.html('<img id=imghead alt="员工照片">');
     var img = $('#imghead');
     img.css({ maxHeight: '180px', maxWidth: '260px' });
     img.attr('src', '../../UploadImage/' + $(real_name).val());
