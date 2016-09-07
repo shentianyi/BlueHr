@@ -1,6 +1,7 @@
 ﻿var Layout = {};
 
 Layout.init = function () {
+    //IE 提示console找不到 解决办法
     window.console = window.console || (function () {
         var c = {}; c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function () { };
         return c;
@@ -156,6 +157,7 @@ Layout.rangedatepicker = function (date_picker_start, date_picker_end) {
     });
 }
 
+//可以扩展， 使用typeof 进行判断然后进行判断
 Layout.IsStringNull = function (str) {
     if (str == null || str == "") {
         return true;

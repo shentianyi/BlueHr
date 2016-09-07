@@ -6,6 +6,7 @@
         <li>@Html.ActionLink("部门管理", "Index")</li>
         <li>{{action}}</li>
     </ol>
+
     <hr class="hr-grey" />
     @using (Html.BeginForm())
     {
@@ -16,6 +17,7 @@
         {
             @Html.HiddenFor(model => model.id)
         }
+
         <div class="marco-npanel-primary">
             <div class="marco-nheading">
                 {{action}}
@@ -29,13 +31,14 @@
             </div>
 
             <div class="marco-nbody">
-                <div class="marco-igroup-danger">
+                <div class="marco-igroup-primary">
                     <label for="remark">所属公司*</label>
-                    @Html.DropDownList("CompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
-
+                    @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
                 </div>
-                <div class="marco-igroup-danger">
+
+                <div class="marco-igroup-primary">
                     <label for="name">部门名称*</label>
+
                     @if (Model != null)
                     {
                         @Html.EditorFor(model => model.name)

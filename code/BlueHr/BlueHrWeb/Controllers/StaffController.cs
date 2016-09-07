@@ -53,7 +53,11 @@ namespace BlueHrWeb.Controllers
             Staff staff = new Staff();
             staff.companyId = Convert.ToInt16(q.companyId);
             staff.departmentId = Convert.ToInt16(q.departmentId);
-            staff.sex = Convert.ToString(q.Sex);
+            //防止SetSexList 抛出异常
+            if (q.Sex.HasValue)
+            {
+                staff.sex = Convert.ToString(q.Sex);
+            }
             staff.jobTitleId = q.JobTitleId;
             staff.isOnTrial = Convert.ToBoolean(q.IsOnTrial);
             SetDropDownList(staff);
@@ -275,12 +279,13 @@ namespace BlueHrWeb.Controllers
             {
                 q.companyId = staff.companyId;
                 q.departmentId = staff.departmentId;
-                ViewBag.Query = q;
             }
             catch (Exception)
             {
-                throw;
+                q.companyId = null;
+                q.departmentId = null;
             }
+            ViewBag.Query = q;
 
             return View(staff);
         }

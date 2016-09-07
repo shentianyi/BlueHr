@@ -7,57 +7,122 @@
 }
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
+    <li>用户管理</li>
+    <li><a href="/Staff">员工管理</a></li>
+    <li><a href="#" id="staff_delete">员工详情</a></li>
     <li>员工转正</li>
 </ol>
 
+
+<style>
+    .photo_preview > img {
+        width: 200px;
+        height: 150px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+</style>
+
+<hr class="hr-grey" />
+
 @if (Model != null)
 {
-    <span>
-        员工姓名：@Model.name
-    </span>
+    <div style="padding:0 10px;">
+        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+            <div class="card-box-default">
+                <div class="card-box">
+                    <div class="card-heading" style="border-bottom: 1px dashed #999;">
+                        <span>员工基本信息</span>
+                    </div>
 
-    <span>
-        员工号：@Model.nr
-    </span>
+                    <div class="card-body-multiple row">
+                        <div class="col-lg-offset-1 col-md-offset-1  col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                            <p>工号： @Model.nr</p>
+
+                            <p>姓名： @Model.name</p>
 
 
-    <span>
-        是否通过试用：<input type="checkbox" checked="checked" id="isPassCheck" />
-    </span>
-    <span>
-        转正日期： <input type="text" class="datetimepicker"  id="beFullAt" />
-    </span>
+                            <p>性别： @Model.sex</p>
 
-    <span>
-        考核日期： <input type="text" class="datetimepicker" id="checkAt" />
-    </span>
 
-    <span>
-        试用期分数： <input type="text"   id="checkScore" />
-    </span>
+                            <p>生日： @Model.birthday</p>
 
-    <span>
-        最终考核人： <input type="text" id="beFullChecker" />
-    </span>
+                        </div>
 
-    <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
-        <div class="marco-igroup-primary">
-            备注:
-            <textarea name="remark" id="remark"></textarea>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="photo_preview"></div>
+                            <div id="photo_name" style="text-align:center;"></div>
+                            <input type="hidden" id="photo" value="@Model.photo" />
+                        </div>
+                    </div>
+                    <hr class="hr-grey" />
+                    <div class="card-footer">
+                        <span>通讯地址: @Model.address</span>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <span>
-        <button type="submit" class="marco-btn-success" onclick="toFullMember()">
-            <i class="glyphicon glyphicon-ok"></i>
-            确定
-        </button>
-    </span>
-    <input type="hidden" id="staffNr" value="@Model.nr" />
 
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+            <div class="card-box-default">
+                <div class="card-box">
+                    <div class="card-heading" style="border-bottom: 1px dashed #999;">
+                        转正信息填写
+                    </div>
+
+                    <div class="card-body-multiple">
+                        <div class="marco-igroup-default">
+                            <span>是否通过试用</span>
+                            <input type="checkbox" checked="checked" id="isPassCheck" />
+                        </div>
+
+                        <div class="marco-igroup-default">
+                            <span>&nbsp;&nbsp;转正日期&nbsp;&nbsp;</span>
+                            <input type="text" class="datetimepicker" id="beFullAt" />
+                        </div>
+
+                        <div class="marco-igroup-default">
+                            <span>&nbsp;&nbsp;考核日期&nbsp;&nbsp;</span>
+                            <input type="text" class="datetimepicker" id="checkAt" />
+                        </div>
+                        <div class="marco-igroup-default">
+                            <span>试用期分数</span>
+                            <input type="text" id="checkScore" />
+                        </div>
+                        <div class="marco-igroup-default">
+                            <span>最终考核人</span>
+                            <input type="text" id="beFullChecker" />
+                        </div>
+
+                        <div class="marco-textarea">
+                            <textarea name="remark" id="remark">备注</textarea>
+                        </div>
+
+                        <hr class="hr-grey" />
+                        <div style="text-align:right;">
+                            <button type="submit" class="marco-btn-success" onclick="toFullMember()">
+                                <i class="glyphicon glyphicon-ok"></i>确定
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="staffNr" value="@Model.nr" />
+    </div>
 }
 
+@Scripts.Render("~/bundles/staff")
+
 <script type="text/javascript">
+
+    Staff.other_image_preview('#photo_name', '#photo', '.photo_preview');
+
     Layout.datepicker('.datetimepicker');
+
+    //设置href
+    var StaffNr = $("#staffNr").val();
+    $('#staff_delete').attr('href', '/Staff/Delete/' + StaffNr);
 
     function toFullMember() {
         if (confirm("确认提交转正？")) {
@@ -84,11 +149,11 @@
                 }
             }
 
-            $.post("/Staff/DoToFullMemeber/", { staffNr:nr, isPassCheck:isPassCheck, beFullAt:beFullAt, checkAt:checkAt, beFullChecker:beFullChecker, checkScore:checkScore, remark:remark}, function (data) {
+            $.post("/Staff/DoToFullMemeber/", { staffNr: nr, isPassCheck: isPassCheck, beFullAt: beFullAt, checkAt: checkAt, beFullChecker: beFullChecker, checkScore: checkScore, remark: remark }, function (data) {
                 if (data.Success) {
                     alert("转正成功！");
                     window.location = "/Staff/Delete/" + nr;
-                
+
                 } else {
                     alert("转正失败：" + data.Content);
                 }

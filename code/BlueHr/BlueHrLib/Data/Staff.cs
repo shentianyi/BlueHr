@@ -29,7 +29,7 @@ namespace BlueHrLib.Data
                 return this.trialOverAt.HasValue ? this.trialOverAt.Value.ToString("yyyy-MM-dd") : string.Empty;
             }
         }
-
+         
         /// <summary>
         /// 是否拥有需求的全部证照
         /// </summary>
@@ -42,25 +42,34 @@ namespace BlueHrLib.Data
                 List<int> mustCers = new List<int>();
                 if (this.JobTitle != null)
                 {
-                    foreach(var c in this.JobTitle.JobCertificate)
+                    foreach (var c in this.JobTitle.JobCertificate)
                     {
                         mustCers.Add(c.certificateTypeId);
                     }
                 }
                 List<int> hasCers = new List<int>();
-                foreach(var c in this.Certificate)
+                foreach (var c in this.Certificate)
                 {
                     hasCers.Add(c.certificateTypeId);
                 }
 
-                foreach(var i in mustCers)
+                foreach (var i in mustCers)
                 {
-                    if (!hasCers.Contains(i)) {
+                    if (!hasCers.Contains(i))
+                    {
                         has = false;
                         break;
                     }
                 }
                 return has;
+            }
+        }
+
+        public string sexDisplay
+        {
+            get
+            {
+                return this.sex.Equals("0") ? "男" : "女"; 
             }
         }
     }

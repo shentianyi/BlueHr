@@ -12,6 +12,15 @@
     <li>员工管理</li>
 </ol>
 
+<style type="text/css">
+    table thead th{
+        white-space:nowrap;
+    }
+    table tbody td{
+        white-space:nowrap;
+    }
+</style>
+
 <hr class="hr-grey" />
 
 @*Search*@
@@ -117,11 +126,13 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>员工号</th>
-                        <th>身份证号码</th>
-                        <th>员工姓名</th>
-                        <th>员工性别</th>
-                        <th>员工职位</th>
+                        <th>工号</th>
+                        <th>身份证</th>
+                        <th>姓名</th>
+                        <th>性别</th>
+                        <th>公司</th>
+                        <th>部门</th>
+                        <th>职位</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -135,24 +146,39 @@
                                     @Html.DisplayFor(modelItem => item.nr)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.id)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.name)
+                                    <span style="display:inline;">
+                                        @Html.DisplayFor(modelItem => item.id)
+                                    </span>
 
                                     @if (item.isIdChecked)
                                     {
-                                        <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">已验证</span>
-                                    }else
+                                        <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help; display:inline;">
+                                            已验证
+                                        </span>
+                                    }
+                                    else
                                     {
-                                        <span class="pull-right marco-label-danger" title="身份证还未验证" style="cursor:help;">未验证</span>
+                                        <span class="pull-right marco-label-danger" title="身份证还未验证" style="cursor:help;display:inline;">
+                                            未验证
+                                        </span>
                                     }
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.sex)
+                                    @Html.DisplayFor(modelItem => item.name)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.jobTitleId)
+                                    @Html.DisplayFor(modelItem => item.sexDisplay)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Company.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Department.name)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.JobTitle.name)
                                 </td>
                                 <td>
                                     <a href="/Staff/Delete/@item.nr" class="option-icon-primary" title="详情">

@@ -1,107 +1,98 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@ViewBag.Title - HR</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/layout")
-    @Scripts.Render("~/bundles/modernizr") 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jquery-plug-in")
     @Scripts.Render("~/bundles/layout")
     @Scripts.Render("~/bundles/vue")
     @RenderSection("scripts", required: false)
-     
 </head>
 
-<body style="overflow:auto;">
-    <nav class="navbar navbar-inverse main-nav" style="margin-bottom:0;">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">HR</a>
-        </div>
+<body>
+    <div class="main-nav">
+        <ul id="menu">
+            <li><a href="#">HR</a></li>
+            <li>
+                <a href="#">
+                    用户管理
+                    <span class="caret"></span>
+                </a>
+                <ul>
+                    <li><a href="#">权限管理</a></li>
+                    <li>@Html.ActionLink("员工管理", "Index", "Staff")</li>
+                </ul>
+            </li>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">用户管理<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">权限管理</a></li>
-                        <li>@Html.ActionLink("员工管理", "Index", "Staff")</li>
-                    </ul>
-                </li>
+            <li>
+                @Html.ActionLink("公司管理", "Index", "Company")
+            </li>
 
-                <li>
-                    @Html.ActionLink("公司管理", "Index", "Company")
-                </li>
+            <li>
+                @Html.ActionLink("部门管理", "Index", "Department")
+            </li>
+            <li>
+                <a href="#">
+                    考勤管理
+                    <span class="caret"></span>
+                </a>
+                <ul>
+                    <li>
+                        @Html.ActionLink("详细记录管理", "Index", "AttendanceRecordDetail")
+                    </li>
+                    <li>
+                        @Html.ActionLink("统计记录管理", "Index", "AttendanceRecordCal")
+                    </li>
+                    <li>
+                        @Html.ActionLink("异常统计管理", "ExceptionList", "AttendanceRecordCal")
+                    </li>
+                </ul>
+            </li>
 
-                <li>
-                    @Html.ActionLink("部门管理", "Index", "Department")
-                </li>
+            <li>
+                <a href="#">
+                    基础数据
+                    <span class="caret"></span>
+                </a>
+                <ul>
+                    <li>@Html.ActionLink("职位信息", "Index", "JobTitle")</li>
+                    <li>@Html.ActionLink("人员类型", "Index", "StaffType")</li>
+                    <li>@Html.ActionLink("学历管理", "Index", "DegreeType")</li>
+                    <li>@Html.ActionLink("证照类型", "Index", "CertificateType")</li>
+                    <li>@Html.ActionLink("保险类型", "Index", "InSureType")</li>
+                    <li>@Html.ActionLink("离职类型", "Index", "ResignType")</li>
+                    <li>@Html.ActionLink("缺勤类型", "Index", "AbsenceType")</li>
+                    <li>@Html.ActionLink("加班类型", "Index", "ExtraWorkType")</li>
+                </ul>
+            </li>
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">考勤管理<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            @Html.ActionLink("详细记录管理", "Index", "AttendanceRecordDetail")
-                        </li>
-                        <li>
-                            @Html.ActionLink("统计记录管理", "Index", "AttendanceRecordCal")
-                        </li>
-                        <li>
-                            @Html.ActionLink("异常统计管理", "ExceptionList", "AttendanceRecordCal")
-                        </li>
-                    </ul>
-                </li>
+            <li>
+                @Html.ActionLink("系统任务", "Index", "TaskRound")
+            </li>
+        </ul>
+    </div>
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">基础数据<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("职位信息", "Index", "JobTitle")</li>
-                        <li>@Html.ActionLink("人员类型", "Index", "StaffType")</li>
-                        <li>@Html.ActionLink("学历管理", "Index", "DegreeType")</li>
-                        <li>@Html.ActionLink("证照类型", "Index", "CertificateType")</li>
-                        <li>@Html.ActionLink("保险类型", "Index", "InSureType")</li>
-                        <li>@Html.ActionLink("离职类型", "Index", "ResignType")</li>
-                        <li>@Html.ActionLink("缺勤类型", "Index", "AbsenceType")</li>
-                        <li>@Html.ActionLink("加班类型", "Index", "ExtraWorkType")</li>
-                    </ul>
-                </li>
-
-                <li>
-                    @Html.ActionLink("系统任务", "Index", "TaskRound")
-                </li>
-            </ul>
-               
-
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        欢迎你， Admin
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">注销</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="body-content content_3">
+    <div class="body-content">
         @RenderBody()
     </div>
+
+    <script type="text/javascript">
+        $('.dropdown-toggle').click(function () {
+            $('.dropdown-menu').slideUp();
+
+            if ($(this).parent().find('.dropdown-menu').css('display') == 'none') {
+                $(this).parent().find('.dropdown-menu').slideDown();
+            }
+        });
+    </script>
 </body>
 @Html.Partial("_HandlingMsgDialog")
 </html>
