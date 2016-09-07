@@ -39,7 +39,7 @@ namespace BlueHrSvc
                 LogUtil.Logger.Info("服务启动中....");
                 if (!MessageQueue.Exists(Settings.Default.queue))
                 {
-                    LogUtil.Logger.Info(string.Format("消息队列 {0} 不存在，请先建立!", Settings.Default.db));
+                    LogUtil.Logger.Info(string.Format("消息队列 {0} 不存在，请先建立!", Settings.Default.queue));
                     this.Stop();
                     return;
                 }

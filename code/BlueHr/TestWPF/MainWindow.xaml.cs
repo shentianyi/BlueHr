@@ -20,6 +20,10 @@ using Brilliantech.Framwork.Utils.LogUtil;
 using TestWPF.Properties;
 using BlueHrLib.MQTask.Parameter;
 using BlueHrLib.Helper;
+using Quartz;
+using BlueHrLib.MQTask.Job;
+using Quartz.Impl;
+using System.Messaging;
 
 namespace TestWPF
 {
@@ -46,17 +50,30 @@ namespace TestWPF
         }
 
         System.Timers.Timer timer;
+        private static IScheduler scheduler;
+        public static IScheduler Scheduler { get { return scheduler; } set { scheduler = value; } }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void runSvcBtn_Click(object sender, RoutedEventArgs e)
         {
-            LogUtil.Logger.Info("服务启动中....");
-            
-            timer = new System.Timers.Timer();
-            timer.Interval = Settings.Default.interval;
-            timer.Enabled = true;
-            timer.Elapsed += Timer_Elapsed;
-            timer.Start();
-            LogUtil.Logger.Info("服务启动【成功】");
+            try
+            {
+                LogUtil.Logger.Info("服务启动中....");
+                if (!MessageQueue.Exists(Settings.Default.queue))
+                {
+                    LogUtil.Logger.Info(string.Format("消息队列 {0} 不存在，请先建立!", Settings.Default.queue));
+                    
+                    return;
+                }
+
+                Load();
+
+                LogUtil.Logger.Info("服务启动【成功】");
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error("服务启动【失败】", ex);
+                
+            }
         }
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -76,7 +93,7 @@ namespace TestWPF
             timer.Start();
         }
 
-        private void button_Copy_Click(object sender, RoutedEventArgs e)
+        private void calTaskBtn_Click(object sender, RoutedEventArgs e)
         {
             DateTime startDateTime =DateTime.Parse( startDate.Text +" "+ timeTB.Text);
 
@@ -92,10 +109,77 @@ namespace TestWPF
             MessageBox.Show("OK");
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void restartSvcBtn_Click(object sender, RoutedEventArgs e)
         {
             TaskDispatcher dtt = new TaskDispatcher(Settings.Default.queue);
             dtt.SendRestartSvcMessage();
+        }
+
+
+        /// <summary>
+        /// 加载配置
+        /// </summary>
+        private void Load(bool startTimer = true)
+        {
+            LogUtil.Logger.Info("【加载配置】");
+            if (timer != null)
+            {
+                timer.Stop();
+                timer = null;
+            }
+            if (Scheduler != null)
+            {
+                Scheduler.Shutdown();
+                Scheduler = null;
+            }
+
+            IQuartzJobService jobService = new QuartzJobService(Settings.Default.db);
+            List<QuartzJob> toFullJobs = jobService.GetByType(CronJobType.ToFullWarn);
+
+            // 定义定时任务
+            ISchedulerFactory sf = new StdSchedulerFactory();
+            Scheduler = sf.GetScheduler();
+            ToFullMemberJobTrigger trigger = new ToFullMemberJobTrigger(toFullJobs, Settings.Default.db, Settings.Default.queue);
+
+            foreach (var t in trigger.Triggers)
+            {
+                Scheduler.ScheduleJob(trigger.Job, t);
+            }
+
+            Scheduler.Start();
+
+            // 循环消息
+            timer = new System.Timers.Timer();
+            timer.Interval = Settings.Default.interval;
+            timer.Enabled = true;
+            timer.Elapsed += Timer_Elapsed;
+            if (startTimer)
+            {
+                timer.Start();
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                LogUtil.Logger.Info("服务停止中....");
+                if (Scheduler != null)
+                {
+                    Scheduler.Shutdown();
+                }
+                if (timer != null)
+                {
+                    timer.Stop();
+                    timer.Enabled = false;
+                }
+
+                LogUtil.Logger.Info("服务停止【成功】");
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error("服务停止【失败】", ex);
+            }
         }
     }
 }

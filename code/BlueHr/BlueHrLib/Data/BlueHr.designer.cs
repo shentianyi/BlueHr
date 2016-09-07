@@ -81,9 +81,6 @@ namespace BlueHrLib.Data
     partial void InsertJobTitle(JobTitle instance);
     partial void UpdateJobTitle(JobTitle instance);
     partial void DeleteJobTitle(JobTitle instance);
-    partial void InsertMessageRecord(MessageRecord instance);
-    partial void UpdateMessageRecord(MessageRecord instance);
-    partial void DeleteMessageRecord(MessageRecord instance);
     partial void InsertQuartzJob(QuartzJob instance);
     partial void UpdateQuartzJob(QuartzJob instance);
     partial void DeleteQuartzJob(QuartzJob instance);
@@ -108,6 +105,9 @@ namespace BlueHrLib.Data
     partial void InsertSystemSetting(SystemSetting instance);
     partial void UpdateSystemSetting(SystemSetting instance);
     partial void DeleteSystemSetting(SystemSetting instance);
+    partial void InsertMessageRecord(MessageRecord instance);
+    partial void UpdateMessageRecord(MessageRecord instance);
+    partial void DeleteMessageRecord(MessageRecord instance);
     #endregion
 		
 		public BlueHrDataContext() : 
@@ -292,14 +292,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<MessageRecord> MessageRecord
-		{
-			get
-			{
-				return this.GetTable<MessageRecord>();
-			}
-		}
-		
 		public System.Data.Linq.Table<QuartzJob> QuartzJob
 		{
 			get
@@ -393,6 +385,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<ShiftScheduleView>();
+			}
+		}
+		
+		public System.Data.Linq.Table<MessageRecord> MessageRecord
+		{
+			get
+			{
+				return this.GetTable<MessageRecord>();
 			}
 		}
 	}
@@ -4212,284 +4212,6 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.JobTitle = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MessageRecord")]
-	public partial class MessageRecord : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _staffNr;
-		
-		private System.Nullable<int> _operatorId;
-		
-		private System.Nullable<int> _messageType;
-		
-		private System.Nullable<System.DateTime> _createdAt;
-		
-		private string _text;
-		
-		private System.Nullable<bool> _isRead;
-		
-		private System.Nullable<bool> _isHandled;
-		
-		private System.Nullable<bool> _isUrl;
-		
-		private string _url;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnstaffNrChanging(string value);
-    partial void OnstaffNrChanged();
-    partial void OnoperatorIdChanging(System.Nullable<int> value);
-    partial void OnoperatorIdChanged();
-    partial void OnmessageTypeChanging(System.Nullable<int> value);
-    partial void OnmessageTypeChanged();
-    partial void OncreatedAtChanging(System.Nullable<System.DateTime> value);
-    partial void OncreatedAtChanged();
-    partial void OntextChanging(string value);
-    partial void OntextChanged();
-    partial void OnisReadChanging(System.Nullable<bool> value);
-    partial void OnisReadChanged();
-    partial void OnisHandledChanging(System.Nullable<bool> value);
-    partial void OnisHandledChanged();
-    partial void OnisUrlChanging(System.Nullable<bool> value);
-    partial void OnisUrlChanged();
-    partial void OnurlChanging(string value);
-    partial void OnurlChanged();
-    #endregion
-		
-		public MessageRecord()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200)")]
-		public string staffNr
-		{
-			get
-			{
-				return this._staffNr;
-			}
-			set
-			{
-				if ((this._staffNr != value))
-				{
-					this.OnstaffNrChanging(value);
-					this.SendPropertyChanging();
-					this._staffNr = value;
-					this.SendPropertyChanged("staffNr");
-					this.OnstaffNrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_operatorId", DbType="Int")]
-		public System.Nullable<int> operatorId
-		{
-			get
-			{
-				return this._operatorId;
-			}
-			set
-			{
-				if ((this._operatorId != value))
-				{
-					this.OnoperatorIdChanging(value);
-					this.SendPropertyChanging();
-					this._operatorId = value;
-					this.SendPropertyChanged("operatorId");
-					this.OnoperatorIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_messageType", DbType="Int")]
-		public System.Nullable<int> messageType
-		{
-			get
-			{
-				return this._messageType;
-			}
-			set
-			{
-				if ((this._messageType != value))
-				{
-					this.OnmessageTypeChanging(value);
-					this.SendPropertyChanging();
-					this._messageType = value;
-					this.SendPropertyChanged("messageType");
-					this.OnmessageTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> createdAt
-		{
-			get
-			{
-				return this._createdAt;
-			}
-			set
-			{
-				if ((this._createdAt != value))
-				{
-					this.OncreatedAtChanging(value);
-					this.SendPropertyChanging();
-					this._createdAt = value;
-					this.SendPropertyChanged("createdAt");
-					this.OncreatedAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_text", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string text
-		{
-			get
-			{
-				return this._text;
-			}
-			set
-			{
-				if ((this._text != value))
-				{
-					this.OntextChanging(value);
-					this.SendPropertyChanging();
-					this._text = value;
-					this.SendPropertyChanged("text");
-					this.OntextChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isRead", DbType="Bit")]
-		public System.Nullable<bool> isRead
-		{
-			get
-			{
-				return this._isRead;
-			}
-			set
-			{
-				if ((this._isRead != value))
-				{
-					this.OnisReadChanging(value);
-					this.SendPropertyChanging();
-					this._isRead = value;
-					this.SendPropertyChanged("isRead");
-					this.OnisReadChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isHandled", DbType="Bit")]
-		public System.Nullable<bool> isHandled
-		{
-			get
-			{
-				return this._isHandled;
-			}
-			set
-			{
-				if ((this._isHandled != value))
-				{
-					this.OnisHandledChanging(value);
-					this.SendPropertyChanging();
-					this._isHandled = value;
-					this.SendPropertyChanged("isHandled");
-					this.OnisHandledChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isUrl", DbType="Bit")]
-		public System.Nullable<bool> isUrl
-		{
-			get
-			{
-				return this._isUrl;
-			}
-			set
-			{
-				if ((this._isUrl != value))
-				{
-					this.OnisUrlChanging(value);
-					this.SendPropertyChanging();
-					this._isUrl = value;
-					this.SendPropertyChanged("isUrl");
-					this.OnisUrlChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_url", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string url
-		{
-			get
-			{
-				return this._url;
-			}
-			set
-			{
-				if ((this._url != value))
-				{
-					this.OnurlChanging(value);
-					this.SendPropertyChanging();
-					this._url = value;
-					this.SendPropertyChanged("url");
-					this.OnurlChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -9319,6 +9041,308 @@ namespace BlueHrLib.Data
 				{
 					this._fullEndAt = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MessageRecord")]
+	public partial class MessageRecord : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _staffNr;
+		
+		private System.Nullable<int> _operatorId;
+		
+		private System.Nullable<int> _messageType;
+		
+		private System.Nullable<System.DateTime> _createdAt;
+		
+		private string _text;
+		
+		private System.Nullable<bool> _isRead;
+		
+		private System.Nullable<bool> _isHandled;
+		
+		private System.Nullable<bool> _isUrl;
+		
+		private string _url;
+		
+		private string _uniqString;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnstaffNrChanging(string value);
+    partial void OnstaffNrChanged();
+    partial void OnoperatorIdChanging(System.Nullable<int> value);
+    partial void OnoperatorIdChanged();
+    partial void OnmessageTypeChanging(System.Nullable<int> value);
+    partial void OnmessageTypeChanged();
+    partial void OncreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OncreatedAtChanged();
+    partial void OntextChanging(string value);
+    partial void OntextChanged();
+    partial void OnisReadChanging(System.Nullable<bool> value);
+    partial void OnisReadChanged();
+    partial void OnisHandledChanging(System.Nullable<bool> value);
+    partial void OnisHandledChanged();
+    partial void OnisUrlChanging(System.Nullable<bool> value);
+    partial void OnisUrlChanged();
+    partial void OnurlChanging(string value);
+    partial void OnurlChanged();
+    partial void OnuniqStringChanging(string value);
+    partial void OnuniqStringChanged();
+    #endregion
+		
+		public MessageRecord()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200)")]
+		public string staffNr
+		{
+			get
+			{
+				return this._staffNr;
+			}
+			set
+			{
+				if ((this._staffNr != value))
+				{
+					this.OnstaffNrChanging(value);
+					this.SendPropertyChanging();
+					this._staffNr = value;
+					this.SendPropertyChanged("staffNr");
+					this.OnstaffNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_operatorId", DbType="Int")]
+		public System.Nullable<int> operatorId
+		{
+			get
+			{
+				return this._operatorId;
+			}
+			set
+			{
+				if ((this._operatorId != value))
+				{
+					this.OnoperatorIdChanging(value);
+					this.SendPropertyChanging();
+					this._operatorId = value;
+					this.SendPropertyChanged("operatorId");
+					this.OnoperatorIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_messageType", DbType="Int")]
+		public System.Nullable<int> messageType
+		{
+			get
+			{
+				return this._messageType;
+			}
+			set
+			{
+				if ((this._messageType != value))
+				{
+					this.OnmessageTypeChanging(value);
+					this.SendPropertyChanging();
+					this._messageType = value;
+					this.SendPropertyChanged("messageType");
+					this.OnmessageTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> createdAt
+		{
+			get
+			{
+				return this._createdAt;
+			}
+			set
+			{
+				if ((this._createdAt != value))
+				{
+					this.OncreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._createdAt = value;
+					this.SendPropertyChanged("createdAt");
+					this.OncreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_text", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string text
+		{
+			get
+			{
+				return this._text;
+			}
+			set
+			{
+				if ((this._text != value))
+				{
+					this.OntextChanging(value);
+					this.SendPropertyChanging();
+					this._text = value;
+					this.SendPropertyChanged("text");
+					this.OntextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isRead", DbType="Bit")]
+		public System.Nullable<bool> isRead
+		{
+			get
+			{
+				return this._isRead;
+			}
+			set
+			{
+				if ((this._isRead != value))
+				{
+					this.OnisReadChanging(value);
+					this.SendPropertyChanging();
+					this._isRead = value;
+					this.SendPropertyChanged("isRead");
+					this.OnisReadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isHandled", DbType="Bit")]
+		public System.Nullable<bool> isHandled
+		{
+			get
+			{
+				return this._isHandled;
+			}
+			set
+			{
+				if ((this._isHandled != value))
+				{
+					this.OnisHandledChanging(value);
+					this.SendPropertyChanging();
+					this._isHandled = value;
+					this.SendPropertyChanged("isHandled");
+					this.OnisHandledChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isUrl", DbType="Bit")]
+		public System.Nullable<bool> isUrl
+		{
+			get
+			{
+				return this._isUrl;
+			}
+			set
+			{
+				if ((this._isUrl != value))
+				{
+					this.OnisUrlChanging(value);
+					this.SendPropertyChanging();
+					this._isUrl = value;
+					this.SendPropertyChanged("isUrl");
+					this.OnisUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_url", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string url
+		{
+			get
+			{
+				return this._url;
+			}
+			set
+			{
+				if ((this._url != value))
+				{
+					this.OnurlChanging(value);
+					this.SendPropertyChanging();
+					this._url = value;
+					this.SendPropertyChanged("url");
+					this.OnurlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uniqString", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string uniqString
+		{
+			get
+			{
+				return this._uniqString;
+			}
+			set
+			{
+				if ((this._uniqString != value))
+				{
+					this.OnuniqStringChanging(value);
+					this.SendPropertyChanging();
+					this._uniqString = value;
+					this.SendPropertyChanged("uniqString");
+					this.OnuniqStringChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

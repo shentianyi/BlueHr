@@ -203,20 +203,6 @@
       <Association Name="JobTitle_Staff" Member="Staff" ThisKey="id" OtherKey="jobTitleId" Type="Staff" />
     </Type>
   </Table>
-  <Table Name="dbo.MessageRecord" Member="MessageRecord">
-    <Type Name="MessageRecord">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="staffNr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="operatorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="messageType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="text" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="isRead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="isHandled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="isUrl" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="url" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-    </Type>
-  </Table>
   <Table Name="dbo.QuartzJob" Member="QuartzJob">
     <Type Name="QuartzJob">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -468,6 +454,21 @@
       <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="fullStartAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="fullEndAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MessageRecord" Member="MessageRecord">
+    <Type Name="MessageRecord">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="operatorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="messageType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="text" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="isRead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isHandled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isUrl" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="url" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="uniqString" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
     </Type>
   </Table>
 </Database>

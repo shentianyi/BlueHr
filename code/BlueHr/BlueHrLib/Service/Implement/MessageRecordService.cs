@@ -21,8 +21,8 @@ namespace BlueHrLib.Service.Implement
         /// <param name="operatorId"></param>
         /// <param name="type"></param>
         /// <param name="text"></param>
-        /// <param name="isSystem"></param>
-        public void Create(string staffNr, int? operatorId, MessageRecordType type, string text, bool isSystem = true)
+        /// <param name="uniqString">唯一性键</param>
+        public void Create(string staffNr, int? operatorId, MessageRecordType type, string text,  string uniqString = null)
         {
             try
             {
@@ -30,7 +30,15 @@ namespace BlueHrLib.Service.Implement
                 bool isUniq = MessageRecordTypeHelper.UniqTypes.Contains(type);
                 if (isUniq)
                 {
-                    MessageRecord unreadRecord = dc.Context.GetTable<MessageRecord>().FirstOrDefault(s => s.staffNr.Equals(staffNr) && s.isRead == false && s.messageType.Equals((int)type));
+                    MessageRecord unreadRecord = null;
+                    var q = dc.Context.GetTable<MessageRecord>().Where(s => s.staffNr.Equals(staffNr) && s.isRead == false && s.messageType.Equals((int)type));
+                    if (uniqString != null)
+                    {
+                        q = q.Where(s => s.uniqString.Equals(uniqString));
+                    }
+
+                    unreadRecord = q.FirstOrDefault();
+
                     if (unreadRecord != null)
                     {
                         return;
@@ -40,7 +48,7 @@ namespace BlueHrLib.Service.Implement
                 bool isUrl = MessageRecordTypeHelper.UrlTypes.Contains(type);
                 MessageRecord record = new MessageRecord()
                 {
-                    createdAt=DateTime.Now,
+                    createdAt = DateTime.Now,
                     staffNr = staffNr,
                     messageType = (int)type,
                     text = text,
@@ -59,6 +67,7 @@ namespace BlueHrLib.Service.Implement
         }
 
 
+
         /// <summary>
         /// 创建员工转正提醒
         /// </summary>
@@ -68,7 +77,22 @@ namespace BlueHrLib.Service.Implement
             List<Staff> staffs = new StaffService(this.DbString).GetToBeFullsLessThanDate(datetime);
             foreach (var staff in staffs)
             {
-                Create(staff.nr, null, MessageRecordType.StaffToFullMemberAlert,MessageRecordTypeHelper.GetToBeFullMemeberMsg(staff));
+                Create(staff.nr, null, MessageRecordType.StaffToFullMemberAlert, MessageRecordTypeHelper.GetToBeFullMemeberMsg(staff));
+            }
+        }
+
+
+        /// <summary>
+        /// 创建员工考勤异常消息
+        /// </summary>
+        /// <param name="attendanceDate"></param>
+        public void CreateAttExceptionMessage(DateTime attendanceDate)
+        {
+            IAttendanceRecordCalService service = new AttendanceRecordCalService(this.DbString);
+            List<AttendanceRecordCalView> records = service.GetListByDateAndIsException(attendanceDate);
+            foreach (var r in records)
+            {
+                Create(r.staffNr, null, MessageRecordType.StaffAttAlert, MessageRecordTypeHelper.GetAttExceptionMsg(r),attendanceDate.ToString());
             }
         }
     }

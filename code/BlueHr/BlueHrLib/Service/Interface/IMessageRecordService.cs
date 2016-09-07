@@ -16,13 +16,19 @@ namespace BlueHrLib.Service.Interface
         /// <param name="operatorId"></param>
         /// <param name="type"></param>
         /// <param name="text"></param>
-        /// <param name="isSystem"></param>
-        void Create(string staffNr, int? operatorId, MessageRecordType type, string text,bool isSystem=true);
+        /// <param name="uniqString">唯一性键</param>
+        void Create(string staffNr, int? operatorId, MessageRecordType type, string text,string uniqString=null);
 
         /// <summary>
         /// 创建员工转正提醒
         /// </summary>
         /// <param name="datetime"></param>
         void CreateToFullMemberMessage(DateTime datetime);
+
+        /// <summary>
+        /// 创建员工考勤异常消息
+        /// </summary>
+        /// <param name="attendanceDate"></param>
+        void CreateAttExceptionMessage(DateTime attendanceDate);
     }
 }

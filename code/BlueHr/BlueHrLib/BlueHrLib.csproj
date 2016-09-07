@@ -130,6 +130,7 @@
     <Compile Include="MQTask\Job\ToFullMemberJob.cs" />
     <Compile Include="MQTask\Job\ToFullMemberJobTrigger.cs" />
     <Compile Include="MQTask\Job\TriggerBase.cs" />
+    <Compile Include="MQTask\Parameter\AttWarnParameter.cs" />
     <Compile Include="MQTask\Parameter\AttWarnEmailParameter.cs" />
     <Compile Include="MQTask\Parameter\CalAttParameter.cs" />
     <Compile Include="MQTask\TaskDispatcher.cs" />
