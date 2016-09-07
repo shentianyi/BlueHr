@@ -93,7 +93,8 @@ namespace BlueHrLib.Service.Implement
         /// 发送考勤异常提醒邮件
         /// </summary>
         /// <param name="date"></param>
-        public void SendWarnEmail(DateTime date)
+        /// <param name="shiftCodes"></param>
+        public void SendWarnEmail(DateTime date, List<string> shiftCodes=null)
         {
             DataContext dc = new DataContext(this.DbString);
 
@@ -110,6 +111,7 @@ namespace BlueHrLib.Service.Implement
                 values.Add("date", date.ToString("yyyy-MM-dd"));
                 values.Add("count", record.isExceptionHandledCount.Value.ToString());
                 values.Add("host", setting.systemHost);
+                values.Add("shiftDesc", (shiftCodes == null || shiftCodes.Count == 0) ? "" : string.Join(",", shiftCodes.ToArray())+" 班");
                 string body = EmailHelper.Build("AttendanceWarn.html", values);
 
                 EmailHelper.SendEmail(setting.emaiSMTPHost,
@@ -121,6 +123,23 @@ namespace BlueHrLib.Service.Implement
                    body,true);
             }
 
+        }
+
+        /// <summary>
+        /// 根据时间、是否异常、是否异常处理获取考勤统计列表
+        /// </summary>
+        /// <param name="attendanceDate">考勤日期</param>
+        /// <param name="isException">是否异常</param>
+        /// <param name="isExceptionHandled">是否已异常处理</param>
+        /// <returns></returns>
+        public List<AttendanceRecordCalView> GetListByDateAndIsException(DateTime attendanceDate, bool isException = true, bool isExceptionHandled = false)
+        {
+            DataContext dc = new DataContext(this.DbString);
+
+            return dc.Context.GetTable<AttendanceRecordCalView>().Where(s => s.attendanceDate.Equals(attendanceDate) 
+            && s.isException.Equals(isException) 
+            && s.isExceptionHandled.Equals(isExceptionHandled)).ToList();
+            
         }
     }
 }

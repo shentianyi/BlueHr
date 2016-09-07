@@ -50,6 +50,16 @@ namespace BlueHrLib.Service.Interface
         /// 发送考勤异常邮件
         /// </summary>
         /// <param name="date"></param>
-        void SendWarnEmail(DateTime date);
+        /// <param name="shiftCodes"></param>
+        void SendWarnEmail(DateTime date,List<string> shiftCodes=null);
+
+        /// <summary>
+        /// 根据时间、是否异常、是否异常处理获取考勤统计列表
+        /// </summary>
+        /// <param name="attendanceDate">考勤日期</param>
+        /// <param name="isException">是否异常</param>
+        /// <param name="isExceptionHandled">是否已异常处理</param>
+        /// <returns></returns>
+        List<AttendanceRecordCalView> GetListByDateAndIsException(DateTime attendanceDate,  bool isException = true, bool isExceptionHandled = false);
     }
 }

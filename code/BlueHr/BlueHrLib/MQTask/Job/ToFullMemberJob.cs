@@ -20,7 +20,7 @@ namespace BlueHrLib.MQTask.Job
 
                 TaskDispatcher td = new TaskDispatcher(context.JobDetail.JobDataMap["dbString"].ToString(), 
                     context.JobDetail.JobDataMap["queuePath"].ToString());
-                td.SendToBeFullMemberMessage();
+                td.SendToBeFullMemberMsgRecordMessage();
             }
             catch (Exception ex)
             {

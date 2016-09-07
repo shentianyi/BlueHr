@@ -47,9 +47,7 @@ namespace BlueHrLib.MQTask
             Message msg = mq.Receive();
 
             if (msg != null)
-            {
-                LogUtil.Logger.Info("获取到任务信息：");
-                LogUtil.Logger.Info(msg);
+            { 
                 TaskSetting ts = msg.Body as TaskSetting;
                 this.Dispatch(ts);
             }
@@ -70,6 +68,9 @@ namespace BlueHrLib.MQTask
                 {
                     taskRound = trs.Create(ts.TaskType);
                 }
+                LogUtil.Logger.Info("获取到任务信息：");
+                LogUtil.Logger.Info(ts.TaskType);
+                LogUtil.Logger.Info(ts.JsonParameter);
                 switch (ts.TaskType)
                 {
                     case TaskType.CalAtt:
@@ -77,7 +78,9 @@ namespace BlueHrLib.MQTask
                         IAttendanceRecordService ars = new AttendanceRecordService(this.DbString);
                         ars.CalculateAttendRecord(calAtt.AttCalculateDateTime, calAtt.ShiftCodes);
                         // add send email to queue
-                        SendAttWarnMessage(calAtt.AttCalculateDateTime, calAtt.ShiftCodes);
+                        SendAttWarnEmailMessage(calAtt.AttCalculateDateTime, calAtt.ShiftCodes);
+                        // create message record
+                        SendAttWarnMsgRecordMessage(calAtt.AttCalculateDateTime, calAtt.ShiftCodes);
                         break;
                     case TaskType.SendMail:
                         break;
@@ -89,6 +92,11 @@ namespace BlueHrLib.MQTask
                     case TaskType.ToFullMemeberWarn:
                         IMessageRecordService mrs = new MessageRecordService(this.DbString);
                         mrs.CreateToFullMemberMessage(ts.TaskCreateAt.Date);
+                        break;
+                    case TaskType.AttExceptionWarn:
+                        AttWarnParameter attWarnP = JSONHelper.parse<AttWarnParameter>(ts.JsonParameter);
+                        IMessageRecordService mrss = new MessageRecordService(this.DbString);
+                        mrss.CreateAttExceptionMessage(attWarnP.AttWarnDate);
                         break;
                     case TaskType.ReStartSvc:
                         this.IsRestartSvc = true;
@@ -144,10 +152,10 @@ namespace BlueHrLib.MQTask
         }
 
         /// <summary>
-        /// 发送考勤异常的消息
+        /// 发送考勤异常的邮件消息
         /// </summary>
         /// <param name="calculateAt"></param>
-        public void SendAttWarnMessage(DateTime calculateAt, List<string> shiftCodes)
+        public void SendAttWarnEmailMessage(DateTime calculateAt, List<string> shiftCodes)
         {
             IShiftScheduleService sss = new ShiftSheduleService(this.DbString);
             List<ShiftScheduleView> shifts = sss.GetDetailViewByDateTime(calculateAt, shiftCodes);
@@ -176,10 +184,46 @@ namespace BlueHrLib.MQTask
             }
         }
 
+
+        /// <summary>
+        /// 发送考勤异常的消息记录消息
+        /// </summary>
+        /// <param name="calculateAt"></param>
+        public void SendAttWarnMsgRecordMessage(DateTime calculateAt, List<string> shiftCodes)
+        {
+            IShiftScheduleService sss = new ShiftSheduleService(this.DbString);
+            List<ShiftScheduleView> shifts = sss.GetDetailViewByDateTime(calculateAt, shiftCodes);
+            if (shifts.Count > 0)
+            {
+                List<DateTime> datetimes = shifts.Select(s => s.scheduleAt).Distinct().ToList();
+                foreach (var dt in datetimes)
+                {
+                    AttWarnParameter attWarnParam = new AttWarnParameter()
+                    {
+                        AttWarnDate = dt,
+                        ShiftCodes = shiftCodes
+                    };
+
+
+                    TaskSetting task = new TaskSetting()
+                    {
+                        TaskCreateAt = DateTime.Now,
+                        TaskType = TaskType.AttExceptionWarn,
+                        JsonParameter = JSONHelper.stringify(attWarnParam),
+                        LogTaskRound = false
+                    };
+
+                    SendMQMessage(task);
+                }
+            }
+        }
+
+
+
         /// <summary>
         /// 发送转正提醒消息
         /// </summary>
-        public void SendToBeFullMemberMessage()
+        public void SendToBeFullMemberMsgRecordMessage()
         {
             TaskSetting task = new TaskSetting()
             {

@@ -7,17 +7,8 @@ namespace BlueHrLib.MQTask.Parameter
 {
 
     [Serializable]
-    public class AttWarnEmailParameter
+    public class AttWarnEmailParameter: AttWarnParameter
     {
-        /// <summary>
-        /// 存在异常的日期
-        /// </summary>
-        public DateTime AttWarnDate { get; set; }
-
-
-        /// <summary>
-        /// 班次列表
-        /// </summary>
-        public List<string> ShiftCodes { get; set; }
+        
     }
 }
