@@ -31,10 +31,10 @@ namespace BlueHrLib.Service.Implement
                 if (isUniq)
                 {
                     MessageRecord unreadRecord = null;
-                    var q = dc.Context.GetTable<MessageRecord>().Where(s => s.staffNr.Equals(staffNr) && s.isRead == false && s.messageType.Equals((int)type));
+                    var q = dc.Context.GetTable<MessageRecord>().Where(s => s.staffNr.Equals(staffNr) && (s.isRead == false) && s.messageType.Equals((int)type));
                     if (uniqString != null)
                     {
-                        q = q.Where(s => s.uniqString.Equals(uniqString));
+                        q = q.Where(s => uniqString==s.uniqString);
                     }
 
                     unreadRecord = q.FirstOrDefault();
@@ -55,7 +55,8 @@ namespace BlueHrLib.Service.Implement
                     operatorId = operatorId,
                     isRead = false,
                     isHandled = false,
-                    isUrl = isUrl
+                    isUrl = isUrl,
+                    uniqString =uniqString
                 };
                 dc.Context.GetTable<MessageRecord>().InsertOnSubmit(record);
                 dc.Context.SubmitChanges();
@@ -92,7 +93,8 @@ namespace BlueHrLib.Service.Implement
             List<AttendanceRecordCalView> records = service.GetListByDateAndIsException(attendanceDate);
             foreach (var r in records)
             {
-                Create(r.staffNr, null, MessageRecordType.StaffAttAlert, MessageRecordTypeHelper.GetAttExceptionMsg(r),attendanceDate.ToString());
+               
+                Create(r.staffNr, null, MessageRecordType.StaffAttAlert, MessageRecordTypeHelper.GetAttExceptionMsg(r),attendanceDate.ToString("yyyy-MM-dd"));
             }
         }
     }

@@ -25,6 +25,10 @@ namespace BlueHrLib.Helper
         /// <param name="isHtml"></param>
         public static void SendEmail(string host, string user, string address, string pwd, string toEmails, string subject, string body,bool isHtml=false)
         {
+            //if (string.IsNullOrEmpty(toEmails))
+            //{
+            //    return;
+            //}
             using (SmtpClient server = new SmtpClient(host))
             {
                 server.Credentials = new NetworkCredential(user, pwd);

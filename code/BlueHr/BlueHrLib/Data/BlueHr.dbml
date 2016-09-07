@@ -468,7 +468,7 @@
       <Column Name="isHandled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="isUrl" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="url" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="uniqString" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="uniqString" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

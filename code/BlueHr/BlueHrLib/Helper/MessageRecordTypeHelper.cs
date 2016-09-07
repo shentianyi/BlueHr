@@ -10,6 +10,7 @@ namespace BlueHrLib.Helper
     public class MessageRecordTypeHelper
     {
         public static List<MessageRecordType> UniqTypes = new List<MessageRecordType>() {
+            MessageRecordType.StaffAttAlert,
             MessageRecordType.StaffToFullMemberAlert,
             MessageRecordType.StaffCertificateAlert
         };
