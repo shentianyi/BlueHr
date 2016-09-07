@@ -76,7 +76,7 @@ namespace BlueHrLib.MQTask
                     case TaskType.CalAtt:
                         CalAttParameter calAtt = JSONHelper.parse<CalAttParameter>(ts.JsonParameter);
                         IAttendanceRecordService ars = new AttendanceRecordService(this.DbString);
-                        //ars.CalculateAttendRecord(calAtt.AttCalculateDateTime, calAtt.ShiftCodes);
+                        ars.CalculateAttendRecord(calAtt.AttCalculateDateTime, calAtt.ShiftCodes);
                         // add send email to queue
                         SendAttWarnEmailMessage(calAtt.AttCalculateDateTime, calAtt.ShiftCodes);
                         // create message record

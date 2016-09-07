@@ -78,7 +78,7 @@ namespace BlueHrLib.Service.Implement
             List<Staff> staffs = new StaffService(this.DbString).GetToBeFullsLessThanDate(datetime);
             foreach (var staff in staffs)
             {
-                Create(staff.nr, null, MessageRecordType.StaffToFullMemberAlert, MessageRecordTypeHelper.GetToBeFullMemeberMsg(staff));
+                Create(staff.nr, null, MessageRecordType.StaffToFullMemberAlert, MessageRecordTypeHelper.FormatToBeFullMemeberMsg(staff),staff.trialOverAtStr);
             }
         }
 
@@ -94,7 +94,7 @@ namespace BlueHrLib.Service.Implement
             foreach (var r in records)
             {
                
-                Create(r.staffNr, null, MessageRecordType.StaffAttAlert, MessageRecordTypeHelper.GetAttExceptionMsg(r),attendanceDate.ToString("yyyy-MM-dd"));
+                Create(r.staffNr, null, MessageRecordType.StaffAttAlert, MessageRecordTypeHelper.FormatAttExceptionMsg(r),attendanceDate.ToString("yyyy-MM-dd"));
             }
         }
     }
