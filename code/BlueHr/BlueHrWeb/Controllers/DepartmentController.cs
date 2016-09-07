@@ -120,7 +120,7 @@ namespace BlueHrWeb.Controllers
         {
             var department = this.departmentService.FindById(id);
             SetCompanyList(department.companyId, false);
-            return View();
+            return View(department);
         }
 
         [HttpPost]

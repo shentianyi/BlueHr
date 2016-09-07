@@ -234,8 +234,42 @@
       background: #ecf0f1;
       color: #3498db; }
 
+.marco-igroup-normal {
+  border: 1px solid #bdc3c7;
+  display: table;
+  margin: 5px 0;
+  height: 40px; }
+  .marco-igroup-normal span, .marco-igroup-normal label {
+    width: 1%;
+    min-width: 60px;
+    padding: 4px 10px;
+    display: table-cell;
+    background: #bdc3c7;
+    color: #2c3e50;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+    .marco-igroup-normal span i, .marco-igroup-normal label i {
+      cursor: pointer; }
+    .marco-igroup-normal span[disabled], .marco-igroup-normal label[disabled] {
+      background: #ddd; }
+  .marco-igroup-normal input, .marco-igroup-normal select {
+    border: none;
+    margin: 0;
+    padding: 7px;
+    height: 38px;
+    width: 100%;
+    line-height: 10px; }
+    .marco-igroup-normal input[disabled], .marco-igroup-normal select[disabled] {
+      cursor: not-allowed;
+      background: #ecf0f1;
+      color: #3498db; }
+
 .marco-igroup-default {
-  border: 1px solid #34495e;
+  border: 1px solid #ecf0f1;
   display: table;
   margin: 5px 0;
   height: 40px; }
@@ -244,8 +278,8 @@
     min-width: 60px;
     padding: 4px 10px;
     display: table-cell;
-    background: #34495e;
-    color: #f2f2f2;
+    background: #ecf0f1;
+    color: #34495e;
     font-weight: bold;
     text-align: center;
     vertical-align: middle;
@@ -746,6 +780,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap; }
+  .card-box-default .card-box .card-body-multiple p {
+    height: 30px; }
+    .card-box-default .card-box .card-body-multiple p:first-child {
+      margin-top: 30px; }
   .card-box-default .card-box .card-footer {
     height: 36px;
     line-height: 36px; }
@@ -788,6 +826,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap; }
+  .card-box-primary .card-box .card-body-multiple p {
+    height: 30px; }
+    .card-box-primary .card-box .card-body-multiple p:first-child {
+      margin-top: 30px; }
   .card-box-primary .card-box .card-footer {
     height: 36px;
     line-height: 36px; }
@@ -830,6 +872,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap; }
+  .card-box-success .card-box .card-body-multiple p {
+    height: 30px; }
+    .card-box-success .card-box .card-body-multiple p:first-child {
+      margin-top: 30px; }
   .card-box-success .card-box .card-footer {
     height: 36px;
     line-height: 36px; }
@@ -872,6 +918,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap; }
+  .card-box-warning .card-box .card-body-multiple p {
+    height: 30px; }
+    .card-box-warning .card-box .card-body-multiple p:first-child {
+      margin-top: 30px; }
   .card-box-warning .card-box .card-footer {
     height: 36px;
     line-height: 36px; }
@@ -914,6 +964,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap; }
+  .card-box-danger .card-box .card-body-multiple p {
+    height: 30px; }
+    .card-box-danger .card-box .card-body-multiple p:first-child {
+      margin-top: 30px; }
   .card-box-danger .card-box .card-footer {
     height: 36px;
     line-height: 36px; }

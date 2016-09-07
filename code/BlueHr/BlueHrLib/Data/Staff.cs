@@ -29,5 +29,13 @@ namespace BlueHrLib.Data
                 return this.trialOverAt.HasValue ? this.trialOverAt.Value.ToString("yyyy-MM-dd") : string.Empty;
             }
         }
+
+        public string sexDisplay
+        {
+            get
+            {
+                return this.sex.Equals("0") ? "男" : "女";
+            }
+        }
     }
 }

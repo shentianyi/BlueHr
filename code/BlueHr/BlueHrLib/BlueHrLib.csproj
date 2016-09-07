@@ -34,21 +34,12 @@
     <Reference Include="Brilliantech.Framwork">
       <HintPath>..\ThridPart\Brilliantech.Framwork.dll</HintPath>
     </Reference>
-    <Reference Include="Common.Logging">
-      <HintPath>..\ThridPart\Common.Logging.3.0.0\lib\net40\Common.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="Common.Logging.Core">
-      <HintPath>..\ThridPart\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
-    </Reference>
     <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\ThridPart\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Quartz">
-      <HintPath>..\ThridPart\Quartz.2.3.3\lib\net40\Quartz.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -97,6 +88,7 @@
     <Compile Include="Data\Message\ImportMessage.cs" />
     <Compile Include="Data\Message\ResultMessage.cs" />
     <Compile Include="Data\Message\ValidateMessage.cs" />
+    <Compile Include="Data\Model\CompanyPartial.cs" />
     <Compile Include="Data\Model\Department.cs" />
     <Compile Include="Data\Enum\WorkStatus.cs" />
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
@@ -210,9 +202,9 @@
     <Compile Include="Service\Interface\IInSureTypeService.cs" />
     <Compile Include="Service\Interface\IBankCardService.cs" />
     <Compile Include="Service\Interface\IMessageRecordService.cs" />
+    <Compile Include="Service\Interface\IQuartzJobService.cs" />
     <Compile Include="Service\Interface\IShiftScheduleService.cs" />
     <Compile Include="Service\Interface\IShiftService.cs" />
-    <Compile Include="Service\Interface\IQuartzJobService.cs" />
     <Compile Include="Service\Interface\ITaskRoundService.cs" />
     <Compile Include="Service\Interface\IStaffTypeService.cs" />
     <Compile Include="Service\Interface\IJobTitleService.cs" />
@@ -237,17 +229,17 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\BlueHr.dbml.layout">
+      <DependentUpon>BlueHr.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Common\Log\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EmailTemplate\AttendanceWarn.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Data\BlueHr.dbml.layout">
-      <DependentUpon>BlueHr.dbml</DependentUpon>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

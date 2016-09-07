@@ -188,8 +188,12 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
   @include marco-ninput;
 }
 
+.marco-igroup-normal{
+    @include marco-ninput($silver, $midnight-blue);
+}
+
 .marco-igroup-default {
-  @include marco-ninput($wet-asphalt);
+  @include marco-ninput($clouds, $wet-asphalt);
 }
 
 .marco-igroup-primary {
@@ -478,6 +482,15 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
             overflow:hidden;
             text-overflow:ellipsis;
             white-space:nowrap;
+        }
+
+        .card-body-multiple{
+            p{
+                height:30px;
+                &:first-child{
+                    margin-top:30px;
+                }
+            }
         }
 
         .card-footer{

@@ -275,12 +275,13 @@ namespace BlueHrWeb.Controllers
             {
                 q.companyId = staff.companyId;
                 q.departmentId = staff.departmentId;
-                ViewBag.Query = q;
             }
             catch (Exception)
             {
-                throw;
+                q.companyId = null;
+                q.departmentId = null;
             }
+            ViewBag.Query = q;
 
             return View(staff);
         }
