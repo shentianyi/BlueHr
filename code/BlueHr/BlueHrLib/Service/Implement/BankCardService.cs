@@ -42,11 +42,6 @@ namespace BlueHrLib.Service.Implement
             return bankCardRep.Update(bankCard);
         }
 
-        public bool DeleteByNr(string nr)
-        {
-            return bankCardRep.DeleteByNr(nr);
-        }
-
         public BankCard CreateFromAjax(BankCard bankCard)
         {
             return bankCardRep.CreateFromAjax(bankCard);

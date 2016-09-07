@@ -475,6 +475,9 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
             text-align:center;
             height: 60px;
             line-height:60px;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
         }
 
         .card-footer{
@@ -514,4 +517,46 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 
 .card-box-danger{
     @include card-box($alizarin, $clouds);
+}
+
+@mixin popMsg($marco-bg: $peter-river, $marco-color: white){
+    position:fixed;
+    top: 15px;
+    right: 20px;
+    width: 200px;
+    padding: 4px;
+    text-align:center;
+    background: $marco-bg;
+    color:$marco-color;
+    border-radius:5px;
+    z-index: 20000;
+    .popMsg-body{
+        height: 40px;
+        padding: 5px;
+        line-height: 30px;
+        font-weight:bold;
+        overflow:hidden;
+        text-overflow:clip;
+        white-space:normal;
+    }
+}
+
+.popMsg-default{
+    @include popMsg($silver, $midnight-blue);
+}
+
+.popMsg-primary{
+   @include popMsg;
+}
+
+.popMsg-success{
+    @include popMsg($turquoise);
+}
+
+.popMsg-warning{
+    @include popMsg($orange);
+}
+
+.popMsg-danger{
+    @include popMsg($alizarin);
 }

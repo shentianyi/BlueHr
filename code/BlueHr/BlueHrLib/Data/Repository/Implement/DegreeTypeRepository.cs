@@ -1,4 +1,4 @@
-﻿using BlueHrLib.Data.Repository.Interface;
+using BlueHrLib.Data.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,5 +25,60 @@ namespace BlueHrLib.Data.Repository.Implement
             }
             return degreetypes;
         }
+
+        public bool Create(DegreeType degreeType)
+        { 
+            try
+            {
+                this.context.GetTable<DegreeType>().InsertOnSubmit(degreeType);
+                this.context.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            { 
+                return false;
+            } 
+        }
+
+        public bool DeleteById(int id)
+        {
+            DegreeType cp = this.context.GetTable<DegreeType>().FirstOrDefault(c => c.id.Equals(id));
+
+            if (cp != null)
+            {
+                this.context.GetTable<DegreeType>().DeleteOnSubmit(cp);
+                this.context.SubmitChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public DegreeType FindById(int id)
+        {
+            DegreeType cp = this.context.GetTable<DegreeType>().FirstOrDefault(c => c.id.Equals(id));
+            return cp;
+        } 
+
+        public bool Update(DegreeType degreeType)
+        {
+            DegreeType cp = this.context.GetTable<DegreeType>().FirstOrDefault(c => c.id.Equals(degreeType.id));
+
+            if (cp != null)
+            {
+                cp.name = degreeType.name;
+                cp.remark = degreeType.remark;
+                //cp.Staff = degreeType.Staff;
+
+                this.context.SubmitChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            } 
+        }
     }
-}
+} 

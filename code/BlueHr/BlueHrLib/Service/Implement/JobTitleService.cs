@@ -45,10 +45,10 @@ namespace BlueHrLib.Service.Implement
         {
             JobTitleInfoModel info = new JobTitleInfoModel();
             DataContext dc = new DataContext(this.DbString);
-            IJobTitleRepository certfRep = new JobTitleRepository(dc);
-            IQueryable<JobTitle> certfs = certfRep.Search(searchModel);
+            IJobTitleRepository jobTitleRep = new JobTitleRepository(dc);
+            IQueryable<JobTitle> jobTitles = jobTitleRep.Search(searchModel);
 
-            info.jobTitleCount = dc.Context.GetTable<JobTitle>().Where(c => c.id.Equals(certfs.First().id)).Count();
+            info.jobTitleCount = dc.Context.GetTable<JobTitle>().Where(c => c.id.Equals(jobTitles.Count() > 0 ? jobTitles.First().id : -1)).Count();
 
             return info;
         }

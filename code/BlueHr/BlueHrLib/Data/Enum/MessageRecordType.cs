@@ -70,11 +70,11 @@ namespace BlueHrLib.Data.Enum
         /// </summary>
         [Description("员工考勤异常提醒")]
         StaffAttAlert =301,
-        /// <summary>
-        /// 员工证件照提醒
-        /// </summary>
-        [Description("员工证件照提醒")]
-        StaffCertificateAlert = 302,
+        ///// <summary>
+        ///// 员工证件照提醒
+        ///// </summary>
+        //[Description("员工证件照提醒")]
+        //StaffCertificateAlert = 302,
         /// <summary>
         /// 员工转正提醒
         /// </summary>

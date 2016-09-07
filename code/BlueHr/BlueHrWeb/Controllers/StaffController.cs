@@ -79,10 +79,10 @@ namespace BlueHrWeb.Controllers
 
         // POST: Company/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt, CompanyEmployAt,"+
-            " WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
+        public ActionResult Create([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
+            "companySeniority, WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
             "Speciality, ResidenceAddress, Address, Id, Phone, ContactName, ContactPhone, ContactFamilyMemberType, Domicile, "+
-            "ResidenceType, inSureTypeId, IsPayCPF, ContractExpireAt, ContractCount, Ethnic, Remark")] Staff staff)
+            "ResidenceType, inSureTypeId, IsPayCPF, ContractExpireAt, ContractCount,totalSeniority, Ethnic, Remark, workingYears")] Staff staff)
         {
             // TODO: Add insert logic here
 
@@ -92,38 +92,25 @@ namespace BlueHrWeb.Controllers
             {
                 if (!string.IsNullOrWhiteSpace(Request.Form["bankCard"]))
                 {
-                    if (!string.IsNullOrWhiteSpace(Request.Form["bankAddress"]))
+                    string bankTmp = Request.Form["bank"];
+                    string bankCardTmp = Request.Form["bankCard"];
+                    string bankAddressTmp = Request.Form["bankAddress"];
+                    string bankRemarkTmp = Request.Form["bankRemark"];
+
+                    string[] bankArray = bankTmp.Split(',');
+                    string[] bankCardArray = bankCardTmp.Split(',');
+                    string[] bankAddressArray = bankAddressTmp.Split(',');
+                    string[] bankRemarkArray = bankRemarkTmp.Split(',');
+
+                    for(var i = 0; i < bankArray.Length; i++)
                     {
-                        if (!string.IsNullOrWhiteSpace(Request.Form["bankRemark"]))
-                        {
-                            string bankTmp = Request.Form["bank"];
-                            string bankCardTmp = Request.Form["bankCard"];
-                            string bankAddressTmp = Request.Form["bankAddress"];
-                            string bankRemarkTmp = Request.Form["bankRemark"];
-
-                            string[] bankArray = bankTmp.Split(',');
-                            string[] bankCardArray = bankCardTmp.Split(',');
-                            string[] bankAddressArray = bankAddressTmp.Split(',');
-                            string[] bankRemarkArray = bankRemarkTmp.Split(',');
-
-                            for(var i = 0; i < bankArray.Length; i++)
-                            {
-                                BankCard bankCardDB = new BankCard();
-                                bankCardDB.bank = bankArray[i];
-                                bankCardDB.nr = bankCardArray[i];
-                                bankCardDB.bankAddress = bankAddressArray[i];
-                                bankCardDB.remark = bankRemarkArray[i];
-                                bankCardDB.staffNr = staff.nr;
-
-                                bankInfo.Add(bankCardDB);
-                            }
-                        }else
-                        {
-
-                        }
-                    }else
-                    {
-
+                        BankCard bankCardDB = new BankCard();
+                        bankCardDB.bank = bankArray[i];
+                        bankCardDB.nr = bankCardArray[i];
+                        bankCardDB.bankAddress = bankAddressArray[i];
+                        bankCardDB.remark = bankRemarkArray[i];
+                        bankCardDB.staffNr = staff.nr;
+                        bankInfo.Add(bankCardDB);
                     }
                 }
                 else{
@@ -223,20 +210,28 @@ namespace BlueHrWeb.Controllers
             Staff staff = ss.FindByNr(nr);
             SetDropDownList(staff);
 
-            StaffSearchModel q = new StaffSearchModel();
-            q.companyId = staff.companyId;
-            q.departmentId = staff.departmentId;
-            ViewBag.Query = q;
+            try
+            {
+                StaffSearchModel q = new StaffSearchModel();
+                q.companyId = staff.companyId;
+                q.departmentId = staff.departmentId;
+                ViewBag.Query = q;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
             return View(staff);
         }
 
         // POST: Company/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt, CompanyEmployAt,"+
-            " WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
+        public ActionResult Edit([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
+            "companySeniority, WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
             "Speciality, ResidenceAddress, Address, Id, Phone, ContactName, ContactPhone, ContactFamilyMemberType, Domicile, "+
-            "ResidenceType, inSureTypeId, IsPayCPF, ContractExpireAt, ContractCount, Ethnic, Remark")] Staff staff)
+            "ResidenceType, inSureTypeId, IsPayCPF, ContractExpireAt, ContractCount,totalSeniority, Ethnic, Remark, workingYears")] Staff staff)
         {
             try
             {
@@ -276,10 +271,16 @@ namespace BlueHrWeb.Controllers
 
             StaffSearchModel q = new StaffSearchModel();
 
-            q.companyId = staff.companyId;
-            q.departmentId = staff.departmentId;
-
-            ViewBag.Query = q;
+            try
+            {
+                q.companyId = staff.companyId;
+                q.departmentId = staff.departmentId;
+                ViewBag.Query = q;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
             return View(staff);
         }
@@ -292,16 +293,19 @@ namespace BlueHrWeb.Controllers
             IStaffService ss = new StaffService(Settings.Default.db);
 
             bool result = ss.DeleteByNr(nr);
+
             if (result)
             {
                 return RedirectToAction("Index");
             }
             else
             {
+                SetDropDownList(null);
                 return View();
             }
         }
 
+        //可以考虑 写入银行卡的Controller
         [HttpPost]
         public JsonResult CreateBankCard(string[] bankCard)
         {
@@ -322,6 +326,7 @@ namespace BlueHrWeb.Controllers
             if (bankCardReturn != null)
             {
                 msg = new ResultMessage() { Success = true };
+                //将ID返回给前端用来删除
                 msg.Content = bankCardReturn.id.ToString();
             }else
             {
@@ -352,6 +357,38 @@ namespace BlueHrWeb.Controllers
             return Json(msg, JsonRequestBehavior.DenyGet);
         }
 
+        //可以考虑 写入家庭成员的Controller
+        [HttpPost]
+        public JsonResult CreateFamily(string[] family)
+        {
+            FamilyMemeber fm = new FamilyMemeber();
+
+            fm.memberName = family[0];
+            fm.familyMemberType = family[1];
+            fm.birthday = Convert.ToDateTime(family[2]);
+            fm.staffNr = family[3];
+
+            IFamilyMemberService fms = new FamilyMemberService(Settings.Default.db);
+
+            FamilyMemeber familyReturn = fms.CreateFromAjax(fm);
+
+            ResultMessage msg;
+
+            if (familyReturn != null)
+            {
+                msg = new ResultMessage() { Success = true };
+                //将ID返回给前端用来删除
+                msg.Content = familyReturn.id.ToString();
+            }
+            else
+            {
+                msg = new ResultMessage() { Success = false };
+                msg.Content = "新增失败";
+            }
+
+            return Json(msg, JsonRequestBehavior.DenyGet);
+        }
+
         [HttpPost]
         public JsonResult DeleteFamilyById(int id)
         {
@@ -373,6 +410,7 @@ namespace BlueHrWeb.Controllers
             return Json(msg, JsonRequestBehavior.DenyGet);
         }
 
+        //上传图片
         public ActionResult uploadImage()
         {
             var ff = Request.Files[0];

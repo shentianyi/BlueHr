@@ -10,12 +10,14 @@ namespace BlueHrLib.Data.Repository.Interface
     {
         IQueryable<FamilyMemeber> Search(FamilyMemberSearchModel searchModel);
 
-        bool Create(FamilyMemeber bankCard);
+        bool Create(FamilyMemeber familyMember);
 
         FamilyMemeber FindById(int id);
 
-        bool Update(FamilyMemeber bankCard);
+        bool Update(FamilyMemeber familyMember);
 
         bool DeleteById(int id);
+
+        FamilyMemeber CreateFromAjax(FamilyMemeber familyMember);
     }
 }

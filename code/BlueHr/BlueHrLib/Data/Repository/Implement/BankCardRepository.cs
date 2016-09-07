@@ -35,9 +35,7 @@ namespace BlueHrLib.Data.Repository.Implement
                 this.context.GetTable<BankCard>().InsertOnSubmit(bankCard);
                 this.context.SubmitChanges();
 
-                BankCard bc = this.context.GetTable<BankCard>().Last();
-
-                return bc;
+                return bankCard;
             }
             catch (Exception e)
             {
@@ -57,28 +55,6 @@ namespace BlueHrLib.Data.Repository.Implement
                 return true;
             }
             else
-            {
-                return false;
-            }
-        }
-
-        public bool DeleteByNr(string nr)
-        {
-            var bc = this.context.GetTable<BankCard>().FirstOrDefault(c => c.nr.Equals(nr));
-
-            if (bc != null)
-            {
-                try
-                {
-                    this.context.GetTable<BankCard>().DeleteOnSubmit(bc);
-                    this.context.SubmitChanges();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }else
             {
                 return false;
             }

@@ -31,6 +31,19 @@ Layout.init = function () {
             $('.nav-jobtitle').addClass('active');
             PageAction('#jobtitle', '新建职位', '编辑职位', '职位详情', '创建', '更新', '删除');
             break;
+        case "DegreeType":
+            $('.nav-degreetype').addClass('active');
+            PageAction('#degreetype', '新建学历', '编辑学历', '学历详情', '创建', '更新', '删除');
+            break;
+        case "StaffType":
+            $('.nav-stafftype').addClass('active');
+            PageAction('#stafftype', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
+            break;
+        case "InSureType":
+            $('.nav-insuretype').addClass('active');
+            PageAction('#insuretype', '新建保险类别', '编辑保险类别', '保险类别详情', '创建', '更新', '删除');
+            break;
+            
         case "TaskRound":
             $('.nav-taskround').addClass('active');
         default:
@@ -85,6 +98,15 @@ Layout.CompanyAndDepartment = function (companyId, departmentId) {
     })
 }
 
+Layout.popMsg = function (cls, content) {
+    var Html = "<div class='" + cls + "'><div class='popMsg-body'> " + content + "</div></div>";
+
+    $(Html).appendTo($('body'));
+
+    window.setTimeout(function () {
+        $("." + cls).slideUp();
+    }, 3000);
+}
 
 //用来设置 body 的高度
 Layout.TbodyHeight = function (cls, height) {
@@ -132,4 +154,12 @@ Layout.rangedatepicker = function (date_picker_start, date_picker_end) {
         },
         timepicker: false
     });
+}
+
+Layout.IsStringNull = function (str) {
+    if (str == null || str == "") {
+        return true;
+    } else {
+        return false;
+    }
 }

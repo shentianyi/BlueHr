@@ -70,6 +70,9 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 cp.name = certf.name;
                 cp.remark = certf.remark;
+                cp.isNecessary = certf.isNecessary;
+                cp.isSystem = certf.isSystem;
+                cp.systemCode = certf.systemCode;
 
                 this.context.SubmitChanges();
                 return true;

@@ -11,8 +11,8 @@ namespace BlueHrLib.Helper
     {
         public static List<MessageRecordType> UniqTypes = new List<MessageRecordType>() {
             MessageRecordType.StaffAttAlert,
-            MessageRecordType.StaffToFullMemberAlert,
-            MessageRecordType.StaffCertificateAlert
+            MessageRecordType.StaffToFullMemberAlert 
+           // MessageRecordType.StaffCertificateAlert
         };
 
         public static List<MessageRecordType> UrlTypes = new List<MessageRecordType>() {

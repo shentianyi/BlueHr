@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHr" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=WANGSONG-PC\MSSQLSERVER2008R;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString3" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=WANGSONG-PC\MSSQLSERVER2008R;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.AbsenceRecrod" Member="AbsenceRecrod">
     <Type Name="AbsenceRecrod">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -119,7 +119,7 @@
   </Table>
   <Table Name="dbo.DegreeType" Member="DegreeType">
     <Type Name="DegreeType">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
       <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Association Name="DegreeType_Staff" Member="Staff" ThisKey="id" OtherKey="degreeTypeId" Type="Staff" />
@@ -201,6 +201,21 @@
       <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Association Name="JobTitle_JobCertificate" Member="JobCertificate" ThisKey="id" OtherKey="jobTitleId" Type="JobCertificate" />
       <Association Name="JobTitle_Staff" Member="Staff" ThisKey="id" OtherKey="jobTitleId" Type="Staff" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MessageRecord" Member="MessageRecord">
+    <Type Name="MessageRecord">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="operatorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="messageType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="text" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="isRead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isHandled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isUrl" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="url" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="uniqString" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.QuartzJob" Member="QuartzJob">
@@ -343,6 +358,22 @@
       <Column Name="isExceptionHandledCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.ShiftScheduleView" Member="ShiftScheduleView">
+    <Type Name="ShiftScheduleView">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="scheduleAt" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="shiftId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="startAt" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="endAt" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="shiftType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="fullStartAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="fullEndAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.AttendanceRecordCalView" Member="AttendanceRecordCalView">
     <Type Name="AttendanceRecordCalView">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -438,37 +469,6 @@
       <Column Name="staffRemark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="device" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="departmentName" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ShiftScheduleView" Member="ShiftScheduleView">
-    <Type Name="ShiftScheduleView">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="scheduleAt" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="shiftId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="startAt" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
-      <Column Name="endAt" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
-      <Column Name="shiftType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="fullStartAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="fullEndAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.MessageRecord" Member="MessageRecord">
-    <Type Name="MessageRecord">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="staffNr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="operatorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="messageType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="text" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="isRead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="isHandled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="isUrl" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="url" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="uniqString" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

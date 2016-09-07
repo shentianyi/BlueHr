@@ -1,4 +1,5 @@
-﻿using BlueHrLib.Data.Model.Search;
+﻿using BlueHrLib.Data.Model.PageViewModel;
+using BlueHrLib.Data.Model.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,7 @@ namespace BlueHrLib.Data.Repository.Interface
         bool Update(StaffType staffType);
 
         bool DeleteById(int id);
+
+        //StaffTypeInfoModel GetJobTitleInfo(StaffTypeSearchModel searchModel);
     }
 }
