@@ -81,5 +81,30 @@ namespace BlueHrLib.Data
                 return string.IsNullOrEmpty(this.sex) ? "" : this.sex.Equals("0") ? "男" : "女"; 
             }
         }
+
+        public static Dictionary<string, string> ValueName = new Dictionary<string, string>() {
+             { "address","通信地址" },
+             { "phone","联系电话" }
+        };
+        /// <summary>
+        /// 操作者Id
+        /// </summary>
+        public int OperatorId { get; set; }
+        /// -----------------------------------------记录改变者
+        /// <summary>
+        /// _Was 记录的是旧的值
+        /// </summary>
+        public string address_Was { get; set; }
+        partial void OnaddressChanging(string value)
+        { 
+            this.address_Was = this.address;
+        }
+        public string phone_Was { get; set; }
+        partial void OnphoneChanging(string value)
+        {
+            this.phone_Was = this.phone;
+        }
+
+
     }
 }
