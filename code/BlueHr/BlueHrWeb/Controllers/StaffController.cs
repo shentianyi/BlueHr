@@ -163,23 +163,12 @@ namespace BlueHrWeb.Controllers
             {
             }
 
-
             //将图片转化为base64
+            string base64Photo = BlueHrLib.Helper.FileHelper.ImageToBase64(HttpRuntime.AppDomainAppPath+"UploadImage/" + staff.photo);
+            //添加头
+            base64Photo = "data:image/jpg;base64," + base64Photo;
 
-            String base64Photo = ImageToBase64("../../UploadImage/" + staff.photo);
-            Console.Write(base64Photo);
-
-            String base64Photo1 = ImageToBase64("../UploadImage/" + staff.photo);
-            Console.Write(base64Photo1);
-
-            String base64Photo2 = ImageToBase64("/UploadImage/" + staff.photo);
-            Console.Write(base64Photo2);
-
-            String base64Photo3 = ImageToBase64(staff.photo);
-            Console.Write(base64Photo3);
-
-            string base64Photo4 = ImageToBase64("/Images/mCSB_buttons.png");
-            Console.Write(base64Photo4);
+            staff.photo = base64Photo;
 
             IStaffService ss = new StaffService(Settings.Default.db);
 
@@ -225,27 +214,6 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-
-        private string ImageToBase64(String imageName)
-        {
-            try
-            {
-                string base64Str = Convert.ToBase64String(System.IO.File.ReadAllBytes(imageName));
-                //Image fromImage = Image.FromFile(imageName);
-                //MemoryStream ms = new MemoryStream();
-                //fromImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-                //string base64Str = Convert.ToBase64String(ms.GetBuffer());
-
-                return base64Str;
-            }
-            catch (Exception e)
-            {
-                Console.Write(e);
-                return null;
-            }
-        }
-
         // GET: Company/Edit/5
         public ActionResult Edit(string nr)
         {
@@ -280,6 +248,13 @@ namespace BlueHrWeb.Controllers
             try
             {
                 // TODO: Add update logic here
+                //将图片转化为base64
+                string base64Photo = BlueHrLib.Helper.FileHelper.ImageToBase64(HttpRuntime.AppDomainAppPath + "UploadImage/" + staff.photo);
+                //添加头
+                base64Photo = "data:image/jpg;base64," + base64Photo;
+
+                staff.photo = base64Photo;
+
 
                 //获取信息 进行编辑
                 //银行卡和子女信息 使用ajax 进行更新和删除
