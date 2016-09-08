@@ -61,7 +61,7 @@ namespace BlueHrWeb.Controllers
         // GET: ResignType/Create
         public ActionResult Create()
         {
-            SetDropDownList(null);
+            //SetDropDownList(null);
             return View();
         }
 
@@ -90,7 +90,7 @@ namespace BlueHrWeb.Controllers
             IResignTypeService cs = new ResignTypeService(Settings.Default.db);
 
             ResignType jt = cs.FindById(id);
-            SetDropDownList(jt);
+            //SetDropDownList(jt);
             return View(jt);
         }
 
@@ -107,7 +107,7 @@ namespace BlueHrWeb.Controllers
                 bool updateResult = cs.Update(resignType);
                 if (!updateResult)
                 {
-                    SetDropDownList(resignType);
+                    //SetDropDownList(resignType);
                     return View();
                 }
                 else
@@ -127,7 +127,7 @@ namespace BlueHrWeb.Controllers
             IResignTypeService cs = new ResignTypeService(Settings.Default.db);
 
             ResignType cp = cs.FindById(id);
-            SetDropDownList(cp);
+            //SetDropDownList(cp);
             return View(cp);
         }
 
@@ -148,41 +148,41 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        private void SetDropDownList(ResignType model)
-        {
-            if (model != null)
-            {
-                SetResignTypeCodeList(model.code);
-            }
-            else
-            {
-                SetResignTypeCodeList(null);
-            }
-        }
+        //private void SetDropDownList(ResignType model)
+        //{
+        //    if (model != null)
+        //    {
+        //        SetResignTypeCodeList(model.code);
+        //    }
+        //    else
+        //    {
+        //        SetResignTypeCodeList(null);
+        //    }
+        //}
 
-        private void SetResignTypeCodeList(string model, bool allowBlank = true)
-        {
-            List<EnumItem> item = EnumHelper.GetList(typeof(SystemCertificateType));
+        //private void SetResignTypeCodeList(string model, bool allowBlank = true)
+        //{
+        //    List<EnumItem> item = EnumHelper.GetList(typeof(SystemCertificateType));
 
-            List<SelectListItem> select = new List<SelectListItem>();
+        //    List<SelectListItem> select = new List<SelectListItem>();
 
-            if (allowBlank)
-            {
-                select.Add(new SelectListItem { Text = "", Value = "" });
-            }
+        //    if (allowBlank)
+        //    {
+        //        select.Add(new SelectListItem { Text = "", Value = "" });
+        //    }
 
-            foreach (var it in item)
-            {
-                if (!string.IsNullOrEmpty(model) && model.ToString().Equals(it.Value))
-                {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
-                }
-                else
-                {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
-                }
-            }
-            ViewData["resignTypeCodeList"] = select;
-        }
+        //    foreach (var it in item)
+        //    {
+        //        if (!string.IsNullOrEmpty(model) && model.ToString().Equals(it.Value))
+        //        {
+        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+        //        }
+        //        else
+        //        {
+        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+        //        }
+        //    }
+        //    ViewData["resignTypeCodeList"] = select;
+        //}
     }
 }

@@ -61,7 +61,7 @@ namespace BlueHrWeb.Controllers
         // GET: AbsenceType/Create
         public ActionResult Create()
         {
-            SetDropDownList(null);
+            //SetDropDownList(null);
             return View();
         }
 
@@ -90,7 +90,7 @@ namespace BlueHrWeb.Controllers
             IAbsenceTypeService cs = new AbsenceTypeService(Settings.Default.db);
 
             AbsenceType jt = cs.FindById(id);
-            SetDropDownList(jt);
+            //SetDropDownList(jt);
             return View(jt);
         }
 
@@ -106,7 +106,7 @@ namespace BlueHrWeb.Controllers
                 bool updateResult = cs.Update(model);
                 if (!updateResult)
                 {
-                    SetDropDownList(model);
+                    //SetDropDownList(model);
                     return View();
                 }
                 else
@@ -127,7 +127,7 @@ namespace BlueHrWeb.Controllers
             IAbsenceTypeService cs = new AbsenceTypeService(Settings.Default.db);
 
             AbsenceType cp = cs.FindById(id);
-            SetDropDownList(cp);
+            //SetDropDownList(cp);
             return View(cp);
         }
 
@@ -148,42 +148,43 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        private void SetDropDownList(AbsenceType model)
-        {
-            if (model != null)
-            {
-                SetAbsenceTypeCodeList(model.code);
-            }
-            else
-            {
-                SetAbsenceTypeCodeList(null);
-            }
-        }
+        
+        //private void SetDropDownList(AbsenceType model)
+        //{
+        //    if (model != null)
+        //    {
+        //        SetAbsenceTypeCodeList(model.code);
+        //    }
+        //    else
+        //    {
+        //        SetAbsenceTypeCodeList(null);
+        //    }
+        //}
 
-        private void SetAbsenceTypeCodeList(string model, bool allowBlank = true)
-        {
-            List<EnumItem> item = EnumHelper.GetList(typeof(SystemCertificateType));
+        //private void SetAbsenceTypeCodeList(string model, bool allowBlank = true)
+        //{
+        //    List<EnumItem> item = EnumHelper.GetList(typeof(SystemCertificateType));
 
-            List<SelectListItem> select = new List<SelectListItem>();
+        //    List<SelectListItem> select = new List<SelectListItem>();
 
-            if (allowBlank)
-            {
-                select.Add(new SelectListItem { Text = "", Value = "" });
-            }
+        //    if (allowBlank)
+        //    {
+        //        select.Add(new SelectListItem { Text = "", Value = "" });
+        //    }
 
-            foreach (var it in item)
-            {
-                if (!string.IsNullOrEmpty(model) && model.ToString().Equals(it.Value))
-                {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
-                }
-                else
-                {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
-                }
-            }
-            ViewData["absenceTypeCodeList"] = select;
-        }
+        //    foreach (var it in item)
+        //    {
+        //        if (!string.IsNullOrEmpty(model) && model.ToString().Equals(it.Value))
+        //        {
+        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+        //        }
+        //        else
+        //        {
+        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+        //        }
+        //    }
+        //    ViewData["absenceTypeCodeList"] = select;
+        //}
 
     }
 }
