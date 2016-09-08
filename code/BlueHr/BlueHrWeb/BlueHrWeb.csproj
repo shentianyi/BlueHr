@@ -246,6 +246,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttendanceRecordCalController.cs" />
     <Compile Include="Controllers\AttendanceRecordDetailController.cs" />
+    <Compile Include="Controllers\CertificateController.cs" />
     <Compile Include="Controllers\CertificateTypeController.cs" />
     <Compile Include="Controllers\DegreeTypeController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
@@ -467,6 +468,11 @@
     <Content Include="Views\Staff\Resign.cshtml" />
     <Content Include="Views\ExtraWorkType\Index.cshtml" />
     <Content Include="Views\MessageRecord\Index.cshtml" />
+    <Content Include="Views\Certificate\Index.cshtml" />
+    <Content Include="Views\Certificate\Create.cshtml" />
+    <Content Include="Views\Certificate\Edit.cshtml" />
+    <Content Include="Views\Certificate\Delete.cshtml" />
+    <Content Include="Views\Certificate\_PartialCertificate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

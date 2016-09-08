@@ -101,6 +101,7 @@
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
     <Compile Include="Data\Model\PageViewModel\AbsenceTypeInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\CertificateInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\CertificateTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\DegreeTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\InSureTypeInfoModel.cs" />
@@ -110,9 +111,11 @@
     <Compile Include="Data\Model\Search\AbsenceTypeSearchModel.cs" />
     <Compile Include="Data\Model\Search\AttendanceRecordCalSearchModel.cs" />
     <Compile Include="Data\Model\Search\BankCardSearchModel.cs" />
+    <Compile Include="Data\Model\Search\CertificateSearchModel.cs" />
     <Compile Include="Data\Model\Search\CertificateTypeSearchModel.cs" />
     <Compile Include="Data\Model\Search\FamilyMemberSearchModel.cs" />
     <Compile Include="Data\Model\Search\ResignTypeSearchModel.cs" />
+    <Compile Include="Data\Repository\Implement\CertificateRepository.cs" />
     <Compile Include="Data\Repository\Implement\MessageRecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\ExtraWorkTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\AbsenceTypeRepository.cs" />
@@ -124,6 +127,7 @@
     <Compile Include="Data\Repository\Implement\ResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\ShiftRepository.cs" />
     <Compile Include="Data\Repository\Implement\TaskRoundRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ICertificateRepository.cs" />
     <Compile Include="Data\Repository\Interface\IMessageRecordRepository.cs" />
     <Compile Include="Data\Repository\Interface\IExtraWorkTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAbsenceTypeRepository.cs" />
@@ -196,6 +200,7 @@
     <Compile Include="Service\Implement\AttendanceRecordCalService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordDetailService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordService.cs" />
+    <Compile Include="Service\Implement\CertificateService.cs" />
     <Compile Include="Service\Implement\CertificateTypeService.cs" />
     <Compile Include="Service\Implement\CompanyService.cs" />
     <Compile Include="Service\Implement\FamilyMemberService.cs" />
@@ -213,6 +218,7 @@
     <Compile Include="Service\Implement\JobTitleService.cs" />
     <Compile Include="Service\Implement\DepartmentService.cs" />
     <Compile Include="Service\Implement\StaffService.cs" />
+    <Compile Include="Service\Interface\ICertificateService.cs" />
     <Compile Include="Service\Interface\IExtraWorkTypeService.cs" />
     <Compile Include="Service\Interface\IAbsenceTypeService.cs" />
     <Compile Include="Service\Interface\IAttendanceRecordCalService.cs" />

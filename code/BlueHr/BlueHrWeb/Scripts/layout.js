@@ -59,7 +59,10 @@ Layout.init = function () {
             $('.nav-basic').addClass('active');
             PageAction('#absencetype', '新建缺勤类型', '编辑缺勤类型', '缺勤类型详情', '创建', '更新', '删除');
             break;
-            
+        case "Certificate":
+            $('.nav-basic').addClass('active');
+            PageAction('#certificate', '新建证照', '编辑证照', '证照详情', '创建', '更新', '删除');
+            break;
         case "TaskRound":
             $('.nav-taskround').addClass('active');
         default:

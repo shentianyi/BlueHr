@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 
 namespace BlueHrLib.Service.Implement
-{ 
+{
     public class CertificateTypeService : ServiceBase, ICertificateTypeService
     {
         public CertificateTypeService(string dbString) : base(dbString) { }
@@ -43,7 +43,7 @@ namespace BlueHrLib.Service.Implement
             ICertificateTypeRepository certfRep = new CertificateTypeRepository(dc);
             IQueryable<CertificateType> certfs = certfRep.Search(searchModel);
 
-            info.certfCount = dc.Context.GetTable<CertificateType>().Where(c => c.id.Equals(certfs.First().id)).Count();
+            info.certfCount = dc.Context.GetTable<CertificateType>().Where(c => c.id.Equals(certfs.Count() > 0 ? certfs.First().id : -1)).Count();
 
             return info;
         }
@@ -63,4 +63,3 @@ namespace BlueHrLib.Service.Implement
         }
     }
 }
- 
