@@ -817,6 +817,40 @@ namespace BlueHrWeb.Controllers
             return Json(msg);
         }
 
+
+        /// <summary>
+        /// 员工离职
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Resign(string nr)
+        {
+            IStaffService ss = new StaffService(Settings.Default.db);
+            Staff staff = ss.FindByNr(nr);
+            return View(staff);
+        }
+
+        /// <summary>
+        /// 执行员工转正
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult DoResign([Bind(Include = "staffNr")] ResignRecord record)
+        {
+
+            // TODO
+            // 离职逻辑
+
+            // 创建；离职记录##User##
+            try
+            {
+                IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+                mrs.CreateStaffResignMessage(record.staffNr, 1);
+            }
+            catch { }
+            return null;
+        }
+
+
         private void SetDepartmentList(int? companyId, int? type, bool allowBlank = true)
         {
             IDepartmentService ds = new DepartmentService(Settings.Default.db);

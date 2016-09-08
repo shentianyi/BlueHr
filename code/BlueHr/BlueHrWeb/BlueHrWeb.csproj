@@ -457,6 +457,7 @@
     <Content Include="Views\AbsenceType\Edit.cshtml" />
     <Content Include="Views\AbsenceType\Delete.cshtml" />
     <Content Include="Views\AbsenceType\_PartialAbsenceType.cshtml" />
+    <Content Include="Views\Staff\Resign.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
