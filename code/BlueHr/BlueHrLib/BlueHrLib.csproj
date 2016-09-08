@@ -110,6 +110,7 @@
     <Compile Include="Data\Model\Search\CertificateTypeSearchModel.cs" />
     <Compile Include="Data\Model\Search\FamilyMemberSearchModel.cs" />
     <Compile Include="Data\Model\Search\ResignTypeSearchModel.cs" />
+    <Compile Include="Data\Repository\Implement\ExtraWorkTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\AbsenceTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\AttendanceRecordCalViewRepository.cs" />
     <Compile Include="Data\Repository\Implement\AttendanceRecordCalRepository.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Data\Repository\Implement\ResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\ShiftRepository.cs" />
     <Compile Include="Data\Repository\Implement\TaskRoundRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IExtraWorkTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAbsenceTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAttendanceRecordCalViewRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAttendanceRecordCalRepository.cs" />
@@ -196,6 +198,7 @@
     <Compile Include="Service\Implement\InSureTypeService.cs" />
     <Compile Include="Service\Implement\BankCardService.cs" />
     <Compile Include="Service\Implement\MessageRecordService.cs" />
+    <Compile Include="Service\Implement\ExtraWorkTypeService.cs" />
     <Compile Include="Service\Implement\QuartzJobService.cs" />
     <Compile Include="Service\Implement\ResignTypeService.cs" />
     <Compile Include="Service\Implement\ShiftService.cs" />
@@ -205,6 +208,7 @@
     <Compile Include="Service\Implement\JobTitleService.cs" />
     <Compile Include="Service\Implement\DepartmentService.cs" />
     <Compile Include="Service\Implement\StaffService.cs" />
+    <Compile Include="Service\Interface\IExtraWorkTypeService.cs" />
     <Compile Include="Service\Interface\IAbsenceTypeService.cs" />
     <Compile Include="Service\Interface\IAttendanceRecordCalService.cs" />
     <Compile Include="Service\Interface\IAttendanceRecordDetailService.cs" />

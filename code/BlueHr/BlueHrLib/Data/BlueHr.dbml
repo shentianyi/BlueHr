@@ -318,103 +318,6 @@
       <Column Name="fullEndAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.AttendanceRecordCalView" Member="AttendanceRecordCalView">
-    <Type Name="AttendanceRecordCalView">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="oriWorkingHour" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="attendanceDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="actWorkingHour" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="isManualCal" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="isException" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="exceptionCodes" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="nr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="sex" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ethnic" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="firstCompanyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="totalCompanySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="companyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="companySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="workStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="isOnTrial" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="trialOverAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="companyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="departmentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="jobTitleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="photo" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="staffTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="degreeTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="speciality" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="residenceAddress" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="address" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="staffid" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="isIdChecked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="contactName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="contactPhone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="contactFamilyMemberType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="domicile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="residenceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="insureTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="isPayCPF" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="contractExpireAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="contractCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="totalSeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="departmentName" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="staffRemark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="isExceptionHandled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.AttendanceRecordDetailView" Member="AttendanceRecordDetailView">
-    <Type Name="AttendanceRecordDetailView">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="recordAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="soureType" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="isCalculated" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="sex" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ethnic" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="firstCompanyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="totalCompanySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="companyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="companySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="workStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="isOnTrial" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="trialOverAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="companyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="departmentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="jobTitleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="photo" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="staffTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="degreeTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="speciality" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="residenceAddress" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="address" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="staffId" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="isIdChecked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="contactName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="contactPhone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="contactFamilyMemberType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="domicile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="residenceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="insureTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="isPayCPF" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="contractExpireAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="contractCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="totalSeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="staffRemark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="device" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="departmentName" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.MessageRecordView" Member="MessageRecordView">
     <Type Name="MessageRecordView">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -487,6 +390,103 @@
       <Association Name="InsureType_Staff" Member="InsureType" ThisKey="insureTypeId" OtherKey="id" Type="InsureType" IsForeignKey="true" />
       <Association Name="JobTitle_Staff" Member="JobTitle" ThisKey="jobTitleId" OtherKey="id" Type="JobTitle" IsForeignKey="true" />
       <Association Name="StaffType_Staff" Member="StaffType" ThisKey="staffTypeId" OtherKey="id" Type="StaffType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AttendanceRecordDetailView" Member="AttendanceRecordDetailView">
+    <Type Name="AttendanceRecordDetailView">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="recordAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="soureType" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="isCalculated" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="sex" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ethnic" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="firstCompanyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="totalCompanySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="companyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="companySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="workStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isOnTrial" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="trialOverAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="departmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="jobTitleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="staffTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="degreeTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="speciality" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="residenceAddress" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="staffId" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="isIdChecked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactPhone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactFamilyMemberType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="domicile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="residenceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="insureTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isPayCPF" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="contractExpireAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="contractCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="totalSeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="device" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="departmentName" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="photo" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AttendanceRecordCalView" Member="AttendanceRecordCalView">
+    <Type Name="AttendanceRecordCalView">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="oriWorkingHour" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="attendanceDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="actWorkingHour" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="isManualCal" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="isException" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="exceptionCodes" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="nr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="sex" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ethnic" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="firstCompanyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="totalCompanySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="companyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="companySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="workStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isOnTrial" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="trialOverAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="departmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="jobTitleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="photo" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="staffTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="degreeTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="speciality" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="residenceAddress" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="staffid" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="isIdChecked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactPhone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactFamilyMemberType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="domicile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="residenceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="insureTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isPayCPF" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="contractExpireAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="contractCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="totalSeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="departmentName" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="staffRemark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="isExceptionHandled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

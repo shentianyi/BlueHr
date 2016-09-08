@@ -30,6 +30,7 @@ INSERT INTO [BlueHr].[dbo].[SystemSetting]
            (5,	NULL,	NULL,	NULL,	20,	2,	30,	30, 'http://localhost/')
 GO
 
+
 -- 建立自动任务
 -- 每天23:30分运行QuartzJob, 计算转正提醒
 INSERT INTO [BlueHr].[dbo].[QuartzJob]
@@ -41,4 +42,36 @@ INSERT INTO [BlueHr].[dbo].[QuartzJob]
            ,null
            ,100)
 GO
+
+
+-- 建立加班类型
+
+
+INSERT INTO [BlueHr].[dbo].[ExtraWorkType]
+           ([name])
+     VALUES
+           ('延时加班')
+GO
+
+INSERT INTO [BlueHr].[dbo].[ExtraWorkType]
+           ([name])
+     VALUES
+           ('双休加班')
+GO
+
+
+INSERT INTO [BlueHr].[dbo].[ExtraWorkType]
+           ([name])
+     VALUES
+           ('节假日加班')
+GO
+
+
+INSERT INTO [BlueHr].[dbo].[ExtraWorkType]
+           ([name])
+     VALUES
+           ('其它加班')
+GO
+
+
 

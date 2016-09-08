@@ -178,6 +178,8 @@ namespace BlueHrWeb.Controllers
             String base64Photo3 = ImageToBase64(staff.photo);
             Console.Write(base64Photo3);
 
+            string base64Photo4 = ImageToBase64("/Images/mCSB_buttons.png");
+            Console.Write(base64Photo4);
 
             IStaffService ss = new StaffService(Settings.Default.db);
 
@@ -224,15 +226,16 @@ namespace BlueHrWeb.Controllers
         }
 
 
-        private string ImageToBase64(string imageName)
+        private string ImageToBase64(String imageName)
         {
             try
             {
-                Image fromImage = Image.FromFile(imageName);
-                MemoryStream ms = new MemoryStream();
-                fromImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                string base64Str = Convert.ToBase64String(System.IO.File.ReadAllBytes(imageName));
+                //Image fromImage = Image.FromFile(imageName);
+                //MemoryStream ms = new MemoryStream();
+                //fromImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
 
-                string base64Str = Convert.ToBase64String(ms.GetBuffer());
+                //string base64Str = Convert.ToBase64String(ms.GetBuffer());
 
                 return base64Str;
             }
