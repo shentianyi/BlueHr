@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BlueHrLib.Data.Repository.Interface
 {
     public interface IAttendanceRecordCalRepository
-    { 
-
+    {
+        AttendanceRecordCal FindById(int id);
     }
 }
