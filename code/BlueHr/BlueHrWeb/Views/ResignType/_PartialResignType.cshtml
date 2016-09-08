@@ -43,15 +43,26 @@
                             <input type="text" name="name" placeholder="离职类型名称" />
                         }
                     </div>
-                    <div class="marco-nbody row">
+                    @*<div class="marco-nbody row">
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-danger">
                                 <span>编码 </span>
                                 @Html.DropDownList("code", ViewData["resignTypeCodeList"] as IEnumerable<SelectListItem>)
                             </div>
                         </div>
-                    </div>
+                    </div>*@
 
+                    <div class="marco-igroup-primary">
+                        <label for="name">编码</label>
+                        @if (Model != null)
+                        {
+                            @Html.EditorFor(model => model.code)
+                        }
+                        else
+                        {
+                            <input type="text" name="code" placeholder="编码" />
+                        }
+                    </div>
 
                     <div class="marco-textarea">
                         <label for="remark">备注</label>
