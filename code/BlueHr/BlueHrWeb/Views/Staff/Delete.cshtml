@@ -5,8 +5,8 @@
 }
 <div>
     @{
-        var toFullTitle = Model.CanTobeFullMember ? "可转正" : "已转正";
-        var toFullUrl = Model.CanTobeFullMember ? "/Staff/ToFullMemeber?nr=" + Model.nr : "#";
+        var toFullTitle = Model.canTobeFullMember ? "可转正" : "已转正";
+        var toFullUrl = Model.canTobeFullMember ? "/Staff/ToFullMemeber?nr=" + Model.nr : "#";
     }
 
     <div style="position:fixed; bottom:0; right:80px;z-index:99999;">
