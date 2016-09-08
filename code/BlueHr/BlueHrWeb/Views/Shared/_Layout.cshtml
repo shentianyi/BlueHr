@@ -226,7 +226,6 @@
 <script type="text/javascript">
     $(function () {
         $.get("/MessageRecord/UnReadCount", null, function (data) {
-            console.log(data);
             if (data != null && data > 0) {
                 $("#unread-count").text(data>999 ? "..." : data);
             } else {
