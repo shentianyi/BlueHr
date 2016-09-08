@@ -289,6 +289,8 @@ namespace BlueHrClient
 
         private bool referForCheck()
         {
+            upDate();
+
             IStaffService staffService = new StaffService(Settings.Default.db);
             Staff staff = staffService.FindByStaffId(ID.Text);
    
@@ -392,7 +394,9 @@ namespace BlueHrClient
             byte[] imageData = new byte[bitmapImage.StreamSource.Length];
             bitmapImage.StreamSource.Seek(0, System.IO.SeekOrigin.Begin);
             bitmapImage.StreamSource.Read(imageData, 0, imageData.Length);
-            string photoString = System.Text.Encoding.Default.GetString(imageData);
+            //string photoString = System.Text.Encoding.Default.GetString(imageData);
+            string photoString = Convert.ToBase64String(imageData);
+
             MessageBox.Show(photoString);
             return photoString;
         }
