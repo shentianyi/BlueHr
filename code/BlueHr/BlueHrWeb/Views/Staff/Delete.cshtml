@@ -5,8 +5,8 @@
 }
 <div>
     @{
-        var toFullTitle = Model.CanTobeFullMember ? "可转正" : "已转正";
-        var toFullUrl = Model.CanTobeFullMember ? "/Staff/ToFullMemeber?nr=" + Model.nr : "#";
+        var toFullTitle = Model.canTobeFullMember ? "可转正" : "已转正";
+        var toFullUrl = Model.canTobeFullMember ? "/Staff/ToFullMemeber?nr=" + Model.nr : "#";
     }
 
     <div style="position:fixed; bottom:0; right:80px;z-index:99999;">
@@ -17,7 +17,7 @@
             </button>
         </a>
 
-        <a href="@tofullurl" title="@tofulltitle">
+        <a href="@toFullUrl" title="@toFullTitle">
             <button class="marco-btn-success pull-right">
                 <i class="glyphicon glyphicon-repeat"></i>
                 <span>转正</span>

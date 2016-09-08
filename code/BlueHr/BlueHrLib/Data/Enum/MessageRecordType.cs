@@ -38,7 +38,7 @@ namespace BlueHrLib.Data.Enum
         StaffFamilyEdited =105,
 
         ///
-        /// ---------------------------------------员工操作---------------------------------------
+        /// ---------------------------------------员工日常管理---------------------------------------
         /// 
         /// <summary>
         /// 员工转正
@@ -60,6 +60,12 @@ namespace BlueHrLib.Data.Enum
         /// </summary>
         [Description("员工调整考勤")]
         StaffUpdateAttHour =204,
+
+        /// <summary>
+        /// 员工身份证验证
+        /// </summary>
+        [Description("员工身份证验证")]
+        StaffIdCheck =205,
 
 
         ///

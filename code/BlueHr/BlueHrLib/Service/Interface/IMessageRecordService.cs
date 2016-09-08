@@ -30,5 +30,13 @@ namespace BlueHrLib.Service.Interface
         /// </summary>
         /// <param name="attendanceDate"></param>
         void CreateAttExceptionMessage(DateTime attendanceDate);
+
+        /// <summary>
+        /// 创建管理员工消息
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="staff"></param>
+        /// <param name="operatorId"></param
+        void CreateManageStaffMessage(MessageRecordType type, Staff staff, int? operatorId);
     }
 }
