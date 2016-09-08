@@ -35,7 +35,7 @@
                         <li class="dropdown notifications-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
-                                <span class="label label-primary">10</span>
+                                <span class="label label-primary" id="unread-count"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="header">消息通知</li>
@@ -239,3 +239,14 @@
 </body>
 @Html.Partial("_HandlingMsgDialog")
 </html>
+<script type="text/javascript">
+    $(function () {
+        $.get("/MessageRecord/UnReadCount", null, function (data) {
+            if (data != null && data > 0) {
+                $("#unread-count").text(data>999? "..." : data);
+            } else {
+                $("#unread-count").text("");
+            }
+        },"json");
+    });
+</script>

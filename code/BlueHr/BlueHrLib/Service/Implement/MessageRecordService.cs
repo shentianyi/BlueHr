@@ -7,6 +7,8 @@ using BlueHrLib.Data.Enum;
 using BlueHrLib.Data;
 using BlueHrLib.Helper;
 using Brilliantech.Framwork.Utils.LogUtil;
+using BlueHrLib.Data.Repository.Interface;
+using BlueHrLib.Data.Repository.Implement;
 
 namespace BlueHrLib.Service.Implement
 {
@@ -160,5 +162,16 @@ namespace BlueHrLib.Service.Implement
             Create(staffNr, null, MessageRecordType.StaffIdCheck, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr));
         }
 
+        /// <summary>
+        /// 获取未读的消息数量
+        /// </summary>
+        /// <param name="read"></param>
+        /// <returns></returns>
+        public int CountUnRead(bool read = false)
+        {
+            IMessageRecordRepository rep = new MessageRecordRepository(new DataContext(this.DbString));
+
+            return rep.CountUnRead();
+        }
     }
 }

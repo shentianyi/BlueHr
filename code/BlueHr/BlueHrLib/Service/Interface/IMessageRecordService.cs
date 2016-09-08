@@ -81,5 +81,12 @@ namespace BlueHrLib.Service.Interface
         /// <param name="staffNr"></param>
         /// <param name="operatorId"></param>
         void CreateStaffIdCheckMessage(string staffNr);
+
+        /// <summary>
+        /// 获取未读的消息数量
+        /// </summary>
+        /// <param name="read"></param>
+        /// <returns></returns>
+        int CountUnRead(bool read = false);
     }
 }

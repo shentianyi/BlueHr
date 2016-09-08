@@ -113,6 +113,7 @@
     <Compile Include="Data\Model\Search\CertificateTypeSearchModel.cs" />
     <Compile Include="Data\Model\Search\FamilyMemberSearchModel.cs" />
     <Compile Include="Data\Model\Search\ResignTypeSearchModel.cs" />
+    <Compile Include="Data\Repository\Implement\MessageRecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\ExtraWorkTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\AbsenceTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\AttendanceRecordCalViewRepository.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Data\Repository\Implement\ResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\ShiftRepository.cs" />
     <Compile Include="Data\Repository\Implement\TaskRoundRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IMessageRecordRepository.cs" />
     <Compile Include="Data\Repository\Interface\IExtraWorkTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAbsenceTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAttendanceRecordCalViewRepository.cs" />
