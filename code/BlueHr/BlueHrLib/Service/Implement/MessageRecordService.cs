@@ -97,5 +97,23 @@ namespace BlueHrLib.Service.Implement
                 Create(r.staffNr, null, MessageRecordType.StaffAttAlert, MessageRecordTypeHelper.FormatAttExceptionMsg(r),attendanceDate.ToString("yyyy-MM-dd"));
             }
         }
+
+        /// <summary>
+        /// 创建管理员工消息
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="staff"></param>
+        /// <param name="operatorId"></param>
+        public void CreateManageStaffMessage(MessageRecordType type, Staff staff)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                LogUtil.Logger.Error("创建管理员工消息出错", ex);
+            }
+        }
     }
 }

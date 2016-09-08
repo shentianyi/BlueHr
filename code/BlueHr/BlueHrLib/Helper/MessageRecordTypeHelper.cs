@@ -48,5 +48,8 @@ namespace BlueHrLib.Helper
         {
             return string.Format("{0}({1}){2}的考勤存在异常,请进行操作", msg.Split(','));
         }
+
+
+        //public static string FormatManageStaffMessage(MessageRecordType type, Staff staff)
     }
 }
