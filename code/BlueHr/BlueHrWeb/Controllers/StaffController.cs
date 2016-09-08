@@ -12,6 +12,7 @@ using MvcPaging;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -161,7 +162,14 @@ namespace BlueHrWeb.Controllers
             }else
             {
             }
-            
+
+            //将图片转化为base64
+            string base64Photo = BlueHrLib.Helper.FileHelper.ImageToBase64(HttpRuntime.AppDomainAppPath+"UploadImage/" + staff.photo);
+            //添加头
+            base64Photo = "data:image/jpg;base64," + base64Photo;
+
+            staff.photo = base64Photo;
+
             IStaffService ss = new StaffService(Settings.Default.db);
 
             bool result = ss.Create(staff);
@@ -240,6 +248,13 @@ namespace BlueHrWeb.Controllers
             try
             {
                 // TODO: Add update logic here
+                //将图片转化为base64
+                string base64Photo = BlueHrLib.Helper.FileHelper.ImageToBase64(HttpRuntime.AppDomainAppPath + "UploadImage/" + staff.photo);
+                //添加头
+                base64Photo = "data:image/jpg;base64," + base64Photo;
+
+                staff.photo = base64Photo;
+
 
                 //获取信息 进行编辑
                 //银行卡和子女信息 使用ajax 进行更新和删除

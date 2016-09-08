@@ -1016,14 +1016,13 @@
 
 .popMsg-default {
   position: fixed;
-  top: 15px;
-  right: 20px;
+  top: 52px;
+  right: 10px;
   width: 200px;
   padding: 4px;
   text-align: center;
   background: #bdc3c7;
   color: #2c3e50;
-  border-radius: 5px;
   z-index: 20000; }
   .popMsg-default .popMsg-body {
     height: 40px;
@@ -1036,14 +1035,13 @@
 
 .popMsg-primary {
   position: fixed;
-  top: 15px;
-  right: 20px;
+  top: 52px;
+  right: 10px;
   width: 200px;
   padding: 4px;
   text-align: center;
   background: #3498db;
   color: white;
-  border-radius: 5px;
   z-index: 20000; }
   .popMsg-primary .popMsg-body {
     height: 40px;
@@ -1056,14 +1054,13 @@
 
 .popMsg-success {
   position: fixed;
-  top: 15px;
-  right: 20px;
+  top: 52px;
+  right: 10px;
   width: 200px;
   padding: 4px;
   text-align: center;
   background: #1abc9c;
   color: white;
-  border-radius: 5px;
   z-index: 20000; }
   .popMsg-success .popMsg-body {
     height: 40px;
@@ -1076,14 +1073,13 @@
 
 .popMsg-warning {
   position: fixed;
-  top: 15px;
-  right: 20px;
+  top: 52px;
+  right: 10px;
   width: 200px;
   padding: 4px;
   text-align: center;
   background: #f39c12;
   color: white;
-  border-radius: 5px;
   z-index: 20000; }
   .popMsg-warning .popMsg-body {
     height: 40px;
@@ -1096,14 +1092,13 @@
 
 .popMsg-danger {
   position: fixed;
-  top: 15px;
-  right: 20px;
+  top: 52px;
+  right: 10px;
   width: 200px;
   padding: 4px;
   text-align: center;
   background: #e74c3c;
   color: white;
-  border-radius: 5px;
   z-index: 20000; }
   .popMsg-danger .popMsg-body {
     height: 40px;

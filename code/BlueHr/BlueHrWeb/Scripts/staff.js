@@ -95,7 +95,7 @@ Staff.other_image_preview = function (photo_name, real_name, photo_preview) {
     div.html('<img id=imghead alt="员工照片">');
     var img = $('#imghead');
     img.css({ maxHeight: '180px', maxWidth: '260px' });
-    img.attr('src', '../../UploadImage/' + $(real_name).val());
+    img.attr('src', $(real_name).val());
 }
 
 Staff.createBankCard = function (cls, bank, bankCard, bankAddress, bankRemark) {

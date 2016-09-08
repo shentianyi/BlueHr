@@ -538,14 +538,13 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 
 @mixin popMsg($marco-bg: $peter-river, $marco-color: white){
     position:fixed;
-    top: 15px;
-    right: 20px;
+    top: 52px;
+    right: 10px;
     width: 200px;
     padding: 4px;
     text-align:center;
     background: $marco-bg;
     color:$marco-color;
-    border-radius:5px;
     z-index: 20000;
     .popMsg-body{
         height: 40px;
