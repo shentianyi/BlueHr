@@ -7,7 +7,7 @@ Layout.init = function () {
         return c;
     })();
 
-    $('.nav-left dt').removeClass('active');
+    $('.sidebar-menu li').removeClass('active');
     var pathname = window.location.pathname.split('/');
 
     switch (pathname[1]) {
@@ -20,36 +20,43 @@ Layout.init = function () {
             PageAction('#department', '新建部门', '编辑部门', '部门详情', '创建', '更新', '删除');
             break;
         case "Staff":
-            $('.nav-user').addClass('active');
-            $('.nav-staff').addClass('active');
+            $('.nav-users').addClass('active');
             PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
             break;
+        case "AttendanceRecordDetail":
+            $('.nav-attendance-record').addClass('active');
+            PageAction('#attendance_record', '新建考勤数据', '编辑考勤数据', '考勤数据详情', '创建', '更新', '删除');
+            break;
+        case "AttendanceRecordCal":
+            $('.nav-attendance-record').addClass('active');
+            PageAction('#staff', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');
+            break;
         case "CertificateType":
-            $('.nav-certificatetype').addClass('active');
+            $('.nav-basic').addClass('active');
             PageAction('#certificatetype', '新建证照类型', '编辑证照类型', '证照类型详情', '创建', '更新', '删除');
             break;
         case "JobTitle":
-            $('.nav-jobtitle').addClass('active');
+            $('.nav-basic').addClass('active');
             PageAction('#jobtitle', '新建职位', '编辑职位', '职位详情', '创建', '更新', '删除');
             break;
         case "DegreeType":
-            $('.nav-degreetype').addClass('active');
+            $('.nav-basic').addClass('active');
             PageAction('#degreetype', '新建学历', '编辑学历', '学历详情', '创建', '更新', '删除');
             break;
         case "StaffType":
-            $('.nav-stafftype').addClass('active');
+            $('.nav-basic').addClass('active');
             PageAction('#stafftype', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
             break;
         case "InSureType":
-            $('.nav-insuretype').addClass('active');
+            $('.nav-basic').addClass('active');
             PageAction('#insuretype', '新建保险类别', '编辑保险类别', '保险类别详情', '创建', '更新', '删除');
             break; 
         case "ResignType":
-            $('.nav-resigntype').addClass('active');
+            $('.nav-basic').addClass('active');
             PageAction('#resigntype', '新建离职类型', '编辑离职类型', '离职类型详情', '创建', '更新', '删除');
             break;
         case "AbsenceType":
-            $('.nav-absencetype').addClass('active');
+            $('.nav-basic').addClass('active');
             PageAction('#absencetype', '新建缺勤类型', '编辑缺勤类型', '缺勤类型详情', '创建', '更新', '删除');
             break;
             
