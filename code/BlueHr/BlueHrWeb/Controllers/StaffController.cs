@@ -12,6 +12,7 @@ using MvcPaging;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -161,7 +162,23 @@ namespace BlueHrWeb.Controllers
             }else
             {
             }
-            
+
+
+            //将图片转化为base64
+
+            String base64Photo = ImageToBase64("../../UploadImage/" + staff.photo);
+            Console.Write(base64Photo);
+
+            String base64Photo1 = ImageToBase64("../UploadImage/" + staff.photo);
+            Console.Write(base64Photo1);
+
+            String base64Photo2 = ImageToBase64("/UploadImage/" + staff.photo);
+            Console.Write(base64Photo2);
+
+            String base64Photo3 = ImageToBase64(staff.photo);
+            Console.Write(base64Photo3);
+
+
             IStaffService ss = new StaffService(Settings.Default.db);
 
             bool result = ss.Create(staff);
@@ -203,6 +220,26 @@ namespace BlueHrWeb.Controllers
             {
                 SetDropDownList(null);
                 return View();
+            }
+        }
+
+
+        private string ImageToBase64(string imageName)
+        {
+            try
+            {
+                Image fromImage = Image.FromFile(imageName);
+                MemoryStream ms = new MemoryStream();
+                fromImage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                string base64Str = Convert.ToBase64String(ms.GetBuffer());
+
+                return base64Str;
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+                return null;
             }
         }
 
