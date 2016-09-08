@@ -12,7 +12,9 @@ namespace BlueHrWeb.Controllers
     public class MessageRecordController : Controller
     {
         // GET: MessageRecord
-        public ActionResult Index()
+        // allOrUnread: unread/all
+        // type: alert/manage/basic
+        public ActionResult Index(string allOrUnread="unread",string type="alert")
         {
             return View();
         }
