@@ -20,6 +20,16 @@ namespace BlueHrLib.Service.Interface
         void Create(string staffNr, int? operatorId, MessageRecordType type, string text,string uniqString=null);
 
         /// <summary>
+        /// 创建员工基础信息被编辑消息
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <param name="operatorId"></param>
+        /// <param name="fieldName"></param>
+        /// <param name="oldValue"></param>
+        /// <param name="newValue"></param>
+        void CreateStaffBasicEdited(string staffNr, int operatorId,string fieldName, string oldValue, string newValue);
+
+        /// <summary>
         /// 创建员工转正提醒
         /// </summary>
         /// <param name="datetime"></param>
@@ -71,5 +81,12 @@ namespace BlueHrLib.Service.Interface
         /// <param name="staffNr"></param>
         /// <param name="operatorId"></param>
         void CreateStaffIdCheckMessage(string staffNr);
+
+        /// <summary>
+        /// 获取未读的消息数量
+        /// </summary>
+        /// <param name="read"></param>
+        /// <returns></returns>
+        int CountUnRead(bool read = false);
     }
 }

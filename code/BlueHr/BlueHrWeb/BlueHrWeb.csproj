@@ -249,8 +249,10 @@
     <Compile Include="Controllers\CertificateTypeController.cs" />
     <Compile Include="Controllers\DegreeTypeController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
+    <Compile Include="Controllers\MessageRecordController.cs" />
     <Compile Include="Controllers\ResignTypeController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
@@ -462,10 +464,12 @@
     <Content Include="Views\AbsenceType\Delete.cshtml" />
     <Content Include="Views\AbsenceType\_PartialAbsenceType.cshtml" />
     <Content Include="Views\Staff\Resign.cshtml" />
+    <Content Include="Views\ExtraWorkType\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="UploadImage\" />
+    <Folder Include="Views\MessageRecord\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -7,6 +7,8 @@ using BlueHrLib.Data.Enum;
 using BlueHrLib.Data;
 using BlueHrLib.Helper;
 using Brilliantech.Framwork.Utils.LogUtil;
+using BlueHrLib.Data.Repository.Interface;
+using BlueHrLib.Data.Repository.Implement;
 
 namespace BlueHrLib.Service.Implement
 {
@@ -67,7 +69,18 @@ namespace BlueHrLib.Service.Implement
             }
         }
 
-
+        /// <summary>
+        /// 创建员工基础信息被编辑消息
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <param name="operatorId"></param>
+        /// <param name="fieldName"></param>
+        /// <param name="oldValue"></param>
+        /// <param name="newValue"></param>
+        public void CreateStaffBasicEdited(string staffNr, int operatorId, string fieldName, string oldValue, string newValue)
+        {
+            Create(staffNr, operatorId, MessageRecordType.StaffBasicEdited, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr,fieldName, oldValue, newValue));
+        }
 
         /// <summary>
         /// 创建员工转正提醒
@@ -147,6 +160,18 @@ namespace BlueHrLib.Service.Implement
         public void CreateStaffIdCheckMessage(string staffNr)
         {
             Create(staffNr, null, MessageRecordType.StaffIdCheck, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr));
+        }
+
+        /// <summary>
+        /// 获取未读的消息数量
+        /// </summary>
+        /// <param name="read"></param>
+        /// <returns></returns>
+        public int CountUnRead(bool read = false)
+        {
+            IMessageRecordRepository rep = new MessageRecordRepository(new DataContext(this.DbString));
+
+            return rep.CountUnRead();
         }
     }
 }

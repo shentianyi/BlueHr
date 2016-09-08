@@ -21,6 +21,13 @@ namespace BlueHrLib.Service.Implement
     {
         public AttendanceRecordCalService(string dbString) : base(dbString) { }
 
+        public AttendanceRecordCal FindById(int id)
+        {
+            IAttendanceRecordCalRepository rep = new AttendanceRecordCalRepository(new DataContext(this.DbString));
+            return rep.FindById(id);
+        }
+
+
         public AttendanceRecordCalView FindViewById(int id)
         {
             IAttendanceRecordCalViewRepository rep = new AttendanceRecordCalViewRepository(new DataContext(this.DbString));

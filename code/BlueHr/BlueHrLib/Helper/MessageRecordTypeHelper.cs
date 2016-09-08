@@ -65,10 +65,14 @@ namespace BlueHrLib.Helper
             return p.TrimEnd(',');
         }
 
-        public static string ParseManageStaffMsg(MessageRecordType type, MessageRecordView record, params string[] texts)
+        public static string ParseManageStaffMsg(MessageRecordType type, MessageRecordView record)
         {
+            string[] texts = record.text.Split(',');
+
             switch ((MessageRecordType)record.messageType)
             {
+                case MessageRecordType.StaffBasicEdited:
+                    return string.Format("{0}在{1}将{2}({3})的{4}从{5}改为{6}", record.operatorName, record.createdAtStr, record.staffNr, record.staffName, texts[0], texts[1],texts[2]);
                 case MessageRecordType.StaffToFullMemeber:
                     return string.Format("{0}在{1}对{2}({3})进行了转正", record.operatorName, record.createdAtStr, record.staffNr, record.staffName);
                 case MessageRecordType.StaffResign:
@@ -83,5 +87,9 @@ namespace BlueHrLib.Helper
             }
             return string.Empty;
         }
+
+     
+
+       
     }
 }

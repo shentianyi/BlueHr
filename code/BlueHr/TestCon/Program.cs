@@ -16,8 +16,14 @@ namespace TestCon
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(double.Parse(".1"));
-            
+            Staff s = new Staff();
+           
+         
+            s.PropertyChanging += S_PropertyChanging;
+            s.PropertyChanged += S_PropertyChanged;
+            s.address = "a";
+            s.address = "b";
+
             //DataContext dc = new DataContext(Settings.Default.db);
             //List<string> staffNrs = new List<string>();
             //List<DateTime> datetime = new List<DateTime>();
@@ -71,6 +77,28 @@ namespace TestCon
             //Console.WriteLine("quiting....press ENTER....");
             //Console.Read();
         }
+
+        private static void S_PropertyChanging(object sender, System.ComponentModel.PropertyChangingEventArgs e)
+        {
+            Console.WriteLine("changing...");
+            Console.WriteLine(e.PropertyName);
+            if(!string.IsNullOrEmpty(e.PropertyName))
+            Console.WriteLine((sender as Staff).GetType().GetProperty(e.PropertyName).GetValue((sender as Staff), null));
+        }
+
+        private static void S_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+
+            Console.WriteLine("changed...");
+            Console.WriteLine(e.PropertyName);
+            if (!string.IsNullOrEmpty(e.PropertyName))
+            {
+                Console.WriteLine((sender as Staff).GetType().GetProperty(e.PropertyName+"_Was").GetValue((sender as Staff), null));
+
+                Console.WriteLine((sender as Staff).GetType().GetProperty(e.PropertyName).GetValue((sender as Staff), null));
+            }
+        }
+
         static void Cmd(string ke)
         {
            

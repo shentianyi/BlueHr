@@ -89,7 +89,22 @@ namespace BlueHrWeb.Controllers
 
 
             IAttendanceRecordCalService ss = new AttendanceRecordCalService(Settings.Default.db);
+            AttendanceRecordCal record = ss.FindById(id);
+
+            string oldHour = record.actWorkingHour.ToString();
+         
             msg = ss.UpdateActHourById(id, actHour, handled,Request.Form["remark"]);
+
+            string newHour = actHour.ToString();
+
+            // 创建调整考勤记录##User##
+            try
+            {
+                IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+                mrs.CreateStaffUpdateAttHourMessage(record.staffNr, 1, oldHour, newHour);
+            }
+            catch { }
+
             return Json(msg);
         }
 

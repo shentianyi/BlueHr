@@ -58,6 +58,20 @@ namespace BlueHrLib.Helper
             }
         }
 
+        public static string ImageToBase64(string imageName)
+        {
+            try
+            {
+                string base64Str = Convert.ToBase64String(File.ReadAllBytes(imageName));
+                return base64Str;
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+                return null;
+            }
+        }
+
         /// <summary>
         /// 获取可供下载的临时文件路径，
         /// 如网站中的，<a href="/TmpFile/xxx.docx">下载</a>

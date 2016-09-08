@@ -15,7 +15,7 @@ namespace BlueHrWeb
             routes.MapRoute(
                name: "StaffEdit",
                url: "Staff/Edit/{nr}",
-               defaults: new { controller = "Staff", action = "Edit", nr = UrlParameter.Optional}
+               defaults: new { controller = "Staff", action = "Edit", nr = UrlParameter.Optional }
             );
 
             routes.MapRoute(
@@ -25,12 +25,17 @@ namespace BlueHrWeb
            );
 
             routes.MapRoute(
+                name: "MessageRecordIndex",
+                url: "MessageRecord/{allOrUnread}/{type}",
+                defaults: new { controller = "MessageRecord", action = "Index", allOrUnread = UrlParameter.Optional, type = UrlParameter.Optional }
+                );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-          
         }
     }
 }
