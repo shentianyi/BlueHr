@@ -264,6 +264,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Models\MessageCategory.cs" />
     <Compile Include="Helpers\PagingHelper.cs" />
     <Compile Include="Helpers\View\PartialViewHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
