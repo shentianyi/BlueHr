@@ -104,7 +104,7 @@ namespace BlueHrLib.Service.Implement
         /// <param name="type"></param>
         /// <param name="staff"></param>
         /// <param name="operatorId"></param>
-        public void CreateManageStaffMessage(MessageRecordType type, Staff staff)
+        public void CreateManageStaffMessage(MessageRecordType type, Staff staff, int? operatorId)
         {
             try
             {
