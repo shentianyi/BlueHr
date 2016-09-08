@@ -395,6 +395,14 @@ namespace BlueHrLib.Data
 				return this.GetTable<AttendanceRecordDetailView>();
 			}
 		}
+		
+		public System.Data.Linq.Table<MessageRecordView> MessageRecordView
+		{
+			get
+			{
+				return this.GetTable<MessageRecordView>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AbsenceRecrod")]
@@ -8229,7 +8237,7 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary photo
 		{
 			get
@@ -8994,7 +9002,7 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary photo
 		{
 			get
@@ -9342,6 +9350,267 @@ namespace BlueHrLib.Data
 				if ((this._departmentName != value))
 				{
 					this._departmentName = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MessageRecordView")]
+	public partial class MessageRecordView
+	{
+		
+		private int _id;
+		
+		private string _staffNr;
+		
+		private System.Nullable<int> _operatorId;
+		
+		private System.Nullable<int> _messageType;
+		
+		private System.Nullable<System.DateTime> _createdAt;
+		
+		private string _text;
+		
+		private System.Nullable<bool> _isRead;
+		
+		private System.Nullable<bool> _isHandled;
+		
+		private System.Nullable<bool> _isUrl;
+		
+		private string _url;
+		
+		private string _uniqString;
+		
+		private string _operatorName;
+		
+		private string _operatorEmail;
+		
+		private string _staffName;
+		
+		public MessageRecordView()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200)")]
+		public string staffNr
+		{
+			get
+			{
+				return this._staffNr;
+			}
+			set
+			{
+				if ((this._staffNr != value))
+				{
+					this._staffNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_operatorId", DbType="Int")]
+		public System.Nullable<int> operatorId
+		{
+			get
+			{
+				return this._operatorId;
+			}
+			set
+			{
+				if ((this._operatorId != value))
+				{
+					this._operatorId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_messageType", DbType="Int")]
+		public System.Nullable<int> messageType
+		{
+			get
+			{
+				return this._messageType;
+			}
+			set
+			{
+				if ((this._messageType != value))
+				{
+					this._messageType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> createdAt
+		{
+			get
+			{
+				return this._createdAt;
+			}
+			set
+			{
+				if ((this._createdAt != value))
+				{
+					this._createdAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_text", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string text
+		{
+			get
+			{
+				return this._text;
+			}
+			set
+			{
+				if ((this._text != value))
+				{
+					this._text = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isRead", DbType="Bit")]
+		public System.Nullable<bool> isRead
+		{
+			get
+			{
+				return this._isRead;
+			}
+			set
+			{
+				if ((this._isRead != value))
+				{
+					this._isRead = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isHandled", DbType="Bit")]
+		public System.Nullable<bool> isHandled
+		{
+			get
+			{
+				return this._isHandled;
+			}
+			set
+			{
+				if ((this._isHandled != value))
+				{
+					this._isHandled = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isUrl", DbType="Bit")]
+		public System.Nullable<bool> isUrl
+		{
+			get
+			{
+				return this._isUrl;
+			}
+			set
+			{
+				if ((this._isUrl != value))
+				{
+					this._isUrl = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_url", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string url
+		{
+			get
+			{
+				return this._url;
+			}
+			set
+			{
+				if ((this._url != value))
+				{
+					this._url = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uniqString", DbType="VarChar(255)")]
+		public string uniqString
+		{
+			get
+			{
+				return this._uniqString;
+			}
+			set
+			{
+				if ((this._uniqString != value))
+				{
+					this._uniqString = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_operatorName", DbType="VarChar(50)")]
+		public string operatorName
+		{
+			get
+			{
+				return this._operatorName;
+			}
+			set
+			{
+				if ((this._operatorName != value))
+				{
+					this._operatorName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_operatorEmail", DbType="VarChar(50)")]
+		public string operatorEmail
+		{
+			get
+			{
+				return this._operatorEmail;
+			}
+			set
+			{
+				if ((this._operatorEmail != value))
+				{
+					this._operatorEmail = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffName", DbType="VarChar(50)")]
+		public string staffName
+		{
+			get
+			{
+				return this._staffName;
+			}
+			set
+			{
+				if ((this._staffName != value))
+				{
+					this._staffName = value;
 				}
 			}
 		}

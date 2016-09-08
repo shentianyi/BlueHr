@@ -20,6 +20,15 @@ namespace BlueHrLib.Data
         }
 
         /// <summary>
+        /// 是否可以离职
+        /// </summary>
+        public bool canResign {
+            get {
+                return (this.workStatus == (int)WorkStatus.OnWork);
+            }
+        }
+
+        /// <summary>
         /// 转正日期
         /// </summary>
         public string trialOverAtStr

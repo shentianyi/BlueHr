@@ -98,22 +98,55 @@ namespace BlueHrLib.Service.Implement
             }
         }
 
-        /// <summary>
-        /// 创建管理员工消息
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="staff"></param>
-        /// <param name="operatorId"></param>
-        public void CreateManageStaffMessage(MessageRecordType type, Staff staff, int? operatorId)
-        {
-            try
-            {
 
-            }
-            catch (Exception ex)
-            {
-                LogUtil.Logger.Error("创建管理员工消息出错", ex);
-            }
+        /// <summary>
+        /// 创建员工转正消息
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <param name="operatorId"></param>
+        public void CreateStaffFullMemeberMessage(string staffNr, int operatorId)
+        {
+            Create(staffNr, operatorId, MessageRecordType.StaffToFullMemeber, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr));
+        }
+
+        /// <summary>
+        /// 创建员工离职消息
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <param name="operatorId"></param>
+        public void CreateStaffResignMessage(string staffNr, int operatorId)
+        {
+            Create(staffNr, operatorId, MessageRecordType.StaffResign, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr));
+        }
+
+
+        /// <summary>
+        /// 创建员工调岗消息
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <param name="operatorId"></param>
+        public void CreateStaffShiftJobMessage(string staffNr, int operatorId, string oldJobStr, string newJobStr)
+        {
+            Create(staffNr, operatorId, MessageRecordType.StaffShiftJob, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr, oldJobStr, newJobStr));
+        }
+
+        /// <summary>
+        /// 创建员工调整考勤消息
+        /// </summary>
+        /// <param name="staffNr"></param>
+        public void CreateStaffUpdateAttHourMessage(string staffNr, int operatorId, string oldHour, string newHour)
+        {
+            Create(staffNr, operatorId, MessageRecordType.StaffUpdateAttHour, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr, oldHour, newHour));
+        }
+
+        /// <summary>
+        /// 创建员工身份证验证消息
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <param name="operatorId"></param>
+        public void CreateStaffIdCheckMessage(string staffNr)
+        {
+            Create(staffNr, null, MessageRecordType.StaffIdCheck, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr));
         }
     }
 }

@@ -1,0 +1,163 @@
+﻿@using BlueHrLib.Data
+
+@model BlueHrLib.Data.Staff
+
+@{
+    ViewBag.Title = "员工离职";
+}
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>用户管理</li>
+    <li><a href="/Staff">员工管理</a></li>
+    <li><a href="#" id="staff_delete">员工详情</a></li>
+    <li>员工离职</li>
+</ol>
+
+
+<style>
+    .photo_preview > img {
+        width: 200px;
+        height: 150px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+</style>
+
+<hr class="hr-grey" />
+
+@if (Model != null)
+{
+    <div style="padding:0 10px;">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card-box-default">
+                <div class="card-box" style="border-color: lightseagreen;">
+                    <div class="card-heading" style="border-bottom: 1px dashed #999;">
+                        <span>员工基本信息</span>
+                    </div>
+
+                    <div class="card-body-multiple row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <p title="@Model.nr" style="overflow:hidden; white-space:nowrap;text-overflow:clip;">工号： @Model.nr</p>
+
+                            <p>姓名： @Model.name</p>
+
+
+                            <p>性别： @Model.sex</p>
+
+
+                            <p>生日： @Model.birthday</p>
+
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="photo_preview"></div>
+                            <div id="photo_name" style="text-align:center;"></div>
+                            <input type="hidden" id="photo" value="@Model.photo" />
+                        </div>
+                    </div>
+                    <hr class="hr-grey" />
+                    <div class="card-footer">
+                        <span>通讯地址: @Model.address</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card-box-default">
+                <div class="card-box" style="border-color: lightseagreen;">
+                    <div class="card-heading" style="border-bottom: 1px dashed #999;">
+                        离职信息填写--By Charlot: 请重写离职信息
+                    </div>
+                    
+                    <div class="card-body-multiple">
+                        <div class="marco-igroup-default">
+                            <span>是否通过试用</span>
+                            <input type="checkbox" checked="checked" id="isPassCheck" />
+                        </div>
+
+                        <div class="marco-igroup-default">
+                            <span>&nbsp;&nbsp;转正日期&nbsp;&nbsp;</span>
+                            <input type="text" class="datetimepicker" id="beFullAt" />
+                        </div>
+
+                        <div class="marco-igroup-default">
+                            <span>&nbsp;&nbsp;考核日期&nbsp;&nbsp;</span>
+                            <input type="text" class="datetimepicker" id="checkAt" />
+                        </div>
+                        <div class="marco-igroup-default">
+                            <span>试用期分数</span>
+                            <input type="text" id="checkScore" />
+                        </div>
+                        <div class="marco-igroup-default">
+                            <span>最终考核人</span>
+                            <input type="text" id="beFullChecker" />
+                        </div>
+
+                        <div class="marco-textarea">
+                            <textarea name="remark" id="remark">备注</textarea>
+                        </div>
+
+                        <hr class="hr-grey" />
+                        <div style="text-align:right;">
+                            <button type="submit" class="marco-btn-success" onclick="toFullMember()">
+                                <i class="glyphicon glyphicon-ok"></i>确定
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="staffNr" value="@Model.nr" />
+    </div>
+}
+
+@Scripts.Render("~/bundles/staff")
+
+<script type="text/javascript">
+
+    Staff.other_image_preview('#photo_name', '#photo', '.photo_preview');
+
+    Layout.datepicker('.datetimepicker');
+
+    //设置href
+    var StaffNr = $("#staffNr").val();
+    $('#staff_delete').attr('href', '/Staff/Delete/' + StaffNr);
+
+    function toFullMember() {
+        if (confirm("确认提交转正？")) {
+
+            var nr = $("#staffNr").val();
+            var isPassCheck = $("#isPassCheck").is(':checked');
+            var beFullAt = $("#beFullAt").val();
+            var checkAt = $("#checkAt").val();
+            var checkScore = $("#checkScore").val();
+            var beFullChecker = $("#beFullChecker").val();
+            var remark = $("#remark").val();
+
+
+            if (isPassCheck && beFullAt.length == 0) {
+                alert("请填写转正日期");
+                return;
+            }
+
+
+            if (checkScore.length > 0) {
+                if (isNaN(checkScore)) {
+                    alert("请填写正确的数字");
+                    return;
+                }
+            }
+
+            $.post("/Staff/DoResign/", { staffNr: nr  }, function (data) {
+                if (data.Success) {
+                    alert("离职成功！");
+                    window.location = "/Staff/Delete/" + nr;
+
+                } else {
+                    alert("离职失败：" + data.Content);
+                }
+            }, "json");
+        }
+    }
+</script>

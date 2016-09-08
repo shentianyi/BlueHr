@@ -32,11 +32,44 @@ namespace BlueHrLib.Service.Interface
         void CreateAttExceptionMessage(DateTime attendanceDate);
 
         /// <summary>
-        /// 创建管理员工消息
+        /// 创建员工转正消息
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="staff"></param>
-        /// <param name="operatorId"></param
-        void CreateManageStaffMessage(MessageRecordType type, Staff staff, int? operatorId);
+        /// <param name="staffNr"></param>
+        /// <param name="operatorId"></param>
+        void CreateStaffFullMemeberMessage(string staffNr, int operatorId);
+
+
+        /// <summary>
+        /// 创建员工离职消息
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <param name="operatorId"></param>
+        void CreateStaffResignMessage(string staffNr, int operatorId);
+
+
+
+        /// <summary>
+        /// 创建员工调岗消息
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <param name="operatorId"></param>
+        void CreateStaffShiftJobMessage(string staffNr, int operatorId, string oldJobStr, string newJobStr);
+
+
+        /// <summary>
+        /// 创建员工调整考勤消息
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <param name="operatorId"></param>
+        void CreateStaffUpdateAttHourMessage(string staffNr, int operatorId,string oldHour, string newHour);
+
+
+
+        /// <summary>
+        /// 创建员工身份证验证消息
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <param name="operatorId"></param>
+        void CreateStaffIdCheckMessage(string staffNr);
     }
 }

@@ -89,6 +89,7 @@
     <Compile Include="Data\Enum\SystemCertificateType.cs" />
     <Compile Include="Data\Enum\StaffEnum.cs" />
     <Compile Include="Data\Enum\DurationType.cs" />
+    <Compile Include="Data\MessageRecordView.cs" />
     <Compile Include="Data\Message\ImportMessage.cs" />
     <Compile Include="Data\Message\ResultMessage.cs" />
     <Compile Include="Data\Message\ValidateMessage.cs" />

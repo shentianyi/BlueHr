@@ -7,10 +7,14 @@
     @{
         var toFullTitle = Model.canTobeFullMember ? "可转正" : "已转正";
         var toFullUrl = Model.canTobeFullMember ? "/Staff/ToFullMemeber?nr=" + Model.nr : "#";
+
+
+        var resignTitle = Model.canResign ? "可离职" : "已离职";
+        var resignUrl = Model.canResign ? "/Staff/Resign?nr=" + Model.nr : "#";
     }
 
     <div style="position:fixed; bottom:0; right:80px;z-index:99999;">
-        <a href="#" title="离 职">
+        <a href="@resignUrl" title="@resignTitle">
             <button class="marco-btn-warning pull-right">
                 <i class="glyphicon glyphicon-random"></i>
                 <span>离 职</span>

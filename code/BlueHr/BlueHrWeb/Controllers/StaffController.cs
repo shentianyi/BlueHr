@@ -436,9 +436,13 @@ namespace BlueHrWeb.Controllers
             //int CompanyId = Convert.ToInt16(changeJob[1]);
             //int DepartmentId = Convert.ToInt16(changeJob[2]);
             //int JobTitleId = Convert.ToInt16(changeJob[3]);
-
+            
             IStaffService ss = new StaffService(Settings.Default.db);
-
+            Staff staff = ss.FindByNr(changeJob[0]);
+            string oldCompany = staff.Company==null ? string.Empty : staff.Company.name;
+            string oldDepartment = staff.Department == null ? string.Empty : staff.Department.name;
+            string oldJobTitle = staff.JobTitle == null ? string.Empty : staff.JobTitle.name;
+            string oldJobStr=string.Format("{0}-{1}-{2}",oldCompany,oldDepartment,oldJobTitle);
             bool JobReturn = ss.ChangeJob(changeJob); 
 
             ResultMessage msg;
@@ -448,6 +452,20 @@ namespace BlueHrWeb.Controllers
                 msg = new ResultMessage() { Success = true };
                 //将ID返回给前端用来删除
                 msg.Content = "调岗成功";
+
+                // 创建调岗记录##User##
+                try
+                {
+                    Staff newStaff = ss.FindByNr(changeJob[0]);
+                    string newCompany = newStaff.Company == null ? string.Empty : newStaff.Company.name;
+                    string newDepartment = newStaff.Department == null ? string.Empty : newStaff.Department.name;
+                    string newJobTitle = newStaff.JobTitle == null ? string.Empty : newStaff.JobTitle.name;
+                    string newJobStr = string.Format("{0}-{1}-{2}", newCompany, newDepartment, newJobTitle);
+                    IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+
+                    mrs.CreateStaffShiftJobMessage(changeJob[0], 1, oldJobStr,newJobStr);
+                }
+                catch { }
             }
             else
             {
@@ -457,6 +475,7 @@ namespace BlueHrWeb.Controllers
 
             return Json(msg, JsonRequestBehavior.DenyGet);
         }
+
         private void SetDropDownList(Staff staff)
         {
             if (staff != null)
@@ -788,8 +807,49 @@ namespace BlueHrWeb.Controllers
             IStaffService ss = new StaffService(Settings.Default.db);
             msg = ss.ToFullMember(record);
 
+            // 创建转正记录##User##
+            try
+            {
+                IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+                mrs.CreateStaffFullMemeberMessage(record.staffNr, 1);
+            }
+            catch { }
             return Json(msg);
         }
+
+
+        /// <summary>
+        /// 员工离职
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Resign(string nr)
+        {
+            IStaffService ss = new StaffService(Settings.Default.db);
+            Staff staff = ss.FindByNr(nr);
+            return View(staff);
+        }
+
+        /// <summary>
+        /// 执行员工转正
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult DoResign([Bind(Include = "staffNr")] ResignRecord record)
+        {
+
+            // TODO
+            // 离职逻辑
+
+            // 创建；离职记录##User##
+            try
+            {
+                IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+                mrs.CreateStaffResignMessage(record.staffNr, 1);
+            }
+            catch { }
+            return null;
+        }
+
 
         private void SetDepartmentList(int? companyId, int? type, bool allowBlank = true)
         {
