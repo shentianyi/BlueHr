@@ -20,7 +20,7 @@ Layout.init = function () {
             PageAction('#department', '新建部门', '编辑部门', '部门详情', '创建', '更新', '删除');
             break;
         case "Staff":
-            $('.nav-users').addClass('active');
+            $('.nav-staff').addClass('active');
             PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
             break;
         case "AttendanceRecordDetail":

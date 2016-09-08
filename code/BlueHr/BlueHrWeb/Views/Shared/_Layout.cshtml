@@ -17,7 +17,7 @@
     @RenderSection("scripts", required: false)
 </head>
 
-<body class="fixed skin-blue">
+<body class="skin-blue fixed sidebar-mini">
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
@@ -87,7 +87,7 @@
                     @*<li class="header">菜单栏</li>*@
                     <li class="active treeview nav-users">
                         <a href="#">
-                            <i class="fa fa-users"></i>
+                            <i class="fa fa-user-secret"></i>
                             <span>用户管理</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -98,57 +98,6 @@
                                 <a href="#">
                                     <i class="fa fa-lock"></i>
                                     权限管理
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="/Staff/Index">
-                                    <i class="fa fa-user"></i>
-                                    员工管理
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-company">
-                        <a href="/Company/Index">
-                            <i class="fa fa-sitemap"></i>
-                            <span>公司管理</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-department">
-                        <a href="/Department/Index">
-                            <i class="fa fa-cubes"></i>
-                            <span>部门管理</span>
-                        </a>
-                    </li>
-
-                    <li class="treeview nav-attendance-record">
-                        <a href="#">
-                            <i class="fa fa-calendar-check-o"></i>
-                            <span>考勤管理</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li>
-                                <a href="/AttendanceRecordDetail/Index">
-                                    <i class="fa fa-list-ol"></i>
-                                    详细记录管理
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/AttendanceRecordCal/Index">
-                                    <i class="fa fa-table"></i>
-                                    统计记录管理
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/AttendanceRecordCal/ExceptionList">
-                                    <i class="fa fa-exclamation-triangle"></i>
-                                    异常统计管理
                                 </a>
                             </li>
                         </ul>
@@ -214,9 +163,60 @@
                             </li>
 
                             <li>
-                                <a href="#">
+                                <a href="/ExtraWorkType/">
                                     <i class="fa fa-hourglass-1"></i>
-                                    加班管理
+                                    加班类型
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-company">
+                        <a href="/Company/Index">
+                            <i class="fa fa-sitemap"></i>
+                            <span>公司管理</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-department">
+                        <a href="/Department/Index">
+                            <i class="fa fa-cubes"></i>
+                            <span>部门管理</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-staff">
+                        <a href="/Staff/Index">
+                            <i class="fa fa-users"></i>
+                            <span>员工管理</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview nav-attendance-record">
+                        <a href="#">
+                            <i class="fa fa-calendar-check-o"></i>
+                            <span>考勤管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="/AttendanceRecordDetail/Index">
+                                    <i class="fa fa-list-ol"></i>
+                                    详细记录管理
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/AttendanceRecordCal/Index">
+                                    <i class="fa fa-table"></i>
+                                    统计记录管理
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/AttendanceRecordCal/ExceptionList">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    异常统计管理
                                 </a>
                             </li>
                         </ul>
