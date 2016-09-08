@@ -471,4 +471,22 @@
       <Column Name="departmentName" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
+  <Table Name="dbo.MessageRecordView" Member="MessageRecordView">
+    <Type Name="MessageRecordView">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="operatorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="messageType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="text" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="isRead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isHandled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isUrl" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="url" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="uniqString" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="operatorName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="operatorEmail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="staffName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

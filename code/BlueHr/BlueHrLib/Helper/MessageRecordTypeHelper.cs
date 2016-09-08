@@ -27,12 +27,12 @@ namespace BlueHrLib.Helper
         /// <returns></returns>
         public static string FormatToBeFullMemeberMsg(Staff staff)
         {
-            return string.Format("{0},{1},{2}", staff.nr,staff.name, staff.trialOverAtStr);
+            return string.Format("{0}", staff.trialOverAtStr);
         }
 
-        public static string ParseToBeFullMemeberMsg(string msg)
+        public static string ParseToBeFullMemeberMsg(MessageRecordView record)
         {
-            return string.Format("{0}({1})转正日期为{2}, 请及时操作", msg.Split(','));
+            return string.Format("{0}({1})转正日期为{2}, 请及时操作",record.staffNr,record.staffName, record.text);
         }
         /// <summary>
         /// {0},{1},{2}--->{staffNr},{staffName},{attendanceDate}
@@ -41,15 +41,47 @@ namespace BlueHrLib.Helper
         /// <returns></returns>
         public static string FormatAttExceptionMsg(AttendanceRecordCalView record)
         {
-            return string.Format("{0},{1},{2}", record.nr, record.name, record.attendanceDateStr);
+            return string.Format("{0}", record.attendanceDateStr);
         }
 
-        public static string ParseAttExceptionMsg(string msg)
+        public static string ParseAttExceptionMsg(MessageRecordView record)
         {
-            return string.Format("{0}({1}){2}的考勤存在异常,请进行操作", msg.Split(','));
+            return string.Format("{0}({1}){2}的考勤存在异常,请进行操作",record.staffNr,record.staffName, record.text);
         }
 
+        /// <summary>
+        /// 格式化管理员工的消息内容
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <returns></returns>
+        public static string FormatManageStaffMsg(string staffNr, params string[] texts)
+        {
+            string p = string.Empty;
 
-        //public static string FormatManageStaffMessage(MessageRecordType type, Staff staff)
+            foreach (var s in texts)
+            {
+                p += s + ",";
+            }
+            return p.TrimEnd(',');
+        }
+
+        public static string ParseManageStaffMsg(MessageRecordType type, MessageRecordView record, params string[] texts)
+        {
+            switch ((MessageRecordType)record.messageType)
+            {
+                case MessageRecordType.StaffToFullMemeber:
+                    return string.Format("{0}在{1}对{2}({3})进行了转正", record.operatorName, record.createdAtStr, record.staffNr, record.staffName);
+                case MessageRecordType.StaffResign:
+                    return string.Format("{0}在{1}对{2}({3})进行了离职", record.operatorName, record.createdAtStr, record.staffNr, record.staffName);
+                case MessageRecordType.StaffShiftJob:
+                    return string.Format("{0}在{1}对{2}({3})进行了调岗,从{4}调至{5}", record.operatorName, record.createdAtStr, record.staffNr, record.staffName,texts[0],texts[1]);
+                case MessageRecordType.StaffUpdateAttHour:
+                    return string.Format("{0}在{1}对{2}({3})进行了考勤调整,从{4}调至{5}", record.operatorName, record.createdAtStr, record.staffNr, record.staffName, texts[0], texts[1]);
+                case MessageRecordType.StaffIdCheck:
+                    return string.Format("在{0}对{1}({2})进行了身份证验证",  record.createdAtStr, record.staffNr, record.staffName);
+
+            }
+            return string.Empty;
+        }
     }
 }

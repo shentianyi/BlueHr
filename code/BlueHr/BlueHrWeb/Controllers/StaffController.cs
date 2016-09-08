@@ -457,6 +457,7 @@ namespace BlueHrWeb.Controllers
 
             return Json(msg, JsonRequestBehavior.DenyGet);
         }
+
         private void SetDropDownList(Staff staff)
         {
             if (staff != null)
@@ -788,6 +789,13 @@ namespace BlueHrWeb.Controllers
             IStaffService ss = new StaffService(Settings.Default.db);
             msg = ss.ToFullMember(record);
 
+            // 创建转正记录
+            try
+            {
+                IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+                mrs.CreateStaffFullMemeberMessage(record.staffNr, 1);
+            }
+            catch { }
             return Json(msg);
         }
 
