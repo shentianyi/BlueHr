@@ -64,6 +64,14 @@ namespace BlueHrLib.Service.Implement
                 this.CreateOrUpdateIdCertificate(dc, staff, card);
 
                 dc.Context.SubmitChanges();
+
+                try
+                {
+                    IMessageRecordService mrs = new MessageRecordService(this.DbString);
+                    mrs.CreateStaffIdCheckMessage(staff.nr);
+                }
+                catch { }
+
                 return true;
             }
             return false;

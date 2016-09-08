@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlueHrLib.Data.Model.Search;
+using BlueHrLib.Service.Interface;
+using BlueHrLib.Service.Implement;
 
 namespace BlueHrLib.Data.Repository.Implement
 {
@@ -138,6 +140,8 @@ namespace BlueHrLib.Data.Repository.Implement
                 Staff sf = this.context.GetTable<Staff>().FirstOrDefault(c => c.nr.Equals(staff.nr));
                 if (sf != null)
                 {
+                    sf.OperatorId = staff.OperatorId;
+                    sf.PropertyChanged += Sf_PropertyChanged;
                     sf.nr = staff.nr;
                     sf.name = staff.name;
                     sf.sex = staff.sex;
@@ -182,6 +186,25 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 return false;
             }
+        }
+
+        private void Sf_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            try {
+                string propertyName = e.PropertyName;
+                if ((!string.IsNullOrEmpty(propertyName)) && Staff.ValueName.ContainsKey(propertyName))
+                {
+                    Staff s = sender as Staff;
+                    object oldOValue = s.GetType().GetProperty(e.PropertyName + "_Was").GetValue(s, null);
+                    string oldValue = oldOValue==null ? "":oldOValue.ToString();
+                    object newOValue = s.GetType().GetProperty(e.PropertyName).GetValue(s, null);
+                    string newValue =newOValue==null? "" : newOValue.ToString();
+
+                    IMessageRecordService mrs = new MessageRecordService(this.context.Connection.ConnectionString);
+                    mrs.CreateStaffBasicEdited(s.nr, s.OperatorId, Staff.ValueName[propertyName], oldValue, newValue);
+                }
+            }
+            catch { }
         }
     }
 }

@@ -11,6 +11,15 @@ namespace BlueHrLib.Service.Interface
 {
     public interface IAttendanceRecordCalService
     {
+
+        /// <summary>
+        /// 根据id查找到统计考勤数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        AttendanceRecordCal FindById(int id);
+
+
         /// <summary>
         /// 根据id查找到统计考勤数据视图
         /// </summary>

@@ -285,7 +285,10 @@ namespace BlueHrWeb.Controllers
                 //银行卡和子女信息 使用ajax 进行更新和删除
 
                 IStaffService cs = new StaffService(Settings.Default.db);
-                bool updateResult= cs.Update(staff);
+                // 创建修改用户基本信息记录##User##
+                staff.OperatorId = 1;
+
+                bool updateResult = cs.Update(staff);
 
                 if (!updateResult)
                 {

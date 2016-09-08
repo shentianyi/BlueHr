@@ -67,7 +67,18 @@ namespace BlueHrLib.Service.Implement
             }
         }
 
-
+        /// <summary>
+        /// 创建员工基础信息被编辑消息
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <param name="operatorId"></param>
+        /// <param name="fieldName"></param>
+        /// <param name="oldValue"></param>
+        /// <param name="newValue"></param>
+        public void CreateStaffBasicEdited(string staffNr, int operatorId, string fieldName, string oldValue, string newValue)
+        {
+            Create(staffNr, operatorId, MessageRecordType.StaffBasicEdited, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr,fieldName, oldValue, newValue));
+        }
 
         /// <summary>
         /// 创建员工转正提醒
@@ -148,5 +159,6 @@ namespace BlueHrLib.Service.Implement
         {
             Create(staffNr, null, MessageRecordType.StaffIdCheck, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr));
         }
+
     }
 }
