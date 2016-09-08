@@ -17,7 +17,7 @@
     @RenderSection("scripts", required: false)
 </head>
 
-<body class="fixed skin-blue">
+<body class="skin-blue fixed sidebar-mini">
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
@@ -87,7 +87,7 @@
                     @*<li class="header">菜单栏</li>*@
                     <li class="active treeview nav-users">
                         <a href="#">
-                            <i class="fa fa-users"></i>
+                            <i class="fa fa-user-secret"></i>
                             <span>用户管理</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -98,13 +98,6 @@
                                 <a href="#">
                                     <i class="fa fa-lock"></i>
                                     权限管理
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="/Staff/Index">
-                                    <i class="fa fa-user"></i>
-                                    员工管理
                                 </a>
                             </li>
                         </ul>
@@ -121,6 +114,13 @@
                         <a href="/Department/Index">
                             <i class="fa fa-cubes"></i>
                             <span>部门管理</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-staff">
+                        <a href="/Staff/Index">
+                            <i class="fa fa-users"></i>
+                            <span>员工管理</span>
                         </a>
                     </li>
 
