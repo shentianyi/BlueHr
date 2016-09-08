@@ -24,7 +24,7 @@ namespace BlueHrLib.Service.Implement
         /// <param name="type"></param>
         /// <param name="text"></param>
         /// <param name="uniqString">唯一性键</param>
-        public void Create(string staffNr, int? operatorId, MessageRecordType type, string text,  string uniqString = null)
+        public void Create(string staffNr, int? operatorId, MessageRecordType type, string text, string uniqString = null)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace BlueHrLib.Service.Implement
                     var q = dc.Context.GetTable<MessageRecord>().Where(s => s.staffNr.Equals(staffNr) && (s.isRead == false) && s.messageType.Equals((int)type));
                     if (uniqString != null)
                     {
-                        q = q.Where(s => uniqString==s.uniqString);
+                        q = q.Where(s => uniqString == s.uniqString);
                     }
 
                     unreadRecord = q.FirstOrDefault();
@@ -58,7 +58,7 @@ namespace BlueHrLib.Service.Implement
                     isRead = false,
                     isHandled = false,
                     isUrl = isUrl,
-                    uniqString =uniqString
+                    uniqString = uniqString
                 };
                 dc.Context.GetTable<MessageRecord>().InsertOnSubmit(record);
                 dc.Context.SubmitChanges();
@@ -79,7 +79,7 @@ namespace BlueHrLib.Service.Implement
         /// <param name="newValue"></param>
         public void CreateStaffBasicEdited(string staffNr, int operatorId, string fieldName, string oldValue, string newValue)
         {
-            Create(staffNr, operatorId, MessageRecordType.StaffBasicEdited, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr,fieldName, oldValue, newValue));
+            Create(staffNr, operatorId, MessageRecordType.StaffBasicEdited, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr, fieldName, oldValue, newValue));
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace BlueHrLib.Service.Implement
             List<Staff> staffs = new StaffService(this.DbString).GetToBeFullsLessThanDate(datetime);
             foreach (var staff in staffs)
             {
-                Create(staff.nr, null, MessageRecordType.StaffToFullMemberAlert, MessageRecordTypeHelper.FormatToBeFullMemeberMsg(staff),staff.trialOverAtStr);
+                Create(staff.nr, null, MessageRecordType.StaffToFullMemberAlert, MessageRecordTypeHelper.FormatToBeFullMemeberMsg(staff), staff.trialOverAtStr);
             }
         }
 
@@ -106,8 +106,8 @@ namespace BlueHrLib.Service.Implement
             List<AttendanceRecordCalView> records = service.GetListByDateAndIsException(attendanceDate);
             foreach (var r in records)
             {
-               
-                Create(r.staffNr, null, MessageRecordType.StaffAttAlert, MessageRecordTypeHelper.FormatAttExceptionMsg(r),attendanceDate.ToString("yyyy-MM-dd"));
+
+                Create(r.staffNr, null, MessageRecordType.StaffAttAlert, MessageRecordTypeHelper.FormatAttExceptionMsg(r), attendanceDate.ToString("yyyy-MM-dd"));
             }
         }
 
@@ -172,6 +172,28 @@ namespace BlueHrLib.Service.Implement
             IMessageRecordRepository rep = new MessageRecordRepository(new DataContext(this.DbString));
 
             return rep.CountUnRead();
+        }
+
+        /// <summary>
+        /// 根据类型和是否阅读获取列表
+        /// </summary>
+        /// <param name="types"></param>
+        /// <param name="all"></param>
+        /// <returns></returns>
+        public IQueryable<MessageRecordView> GetByTypesAndAllOrUnread(List<MessageRecordType> types, bool all)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            IQueryable<MessageRecordView> q = dc.Context.GetTable<MessageRecordView>();
+            if (!all)
+            {
+                q = q.Where(s => s.isRead == false);
+            }
+            if (types != null && types.Count > 0)
+            {
+                q = q.Where(s => types.Contains((MessageRecordType)s.messageType));
+            }
+
+            return q.OrderByDescending(s => s.createdAt);
         }
     }
 }

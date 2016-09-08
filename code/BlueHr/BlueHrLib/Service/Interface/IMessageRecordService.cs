@@ -88,5 +88,13 @@ namespace BlueHrLib.Service.Interface
         /// <param name="read"></param>
         /// <returns></returns>
         int CountUnRead(bool read = false);
-    }
+
+        /// 根据类型和是否阅读获取列表
+        /// </summary>
+        /// <param name="types"></param>
+        /// <param name="all">true is all, false is unread</param>
+        /// <returns></returns>
+        IQueryable<MessageRecordView> GetByTypesAndAllOrUnread(List<MessageRecordType> types, bool all);
+         
+        }
 }
