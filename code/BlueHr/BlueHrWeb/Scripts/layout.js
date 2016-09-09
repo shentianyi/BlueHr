@@ -149,12 +149,15 @@ Layout.TbodyHeight = function (cls, height) {
 Layout.datepicker = function (date_picker) {
     $(date_picker).datetimepicker({
         format: 'Y-m-d',
+        scrollInput:false,
         timepicker: false
     });
 }
 
 Layout.datetimepicker = function (date_time_picker) {
-    $(date_time_picker).datetimepicker();
+    $(date_time_picker).datetimepicker({
+        scrollInput: false
+    });
 }
 
 Layout.rangedatepicker = function (date_picker_start, date_picker_end) {
@@ -165,6 +168,7 @@ Layout.rangedatepicker = function (date_picker_start, date_picker_end) {
                 maxDate: $(date_picker_end).val() ? $(date_picker_end).val() : false
             })
         },
+        scrollInput: false,
         timepicker: false
     });
 
@@ -175,6 +179,7 @@ Layout.rangedatepicker = function (date_picker_start, date_picker_end) {
                 minDate: $(date_picker_start).val() ? $(date_picker_start).val() : false
             })
         },
+        scrollInput: false,
         timepicker: false
     });
 }

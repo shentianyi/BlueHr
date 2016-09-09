@@ -105,7 +105,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
+                    <div class="marco-igroup-primary">
                         <span>户口性质</span>
 
                         @Html.DropDownList("residenceType", ViewData["residenceTypeList"] as IEnumerable<SelectListItem>)
@@ -152,8 +152,8 @@
                     @Html.Partial("Search/_CompanyAndDepartmentBar")
 
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-danger">
-                            <span>职位 *</span>
+                        <div class="marco-igroup-primary">
+                            <span>职位</span>
                             @Html.DropDownList("jobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
                         </div>
                     </div>
@@ -278,7 +278,7 @@
 
             <div class="marco-nbody row">
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
+                    <div class="marco-igroup-danger">
                         <span>&nbsp;&nbsp;是否在试用&nbsp;&nbsp;</span>
                         @Html.DropDownList("isOnTrial", ViewData["isOnTrialList"] as IEnumerable<SelectListItem>)
                     </div>
@@ -299,7 +299,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
+                    <div class="marco-igroup-danger">
                         <span>是否交公积金</span>
 
                         @Html.DropDownList("isPayCPF", ViewData["isPayCPFList"] as IEnumerable<SelectListItem>)
@@ -486,4 +486,49 @@
     Layout.rangedatepicker('.date-start-picker', '.date-end-picker');
     Layout.datepicker('.date-picker');
     Staff.image_upload('#photoUpload');
+
+    $('.submit-btn').click(function () {
+        if (Layout.IsStringNull($('#nr').val())) {
+            Layout.popMsg('popMsg-danger', "员工号不能为空");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#name').val())) {
+            Layout.popMsg('popMsg-danger', "姓名不能为空");
+            return false;
+        }
+
+        //身份证验证
+        if (!Staff.CheckIdValid($('#id').val())) {
+            return false;
+        }
+
+        var now = new Date().getTime();
+        var birthday = new Date($('#birthday').val()).getTime();
+
+        if (birthday > now) {
+            Layout.popMsg('popMsg-danger', "出生日期不能大于当前日期");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#workStatus').val())) {
+            Layout.popMsg('popMsg-danger', "职位状态不能为空");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#isOnTrial').val())) {
+            Layout.popMsg('popMsg-danger', "试用状态不能为空");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#isPayCPF').val())) {
+            Layout.popMsg('popMsg-danger', "公积金不能为空");
+            return false;
+        }
+        
+        if ($('#contractCount').val() < 0) {
+            Layout.popMsg('popMsg-danger', "签订合同次数不能为负");
+            return false;
+        }
+    });
 </script>
