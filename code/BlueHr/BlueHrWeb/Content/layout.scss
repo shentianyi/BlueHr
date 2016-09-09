@@ -274,11 +274,13 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
   margin-bottom: 0;
   margin-top:-2px;
   th {
+    white-space:nowrap;
     text-align: center;
     border-bottom: 1px solid $light-grey !important;
   }
   td{
-      vertical-align:middle;
+    white-space:nowrap;
+    vertical-align:middle;
   }
 }
 

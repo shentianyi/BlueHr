@@ -12,15 +12,6 @@
     <li>员工管理</li>
 </ol>
 
-<style type="text/css">
-    table thead th{
-        white-space:nowrap;
-    }
-    table tbody td{
-        white-space:nowrap;
-    }
-</style>
-
 <hr class="hr-grey" />
 
 @*Search*@
@@ -133,7 +124,7 @@
                         <th>公司</th>
                         <th>部门</th>
                         <th>职位</th>
-                        <th>是否备全证照</th>
+                        <th>是否备齐证照</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -153,13 +144,13 @@
 
                                     @if (item.isIdChecked)
                                     {
-                                        <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help; display:inline;">
+                                        <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">
                                             已验证
                                         </span>
                                     }
                                     else
                                     {
-                                        <span class="pull-right marco-label-danger" title="身份证还未验证" style="cursor:help;display:inline;">
+                                        <span class="pull-right marco-label-danger" title="身份证还未验证, 请使用客户端进行验证" style="cursor:help;">
                                             未验证
                                         </span>
                                     }
@@ -183,7 +174,14 @@
                                 </td>
 
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.IsHasAllCertificate)
+                                    @if (item.IsHasAllCertificate)
+                                    {
+                                        <span class="marco-label-success" title="证照信息已经备齐" style="cursor:help;">已备齐</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="marco-label-danger" title="证照信息尚未备齐" style="cursor:help;">尚未备齐</span>
+                                    }
                                 </td>
 
                                 <td>

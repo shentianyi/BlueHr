@@ -24,7 +24,9 @@ namespace BlueHrWeb
                    "~/Scripts/jquery.datetimepicker.full.js",
                    "~/Scripts/jquery.file.upload/jquery.fileupload.js",
                    "~/Scripts/jquery.file.upload/jquery.iframe-transport.js",
-                   "~/Scripts/jquery.file.upload/upload.file.data.js"));
+                   "~/Scripts/jquery.file.upload/upload.file.data.js",
+                   "~/Scripts/jquery.cookie.js"
+                   ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

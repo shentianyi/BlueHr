@@ -2,7 +2,7 @@
     text-align:center;
 }
 .pagination-inner {
-    border: 1px solid #0088cc;
+    border: 1px solid #3498db;
     min-width: 70px;
     height:40px;
     line-height:38px;
@@ -11,13 +11,13 @@
 }
 
 .pagination-inner > span, .pagination-inner > a {
-    border-right: 1px solid #ebf1f5;
+    border-right: 1px solid #2980b9;
     padding: 9px 15px;
     width: 20px;
     margin-left:3px;
 }
 
-.pagination-inner > a:last-child{
+.pagination-inner > span:last-child, a:last-child{
     border:none;
 }
 

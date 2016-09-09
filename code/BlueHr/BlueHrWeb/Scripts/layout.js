@@ -63,6 +63,10 @@ Layout.init = function () {
             $('.nav-basic').addClass('active');
             PageAction('#certificate', '新建证照', '编辑证照', '证照详情', '创建', '更新', '删除');
             break;
+        case "ExtraWorkType":
+            $('.nav-basic').addClass('active');
+            PageAction('#extraworktype', '新建加班类型', '编辑加班类型', '加班类型详情', '创建', '更新', '删除');
+            break;
         case "TaskRound":
             $('.nav-taskround').addClass('active');
         default:

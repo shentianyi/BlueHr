@@ -42,7 +42,7 @@
                             <p>姓名： @Model.name</p>
 
 
-                            <p>性别： @Model.sex</p>
+                            <p>性别： @Model.sexDisplay</p>
 
 
                             <p>生日： @Model.birthday</p>
@@ -51,7 +51,7 @@
 
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="photo_preview"></div>
-                            <div id="photo_name" style="text-align:center;"></div>
+                            <div id="photo_name" style="visibility:hidden; text-align:center;"></div>
                             <input type="hidden" id="photo" value="@Model.photo" />
                         </div>
                     </div>
@@ -101,7 +101,8 @@
                         <hr class="hr-grey" />
                         <div style="text-align:right;">
                             <button type="submit" class="marco-btn-success" onclick="toFullMember()">
-                                <i class="glyphicon glyphicon-ok"></i>确定
+                                <i class="glyphicon glyphicon-ok"></i>
+                                确定
                             </button>
                         </div>
                     </div>
@@ -115,6 +116,7 @@
 @Scripts.Render("~/bundles/staff")
 
 <script type="text/javascript">
+    Layout.init();
 
     Staff.other_image_preview('#photo_name', '#photo', '.photo_preview');
 

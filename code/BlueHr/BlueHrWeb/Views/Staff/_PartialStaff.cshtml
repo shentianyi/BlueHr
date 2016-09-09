@@ -181,7 +181,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div id="photopreview">
                     @if (Model != null)
                     {
@@ -468,7 +468,7 @@
 
             <div class="marco-nbody">
                 <div class="marco-textarea" style="margin-top:5px;">
-                    <textarea name="remark" rows="5"></textarea>
+                    @Html.TextAreaFor(model => model.remark)
                 </div>
             </div>
         </div>

@@ -163,12 +163,13 @@ namespace BlueHrWeb.Controllers
             {
             }
 
-            //将图片转化为base64
-            string base64Photo = BlueHrLib.Helper.FileHelper.ImageToBase64(HttpRuntime.AppDomainAppPath+"UploadImage/" + staff.photo);
-            //添加头
-            base64Photo = "data:image/jpg;base64," + base64Photo;
-
-            staff.photo = base64Photo;
+            if (!string.IsNullOrWhiteSpace(staff.photo))
+            {
+                //要想显示照片， 必须添加头  data:image/jpg;base64,
+                string base64Photo = BlueHrLib.Helper.FileHelper.ImageToBase64(HttpRuntime.AppDomainAppPath + "UploadImage/" + staff.photo);
+                base64Photo = "data:image/jpg;base64," + base64Photo;
+                staff.photo = base64Photo;
+            }
 
             IStaffService ss = new StaffService(Settings.Default.db);
 
@@ -248,13 +249,19 @@ namespace BlueHrWeb.Controllers
             try
             {
                 // TODO: Add update logic here
-                //将图片转化为base64
-                string base64Photo = BlueHrLib.Helper.FileHelper.ImageToBase64(HttpRuntime.AppDomainAppPath + "UploadImage/" + staff.photo);
-                //添加头
-                base64Photo = "data:image/jpg;base64," + base64Photo;
+                //如果在编辑的时候没有替换图片，那么就不做替换
+                //如果替换了图片，那么就进行处理
 
-                staff.photo = base64Photo;
-
+                if (!string.IsNullOrWhiteSpace(staff.photo))
+                {
+                    //要想显示照片， 必须添加头  data:image/jpg;base64,
+                    string base64Photo = BlueHrLib.Helper.FileHelper.ImageToBase64(HttpRuntime.AppDomainAppPath + "UploadImage/" + staff.photo);
+                    if (base64Photo!=null)
+                    {
+                        base64Photo = "data:image/jpg;base64," + base64Photo;
+                        staff.photo = base64Photo;
+                    }
+                }
 
                 //获取信息 进行编辑
                 //银行卡和子女信息 使用ajax 进行更新和删除

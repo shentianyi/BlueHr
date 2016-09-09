@@ -575,9 +575,11 @@
   margin-bottom: 0;
   margin-top: -2px; }
   .table th {
+    white-space: nowrap;
     text-align: center;
     border-bottom: 1px solid #ddd !important; }
   .table td {
+    white-space: nowrap;
     vertical-align: middle; }
 
 .table-heading {

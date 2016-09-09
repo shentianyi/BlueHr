@@ -351,6 +351,7 @@
       <DependentUpon>jquery-ui-1.9.1.custom.min.es5.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-ui-1.9.1.custom.min.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.datetimepicker.full.js" />
     <Content Include="Scripts\jquery.file.upload\jquery.fileupload.js" />
     <Content Include="Scripts\jquery.file.upload\jquery.iframe-transport.js" />
