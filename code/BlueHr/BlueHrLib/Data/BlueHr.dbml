@@ -486,6 +486,7 @@
       <Column Name="duration" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="durationType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="absenceDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="AbsenceType_AbsenceRecrod" Member="AbsenceType" ThisKey="absenceTypeId" OtherKey="id" Type="AbsenceType" IsForeignKey="true" />
       <Association Name="Staff_AbsenceRecrod" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
     </Type>

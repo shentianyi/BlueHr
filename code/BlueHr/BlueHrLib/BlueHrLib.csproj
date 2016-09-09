@@ -101,6 +101,7 @@
     <Compile Include="Data\Enum\WorkStatus.cs" />
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\AbsenceRecrodInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\AbsenceTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\CertificateInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\CertificateTypeInfoModel.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Data\Model\PageViewModel\JobTitleInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\ResignTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\StaffTypeInfoModel.cs" />
+    <Compile Include="Data\Model\Search\AbsenceRecrodSearchModel.cs" />
     <Compile Include="Data\Model\Search\AbsenceTypeSearchModel.cs" />
     <Compile Include="Data\Model\Search\AttendanceRecordCalSearchModel.cs" />
     <Compile Include="Data\Model\Search\BankCardSearchModel.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="Data\Model\Search\FamilyMemberSearchModel.cs" />
     <Compile Include="Data\Model\Search\ResignRecordSearchModel.cs" />
     <Compile Include="Data\Model\Search\ResignTypeSearchModel.cs" />
+    <Compile Include="Data\Repository\Implement\AbsenceRecrodRepository.cs" />
     <Compile Include="Data\Repository\Implement\CertificateRepository.cs" />
     <Compile Include="Data\Repository\Implement\MessageRecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\ExtraWorkTypeRepository.cs" />
@@ -130,6 +133,7 @@
     <Compile Include="Data\Repository\Implement\ResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\ShiftRepository.cs" />
     <Compile Include="Data\Repository\Implement\TaskRoundRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAbsenceRecrodRepository.cs" />
     <Compile Include="Data\Repository\Interface\ICertificateRepository.cs" />
     <Compile Include="Data\Repository\Interface\IMessageRecordRepository.cs" />
     <Compile Include="Data\Repository\Interface\IExtraWorkTypeRepository.cs" />
@@ -200,6 +204,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service\Implement\AbsenceRecordService.cs" />
     <Compile Include="Service\Implement\AbsenceTypeService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordCalService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordDetailService.cs" />
@@ -224,6 +229,7 @@
     <Compile Include="Service\Implement\JobTitleService.cs" />
     <Compile Include="Service\Implement\DepartmentService.cs" />
     <Compile Include="Service\Implement\StaffService.cs" />
+    <Compile Include="Service\Interface\IAbsenceRecordService.cs" />
     <Compile Include="Service\Interface\ICertificateService.cs" />
     <Compile Include="Service\Interface\IExtraWorkTypeService.cs" />
     <Compile Include="Service\Interface\IAbsenceTypeService.cs" />

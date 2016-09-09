@@ -9394,6 +9394,8 @@ namespace BlueHrLib.Data
 		
 		private string _remark;
 		
+		private System.Nullable<System.DateTime> _absenceDate;
+		
 		private EntityRef<AbsenceType> _AbsenceType;
 		
 		private EntityRef<Staff> _Staff;
@@ -9414,6 +9416,8 @@ namespace BlueHrLib.Data
     partial void OndurationTypeChanged();
     partial void OnremarkChanging(string value);
     partial void OnremarkChanged();
+    partial void OnabsenceDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnabsenceDateChanged();
     #endregion
 		
 		public AbsenceRecrod()
@@ -9547,6 +9551,26 @@ namespace BlueHrLib.Data
 					this._remark = value;
 					this.SendPropertyChanged("remark");
 					this.OnremarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_absenceDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> absenceDate
+		{
+			get
+			{
+				return this._absenceDate;
+			}
+			set
+			{
+				if ((this._absenceDate != value))
+				{
+					this.OnabsenceDateChanging(value);
+					this.SendPropertyChanging();
+					this._absenceDate = value;
+					this.SendPropertyChanged("absenceDate");
+					this.OnabsenceDateChanged();
 				}
 			}
 		}
