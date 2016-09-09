@@ -115,6 +115,7 @@
     <Compile Include="Data\Model\Search\CertificateSearchModel.cs" />
     <Compile Include="Data\Model\Search\CertificateTypeSearchModel.cs" />
     <Compile Include="Data\Model\Search\FamilyMemberSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ResignRecordSearchModel.cs" />
     <Compile Include="Data\Model\Search\ResignTypeSearchModel.cs" />
     <Compile Include="Data\Repository\Implement\CertificateRepository.cs" />
     <Compile Include="Data\Repository\Implement\MessageRecordRepository.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Data\Repository\Implement\CertificateTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\FamilyMemberRepository.cs" />
     <Compile Include="Data\Repository\Implement\BankCardRepository.cs" />
+    <Compile Include="Data\Repository\Implement\ResignRecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\ResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\ShiftRepository.cs" />
     <Compile Include="Data\Repository\Implement\TaskRoundRepository.cs" />
@@ -137,6 +139,7 @@
     <Compile Include="Data\Repository\Interface\ICertificateTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IFamilyMemberRepository.cs" />
     <Compile Include="Data\Repository\Interface\IBankCardRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IResignRecordRepository.cs" />
     <Compile Include="Data\Repository\Interface\IResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IShiftRoundRepository.cs" />
     <Compile Include="Data\Repository\Interface\ITaskRoundRepository.cs" />
@@ -211,6 +214,8 @@
     <Compile Include="Service\Implement\MessageRecordService.cs" />
     <Compile Include="Service\Implement\ExtraWorkTypeService.cs" />
     <Compile Include="Service\Implement\QuartzJobService.cs" />
+    <Compile Include="Data\Model\PageViewModel\ResignRecordInfoModel.cs" />
+    <Compile Include="Service\Implement\ResignRecordService.cs" />
     <Compile Include="Service\Implement\ResignTypeService.cs" />
     <Compile Include="Service\Implement\ShiftService.cs" />
     <Compile Include="Service\Implement\ShiftSheduleService.cs" />
@@ -234,6 +239,7 @@
     <Compile Include="Service\Interface\IBankCardService.cs" />
     <Compile Include="Service\Interface\IMessageRecordService.cs" />
     <Compile Include="Service\Interface\IQuartzJobService.cs" />
+    <Compile Include="Service\Interface\IResignRecordService.cs" />
     <Compile Include="Service\Interface\IResignTypeService.cs" />
     <Compile Include="Service\Interface\IShiftScheduleService.cs" />
     <Compile Include="Service\Interface\IShiftService.cs" />

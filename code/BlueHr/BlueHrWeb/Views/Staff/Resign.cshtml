@@ -67,40 +67,30 @@
             <div class="card-box-default">
                 <div class="card-box" style="border-color: lightseagreen;">
                     <div class="card-heading" style="border-bottom: 1px dashed #999;">
-                        离职信息填写--By Charlot: 请重写离职信息
+                        离职信息填写
                     </div>
-                    
+
                     <div class="card-body-multiple">
                         <div class="marco-igroup-default">
-                            <span>是否通过试用</span>
-                            <input type="checkbox" checked="checked" id="isPassCheck" />
+                            <span>离职类别</span>
+                            @Html.DropDownList("resignTypeId", ViewData["resignTypeList"] as IEnumerable<SelectListItem>)
                         </div>
 
                         <div class="marco-igroup-default">
-                            <span>&nbsp;&nbsp;转正日期&nbsp;&nbsp;</span>
-                            <input type="text" class="datetimepicker" id="beFullAt" />
-                        </div>
-
-                        <div class="marco-igroup-default">
-                            <span>&nbsp;&nbsp;考核日期&nbsp;&nbsp;</span>
-                            <input type="text" class="datetimepicker" id="checkAt" />
+                            <span>&nbsp;&nbsp;离职时间&nbsp;&nbsp;</span>
+                            <input type="text" class="datetimepicker" id="resignAt" />
                         </div>
                         <div class="marco-igroup-default">
-                            <span>试用期分数</span>
-                            <input type="text" id="checkScore" />
+                            <span>&nbsp;&nbsp;审核人&nbsp;&nbsp;</span>
+                            <input type="text" id="resignChecker" />
                         </div>
-                        <div class="marco-igroup-default">
-                            <span>最终考核人</span>
-                            <input type="text" id="beFullChecker" />
-                        </div>
-
                         <div class="marco-textarea">
                             <textarea name="remark" id="remark">备注</textarea>
                         </div>
 
                         <hr class="hr-grey" />
                         <div style="text-align:right;">
-                            <button type="submit" class="marco-btn-success" onclick="toFullMember()">
+                            <button type="submit" class="marco-btn-success" onclick="toResign()">
                                 <i class="glyphicon glyphicon-ok"></i>确定
                             </button>
                         </div>
@@ -124,35 +114,29 @@
     var StaffNr = $("#staffNr").val();
     $('#staff_delete').attr('href', '/Staff/Delete/' + StaffNr);
 
-    function toFullMember() {
-        if (confirm("确认提交转正？")) {
+    function toResign() {
+        if (confirm("确认提交离职？")) {
 
-            var nr = $("#staffNr").val();
-            var isPassCheck = $("#isPassCheck").is(':checked');
-            var beFullAt = $("#beFullAt").val();
-            var checkAt = $("#checkAt").val();
-            var checkScore = $("#checkScore").val();
-            var beFullChecker = $("#beFullChecker").val();
+            var staffNr = $("#staffNr").val();
+            var resignTypeId = $("#resignTypeId").val();
+            var resignAt = $("#resignAt").val();
+            var resignChecker = $("#resignChecker").val();
             var remark = $("#remark").val();
 
-
-            if (isPassCheck && beFullAt.length == 0) {
-                alert("请填写转正日期");
+            if (resignTypeId == "" || resignTypeId == null) {
+                alert("请选择离职类型");
                 return;
             }
 
-
-            if (checkScore.length > 0) {
-                if (isNaN(checkScore)) {
-                    alert("请填写正确的数字");
-                    return;
-                }
+            if (resignAt == "" || resignAt == null) {
+                alert("请选择离职时间");
+                return;
             }
 
-            $.post("/Staff/DoResign/", { staffNr: nr  }, function (data) {
+            $.post("/Staff/DoResign/", { resignTypeId: resignTypeId, staffNr: staffNr, resignAt: resignAt, resignChecker: resignChecker, remark: remark }, function (data) {
                 if (data.Success) {
                     alert("离职成功！");
-                    window.location = "/Staff/Delete/" + nr;
+                    window.location = "/Staff/Index/";
 
                 } else {
                     alert("离职失败：" + data.Content);
