@@ -251,6 +251,7 @@
     <Compile Include="Controllers\CertificateTypeController.cs" />
     <Compile Include="Controllers\DegreeTypeController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\ExtraWorkRecordController.cs" />
     <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
@@ -480,6 +481,11 @@
     <Content Include="Views\AbsenceRecrod\Edit.cshtml" />
     <Content Include="Views\AbsenceRecrod\Delete.cshtml" />
     <Content Include="Views\AbsenceRecrod\_PartialAbsenceRecrod.cshtml" />
+    <Content Include="Views\ExtraWorkRecord\Index.cshtml" />
+    <Content Include="Views\ExtraWorkRecord\Create.cshtml" />
+    <Content Include="Views\ExtraWorkRecord\Edit.cshtml" />
+    <Content Include="Views\ExtraWorkRecord\Delete.cshtml" />
+    <Content Include="Views\ExtraWorkRecord\_PartialExtraWorkRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -106,6 +106,7 @@
     <Compile Include="Data\Model\PageViewModel\CertificateInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\CertificateTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\DegreeTypeInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\ExtraWorkRecordInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\InSureTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\JobTitleInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\ResignTypeInfoModel.cs" />
@@ -116,11 +117,13 @@
     <Compile Include="Data\Model\Search\BankCardSearchModel.cs" />
     <Compile Include="Data\Model\Search\CertificateSearchModel.cs" />
     <Compile Include="Data\Model\Search\CertificateTypeSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ExtraWorkRecordSearchModel.cs" />
     <Compile Include="Data\Model\Search\FamilyMemberSearchModel.cs" />
     <Compile Include="Data\Model\Search\ResignRecordSearchModel.cs" />
     <Compile Include="Data\Model\Search\ResignTypeSearchModel.cs" />
     <Compile Include="Data\Repository\Implement\AbsenceRecrodRepository.cs" />
     <Compile Include="Data\Repository\Implement\CertificateRepository.cs" />
+    <Compile Include="Data\Repository\Implement\ExtraWorkRecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\MessageRecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\ExtraWorkTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\AbsenceTypeRepository.cs" />
@@ -135,6 +138,7 @@
     <Compile Include="Data\Repository\Implement\TaskRoundRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAbsenceRecrodRepository.cs" />
     <Compile Include="Data\Repository\Interface\ICertificateRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IExtraWorkRecordRepository.cs" />
     <Compile Include="Data\Repository\Interface\IMessageRecordRepository.cs" />
     <Compile Include="Data\Repository\Interface\IExtraWorkTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAbsenceTypeRepository.cs" />
@@ -212,6 +216,7 @@
     <Compile Include="Service\Implement\CertificateService.cs" />
     <Compile Include="Service\Implement\CertificateTypeService.cs" />
     <Compile Include="Service\Implement\CompanyService.cs" />
+    <Compile Include="Service\Implement\ExtraWorkRecordService.cs" />
     <Compile Include="Service\Implement\FamilyMemberService.cs" />
     <Compile Include="Service\Implement\DegreeTypeService.cs" />
     <Compile Include="Service\Implement\InSureTypeService.cs" />
@@ -231,6 +236,7 @@
     <Compile Include="Service\Implement\StaffService.cs" />
     <Compile Include="Service\Interface\IAbsenceRecordService.cs" />
     <Compile Include="Service\Interface\ICertificateService.cs" />
+    <Compile Include="Service\Interface\IExtraWorkRecordService.cs" />
     <Compile Include="Service\Interface\IExtraWorkTypeService.cs" />
     <Compile Include="Service\Interface\IAbsenceTypeService.cs" />
     <Compile Include="Service\Interface\IAttendanceRecordCalService.cs" />

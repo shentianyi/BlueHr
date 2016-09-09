@@ -1,9 +1,9 @@
-﻿@model BlueHrLib.Data.AbsenceRecrod
+﻿@model BlueHrLib.Data.ExtraWorkRecord
 
-<div id="absencerecord" style="margin:10px;">
+<div id="extrawordrecord" style="margin:10px;">
     <ol class="breadcrumb current-position">
         您的位置：
-        <li>@Html.ActionLink("缺勤管理", "Index")</li>
+        <li>@Html.ActionLink("加班管理", "Index")</li>
         <li>{{action}}</li>
     </ol>
 
@@ -31,15 +31,14 @@
                 </div>
             </div>
 
-            <div class="marco-nbody row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>缺勤时间</span>
-                        @Html.EditorFor(model => model.absenceDate, new { htmlAttributes = new { @class = "date-picker" } })
-                        @*<input type="text" class="datetimepicker" name="absenceDate"/>*@
+            @*<div class="marco-nbody row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>缺勤时间</span>
+                            @Html.EditorFor(model => model.absenceDate, new { htmlAttributes = new { @class = "date-picker" } })
+                         </div>
                     </div>
-                </div>
-            </div>
+                </div>*@
 
 
             <div class="marco-nbody row">
@@ -59,8 +58,8 @@
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-danger">
-                        <span>缺勤类别 </span>
-                        @Html.DropDownList("absenceTypeId", ViewData["absenceTypeList"] as IEnumerable<SelectListItem>)
+                        <span>加班类别 </span>
+                        @Html.DropDownList("extraWorkTypeId", ViewData["extraWorkTypeList"] as IEnumerable<SelectListItem>)
                     </div>
                 </div>
 
@@ -68,7 +67,7 @@
                     <div class="marco-igroup-danger">
                         <span>缺勤时长 </span>
                         @Html.EditorFor(model => model.duration, new { htmlAttributes = new { type = "number" } })
-                     </div>
+                    </div>
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -77,20 +76,18 @@
                         @Html.DropDownList("durationType", ViewData["durationTypeList"] as IEnumerable<SelectListItem>)
                     </div>
                 </div>
-
-
             </div>
 
 
             <div class="marco-textarea">
-                <label for="remark">备注</label>
+                <label for="remark">加班原因</label>
                 @if (Model != null)
                 {
-                    @Html.TextAreaFor(model => model.remark)
+                    @Html.TextAreaFor(model => model.otReason)
                 }
                 else
                 {
-                    <textarea name="remark" placeholder="备注"></textarea>
+                    <textarea name="remark" placeholder="加班原因"></textarea>
                 }
             </div>
         </div>
