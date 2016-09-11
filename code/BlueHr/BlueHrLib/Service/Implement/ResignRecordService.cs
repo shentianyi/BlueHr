@@ -71,5 +71,9 @@ namespace BlueHrLib.Service.Implement
             return info;
         }
  
+        public List<ResignRecord> FindByResignType(int id)
+        {
+            return rep.FindByResignType(id);
+        }
     }
 }

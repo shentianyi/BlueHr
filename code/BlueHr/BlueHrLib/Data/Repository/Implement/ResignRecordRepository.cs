@@ -84,5 +84,10 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             }
         }
+
+        public List<ResignRecord> FindByResignType(int id)
+        {
+            return this.context.GetTable<ResignRecord>().Where(p => p.resignTypeId.Equals(id)).ToList();
+        }
     }
 }

@@ -22,5 +22,7 @@ namespace BlueHrLib.Service.Interface
         bool Update(DegreeType degreeType);
 
         bool DeleteById(int id);
+
+        List<DegreeType> GetAll();
     }
 }

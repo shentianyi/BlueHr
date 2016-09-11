@@ -1,5 +1,6 @@
 ﻿using BlueHrLib.Data;
 using BlueHrLib.Data.Enum;
+using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Helper;
@@ -68,19 +69,34 @@ namespace BlueHrWeb.Controllers
 
         // POST: CertificateType/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Name,remark,isSystem,isNecessary,systemCode")] CertificateType certf)
+        public JsonResult Create([Bind(Include = "Name,remark,isNecessary")] CertificateType certf)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add insert logic here  
-                ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
+                msg = DoValidation(certf);
 
-                cs.Create(certf);
-                return RedirectToAction("Index");
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
+                    //是否是系统（默认为false，用户建立的都是false，即在用户端不可见此字段）
+                    certf.isSystem = false;
+                    bool isSucceed = cs.Create(certf);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -98,27 +114,34 @@ namespace BlueHrWeb.Controllers
 
         // POST: CertificateType/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id,Name, remark,isSystem,isNecessary,systemCode")] CertificateType certf)
+        public JsonResult Edit([Bind(Include = "id,Name, remark,isNecessary")] CertificateType certf)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add update logic here
-                ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
-                bool updateResult = cs.Update(certf);
-                if (!updateResult)
+                msg = DoValidation(certf);
+
+                if (!msg.Success)
                 {
-                    SetDropDownList(certf);
-                    return View();
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return RedirectToAction("Index");
+                    ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
+                    //是否是系统（默认为false，用户建立的都是false，即在用户端不可见此字段）
+                    certf.isSystem = false;
+                    bool isSucceed = cs.Update(certf);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "更新失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
-             }
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                SetDropDownList(null);
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -134,18 +157,54 @@ namespace BlueHrWeb.Controllers
 
         // POST: CertificateType/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public JsonResult Delete(int id, FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add delete logic here
-                ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
-                cs.DeleteById(id);
-                return RedirectToAction("Index");
+                //存在员工时不可删除
+                ICertificateService shfSi = new CertificateService(Settings.Default.db);
+                List<Certificate> shf = shfSi.FindByCertificateType(id);
+
+                if (null != shf && shf.Count() > 0)
+                {
+                    msg.Success = false;
+                    msg.Content = "证照类别正在使用,不能删除!";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+
+
+                    ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
+
+                    //系统级别不可编辑删除
+                    List<CertificateType> cers = cs.GetAll();
+                    bool isSystem = cers.Where(p => p.isSystem && p.id == id).ToList().Count() > 0;
+
+                    if (isSystem)
+                    {
+                        msg.Success = false;
+                        msg.Content = "系统级别不可删除";
+
+                        return Json(msg, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        bool isSucceed = cs.DeleteById(id);
+
+                        msg.Success = isSucceed;
+                        msg.Content = isSucceed ? "" : "删除失败";
+
+                        return Json(msg, JsonRequestBehavior.AllowGet);
+                    }
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -159,20 +218,9 @@ namespace BlueHrWeb.Controllers
             }
             else
             {
-                //SetIsOnTrialList(false);
-                //SetSexList(null);
-                //SetJobTitleList(null);
-                //SetCompanyList(null);
-                //SetDepartmentList(null, null);
-                //SetStaffTypeList(null);
-                //SetDegreeTypeList(null);
-                //SetInSureTypeList(null);
-                //SetIsPayCPFList(false);
-                //SetResidenceTypeList(0);
-                //SetWorkStatusList(100);
                 SetSystemCertificateTypeList(100);
                 SetIsSystemList(null);
-                SetIsNecessaryList(null);
+                SetIsNecessaryList(false);
             }
         }
 
@@ -248,10 +296,68 @@ namespace BlueHrWeb.Controllers
                 }
                 else
                 {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
                 }
             }
             ViewData["isNecessaryList"] = select;
+        }
+
+        [HttpPost]
+        //（列表（分页）、新建、删除（系统级别不可编辑删除）（存在员工时不可删除）
+        //）：名称（不可空），是否是系统（默认为false，用户建立的都是false，即在用户端不可见此字段），是否是必须（默认为false），备注（可空）
+        //    系统自建系统级别类别：身份证（非必须）、健康证（非必须）、职业证书（非必须）
+
+        public ResultMessage DoValidation(CertificateType model)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            if (string.IsNullOrEmpty(model.name))
+            {
+                msg.Success = false;
+                msg.Content = "证照类别名称不能为空";
+
+                return msg;
+            }
+
+            ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
+            List<CertificateType> shift = cs.GetAll();
+
+            if (model.id <= 0)
+            {
+                bool isRecordExists = shift.Where(p => p.name == model.name).ToList().Count() > 0;
+
+                if (isRecordExists)
+                {
+                    msg.Success = false;
+                    msg.Content = "数据已经存在!";
+
+                    return msg;
+                }
+            }
+            else
+            {
+                bool isSystem = shift.Where(p => p.isSystem && p.id == model.id).ToList().Count() > 0;
+
+                if (isSystem)
+                {
+                    msg.Success = false;
+                    msg.Content = "系统级别不可编辑";
+
+                    return msg;
+                }
+
+                bool isRecordExists = shift.Where(p => p.name == model.name && p.id != model.id).ToList().Count() > 0;
+
+                if (isRecordExists)
+                {
+                    msg.Success = false;
+                    msg.Content = "数据已经存在!";
+
+                    return msg;
+                }
+            }
+
+            return new ResultMessage() { Success = true, Content = "" };
         }
     }
 }

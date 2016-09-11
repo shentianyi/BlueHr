@@ -6,8 +6,8 @@ using System.Linq;
 using System.Text;
 
 namespace BlueHrLib.Data.Repository.Implement
-{ 
-     public class CertificateRepository : RepositoryBase<Certificate>, ICertificateRepository
+{
+    public class CertificateRepository : RepositoryBase<Certificate>, ICertificateRepository
     {
         private BlueHrDataContext context;
 
@@ -73,7 +73,7 @@ namespace BlueHrLib.Data.Repository.Implement
                 cp.effectiveEnd = certf.effectiveEnd;
                 cp.effectiveFrom = certf.effectiveFrom;
                 cp.institution = certf.institution;
-                cp.remark = certf.remark; 
+                cp.remark = certf.remark;
 
                 this.context.SubmitChanges();
                 return true;
@@ -82,6 +82,11 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 return false;
             }
+        }
+
+        public List<Certificate> FindByCertificateType(int id)
+        {
+            return this.context.GetTable<Certificate>().Where(p => p.certificateTypeId.Equals(id)).ToList();
         }
     }
 }

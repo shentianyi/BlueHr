@@ -261,5 +261,20 @@ namespace BlueHrLib.Service.Implement
         {
             return staffRep.FindByJobTitleId(id);
         }
+
+        public List<Staff> FindByStaffType(int id)
+        {
+            return staffRep.FindByStaffType(id);
+        }
+
+        public List<Staff> FindByDegreeType(int id)
+        {
+            return staffRep.FindByDegreeType(id);
+        }
+
+        public List<Staff> FindByInsureType(int id)
+        {
+            return staffRep.FindByInsureType(id);
+        }
     }
 }

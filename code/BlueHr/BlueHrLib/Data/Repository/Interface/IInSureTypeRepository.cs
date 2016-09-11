@@ -17,5 +17,7 @@ namespace BlueHrLib.Data.Repository.Interface
         bool Update(InsureType jobTitle);
 
         bool DeleteById(int id);
+
+        List<InsureType> GetAll();
     }
 }

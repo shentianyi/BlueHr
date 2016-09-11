@@ -22,5 +22,7 @@ namespace BlueHrLib.Service.Interface
         bool Update(ResignRecord title);
 
         bool DeleteById(int id);
+
+        List<ResignRecord> FindByResignType(int id);
     }
 }

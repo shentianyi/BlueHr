@@ -21,5 +21,7 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         AbsenceRecrodInfoModel GetAbsenceRecrodInfo(AbsenceRecrodSearchModel searchModel);
+
+        List<AbsenceRecrod> FindByAbsenceType(int id);
     }
 }

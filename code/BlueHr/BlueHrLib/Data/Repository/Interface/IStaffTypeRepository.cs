@@ -21,6 +21,7 @@ namespace BlueHrLib.Data.Repository.Interface
 
         bool DeleteById(int id);
 
-        //StaffTypeInfoModel GetJobTitleInfo(StaffTypeSearchModel searchModel);
+        List<StaffType> GetAll();
+        
     }
 }

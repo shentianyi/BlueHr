@@ -56,5 +56,10 @@ namespace BlueHrLib.Service.Implement
 
             return info;
         }
+
+        public List<Certificate> FindByCertificateType(int id)
+        {
+            return rep.FindByCertificateType(id);
+        }
     }
 }

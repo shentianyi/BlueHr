@@ -81,5 +81,10 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             }
         }
+
+        public List<AbsenceRecrod> FindByAbsenceType(int id)
+        {
+            return this.context.GetTable<AbsenceRecrod>().Where(p => p.absenceTypeId.Equals(id)).ToList();
+        }
     }
 }

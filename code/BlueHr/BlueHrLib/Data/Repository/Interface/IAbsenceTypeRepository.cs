@@ -17,5 +17,7 @@ namespace BlueHrLib.Data.Repository.Interface
         bool Update(AbsenceType resignType);
 
         bool DeleteById(int id);
+
+        List<AbsenceType> GetAll();
     }
 }

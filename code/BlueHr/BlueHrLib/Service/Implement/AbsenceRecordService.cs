@@ -56,5 +56,10 @@ namespace BlueHrLib.Service.Implement
 
             return info;
         }
+
+        public List<AbsenceRecrod> FindByAbsenceType(int id)
+        {
+            return rep.FindByAbsenceType(id);
+        }
     }
 }

@@ -209,9 +209,26 @@ namespace BlueHrLib.Data.Repository.Implement
             catch { }
         }
 
+        //functions for validation
+
         public List<Staff> FindByJobTitleId(int id)
         {
             return this.context.GetTable<Staff>().Where(p => p.jobTitleId.Equals(id)).ToList();
+        }
+
+        public List<Staff> FindByStaffType(int id)
+        {
+            return this.context.GetTable<Staff>().Where(p => p.staffTypeId.Equals(id)).ToList();
+        }
+
+        public List<Staff> FindByDegreeType(int id)
+        {
+            return this.context.GetTable<Staff>().Where(p => p.degreeTypeId.Equals(id)).ToList();
+        } 
+
+        public List<Staff>FindByInsureType(int id)
+        {
+            return this.context.GetTable<Staff>().Where(p => p.insureTypeId.Equals(id)).ToList();
         }
     }
 }

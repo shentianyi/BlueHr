@@ -16,6 +16,8 @@ namespace BlueHrLib.Data.Repository.Interface
 
         ResignRecord FindById(int id);
 
-         bool DeleteById(int id);
+        bool DeleteById(int id);
+
+        List<ResignRecord> FindByResignType(int id);
     }
 }

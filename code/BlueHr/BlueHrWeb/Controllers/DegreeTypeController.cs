@@ -1,4 +1,5 @@
-using BlueHrLib.Data;
+﻿using BlueHrLib.Data;
+using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
@@ -59,23 +60,36 @@ namespace BlueHrWeb.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
-         
+        }
+
         // POST: DegreeType/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Name, remark")] DegreeType degreeType)
+        public JsonResult Create([Bind(Include = "Name, remark")] DegreeType degreeType)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add insert logic here
-                IDegreeTypeService cs = new DegreeTypeService(Settings.Default.db);
+                msg = DoValidation(degreeType);
 
-                cs.Create(degreeType);
-                return RedirectToAction("Index");
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IDegreeTypeService cs = new DegreeTypeService(Settings.Default.db);
+                    bool isSucceed = cs.Create(degreeType);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -88,21 +102,35 @@ namespace BlueHrWeb.Controllers
 
             return View(dgt);
         }
-        
+
         // POST: DegreeType/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id, name, remark")] DegreeType degreeType)
+        public JsonResult Edit([Bind(Include = "id, name, remark")] DegreeType degreeType)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add update logic here
-                IDegreeTypeService cs = new DegreeTypeService(Settings.Default.db);
-                cs.Update(degreeType);
-                return RedirectToAction("Index");
+                msg = DoValidation(degreeType);
+
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IDegreeTypeService cs = new DegreeTypeService(Settings.Default.db);
+                    bool isSucceed = cs.Update(degreeType);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "更新失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -114,23 +142,89 @@ namespace BlueHrWeb.Controllers
             DegreeType dgt = cs.FindById(id);
 
             return View(dgt);
-         }
+        }
 
         // POST: DegreeType/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public JsonResult Delete(int id, FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add delete logic here
-                IDegreeTypeService cs = new DegreeTypeService(Settings.Default.db);
-                cs.DeleteById(id);
-                return RedirectToAction("Index");
+                //存在员工时不可删除
+                IStaffService shfSi = new StaffService(Settings.Default.db);
+                List<Staff> shf = shfSi.FindByDegreeType(id);
+
+                if (null != shf && shf.Count() > 0)
+                {
+                    msg.Success = false;
+                    msg.Content = "学历信息正在使用,不能删除!";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IDegreeTypeService cs = new DegreeTypeService(Settings.Default.db);
+                    bool isSucceed = cs.DeleteById(id);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "删除失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        //4.3	学历管理
+        //（列表（分页）、新建、编辑、删除（存在员工时不可删除）
+        //）：名称（不可空），备注（可空） 
+        public ResultMessage DoValidation(DegreeType model)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            if (string.IsNullOrEmpty(model.name))
+            {
+                msg.Success = false;
+                msg.Content = "学历名称不能为空";
+
+                return msg;
+            }
+
+            IDegreeTypeService cs = new DegreeTypeService(Settings.Default.db);
+            List<DegreeType> shift = cs.GetAll();
+
+            if (model.id <= 0)
+            {
+                bool isRecordExists = shift.Where(p => p.name == model.name).ToList().Count() > 0;
+
+                if (isRecordExists)
+                {
+                    msg.Success = false;
+                    msg.Content = "数据已经存在!";
+
+                    return msg;
+                }
+            }
+            else
+            {
+                bool isRecordExists = shift.Where(p => p.name == model.name && p.id != model.id).ToList().Count() > 0;
+
+                if (isRecordExists)
+                {
+                    msg.Success = false;
+                    msg.Content = "数据已经存在!";
+
+                    return msg;
+                }
+            }
+
+            return new ResultMessage() { Success = true, Content = "" };
         }
     }
 }

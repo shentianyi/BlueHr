@@ -46,5 +46,7 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         StaffTypeInfoModel GetStaffTypeInfo(StaffTypeSearchModel searchModel);
+
+        List<StaffType> GetAll();
     }
 }

@@ -74,5 +74,10 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             }
         }
+
+        public List<InsureType> GetAll()
+        {
+            return this.context.GetTable<InsureType>().ToList();
+        }
     }
 }

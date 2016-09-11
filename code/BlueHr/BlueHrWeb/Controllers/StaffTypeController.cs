@@ -1,4 +1,5 @@
 ﻿using BlueHrLib.Data;
+using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Implement;
@@ -64,19 +65,32 @@ namespace BlueHrWeb.Controllers
 
         // POST: StaffType/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Name, remark")] StaffType staffType)
+        public JsonResult Create([Bind(Include = "Name, remark")] StaffType staffType)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add insert logic here
-                IStaffTypeService cs = new StaffTypeService(Settings.Default.db);
+                msg = DoValidation(staffType);
 
-                cs.Create(staffType);
-                return RedirectToAction("Index");
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IStaffTypeService cs = new StaffTypeService(Settings.Default.db);
+                    bool isSucceed = cs.Create(staffType);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -92,18 +106,32 @@ namespace BlueHrWeb.Controllers
 
         // POST: StaffType/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id, name, remark")] StaffType staffType)
+        public JsonResult Edit([Bind(Include = "id, name, remark")] StaffType staffType)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add update logic here
-                IStaffTypeService cs = new StaffTypeService(Settings.Default.db);
-                cs.Update(staffType);
-                return RedirectToAction("Index");
+                msg = DoValidation(staffType);
+
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IStaffTypeService cs = new StaffTypeService(Settings.Default.db);
+                    bool isSucceed = cs.Update(staffType);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "更新失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -119,19 +147,85 @@ namespace BlueHrWeb.Controllers
 
         // POST: StaffType/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public JsonResult Delete(int id, FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add delete logic here
-                IStaffTypeService cs = new StaffTypeService(Settings.Default.db);
-                cs.DeleteById(id);
-                return RedirectToAction("Index");
+                //存在员工时不可删除
+                IStaffService shfSi = new StaffService(Settings.Default.db);
+                List<Staff> shf = shfSi.FindByStaffType(id);
+
+                if (null != shf && shf.Count() > 0)
+                {
+                    msg.Success = false;
+                    msg.Content = "人员类型信息正在使用,不能删除!";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IStaffTypeService cs = new StaffTypeService(Settings.Default.db);
+                    bool isSucceed = cs.DeleteById(id);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "删除失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        //4.2	人员类别管理
+        //（列表（分页）、新建、编辑、删除（存在员工时不可删除）
+        //）：名称（不可空），备注（可空）   
+        public ResultMessage DoValidation(StaffType model)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            if (string.IsNullOrEmpty(model.name))
+            {
+                msg.Success = false;
+                msg.Content = "人员类型名称不能为空";
+
+                return msg;
+            }
+
+            IStaffTypeService cs = new StaffTypeService(Settings.Default.db);
+            List<StaffType> shift = cs.GetAll();
+
+            if (model.id <= 0)
+            {
+                bool isRecordExists = shift.Where(p => p.name == model.name).ToList().Count() > 0;
+
+                if (isRecordExists)
+                {
+                    msg.Success = false;
+                    msg.Content = "数据已经存在!";
+
+                    return msg;
+                }
+            }
+            else
+            {
+                bool isRecordExists = shift.Where(p => p.name == model.name && p.id != model.id).ToList().Count() > 0;
+
+                if (isRecordExists)
+                {
+                    msg.Success = false;
+                    msg.Content = "数据已经存在!";
+
+                    return msg;
+                }
+            }
+
+            return new ResultMessage() { Success = true, Content = "" };
         }
     }
 }

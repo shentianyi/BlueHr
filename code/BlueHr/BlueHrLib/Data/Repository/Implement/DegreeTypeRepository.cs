@@ -80,5 +80,10 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             } 
         }
+
+        public List<DegreeType> GetAll()
+        {
+            return this.context.GetTable<DegreeType>().ToList();
+        }
     }
 } 

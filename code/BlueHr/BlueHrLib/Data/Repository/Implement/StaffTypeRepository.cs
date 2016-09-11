@@ -80,5 +80,10 @@ namespace BlueHrLib.Data.Repository.Implement
             }
             return stafftypes;
         }
+
+        public List<StaffType> GetAll()
+        {
+            return this.context.GetTable<StaffType>().ToList();
+        }
     }
 }

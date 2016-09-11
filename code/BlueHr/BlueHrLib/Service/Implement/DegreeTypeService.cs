@@ -61,5 +61,12 @@ namespace BlueHrLib.Service.Implement
 
             return info;
         }
+
+        public List<DegreeType> GetAll()
+        {
+            DataContext dc = new DataContext(this.DbString);
+            IDegreeTypeRepository degreeTypeRep = new DegreeTypeRepository(dc);
+            return degreeTypeRep.GetAll();
+        }
     }
 }

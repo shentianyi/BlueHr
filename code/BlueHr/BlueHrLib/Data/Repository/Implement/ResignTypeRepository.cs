@@ -7,8 +7,8 @@ using System.Text;
 
 namespace BlueHrLib.Data.Repository.Implement
 {
-    
-     public class ResignTypeRepository : RepositoryBase<ResignType>, IResignTypeRepository
+
+    public class ResignTypeRepository : RepositoryBase<ResignType>, IResignTypeRepository
     {
         private BlueHrDataContext context;
 
@@ -76,6 +76,11 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 return false;
             }
+        }
+
+        public List<ResignType> GetAll()
+        {
+            return this.context.GetTable<ResignType>().ToList();
         }
     }
 }

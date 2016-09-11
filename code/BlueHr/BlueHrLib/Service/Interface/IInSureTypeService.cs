@@ -23,5 +23,7 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         InSureTypeInfoModel GetInsureTypeInfo(InSureTypeSearchModel searchModel);
+
+        List<InsureType> GetAll();
     }
 }

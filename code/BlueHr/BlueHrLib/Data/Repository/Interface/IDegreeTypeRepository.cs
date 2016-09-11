@@ -17,5 +17,7 @@ namespace BlueHrLib.Data.Repository.Interface
         bool Update(DegreeType degreeType);
 
         bool DeleteById(int id);
+
+        List<DegreeType> GetAll();
     }
 }

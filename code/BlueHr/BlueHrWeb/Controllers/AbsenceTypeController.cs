@@ -1,5 +1,6 @@
 ﻿using BlueHrLib.Data;
 using BlueHrLib.Data.Enum;
+using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Helper;
@@ -67,20 +68,32 @@ namespace BlueHrWeb.Controllers
 
         // POST: AbsenceType/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Name,code, remark")] AbsenceType model)
+        public JsonResult Create([Bind(Include = "Name,code, remark")] AbsenceType model)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add insert logic here 
+                msg = DoValidation(model);
 
-                IAbsenceTypeService cs = new AbsenceTypeService(Settings.Default.db);
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IAbsenceTypeService cs = new AbsenceTypeService(Settings.Default.db);
+                    bool isSucceed = cs.Create(model);
 
-                cs.Create(model);
-                return RedirectToAction("Index");
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -98,26 +111,30 @@ namespace BlueHrWeb.Controllers
         [HttpPost]
         public ActionResult Edit([Bind(Include = "id, name,code, remark")] AbsenceType model)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add update logic here
-                IAbsenceTypeService cs = new AbsenceTypeService(Settings.Default.db);
+                msg = DoValidation(model);
 
-                bool updateResult = cs.Update(model);
-                if (!updateResult)
+                if (!msg.Success)
                 {
-                    //SetDropDownList(model);
-                    return View();
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return RedirectToAction("Index");
-                }
+                    IAbsenceTypeService cs = new AbsenceTypeService(Settings.Default.db);
+                    bool isSucceed = cs.Update(model);
 
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "更新失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -135,56 +152,94 @@ namespace BlueHrWeb.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add delete logic here
-                IAbsenceTypeService cs = new AbsenceTypeService(Settings.Default.db);
-                cs.DeleteById(id);
-                return RedirectToAction("Index");
+                //存在员工时不可删除
+                IAbsenceRecordService shfSi = new AbsenceRecordService(Settings.Default.db);
+                List<AbsenceRecrod> shf = shfSi.FindByAbsenceType(id);
+
+                if (null != shf && shf.Count() > 0)
+                {
+                    msg.Success = false;
+                    msg.Content = "缺勤类型正在使用,不能删除!";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IAbsenceTypeService cs = new AbsenceTypeService(Settings.Default.db);
+                    bool isSucceed = cs.DeleteById(id);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "删除失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
-        
-        //private void SetDropDownList(AbsenceType model)
-        //{
-        //    if (model != null)
-        //    {
-        //        SetAbsenceTypeCodeList(model.code);
-        //    }
-        //    else
-        //    {
-        //        SetAbsenceTypeCodeList(null);
-        //    }
-        //}
 
-        //private void SetAbsenceTypeCodeList(string model, bool allowBlank = true)
-        //{
-        //    List<EnumItem> item = EnumHelper.GetList(typeof(SystemCertificateType));
+        [HttpPost]
+        //4.7	缺勤类别管理
+        //（列表（分页）、新建、编辑、删除（存在员工时不可删除）
+        //）：代码（不可空，唯一性），名称（不可空），备注（可空）
+        //        数据例子如：A；小病假；小病假的备注
 
-        //    List<SelectListItem> select = new List<SelectListItem>();
+        public ResultMessage DoValidation(AbsenceType model)
+        {
+            ResultMessage msg = new ResultMessage();
 
-        //    if (allowBlank)
-        //    {
-        //        select.Add(new SelectListItem { Text = "", Value = "" });
-        //    }
+            if (string.IsNullOrEmpty(model.code))
+            {
+                msg.Success = false;
+                msg.Content = "编码不能为空";
 
-        //    foreach (var it in item)
-        //    {
-        //        if (!string.IsNullOrEmpty(model) && model.ToString().Equals(it.Value))
-        //        {
-        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
-        //        }
-        //        else
-        //        {
-        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
-        //        }
-        //    }
-        //    ViewData["absenceTypeCodeList"] = select;
-        //}
+                return msg;
+            }
 
+            if (string.IsNullOrEmpty(model.name))
+            {
+                msg.Success = false;
+                msg.Content = "名称不能为空";
+
+                return msg;
+            }
+
+            IAbsenceTypeService cs = new AbsenceTypeService(Settings.Default.db);
+            List<AbsenceType> shift = cs.GetAll();
+
+            if (model.id <= 0)
+            {
+                bool isRecordExists = shift.Where(p => p.name == model.name || p.code == model.code).ToList().Count() > 0;
+
+                if (isRecordExists)
+                {
+                    msg.Success = false;
+                    msg.Content = "数据已经存在!";
+
+                    return msg;
+                }
+            }
+            else
+            {
+                bool isRecordExists = shift.Where(p => (p.name == model.name || p.code == model.code) && p.id != model.id).ToList().Count() > 0;
+
+                if (isRecordExists)
+                {
+                    msg.Success = false;
+                    msg.Content = "数据已经存在!";
+
+                    return msg;
+                }
+            }
+
+            return new ResultMessage() { Success = true, Content = "" };
+        }
     }
 }
