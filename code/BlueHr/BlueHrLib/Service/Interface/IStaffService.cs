@@ -81,5 +81,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="datetime"></param>
         /// <returns></returns>
         List<Staff> GetToBeFullsLessThanDate(DateTime datetime);
+
+        List<Staff> FindByJobTitleId(int id);
     }
 }

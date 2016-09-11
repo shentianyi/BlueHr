@@ -2,6 +2,7 @@
 using System.Linq;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Interface;
+using System.Collections.Generic;
 
 namespace BlueHrLib.Data.Repository.Implement
 {
@@ -72,6 +73,11 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 return false;
             }
+        }
+
+        public List<JobTitle> GetAll()
+        {
+            return this.context.GetTable<JobTitle>().ToList();
         }
     }
 }

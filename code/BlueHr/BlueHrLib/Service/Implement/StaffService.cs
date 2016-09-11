@@ -18,8 +18,9 @@ namespace BlueHrLib.Service.Implement
     public class StaffService : ServiceBase, IStaffService
     {
         private IStaffRepository staffRep;
-        public StaffService(string dbString) : base(dbString) {
-            staffRep = new StaffRepository(this.Context);        
+        public StaffService(string dbString) : base(dbString)
+        {
+            staffRep = new StaffRepository(this.Context);
         }
 
         public Staff FindByStaffId(string id)
@@ -169,7 +170,7 @@ namespace BlueHrLib.Service.Implement
         /// 员工转正
         /// </summary>
         /// <param name="record"></param>
-        public ResultMessage ToFullMember( FullMemberRecord record)
+        public ResultMessage ToFullMember(FullMemberRecord record)
         {
             ResultMessage msg = new ResultMessage();
             try
@@ -188,11 +189,13 @@ namespace BlueHrLib.Service.Implement
                         dc.Context.SubmitChanges();
                         msg.Success = true;
                     }
-                    else {
+                    else
+                    {
                         msg.Content = "员工不可转正";
                     }
                 }
-                else {
+                else
+                {
                     throw new DataNotFoundException();
                 }
             }
@@ -246,12 +249,17 @@ namespace BlueHrLib.Service.Implement
                 {
                     return false;
                 }
-                
+
             }
             else
             {
                 return false;
             }
+        }
+
+        public List<Staff> FindByJobTitleId(int id)
+        {
+            return staffRep.FindByJobTitleId(id);
         }
     }
 }

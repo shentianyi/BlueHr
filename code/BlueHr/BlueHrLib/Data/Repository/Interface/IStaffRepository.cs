@@ -18,5 +18,7 @@ namespace BlueHrLib.Data.Repository.Interface
         Staff FindById(int id);
 
         bool DeleteByNr(string nr);
+
+        List<Staff> FindByJobTitleId(int id);
     }
 }

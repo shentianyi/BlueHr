@@ -17,5 +17,8 @@ namespace BlueHrLib.Data.Repository.Interface
         bool Update(JobTitle jobTitle);
 
         bool DeleteById(int id);
+
+        //或取所有JOBTITLE
+        List<JobTitle> GetAll();
     }
 }
