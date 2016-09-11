@@ -1,4 +1,5 @@
 ﻿using BlueHrLib.Data;
+using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Implement;
@@ -203,5 +204,19 @@ namespace BlueHrWeb.Controllers
             }
             ViewData["certificateTypeList"] = select;
         }
+
+        //上传图片
+        public ActionResult uploadImage()
+        {
+            var ff = Request.Files[0];
+
+            string fileName = Helpers.FileHelper.SaveUploadImage(ff);
+            ResultMessage msg = new ResultMessage() { Success = true };
+            msg.Content = fileName;
+            //防止IE直接下载json数据
+            return Json(msg, "text/html");
+            // return Json(fileName, JsonRequestBehavior.DenyGet);
+        }
+
     }
 }

@@ -59,6 +59,9 @@ namespace BlueHrWeb
             bundles.Add(new ScriptBundle("~/bundles/staff").Include(
                     "~/Scripts/staff.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/certificate").Include(
+                "~/Scripts/certificate.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      "~/Content/site.css",
                      "~/Content/bootstrap.css",
