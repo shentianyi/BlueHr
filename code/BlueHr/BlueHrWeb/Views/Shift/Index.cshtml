@@ -42,7 +42,7 @@
         <div class="table-body content_3">
             <table class="table table-bordered">
                 <thead>
-                    <tr> 
+                    <tr>
                         <th>名称</th>
                         <th>代码</th>
                         <th>开始时间</th>
@@ -65,10 +65,17 @@
                                     @Html.DisplayFor(modelItem => item.code)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.startAt)
+                                    @{
+                                        string startAtStr = string.Format("{0:hh\\:mm}", item.startAt);
+                                    }
+                                    @Html.DisplayFor(modelItem => startAtStr)
+
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.endAt)
+                                    @{
+                                        string endAtStr = string.Format("{0:hh\\:mm}", item.endAt);
+                                    }
+                                    @Html.DisplayFor(modelItem => endAtStr)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.shiftType)
@@ -85,8 +92,8 @@
                                     </a>
                                 </td>
                             </tr>
-                        }
-                    }
+                                            }
+                                        }
                 </tbody>
             </table>
         </div>

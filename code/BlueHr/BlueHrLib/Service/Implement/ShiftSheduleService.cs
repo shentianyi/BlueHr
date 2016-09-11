@@ -87,5 +87,11 @@ namespace BlueHrLib.Service.Implement
 
             return info;
         }
+
+        //根据班次或取排班信息
+        public ShiftSchedule FindShiftScheduleByShiftId(int id)
+        {
+            return rep.FindShiftScheduleByShiftId(id);
+        }
     }
 }

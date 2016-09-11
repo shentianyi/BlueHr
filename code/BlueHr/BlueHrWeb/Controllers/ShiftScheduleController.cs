@@ -76,7 +76,7 @@ namespace BlueHrWeb.Controllers
 
                 //model.absenceDate = HttpContext.Request.Form["absenceDate"];
                 cs.Create(model);
-                return RedirectToAction("Index");
+               return RedirectToAction("Index"); 
             }
             catch
             {

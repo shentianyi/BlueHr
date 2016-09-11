@@ -79,5 +79,11 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             }
         }
+
+        //根据班次或取排班信息
+        public ShiftSchedule FindShiftScheduleByShiftId(int id)
+        {
+            return this.context.GetTable<ShiftSchedule>().FirstOrDefault(c => c.shiftId.Equals(id));
+        }
     }
 }

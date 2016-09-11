@@ -33,5 +33,8 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         ShiftScheduleInfoModel GetShiftScheduleInfo(ShiftScheduleSearchModel searchModel);
+
+        //根据班次或取排班信息
+        ShiftSchedule FindShiftScheduleByShiftId(int id);
     }
 }

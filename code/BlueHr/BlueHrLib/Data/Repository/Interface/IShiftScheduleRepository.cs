@@ -18,5 +18,8 @@ namespace BlueHrLib.Data.Repository.Interface
         bool Update(ShiftSchedule parModel);
 
         bool DeleteById(int id);
+
+        //根据班次或取排班信息
+        ShiftSchedule FindShiftScheduleByShiftId(int id);
     }
 }

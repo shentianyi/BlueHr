@@ -1,5 +1,6 @@
 ﻿using BlueHrLib.Data;
 using BlueHrLib.Data.Enum;
+using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Helper;
@@ -68,21 +69,32 @@ namespace BlueHrWeb.Controllers
 
         // POST: Shift/Create 
         [HttpPost]
-        public ActionResult Create([Bind(Include = "code,name,startAt,endAt,shiftType,remark")] Shift model)
+        public JsonResult Create([Bind(Include = "code,name,startAt,endAt,shiftType,remark")] Shift model)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add insert logic here 
+                msg = DoValidation(model);
 
-                IShiftService cs = new ShiftService(Settings.Default.db);
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IShiftService cs = new ShiftService(Settings.Default.db);
+                    bool isSucceed = cs.Create(model);
 
-                //model.absenceDate = HttpContext.Request.Form["absenceDate"];
-                cs.Create(model);
-                return RedirectToAction("Index");
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -98,28 +110,32 @@ namespace BlueHrWeb.Controllers
 
         // POST: Shift/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id,code,name,startAt,endAt,shiftType,remark")] Shift model)
+        public JsonResult Edit([Bind(Include = "id,code,name,startAt,endAt,shiftType,remark")] Shift model)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add update logic here
-                IShiftService cs = new ShiftService(Settings.Default.db);
+                msg = DoValidation(model);
 
-                bool updateResult = cs.Update(model);
-                if (!updateResult)
+                if (!msg.Success)
                 {
-                    SetDropDownList(model);
-                    return View();
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return RedirectToAction("Index");
-                }
+                    IShiftService cs = new ShiftService(Settings.Default.db);
+                    bool isSucceed = cs.Update(model);
 
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "更新失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -135,19 +151,121 @@ namespace BlueHrWeb.Controllers
 
         // POST: Shift/Delete/5
         [HttpPost]
+        //如果存在员工排班，则不可删除
         public ActionResult Delete(int id, FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add delete logic here
-                IShiftService cs = new ShiftService(Settings.Default.db);
-                cs.DeleteById(id);
-                return RedirectToAction("Index");
+                IShiftScheduleService shfSi = new ShiftSheduleService(Settings.Default.db);
+                ShiftSchedule shf = shfSi.FindShiftScheduleByShiftId(id);
+
+                if (null != shf && shf.id > 0)
+                {
+                    msg.Success = false;
+                    msg.Content = "班次信息正在使用,不能删除!";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IShiftService cs = new ShiftService(Settings.Default.db);
+                    bool isSucceed = cs.DeleteById(id);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "删除失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+
+        [HttpPost]
+        //•	名称（输入，不可空，唯一）
+        //•	代码（输入，不可空，唯一）
+        //•	开始时间（选择，时间，不可空，如06:00）
+        //•	班次类型（选择，不可空，选项包含：今日/次日，默认今日）
+        //•	截止时间（选择，时间，不可空，如06:00）
+        //•	备注（输入，可空） 
+        public ResultMessage DoValidation(Shift model)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            if (string.IsNullOrEmpty(model.name))
+            {
+                msg.Success = false;
+                msg.Content = "名称不能为空";
+
+                return msg;
+            }
+
+            if (string.IsNullOrEmpty(model.code))
+            {
+                msg.Success = false;
+                msg.Content = "代码不能为空";
+
+                return msg;
+            }
+
+            if (model.startAt.ToString() == "00:00:00")
+            {
+                msg.Success = false;
+                msg.Content = "开始时间不能为空";
+
+                return msg;
+            }
+
+            if (model.endAt.ToString() == "00:00:00")
+            {
+                msg.Success = false;
+                msg.Content = "截止时间不能为空";
+
+                return msg;
+            }
+
+            if (string.IsNullOrEmpty(model.shiftType.ToString()) || model.shiftType == 0)
+            {
+                msg.Success = false;
+                msg.Content = "班次类型不能为空";
+
+                return msg;
+            }
+
+            IShiftService cs = new ShiftService(Settings.Default.db);
+            List<Shift> shift = cs.All();
+
+            if (model.id <= 0)
+            {
+                bool isRecordExists = shift.Where(p => p.code == model.code && p.name == model.name).ToList().Count() > 0;
+
+                if (isRecordExists)
+                {
+                    msg.Success = false;
+                    msg.Content = "数据已经存在!";
+
+                    return msg;
+                }
+            }
+            else
+            {
+                bool isRecordExists = shift.Where(p => p.code == model.code && p.name == model.name && p.id != model.id).ToList().Count() > 0;
+
+                if (isRecordExists)
+                {
+                    msg.Success = false;
+                    msg.Content = "数据已经存在!";
+
+                    return msg;
+                }
+            }
+
+            return new ResultMessage() { Success = true, Content = "" };
         }
 
         private void SetDropDownList(Shift model)
