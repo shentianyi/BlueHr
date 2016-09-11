@@ -16,5 +16,14 @@ namespace BlueHrLib.Data.Repository.Interface
 
         List<Shift> All();
 
+        IQueryable<Shift> Search(ShiftSearchModel searchModel);
+
+        bool Create(Shift parModel);
+
+        Shift FindById(int id);
+
+        bool Update(Shift parModel);
+
+        bool DeleteById(int id);
     }
 }

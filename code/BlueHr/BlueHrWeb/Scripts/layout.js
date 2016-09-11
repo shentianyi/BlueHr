@@ -50,7 +50,7 @@ Layout.init = function () {
         case "InSureType":
             $('.nav-basic').addClass('active');
             PageAction('#insuretype', '新建保险类别', '编辑保险类别', '保险类别详情', '创建', '更新', '删除');
-            break; 
+            break;
         case "ResignType":
             $('.nav-basic').addClass('active');
             PageAction('#resigntype', '新建离职类型', '编辑离职类型', '离职类型详情', '创建', '更新', '删除');
@@ -74,6 +74,14 @@ Layout.init = function () {
         case "ExtraWorkRecord":
             $('.nav-basic').addClass('active');
             PageAction('#extrawordrecord', '新建加班', '编辑加班', '加班详情', '创建', '更新', '删除');
+            break;
+        case "Shift":
+            $('.nav-basic').addClass('active');
+            PageAction('#shift', '新建班次', '编辑班次', '班次详情', '创建', '更新', '删除');
+            break;
+        case "ShiftSchedule":
+            $('.nav-basic').addClass('active');
+            PageAction('#shiftschedule', '新建排班', '编辑排班', '排班详情', '创建', '更新', '删除');
             break;
         case "TaskRound":
             $('.nav-taskround').addClass('active');
@@ -157,7 +165,7 @@ Layout.TbodyHeight = function (cls, height) {
 Layout.datepicker = function (date_picker) {
     $(date_picker).datetimepicker({
         format: 'Y-m-d',
-        scrollInput:false,
+        scrollInput: false,
         timepicker: false
     });
 }

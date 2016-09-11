@@ -11,18 +11,62 @@ using BlueHrLib.Data.Repository.Implement;
 using BlueHrLib.MQTask;
 using BlueHrLib.CusException;
 using BlueHrLib.Data.Enum;
+using BlueHrLib.Data.Model.PageViewModel;
 
 namespace BlueHrLib.Service.Implement
 {
     public class ShiftService : ServiceBase, IShiftService
     {
-        public ShiftService(string dbString) : base(dbString) { }
+        //public ShiftService(string dbString) : base(dbString) { }
+        private IShiftRepository rep;
+
+        public ShiftService(string dbString) : base(dbString)
+        {
+            rep = new ShiftRepository(this.Context);
+        }
 
         public List<Shift> All()
         {
             IShiftRepository rep = new ShiftRepository(new DataContext(this.DbString));
 
             return rep.All();
+        } 
+
+        public IQueryable<Shift> Search(ShiftSearchModel searchModel)
+        {
+            return rep.Search(searchModel);
+        }
+
+        public bool Create(Shift model)
+        {
+            return rep.Create(model);
+        }
+
+        public bool DeleteById(int id)
+        {
+            return rep.DeleteById(id);
+        }
+
+        public Shift FindById(int id)
+        {
+            return rep.FindById(id);
+        }
+
+        public bool Update(Shift model)
+        {
+            return rep.Update(model);
+        }
+
+        public ShiftInfoModel GetShiftInfo(ShiftSearchModel searchModel)
+        {
+            ShiftInfoModel info = new ShiftInfoModel();
+            DataContext dc = new DataContext(this.DbString);
+            IShiftRepository rep = new ShiftRepository(dc);
+            IQueryable<Shift> results = rep.Search(searchModel);
+
+            info.shiftCount = dc.Context.GetTable<Shift>().Where(c => c.id.Equals(results.Count() > 0 ? results.First().id : -1)).Count();
+
+            return info;
         }
     }
 }

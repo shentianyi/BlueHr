@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlueHrLib.MQTask;
+using BlueHrLib.Data.Model.PageViewModel;
 
 namespace BlueHrLib.Service.Interface
 {
@@ -20,5 +21,17 @@ namespace BlueHrLib.Service.Interface
         /// <param name="shiftCodes">班次代码列表</param>
         /// <returns></returns>
         List<ShiftScheduleView> GetDetailViewByDateTime(DateTime datetime,List<string> shiftCodes=null);
+
+        IQueryable<ShiftSchedule> Search(ShiftScheduleSearchModel searchModel);
+
+        ShiftSchedule FindById(int id);
+
+        bool Create(ShiftSchedule title);
+
+        bool Update(ShiftSchedule title);
+
+        bool DeleteById(int id);
+
+        ShiftScheduleInfoModel GetShiftScheduleInfo(ShiftScheduleSearchModel searchModel);
     }
 }

@@ -110,6 +110,8 @@
     <Compile Include="Data\Model\PageViewModel\InSureTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\JobTitleInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\ResignTypeInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\ShiftInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\ShiftScheduleInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\StaffTypeInfoModel.cs" />
     <Compile Include="Data\Model\Search\AbsenceRecrodSearchModel.cs" />
     <Compile Include="Data\Model\Search\AbsenceTypeSearchModel.cs" />
@@ -121,6 +123,8 @@
     <Compile Include="Data\Model\Search\FamilyMemberSearchModel.cs" />
     <Compile Include="Data\Model\Search\ResignRecordSearchModel.cs" />
     <Compile Include="Data\Model\Search\ResignTypeSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ShiftSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ShiftScheduleSearchModel.cs" />
     <Compile Include="Data\Repository\Implement\AbsenceRecrodRepository.cs" />
     <Compile Include="Data\Repository\Implement\CertificateRepository.cs" />
     <Compile Include="Data\Repository\Implement\ExtraWorkRecordRepository.cs" />
@@ -135,6 +139,7 @@
     <Compile Include="Data\Repository\Implement\ResignRecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\ResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\ShiftRepository.cs" />
+    <Compile Include="Data\Repository\Implement\ShiftScheduleRepository.cs" />
     <Compile Include="Data\Repository\Implement\TaskRoundRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAbsenceRecrodRepository.cs" />
     <Compile Include="Data\Repository\Interface\ICertificateRepository.cs" />
@@ -150,6 +155,7 @@
     <Compile Include="Data\Repository\Interface\IResignRecordRepository.cs" />
     <Compile Include="Data\Repository\Interface\IResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IShiftRoundRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IShiftScheduleRepository.cs" />
     <Compile Include="Data\Repository\Interface\ITaskRoundRepository.cs" />
     <Compile Include="Data\Staff.cs" />
     <Compile Include="Data\TaskRound.cs" />
