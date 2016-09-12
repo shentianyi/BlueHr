@@ -68,7 +68,7 @@ Layout.init = function () {
             PageAction('#certificate', '新建证照', '编辑证照', '证照详情', '创建', '更新', '删除');
             break;
         case "ExtraWorkType":
-            $('.nav-basic').addClass('active');
+            $('.nav-extraworktype').addClass('active');
             PageAction('#extraworktype', '新建加班类型', '编辑加班类型', '加班类型详情', '创建', '更新', '删除');
             break;
         case "AbsenceRecrod":
@@ -76,7 +76,7 @@ Layout.init = function () {
             PageAction('#absencerecord', '新建缺勤', '编辑缺勤', '缺勤详情', '创建', '更新', '删除');
             break;
         case "ExtraWorkRecord":
-            $('.nav-extraworkrecord').addClass('active');
+            $('.nav-extrawordrecord').addClass('active');
             PageAction('#extrawordrecord', '新建加班', '编辑加班', '加班详情', '创建', '更新', '删除');
             break;
         case "Shift":

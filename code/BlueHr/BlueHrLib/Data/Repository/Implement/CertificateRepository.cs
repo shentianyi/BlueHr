@@ -32,6 +32,19 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public bool DeleteById(int id)
         {
+            List<Attachment> atms = this.context.GetTable<Attachment>().Where(p => p.certificateId.Equals(id)).ToList();
+
+            int deleteFlag = 0;
+            atms.ForEach(k =>
+            {
+                if (k != null)
+                {
+                    this.context.GetTable<Attachment>().DeleteOnSubmit(k);
+                    this.context.SubmitChanges();
+                    deleteFlag++;
+                }
+            });
+
             Certificate cp = this.context.GetTable<Certificate>().FirstOrDefault(c => c.id.Equals(id));
 
             if (cp != null)

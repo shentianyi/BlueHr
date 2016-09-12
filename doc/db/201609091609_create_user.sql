@@ -1,14 +1,7 @@
 USE [BlueHr]
 GO
-/****** Object:  Table [dbo].[User]    Script Date: 09/12/2016 21:24:27 ******/
-DROP TABLE [dbo].[User]
-GO
 
-
-USE [BlueHr]
-GO
-
-/****** Object:  Table [dbo].[User]    Script Date: 09/12/2016 14:30:37 ******/
+/****** Object:  Table [dbo].[User]    Script Date: 09/09/2016 16:09:30 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -23,8 +16,6 @@ CREATE TABLE [dbo].[User](
 	[name] [varchar](50) NOT NULL,
 	[email] [varchar](50) NOT NULL,
 	[pwd] [varchar](255) NOT NULL,
-	[isLocked] [bit] NULL,
-	[role] [int] NULL,
  CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -34,9 +25,6 @@ CREATE TABLE [dbo].[User](
 GO
 
 SET ANSI_PADDING OFF
-GO
-
-ALTER TABLE [dbo].[User] ADD  CONSTRAINT [DF_User_isLocked]  DEFAULT ((0)) FOR [isLocked]
 GO
 
 

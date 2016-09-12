@@ -77,27 +77,49 @@ namespace BlueHrWeb.Controllers
 
         // POST: Certificate/Create
         [HttpPost]
-        //[staffNr]--编号
-        //[certificateTypeId]--•	证照类别（选择，不可空）
-        //[certiLevel]--•	级别（输入，可空）
-        //[effectiveFrom]--•	开始有效期（选择，日期，可空）
-        //[effectiveEnd]--•	截止有效期（选择，日期，可空）
-        //[institution]--•	发证单位（输入，可空），
-        //[remark]--•	备注（输入，可空）
-        public ActionResult Create([Bind(Include = "staffNr,certificateTypeId, certiLevel,effectiveFrom,effectiveEnd,institution,remark")] Certificate model)
+        public JsonResult Create([Bind(Include = "staffNr,certificateTypeId, certiLevel,effectiveFrom,effectiveEnd,institution,remark")] Certificate model)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add insert logic here 
+                msg = DoValidation(model);
 
-                ICertificateService cs = new CertificateService(Settings.Default.db);
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    ICertificateService cs = new CertificateService(Settings.Default.db);
 
-                cs.Create(model);
-                return RedirectToAction("Index");
+                    //上传文件路径列表|| ;
+                    string theAttachments = this.HttpContext.Request.Form["athment"];
+
+                    theAttachments.Split(new Char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
+                    {
+                        model.Attachments.Add(new Attachment()
+                        {
+                            attachmentAbleId = null,
+                            attachmentType = -1,
+                            certificateId = model.id,
+                            attachmentAbleType = "",
+                            name = p.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries)[0],
+                            path = "/UploadCertificate/" + model.staffNr + "/" + p.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries)[1]
+                        });
+                    });
+
+                    bool isSucceed = cs.Create(model);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -113,28 +135,49 @@ namespace BlueHrWeb.Controllers
 
         // POST: Certificate/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id,staffNr,certificateTypeId, certiLevel,effectiveFrom,effectiveEnd,institution,remark")] Certificate model)
+        public JsonResult Edit([Bind(Include = "id,staffNr,certificateTypeId, certiLevel,effectiveFrom,effectiveEnd,institution,remark")] Certificate model)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add update logic here
-                ICertificateService cs = new CertificateService(Settings.Default.db);
+                msg = DoValidation(model);
 
-                bool updateResult = cs.Update(model);
-                if (!updateResult)
+                if (!msg.Success)
                 {
-                    SetDropDownList(model);
-                    return View();
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return RedirectToAction("Index");
-                }
+                    ICertificateService cs = new CertificateService(Settings.Default.db);
 
+                    //上传文件路径列表|| ;
+                    string theAttachments = this.HttpContext.Request.Form["athment"];
+
+                    theAttachments.Split(new Char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
+                    {
+                        model.Attachments.Add(new Attachment()
+                        {
+                            attachmentAbleId = null,
+                            attachmentType = -1,
+                            certificateId = model.id,
+                            attachmentAbleType = "",
+                            name = p.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries)[0],
+                            path = "/UploadCertificate/" + model.staffNr + "/" + p.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries)[1]
+                        });
+                    });
+
+                    bool isSucceed = cs.Update(model);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "更新失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -150,18 +193,37 @@ namespace BlueHrWeb.Controllers
 
         // POST: Certificate/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
+        public JsonResult Delete(int id, FormCollection collection)
+        {  
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add delete logic here
-                ICertificateService cs = new CertificateService(Settings.Default.db);
-                cs.DeleteById(id);
-                return RedirectToAction("Index");
+
+                //IAbsenceRecordService shfSi = new AbsenceRecordService(Settings.Default.db);
+                //List<AbsenceRecrod> shf = shfSi.FindByAbsenceType(id);
+
+                //if (null != shf && shf.Count() > 0)
+                //{
+                //    msg.Success = false;
+                //    msg.Content = "缺勤类型正在使用,不能删除!";
+
+                //    return Json(msg, JsonRequestBehavior.AllowGet);
+                //}
+                //else
+                {
+                    ICertificateService cs = new CertificateService(Settings.Default.db);
+                    bool isSucceed = cs.DeleteById(id);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "删除失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -212,15 +274,81 @@ namespace BlueHrWeb.Controllers
         {
             string staffNr = Request.Form["staffNr"];
             var ff = Request.Files[0];
+            string orginFileName = ff.FileName;
 
             string fileName = Helpers.FileHelper.SaveUploadCertificate(ff, staffNr);
             ResultMessage msg = new ResultMessage() { Success = true };
-            msg.Content = fileName;
-            //防止IE直接下载json数据
+            msg.Content = orginFileName + "|" + fileName;
+
+
+
+
 
             //AddAttachmentRecord(staffNr, fileName);
+
+            //防止IE直接下载json数据
             return Json(msg, "text/html");
-            // return Json(fileName, JsonRequestBehavior.DenyGet);
+        }
+
+        [HttpPost]
+        //[staffNr]--编号
+        //[certificateTypeId]--•	证照类别（选择，不可空）
+        //[certiLevel]--•	级别（输入，可空）
+        //[effectiveFrom]--•	开始有效期（选择，日期，可空）
+        //[effectiveEnd]--•	截止有效期（选择，日期，可空）
+        //[institution]--•	发证单位（输入，可空），
+        //[remark]--•	备注（输入，可空）
+        public ResultMessage DoValidation(Certificate model)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            if (model.certificateTypeId <= 0)
+            {
+                msg.Success = false;
+                msg.Content = "证照类别不能为空";
+
+                return msg;
+            }
+
+            //ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
+            //List<CertificateType> shift = cs.GetAll();
+
+            //if (model.id <= 0)
+            //{
+            //    bool isRecordExists = shift.Where(p => p.name == model.name).ToList().Count() > 0;
+
+            //    if (isRecordExists)
+            //    {
+            //        msg.Success = false;
+            //        msg.Content = "数据已经存在!";
+
+            //        return msg;
+            //    }
+            //}
+            //else
+            //{
+            //    bool isSystem = shift.Where(p => p.isSystem && p.id == model.id).ToList().Count() > 0;
+
+            //    if (isSystem)
+            //    {
+            //        msg.Success = false;
+            //        msg.Content = "系统级别不可编辑";
+
+            //        return msg;
+            //    }
+
+            //    bool isRecordExists = shift.Where(p => p.name == model.name && p.id != model.id).ToList().Count() > 0;
+
+            //    if (isRecordExists)
+            //    {
+            //        msg.Success = false;
+            //        msg.Content = "数据已经存在!";
+
+            //        return msg;
+            //    }
+            //}
+
+            return new ResultMessage() { Success = true, Content = "" };
         }
 
         //public bool AddAttachmentRecord(string staffNr, string fileName)

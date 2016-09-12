@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BlueHrLib.Data.Message;
 
 namespace BlueHrLib.Service.Interface
 {
@@ -96,6 +97,12 @@ namespace BlueHrLib.Service.Interface
         /// <param name="all">true is all, false is unread</param>
         /// <returns></returns>
         IQueryable<MessageRecordView> GetByCateAndAllOrUnread(MessageRecordCatetory catetory, bool all,MessageRecordSearchModel searchModel = null);
-         
+
+        /// <summary>
+        /// 阅读消息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        bool Read(int id);
         }
 }
