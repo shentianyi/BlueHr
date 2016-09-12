@@ -4,5 +4,11 @@
 }
 
 @Html.Partial("_PartialCertificate")
+ 
+<script type="text/javascript"> 
 
-
+    $('.createFamilyBtn').click(function () {
+        Staff.add_family('#add_familyName', '#add_familyType', '#add_familyBirthday');
+        Staff.remove_family();
+    });
+</script>

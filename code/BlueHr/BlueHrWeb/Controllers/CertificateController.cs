@@ -208,15 +208,46 @@ namespace BlueHrWeb.Controllers
         //上传图片
         public ActionResult uploadImage()
         {
+            string staffNr = Request.Form["staffNr"];
             var ff = Request.Files[0];
 
-            string fileName = Helpers.FileHelper.SaveUploadImage(ff);
+            string fileName = Helpers.FileHelper.SaveUploadCertificate(ff, staffNr);
             ResultMessage msg = new ResultMessage() { Success = true };
             msg.Content = fileName;
             //防止IE直接下载json数据
+
+            //AddAttachmentRecord(staffNr, fileName);
             return Json(msg, "text/html");
             // return Json(fileName, JsonRequestBehavior.DenyGet);
         }
 
+        //public bool AddAttachmentRecord(string staffNr, string fileName)
+        //{
+        //    Attachment attach = new Attachment();
+        //    attach.attachmentAbleId = null;
+        //    attach.attachmentAbleType = "";
+        //    attach.attachmentType = 1;
+        //    attach.certificateId = -1;
+        //    attach.name = fileName;
+        //    attach.path = staffNr + fileName;
+
+        //    //IAttachmentService si = new AttachmentService(Settings.Default.db);
+
+        //    //bool isSucceed = si.Create(attach);
+
+        //    return isSucceed;
+        //}
+
+        //public Certificate CreateTempRecord(string staffNr)
+        //{
+        //    Certificate ct = new Certificate();
+        //    ct.certificateTypeId = -1;
+        //    ct.certiLevel = 1;
+        //    ct.effectiveEnd = DateTime.Now;
+        //    ct.effectiveFrom = DateTime.Now;
+        //    ct.institution = "";
+        //    ct.remark = "";
+        //    ct.staffNr = staffNr;
+        //}
     }
 }

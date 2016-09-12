@@ -32,5 +32,14 @@ namespace BlueHrWeb.Helpers
             return fileName;
         }
 
+        public static string SaveUploadCertificate(HttpPostedFileBase file, string staffNr)
+        {
+            string filePath = LibFileHelper.CreateFullUPloadFilePathForCertificate(Path.GetFileName(file.FileName), staffNr);
+            file.SaveAs(filePath);
+
+            string fileName = filePath.Split('\\')[filePath.Split('\\').Length - 1];
+
+            return fileName;
+        }
     }
 }
