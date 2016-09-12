@@ -20,12 +20,26 @@ namespace BlueHrLib.Data.Repository.Implement
         public IQueryable<ShiftSchedule> Search(ShiftScheduleSearchModel searchModel)
         {
             //TODO
-            IQueryable<ShiftSchedule> absenceRecords = this.context.ShiftSchedule;
-            if (!string.IsNullOrEmpty(searchModel.Name))
+            IQueryable<ShiftSchedule> q = this.context.ShiftSchedule;
+            if (!string.IsNullOrEmpty(searchModel.StaffNr))
             {
-                absenceRecords = absenceRecords.Where(c => c.staffNr.Contains(searchModel.Name.Trim()));
+                q = q.Where(c => c.staffNr.Contains(searchModel.StaffNr.Trim()));
             }
-            return absenceRecords;
+            if (!string.IsNullOrEmpty(searchModel.StaffNrAct))
+            {
+                q = q.Where(c => c.staffNr.Equals(searchModel.StaffNrAct));
+            }
+            if (searchModel.ScheduleAtFrom.HasValue)
+            {
+                q = q.Where(s => s.scheduleAt >= searchModel.ScheduleAtFrom.Value);
+            }
+
+
+            if (searchModel.ScheduleAtEnd.HasValue)
+            {
+                q = q.Where(s => s.scheduleAt <= searchModel.ScheduleAtEnd.Value);
+            }
+            return q.OrderByDescending(s=>s.scheduleAt);
         }
 
         public bool Create(ShiftSchedule parModel)

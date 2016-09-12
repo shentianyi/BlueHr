@@ -75,6 +75,13 @@
                         }
                     </div>
                 </div>
+                
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>班次类型*</span>
+                        @Html.DropDownList("shiftType", ViewData["shiftTypeList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
@@ -92,12 +99,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>班次类型*</span>
-                        @Html.DropDownList("shiftType", ViewData["shiftTypeList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
+             
 
             </div>
 
@@ -129,7 +131,8 @@
 
     $('.datetimepicker').datetimepicker({
         format: 'H:i',
-        defaultTime: '00:00'
+        defaultTime: '00:00', 
+        datepicker: false
     });
 
     //验证

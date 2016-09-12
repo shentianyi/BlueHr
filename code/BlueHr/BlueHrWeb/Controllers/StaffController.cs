@@ -43,6 +43,7 @@ namespace BlueHrWeb.Controllers
             return View(staffs);
         }
 
+        [UserAuthorize]
         public ActionResult Search([Bind(Include = "Nr, Name, Id, Sex, JobTitleId, CompanyId, DepartmentId, CompanyEmployAtFrom, CompanyEmployAtTo, IsOnTrial")] StaffSearchModel q)
         {
             int pageIndex = 0;
@@ -222,6 +223,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: Company/Edit/5
+        [UserAuthorize]
         public ActionResult Edit(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -274,7 +276,7 @@ namespace BlueHrWeb.Controllers
 
                 IStaffService cs = new StaffService(Settings.Default.db);
                 // 创建修改用户基本信息记录##User##
-                staff.OperatorId = 1;
+                staff.OperatorId = (Session["user"] as User).id;
 
                 bool updateResult = cs.Update(staff);
 
@@ -296,6 +298,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: Company/Delete/5
+        [UserAuthorize]
         public ActionResult Delete(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -496,7 +499,7 @@ namespace BlueHrWeb.Controllers
                     string newJobStr = string.Format("{0}-{1}-{2}", newCompany, newDepartment, newJobTitle);
                     IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
 
-                    mrs.CreateStaffShiftJobMessage(changeJob[0], 1, oldJobStr, newJobStr);
+                    mrs.CreateStaffShiftJobMessage(changeJob[0], (Session["user"] as　User).id, oldJobStr, newJobStr);
                 }
                 catch { }
             }
@@ -813,6 +816,7 @@ namespace BlueHrWeb.Controllers
         /// 员工转正
         /// </summary>
         /// <returns></returns>
+        [UserAuthorize]
         public ActionResult ToFullMemeber(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -844,7 +848,7 @@ namespace BlueHrWeb.Controllers
             try
             {
                 IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
-                mrs.CreateStaffFullMemeberMessage(record.staffNr, 1);
+                mrs.CreateStaffFullMemeberMessage(record.staffNr, (Session["user"] as User).id);
             }
             catch { }
             return Json(msg);
@@ -855,6 +859,7 @@ namespace BlueHrWeb.Controllers
         /// 员工离职
         /// </summary>
         /// <returns></returns>
+        [UserAuthorize]
         public ActionResult Resign(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -864,7 +869,7 @@ namespace BlueHrWeb.Controllers
         }
 
         /// <summary>
-        /// 执行员工转正
+        /// 执行员工离职
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -892,10 +897,11 @@ namespace BlueHrWeb.Controllers
                 staffSi.Update(staff);
             }
 
+            // 创建离职记录##User##
             try
             {
                 IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
-                mrs.CreateStaffResignMessage(record.staffNr, 1);
+                mrs.CreateStaffResignMessage(record.staffNr, (Session["user"] as User).id);
             }
             catch { }
             return Json(msg);

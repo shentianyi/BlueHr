@@ -36,5 +36,12 @@ namespace BlueHrLib.Service.Interface
 
         //根据班次或取排班信息
         ShiftSchedule FindShiftScheduleByShiftId(int id);
+
+        /// <summary>
+        /// 是否是重复数据
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        bool IsDup(ShiftSchedule model);
     }
 }

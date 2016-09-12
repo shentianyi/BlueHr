@@ -1,4 +1,5 @@
 ﻿using BlueHrLib.Data;
+using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Helper;
@@ -36,7 +37,7 @@ namespace BlueHrWeb.Controllers
             return View(models);
         }
 
-        public ActionResult Search([Bind(Include = "Name")]  ShiftScheduleSearchModel q)
+        public ActionResult Search([Bind(Include = "StaffNr,StaffNrAct,ScheduleAtFrom,ScheduleAtEnd")]  ShiftScheduleSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
@@ -68,25 +69,50 @@ namespace BlueHrWeb.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "shiftId,staffNr,scheduleAt")] ShiftSchedule model)
         {
+            ResultMessage msg = new ResultMessage();
             try
             {
-                // TODO: Add insert logic here 
+                msg = DoValidation(model);
 
-                IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+                    bool isSucceed = cs.Create(model);
 
-                //model.absenceDate = HttpContext.Request.Form["absenceDate"];
-                cs.Create(model);
-               return RedirectToAction("Index"); 
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+            //try
+            //{
+            //    // TODO: Add insert logic here 
+
+            //    IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+
+            //    //model.absenceDate = HttpContext.Request.Form["absenceDate"];
+            //    cs.Create(model);
+            //   return RedirectToAction("Index"); 
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
 
         // GET: ShiftShedule/Edit/5
         public ActionResult Edit(int id)
         {
+
             IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
 
             ShiftSchedule jt = cs.FindById(id);
@@ -98,27 +124,52 @@ namespace BlueHrWeb.Controllers
         [HttpPost]
         public ActionResult Edit([Bind(Include = "id,shiftId,staffNr,scheduleAt")] ShiftSchedule model)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add update logic here
-                IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+                msg = DoValidation(model);
 
-                bool updateResult = cs.Update(model);
-                if (!updateResult)
+                if (!msg.Success)
                 {
-                    SetDropDownList(model);
-                    return View();
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return RedirectToAction("Index");
-                }
+                    IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+                    bool isSucceed = cs.Update(model);
 
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+            //try
+            //{
+            //    // TODO: Add update logic here
+            //    IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+
+            //    bool updateResult = cs.Update(model);
+            //    if (!updateResult)
+            //    {
+            //        SetDropDownList(model);
+            //        return View();
+            //    }
+            //    else
+            //    {
+            //        return RedirectToAction("Index");
+            //    }
+
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
 
         // GET: ShiftShedule/Delete/5
@@ -160,7 +211,7 @@ namespace BlueHrWeb.Controllers
              }
         }
 
-        private void SetShiftScheduleList(int? type, bool allowBlank = true)
+        private void SetShiftScheduleList(int? type, bool allowBlank = false)
         {
             IShiftService cs = new ShiftService(Settings.Default.db);
 
@@ -189,29 +240,54 @@ namespace BlueHrWeb.Controllers
             ViewData["shiftList"] = select;
         }
 
-        //private void SetDurationTypeCodeList(int? model, bool allowBlank = true)
-        //{
-        //    List<EnumItem> item = EnumHelper.GetList(typeof(DurationType));
+        [HttpPost]
+        public ResultMessage DoValidation(ShiftSchedule model)
+        {
+            ResultMessage msg = new ResultMessage();
 
-        //    List<SelectListItem> select = new List<SelectListItem>();
+            if (string.IsNullOrEmpty(model.staffNr))
+            {
+                msg.Success = false;
+                msg.Content = "员工不能为空";
 
-        //    if (allowBlank)
-        //    {
-        //        select.Add(new SelectListItem { Text = "", Value = "" });
-        //    }
+                return msg;
+            }
 
-        //    foreach (var it in item)
-        //    {
-        //        if (model.HasValue && model.ToString().Equals(it.Value))
-        //        {
-        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
-        //        }
-        //        else
-        //        {
-        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
-        //        }
-        //    }
-        //    ViewData["durationTypeList"] = select;
-        //}
+            if ( model.scheduleAt==null)
+            {
+                msg.Success = false;
+                msg.Content = "日期不能为空";
+
+                return msg;
+            }
+
+            if (model.shiftId==0)
+            {
+                msg.Success = false;
+                msg.Content = "班次不能为空";
+
+                return msg;
+            }
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+            if (ss.FindByNr(model.staffNr)==null)
+            {
+                msg.Success = false;
+                msg.Content = "员工号不存在";
+
+                return msg;
+            }
+
+            IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+            if (cs.IsDup(model))
+            {
+                msg.Success = false;
+                msg.Content = "排班已存在，不可重复排班";
+
+                return msg;
+            }
+
+            return new ResultMessage() { Success = true, Content = "" };
+        }
     }
 }

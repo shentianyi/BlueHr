@@ -161,6 +161,7 @@
     <Compile Include="Data\Repository\Interface\IShiftRoundRepository.cs" />
     <Compile Include="Data\Repository\Interface\IShiftScheduleRepository.cs" />
     <Compile Include="Data\Repository\Interface\ITaskRoundRepository.cs" />
+    <Compile Include="Data\ShiftSchedule.cs" />
     <Compile Include="Data\Staff.cs" />
     <Compile Include="Data\TaskRound.cs" />
     <Compile Include="Data\User.cs" />
