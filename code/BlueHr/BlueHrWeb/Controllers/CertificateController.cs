@@ -98,7 +98,7 @@ namespace BlueHrWeb.Controllers
 
                     theAttachments.Split(new Char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
                     {
-                        model.Attachments.Add(new Attachment()
+                        model.Attachment.Add(new Attachment()
                         {
                             attachmentAbleId = null,
                             attachmentType = -1,
@@ -156,7 +156,7 @@ namespace BlueHrWeb.Controllers
 
                     theAttachments.Split(new Char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
                     {
-                        model.Attachments.Add(new Attachment()
+                        model.Attachment.Add(new Attachment()
                         {
                             attachmentAbleId = null,
                             attachmentType = -1,

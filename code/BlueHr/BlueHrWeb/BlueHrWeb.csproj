@@ -256,6 +256,7 @@
     <Compile Include="Controllers\InSureTypeController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\MessageRecordController.cs" />
+    <Compile Include="Controllers\QuartzJobController.cs" />
     <Compile Include="Controllers\ResignTypeController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
     <Compile Include="Controllers\ShiftScheduleController.cs" />
@@ -264,6 +265,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StaffTypeController.cs" />
+    <Compile Include="Controllers\SystemSettingController.cs" />
     <Compile Include="Controllers\TaskRoundController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomAttributes\UserAuthorizeAttribute.cs" />
@@ -509,6 +511,9 @@
     <Content Include="Views\User\_PartialUser.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\SystemSetting\Index.cshtml" />
+    <Content Include="Views\QuartzJob\Index.cshtml" />
+    <Content Include="Views\QuartzJob\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

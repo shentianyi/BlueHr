@@ -89,6 +89,10 @@ Layout.init = function () {
             break;
         case "TaskRound":
             $('.nav-taskround').addClass('active');
+            break;
+        case "SystemSetting":
+            $('.nav-system-setting').addClass('active');
+            break;
         default:
             break;
     }
