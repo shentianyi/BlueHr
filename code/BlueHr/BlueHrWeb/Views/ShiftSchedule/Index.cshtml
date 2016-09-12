@@ -12,10 +12,15 @@
 <hr class="hr-grey" />
 <div class="row" style="margin:0;">
     <form action="/ShiftSchedule/Search" method="get">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="col-lg-8 col-md-8col-sm-8 col-xs-12">
             <div class="marco-igroup-primary">
-                <span>排班名称</span>
-                <input type="text" name="Name" id="Name" placeholder="排班名称" value="@ViewBag.Query.Name" />
+                <span>员工号(模糊)</span>
+                <input type="text" name="staffNr" id="StaffNr" placeholder="员工号" value="@ViewBag.Query.StaffNr" />
+                <span>员工号(精确)</span>
+                <input type="text" name="StaffNrAct" id="StaffNrAct" placeholder="员工号" value="@ViewBag.Query.StaffNrAct" />
+                <span>排班日期</span>
+                <input type="text" name="ScheduleAtFrom" id="ScheduleAtFrom" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.ScheduleAtFrom" /><span>~ </span><input type="text" name="ScheduleAtEnd" id="ScheduleAtEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.ScheduleAtEnd" />
+
             </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
@@ -59,10 +64,10 @@
                                     @Html.DisplayFor(modelItem => item.staffNr)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.scheduleAt)
+                                    @Html.DisplayFor(modelItem => item.scheduleAtStr)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.shiftId)
+                                    @Html.DisplayFor(modelItem => item.Shift.code)
                                 </td> 
                                 <td>
                                     <a href="/ShiftSchedule/Delete/@item.id" class="option-icon-primary" title="详情">
@@ -88,7 +93,10 @@
                     {
 
                         var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                            .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
+                            .Options(o => o.AddRouteValue("StaffNr", ViewBag.Query.StaffNr))
+                              .Options(o => o.AddRouteValue("StaffNrAct", ViewBag.Query.StaffNrAct))
+                             .Options(o => o.AddRouteValue("ScheduleAtFrom", ViewBag.Query.ScheduleAtFrom))
+                              .Options(o => o.AddRouteValue("ScheduleAtEnd", ViewBag.Query.ScheduleAtEnd));
                         @html
                     }
                     else
@@ -103,4 +111,9 @@
 
 <script type="text/javascript">
     Layout.init();
+    $('.datetimepicker').datetimepicker({
+        format: 'Y-m-d',
+        timepicker:false
+    });
+
 </script>

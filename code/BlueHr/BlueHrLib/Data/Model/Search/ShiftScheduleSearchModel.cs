@@ -7,6 +7,12 @@ namespace BlueHrLib.Data.Model.Search
 {
     public class ShiftScheduleSearchModel
     {
-        public string Name { get; set; }
+        public string StaffNr { get; set; }
+
+        public string StaffNrAct { get; set; }
+
+        public DateTime? ScheduleAtFrom { get; set; }
+
+        public DateTime? ScheduleAtEnd { get; set; }
     }
 }

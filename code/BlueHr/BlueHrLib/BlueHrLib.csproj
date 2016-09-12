@@ -74,9 +74,6 @@
     <Compile Include="Data\AttendanceRecordCalView.cs" />
     <Compile Include="Data\AttendanceRecordDetailView.cs" />
     <Compile Include="Data\AttendanceRecordDetail.cs" />
-    <Compile Include="Data\BlueHr.cs">
-      <DependentUpon>BlueHr.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Data\BlueHr.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -88,7 +85,9 @@
     <Compile Include="Data\Enum\AttendanceRecordSourceType.cs" />
     <Compile Include="Data\Enum\CronJobType.cs" />
     <Compile Include="Data\Enum\EnumItem.cs" />
+    <Compile Include="Data\Enum\MessageRecordCatetory.cs" />
     <Compile Include="Data\Enum\MessageRecordType.cs" />
+    <Compile Include="Data\Enum\RoleType.cs" />
     <Compile Include="Data\Enum\ShiftType.cs" />
     <Compile Include="Data\Enum\SystemCertificateType.cs" />
     <Compile Include="Data\Enum\StaffEnum.cs" />
@@ -101,6 +100,7 @@
     <Compile Include="Data\Enum\WorkStatus.cs" />
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
+    <Compile Include="Data\Model\Excel\StaffExcelModel.cs" />
     <Compile Include="Data\Model\PageViewModel\AbsenceRecrodInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\AbsenceTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\AttachmentInfoModel.cs" />
@@ -127,6 +127,8 @@
     <Compile Include="Data\Model\Search\ResignTypeSearchModel.cs" />
     <Compile Include="Data\Model\Search\ShiftSearchModel.cs" />
     <Compile Include="Data\Model\Search\ShiftScheduleSearchModel.cs" />
+    <Compile Include="Data\Model\Search\MessageRecordSearchModel.cs" />
+    <Compile Include="Data\Model\Search\UserSearchModel.cs" />
     <Compile Include="Data\Repository\Implement\AbsenceRecrodRepository.cs" />
     <Compile Include="Data\Repository\Implement\AttachmentRepository.cs" />
     <Compile Include="Data\Repository\Implement\CertificateRepository.cs" />
@@ -140,6 +142,7 @@
     <Compile Include="Data\Repository\Implement\FamilyMemberRepository.cs" />
     <Compile Include="Data\Repository\Implement\BankCardRepository.cs" />
     <Compile Include="Data\Repository\Implement\ResignRecordRepository.cs" />
+    <Compile Include="Data\Repository\Implement\UserRepository.cs" />
     <Compile Include="Data\Repository\Implement\ResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\ShiftRepository.cs" />
     <Compile Include="Data\Repository\Implement\ShiftScheduleRepository.cs" />
@@ -157,13 +160,17 @@
     <Compile Include="Data\Repository\Interface\IFamilyMemberRepository.cs" />
     <Compile Include="Data\Repository\Interface\IBankCardRepository.cs" />
     <Compile Include="Data\Repository\Interface\IResignRecordRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IUserRepository.cs" />
     <Compile Include="Data\Repository\Interface\IResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IShiftRoundRepository.cs" />
     <Compile Include="Data\Repository\Interface\IShiftScheduleRepository.cs" />
     <Compile Include="Data\Repository\Interface\ITaskRoundRepository.cs" />
+    <Compile Include="Data\ShiftSchedule.cs" />
     <Compile Include="Data\Staff.cs" />
     <Compile Include="Data\TaskRound.cs" />
+    <Compile Include="Data\User.cs" />
     <Compile Include="Helper\EmailHelper.cs" />
+    <Compile Include="Helper\Excel\StaffExcelHelper.cs" />
     <Compile Include="Helper\JSONHelper.cs" />
     <Compile Include="Helper\MessageRecordTypeHelper.cs" />
     <Compile Include="MQTask\Job\JobBase.cs" />
@@ -224,6 +231,7 @@
     <Compile Include="Service\Implement\AttendanceRecordCalService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordDetailService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordService.cs" />
+    <Compile Include="Service\Implement\UserService.cs" />
     <Compile Include="Service\Implement\CertificateService.cs" />
     <Compile Include="Service\Implement\CertificateTypeService.cs" />
     <Compile Include="Service\Implement\CompanyService.cs" />
@@ -271,6 +279,7 @@
     <Compile Include="Service\Interface\IStaffTypeService.cs" />
     <Compile Include="Service\Interface\IJobTitleService.cs" />
     <Compile Include="Service\Interface\IStaffService.cs" />
+    <Compile Include="Service\Interface\IUserService.cs" />
     <Compile Include="Service\ServiceBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -291,17 +300,17 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\BlueHr.dbml.layout">
-      <DependentUpon>BlueHr.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Common\Log\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EmailTemplate\AttendanceWarn.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\BlueHr.dbml.layout">
+      <DependentUpon>BlueHr.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

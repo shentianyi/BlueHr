@@ -9,6 +9,7 @@ using BlueHrLib.Helper;
 using Brilliantech.Framwork.Utils.LogUtil;
 using BlueHrLib.Data.Repository.Interface;
 using BlueHrLib.Data.Repository.Implement;
+using BlueHrLib.Data.Model.Search;
 
 namespace BlueHrLib.Service.Implement
 {
@@ -57,8 +58,8 @@ namespace BlueHrLib.Service.Implement
                     operatorId = operatorId,
                     isRead = false,
                     isHandled = false,
-                    isUrl = isUrl,
-                    uniqString = uniqString
+                    uniqString = uniqString,
+                    messageCategory =(int) MessageRecordCatetory.EditStaff
                 };
                 dc.Context.GetTable<MessageRecord>().InsertOnSubmit(record);
                 dc.Context.SubmitChanges();
@@ -176,24 +177,35 @@ namespace BlueHrLib.Service.Implement
 
         /// <summary>
         /// 根据类型和是否阅读获取列表
+        /// Category condition not implement yet!
         /// </summary>
-        /// <param name="types"></param>
+        /// <param name="catetory"></param>
         /// <param name="all"></param>
         /// <returns></returns>
-        public IQueryable<MessageRecordView> GetByTypesAndAllOrUnread(List<MessageRecordType> types, bool all)
+        public IQueryable<MessageRecordView> GetByCateAndAllOrUnread(MessageRecordCatetory catetory, bool all, MessageRecordSearchModel searchModel = null)
         {
             DataContext dc = new DataContext(this.DbString);
             IQueryable<MessageRecordView> q = dc.Context.GetTable<MessageRecordView>();
-            if (!all)
+            // q = q.Where(s => s.messageCategory==(int)catetory);
+
+            //if (!all)
+            //{
+            //    q = q.Where(s => s.isRead == false);
+            //}
+            if (searchModel != null)
             {
-                q = q.Where(s => s.isRead == false);
-            }
-            if (types != null && types.Count > 0)
-            {
-                q = q.Where(s => types.Contains((MessageRecordType)s.messageType));
+                if (!string.IsNullOrEmpty(searchModel.StaffNr))
+                {
+                    q = q.Where(s => s.staffNr.Contains(searchModel.StaffNr));
+                }
+
+                if (!string.IsNullOrEmpty(searchModel.StaffNrAct))
+                {
+                    q = q.Where(s => s.staffNr.Equals(searchModel.StaffNrAct));
+                }
             }
 
-            return q.OrderByDescending(s => s.createdAt);
+             return q.OrderByDescending(s => s.createdAt);
         }
     }
 }

@@ -10,6 +10,7 @@ using BlueHrWeb.Helpers;
 using BlueHrWeb.Properties;
 using Brilliantech.Framwork.Utils.LogUtil;
 using MvcPaging;
+using BlueHrWeb.CustomAttributes;
 
 namespace BlueHrWeb.Controllers
 {
@@ -20,6 +21,7 @@ namespace BlueHrWeb.Controllers
 
         #region 部门列表
 
+        [UserAuthorize]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);

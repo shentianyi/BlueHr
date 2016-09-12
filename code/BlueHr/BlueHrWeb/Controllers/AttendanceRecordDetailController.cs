@@ -15,12 +15,14 @@ using BlueHrLib.Data.Message;
 using BlueHrLib.MQTask;
 using BlueHrLib.MQTask.Parameter;
 using BlueHrLib.Helper;
+using BlueHrWeb.CustomAttributes;
 
 namespace BlueHrWeb.Controllers
 {
     public class AttendanceRecordDetailController : Controller
     {
         // GET: AttendanceRecordDetail
+        [UserAuthorize]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -56,7 +58,8 @@ namespace BlueHrWeb.Controllers
             AttendanceRecordDetailExcelHelper helper = new AttendanceRecordDetailExcelHelper(Settings.Default.db, fileName);
             ImportMessage msg = helper.Import();
 
-            return Json(msg);
+            //添加"text/html",防止IE 自动下载json 格式返回的数据
+            return Json(msg, "text/html");
         }
         [HttpPost]
         public ActionResult Calculate()

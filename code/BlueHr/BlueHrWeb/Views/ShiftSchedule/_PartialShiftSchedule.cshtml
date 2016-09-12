@@ -9,8 +9,8 @@
 
     <hr class="hr-grey" />
 
-    @using (Html.BeginForm())
-    {
+  @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
+  {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -34,10 +34,10 @@
             <div class="marco-nbody row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="marco-igroup-danger">
-                        <span>员工 </span>
+                        <span>员工号*</span>
                         @if (Model != null)
                         {
-                            @Html.EditorFor(model => model.staffNr)
+                            @Html.EditorFor(model => model.staffNr,new { htmlAttributes = new { @readonly = "true" } })
                         }
                         else
                         {
@@ -48,14 +48,20 @@
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-danger">
-                        <span>日期 </span>
-                        @Html.EditorFor(model => model.scheduleAt, new { htmlAttributes = new { @class = "date-picker" } })
+                        <span>日期*</span>@if (Model != null)
+                        {
+                        <input type="text" name="scheduleAt" placeholder="日期" class = "date-picker" value="@Model.scheduleAtStr"/>
+                        }
+                        else
+                        {
+                            <input type="text" name="scheduleAt" placeholder="日期" class="date-picker"/>
+                        }
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-danger">
-                        <span>班次</span>
+                        <span>班次*</span>
                         @Html.DropDownList("shiftId", ViewData["shiftList"] as IEnumerable<SelectListItem>)
                     </div>
                 </div>
@@ -86,4 +92,17 @@
 
     //Layout.datepicker('.datetimepicker');
     Layout.datepicker('.date-picker');
+
+    //回调函数
+    function post_return_action(data) {
+
+        if (!data.Success) {
+            Layout.popMsg('popMsg-danger', data.Content);
+            return false;
+        }
+        else {
+
+            location.href = '/ShiftSchedule/Index';
+        }
+    }
 </script>

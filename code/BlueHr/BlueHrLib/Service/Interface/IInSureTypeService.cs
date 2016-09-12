@@ -16,6 +16,8 @@ namespace BlueHrLib.Service.Interface
 
         InsureType FindById(int id);
 
+        InsureType FindByName(string name);
+
         bool Create(InsureType title);
 
         bool Update(InsureType title);

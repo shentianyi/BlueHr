@@ -24,11 +24,11 @@ namespace BlueHrWeb
               defaults: new { controller = "Staff", action = "Delete", nr = UrlParameter.Optional }
            );
 
-            routes.MapRoute(
-                name: "MessageRecordIndex",
-                url: "MessageRecord/{allOrUnread}/{type}",
-                defaults: new { controller = "MessageRecord", action = "Index", allOrUnread = UrlParameter.Optional, type = UrlParameter.Optional }
-                );
+            //routes.MapRoute(
+            //    name: "MessageRecordIndex",
+            //    url: "MessageRecord/Index/{allOrUnread}/{type}",
+            //    defaults: new { controller = "MessageRecord", action = "Index", allOrUnread = UrlParameter.Optional, type = UrlParameter.Optional }
+            //    );
 
             routes.MapRoute(
                 name: "Default",

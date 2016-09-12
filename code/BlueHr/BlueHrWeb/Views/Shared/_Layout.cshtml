@@ -28,48 +28,43 @@
             </a>
             <nav class="navbar navbar-static-top">
                 <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                </a>
-                <div class="navbar-custom-menu">
+
+            
+@if (Session["user"] != null)
+{
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+    </a>
+                    <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <li>
                             <a href="/MessageRecord" title="消息">
                                 <i class="fa fa-bell-o"></i>
                                 <span class="label label-primary" id="unread-count"></span>
                             </a>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="hidden-xs">
-                                    <i class="fa fa-user"></i>
-                                    @*当前用户*@
-                                    Admin
-                                    <i class="fa fa-sort-down"></i>
-                                </span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                @*设置登出样式*@
-
-                                <li>
-                                    <a href="#" style="color:#c0392b;">
-                                        <i class="fa fa-power-off"></i>
-                                        注销
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        </li> 
+                        @Html.Partial("_LoginPartial")
                     </ul>
                 </div>
-            </nav>
+}
+              </nav>
         </header>
 
+
+@if (Session["user"] != null)
+{
         <aside class="main-sidebar">
             <section class="sidebar">
                 <ul class="sidebar-menu">
                     @*<li class="header">菜单栏</li>*@
-                    <li class="active treeview nav-users">
+                    <li class="nav-users">
+                        <a href="/User/Index">
+                            <i class="fa fa-user-secret"></i>
+                            <span>用户管理</span>
+                        </a>
+                    </li>
+
+                    @*<li class="active treeview nav-users">
                         <a href="#">
                             <i class="fa fa-user-secret"></i>
                             <span>用户管理</span>
@@ -85,7 +80,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li>*@
 
                     <li class="nav-basic">
                         <a href="#">
@@ -176,6 +171,38 @@
                         </a>
                     </li>
 
+                    <li class="nav-certificate">
+                        <a href="/Certificate/Index">
+                            <i class="fa fa-folder"></i>
+                            <span>证照管理</span>
+                        </a>
+                    </li>
+                    <li class="treeview nav-attendance-record">
+                        <a href="#">
+                            <i class="fa fa-calculator"></i>
+                            <span>排班管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="/Shift/Index">
+                                    <i class="fa fa-list-ol"></i>
+                                    班次管理
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/ShiftSchedule/Index">
+                                    <i class="fa fa-table"></i>
+                                    排班管理
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+
+
                     <li class="treeview nav-attendance-record">
                         <a href="#">
                             <i class="fa fa-calendar-check-o"></i>
@@ -205,6 +232,21 @@
                             </li>
                         </ul>
                     </li>
+               
+
+                    <li class="nav-staff">
+                        <a href="/Staff/Index">
+                            <i class="fa fa-adjust"></i>
+                            <span>缺勤管理</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-staff">
+                        <a href="/ExtraWorkRecord/Index">
+                            <i class="fa fa-tachometer"></i>
+                            <span>加班管理</span>
+                        </a>
+                    </li>
 
                     <li class="nav-taskround">
                         <a href="/TaskRound/Index">
@@ -215,14 +257,25 @@
                 </ul>
             </section>
         </aside>
-
+}
+@if (Session["user"] != null)
+{
         <div class="content-wrapper">
             @RenderBody()
         </div>
+}
+else
+{
+    <div class="content-wrapper" style="margin:0">
+        @RenderBody()
+    </div>
+}
     </div>
 </body>
 @Html.Partial("_HandlingMsgDialog")
 </html>
+@if (Session["user"] != null)
+{
 <script type="text/javascript">
     $(function () {
         $.get("/MessageRecord/UnReadCount", null, function (data) {
@@ -234,3 +287,4 @@
         },"json");
     });
 </script>
+}

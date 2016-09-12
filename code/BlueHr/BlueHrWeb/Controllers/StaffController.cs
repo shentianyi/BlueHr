@@ -4,8 +4,10 @@ using BlueHrLib.Data.Enum;
 using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Helper;
+using BlueHrLib.Helper.Excel;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
+using BlueHrWeb.CustomAttributes;
 using BlueHrWeb.Helpers;
 using BlueHrWeb.Properties;
 using MvcPaging;
@@ -24,6 +26,7 @@ namespace BlueHrWeb.Controllers
     public class StaffController : Controller
     {
         // GET: Company
+        [UserAuthorize]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -41,6 +44,7 @@ namespace BlueHrWeb.Controllers
             return View(staffs);
         }
 
+        [UserAuthorize]
         public ActionResult Search([Bind(Include = "Nr, Name, Id, Sex, JobTitleId, CompanyId, DepartmentId, CompanyEmployAtFrom, CompanyEmployAtTo, IsOnTrial")] StaffSearchModel q)
         {
             int pageIndex = 0;
@@ -220,6 +224,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: Company/Edit/5
+        [UserAuthorize]
         public ActionResult Edit(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -272,7 +277,7 @@ namespace BlueHrWeb.Controllers
 
                 IStaffService cs = new StaffService(Settings.Default.db);
                 // 创建修改用户基本信息记录##User##
-                staff.OperatorId = 1;
+                staff.OperatorId = (Session["user"] as User).id;
 
                 bool updateResult = cs.Update(staff);
 
@@ -294,6 +299,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: Company/Delete/5
+        [UserAuthorize]
         public ActionResult Delete(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -458,7 +464,16 @@ namespace BlueHrWeb.Controllers
             return Json(msg, "text/html");
             // return Json(fileName, JsonRequestBehavior.DenyGet);
         }
+        public ActionResult Import()
+        {
+            var ff = Request.Files[0];
+            string fileName = Helpers.FileHelper.SaveAsTmp(ff);
+            StaffExcelHelper helper = new StaffExcelHelper(Settings.Default.db, fileName);
+            ImportMessage msg = helper.Import();
 
+            //添加"text/html",防止IE 自动下载json 格式返回的数据
+            return Json(msg, "text/html");
+        }
 
         [HttpPost]
         public JsonResult changeJob(string[] changeJob)
@@ -494,7 +509,7 @@ namespace BlueHrWeb.Controllers
                     string newJobStr = string.Format("{0}-{1}-{2}", newCompany, newDepartment, newJobTitle);
                     IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
 
-                    mrs.CreateStaffShiftJobMessage(changeJob[0], 1, oldJobStr, newJobStr);
+                    mrs.CreateStaffShiftJobMessage(changeJob[0], (Session["user"] as　User).id, oldJobStr, newJobStr);
                 }
                 catch { }
             }
@@ -811,6 +826,7 @@ namespace BlueHrWeb.Controllers
         /// 员工转正
         /// </summary>
         /// <returns></returns>
+        [UserAuthorize]
         public ActionResult ToFullMemeber(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -842,7 +858,7 @@ namespace BlueHrWeb.Controllers
             try
             {
                 IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
-                mrs.CreateStaffFullMemeberMessage(record.staffNr, 1);
+                mrs.CreateStaffFullMemeberMessage(record.staffNr, (Session["user"] as User).id);
             }
             catch { }
             return Json(msg);
@@ -853,6 +869,7 @@ namespace BlueHrWeb.Controllers
         /// 员工离职
         /// </summary>
         /// <returns></returns>
+        [UserAuthorize]
         public ActionResult Resign(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -862,7 +879,7 @@ namespace BlueHrWeb.Controllers
         }
 
         /// <summary>
-        /// 执行员工转正
+        /// 执行员工离职
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -890,10 +907,11 @@ namespace BlueHrWeb.Controllers
                 staffSi.Update(staff);
             }
 
+            // 创建离职记录##User##
             try
             {
                 IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
-                mrs.CreateStaffResignMessage(record.staffNr, 1);
+                mrs.CreateStaffResignMessage(record.staffNr, (Session["user"] as User).id);
             }
             catch { }
             return Json(msg);

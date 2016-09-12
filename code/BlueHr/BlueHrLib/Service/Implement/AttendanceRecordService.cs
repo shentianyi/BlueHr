@@ -159,8 +159,8 @@ namespace BlueHrLib.Service.Implement
                     {
                         attendanceExceptions = exceptions[dic.Key],
                         createdAt = DateTime.Now,
-                        oriWorkingHour = dic.Value,
-                        actWorkingHour = dic.Value,
+                        oriWorkingHour = Math.Round(dic.Value, 2),
+                        actWorkingHour = Math.Round(dic.Value, 2),
                         staffNr = staffShiftShedule.Key,
                         attendanceDate = dic.Key
                     };

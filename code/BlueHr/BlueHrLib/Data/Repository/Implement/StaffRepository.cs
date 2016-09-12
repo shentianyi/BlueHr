@@ -173,7 +173,7 @@ namespace BlueHrLib.Data.Repository.Implement
                     sf.remark = staff.remark;
                     sf.ethnic = staff.ethnic;
                     sf.photo = staff.photo;
-                    sf.workingYears = staff.workingYears;
+                    sf.workingYearsAt = staff.workingYearsAt;
 
                     this.context.SubmitChanges();
                     return true;

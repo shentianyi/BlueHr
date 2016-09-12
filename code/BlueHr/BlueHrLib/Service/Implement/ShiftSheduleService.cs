@@ -93,5 +93,24 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.FindShiftScheduleByShiftId(id);
         }
+        /// <summary>
+        /// 是否是重复数据
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public bool IsDup(ShiftSchedule model)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            var q = dc.Context.GetTable<ShiftSchedule>().Where(s => s.scheduleAt.Equals(model.scheduleAt) && s.staffNr.Equals(model.staffNr) && s.shiftId.Equals(model.shiftId));
+            if (model.id > 0)
+            {
+                q = q.Where(s => s.id != model.id);
+            }
+
+
+            var m= q.FirstOrDefault() ;
+
+            return m != null;
+        }
     }
 }

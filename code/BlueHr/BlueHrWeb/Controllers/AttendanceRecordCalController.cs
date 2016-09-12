@@ -15,12 +15,14 @@ using BlueHrLib.Data.Message;
 using BlueHrLib.MQTask;
 using BlueHrLib.MQTask.Parameter;
 using BlueHrLib.Helper;
+using BlueHrWeb.CustomAttributes;
 
 namespace BlueHrWeb.Controllers
 {
     public class AttendanceRecordCalController : Controller
     {
         // GET: AttendanceRecordDetail
+        [UserAuthorize]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -49,6 +51,7 @@ namespace BlueHrWeb.Controllers
 
         // GET: AttendanceRecordDetail/Edit/5
         [HttpGet]
+        [UserAuthorize]
         public ActionResult Edit(int id)
         {
             IAttendanceRecordCalService ss = new AttendanceRecordCalService(Settings.Default.db);
@@ -101,7 +104,7 @@ namespace BlueHrWeb.Controllers
             try
             {
                 IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
-                mrs.CreateStaffUpdateAttHourMessage(record.staffNr, 1, oldHour, newHour);
+                mrs.CreateStaffUpdateAttHourMessage(record.staffNr, (Session["user"] as User).id, oldHour, newHour);
             }
             catch { }
 

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using BlueHrLib.Data;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Implement;
@@ -33,6 +34,11 @@ namespace BlueHrLib.Service.Implement
         public Department FindById(int id)
         {
             return depRep.FindById(id);
+        }
+
+        public Department FindByIdWithCompanyId(int? companyId, string departmentName)
+        {
+            return depRep.FindByIdWithCompanyId(companyId, departmentName);
         }
 
         public IQueryable<Department> Search(DepartmentSearchModel searchModel)
