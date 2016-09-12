@@ -54,6 +54,12 @@ namespace BlueHrLib.Data.Repository.Implement
             return cp;
         }
 
+        public Company FindByName(string name)
+        {
+            Company cp = this.context.GetTable<Company>().FirstOrDefault(c => c.name.Equals(name.Trim()));
+            return cp;
+        }
+
         public IQueryable<Company> Search(CompanySearchModel searchModel)
         {
             IQueryable<Company> companies = this.context.Company;

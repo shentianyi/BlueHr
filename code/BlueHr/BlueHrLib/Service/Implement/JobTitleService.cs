@@ -5,6 +5,7 @@ using BlueHrLib.Data.Repository.Implement;
 using BlueHrLib.Data.Repository.Interface;
 using BlueHrLib.Service.Interface;
 using System.Collections.Generic;
+using System;
 
 namespace BlueHrLib.Service.Implement
 {
@@ -57,6 +58,11 @@ namespace BlueHrLib.Service.Implement
         public List<JobTitle> GetAll()
         {
             return jobTitleRep.GetAll();
+        }
+
+        public JobTitle FindByName(string name)
+        {
+            return jobTitleRep.FindByName(name);
         }
     }
 }

@@ -15,6 +15,13 @@ namespace BlueHrLib.Data.Repository.Interface
 
         Company FindById(int id);
 
+        /// <summary>
+        /// 通过公司名查找
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        Company FindByName(string name);
+
         bool Update(Company company);
 
         bool DeleteById(int id);

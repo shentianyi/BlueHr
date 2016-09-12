@@ -34,6 +34,11 @@ namespace BlueHrLib.Service.Implement
             return companyRep.FindById(id);
         }
 
+        public Company FindByName(string name)
+        {
+            return companyRep.FindByName(name);
+        }
+
         public IQueryable<Company> Search(CompanySearchModel searchModel)
         {
             return companyRep.Search(searchModel);

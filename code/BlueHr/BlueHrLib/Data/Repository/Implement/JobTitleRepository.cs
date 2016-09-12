@@ -79,5 +79,11 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<JobTitle>().ToList();
         }
+
+        public JobTitle FindByName(string name)
+        {
+            //获取查询到的第一个Name的职位
+            return this.context.GetTable<JobTitle>().FirstOrDefault(c => c.name.Equals(name.Trim()));
+        }
     }
 }

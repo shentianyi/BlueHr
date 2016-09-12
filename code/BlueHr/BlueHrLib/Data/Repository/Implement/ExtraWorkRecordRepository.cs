@@ -19,7 +19,7 @@ namespace BlueHrLib.Data.Repository.Implement
         public IQueryable<ExtraWorkRecord> Search(ExtraWorkRecordSearchModel searchModel)
         {
             //TODO
-            IQueryable<ExtraWorkRecord> modelList = this.context.ExtraWorkRecords;
+            IQueryable<ExtraWorkRecord> modelList = this.context.ExtraWorkRecord;
             if (!string.IsNullOrEmpty(searchModel.staffNr))
             {
                 modelList = modelList.Where(c => c.staffNr.Contains(searchModel.staffNr.Trim()));

@@ -4,6 +4,7 @@ using BlueHrLib.Data.Enum;
 using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Helper;
+using BlueHrLib.Helper.Excel;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
 using BlueHrWeb.CustomAttributes;
@@ -463,7 +464,16 @@ namespace BlueHrWeb.Controllers
             return Json(msg, "text/html");
             // return Json(fileName, JsonRequestBehavior.DenyGet);
         }
+        public ActionResult Import()
+        {
+            var ff = Request.Files[0];
+            string fileName = Helpers.FileHelper.SaveAsTmp(ff);
+            StaffExcelHelper helper = new StaffExcelHelper(Settings.Default.db, fileName);
+            ImportMessage msg = helper.Import();
 
+            //添加"text/html",防止IE 自动下载json 格式返回的数据
+            return Json(msg, "text/html");
+        }
 
         [HttpPost]
         public JsonResult changeJob(string[] changeJob)

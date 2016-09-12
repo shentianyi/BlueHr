@@ -26,6 +26,15 @@ namespace BlueHrLib.Service.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         Department FindById(int id);
+
+        /// <summary>
+        /// 通过 公司ID 和Departmentname 获取到唯一的公司ID
+        /// </summary>
+        /// <param name="companyId">公司ID</param>
+        /// <param name="departmentName">部门Name</param>
+        /// <returns></returns>
+        Department FindByIdWithCompanyId(int? companyId, string departmentName);
+
         /// <summary>
         /// 创建部门
         /// </summary>

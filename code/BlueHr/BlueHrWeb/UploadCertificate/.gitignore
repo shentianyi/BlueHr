@@ -1,0 +1,14 @@
+**/**
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.png
+**/*.bmp
+*.jpg
+*.jpeg
+*.gif
+*.png
+*.bmp
+*
+!.gitignore
+!keep.txt
