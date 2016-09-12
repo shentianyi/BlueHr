@@ -15,6 +15,12 @@ namespace BlueHrLib.Service.Interface
 
         JobTitle FindById(int id);
 
+        /// <summary>
+        /// 通过Name查询职位
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        JobTitle FindByName(string name);
         bool Create(JobTitle title);
 
         bool Update(JobTitle title);
@@ -22,5 +28,7 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         JobTitleInfoModel GetJobTitleInfo(JobTitleSearchModel searchModel);
+
+        List<JobTitle> GetAll();
     }
 }

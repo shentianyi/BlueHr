@@ -74,5 +74,15 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             }
         }
+
+        public List<InsureType> GetAll()
+        {
+            return this.context.GetTable<InsureType>().ToList();
+        }
+
+        public InsureType FindByName(string name)
+        {
+            return this.context.GetTable<InsureType>().FirstOrDefault(c => c.name.Equals(name.Trim()));
+        }
     }
 }

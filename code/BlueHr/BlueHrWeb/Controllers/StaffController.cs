@@ -4,8 +4,10 @@ using BlueHrLib.Data.Enum;
 using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Helper;
+using BlueHrLib.Helper.Excel;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
+using BlueHrWeb.CustomAttributes;
 using BlueHrWeb.Helpers;
 using BlueHrWeb.Properties;
 using MvcPaging;
@@ -24,6 +26,7 @@ namespace BlueHrWeb.Controllers
     public class StaffController : Controller
     {
         // GET: Company
+        [UserAuthorize]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -41,6 +44,7 @@ namespace BlueHrWeb.Controllers
             return View(staffs);
         }
 
+        [UserAuthorize]
         public ActionResult Search([Bind(Include = "Nr, Name, Id, Sex, JobTitleId, CompanyId, DepartmentId, CompanyEmployAtFrom, CompanyEmployAtTo, IsOnTrial")] StaffSearchModel q)
         {
             int pageIndex = 0;
@@ -107,7 +111,7 @@ namespace BlueHrWeb.Controllers
                     string[] bankAddressArray = bankAddressTmp.Split(',');
                     string[] bankRemarkArray = bankRemarkTmp.Split(',');
 
-                    for(var i = 0; i < bankArray.Length; i++)
+                    for (var i = 0; i < bankArray.Length; i++)
                     {
                         BankCard bankCardDB = new BankCard();
                         bankCardDB.bank = bankArray[i];
@@ -118,10 +122,12 @@ namespace BlueHrWeb.Controllers
                         bankInfo.Add(bankCardDB);
                     }
                 }
-                else{
+                else
+                {
 
                 }
-            }else
+            }
+            else
             {
 
             }
@@ -156,10 +162,12 @@ namespace BlueHrWeb.Controllers
                     {
                     }
 
-                }else
+                }
+                else
                 {
                 }
-            }else
+            }
+            else
             {
             }
 
@@ -182,7 +190,7 @@ namespace BlueHrWeb.Controllers
                 //添加银行卡和子女信息
                 IBankCardService bcs = new BankCardService(Settings.Default.db);
 
-                for(var i=0; i < bankInfo.Count; i++)
+                for (var i = 0; i < bankInfo.Count; i++)
                 {
                     bool bankResult = bcs.Create(bankInfo[i]);
 
@@ -195,7 +203,7 @@ namespace BlueHrWeb.Controllers
 
                 IFamilyMemberService fms = new FamilyMemberService(Settings.Default.db);
 
-                for(var j= 0; j < familyInfo.Count; j++)
+                for (var j = 0; j < familyInfo.Count; j++)
                 {
                     bool familyResult = fms.Create(familyInfo[j]);
 
@@ -216,6 +224,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: Company/Edit/5
+        [UserAuthorize]
         public ActionResult Edit(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -256,7 +265,7 @@ namespace BlueHrWeb.Controllers
                 {
                     //要想显示照片， 必须添加头  data:image/jpg;base64,
                     string base64Photo = BlueHrLib.Helper.FileHelper.ImageToBase64(HttpRuntime.AppDomainAppPath + "UploadImage/" + staff.photo);
-                    if (base64Photo!=null)
+                    if (base64Photo != null)
                     {
                         base64Photo = "data:image/jpg;base64," + base64Photo;
                         staff.photo = base64Photo;
@@ -268,7 +277,7 @@ namespace BlueHrWeb.Controllers
 
                 IStaffService cs = new StaffService(Settings.Default.db);
                 // 创建修改用户基本信息记录##User##
-                staff.OperatorId = 1;
+                staff.OperatorId = (Session["user"] as User).id;
 
                 bool updateResult = cs.Update(staff);
 
@@ -290,6 +299,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: Company/Delete/5
+        [UserAuthorize]
         public ActionResult Delete(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -350,7 +360,7 @@ namespace BlueHrWeb.Controllers
             IBankCardService bcs = new BankCardService(Settings.Default.db);
 
             BankCard bankCardReturn = bcs.CreateFromAjax(bc);
-            
+
             ResultMessage msg;
 
             if (bankCardReturn != null)
@@ -358,7 +368,8 @@ namespace BlueHrWeb.Controllers
                 msg = new ResultMessage() { Success = true };
                 //将ID返回给前端用来删除
                 msg.Content = bankCardReturn.id.ToString();
-            }else
+            }
+            else
             {
                 msg = new ResultMessage() { Success = false };
                 msg.Content = "新增失败";
@@ -372,14 +383,15 @@ namespace BlueHrWeb.Controllers
         {
             IBankCardService bcs = new BankCardService(Settings.Default.db);
 
-            bool deleteBankCardResult= bcs.DeleteById(id);
+            bool deleteBankCardResult = bcs.DeleteById(id);
 
             ResultMessage msg = new ResultMessage() { Success = deleteBankCardResult };
 
             if (deleteBankCardResult)
             {
                 msg.Content = "删除成功";
-            }else
+            }
+            else
             {
                 msg.Content = "删除失败";
             }
@@ -450,9 +462,18 @@ namespace BlueHrWeb.Controllers
             msg.Content = fileName;
             //防止IE直接下载json数据
             return Json(msg, "text/html");
-           // return Json(fileName, JsonRequestBehavior.DenyGet);
+            // return Json(fileName, JsonRequestBehavior.DenyGet);
         }
+        public ActionResult Import()
+        {
+            var ff = Request.Files[0];
+            string fileName = Helpers.FileHelper.SaveAsTmp(ff);
+            StaffExcelHelper helper = new StaffExcelHelper(Settings.Default.db, fileName);
+            ImportMessage msg = helper.Import();
 
+            //添加"text/html",防止IE 自动下载json 格式返回的数据
+            return Json(msg, "text/html");
+        }
 
         [HttpPost]
         public JsonResult changeJob(string[] changeJob)
@@ -461,14 +482,14 @@ namespace BlueHrWeb.Controllers
             //int CompanyId = Convert.ToInt16(changeJob[1]);
             //int DepartmentId = Convert.ToInt16(changeJob[2]);
             //int JobTitleId = Convert.ToInt16(changeJob[3]);
-            
+
             IStaffService ss = new StaffService(Settings.Default.db);
             Staff staff = ss.FindByNr(changeJob[0]);
-            string oldCompany = staff.Company==null ? string.Empty : staff.Company.name;
+            string oldCompany = staff.Company == null ? string.Empty : staff.Company.name;
             string oldDepartment = staff.Department == null ? string.Empty : staff.Department.name;
             string oldJobTitle = staff.JobTitle == null ? string.Empty : staff.JobTitle.name;
-            string oldJobStr=string.Format("{0}-{1}-{2}",oldCompany,oldDepartment,oldJobTitle);
-            bool JobReturn = ss.ChangeJob(changeJob); 
+            string oldJobStr = string.Format("{0}-{1}-{2}", oldCompany, oldDepartment, oldJobTitle);
+            bool JobReturn = ss.ChangeJob(changeJob);
 
             ResultMessage msg;
 
@@ -488,7 +509,7 @@ namespace BlueHrWeb.Controllers
                     string newJobStr = string.Format("{0}-{1}-{2}", newCompany, newDepartment, newJobTitle);
                     IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
 
-                    mrs.CreateStaffShiftJobMessage(changeJob[0], 1, oldJobStr,newJobStr);
+                    mrs.CreateStaffShiftJobMessage(changeJob[0], (Session["user"] as　User).id, oldJobStr, newJobStr);
                 }
                 catch { }
             }
@@ -805,6 +826,7 @@ namespace BlueHrWeb.Controllers
         /// 员工转正
         /// </summary>
         /// <returns></returns>
+        [UserAuthorize]
         public ActionResult ToFullMemeber(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -836,7 +858,7 @@ namespace BlueHrWeb.Controllers
             try
             {
                 IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
-                mrs.CreateStaffFullMemeberMessage(record.staffNr, 1);
+                mrs.CreateStaffFullMemeberMessage(record.staffNr, (Session["user"] as User).id);
             }
             catch { }
             return Json(msg);
@@ -847,32 +869,52 @@ namespace BlueHrWeb.Controllers
         /// 员工离职
         /// </summary>
         /// <returns></returns>
+        [UserAuthorize]
         public ActionResult Resign(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
             Staff staff = ss.FindByNr(nr);
+            SetResignTypeList(null);
             return View(staff);
         }
 
         /// <summary>
-        /// 执行员工转正
+        /// 执行员工离职
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult DoResign([Bind(Include = "staffNr")] ResignRecord record)
+        public ActionResult DoResign([Bind(Include = "resignTypeId, staffNr, resignAt,resignChecker,remark")] ResignRecord record)
         {
+            //用户创建员工离职记录:
+            //•	离职原因（选择，不可空）
+            //•	离职日期（选择，不可空）
+            //•	离职批准人（输入，可空）
+            //•	备注（输入，可空）
+            //如果离职记录创建成功，则将人员在职状态改为：离职
 
-            // TODO
-            // 离职逻辑
+            ResultMessage msg = new ResultMessage();
 
-            // 创建；离职记录##User##
+            IResignRecordService ss = new ResignRecordService(Settings.Default.db);
+            msg = ss.Create(record);
+
+            if (msg.Success)
+            {
+                IStaffService staffSi = new StaffService(Settings.Default.db);
+                Staff staff = staffSi.FindByNr(record.staffNr);
+
+                staff.workStatus = (int)WorkStatus.OffWork;
+
+                staffSi.Update(staff);
+            }
+
+            // 创建离职记录##User##
             try
             {
                 IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
-                mrs.CreateStaffResignMessage(record.staffNr, 1);
+                mrs.CreateStaffResignMessage(record.staffNr, (Session["user"] as User).id);
             }
             catch { }
-            return null;
+            return Json(msg);
         }
 
 
@@ -935,6 +977,35 @@ namespace BlueHrWeb.Controllers
                 }
             }
             ViewData["companyList"] = select;
+        }
+
+        private void SetResignTypeList(int? type, bool allowBlank = true)
+        {
+            IResignTypeService cs = new ResignTypeService(Settings.Default.db);
+
+            ResignTypeSearchModel csm = new ResignTypeSearchModel();
+
+            List<ResignType> certType = cs.Search(csm).ToList();
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var certt in certType)
+            {
+                if (type.HasValue && type.ToString().Equals(certt.id))
+                {
+                    select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = false });
+                }
+            }
+            ViewData["resignTypeList"] = select;
         }
     }
 }

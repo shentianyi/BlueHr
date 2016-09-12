@@ -13,40 +13,33 @@ namespace BlueHrLib.Service.Implement
 {
     public class DegreeTypeService : ServiceBase, IDegreeTypeService
     {
-        public DegreeTypeService(string dbString) : base(dbString) { }
+        private IDegreeTypeRepository degreeTypeRep;
+        public DegreeTypeService(string dbString) : base(dbString) {
+            degreeTypeRep = new DegreeTypeRepository(this.Context);
+        }
 
         public IQueryable<DegreeType> Search(DegreeTypeSearchModel searchModel)
         {
-            DataContext dc = new DataContext(this.DbString);
-            IDegreeTypeRepository degreeTypeRep = new DegreeTypeRepository(dc);
             return degreeTypeRep.Search(searchModel);
         }
 
         public bool Create(DegreeType degreeType)
         {
-            DataContext dc = new DataContext(this.DbString);
-            IDegreeTypeRepository degreeTypeRep = new DegreeTypeRepository(dc);
             return degreeTypeRep.Create(degreeType);
         }
 
         public bool Update(DegreeType degreeType)
         {
-            DataContext dc = new DataContext(this.DbString);
-            IDegreeTypeRepository degreeTypeRep = new DegreeTypeRepository(dc);
             return degreeTypeRep.Update(degreeType);
         }
 
         public bool DeleteById(int id)
         {
-            DataContext dc = new DataContext(this.DbString);
-            IDegreeTypeRepository degreeTypeRep = new DegreeTypeRepository(dc);
             return degreeTypeRep.DeleteById(id);
         }
 
         public DegreeType FindById(int id)
         {
-            DataContext dc = new DataContext(this.DbString);
-            IDegreeTypeRepository degreeTypeRep = new DegreeTypeRepository(dc);
             return degreeTypeRep.FindById(id);
         }
 
@@ -60,6 +53,16 @@ namespace BlueHrLib.Service.Implement
             info.degreeTypeCount = dc.Context.GetTable<DegreeType>().Where(c => c.id.Equals(degreeType.Count() > 0 ? degreeType.First().id : -1)).Count();
 
             return info;
+        }
+
+        public List<DegreeType> GetAll()
+        {
+            return degreeTypeRep.GetAll();
+        }
+
+        public DegreeType FindByName(string name)
+        {
+            return degreeTypeRep.FindByName(name);
         }
     }
 }

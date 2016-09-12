@@ -1,17 +1,17 @@
-@using MvcPaging
+ï»¿@using MvcPaging
 
 @model IPagedList<BlueHrLib.Data.DegreeType>
 
 @{
-    ViewBag.Title = "Ñ§Àú¹ÜÀí";
+    ViewBag.Title = "å­¦å†ç®¡ç†";
 }
 
 @Styles.Render("~/Content/degreetype")
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
-    ÄúµÄÎ»ÖÃ£º
-    <li>»ù´¡ĞÅÏ¢</li>
-    <li>Ñ§Àú¹ÜÀí</li>
+    æ‚¨çš„ä½ç½®ï¼š
+    <li>åŸºç¡€ä¿¡æ¯</li>
+    <li>å­¦å†ç®¡ç†</li>
 </ol>
 
 <hr class="hr-grey" />
@@ -20,15 +20,15 @@
     <form action="/DegreeType/Search" method="get">
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="marco-igroup-primary">
-                <span>Ñ§ÀúÃû³Æ</span>
-                <input type="text" name="Name" id="Name" placeholder="Ñ§ÀúÃû³Æ" value="@ViewBag.Query.Name" />
+                <span>å­¦å†åç§°</span>
+                <input type="text" name="Name" id="Name" placeholder="å­¦å†åç§°" value="@ViewBag.Query.Name" />
             </div>
         </div>
 
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
             <button type="submit" class="marco-btn-success">
                 <i class="glyphicon glyphicon-search"></i>
-                ËÑË÷
+                æœç´¢
             </button>
         </div>
     </form>
@@ -37,12 +37,12 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="usual-table">
         <div class="table-heading">
-            Ñ§ÀúÁĞ±í
+            å­¦å†åˆ—è¡¨
             <div class="pull-right" style="margin-top:-12px;">
                 <a href="/DegreeType/Create">
                     <button class="marco-btn-primary">
                         <i class="glyphicon glyphicon-plus-sign"></i>
-                        <span>´´½¨</span>
+                        <span>åˆ›å»º</span>
                     </button>
                 </a>
             </div>
@@ -51,9 +51,9 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Ñ§ÀúÃû³Æ</th>
-                        <th>±¸×¢</th>
-                        <th>²Ù×÷</th>
+                        <th>å­¦å†åç§°</th>
+                        <th>å¤‡æ³¨</th>
+                        <th>æ“ä½œ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,11 +70,11 @@
                                     @Html.DisplayFor(modelItem => item.remark)
                                 </td>
                                 <td>
-                                    <a href="/DegreeType/Delete/@item.id" class="option-icon-primary" title="ÏêÇé">
+                                    <a href="/DegreeType/Delete/@item.id" class="option-icon-primary" title="è¯¦æƒ…">
                                         <i class="fa fa-eye"></i>
                                     </a>
 
-                                    <a href="/DegreeType/Edit/@item.id" class="option-icon-warning" title="±à¼­">
+                                    <a href="/DegreeType/Edit/@item.id" class="option-icon-warning" title="ç¼–è¾‘">
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                 </td>

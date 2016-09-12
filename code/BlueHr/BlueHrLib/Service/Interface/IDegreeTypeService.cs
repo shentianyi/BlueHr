@@ -19,8 +19,12 @@ namespace BlueHrLib.Service.Interface
 
         DegreeType FindById(int id);
 
+        DegreeType FindByName(string name);
+
         bool Update(DegreeType degreeType);
 
         bool DeleteById(int id);
+
+        List<DegreeType> GetAll();
     }
 }

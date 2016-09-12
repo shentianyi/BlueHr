@@ -1,0 +1,180 @@
+﻿@model BlueHrLib.Data.Shift
+
+<div id="shift" style="margin:10px;">
+    <ol class="breadcrumb current-position">
+        您的位置：
+        <li>@Html.ActionLink("班次管理", "Index")</li>
+        <li>{{action}}</li>
+    </ol>
+
+    <hr class="hr-grey" />
+
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        if (Model != null)
+        {
+            @Html.HiddenFor(model => model.id)
+        }
+
+        <div class="marco-npanel-primary">
+            <div class="marco-nheading">
+                {{action}}
+
+                <div class="pull-right">
+                    <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;" id="submitform">
+                        <i class="fa fa-check-circle-o"></i>
+                        <span>{{actionBtn}}</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>名称*</span>
+                        @if (Model != null)
+                        {
+                            @Html.EditorFor(model => model.name)
+                        }
+                        else
+                        {
+                            <input type="text" name="name" id="name" placeholder="名称" />
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>代码*</span>
+
+                        @if (Model != null)
+                        {
+                            @Html.EditorFor(model => model.code)
+                        }
+                        else
+                        {
+                            <input type="text" name="code" id="code" placeholder="代码" />
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>开始时间*</span>
+                        @if (Model != null)
+                        {
+                            string startAt = string.Format("{0:hh\\:mm}", Model.startAt);
+                            @Html.EditorFor(model => startAt, new { htmlAttributes = new { @class = "datetimepicker" } })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.startAt, new { htmlAttributes = new { @class = "datetimepicker" } })
+                        }
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>班次类型*</span>
+                        @Html.DropDownList("shiftType", ViewData["shiftTypeList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>截止时间*</span>
+                        @if (Model != null)
+                        {
+                            string endAt = string.Format("{0:hh\\:mm}", Model.endAt);
+                            @Html.EditorFor(model => endAt, new { htmlAttributes = new { @class = "datetimepicker" } })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.endAt, new { htmlAttributes = new { @class = "datetimepicker" } })
+                        }
+
+                    </div>
+                </div>
+
+             
+
+            </div>
+
+
+            <div class="marco-textarea">
+                <label for="remark">备注</label>
+                @if (Model != null)
+                {
+                    @Html.TextAreaFor(model => model.remark)
+                }
+                else
+                {
+                    <textarea name="remark" placeholder="备注"></textarea>
+                }
+            </div>
+        </div>
+
+    }
+</div>
+
+<script type="text/javascript">
+    Layout.init();
+
+    //控制textarea高度
+    $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+    $(window).resize(function () {
+        $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+    });
+
+    $('.datetimepicker').datetimepicker({
+        format: 'H:i',
+        defaultTime: '00:00', 
+        datepicker: false
+    });
+
+    //验证
+    //function validate_page_info() {
+     
+    //    if (Layout.IsStringNull($('#name').val())) {
+    //        Layout.popMsg('popMsg-danger', "名称不能为空");
+    //        return false;
+    //    }
+
+    //    if (Layout.IsStringNull($('#code').val())) {
+    //        Layout.popMsg('popMsg-danger', "代码不能为空");
+    //        return false;
+    //    }
+
+    //    if (Layout.IsStringNull($('#startAt').val())) {
+    //        Layout.popMsg('popMsg-danger', "开始时间不能为空");
+    //        return false;
+    //    }
+
+    //    if (Layout.IsStringNull($('#endAt').val())) {
+    //        Layout.popMsg('popMsg-danger', "截止时间不能为空");
+    //        return false;
+    //    }
+
+    //    if (Layout.IsStringNull($('#shiftType').val())) {
+    //        Layout.popMsg('popMsg-danger', "班次类型不能为空");
+    //        return false;
+    //    }
+    //}
+
+    //回调函数
+    function post_return_action(data) {
+
+        if (!data.Success) {
+            Layout.popMsg('popMsg-danger', data.Content);
+            return false;
+        }
+        else {
+            
+            location.href = '/Shift/Index';
+        }
+    }
+
+</script>

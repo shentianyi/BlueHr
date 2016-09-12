@@ -44,9 +44,14 @@
                         <span>搜索</span>
                     </button>
 
-                    <button type="button" class="marco-btn-primary advanced-filter-btn pull-right" title="高级搜索">
+                    <button type="button" class="marco-btn-primary advanced-filter-btn" title="高级搜索">
                         <i class="fa fa-filter"></i>
                         <span>高级搜索</span>
+                    </button>
+
+                    <button type="button" class="marco-btn-primary import-dialog-btn pull-right">
+                        <i class="fa fa-cloud-upload"></i>
+                        <span>上传</span>
                     </button>
                 </div>
             </div>
@@ -232,6 +237,21 @@
     </div>
 </div>
 
+<!--导入数据-->
+<div id="dialog_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        导入员工信息
+    </div>
+    <div class="dialogModal_content">
+        <strong>选择数据文件:</strong>
+        <hr />
+        <input class="item-data-uploader" type="file" name="files[]" data-url="/Staff/Import" />
+        <div class="item-data-uploader-preview" style="display:none;"></div>
+        <hr />
+        <a href="~/Template/员工信息导入文件模板.xlsx" target="_blank">下载文件模板</a>
+    </div>
+</div>
+
 @Scripts.Render("~/bundles/staff")
 
 <script type="text/javascript">
@@ -248,5 +268,20 @@
             $('.advanced-filter').slideUp();
         }
     });
+
+    $('.import-dialog-btn').click(function () {
+        $('#dialog_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+                data_upload(".item-data-uploader");
+            },
+            onClose: function () {
+
+            },
+        });
+    });
+
 </script>
 

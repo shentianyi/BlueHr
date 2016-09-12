@@ -242,6 +242,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Bundler.cs" />
+    <Compile Include="Controllers\AbsenceRecrodController.cs" />
     <Compile Include="Controllers\AbsenceTypeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttendanceRecordCalController.cs" />
@@ -250,21 +251,27 @@
     <Compile Include="Controllers\CertificateTypeController.cs" />
     <Compile Include="Controllers\DegreeTypeController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\ExtraWorkRecordController.cs" />
     <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\MessageRecordController.cs" />
     <Compile Include="Controllers\ResignTypeController.cs" />
+    <Compile Include="Controllers\ShiftController.cs" />
+    <Compile Include="Controllers\ShiftScheduleController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StaffTypeController.cs" />
     <Compile Include="Controllers\TaskRoundController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="CustomAttributes\UserAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="CustomAttributes\AdminAuthorizeAttribute.cs" />
     <Compile Include="Models\MessageCategory.cs" />
     <Compile Include="Helpers\PagingHelper.cs" />
     <Compile Include="Helpers\View\PartialViewHelper.cs" />
@@ -339,6 +346,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\certificate.js" />
     <Content Include="Scripts\company.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -358,6 +366,8 @@
     <Content Include="Scripts\jquery.file.upload\upload.file.data.js" />
     <Content Include="Scripts\jquery.mCustomScrollbar.concat.min.js" />
     <Content Include="Scripts\jquery.slimscroll.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -474,6 +484,31 @@
     <Content Include="Views\Certificate\Edit.cshtml" />
     <Content Include="Views\Certificate\Delete.cshtml" />
     <Content Include="Views\Certificate\_PartialCertificate.cshtml" />
+    <Content Include="Views\AbsenceRecrod\Index.cshtml" />
+    <Content Include="Views\AbsenceRecrod\Create.cshtml" />
+    <Content Include="Views\AbsenceRecrod\Edit.cshtml" />
+    <Content Include="Views\AbsenceRecrod\Delete.cshtml" />
+    <Content Include="Views\AbsenceRecrod\_PartialAbsenceRecrod.cshtml" />
+    <Content Include="Views\ExtraWorkRecord\Index.cshtml" />
+    <Content Include="Views\ExtraWorkRecord\Create.cshtml" />
+    <Content Include="Views\ExtraWorkRecord\Edit.cshtml" />
+    <Content Include="Views\ExtraWorkRecord\Delete.cshtml" />
+    <Content Include="Views\ExtraWorkRecord\_PartialExtraWorkRecord.cshtml" />
+    <Content Include="Views\Shift\Index.cshtml" />
+    <Content Include="Views\Shift\Create.cshtml" />
+    <Content Include="Views\Shift\_PartialShift.cshtml" />
+    <Content Include="Views\Shift\Edit.cshtml" />
+    <Content Include="Views\Shift\Delete.cshtml" />
+    <Content Include="Views\ShiftSchedule\Index.cshtml" />
+    <Content Include="Views\ShiftSchedule\Create.cshtml" />
+    <Content Include="Views\ShiftSchedule\Edit.cshtml" />
+    <Content Include="Views\ShiftSchedule\Delete.cshtml" />
+    <Content Include="Views\ShiftSchedule\_PartialShiftSchedule.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\_PartialUser.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

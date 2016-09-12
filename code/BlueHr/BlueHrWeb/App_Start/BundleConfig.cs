@@ -25,7 +25,8 @@ namespace BlueHrWeb
                    "~/Scripts/jquery.file.upload/jquery.fileupload.js",
                    "~/Scripts/jquery.file.upload/jquery.iframe-transport.js",
                    "~/Scripts/jquery.file.upload/upload.file.data.js",
-                   "~/Scripts/jquery.cookie.js"
+                   "~/Scripts/jquery.cookie.js",
+                   "~/Scripts/jquery.unobtrusive-ajax.js"
                    ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -57,6 +58,9 @@ namespace BlueHrWeb
 
             bundles.Add(new ScriptBundle("~/bundles/staff").Include(
                     "~/Scripts/staff.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/certificate").Include(
+                "~/Scripts/certificate.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      "~/Content/site.css",

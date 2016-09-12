@@ -76,5 +76,10 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             }
         }
+
+        public List<AbsenceType> GetAll()
+        {
+            return this.context.GetTable<AbsenceType>().ToList();
+        }
     }
 }

@@ -74,9 +74,6 @@
     <Compile Include="Data\AttendanceRecordCalView.cs" />
     <Compile Include="Data\AttendanceRecordDetailView.cs" />
     <Compile Include="Data\AttendanceRecordDetail.cs" />
-    <Compile Include="Data\BlueHr.cs">
-      <DependentUpon>BlueHr.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Data\BlueHr.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -88,7 +85,9 @@
     <Compile Include="Data\Enum\AttendanceRecordSourceType.cs" />
     <Compile Include="Data\Enum\CronJobType.cs" />
     <Compile Include="Data\Enum\EnumItem.cs" />
+    <Compile Include="Data\Enum\MessageRecordCatetory.cs" />
     <Compile Include="Data\Enum\MessageRecordType.cs" />
+    <Compile Include="Data\Enum\RoleType.cs" />
     <Compile Include="Data\Enum\ShiftType.cs" />
     <Compile Include="Data\Enum\SystemCertificateType.cs" />
     <Compile Include="Data\Enum\StaffEnum.cs" />
@@ -101,22 +100,39 @@
     <Compile Include="Data\Enum\WorkStatus.cs" />
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
+    <Compile Include="Data\Model\Excel\StaffExcelModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\AbsenceRecrodInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\AbsenceTypeInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\AttachmentInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\CertificateInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\CertificateTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\DegreeTypeInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\ExtraWorkRecordInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\InSureTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\JobTitleInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\ResignTypeInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\ShiftInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\ShiftScheduleInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\StaffTypeInfoModel.cs" />
+    <Compile Include="Data\Model\Search\AbsenceRecrodSearchModel.cs" />
     <Compile Include="Data\Model\Search\AbsenceTypeSearchModel.cs" />
+    <Compile Include="Data\Model\Search\AttachmentSearchModel.cs" />
     <Compile Include="Data\Model\Search\AttendanceRecordCalSearchModel.cs" />
     <Compile Include="Data\Model\Search\BankCardSearchModel.cs" />
     <Compile Include="Data\Model\Search\CertificateSearchModel.cs" />
     <Compile Include="Data\Model\Search\CertificateTypeSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ExtraWorkRecordSearchModel.cs" />
     <Compile Include="Data\Model\Search\FamilyMemberSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ResignRecordSearchModel.cs" />
     <Compile Include="Data\Model\Search\ResignTypeSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ShiftSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ShiftScheduleSearchModel.cs" />
+    <Compile Include="Data\Model\Search\MessageRecordSearchModel.cs" />
+    <Compile Include="Data\Model\Search\UserSearchModel.cs" />
+    <Compile Include="Data\Repository\Implement\AbsenceRecrodRepository.cs" />
+    <Compile Include="Data\Repository\Implement\AttachmentRepository.cs" />
     <Compile Include="Data\Repository\Implement\CertificateRepository.cs" />
+    <Compile Include="Data\Repository\Implement\ExtraWorkRecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\MessageRecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\ExtraWorkTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\AbsenceTypeRepository.cs" />
@@ -125,10 +141,16 @@
     <Compile Include="Data\Repository\Implement\CertificateTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\FamilyMemberRepository.cs" />
     <Compile Include="Data\Repository\Implement\BankCardRepository.cs" />
+    <Compile Include="Data\Repository\Implement\ResignRecordRepository.cs" />
+    <Compile Include="Data\Repository\Implement\UserRepository.cs" />
     <Compile Include="Data\Repository\Implement\ResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\ShiftRepository.cs" />
+    <Compile Include="Data\Repository\Implement\ShiftScheduleRepository.cs" />
     <Compile Include="Data\Repository\Implement\TaskRoundRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAbsenceRecrodRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAttachmentRepository.cs" />
     <Compile Include="Data\Repository\Interface\ICertificateRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IExtraWorkRecordRepository.cs" />
     <Compile Include="Data\Repository\Interface\IMessageRecordRepository.cs" />
     <Compile Include="Data\Repository\Interface\IExtraWorkTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAbsenceTypeRepository.cs" />
@@ -137,12 +159,18 @@
     <Compile Include="Data\Repository\Interface\ICertificateTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IFamilyMemberRepository.cs" />
     <Compile Include="Data\Repository\Interface\IBankCardRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IResignRecordRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IUserRepository.cs" />
     <Compile Include="Data\Repository\Interface\IResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IShiftRoundRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IShiftScheduleRepository.cs" />
     <Compile Include="Data\Repository\Interface\ITaskRoundRepository.cs" />
+    <Compile Include="Data\ShiftSchedule.cs" />
     <Compile Include="Data\Staff.cs" />
     <Compile Include="Data\TaskRound.cs" />
+    <Compile Include="Data\User.cs" />
     <Compile Include="Helper\EmailHelper.cs" />
+    <Compile Include="Helper\Excel\StaffExcelHelper.cs" />
     <Compile Include="Helper\JSONHelper.cs" />
     <Compile Include="Helper\MessageRecordTypeHelper.cs" />
     <Compile Include="MQTask\Job\JobBase.cs" />
@@ -197,13 +225,17 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service\Implement\AbsenceRecordService.cs" />
     <Compile Include="Service\Implement\AbsenceTypeService.cs" />
+    <Compile Include="Service\Implement\AttachmentService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordCalService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordDetailService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordService.cs" />
+    <Compile Include="Service\Implement\UserService.cs" />
     <Compile Include="Service\Implement\CertificateService.cs" />
     <Compile Include="Service\Implement\CertificateTypeService.cs" />
     <Compile Include="Service\Implement\CompanyService.cs" />
+    <Compile Include="Service\Implement\ExtraWorkRecordService.cs" />
     <Compile Include="Service\Implement\FamilyMemberService.cs" />
     <Compile Include="Service\Implement\DegreeTypeService.cs" />
     <Compile Include="Service\Implement\InSureTypeService.cs" />
@@ -211,6 +243,8 @@
     <Compile Include="Service\Implement\MessageRecordService.cs" />
     <Compile Include="Service\Implement\ExtraWorkTypeService.cs" />
     <Compile Include="Service\Implement\QuartzJobService.cs" />
+    <Compile Include="Data\Model\PageViewModel\ResignRecordInfoModel.cs" />
+    <Compile Include="Service\Implement\ResignRecordService.cs" />
     <Compile Include="Service\Implement\ResignTypeService.cs" />
     <Compile Include="Service\Implement\ShiftService.cs" />
     <Compile Include="Service\Implement\ShiftSheduleService.cs" />
@@ -219,7 +253,10 @@
     <Compile Include="Service\Implement\JobTitleService.cs" />
     <Compile Include="Service\Implement\DepartmentService.cs" />
     <Compile Include="Service\Implement\StaffService.cs" />
+    <Compile Include="Service\Interface\IAbsenceRecordService.cs" />
+    <Compile Include="Service\Interface\IAttachmentService.cs" />
     <Compile Include="Service\Interface\ICertificateService.cs" />
+    <Compile Include="Service\Interface\IExtraWorkRecordService.cs" />
     <Compile Include="Service\Interface\IExtraWorkTypeService.cs" />
     <Compile Include="Service\Interface\IAbsenceTypeService.cs" />
     <Compile Include="Service\Interface\IAttendanceRecordCalService.cs" />
@@ -234,6 +271,7 @@
     <Compile Include="Service\Interface\IBankCardService.cs" />
     <Compile Include="Service\Interface\IMessageRecordService.cs" />
     <Compile Include="Service\Interface\IQuartzJobService.cs" />
+    <Compile Include="Service\Interface\IResignRecordService.cs" />
     <Compile Include="Service\Interface\IResignTypeService.cs" />
     <Compile Include="Service\Interface\IShiftScheduleService.cs" />
     <Compile Include="Service\Interface\IShiftService.cs" />
@@ -241,6 +279,7 @@
     <Compile Include="Service\Interface\IStaffTypeService.cs" />
     <Compile Include="Service\Interface\IJobTitleService.cs" />
     <Compile Include="Service\Interface\IStaffService.cs" />
+    <Compile Include="Service\Interface\IUserService.cs" />
     <Compile Include="Service\ServiceBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -261,17 +300,17 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\BlueHr.dbml.layout">
-      <DependentUpon>BlueHr.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Common\Log\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EmailTemplate\AttendanceWarn.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\BlueHr.dbml.layout">
+      <DependentUpon>BlueHr.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

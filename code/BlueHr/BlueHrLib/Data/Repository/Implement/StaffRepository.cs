@@ -10,7 +10,7 @@ using BlueHrLib.Service.Implement;
 
 namespace BlueHrLib.Data.Repository.Implement
 {
-  public class StaffRepository:RepositoryBase<Staff>, IStaffRepository
+    public class StaffRepository : RepositoryBase<Staff>, IStaffRepository
     {
         private BlueHrDataContext context;
 
@@ -173,11 +173,12 @@ namespace BlueHrLib.Data.Repository.Implement
                     sf.remark = staff.remark;
                     sf.ethnic = staff.ethnic;
                     sf.photo = staff.photo;
-                    sf.workingYears = staff.workingYears;
+                    sf.workingYearsAt = staff.workingYearsAt;
 
                     this.context.SubmitChanges();
                     return true;
-                }else
+                }
+                else
                 {
                     return false;
                 }
@@ -190,21 +191,44 @@ namespace BlueHrLib.Data.Repository.Implement
 
         private void Sf_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            try {
+            try
+            {
                 string propertyName = e.PropertyName;
                 if ((!string.IsNullOrEmpty(propertyName)) && Staff.ValueName.ContainsKey(propertyName))
                 {
                     Staff s = sender as Staff;
                     object oldOValue = s.GetType().GetProperty(e.PropertyName + "_Was").GetValue(s, null);
-                    string oldValue = oldOValue==null ? "":oldOValue.ToString();
+                    string oldValue = oldOValue == null ? "" : oldOValue.ToString();
                     object newOValue = s.GetType().GetProperty(e.PropertyName).GetValue(s, null);
-                    string newValue =newOValue==null? "" : newOValue.ToString();
+                    string newValue = newOValue == null ? "" : newOValue.ToString();
 
                     IMessageRecordService mrs = new MessageRecordService(this.context.Connection.ConnectionString);
                     mrs.CreateStaffBasicEdited(s.nr, s.OperatorId, Staff.ValueName[propertyName], oldValue, newValue);
                 }
             }
             catch { }
+        }
+
+        //functions for validation
+
+        public List<Staff> FindByJobTitleId(int id)
+        {
+            return this.context.GetTable<Staff>().Where(p => p.jobTitleId.Equals(id)).ToList();
+        }
+
+        public List<Staff> FindByStaffType(int id)
+        {
+            return this.context.GetTable<Staff>().Where(p => p.staffTypeId.Equals(id)).ToList();
+        }
+
+        public List<Staff> FindByDegreeType(int id)
+        {
+            return this.context.GetTable<Staff>().Where(p => p.degreeTypeId.Equals(id)).ToList();
+        } 
+
+        public List<Staff>FindByInsureType(int id)
+        {
+            return this.context.GetTable<Staff>().Where(p => p.insureTypeId.Equals(id)).ToList();
         }
     }
 }

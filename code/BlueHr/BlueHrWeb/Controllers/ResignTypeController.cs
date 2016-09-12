@@ -1,5 +1,6 @@
 ﻿using BlueHrLib.Data;
 using BlueHrLib.Data.Enum;
+using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Helper;
@@ -13,12 +14,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BlueHrWeb.CustomAttributes;
 
 namespace BlueHrWeb.Controllers
 {
     public class ResignTypeController : Controller
     {
         // GET: ResignType
+        [UserAuthorize]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -67,20 +70,32 @@ namespace BlueHrWeb.Controllers
 
         // POST: ResignType/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Name,code, remark")] ResignType resignType)
+        public JsonResult Create([Bind(Include = "Name,code, remark")] ResignType resignType)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add insert logic here 
+                msg = DoValidation(resignType);
 
-                IResignTypeService cs = new ResignTypeService(Settings.Default.db);
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IResignTypeService cs = new ResignTypeService(Settings.Default.db);
+                    bool isSucceed = cs.Create(resignType);
 
-                cs.Create(resignType);
-                return RedirectToAction("Index");
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -96,28 +111,32 @@ namespace BlueHrWeb.Controllers
 
         // POST: ResignType/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id, name,code, remark")] ResignType resignType)
+        public JsonResult Edit([Bind(Include = "id, name,code, remark")] ResignType resignType)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add update logic here
-                IResignTypeService cs = new ResignTypeService(Settings.Default.db);
-               
+                msg = DoValidation(resignType);
 
-                bool updateResult = cs.Update(resignType);
-                if (!updateResult)
+                if (!msg.Success)
                 {
-                    //SetDropDownList(resignType);
-                    return View();
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return RedirectToAction("Index");
+                    IResignTypeService cs = new ResignTypeService(Settings.Default.db);
+                    bool isSucceed = cs.Update(resignType);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "更新失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -133,56 +152,93 @@ namespace BlueHrWeb.Controllers
 
         // POST: ResignType/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public JsonResult Delete(int id, FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add delete logic here
-                IResignTypeService cs = new ResignTypeService(Settings.Default.db);
-                cs.DeleteById(id);
-                return RedirectToAction("Index");
+                //存在员工时不可删除
+                IResignRecordService shfSi = new ResignRecordService(Settings.Default.db);
+                List<ResignRecord> shf = shfSi.FindByResignType(id);
+
+                if (null != shf && shf.Count() > 0)
+                {
+                    msg.Success = false;
+                    msg.Content = "离职类型正在使用,不能删除!";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IResignTypeService cs = new ResignTypeService(Settings.Default.db);
+                    bool isSucceed = cs.DeleteById(id);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "删除失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
-        //private void SetDropDownList(ResignType model)
-        //{
-        //    if (model != null)
-        //    {
-        //        SetResignTypeCodeList(model.code);
-        //    }
-        //    else
-        //    {
-        //        SetResignTypeCodeList(null);
-        //    }
-        //}
+        [HttpPost]
+        //4.5	保险类别管理
+        //（列表（分页）、新建、编辑、删除（存在员工时不可删除）
+        //）：名称（不可空），备注（可空）
+        public ResultMessage DoValidation(ResignType model)
+        {
+            ResultMessage msg = new ResultMessage();
 
-        //private void SetResignTypeCodeList(string model, bool allowBlank = true)
-        //{
-        //    List<EnumItem> item = EnumHelper.GetList(typeof(SystemCertificateType));
+            if (string.IsNullOrEmpty(model.code))
+            {
+                msg.Success = false;
+                msg.Content = "编码不能为空";
 
-        //    List<SelectListItem> select = new List<SelectListItem>();
+                return msg;
+            }
 
-        //    if (allowBlank)
-        //    {
-        //        select.Add(new SelectListItem { Text = "", Value = "" });
-        //    }
+            if (string.IsNullOrEmpty(model.name))
+            {
+                msg.Success = false;
+                msg.Content = "名称不能为空";
 
-        //    foreach (var it in item)
-        //    {
-        //        if (!string.IsNullOrEmpty(model) && model.ToString().Equals(it.Value))
-        //        {
-        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
-        //        }
-        //        else
-        //        {
-        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
-        //        }
-        //    }
-        //    ViewData["resignTypeCodeList"] = select;
-        //}
+                return msg;
+            }
+
+            IResignTypeService cs = new ResignTypeService(Settings.Default.db);
+            List<ResignType> shift = cs.GetAll();
+
+            if (model.id <= 0)
+            {
+                bool isRecordExists = shift.Where(p => p.name == model.name || p.code == model.code).ToList().Count() > 0;
+
+                if (isRecordExists)
+                {
+                    msg.Success = false;
+                    msg.Content = "数据已经存在!";
+
+                    return msg;
+                }
+            }
+            else
+            {
+                bool isRecordExists = shift.Where(p => (p.name == model.name || p.code == model.code) && p.id != model.id).ToList().Count() > 0;
+
+                if (isRecordExists)
+                {
+                    msg.Success = false;
+                    msg.Content = "数据已经存在!";
+
+                    return msg;
+                }
+            }
+
+            return new ResultMessage() { Success = true, Content = "" };
+        }
     }
 }

@@ -1,15 +1,15 @@
-@model BlueHrLib.Data.DegreeType
+ï»¿@model BlueHrLib.Data.DegreeType
 
 <div id="degreetype" style="margin:10px;">
     <ol class="breadcrumb current-position">
-        ÄúµÄÎ»ÖÃ£º
-        <li>@Html.ActionLink("Ñ§Àú¹ÜÀí", "Index")</li>
+        æ‚¨çš„ä½ç½®ï¼š
+        <li>@Html.ActionLink("å­¦å†ç®¡ç†", "Index")</li>
         <li>{{action}}</li>
     </ol>
 
     <hr class="hr-grey" />
 
-    @using (Html.BeginForm())
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -33,26 +33,26 @@
 
             <div class="marco-nbody">
                 <div class="marco-igroup-primary">
-                    <label for="name">Ñ§ÀúÃû³Æ</label>
+                    <label for="name">å­¦å†åç§°*</label>
                     @if (Model != null)
                     {
                         @Html.EditorFor(model => model.name)
                     }
                     else
                     {
-                        <input type="text" name="name" placeholder="Ñ§ÀúÃû³Æ" />
+                        <input type="text" name="name" placeholder="å­¦å†åç§°" />
                     }
                 </div>
 
                 <div class="marco-textarea">
-                    <label for="remark">±¸×¢</label>
+                    <label for="remark">å¤‡æ³¨</label>
                     @if (Model != null)
                     {
                         @Html.TextAreaFor(model => model.remark)
                     }
                     else
                     {
-                        <textarea name="remark" placeholder="±¸×¢"></textarea>
+                        <textarea name="remark" placeholder="å¤‡æ³¨"></textarea>
                     }
                 </div>
             </div>
@@ -63,9 +63,22 @@
 <script type="text/javascript">
     Layout.init();
 
-    //¿ØÖÆtextarea¸ß¶È
+    //æ§åˆ¶textareaé«˜åº¦
     $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     $(window).resize(function () {
         $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     });
+
+    //å›è°ƒå‡½æ•°
+    function post_return_action(data) {
+
+        if (!data.Success) {
+            Layout.popMsg('popMsg-danger', data.Content);
+            return false;
+        }
+        else {
+
+            location.href = '/DegreeType/Index';
+        }
+    }
 </script>

@@ -6,8 +6,8 @@ using System.Linq;
 using System.Text;
 
 namespace BlueHrLib.Data.Repository.Implement
-{ 
-     public class CertificateRepository : RepositoryBase<Certificate>, ICertificateRepository
+{
+    public class CertificateRepository : RepositoryBase<Certificate>, ICertificateRepository
     {
         private BlueHrDataContext context;
 
@@ -32,6 +32,19 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public bool DeleteById(int id)
         {
+            List<Attachment> atms = this.context.GetTable<Attachment>().Where(p => p.certificateId.Equals(id)).ToList();
+
+            int deleteFlag = 0;
+            atms.ForEach(k =>
+            {
+                if (k != null)
+                {
+                    this.context.GetTable<Attachment>().DeleteOnSubmit(k);
+                    this.context.SubmitChanges();
+                    deleteFlag++;
+                }
+            });
+
             Certificate cp = this.context.GetTable<Certificate>().FirstOrDefault(c => c.id.Equals(id));
 
             if (cp != null)
@@ -73,7 +86,7 @@ namespace BlueHrLib.Data.Repository.Implement
                 cp.effectiveEnd = certf.effectiveEnd;
                 cp.effectiveFrom = certf.effectiveFrom;
                 cp.institution = certf.institution;
-                cp.remark = certf.remark; 
+                cp.remark = certf.remark;
 
                 this.context.SubmitChanges();
                 return true;
@@ -82,6 +95,11 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 return false;
             }
+        }
+
+        public List<Certificate> FindByCertificateType(int id)
+        {
+            return this.context.GetTable<Certificate>().Where(p => p.certificateTypeId.Equals(id)).ToList();
         }
     }
 }

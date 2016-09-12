@@ -21,5 +21,7 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         ResignTypeInfoModel GetResignTypeInfo(ResignTypeSearchModel searchModel);
+
+        List<ResignType> GetAll();
     }
 }

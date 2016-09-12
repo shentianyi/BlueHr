@@ -17,5 +17,7 @@ namespace BlueHrLib.Data.Repository.Interface
         bool Update(ResignType resignType);
 
         bool DeleteById(int id);
+
+        List<ResignType> GetAll();
     }
 }

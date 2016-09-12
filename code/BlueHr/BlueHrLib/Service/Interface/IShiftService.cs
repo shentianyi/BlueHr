@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlueHrLib.MQTask;
+using BlueHrLib.Data.Model.PageViewModel;
 
 namespace BlueHrLib.Service.Interface
 {
@@ -18,6 +19,16 @@ namespace BlueHrLib.Service.Interface
         /// <returns></returns>
         List<Shift> All();
 
-        
+        IQueryable<Shift> Search(ShiftSearchModel searchModel);
+
+        Shift FindById(int id);
+
+        bool Create(Shift title);
+
+        bool Update(Shift title);
+
+        bool DeleteById(int id);
+
+        ShiftInfoModel GetShiftInfo(ShiftSearchModel searchModel);
     }
 }

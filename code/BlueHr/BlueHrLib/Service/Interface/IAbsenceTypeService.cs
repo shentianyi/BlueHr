@@ -22,5 +22,7 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         AbsenceTypeInfoModel GetAbsenceTypeInfo(AbsenceTypeSearchModel searchModel);
+
+        List<AbsenceType> GetAll();
     }
 }

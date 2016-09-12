@@ -17,5 +17,7 @@ namespace BlueHrLib.Data.Repository.Interface
         bool Update(CertificateType certf);
 
         bool DeleteById(int id);
+
+        List<CertificateType> GetAll();
     }
 }

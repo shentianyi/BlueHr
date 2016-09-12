@@ -34,7 +34,7 @@ namespace BlueHrLib.Data.Repository.Implement
                 this.context.SubmitChanges();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             { 
                 return false;
             } 
@@ -79,6 +79,16 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 return false;
             } 
+        }
+
+        public List<DegreeType> GetAll()
+        {
+            return this.context.GetTable<DegreeType>().ToList();
+        }
+
+        public DegreeType FindByName(string name)
+        {
+            return this.context.GetTable<DegreeType>().FirstOrDefault(c => c.name.Equals(name.Trim()));
         }
     }
 } 

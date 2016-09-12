@@ -1,87 +1,125 @@
-﻿@model IEnumerable<BlueHrLib.Data.MessageRecord>
+﻿@using MvcPaging
+@model IPagedList<BlueHrLib.Data.MessageRecordView>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "消息列表";
 }
+@*@Styles.Render("~/Content/degreetype")*@
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>消息列表</li>
+</ol>
+<hr class="hr-grey" />
 
-<h2>Index</h2>
+<div class="row" id="tabs" style="margin-left:20px;">
+            <span id="tabs1"><a href="/MessageRecord?allOrUnread=unread" class="option-icon-warning" title="未读">未 读</a></span> 
+            <span id="tabs2"><a href="/MessageRecord?allOrUnread=all" class="option-icon-primary" title="全部">全 部</a></span> 
+ </div>
+    <div class="row" style="margin:0;">
+        <form action="/MessageRecord/Search" method="get">
+            <div class="col-lg-8 col-md-8col-sm-8 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>员工号(模糊)</span>
+                    <input type="text" name="staffNr" id="StaffNr" placeholder="员工号" value="@ViewBag.Query.StaffNr" />
+                    <span>员工号(精确)</span>
+                    <input type="text" name="StaffNrAct" id="StaffNrAct" placeholder="员工号" value="@ViewBag.Query.StaffNrAct" />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.staffNr)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.operatorId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.messageType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.createdAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.text)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.isRead)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.isHandled)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.isUrl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.url)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.uniqString)
-        </th>
-        <th></th>
-    </tr>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
+                <button type="submit" class="marco-btn-success">
+                    <i class="glyphicon glyphicon-search"></i>
+                    搜索
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="usual-table">
+            <div class="table-heading">
+                消息列表
+            </div>
+            <div class="table-body content_3">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>员工号</th>
+                            <th>员工姓名</th>
+                            <th>操作者</th>
+                            <th>日期</th>
+                            <th>内容</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            int i = 0;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@(i += 1)</td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.staffNr)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.staffName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.operatorName)
+                                    </td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.staffNr)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.operatorId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.messageType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.createdAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.text)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isRead)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isHandled)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isUrl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.url)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.uniqString)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.createdAtStr)
+                                    </td>
 
-</table>
+                                    <td style="text-align:left;">
+                                        @Html.DisplayFor(modelItem => item.textStr)
+                                    </td>
+                                    <td>
+                                        @if (item.isRead.HasValue && item.isRead.Value == false)
+                                        {
+                                            <a href="#" class="option-icon-warning" title="阅读">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+            <div class="clearfix pagination">
+                <div class="pagination-inner">
+                    @if (Model != null)
+                    {
+                        if (ViewBag.Query != null)
+                        {
+                            var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                                .Options(o => o.AddRouteValue("allOrUnread", ViewBag.allOrUnread))
+                                .Options(o => o.AddRouteValue("StaffNr", ViewBag.Query.StaffNr))
+                                  .Options(o => o.AddRouteValue("StaffNrAct", ViewBag.Query.StaffNrAct));
+                            @html
+                        }
+                        else
+                        {
+                            var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                                    .Options(o => o.AddRouteValue("allOrUnread", ViewBag.allOrUnread));
+                            @html
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        Layout.init();
+        $(function () {
+            $("#tabs").tabs();
+        });
+    </script>

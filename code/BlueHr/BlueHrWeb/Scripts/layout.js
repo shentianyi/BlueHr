@@ -11,6 +11,10 @@ Layout.init = function () {
     var pathname = window.location.pathname.split('/');
 
     switch (pathname[1]) {
+        case "User":
+            $('.nav-users').addClass('active');
+            PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            break;
         case "Company":
             $('.nav-company').addClass('active');
             PageAction('#company', '新建公司', '编辑公司', '公司详情', '创建', '更新', '删除');
@@ -50,7 +54,7 @@ Layout.init = function () {
         case "InSureType":
             $('.nav-basic').addClass('active');
             PageAction('#insuretype', '新建保险类别', '编辑保险类别', '保险类别详情', '创建', '更新', '删除');
-            break; 
+            break;
         case "ResignType":
             $('.nav-basic').addClass('active');
             PageAction('#resigntype', '新建离职类型', '编辑离职类型', '离职类型详情', '创建', '更新', '删除');
@@ -60,12 +64,28 @@ Layout.init = function () {
             PageAction('#absencetype', '新建缺勤类型', '编辑缺勤类型', '缺勤类型详情', '创建', '更新', '删除');
             break;
         case "Certificate":
-            $('.nav-basic').addClass('active');
+            $('.nav-certificate').addClass('active');
             PageAction('#certificate', '新建证照', '编辑证照', '证照详情', '创建', '更新', '删除');
             break;
         case "ExtraWorkType":
-            $('.nav-basic').addClass('active');
+            $('.nav-extraworktype').addClass('active');
             PageAction('#extraworktype', '新建加班类型', '编辑加班类型', '加班类型详情', '创建', '更新', '删除');
+            break;
+        case "AbsenceRecrod":
+            $('.nav-absencerecord').addClass('active');
+            PageAction('#absencerecord', '新建缺勤', '编辑缺勤', '缺勤详情', '创建', '更新', '删除');
+            break;
+        case "ExtraWorkRecord":
+            $('.nav-extrawordrecord').addClass('active');
+            PageAction('#extrawordrecord', '新建加班', '编辑加班', '加班详情', '创建', '更新', '删除');
+            break;
+        case "Shift":
+            $('.nav-shift').addClass('active');
+            PageAction('#shift', '新建班次', '编辑班次', '班次详情', '创建', '更新', '删除');
+            break;
+        case "ShiftSchedule":
+            $('.nav-shift').addClass('active');
+            PageAction('#shiftschedule', '新建排班', '编辑排班', '排班详情', '创建', '更新', '删除');
             break;
         case "TaskRound":
             $('.nav-taskround').addClass('active');
@@ -149,7 +169,7 @@ Layout.TbodyHeight = function (cls, height) {
 Layout.datepicker = function (date_picker) {
     $(date_picker).datetimepicker({
         format: 'Y-m-d',
-        scrollInput:false,
+        scrollInput: false,
         timepicker: false
     });
 }

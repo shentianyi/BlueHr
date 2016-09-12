@@ -140,7 +140,6 @@ namespace BlueHrClient
             {
                 stmp = Convert.ToString(i);
                 nPort = Convert.ToInt32(stmp);
-                //配置
                 BaseConfig.NPort = nPort;
                 if (Syn_OpenPort(nPort) == 0)
                 {
@@ -183,8 +182,6 @@ namespace BlueHrClient
             Syn_SetBornType(2);
             Syn_SetUserLifeBType(2);
             Syn_SetUserLifeEType(2,0);
-        
-
         }
         private void setter_Click(object sender, RoutedEventArgs e)
         {
@@ -289,8 +286,6 @@ namespace BlueHrClient
 
         private bool referForCheck()
         {
-            upDate();
-
             IStaffService staffService = new StaffService(Settings.Default.db);
             Staff staff = staffService.FindByStaffId(ID.Text);
    
@@ -332,7 +327,6 @@ namespace BlueHrClient
                                 msgBlock.Text = "通 过";
                                 msgBlock.Foreground = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#2786E4"));
                                 return true;
-
                             }
                             else
                             {
@@ -386,6 +380,7 @@ namespace BlueHrClient
 
         private string photoToString()
         {
+
             BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
             bitmapImage.StreamSource = System.IO.File.OpenRead(fileNameForUpdate);
@@ -396,8 +391,6 @@ namespace BlueHrClient
             bitmapImage.StreamSource.Read(imageData, 0, imageData.Length);
             //string photoString = System.Text.Encoding.Default.GetString(imageData);
             string photoString = Convert.ToBase64String(imageData);
-
-            MessageBox.Show(photoString);
             return photoString;
         }
     }

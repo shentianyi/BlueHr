@@ -16,6 +16,8 @@ namespace BlueHrLib.Service.Interface
 
         InsureType FindById(int id);
 
+        InsureType FindByName(string name);
+
         bool Create(InsureType title);
 
         bool Update(InsureType title);
@@ -23,5 +25,7 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         InSureTypeInfoModel GetInsureTypeInfo(InSureTypeSearchModel searchModel);
+
+        List<InsureType> GetAll();
     }
 }

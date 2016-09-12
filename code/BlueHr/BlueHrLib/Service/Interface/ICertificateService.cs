@@ -21,5 +21,7 @@ namespace BlueHrLib.Service.Interface
         bool Update(Certificate title);
 
         bool DeleteById(int id);
+
+        List<Certificate> FindByCertificateType(int id);
     }
 }

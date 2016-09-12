@@ -4,6 +4,8 @@ using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Implement;
 using BlueHrLib.Data.Repository.Interface;
 using BlueHrLib.Service.Interface;
+using System.Collections.Generic;
+using System;
 
 namespace BlueHrLib.Service.Implement
 {
@@ -51,6 +53,16 @@ namespace BlueHrLib.Service.Implement
             info.jobTitleCount = dc.Context.GetTable<JobTitle>().Where(c => c.id.Equals(jobTitles.Count() > 0 ? jobTitles.First().id : -1)).Count();
 
             return info;
+        }
+
+        public List<JobTitle> GetAll()
+        {
+            return jobTitleRep.GetAll();
+        }
+
+        public JobTitle FindByName(string name)
+        {
+            return jobTitleRep.FindByName(name);
         }
     }
 }

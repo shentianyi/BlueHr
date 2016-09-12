@@ -1,5 +1,6 @@
 ﻿using BlueHrLib.Data;
 using BlueHrLib.Data.Enum;
+using BlueHrLib.Data.Model.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,10 +92,10 @@ namespace BlueHrLib.Service.Interface
 
         /// 根据类型和是否阅读获取列表
         /// </summary>
-        /// <param name="types"></param>
+        /// <param name="catetory"></param>
         /// <param name="all">true is all, false is unread</param>
         /// <returns></returns>
-        IQueryable<MessageRecordView> GetByTypesAndAllOrUnread(List<MessageRecordType> types, bool all);
+        IQueryable<MessageRecordView> GetByCateAndAllOrUnread(MessageRecordCatetory catetory, bool all,MessageRecordSearchModel searchModel = null);
          
         }
 }

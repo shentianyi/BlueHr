@@ -80,7 +80,12 @@ namespace BlueHrLib.Data.Repository.Implement
             else
             {
                 return false;
-            } 
+            }
+        }
+
+        public List<CertificateType> GetAll()
+        {
+            return this.context.GetTable<CertificateType>().ToList();
         }
     }
-} 
+}

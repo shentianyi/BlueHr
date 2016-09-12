@@ -26,6 +26,14 @@ namespace BlueHrLib.Service.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         StaffType FindById(int id);
+
+        /// <summary>
+        /// 通过 名称查找 人员类别
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        StaffType FindByName(string name);
+
         /// <summary>
         /// 创建部门
         /// </summary>
@@ -46,5 +54,7 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         StaffTypeInfoModel GetStaffTypeInfo(StaffTypeSearchModel searchModel);
+
+        List<StaffType> GetAll();
     }
 }

@@ -74,4 +74,21 @@ INSERT INTO [BlueHr].[dbo].[ExtraWorkType]
 GO
 
 
+-- 建立用户
+
+INSERT INTO [BlueHr].[dbo].[User]
+           ([name]
+           ,[email]
+           ,[pwd]
+           ,[isLocked]
+           ,[role])
+     VALUES
+           ('admin'
+           ,'admin@ci.com'
+           ,'123456@'
+           ,0
+           ,100)
+GO
+
+
 

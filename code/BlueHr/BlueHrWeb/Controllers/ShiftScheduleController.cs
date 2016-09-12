@@ -1,0 +1,295 @@
+﻿using BlueHrLib.Data;
+using BlueHrLib.Data.Message;
+using BlueHrLib.Data.Model.PageViewModel;
+using BlueHrLib.Data.Model.Search;
+using BlueHrLib.Helper;
+using BlueHrLib.Service.Implement;
+using BlueHrLib.Service.Interface;
+using BlueHrWeb.Helpers;
+using BlueHrWeb.Properties;
+using MvcPaging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using BlueHrWeb.CustomAttributes;
+
+namespace BlueHrWeb.Controllers
+{
+    public class ShiftScheduleController : Controller
+    {
+        // GET: ShiftShedule
+        [UserAuthorize]
+        public ActionResult Index(int? page)
+        {
+            int pageIndex = PagingHelper.GetPageIndex(page);
+
+            ShiftScheduleSearchModel q = new ShiftScheduleSearchModel();
+
+            IShiftScheduleService ss = new ShiftSheduleService(Settings.Default.db);
+
+            IPagedList<ShiftSchedule> models = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+
+            ShiftScheduleInfoModel info = ss.GetShiftScheduleInfo(q);
+            ViewBag.Info = info;
+
+            return View(models);
+        }
+
+        public ActionResult Search([Bind(Include = "StaffNr,StaffNrAct,ScheduleAtFrom,ScheduleAtEnd")]  ShiftScheduleSearchModel q)
+        {
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            IShiftScheduleService ss = new ShiftSheduleService(Settings.Default.db);
+
+            IPagedList<ShiftSchedule> models = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+
+            return View("Index", models);
+        }
+
+        // GET: ShiftShedule/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+
+        // GET: ShiftShedule/Create
+        public ActionResult Create()
+        {
+            SetDropDownList(null);
+            return View();
+        }
+
+        // POST: ShiftShedule/Create
+        [HttpPost]
+        public ActionResult Create([Bind(Include = "shiftId,staffNr,scheduleAt")] ShiftSchedule model)
+        {
+            ResultMessage msg = new ResultMessage();
+            try
+            {
+                msg = DoValidation(model);
+
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+                    bool isSucceed = cs.Create(model);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+            //try
+            //{
+            //    // TODO: Add insert logic here 
+
+            //    IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+
+            //    //model.absenceDate = HttpContext.Request.Form["absenceDate"];
+            //    cs.Create(model);
+            //   return RedirectToAction("Index"); 
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
+        }
+
+        // GET: ShiftShedule/Edit/5
+        public ActionResult Edit(int id)
+        {
+
+            IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+
+            ShiftSchedule jt = cs.FindById(id);
+            SetDropDownList(jt);
+            return View(jt);
+        }
+
+        // POST: ShiftShedule/Edit/5
+        [HttpPost]
+        public ActionResult Edit([Bind(Include = "id,shiftId,staffNr,scheduleAt")] ShiftSchedule model)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            try
+            {
+                msg = DoValidation(model);
+
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+                    bool isSucceed = cs.Update(model);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+            //try
+            //{
+            //    // TODO: Add update logic here
+            //    IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+
+            //    bool updateResult = cs.Update(model);
+            //    if (!updateResult)
+            //    {
+            //        SetDropDownList(model);
+            //        return View();
+            //    }
+            //    else
+            //    {
+            //        return RedirectToAction("Index");
+            //    }
+
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
+        }
+
+        // GET: ShiftShedule/Delete/5
+        public ActionResult Delete(int id)
+        {
+            IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+
+            ShiftSchedule cp = cs.FindById(id);
+            SetDropDownList(cp);
+            return View(cp);
+        }
+
+        // POST: ShiftShedule/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+                IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+                cs.DeleteById(id);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        private void SetDropDownList(ShiftSchedule model)
+        {
+            if (model != null)
+            {
+                SetShiftScheduleList(model.shiftId);
+             }
+            else
+            {
+                SetShiftScheduleList(null);
+             }
+        }
+
+        private void SetShiftScheduleList(int? type, bool allowBlank = false)
+        {
+            IShiftService cs = new ShiftService(Settings.Default.db);
+
+            ShiftSearchModel csm = new ShiftSearchModel();
+
+            List<Shift> certType = cs.Search(csm).ToList();
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var certt in certType)
+            {
+                if (type.HasValue && type.ToString().Equals(certt.id))
+                {
+                    select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = false });
+                }
+            }
+            ViewData["shiftList"] = select;
+        }
+
+        [HttpPost]
+        public ResultMessage DoValidation(ShiftSchedule model)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            if (string.IsNullOrEmpty(model.staffNr))
+            {
+                msg.Success = false;
+                msg.Content = "员工不能为空";
+
+                return msg;
+            }
+
+            if ( model.scheduleAt==null)
+            {
+                msg.Success = false;
+                msg.Content = "日期不能为空";
+
+                return msg;
+            }
+
+            if (model.shiftId==0)
+            {
+                msg.Success = false;
+                msg.Content = "班次不能为空";
+
+                return msg;
+            }
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+            if (ss.FindByNr(model.staffNr)==null)
+            {
+                msg.Success = false;
+                msg.Content = "员工号不存在";
+
+                return msg;
+            }
+
+            IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+            if (cs.IsDup(model))
+            {
+                msg.Success = false;
+                msg.Content = "排班已存在，不可重复排班";
+
+                return msg;
+            }
+
+            return new ResultMessage() { Success = true, Content = "" };
+        }
+    }
+}

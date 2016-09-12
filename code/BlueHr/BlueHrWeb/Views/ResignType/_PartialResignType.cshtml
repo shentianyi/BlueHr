@@ -1,39 +1,40 @@
 ﻿@model BlueHrLib.Data.ResignType
 
-    <div id="resigntype" style="margin:10px;">
-        <ol class="breadcrumb current-position">
-            您的位置：
-            <li>@Html.ActionLink("离职类型管理", "Index")</li>
-            <li>{{action}}</li>
-        </ol>
+<div id="resigntype" style="margin:10px;">
+    <ol class="breadcrumb current-position">
+        您的位置：
+        <li>@Html.ActionLink("离职类型管理", "Index")</li>
+        <li>{{action}}</li>
+    </ol>
 
-        <hr class="hr-grey" />
+    <hr class="hr-grey" />
 
-        @using (Html.BeginForm())
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        if (Model != null)
         {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
+        }
 
-            if (Model != null)
-            {
-                @Html.HiddenFor(model => model.id)
-            }
+        <div class="marco-npanel-primary">
+            <div class="marco-nheading">
+                {{action}}
 
-            <div class="marco-npanel-primary">
-                <div class="marco-nheading">
-                    {{action}}
-
-                    <div class="pull-right">
-                        <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;">
-                            <i class="fa fa-check-circle-o"></i>
-                            <span>{{actionBtn}}</span>
-                        </button>
-                    </div>
+                <div class="pull-right">
+                    <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;">
+                        <i class="fa fa-check-circle-o"></i>
+                        <span>{{actionBtn}}</span>
+                    </button>
                 </div>
+            </div>
 
-                <div class="marco-nbody">
+            <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <label for="name">离职类型名称</label>
+                        <label for="name">离职类型名称*</label>
                         @if (Model != null)
                         {
                             @Html.EditorFor(model => model.name)
@@ -43,7 +44,8 @@
                             <input type="text" name="name" placeholder="离职类型名称" />
                         }
                     </div>
-                    @*<div class="marco-nbody row">
+                </div>
+                @*<div class="marco-nbody row">
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-danger">
                                 <span>编码 </span>
@@ -51,9 +53,9 @@
                             </div>
                         </div>
                     </div>*@
-
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <label for="name">编码</label>
+                        <label for="name">编码*</label>
                         @if (Model != null)
                         {
                             @Html.EditorFor(model => model.code)
@@ -63,7 +65,10 @@
                             <input type="text" name="code" placeholder="编码" />
                         }
                     </div>
-
+                </div>
+            </div>
+            <div class="marco-nbody row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="marco-textarea">
                         <label for="remark">备注</label>
                         @if (Model != null)
@@ -77,15 +82,29 @@
                     </div>
                 </div>
             </div>
-        }
-    </div>
+        </div>  
+    }
+</div>
 
-    <script type="text/javascript">
-        Layout.init();
+<script type="text/javascript">
+    Layout.init();
 
-        //控制textarea高度
+    //控制textarea高度
+    $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+    $(window).resize(function () {
         $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
-        $(window).resize(function () {
-            $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
-        });
-    </script>
+    });
+
+    //回调函数
+    function post_return_action(data) {
+
+        if (!data.Success) {
+            Layout.popMsg('popMsg-danger', data.Content);
+            return false;
+        }
+        else {
+
+            location.href = '/ResignType/Index';
+        }
+    }
+</script>

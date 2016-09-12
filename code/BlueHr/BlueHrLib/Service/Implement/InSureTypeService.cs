@@ -56,5 +56,15 @@ namespace BlueHrLib.Service.Implement
 
             return info;  
         }
+
+        public List<InsureType> GetAll()
+        {
+            return inSureTypeRep.GetAll();
+        }
+
+        public InsureType FindByName(string name)
+        {
+            return inSureTypeRep.FindByName(name);
+        }
     }
 }

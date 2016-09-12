@@ -17,10 +17,13 @@ namespace BlueHrLib.Data.Repository.Interface
 
         StaffType FindById(int id);
 
+        StaffType FindByName(string name);
+
         bool Update(StaffType staffType);
 
         bool DeleteById(int id);
 
-        //StaffTypeInfoModel GetJobTitleInfo(StaffTypeSearchModel searchModel);
+        List<StaffType> GetAll();
+        
     }
 }
