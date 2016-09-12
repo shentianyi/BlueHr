@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BlueHrWeb.CustomAttributes;
 
 namespace BlueHrWeb.Controllers
 {
@@ -21,6 +22,7 @@ namespace BlueHrWeb.Controllers
         // GET: MessageRecord
         // allOrUnread: unread/all
         // type: alert/manage/basic/all
+        [UserAuthorize]
         public ActionResult Index(string allOrUnread="unread",int? page=null)
         {
             ViewBag.allOrUnread = allOrUnread;
