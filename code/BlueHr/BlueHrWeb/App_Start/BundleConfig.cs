@@ -8,11 +8,11 @@ namespace BlueHrWeb
         // 有关绑定的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-        //    bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-        //            "~/Scripts/jquery-1.11.2.min.js",
-        //            "~/Scripts/jquery.ui.widget.js",
-        //            "~/Scripts/jquery-ui-1.9.1.custom.min.js"
-        //            ));
+            //    bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+            //            "~/Scripts/jquery-1.11.2.min.js",
+            //            "~/Scripts/jquery.ui.widget.js",
+            //            "~/Scripts/jquery-ui-1.9.1.custom.min.js"
+            //            ));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
@@ -62,6 +62,10 @@ namespace BlueHrWeb
             bundles.Add(new ScriptBundle("~/bundles/certificate").Include(
                 "~/Scripts/certificate.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/magnific-popup").Include(
+                "~/Scripts/magnific-popup/jquery.magnific-popup.js"
+                ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      "~/Content/site.css",
                      "~/Content/bootstrap.css",
@@ -83,6 +87,10 @@ namespace BlueHrWeb
             bundles.Add(new StyleBundle("~/Content/company").Include(
                     "~/Content/company.css"
                 ));
+
+            bundles.Add(new StyleBundle("~/Content/magnific-popup").Include(
+                   "~/Content/magnific-popup.css"
+               ));
         }
     }
 }

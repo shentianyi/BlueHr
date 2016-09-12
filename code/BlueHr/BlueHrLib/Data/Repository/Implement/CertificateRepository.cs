@@ -75,7 +75,7 @@ namespace BlueHrLib.Data.Repository.Implement
             return certf;
         }
 
-        public bool Update(Certificate certf)
+        public bool Update(Certificate certf, string delAtchIds)
         {
             Certificate cp = this.context.GetTable<Certificate>().FirstOrDefault(c => c.id.Equals(certf.id));
 
@@ -87,6 +87,30 @@ namespace BlueHrLib.Data.Repository.Implement
                 cp.effectiveFrom = certf.effectiveFrom;
                 cp.institution = certf.institution;
                 cp.remark = certf.remark;
+
+                //添加附件
+                certf.Attachments.ToList().ForEach(m =>
+                {
+                    cp.Attachments.Add(new Attachment()
+                    {
+                        attachmentAbleId = null,
+                        attachmentAbleType = "",
+                        attachmentType = -1,
+                        certificateId = certf.id,
+                        name = m.name,
+                        path = m.path
+                    }); 
+                }); 
+               
+
+                //删除附件
+                if (!string.IsNullOrEmpty(delAtchIds))
+                {
+                    cp.Attachments.Where(p => delAtchIds.Contains(p.id.ToString())).ToList().ForEach(k =>
+                    {
+                        cp.Attachments.Remove(k);
+                    });
+                }
 
                 this.context.SubmitChanges();
                 return true;

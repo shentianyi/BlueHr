@@ -10,8 +10,8 @@ using System.Linq;
 using System.Text;
 
 namespace BlueHrLib.Service.Implement
-{  
-  public class CertificateService : ServiceBase, ICertificateService
+{
+    public class CertificateService : ServiceBase, ICertificateService
     {
         private ICertificateRepository rep;
 
@@ -40,9 +40,9 @@ namespace BlueHrLib.Service.Implement
             return rep.FindById(id);
         }
 
-        public bool Update(Certificate model)
+        public bool Update(Certificate model, string delAtchIds)
         {
-            return rep.Update(model);
+            return rep.Update(model, delAtchIds);
         }
 
         public CertificateInfoModel GetCertificateInfo(CertificateSearchModel searchModel)
