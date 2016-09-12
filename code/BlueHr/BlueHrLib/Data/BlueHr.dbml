@@ -20,16 +20,6 @@
       <Association Name="AbsenceType_AbsenceRecrod" Member="AbsenceRecrods" ThisKey="id" OtherKey="absenceTypeId" Type="AbsenceRecrod" />
     </Type>
   </Table>
-  <Table Name="dbo.Attachment" Member="Attachment">
-    <Type Name="Attachment">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="attachmentType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="path" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="attachmentAbleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="attachmentAbleType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.AttendanceRecordCal" Member="AttendanceRecordCal">
     <Type Name="AttendanceRecordCal">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -80,6 +70,7 @@
       <Column Name="effectiveEnd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="institution" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Certificate_Attachment" Member="Attachments" ThisKey="id" OtherKey="certificateId" Type="Attachment" />
       <Association Name="CertificateType_Certificate" Member="CertificateType" ThisKey="certificateTypeId" OtherKey="id" Type="CertificateType" IsForeignKey="true" />
       <Association Name="Staff_Certificate" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
     </Type>
@@ -490,6 +481,18 @@
       <Column Name="otReason" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Association Name="ExtraWorkType_ExtraWorkRecord" Member="ExtraWorkType" ThisKey="extraWorkTypeId" OtherKey="id" Type="ExtraWorkType" IsForeignKey="true" />
       <Association Name="Staff_ExtraWorkRecord" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Attachment" Member="Attachments">
+    <Type Name="Attachment">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="attachmentType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="path" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="attachmentAbleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="attachmentAbleType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="certificateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Certificate_Attachment" Member="Certificate" ThisKey="certificateId" OtherKey="id" Type="Certificate" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

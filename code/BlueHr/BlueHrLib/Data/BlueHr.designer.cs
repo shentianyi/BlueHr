@@ -111,6 +111,9 @@ namespace BlueHrLib.Data
     partial void InsertExtraWorkRecord(ExtraWorkRecord instance);
     partial void UpdateExtraWorkRecord(ExtraWorkRecord instance);
     partial void DeleteExtraWorkRecord(ExtraWorkRecord instance);
+    partial void InsertAttachment(Attachment instance);
+    partial void UpdateAttachment(Attachment instance);
+    partial void DeleteAttachment(Attachment instance);
     #endregion
 		
 		public BlueHrDataContext() : 
@@ -156,14 +159,6 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<AbsenceType>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Attachment> Attachment
-		{
-			get
-			{
-				return this.GetTable<Attachment>();
 			}
 		}
 		
@@ -404,6 +399,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<ExtraWorkRecord>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Attachment> Attachments
+		{
+			get
+			{
+				return this.GetTable<Attachment>();
 			}
 		}
 	}
@@ -773,123 +776,6 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.AbsenceType = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Attachment")]
-	public partial class Attachment
-	{
-		
-		private int _id;
-		
-		private string _name;
-		
-		private int _attachmentType;
-		
-		private string _path;
-		
-		private System.Nullable<int> _attachmentAbleId;
-		
-		private string _attachmentAbleType;
-		
-		public Attachment()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this._id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this._name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_attachmentType", DbType="Int NOT NULL")]
-		public int attachmentType
-		{
-			get
-			{
-				return this._attachmentType;
-			}
-			set
-			{
-				if ((this._attachmentType != value))
-				{
-					this._attachmentType = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_path", DbType="VarChar(200)")]
-		public string path
-		{
-			get
-			{
-				return this._path;
-			}
-			set
-			{
-				if ((this._path != value))
-				{
-					this._path = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_attachmentAbleId", DbType="Int")]
-		public System.Nullable<int> attachmentAbleId
-		{
-			get
-			{
-				return this._attachmentAbleId;
-			}
-			set
-			{
-				if ((this._attachmentAbleId != value))
-				{
-					this._attachmentAbleId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_attachmentAbleType", DbType="VarChar(50)")]
-		public string attachmentAbleType
-		{
-			get
-			{
-				return this._attachmentAbleType;
-			}
-			set
-			{
-				if ((this._attachmentAbleType != value))
-				{
-					this._attachmentAbleType = value;
-				}
-			}
 		}
 	}
 	
@@ -1752,6 +1638,8 @@ namespace BlueHrLib.Data
 		
 		private string _remark;
 		
+		private EntitySet<Attachment> _Attachments;
+		
 		private EntityRef<CertificateType> _CertificateType;
 		
 		private EntityRef<Staff> _Staff;
@@ -1780,6 +1668,7 @@ namespace BlueHrLib.Data
 		
 		public Certificate()
 		{
+			this._Attachments = new EntitySet<Attachment>(new Action<Attachment>(this.attach_Attachments), new Action<Attachment>(this.detach_Attachments));
 			this._CertificateType = default(EntityRef<CertificateType>);
 			this._Staff = default(EntityRef<Staff>);
 			OnCreated();
@@ -1953,6 +1842,19 @@ namespace BlueHrLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Certificate_Attachment", Storage="_Attachments", ThisKey="id", OtherKey="certificateId")]
+		public EntitySet<Attachment> Attachments
+		{
+			get
+			{
+				return this._Attachments;
+			}
+			set
+			{
+				this._Attachments.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CertificateType_Certificate", Storage="_CertificateType", ThisKey="certificateTypeId", OtherKey="id", IsForeignKey=true)]
 		public CertificateType CertificateType
 		{
@@ -2039,6 +1941,18 @@ namespace BlueHrLib.Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Attachments(Attachment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Certificate = this;
+		}
+		
+		private void detach_Attachments(Attachment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Certificate = null;
 		}
 	}
 	
@@ -9863,6 +9777,253 @@ namespace BlueHrLib.Data
 						this._staffNr = default(string);
 					}
 					this.SendPropertyChanged("Staff");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Attachment")]
+	public partial class Attachment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _name;
+		
+		private int _attachmentType;
+		
+		private string _path;
+		
+		private System.Nullable<int> _attachmentAbleId;
+		
+		private string _attachmentAbleType;
+		
+		private System.Nullable<int> _certificateId;
+		
+		private EntityRef<Certificate> _Certificate;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnattachmentTypeChanging(int value);
+    partial void OnattachmentTypeChanged();
+    partial void OnpathChanging(string value);
+    partial void OnpathChanged();
+    partial void OnattachmentAbleIdChanging(System.Nullable<int> value);
+    partial void OnattachmentAbleIdChanged();
+    partial void OnattachmentAbleTypeChanging(string value);
+    partial void OnattachmentAbleTypeChanged();
+    partial void OncertificateIdChanging(System.Nullable<int> value);
+    partial void OncertificateIdChanged();
+    #endregion
+		
+		public Attachment()
+		{
+			this._Certificate = default(EntityRef<Certificate>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_attachmentType", DbType="Int NOT NULL")]
+		public int attachmentType
+		{
+			get
+			{
+				return this._attachmentType;
+			}
+			set
+			{
+				if ((this._attachmentType != value))
+				{
+					this.OnattachmentTypeChanging(value);
+					this.SendPropertyChanging();
+					this._attachmentType = value;
+					this.SendPropertyChanged("attachmentType");
+					this.OnattachmentTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_path", DbType="VarChar(200)")]
+		public string path
+		{
+			get
+			{
+				return this._path;
+			}
+			set
+			{
+				if ((this._path != value))
+				{
+					this.OnpathChanging(value);
+					this.SendPropertyChanging();
+					this._path = value;
+					this.SendPropertyChanged("path");
+					this.OnpathChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_attachmentAbleId", DbType="Int")]
+		public System.Nullable<int> attachmentAbleId
+		{
+			get
+			{
+				return this._attachmentAbleId;
+			}
+			set
+			{
+				if ((this._attachmentAbleId != value))
+				{
+					this.OnattachmentAbleIdChanging(value);
+					this.SendPropertyChanging();
+					this._attachmentAbleId = value;
+					this.SendPropertyChanged("attachmentAbleId");
+					this.OnattachmentAbleIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_attachmentAbleType", DbType="VarChar(50)")]
+		public string attachmentAbleType
+		{
+			get
+			{
+				return this._attachmentAbleType;
+			}
+			set
+			{
+				if ((this._attachmentAbleType != value))
+				{
+					this.OnattachmentAbleTypeChanging(value);
+					this.SendPropertyChanging();
+					this._attachmentAbleType = value;
+					this.SendPropertyChanged("attachmentAbleType");
+					this.OnattachmentAbleTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_certificateId", DbType="Int")]
+		public System.Nullable<int> certificateId
+		{
+			get
+			{
+				return this._certificateId;
+			}
+			set
+			{
+				if ((this._certificateId != value))
+				{
+					if (this._Certificate.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OncertificateIdChanging(value);
+					this.SendPropertyChanging();
+					this._certificateId = value;
+					this.SendPropertyChanged("certificateId");
+					this.OncertificateIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Certificate_Attachment", Storage="_Certificate", ThisKey="certificateId", OtherKey="id", IsForeignKey=true)]
+		public Certificate Certificate
+		{
+			get
+			{
+				return this._Certificate.Entity;
+			}
+			set
+			{
+				Certificate previousValue = this._Certificate.Entity;
+				if (((previousValue != value) 
+							|| (this._Certificate.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Certificate.Entity = null;
+						previousValue.Attachments.Remove(this);
+					}
+					this._Certificate.Entity = value;
+					if ((value != null))
+					{
+						value.Attachments.Add(this);
+						this._certificateId = value.id;
+					}
+					else
+					{
+						this._certificateId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Certificate");
 				}
 			}
 		}

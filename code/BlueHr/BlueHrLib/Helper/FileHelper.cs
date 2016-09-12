@@ -10,6 +10,7 @@ namespace BlueHrLib.Helper
     {
         public const string TMP_FILE_DIR = "TmpFile";
         public const string UPLOAD_IMAGE = "UploadImage";
+        public const string UPLOAD_CERTIFICATE = "UploadCertificate";
         public const string EMAIL_TEMPLATE_PATH = "EmailTemplate";
         public const string ATT_WARN_EMAIL_TEMPLATE_NAME = "AttendanceWarn.html";
 
@@ -18,7 +19,7 @@ namespace BlueHrLib.Helper
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public static string CreateFullTmpFilePath(string fileName,bool isErrorFile=false)
+        public static string CreateFullTmpFilePath(string fileName, bool isErrorFile = false)
         {
             string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TMP_FILE_DIR);
             if (!Directory.Exists(dir))
@@ -34,13 +35,33 @@ namespace BlueHrLib.Helper
             {
                 return Path.Combine(dir,
                   DateTime.Now.ToString("yyyyMMddHHmmss") + "_错误文件_" + Guid.NewGuid().ToString() + Path.GetExtension(fileName));
-            
+
             }
         }
 
         public static string CreateFullUPloadImageFilePath(string fileName, bool isErrorFile = false)
         {
             string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UPLOAD_IMAGE);
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+            if (!isErrorFile)
+            {
+                return Path.Combine(dir,
+                   DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + (fileName.Length > 30 ? fileName.Substring(0, 30) + Path.GetExtension(fileName) : fileName));
+            }
+            else
+            {
+                return Path.Combine(dir,
+                  DateTime.Now.ToString("yyyyMMddHHmmss") + "_错误文件_" + Guid.NewGuid().ToString() + Path.GetExtension(fileName));
+
+            }
+        }
+
+        public static string CreateFullUPloadFilePathForCertificate(string fileName, string staffNr, bool isErrorFile = false)
+        {
+            string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UPLOAD_CERTIFICATE) + "\\" + staffNr;
             if (!Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
@@ -80,7 +101,7 @@ namespace BlueHrLib.Helper
         /// <returns></returns>
         public static string GetDownloadTmpFilePath(string fullPath)
         {
-            return Path.Combine("/",TMP_FILE_DIR, Path.GetFileName(fullPath));
+            return Path.Combine("/", TMP_FILE_DIR, Path.GetFileName(fullPath));
         }
     }
 }

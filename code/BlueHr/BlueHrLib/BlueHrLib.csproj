@@ -103,6 +103,7 @@
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
     <Compile Include="Data\Model\PageViewModel\AbsenceRecrodInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\AbsenceTypeInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\AttachmentInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\CertificateInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\CertificateTypeInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\DegreeTypeInfoModel.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Data\Model\PageViewModel\StaffTypeInfoModel.cs" />
     <Compile Include="Data\Model\Search\AbsenceRecrodSearchModel.cs" />
     <Compile Include="Data\Model\Search\AbsenceTypeSearchModel.cs" />
+    <Compile Include="Data\Model\Search\AttachmentSearchModel.cs" />
     <Compile Include="Data\Model\Search\AttendanceRecordCalSearchModel.cs" />
     <Compile Include="Data\Model\Search\BankCardSearchModel.cs" />
     <Compile Include="Data\Model\Search\CertificateSearchModel.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="Data\Model\Search\ShiftSearchModel.cs" />
     <Compile Include="Data\Model\Search\ShiftScheduleSearchModel.cs" />
     <Compile Include="Data\Repository\Implement\AbsenceRecrodRepository.cs" />
+    <Compile Include="Data\Repository\Implement\AttachmentRepository.cs" />
     <Compile Include="Data\Repository\Implement\CertificateRepository.cs" />
     <Compile Include="Data\Repository\Implement\ExtraWorkRecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\MessageRecordRepository.cs" />
@@ -142,6 +145,7 @@
     <Compile Include="Data\Repository\Implement\ShiftScheduleRepository.cs" />
     <Compile Include="Data\Repository\Implement\TaskRoundRepository.cs" />
     <Compile Include="Data\Repository\Interface\IAbsenceRecrodRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IAttachmentRepository.cs" />
     <Compile Include="Data\Repository\Interface\ICertificateRepository.cs" />
     <Compile Include="Data\Repository\Interface\IExtraWorkRecordRepository.cs" />
     <Compile Include="Data\Repository\Interface\IMessageRecordRepository.cs" />
@@ -216,6 +220,7 @@
     </Compile>
     <Compile Include="Service\Implement\AbsenceRecordService.cs" />
     <Compile Include="Service\Implement\AbsenceTypeService.cs" />
+    <Compile Include="Service\Implement\AttachmentService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordCalService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordDetailService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordService.cs" />
@@ -241,6 +246,7 @@
     <Compile Include="Service\Implement\DepartmentService.cs" />
     <Compile Include="Service\Implement\StaffService.cs" />
     <Compile Include="Service\Interface\IAbsenceRecordService.cs" />
+    <Compile Include="Service\Interface\IAttachmentService.cs" />
     <Compile Include="Service\Interface\ICertificateService.cs" />
     <Compile Include="Service\Interface\IExtraWorkRecordService.cs" />
     <Compile Include="Service\Interface\IExtraWorkTypeService.cs" />
