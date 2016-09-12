@@ -2,7 +2,7 @@
 
 Certificate.image_upload = function (idStr, format, callback) {
     var valid = true;
-    var reg = /(\.|\/)(jpg|png|gif)$/i;
+    var reg = /(\.|\/)(jpg|png|jpeg|bmp|gif|txt|pdf|docx|doc|xls|xlsx)$/i;
     if (format != null) {
         if (format != false) {
             reg = new RegExp('(\.|\/)(' + format + ')$', 'i');
@@ -15,7 +15,7 @@ Certificate.image_upload = function (idStr, format, callback) {
         url: '/Certificate/UploadImage',
         type: 'post',
         singleFileUploads: false,
-        acceptFileTypes: /(\.|\/)(jpg|png|gif)$/i,
+        acceptFileTypes: /(\.|\/)(jpg|png|jpeg|bmp|gif|txt|pdf|docx|doc|xls|xlsx)$/i,
         dataType: 'json',
         change: function (e, data) {
             valid = true;
@@ -24,45 +24,30 @@ Certificate.image_upload = function (idStr, format, callback) {
                 if (reg) {
                     if (!reg.test(file.name)) {
                         msg = '格式错误';
-                        alert(msg);
+                        Layout.popMsg('popMsg-danger', msg);
                         valid = false;
                         return;
                     }
-                    //show_handle_dialog();
                 }
-
-                $('#photoName').html(file.name);
             });
         },
+
         add: function (e, data) {
             if (valid)
                 if (data.submit != null)
                     data.submit();
         },
-        //add: function (e, data) {
-        //    data.context = $('<button/>').text('Upload')
-        //        .appendTo(document.body)
-        //        .click(function () {
-        //            $(this).replaceWith($('<p/>').text('Uploading...'));
-        //            data.submit();
-        //        });
-        //},
+
         beforeSend: function (xhr) {
             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
         },
+
         success: function (data) {
-
-            console.log(data);
-
-            Certificate.AddTmpAttachment(data.Content, "111", "1");
-
             if (callback) {
                 callback(data);
-                //hide_handle_dialog();
             } else {
-                //hide_handle_dialog();
                 if (data.Success) {
-                    $('#photo').val(data.Content);
+                    Certificate.AddTmpAttachment(data.Content, "", "");
                 } else {
                     if (data.ErrorFileFeed) {
                         console.log("上传失败" + data.Content)
@@ -72,17 +57,18 @@ Certificate.image_upload = function (idStr, format, callback) {
                 }
             }
         },
+
         done: function (e, data) {
         },
 
         //显示上传进度条
-        progressall: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .bar').css(
-                'width',
-                progress + '%'
-            );
-        },
+        //progressall: function (e, data) {
+        //    var progress = parseInt(data.loaded / data.total * 100, 10);
+        //    $('#progress .bar').css(
+        //        'width',
+        //        progress + '%'
+        //    );
+        //},
 
         formData: {
             'staffNr': this.staffNr
@@ -96,7 +82,6 @@ Certificate.staffNr = "";
 Certificate.getQueryStringByName = function (name) {
 
     var result = location.search.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "i"));
-
     if (result == null || result.length < 1) {
         return "";
     }
@@ -104,24 +89,27 @@ Certificate.getQueryStringByName = function (name) {
     return result[1];
 }
 
-Certificate.AddTmpAttachment = function (attachmentName, attachmentPath, attachmentId) {
+//添加上传文件到文件列表
+Certificate.AddTmpAttachment = function (atchName, atchPath, atchId) {
+
+    var showAtchName = atchName.split('|').length > 0 ? atchName.split('|')[0] : "";
 
     var Html = "";
 
-    //http://localhost:15675/UploadCertificate/
     Html += "<tr>";
-    Html += '<td><a id="' + attachmentName + '">' + attachmentName + '</a></td>';
-    Html += '<td class="option-icon-primary"><i class="fa-download" id="' + attachmentId + '" style="margin-top:3px;"></i></td>';
-    Html += '<td class="option-icon-danger"><i class="fa fa-close remove-family" id="' + attachmentId + '" style="margin-top:3px;"></i></td>';
+    Html += '<td><a id="' + showAtchName + '">' + showAtchName + '</a></td>';
+    Html += '<td class="option-icon-primary"><i class="fa-download" id="' + atchId + '" style="margin-top:3px;"></i></td>';
+    Html += '<td class="option-icon-danger"><i class="fa fa-close remove-family" id="' + atchId + '" style="margin-top:3px;"></i></td>';
     Html += '</tr>';
 
     $(Html).prependTo('.tbody-family');
 
-    Certificate.FillHiddenInput(attachmentName);
+    Certificate.FillHiddenInput(atchName);
 }
 
-Certificate.FillHiddenInput = function (attachmentName) {
+//上传文件的路径list
+Certificate.FillHiddenInput = function (atchName) {
     var theName = $("#athment").val();
-    theName += attachmentName + ";";
+    theName += atchName + ";";
     $("#athment").val(theName);
 }
