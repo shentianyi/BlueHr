@@ -64,7 +64,7 @@ Layout.init = function () {
             PageAction('#absencetype', '新建缺勤类型', '编辑缺勤类型', '缺勤类型详情', '创建', '更新', '删除');
             break;
         case "Certificate":
-            $('.nav-basic').addClass('active');
+            $('.nav-certificate').addClass('active');
             PageAction('#certificate', '新建证照', '编辑证照', '证照详情', '创建', '更新', '删除');
             break;
         case "ExtraWorkType":
@@ -72,19 +72,19 @@ Layout.init = function () {
             PageAction('#extraworktype', '新建加班类型', '编辑加班类型', '加班类型详情', '创建', '更新', '删除');
             break;
         case "AbsenceRecrod":
-            $('.nav-basic').addClass('active');
+            $('.nav-absencerecrod').addClass('active');
             PageAction('#absencerecord', '新建缺勤', '编辑缺勤', '缺勤详情', '创建', '更新', '删除');
             break;
         case "ExtraWorkRecord":
-            $('.nav-basic').addClass('active');
+            $('.nav-extraworkrecord').addClass('active');
             PageAction('#extrawordrecord', '新建加班', '编辑加班', '加班详情', '创建', '更新', '删除');
             break;
         case "Shift":
-            $('.nav-basic').addClass('active');
+            $('.nav-shift').addClass('active');
             PageAction('#shift', '新建班次', '编辑班次', '班次详情', '创建', '更新', '删除');
             break;
         case "ShiftSchedule":
-            $('.nav-basic').addClass('active');
+            $('.nav-shift').addClass('active');
             PageAction('#shiftschedule', '新建排班', '编辑排班', '排班详情', '创建', '更新', '删除');
             break;
         case "TaskRound":

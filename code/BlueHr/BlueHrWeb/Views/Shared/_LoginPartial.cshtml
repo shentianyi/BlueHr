@@ -3,7 +3,6 @@
 
 @if (Session["user"] != null)
 {
-  
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <span class="hidden-xs">
@@ -16,16 +15,15 @@
             <ul class="dropdown-menu">
                 @*设置登出样式*@
 
-                <li>
+                <li style="margin: 10px;">
                     @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                     {
-                    @Html.AntiForgeryToken()
+                        @Html.AntiForgeryToken()
 
-
-                    <a href="javascript:document.getElementById('logoutForm').submit()" style="color:#c0392b;">
-                        <i class="fa fa-power-off"></i>
-                        注销
-                    </a>
+                        <a href="javascript:document.getElementById('logoutForm').submit()" style="color:#c0392b;">
+                            <i class="fa fa-power-off"></i>
+                            <span style="margin-left:10px;"> 注销 </span>
+                        </a>
                     }
                 </li>
             </ul>
@@ -35,6 +33,6 @@
 else
 {
     <li class="dropdown">
-       <li>@Html.ActionLink("登录", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+       @Html.ActionLink("登录", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
    </li>
 }
