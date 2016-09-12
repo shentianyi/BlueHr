@@ -10,16 +10,7 @@
 </ol>
 
 <hr class="hr-grey" />
-<div style="margin-left:20px;">
-    <h4 class="h4">* 考勤任务设置</h4>
-</div>
 
-
-
-<hr class="hr-grey" />
-<div style="margin-left:20px;">
-    <h4 class="h4">* 基本设置</h4>
-</div>
 @using (Ajax.BeginForm(new AjaxOptions {  HttpMethod = "Post", Url="/SystemSetting/UpdateBasic", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
 {
     @Html.AntiForgeryToken()
