@@ -1,4 +1,7 @@
 ﻿@model BlueHrLib.Data.Certificate
+
+@Styles.Render("~/Content/magnific-popup")
+
 <div id="certificate" style="margin:10px;">
     <ol class="breadcrumb current-position">
         您的位置：
@@ -102,15 +105,36 @@
                         <tbody class="tbody-family">
                             @if (Model != null)
                             {
+                                List<string> imgTypes = new List<string>() { ".jpg", ".png", ".jpeg", ".bmp", ".gif" };
+
                                 foreach (var attachment in Model.Attachments)
                                 {
                                     <tr>
-                                        <td><a href="http://localhost:15675/@attachment.path" id="@attachment.id">@attachment.name</a></td>
-                                        <td class="option-icon-primary"><i class='fa fa-download' id="@attachment.id" style='margin-top:3px;'></i></td>
-                                        <td class="option-icon-danger"><i class='fa fa-close remove-family' id="@attachment.id" style='margin-top:3px;'></i></td>
+                                        @{var imgExtension = attachment.name.Remove(0, attachment.name.LastIndexOf("."));
+
+                                            if (imgTypes.Contains(imgExtension))
+                                            {
+                                                <td>
+                                                    <a class="img-popup-link" href="@attachment.path" id="@attachment.id">@attachment.name</a>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <a href="/Certificate/DownFile?fileName=@attachment.name&filePath=@attachment.path">@attachment.name</a>
+                                                </td>
+                                            }
+                                        } 
+
+                                        <td class="option-icon-primary">
+                                            <a href="/Certificate/DownFile?fileName=@attachment.name&filePath=@attachment.path">
+                                                <i class='fa fa-download option-icon-primary' id="atch_@attachment.id" style='margin-top:3px;'></i>
+                                            </a>
+                                            <i class='fa fa-close option-icon-danger' id="atch_@attachment.id" style='margin-top:3px;' onclick="Certificate.deleteAtch('@attachment.id','@attachment.name')"></i>
+                                        </td>
                                     </tr>
-                                }
-                            }
+                                                }
+                                            }
                         </tbody>
                     </table>
                 </div>
@@ -119,10 +143,15 @@
 
         <input type="hidden" id="athment" name="athment" />
         <input type="hidden" id="staffNr" name="staffNr" />
-    }
+        <input type="hidden" id="atchDelIds" name="atchDelIds" />
+                                            }
 </div>
 
+@*onclick="Certificate.downloadAtch('@attachment.id','@attachment.name','@attachment.path')"*@
+
 @Scripts.Render("~/bundles/certificate")
+@Scripts.Render("~/bundles/magnific-popup")
+
 <style type="text/css">
     .bar {
         height: 18px;
@@ -135,6 +164,10 @@
     $("#staffNr").val(Certificate.staffNr);
     Certificate.image_upload('#certificateUpload');
 
+    //初始化数据为空
+    $("#athment").val("");
+    $("#atchDelIds").val("");
+
     //控制textarea高度
     $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     $(window).resize(function () {
@@ -143,6 +176,13 @@
 
     Layout.rangedatepicker('.date-start-picker', '.date-end-picker');
     Layout.datepicker('.date-picker');
+
+    $(function ($) {
+        $('.img-popup-link').magnificPopup({
+            type: 'image'
+            // other options
+        });
+    });
 
     //回调函数
     function post_return_action(data) {

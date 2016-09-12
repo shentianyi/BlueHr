@@ -13,6 +13,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BlueHrWeb.CustomAttributes;
+using System.IO;
 
 namespace BlueHrWeb.Controllers
 {
@@ -98,15 +99,20 @@ namespace BlueHrWeb.Controllers
 
                     theAttachments.Split(new Char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
                     {
-                        model.Attachments.Add(new Attachment()
+                        var tmpNames = p.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        if (tmpNames.Length > 0)
                         {
-                            attachmentAbleId = null,
-                            attachmentType = -1,
-                            certificateId = model.id,
-                            attachmentAbleType = "",
-                            name = p.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries)[0],
-                            path = "/UploadCertificate/" + model.staffNr + "/" + p.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries)[1]
-                        });
+                            model.Attachments.Add(new Attachment()
+                            {
+                                attachmentAbleId = null,
+                                attachmentType = -1,
+                                certificateId = model.id,
+                                attachmentAbleType = "", 
+                                name = tmpNames[0], 
+                                path = "/UploadCertificate/" + model.staffNr + "/" + tmpNames[1]
+                            });
+                        }
                     });
 
                     bool isSucceed = cs.Create(model);
@@ -167,7 +173,10 @@ namespace BlueHrWeb.Controllers
                         });
                     });
 
-                    bool isSucceed = cs.Update(model);
+                    //删除文件
+                    string atchDelIds = this.HttpContext.Request.Form["atchDelIds"];
+
+                    bool isSucceed = cs.Update(model, atchDelIds);
 
                     msg.Success = isSucceed;
                     msg.Content = isSucceed ? "" : "更新失败";
@@ -194,32 +203,18 @@ namespace BlueHrWeb.Controllers
         // POST: Certificate/Delete/5
         [HttpPost]
         public JsonResult Delete(int id, FormCollection collection)
-        {  
+        {
             ResultMessage msg = new ResultMessage();
 
             try
             {
+                ICertificateService cs = new CertificateService(Settings.Default.db);
+                bool isSucceed = cs.DeleteById(id);
 
-                //IAbsenceRecordService shfSi = new AbsenceRecordService(Settings.Default.db);
-                //List<AbsenceRecrod> shf = shfSi.FindByAbsenceType(id);
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "" : "删除失败";
 
-                //if (null != shf && shf.Count() > 0)
-                //{
-                //    msg.Success = false;
-                //    msg.Content = "缺勤类型正在使用,不能删除!";
-
-                //    return Json(msg, JsonRequestBehavior.AllowGet);
-                //}
-                //else
-                {
-                    ICertificateService cs = new CertificateService(Settings.Default.db);
-                    bool isSucceed = cs.DeleteById(id);
-
-                    msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "删除失败";
-
-                    return Json(msg, JsonRequestBehavior.AllowGet);
-                }
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -280,24 +275,31 @@ namespace BlueHrWeb.Controllers
             ResultMessage msg = new ResultMessage() { Success = true };
             msg.Content = orginFileName + "|" + fileName;
 
-
-
-
-
-            //AddAttachmentRecord(staffNr, fileName);
-
             //防止IE直接下载json数据
             return Json(msg, "text/html");
         }
 
+        public ActionResult DownFile(string fileName, string filePath)
+        {
+            filePath = Server.MapPath(filePath);
+            FileStream fs = new FileStream(filePath, FileMode.Open);
+            byte[] bytes = new byte[(int)fs.Length];
+            fs.Read(bytes, 0, bytes.Length);
+            fs.Close();
+            Response.Charset = "UTF-8";
+            Response.ContentEncoding = System.Text.Encoding.GetEncoding("UTF-8");
+            Response.ContentType = "application/octet-stream";
+
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + Server.UrlEncode(fileName));
+            Response.BinaryWrite(bytes);
+            Response.Flush();
+            Response.End();
+            return new EmptyResult();
+
+        }
+
         [HttpPost]
-        //[staffNr]--编号
-        //[certificateTypeId]--•	证照类别（选择，不可空）
-        //[certiLevel]--•	级别（输入，可空）
-        //[effectiveFrom]--•	开始有效期（选择，日期，可空）
-        //[effectiveEnd]--•	截止有效期（选择，日期，可空）
-        //[institution]--•	发证单位（输入，可空），
-        //[remark]--•	备注（输入，可空）
+        //证照类别（选择，不可空）
         public ResultMessage DoValidation(Certificate model)
         {
             ResultMessage msg = new ResultMessage();
@@ -350,34 +352,5 @@ namespace BlueHrWeb.Controllers
 
             return new ResultMessage() { Success = true, Content = "" };
         }
-
-        //public bool AddAttachmentRecord(string staffNr, string fileName)
-        //{
-        //    Attachment attach = new Attachment();
-        //    attach.attachmentAbleId = null;
-        //    attach.attachmentAbleType = "";
-        //    attach.attachmentType = 1;
-        //    attach.certificateId = -1;
-        //    attach.name = fileName;
-        //    attach.path = staffNr + fileName;
-
-        //    //IAttachmentService si = new AttachmentService(Settings.Default.db);
-
-        //    //bool isSucceed = si.Create(attach);
-
-        //    return isSucceed;
-        //}
-
-        //public Certificate CreateTempRecord(string staffNr)
-        //{
-        //    Certificate ct = new Certificate();
-        //    ct.certificateTypeId = -1;
-        //    ct.certiLevel = 1;
-        //    ct.effectiveEnd = DateTime.Now;
-        //    ct.effectiveFrom = DateTime.Now;
-        //    ct.institution = "";
-        //    ct.remark = "";
-        //    ct.staffNr = staffNr;
-        //}
     }
 }
