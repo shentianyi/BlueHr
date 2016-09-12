@@ -57,7 +57,6 @@ namespace BlueHrLib.Service.Implement
                     operatorId = operatorId,
                     isRead = false,
                     isHandled = false,
-                    isUrl = isUrl,
                     uniqString = uniqString
                 };
                 dc.Context.GetTable<MessageRecord>().InsertOnSubmit(record);

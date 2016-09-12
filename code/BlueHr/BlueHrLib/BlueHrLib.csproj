@@ -89,6 +89,7 @@
     <Compile Include="Data\Enum\CronJobType.cs" />
     <Compile Include="Data\Enum\EnumItem.cs" />
     <Compile Include="Data\Enum\MessageRecordType.cs" />
+    <Compile Include="Data\Enum\RoleType.cs" />
     <Compile Include="Data\Enum\ShiftType.cs" />
     <Compile Include="Data\Enum\SystemCertificateType.cs" />
     <Compile Include="Data\Enum\StaffEnum.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="Service\Implement\AttendanceRecordCalService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordDetailService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordService.cs" />
+    <Compile Include="Service\Implement\UserService.cs" />
     <Compile Include="Service\Implement\CertificateService.cs" />
     <Compile Include="Service\Implement\CertificateTypeService.cs" />
     <Compile Include="Service\Implement\CompanyService.cs" />
@@ -265,6 +267,7 @@
     <Compile Include="Service\Interface\IStaffTypeService.cs" />
     <Compile Include="Service\Interface\IJobTitleService.cs" />
     <Compile Include="Service\Interface\IStaffService.cs" />
+    <Compile Include="Service\Interface\IUserService.cs" />
     <Compile Include="Service\ServiceBase.cs" />
   </ItemGroup>
   <ItemGroup>

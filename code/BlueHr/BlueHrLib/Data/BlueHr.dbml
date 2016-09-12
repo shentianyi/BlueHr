@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHr" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=120.24.169.31;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString6" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=WANGSONG-PC\MSSQLSERVER2008R;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString3" Provider="System.Data.SqlClient" />
   <Table Name="dbo.TaskRound" Member="TaskRound">
     <Type Name="TaskRound">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -181,21 +181,6 @@
       <Association Name="JobTitle_Staff" Member="Staff" ThisKey="id" OtherKey="jobTitleId" Type="Staff" />
     </Type>
   </Table>
-  <Table Name="dbo.MessageRecord" Member="MessageRecord">
-    <Type Name="MessageRecord">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="staffNr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="operatorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="messageType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="text" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="isRead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="isHandled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="isUrl" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="url" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="uniqString" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.QuartzJob" Member="QuartzJob">
     <Type Name="QuartzJob">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -294,24 +279,6 @@
       <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="fullStartAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="fullEndAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.MessageRecordView" Member="MessageRecordView">
-    <Type Name="MessageRecordView">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="staffNr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="operatorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="messageType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="text" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="isRead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="isHandled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="isUrl" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="url" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="uniqString" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="operatorName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="operatorEmail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="staffName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Staff" Member="Staff">
@@ -490,6 +457,47 @@
       <Column Name="otReason" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Association Name="ExtraWorkType_ExtraWorkRecord" Member="ExtraWorkType" ThisKey="extraWorkTypeId" OtherKey="id" Type="ExtraWorkType" IsForeignKey="true" />
       <Association Name="Staff_ExtraWorkRecord" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MessageRecord" Member="MessageRecord">
+    <Type Name="MessageRecord">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="operatorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="messageType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="text" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="isRead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isHandled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="uniqString" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="messageCategory" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MessageRecordView" Member="MessageRecordView">
+    <Type Name="MessageRecordView">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="operatorId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="messageType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="text" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="isRead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isHandled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="messageCategory" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="uniqString" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="operatorName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="operatorEmail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="staffName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="User">
+    <Type Name="User">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="pwd" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="isLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="role" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

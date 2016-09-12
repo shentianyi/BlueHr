@@ -265,10 +265,12 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StaffTypeController.cs" />
     <Compile Include="Controllers\TaskRoundController.cs" />
+    <Compile Include="CustomAttributes\UserAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="CustomAttributes\AdminAuthorizeAttribute.cs" />
     <Compile Include="Models\MessageCategory.cs" />
     <Compile Include="Helpers\PagingHelper.cs" />
     <Compile Include="Helpers\View\PartialViewHelper.cs" />

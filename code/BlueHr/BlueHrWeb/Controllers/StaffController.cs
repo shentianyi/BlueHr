@@ -6,6 +6,7 @@ using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Helper;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
+using BlueHrWeb.CustomAttributes;
 using BlueHrWeb.Helpers;
 using BlueHrWeb.Properties;
 using MvcPaging;
@@ -24,6 +25,7 @@ namespace BlueHrWeb.Controllers
     public class StaffController : Controller
     {
         // GET: Company
+        [AdminAuthorize]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
