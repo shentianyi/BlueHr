@@ -31,7 +31,7 @@
                         <th>姓名</th>
                         <th>邮箱地址</th>
                         <th>角色</th>
-                        <th>是否锁定</th>
+                        <th>锁定状态</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -55,7 +55,14 @@
                                     @Html.DisplayFor(modelItem => item.roleStr)
                                 </td>
                                  <td>
-                                    @Html.DisplayFor(modelItem => item.isLockedStr)
+                                     @if (item.isLocked.Value)
+                                     {
+                                             <i class="fa fa-lock"></i>
+                                     }
+                                     else
+                                     {
+                                             <i class="fa fa-unlock"></i>
+                                     }
                                 </td>
                                 <td>
                                     <a href="/User/Delete/@item.id" class="option-icon-primary" title="详情">
@@ -63,9 +70,20 @@
                                     </a>
                                     <a href="/User/Edit/@item.id" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
-                                    </a><a href="#" class="option-icon-danger" title="锁定/解锁" onclick="lock(@item.id)">
-    <i class="fa fa-lock"></i>
+                                    </a>
+                                    @if (item.isLocked.Value)
+                                    {
+                                    <a href="#" class="option-icon-danger" title="解锁" onclick="lock(@item.id)">
+    <i class="fa fa-unlock"></i>
 </a>
+                                    }
+                                    else
+                                    {
+
+                                        <a href="#" class="option-icon-danger" title="锁定" onclick="lock(@item.id)">
+                                            <i class="fa fa-lock"></i>
+                                        </a>
+                                    }
                                 </td>
                             </tr>
                         }
