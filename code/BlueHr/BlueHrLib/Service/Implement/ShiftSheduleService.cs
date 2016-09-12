@@ -112,5 +112,13 @@ namespace BlueHrLib.Service.Implement
 
             return m != null;
         }
+
+        public bool Creates(List<ShiftSchedule> records)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            dc.Context.GetTable<ShiftSchedule>().InsertAllOnSubmit(records);
+            dc.Context.SubmitChanges();
+            return true;
+        }
     }
 }

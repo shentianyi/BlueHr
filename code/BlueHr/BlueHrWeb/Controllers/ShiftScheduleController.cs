@@ -14,6 +14,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BlueHrWeb.CustomAttributes;
+using BlueHrLib.Helper.Excel;
 
 namespace BlueHrWeb.Controllers
 {
@@ -184,6 +185,7 @@ namespace BlueHrWeb.Controllers
             return View(cp);
         }
 
+
         // POST: ShiftShedule/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
@@ -200,6 +202,18 @@ namespace BlueHrWeb.Controllers
                 return View();
             }
         }
+
+        public ActionResult Import()
+        {
+            var ff = Request.Files[0];
+            string fileName = BlueHrWeb.Helpers.FileHelper.SaveAsTmp(ff);
+            ShiftScheduleExcelHelper helper = new ShiftScheduleExcelHelper(Settings.Default.db, fileName);
+            ImportMessage msg = helper.Import();
+
+            //添加"text/html",防止IE 自动下载json 格式返回的数据
+            return Json(msg, "text/html");
+        }
+
 
         private void SetDropDownList(ShiftSchedule model)
         {
