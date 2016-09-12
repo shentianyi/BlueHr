@@ -260,7 +260,6 @@ else
 <script type="text/javascript">
     $(function () {
         $.get("/MessageRecord/UnReadCount", null, function (data) {
-            data = 100;
             if (data != null && data > 0) {
                 $('.fa-bell-o').css({ animation: "bell-shake 3s", animationIterationCount: "infinite" })
                 $("#unread-count").text(data>999 ? "..." : data);
