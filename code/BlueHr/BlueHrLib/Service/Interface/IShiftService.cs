@@ -29,6 +29,8 @@ namespace BlueHrLib.Service.Interface
 
         bool DeleteById(int id);
 
+        Shift FindByCode(string code);
+
         ShiftInfoModel GetShiftInfo(ShiftSearchModel searchModel);
     }
 }
