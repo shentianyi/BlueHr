@@ -135,15 +135,26 @@ namespace TestWPF
 
             IQuartzJobService jobService = new QuartzJobService(Settings.Default.db);
             List<QuartzJob> toFullJobs = jobService.GetByType(CronJobType.ToFullWarn);
+            List<QuartzJob> calAttJobs = jobService.GetByType(CronJobType.CalAtt);
+
+           
+         
 
             // 定义定时任务
             ISchedulerFactory sf = new StdSchedulerFactory();
             Scheduler = sf.GetScheduler();
             ToFullMemberJobTrigger trigger = new ToFullMemberJobTrigger(toFullJobs, Settings.Default.db, Settings.Default.queue);
 
-            foreach (var t in trigger.Triggers)
+            for (int i = 0; i < trigger.Triggers.Count; i++)
             {
-                Scheduler.ScheduleJob(trigger.Job, t);
+                Scheduler.ScheduleJob(trigger.TriggerJobs[i], trigger.Triggers[i]);
+            }
+
+            CalAttJobTrigger trigger1 = new CalAttJobTrigger(calAttJobs, Settings.Default.db, Settings.Default.queue);
+
+            for (int i = 0; i < trigger1.Triggers.Count; i++)
+            {
+                Scheduler.ScheduleJob(trigger1.TriggerJobs[i], trigger1.Triggers[i]);
             }
 
             Scheduler.Start();

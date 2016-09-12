@@ -182,7 +182,9 @@
     <Compile Include="Helper\JSONHelper.cs" />
     <Compile Include="Helper\MessageRecordTypeHelper.cs" />
     <Compile Include="MQTask\Job\JobBase.cs" />
+    <Compile Include="MQTask\Job\CalAttJob.cs" />
     <Compile Include="MQTask\Job\ToFullMemberJob.cs" />
+    <Compile Include="MQTask\Job\CalAttJobTrigger.cs" />
     <Compile Include="MQTask\Job\ToFullMemberJobTrigger.cs" />
     <Compile Include="MQTask\Job\TriggerBase.cs" />
     <Compile Include="MQTask\Parameter\AttWarnParameter.cs" />

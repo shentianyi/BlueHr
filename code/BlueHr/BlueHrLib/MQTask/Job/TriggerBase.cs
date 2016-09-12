@@ -24,6 +24,8 @@ namespace BlueHrLib.MQTask.Job
         /// </summary>
         public IJobDetail Job { get; set; }
 
+        public List<IJobDetail> TriggerJobs { get; set; }
+
         /// <summary>
         /// 触发器
         /// </summary>
