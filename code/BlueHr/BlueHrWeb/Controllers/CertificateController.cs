@@ -162,15 +162,20 @@ namespace BlueHrWeb.Controllers
 
                     theAttachments.Split(new Char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
                     {
-                        model.Attachment.Add(new Attachment()
+                        var tmpNames = p.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries); 
+
+                        if (tmpNames.Length > 0)
                         {
-                            attachmentAbleId = null,
-                            attachmentType = -1,
-                            certificateId = model.id,
-                            attachmentAbleType = "",
-                            name = p.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries)[0],
-                            path = "/UploadCertificate/" + model.staffNr + "/" + p.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries)[1]
-                        });
+                            model.Attachments.Add(new Attachment()
+                            {
+                                attachmentAbleId = null,
+                                attachmentType = -1,
+                                certificateId = model.id,
+                                attachmentAbleType = "",
+                                name = tmpNames[0],
+                                path = "/UploadCertificate/" + model.staffNr + "/" + tmpNames[1]
+                            });
+                        }
                     });
 
                     //删除文件

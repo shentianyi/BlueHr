@@ -19,7 +19,7 @@ namespace BlueHrLib.Data.Repository.Implement
         public IQueryable<Attachment> Search(AttachmentSearchModel searchModel)
         {
             //TODO
-            IQueryable<Attachment> absenceRecords = this.context.Attachment;
+            IQueryable<Attachment> absenceRecords = this.context.Attachments;
             if (!string.IsNullOrEmpty(searchModel.Name))
             {
                 absenceRecords = absenceRecords.Where(c => c.name.Contains(searchModel.Name.Trim()));
