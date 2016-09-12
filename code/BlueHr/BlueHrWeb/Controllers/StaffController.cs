@@ -25,7 +25,7 @@ namespace BlueHrWeb.Controllers
     public class StaffController : Controller
     {
         // GET: Company
-        [AdminAuthorize]
+        [UserAuthorize]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);

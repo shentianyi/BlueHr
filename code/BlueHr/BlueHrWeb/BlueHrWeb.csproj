@@ -265,6 +265,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StaffTypeController.cs" />
     <Compile Include="Controllers\TaskRoundController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomAttributes\UserAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -503,6 +504,11 @@
     <Content Include="Views\ShiftSchedule\Edit.cshtml" />
     <Content Include="Views\ShiftSchedule\Delete.cshtml" />
     <Content Include="Views\ShiftSchedule\_PartialShiftSchedule.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\_PartialUser.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

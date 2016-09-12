@@ -14,7 +14,7 @@ namespace BlueHrWeb.CustomAttributes
         public void OnAuthorization(AuthorizationContext filterContext)
         {
             User user = System.Web.HttpContext.Current.Session["user"] as User;
-            if (user == null)
+            if (user == null || !user.isLocked.HasValue || user.isLocked.Value)
             {
                 System.Web.HttpContext.Current.Session["user"] = null;
                 filterContext.Result =

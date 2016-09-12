@@ -126,6 +126,7 @@
     <Compile Include="Data\Model\Search\ResignTypeSearchModel.cs" />
     <Compile Include="Data\Model\Search\ShiftSearchModel.cs" />
     <Compile Include="Data\Model\Search\ShiftScheduleSearchModel.cs" />
+    <Compile Include="Data\Model\Search\UserSearchModel.cs" />
     <Compile Include="Data\Repository\Implement\AbsenceRecrodRepository.cs" />
     <Compile Include="Data\Repository\Implement\CertificateRepository.cs" />
     <Compile Include="Data\Repository\Implement\ExtraWorkRecordRepository.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Data\Repository\Implement\FamilyMemberRepository.cs" />
     <Compile Include="Data\Repository\Implement\BankCardRepository.cs" />
     <Compile Include="Data\Repository\Implement\ResignRecordRepository.cs" />
+    <Compile Include="Data\Repository\Implement\UserRepository.cs" />
     <Compile Include="Data\Repository\Implement\ResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Implement\ShiftRepository.cs" />
     <Compile Include="Data\Repository\Implement\ShiftScheduleRepository.cs" />
@@ -154,12 +156,14 @@
     <Compile Include="Data\Repository\Interface\IFamilyMemberRepository.cs" />
     <Compile Include="Data\Repository\Interface\IBankCardRepository.cs" />
     <Compile Include="Data\Repository\Interface\IResignRecordRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IUserRepository.cs" />
     <Compile Include="Data\Repository\Interface\IResignTypeRepository.cs" />
     <Compile Include="Data\Repository\Interface\IShiftRoundRepository.cs" />
     <Compile Include="Data\Repository\Interface\IShiftScheduleRepository.cs" />
     <Compile Include="Data\Repository\Interface\ITaskRoundRepository.cs" />
     <Compile Include="Data\Staff.cs" />
     <Compile Include="Data\TaskRound.cs" />
+    <Compile Include="Data\User.cs" />
     <Compile Include="Helper\EmailHelper.cs" />
     <Compile Include="Helper\JSONHelper.cs" />
     <Compile Include="Helper\MessageRecordTypeHelper.cs" />

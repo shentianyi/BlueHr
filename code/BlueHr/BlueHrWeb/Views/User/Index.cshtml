@@ -1,0 +1,105 @@
+﻿@using MvcPaging
+@model IPagedList<BlueHrLib.Data.User>
+@{
+    ViewBag.Title = "用户管理";
+}
+@*@Styles.Render("~/Content/degreetype")*@
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>用户管理</li>
+</ol>
+<hr class="hr-grey" />
+ 
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="usual-table">
+        <div class="table-heading">
+            用户列表
+            <div class="pull-right" style="margin-top:-12px;">
+                <a href="/User/Create">
+                    <button class="marco-btn-primary">
+                        <i class="glyphicon glyphicon-plus-sign"></i>
+                        <span>创建</span>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="table-body content_3">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>姓名</th>
+                        <th>邮箱地址</th>
+                        <th>角色</th>
+                        <th>是否锁定</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                                {
+                                    int i = 0;
+                                    foreach (var item in Model)
+                                    {
+                            <tr>
+                                <td>
+                                    @(i+=1)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.roleStr)
+                                </td>
+                                 <td>
+                                    @Html.DisplayFor(modelItem => item.isLockedStr)
+                                </td>
+                                <td>
+                                    <a href="/User/Delete/@item.id" class="option-icon-primary" title="详情">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="/User/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                        <i class="fa fa-pencil"></i>
+                                    </a><a href="#" class="option-icon-danger" title="锁定/解锁" onclick="lock(@item.id)">
+    <i class="fa fa-lock"></i>
+</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+        <div class="clearfix pagination">
+            <div class="pagination-inner">
+                @if (Model != null)
+                {
+                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@Scripts.Render("~/bundles/degreetype")*@
+<script type="text/javascript">
+    Layout.init();
+
+    function lock(id){
+        if(confirm('确定操作？')){
+            $.post('/User/LockUnLock',{id: id},function(data){
+                if(data.Success){
+                    alert('操作成功！');
+                    window.location.reload();
+                } else {
+                    alert('操作失败：'+data.Content);
+                }
+            },'json');
+        }
+    }
+</script>
