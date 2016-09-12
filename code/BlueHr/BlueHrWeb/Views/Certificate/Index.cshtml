@@ -33,7 +33,7 @@
                 <span>工号</span>
                 @if (@ViewBag.StfModel != null)
                 {
-                @ViewBag.StfModel.nr
+                    @ViewBag.StfModel.nr
                 }
             </div>
         </div>
@@ -42,7 +42,7 @@
                 <span>姓名</span>
                 @if (@ViewBag.StfModel != null)
                 {
-                @ViewBag.StfModel.name
+                    @ViewBag.StfModel.name
                 }
             </div>
         </div>
@@ -51,7 +51,7 @@
                 <span>部门</span>
                 @if (@ViewBag.StfModel != null)
                 {
-                @ViewBag.StfModel.Department.name
+                    @ViewBag.StfModel.Department.name
                 }
             </div>
         </div>
@@ -60,10 +60,10 @@
                 <span>职位</span>
                 @if (@ViewBag.StfModel != null)
                 {
-                @ViewBag.StfModel.JobTitle.name
+                    @ViewBag.StfModel.JobTitle.name
                 }
             </div>
-        </div>  
+        </div>
     </div>
 </div>
 
@@ -100,7 +100,7 @@
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CertificateType.name)
-                                </td> 
+                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.effectiveFrom)
                                 </td>
@@ -111,7 +111,12 @@
                                     @Html.DisplayFor(modelItem => item.institution)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.remark)
+                                    @{
+                                        foreach (var atch in item.Attachments)
+                                        {
+                                            <a href="http://localhost:15675/@atch.path">@atch.name</a><br />
+                                        }
+                                    }
                                 </td>
                                 <td>
                                     <a href="/Certificate/Delete/@item.id?nr=@ViewBag.StfModel.nr" class="option-icon-primary" title="详情">
@@ -122,8 +127,8 @@
                                     </a>
                                 </td>
                             </tr>
-                        }
-                    }
+                                            }
+                                        }
                 </tbody>
             </table>
         </div>
