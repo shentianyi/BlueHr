@@ -60,6 +60,10 @@ namespace BlueHrLib.Service.Implement
                 {
                     staff.residenceAddress = card.residenceAddress;
                 }
+                if (string.IsNullOrEmpty(staff.photo))
+                {
+                    staff.photo = card.photo;
+                }
                 // 将是否已经身份证验证置为true
                 staff.isIdChecked = true;
                 this.CreateOrUpdateIdCertificate(dc, staff, card);

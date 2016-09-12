@@ -129,35 +129,42 @@ namespace BlueHrClient
 
         private void selectToReader(object sender, EventArgs e)
         {
-            
-            string stmp;
-            int i, nPort;
-            uint[] iBaud = new uint[1];
-            byte[] pucIIN = new byte[4];
-            byte[] pucSN = new byte[8];
-            i = Syn_FindReader();
-            if (i > 0)
+            try
             {
-                stmp = Convert.ToString(i);
-                nPort = Convert.ToInt32(stmp);
-                BaseConfig.NPort = nPort;
-                if (Syn_OpenPort(nPort) == 0)
+                string stmp;
+                int i, nPort;
+                uint[] iBaud = new uint[1];
+                byte[] pucIIN = new byte[4];
+                byte[] pucSN = new byte[8];
+                i = Syn_FindReader();
+                if (i > 0)
                 {
-                    if (Syn_SetMaxRFByte(nPort, 80, 0) == 0)
+                    stmp = Convert.ToString(i);
+                    nPort = Convert.ToInt32(stmp);
+                    BaseConfig.NPort = nPort;
+                    if (Syn_OpenPort(nPort) == 0)
                     {
-                        readIDCard();       
+                        if (Syn_SetMaxRFByte(nPort, 80, 0) == 0)
+                        {
+                            readIDCard();
+                        }
+                    }
+                    else
+                    {
+                        stmp = Convert.ToString(System.DateTime.Now) + "  打开端口失败";
+                        MessageBox.Show(stmp);
                     }
                 }
                 else
                 {
-                    stmp = Convert.ToString(System.DateTime.Now) + "  打开端口失败";
+                    stmp = Convert.ToString(System.DateTime.Now) + "  没有找到读卡器";
                     MessageBox.Show(stmp);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                stmp = Convert.ToString(System.DateTime.Now) + "  没有找到读卡器";
-                MessageBox.Show(stmp);
+                LogUtil.Logger.Error("异常", ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -212,7 +219,8 @@ namespace BlueHrClient
             Syn_SelectIDCard(BaseConfig.NPort, ref pucSN[0], 0);
             try
             {
-                if (Syn_ReadMsg(BaseConfig.NPort, 0, ref CardMsg) == 0)
+                int ii = Syn_ReadMsg(BaseConfig.NPort, 0, ref CardMsg);
+                if (ii == 0)
                 {
                     Status.Text = "读取成功";
                     Name.Text = CardMsg.Name.Trim();
@@ -274,7 +282,7 @@ namespace BlueHrClient
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                MessageBox.Show(e.Message);
             }
             finally
             {
@@ -374,7 +382,7 @@ namespace BlueHrClient
             cardData.effectiveFrom = Convert.ToDateTime(UserLifeBegin.Text);
             cardData.effectiveEnd = Convert.ToDateTime(UserLifeEnd.Text);
             cardData.institution = GrantDept.Text;
-            cardData.photo = photoToString();
+            cardData.photo = "data:image/jpg;base64,"+ photoToString();
             return staffService.CheckStaffAndUpdateInfo(cardData);
         }
 

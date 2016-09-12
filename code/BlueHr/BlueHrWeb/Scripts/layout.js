@@ -72,7 +72,7 @@ Layout.init = function () {
             PageAction('#extraworktype', '新建加班类型', '编辑加班类型', '加班类型详情', '创建', '更新', '删除');
             break;
         case "AbsenceRecrod":
-            $('.nav-absencerecord').addClass('active');
+            $('.nav-absencerecrod').addClass('active');
             PageAction('#absencerecord', '新建缺勤', '编辑缺勤', '缺勤详情', '创建', '更新', '删除');
             break;
         case "ExtraWorkRecord":

@@ -39,6 +39,84 @@ $light-grey: #ddd !global; // 浅灰色
 $concrete: #95a5a6 !global; //  浅灰色   混凝土
 $asbestos: #7f8c8d !global; // 深灰色  石棉
 
+.login{
+    margin-top: 60px;
+    text-align:center;
+    border: 2px solid $peter-river;
+    border-radius: 30px;
+    min-width: 500px;
+    padding: 20px;
+    .login-heading{
+        margin-top: 30px;
+        i{
+            border:2px solid $peter-river;
+            padding:20px;
+            border-radius: 60px;
+            width: 110px;
+            height: 110px;
+            color: $brlize-hole;
+            margin-bottom: 15px;
+        }
+        span{
+            font-weight:bold;
+            color: $brlize-hole;
+        }
+    }
+
+    .login-body{
+        margin-top: 20px;
+        div{
+            margin-top: 10px;
+        }
+    }
+
+    .login-footer{
+        margin-top: 20px;
+        margin-bottom: 40px;
+        button{
+            width: 100px;
+            height: 40px;
+            i{
+                margin-right:10px;
+            }
+        }
+    }
+}
+
+.home{
+    position:relative;
+    margin-top:20%;
+    margin-left: 30%;
+    i{
+        font-size:3em;
+        width: 80px;
+        height: 80px;
+        text-align:center;
+        padding: 15px;
+        color: $high-blue;
+        animation: bell-shake 3s;
+        -webkit-animation: bell-shake 3s; /* Safari and Chrome */
+        -o-animation: bell-shake 3s; /* Opera */
+        animation-iteration-count: infinite;
+    }
+    span{
+        margin-left: 20px;
+        font-size: 2em;
+    }
+}
+
+@keyframes bell-shake
+{
+    1% {transform:rotate(10deg);}
+    2% {transform:rotate(-10deg);}
+    3% {transform:rotate(-20deg);}
+    4% {transform:rotate(-10deg);}
+    5% {transform:rotate(10deg);}
+    6% {transform:rotate(0deg);}
+
+}
+
+
 //Button
 @mixin marco-btn($marco-bg: $concrete, $marco-color:#f5f5f5) {
   min-width: 60px;
@@ -349,9 +427,35 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
     background: transparent;
 }
 
+
+@mixin hr($marco-border-color: $peter-river){
+    border-style: dashed;
+    border-color: $marco-border-color;
+}
+
+
 .hr-grey{
-    border-style:dashed;
-    border-color: #999;
+    @include hr(#999);
+}
+
+.hr-default{
+    @include hr($clouds);
+}
+
+.hr-primary{
+    @include hr($brlize-hole);
+}
+
+.hr-success{
+    @include hr($green-sea);
+}
+
+.hr-warning{
+    @include hr($orange);
+}
+
+.hr-danger{
+    @include hr($alizarin);
 }
 
 @mixin optionIcon($marco-bg:$peter-river, $marco-color:$clouds){

@@ -1,4 +1,72 @@
-﻿.macro-bgroup .active {
+﻿.login {
+  margin-top: 60px;
+  text-align: center;
+  border: 2px solid #3498db;
+  border-radius: 30px;
+  min-width: 500px;
+  padding: 20px; }
+  .login .login-heading {
+    margin-top: 30px; }
+    .login .login-heading i {
+      border: 2px solid #3498db;
+      padding: 20px;
+      border-radius: 60px;
+      width: 110px;
+      height: 110px;
+      color: #2980b9;
+      margin-bottom: 15px; }
+    .login .login-heading span {
+      font-weight: bold;
+      color: #2980b9; }
+  .login .login-body {
+    margin-top: 20px; }
+    .login .login-body div {
+      margin-top: 10px; }
+  .login .login-footer {
+    margin-top: 20px;
+    margin-bottom: 40px; }
+    .login .login-footer button {
+      width: 100px;
+      height: 40px; }
+      .login .login-footer button i {
+        margin-right: 10px; }
+
+.home {
+  position: relative;
+  margin-top: 20%;
+  margin-left: 30%; }
+  .home i {
+    font-size: 3em;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    padding: 15px;
+    color: #31708f;
+    animation: bell-shake 3s;
+    -webkit-animation: bell-shake 3s;
+    /* Safari and Chrome */
+    -o-animation: bell-shake 3s;
+    /* Opera */
+    animation-iteration-count: infinite; }
+  .home span {
+    margin-left: 20px;
+    font-size: 2em; }
+
+@keyframes bell-shake {
+  1% {
+    transform: rotate(10deg); }
+  2% {
+    transform: rotate(-10deg); }
+  3% {
+    transform: rotate(-20deg); }
+  4% {
+    transform: rotate(-10deg); }
+  5% {
+    transform: rotate(10deg); }
+  6% {
+    transform: rotate(0deg); } }
+
+.macro-bgroup .active {
   background: transparent;
   color: #2c3e50;
   font-weight: bold; }
@@ -638,6 +706,26 @@
 .hr-grey {
   border-style: dashed;
   border-color: #999; }
+
+.hr-default {
+  border-style: dashed;
+  border-color: #ecf0f1; }
+
+.hr-primary {
+  border-style: dashed;
+  border-color: #2980b9; }
+
+.hr-success {
+  border-style: dashed;
+  border-color: #16a085; }
+
+.hr-warning {
+  border-style: dashed;
+  border-color: #f39c12; }
+
+.hr-danger {
+  border-style: dashed;
+  border-color: #e74c3c; }
 
 .option-icon-primary {
   cursor: pointer; }

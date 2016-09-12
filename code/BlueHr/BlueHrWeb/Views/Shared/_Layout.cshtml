@@ -22,7 +22,7 @@
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
-            <a href="#" class="logo">
+            <a href="/" class="logo">
                 <span class="logo-mini"><b>HR</b></span>
                 <span class="logo-lg">德晋<b>HR</b>系统</span>
             </a>
@@ -63,24 +63,6 @@
                             <span>用户管理</span>
                         </a>
                     </li>
-
-                    @*<li class="active treeview nav-users">
-                        <a href="#">
-                            <i class="fa fa-user-secret"></i>
-                            <span>用户管理</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-lock"></i>
-                                    权限管理
-                                </a>
-                            </li>
-                        </ul>
-                    </li>*@
 
                     <li class="nav-basic">
                         <a href="#">
@@ -233,9 +215,8 @@
                         </ul>
                     </li>
                
-
-                    <li class="nav-absencerecord">
-                        <a href="/Staff/Index">
+                    <li class="nav-absencerecrod">
+                        <a href="/AbsenceRecrod/Index">
                             <i class="fa fa-adjust"></i>
                             <span>缺勤管理</span>
                         </a>
@@ -305,6 +286,7 @@ else
     $(function () {
         $.get("/MessageRecord/UnReadCount", null, function (data) {
             if (data != null && data > 0) {
+                $('.fa-bell-o').css({ animation: "bell-shake 3s", animationIterationCount: "infinite" })
                 $("#unread-count").text(data>999 ? "..." : data);
             } else {
                 $("#unread-count").text("");

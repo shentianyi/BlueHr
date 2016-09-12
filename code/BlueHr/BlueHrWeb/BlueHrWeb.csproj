@@ -317,6 +317,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\back.png" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\mCSB_buttons.png" />
     <Content Include="README.txt" />
