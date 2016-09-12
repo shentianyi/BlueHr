@@ -11,9 +11,17 @@
 </ol>
 <hr class="hr-grey" />
 
-<div class="row" id="tabs" style="margin-left:20px;">
-            <span id="tabs1"><a href="/MessageRecord?allOrUnread=unread" class="option-icon-warning" title="未读">未 读</a></span> 
-            <span id="tabs2"><a href="/MessageRecord?allOrUnread=all" class="option-icon-primary" title="全部">全 部</a></span> 
+<div class="row" id="tabs" style="margin-left:20px; display:block;  ">
+    @if (ViewBag.allOrUnread == null || ViewBag.allOrUnread == "unread")
+    {
+        <span id="tabs1" style=" width:90px;border:1px  dotted black; padding:5px  8px 5px 8px;background:#3498db; color:#f2f2f2;font-weight:bold; font-size:20px;"><a href="/MessageRecord?allOrUnread=unread" class="option-icon-warning" title="未读">未 读</a></span>
+        <span id="tabs2" style=" width:90px;border:1px  dotted black; padding:5px  8px 5px 8px; color:#f2f2f2;font-weight:bold; font-size:20px;"><a href="/MessageRecord?allOrUnread=all" class="option-icon-primary" title="全部">全 部</a></span>
+    }
+    else
+    {
+        <span id="tabs1" style=" width:90px;border:1px  dotted black; padding:5px  8px 5px 8px; color:#f2f2f2;font-weight:bold; font-size:20px;"><a href="/MessageRecord?allOrUnread=unread" class="option-icon-warning" title="未读">未 读</a></span>
+        <span id="tabs2" style=" width:90px;border:1px  dotted black; padding:5px  8px 5px 8px;background:#3498db; color:#f2f2f2;font-weight:bold; font-size:20px;"><a href="/MessageRecord?allOrUnread=all" class="option-icon-primary" title="全部">全 部</a></span>
+    }
  </div>
     <div class="row" style="margin:0;">
         <form action="/MessageRecord/Search" method="get">
@@ -32,6 +40,7 @@
                     搜索
                 </button>
             </div>
+            <input type="hidden" name="allOrUnread" value="@ViewBag.allOrUnread"/>
         </form>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -80,7 +89,7 @@
                                     <td>
                                         @if (item.isRead.HasValue && item.isRead.Value == false)
                                         {
-                                            <a href="#" class="option-icon-warning" title="阅读">
+                                            <a href="#" id="msg-@item.id" class="option-icon-warning" onclick="read(@item.id)" title="阅读">
                                                 <i class="fa fa-check"></i>
                                             </a>
                                         }
@@ -119,7 +128,14 @@
 
     <script type="text/javascript">
         Layout.init();
-        $(function () {
-            $("#tabs").tabs();
-        });
+        function read(id){
+            
+            $.post("/MessageRecord/Read?id="+id, {id:id},function(data){
+                if(data.Success){
+                    $("#msg-"+id).remove();
+                }else{
+                    alert(data.Content);
+                }
+            },"json");
+        }
     </script>

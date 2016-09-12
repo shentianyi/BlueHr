@@ -10,6 +10,8 @@ using Brilliantech.Framwork.Utils.LogUtil;
 using BlueHrLib.Data.Repository.Interface;
 using BlueHrLib.Data.Repository.Implement;
 using BlueHrLib.Data.Model.Search;
+using BlueHrLib.Data.Message;
+using BlueHrLib.CusException;
 
 namespace BlueHrLib.Service.Implement
 {
@@ -188,10 +190,10 @@ namespace BlueHrLib.Service.Implement
             IQueryable<MessageRecordView> q = dc.Context.GetTable<MessageRecordView>();
             // q = q.Where(s => s.messageCategory==(int)catetory);
 
-            //if (!all)
-            //{
-            //    q = q.Where(s => s.isRead == false);
-            //}
+            if (!all)
+            {
+                q = q.Where(s => s.isRead == false);
+            }
             if (searchModel != null)
             {
                 if (!string.IsNullOrEmpty(searchModel.StaffNr))
@@ -206,6 +208,23 @@ namespace BlueHrLib.Service.Implement
             }
 
              return q.OrderByDescending(s => s.createdAt);
+        }
+
+        public bool Read(int id)
+        {
+            
+            DataContext dc = new DataContext(this.DbString);
+            MessageRecord mr = dc.Context.GetTable<MessageRecord>().FirstOrDefault(s => s.id == id);
+            if (mr != null)
+            {
+                mr.isRead = true;
+                dc.Context.SubmitChanges();
+                return true;
+            }
+            else
+            {
+                throw new DataNotFoundException();
+            }
         }
     }
 }

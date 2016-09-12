@@ -33,7 +33,7 @@ namespace BlueHrWeb.Controllers
             IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
             IPagedList<MessageRecordView> records = mrs
                 .GetByCateAndAllOrUnread(MessageRecordCatetory.Alert, (allOrUnread=="all" ? true : false))
-                .ToPagedList<MessageRecordView>(pageIndex, 2);
+                .ToPagedList<MessageRecordView>(pageIndex,  Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
@@ -54,7 +54,7 @@ namespace BlueHrWeb.Controllers
             IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
             IPagedList<MessageRecordView> records = mrs
                 .GetByCateAndAllOrUnread(MessageRecordCatetory.Alert, (allOrUnread == "all" ? true : false),q)
-                .ToPagedList<MessageRecordView>(pageIndex, 2);
+                .ToPagedList<MessageRecordView>(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
@@ -66,6 +66,20 @@ namespace BlueHrWeb.Controllers
         public ActionResult UnReadCount()
         {
             return Json(new MessageRecordService(Settings.Default.db).CountUnRead(),JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Read(int id)
+        {
+            ResultMessage msg = new ResultMessage();
+            try {
+                msg.Success = new MessageRecordService(Settings.Default.db).Read(id);
+            }
+            catch(Exception ex)
+            {
+                msg.Content = ex.Message;
+            }
+            return Json(msg);
         }
     }
 }
