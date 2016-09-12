@@ -70,16 +70,16 @@
                                     }
                                     @Html.DisplayFor(modelItem => startAtStr)
 
-                                </td>
+                                </td><td>
+    @Html.DisplayFor(modelItem => item.shiftTypeStr)
+</td>
                                 <td>
                                     @{
                                         string endAtStr = string.Format("{0:hh\\:mm}", item.endAt);
                                     }
                                     @Html.DisplayFor(modelItem => endAtStr)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.shiftType)
-                                </td>
+                               
                                 <td>
                                     @Html.DisplayFor(modelItem => item.remark)
                                 </td>

@@ -39,7 +39,7 @@ namespace BlueHrWeb.Controllers
             return View(models);
         }
 
-        public ActionResult Search([Bind(Include = "Name")] AbsenceRecrodSearchModel q)
+        public ActionResult Search([Bind(Include = "staffNr")] AbsenceRecrodSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
@@ -74,7 +74,7 @@ namespace BlueHrWeb.Controllers
             try
             {
                 // TODO: Add insert logic here 
-
+                model.durationType = (int)DurationType.Day;
                 IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
               
                 //model.absenceDate = HttpContext.Request.Form["absenceDate"];
@@ -103,6 +103,7 @@ namespace BlueHrWeb.Controllers
         {
             try
             {
+                model.durationType = (int)DurationType.Day;
                 // TODO: Add update logic here
                 IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
 

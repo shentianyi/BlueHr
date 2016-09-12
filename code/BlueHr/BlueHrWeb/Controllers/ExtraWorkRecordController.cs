@@ -39,7 +39,7 @@ namespace BlueHrWeb.Controllers
             return View(models);
         }
 
-        public ActionResult Search([Bind(Include = "Name")] ExtraWorkRecordSearchModel q)
+        public ActionResult Search([Bind(Include = "staffNr")] ExtraWorkRecordSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
@@ -74,7 +74,7 @@ namespace BlueHrWeb.Controllers
             try
             {
                 // TODO: Add insert logic here 
-
+                model.durationType = (int)DurationType.Day;
                 IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
                  
                 //model.absenceDate = HttpContext.Request.Form["absenceDate"];
@@ -104,6 +104,7 @@ namespace BlueHrWeb.Controllers
         {
             try
             {
+                model.durationType = (int)DurationType.Day;
                 // TODO: Add update logic here
                 IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
 
@@ -166,7 +167,7 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        private void SetExtraWorkTypeList(int? type, bool allowBlank = true)
+        private void SetExtraWorkTypeList(int? type, bool allowBlank = false)
         {
             IExtraWorkTypeService cs = new ExtraWorkTypeService(Settings.Default.db);
 
@@ -194,7 +195,7 @@ namespace BlueHrWeb.Controllers
             ViewData["extraWorkTypeList"] = select;
         }
 
-        private void SetDurationTypeCodeList(int? model, bool allowBlank = true)
+        private void SetDurationTypeCodeList(int? model, bool allowBlank = false)
         {
             List<EnumItem> item = EnumHelper.GetList(typeof(DurationType));
 
