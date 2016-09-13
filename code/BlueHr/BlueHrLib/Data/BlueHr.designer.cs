@@ -60,9 +60,6 @@ namespace BlueHrLib.Data
     partial void InsertCompany(Company instance);
     partial void UpdateCompany(Company instance);
     partial void DeleteCompany(Company instance);
-    partial void InsertDegreeType(DegreeType instance);
-    partial void UpdateDegreeType(DegreeType instance);
-    partial void DeleteDegreeType(DegreeType instance);
     partial void InsertDepartment(Department instance);
     partial void UpdateDepartment(Department instance);
     partial void DeleteDepartment(Department instance);
@@ -117,6 +114,9 @@ namespace BlueHrLib.Data
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertDegreeType(DegreeType instance);
+    partial void UpdateDegreeType(DegreeType instance);
+    partial void DeleteDegreeType(DegreeType instance);
     #endregion
 		
 		public BlueHrDataContext() : 
@@ -226,14 +226,6 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<Company>();
-			}
-		}
-		
-		public System.Data.Linq.Table<DegreeType> DegreeType
-		{
-			get
-			{
-				return this.GetTable<DegreeType>();
 			}
 		}
 		
@@ -418,6 +410,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<MessageRecordView>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DegreeType> DegreeType
+		{
+			get
+			{
+				return this.GetTable<DegreeType>();
 			}
 		}
 	}
@@ -2927,144 +2927,6 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.Company = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DegreeType")]
-	public partial class DegreeType : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _name;
-		
-		private string _remark;
-		
-		private EntitySet<Staff> _Staff;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OnremarkChanging(string value);
-    partial void OnremarkChanged();
-    #endregion
-		
-		public DegreeType()
-		{
-			this._Staff = new EntitySet<Staff>(new Action<Staff>(this.attach_Staff), new Action<Staff>(this.detach_Staff));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="VarChar(255)")]
-		public string remark
-		{
-			get
-			{
-				return this._remark;
-			}
-			set
-			{
-				if ((this._remark != value))
-				{
-					this.OnremarkChanging(value);
-					this.SendPropertyChanging();
-					this._remark = value;
-					this.SendPropertyChanged("remark");
-					this.OnremarkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DegreeType_Staff", Storage="_Staff", ThisKey="id", OtherKey="degreeTypeId")]
-		public EntitySet<Staff> Staff
-		{
-			get
-			{
-				return this._Staff;
-			}
-			set
-			{
-				this._Staff.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Staff(Staff entity)
-		{
-			this.SendPropertyChanging();
-			entity.DegreeType = this;
-		}
-		
-		private void detach_Staff(Staff entity)
-		{
-			this.SendPropertyChanging();
-			entity.DegreeType = null;
 		}
 	}
 	
@@ -6027,8 +5889,6 @@ namespace BlueHrLib.Data
 		
 		private EntityRef<Company> _Company;
 		
-		private EntityRef<DegreeType> _DegreeType;
-		
 		private EntityRef<Department> _Department;
 		
 		private EntityRef<InsureType> _InsureType;
@@ -6036,6 +5896,8 @@ namespace BlueHrLib.Data
 		private EntityRef<JobTitle> _JobTitle;
 		
 		private EntityRef<StaffType> _StaffType;
+		
+		private EntityRef<DegreeType> _DegreeType;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -6128,11 +5990,11 @@ namespace BlueHrLib.Data
 			this._ResignRecord = new EntitySet<ResignRecord>(new Action<ResignRecord>(this.attach_ResignRecord), new Action<ResignRecord>(this.detach_ResignRecord));
 			this._ShiftSchedule = new EntitySet<ShiftSchedule>(new Action<ShiftSchedule>(this.attach_ShiftSchedule), new Action<ShiftSchedule>(this.detach_ShiftSchedule));
 			this._Company = default(EntityRef<Company>);
-			this._DegreeType = default(EntityRef<DegreeType>);
 			this._Department = default(EntityRef<Department>);
 			this._InsureType = default(EntityRef<InsureType>);
 			this._JobTitle = default(EntityRef<JobTitle>);
 			this._StaffType = default(EntityRef<StaffType>);
+			this._DegreeType = default(EntityRef<DegreeType>);
 			OnCreated();
 		}
 		
@@ -7044,40 +6906,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DegreeType_Staff", Storage="_DegreeType", ThisKey="degreeTypeId", OtherKey="id", IsForeignKey=true)]
-		public DegreeType DegreeType
-		{
-			get
-			{
-				return this._DegreeType.Entity;
-			}
-			set
-			{
-				DegreeType previousValue = this._DegreeType.Entity;
-				if (((previousValue != value) 
-							|| (this._DegreeType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DegreeType.Entity = null;
-						previousValue.Staff.Remove(this);
-					}
-					this._DegreeType.Entity = value;
-					if ((value != null))
-					{
-						value.Staff.Add(this);
-						this._degreeTypeId = value.id;
-					}
-					else
-					{
-						this._degreeTypeId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("DegreeType");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Department_Staff", Storage="_Department", ThisKey="departmentId", OtherKey="id", IsForeignKey=true)]
 		public Department Department
 		{
@@ -7210,6 +7038,40 @@ namespace BlueHrLib.Data
 						this._staffTypeId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("StaffType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DegreeType_Staff", Storage="_DegreeType", ThisKey="degreeTypeId", OtherKey="id", IsForeignKey=true)]
+		public DegreeType DegreeType
+		{
+			get
+			{
+				return this._DegreeType.Entity;
+			}
+			set
+			{
+				DegreeType previousValue = this._DegreeType.Entity;
+				if (((previousValue != value) 
+							|| (this._DegreeType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DegreeType.Entity = null;
+						previousValue.Staff.Remove(this);
+					}
+					this._DegreeType.Entity = value;
+					if ((value != null))
+					{
+						value.Staff.Add(this);
+						this._degreeTypeId = value.id;
+					}
+					else
+					{
+						this._degreeTypeId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("DegreeType");
 				}
 			}
 		}
@@ -10197,6 +10059,144 @@ namespace BlueHrLib.Data
 					this._staffName = value;
 				}
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DegreeType")]
+	public partial class DegreeType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _name;
+		
+		private string _remark;
+		
+		private EntitySet<Staff> _Staff;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnremarkChanging(string value);
+    partial void OnremarkChanged();
+    #endregion
+		
+		public DegreeType()
+		{
+			this._Staff = new EntitySet<Staff>(new Action<Staff>(this.attach_Staff), new Action<Staff>(this.detach_Staff));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="VarChar(255)")]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this.OnremarkChanging(value);
+					this.SendPropertyChanging();
+					this._remark = value;
+					this.SendPropertyChanged("remark");
+					this.OnremarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DegreeType_Staff", Storage="_Staff", ThisKey="id", OtherKey="degreeTypeId")]
+		public EntitySet<Staff> Staff
+		{
+			get
+			{
+				return this._Staff;
+			}
+			set
+			{
+				this._Staff.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Staff(Staff entity)
+		{
+			this.SendPropertyChanging();
+			entity.DegreeType = this;
+		}
+		
+		private void detach_Staff(Staff entity)
+		{
+			this.SendPropertyChanging();
+			entity.DegreeType = null;
 		}
 	}
 }

@@ -15,10 +15,10 @@ CREATE TRIGGER   AttRecordInsertTrigger
    ON   AttendanceRecordDetail -- 需要改动
    AFTER INSERT
 AS 
-BEGIN
-
+ set nocount on
+ set xact_abort on;
+ 
     insert into [bluehr_db_server].BlueHr.dbo.AttendanceRecordDetail(staffNr,recordAt,createdAt,soureType,isCalculated,device)
    select   staffNr,recordAt,createdAt,'DbTrigger',0,[device] from inserted
 
-END
 GO

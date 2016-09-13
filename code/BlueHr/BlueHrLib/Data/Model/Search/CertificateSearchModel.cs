@@ -9,5 +9,8 @@ namespace BlueHrLib.Data.Model.Search
     {
         //员工编号
         public string StaffNr { get; set; }
+
+
+        public string StaffActNr { get; set; }
     }
 }

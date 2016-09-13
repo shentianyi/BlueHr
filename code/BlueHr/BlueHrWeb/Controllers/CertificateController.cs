@@ -28,14 +28,14 @@ namespace BlueHrWeb.Controllers
             CertificateSearchModel q = new CertificateSearchModel();
 
             ICertificateService ss = new CertificateService(Settings.Default.db);
-
+            q.StaffActNr = this.Request.QueryString["nr"];
             IPagedList<Certificate> certfs = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
             CertificateInfoModel info = ss.GetCertificateInfo(q);
             ViewBag.Info = info;
-
+      
             //get staff info
             string staffNr = this.Request.QueryString["nr"];
             IStaffService sts = new StaffService(Settings.Default.db);
@@ -48,7 +48,7 @@ namespace BlueHrWeb.Controllers
             return View(certfs);
         }
 
-        public ActionResult Search([Bind(Include = "staffNr")] CertificateSearchModel q)
+        public ActionResult Search([Bind(Include = "StaffActNr")] CertificateSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);

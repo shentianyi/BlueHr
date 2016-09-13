@@ -122,14 +122,6 @@
       <Association Name="Company_Staff" Member="Staff" ThisKey="id" OtherKey="companyId" Type="Staff" />
     </Type>
   </Table>
-  <Table Name="dbo.DegreeType" Member="DegreeType">
-    <Type Name="DegreeType">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Association Name="DegreeType_Staff" Member="Staff" ThisKey="id" OtherKey="degreeTypeId" Type="Staff" />
-    </Type>
-  </Table>
   <Table Name="dbo.Department" Member="Department">
     <Type Name="Department">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -323,11 +315,11 @@
       <Association Name="Staff_ResignRecord" Member="ResignRecord" ThisKey="nr" OtherKey="staffNr" Type="ResignRecord" />
       <Association Name="Staff_ShiftSchedule" Member="ShiftSchedule" ThisKey="nr" OtherKey="staffNr" Type="ShiftSchedule" />
       <Association Name="Company_Staff" Member="Company" ThisKey="companyId" OtherKey="id" Type="Company" IsForeignKey="true" />
-      <Association Name="DegreeType_Staff" Member="DegreeType" ThisKey="degreeTypeId" OtherKey="id" Type="DegreeType" IsForeignKey="true" />
       <Association Name="Department_Staff" Member="Department" ThisKey="departmentId" OtherKey="id" Type="Department" IsForeignKey="true" />
       <Association Name="InsureType_Staff" Member="InsureType" ThisKey="insureTypeId" OtherKey="id" Type="InsureType" IsForeignKey="true" />
       <Association Name="JobTitle_Staff" Member="JobTitle" ThisKey="jobTitleId" OtherKey="id" Type="JobTitle" IsForeignKey="true" />
       <Association Name="StaffType_Staff" Member="StaffType" ThisKey="staffTypeId" OtherKey="id" Type="StaffType" IsForeignKey="true" />
+      <Association Name="DegreeType_Staff" Member="DegreeType" ThisKey="degreeTypeId" OtherKey="id" Type="DegreeType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.StaffType" Member="StaffType">
@@ -501,6 +493,14 @@
       <Column Name="operatorName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="operatorEmail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="staffName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DegreeType" Member="DegreeType">
+    <Type Name="DegreeType">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="DegreeType_Staff" Member="Staff" ThisKey="id" OtherKey="degreeTypeId" Type="Staff" />
     </Type>
   </Table>
 </Database>
