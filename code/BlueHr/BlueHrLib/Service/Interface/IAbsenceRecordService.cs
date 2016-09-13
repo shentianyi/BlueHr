@@ -23,5 +23,9 @@ namespace BlueHrLib.Service.Interface
         AbsenceRecrodInfoModel GetAbsenceRecrodInfo(AbsenceRecrodSearchModel searchModel);
 
         List<AbsenceRecrod> FindByAbsenceType(int id);
+
+        bool Creates(List<AbsenceRecrod> records);
+
+        List<AbsenceRecrod> GetAll();
     }
 }

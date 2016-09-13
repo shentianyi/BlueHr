@@ -18,13 +18,26 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public IQueryable<AbsenceRecrod> Search(AbsenceRecrodSearchModel searchModel)
         {
-            //TODO
-            IQueryable<AbsenceRecrod> absenceRecords = this.context.AbsenceRecrod;
-            if (!string.IsNullOrEmpty(searchModel.absenceType))
+            IQueryable<AbsenceRecrod> q = this.context.AbsenceRecrod;
+            if (!string.IsNullOrEmpty(searchModel.staffNr))
             {
-                absenceRecords = absenceRecords.Where(c => c.staffNr.Contains(searchModel.absenceType.Trim()));
+                q = q.Where(c => c.staffNr.Contains(searchModel.staffNr.Trim()));
             }
-            return absenceRecords;
+            if (!string.IsNullOrEmpty(searchModel.absenceTypeId))
+            {
+                q = q.Where(c => c.absenceTypeId.Equals(searchModel.absenceTypeId));
+            }
+            if (searchModel.durStart.HasValue)
+            {
+                q = q.Where(s => s.absenceDate >= searchModel.durStart.Value);
+            }
+
+
+            if (searchModel.durEnd.HasValue)
+            {
+                q = q.Where(s => s.absenceDate <= searchModel.durEnd.Value);
+            }
+            return q.OrderByDescending(s => s.absenceDate);
         }
 
         public bool Create(AbsenceRecrod absRecord)
@@ -85,6 +98,11 @@ namespace BlueHrLib.Data.Repository.Implement
         public List<AbsenceRecrod> FindByAbsenceType(int id)
         {
             return this.context.GetTable<AbsenceRecrod>().Where(p => p.absenceTypeId.Equals(id)).ToList();
+        }
+
+        public List<AbsenceRecrod> GetAll()
+        {
+            return this.context.GetTable<AbsenceRecrod>().ToList();
         }
     }
 }
