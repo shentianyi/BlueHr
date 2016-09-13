@@ -38,9 +38,9 @@ namespace BlueHrLib.Service.Implement
             return jobTitleRep.FindById(id);
         }
 
-        public bool Update(JobTitle department)
+        public bool Update(JobTitle department, string jobCertTypeIds)
         {
-            return jobTitleRep.Update(department);
+            return jobTitleRep.Update(department, jobCertTypeIds);
         }
 
         public JobTitleInfoModel GetJobTitleInfo(JobTitleSearchModel searchModel)

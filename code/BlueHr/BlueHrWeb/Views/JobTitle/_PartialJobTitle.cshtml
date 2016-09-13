@@ -44,10 +44,22 @@
                     }
                 </div>
 
+                <div class="marco-igroup-primary" style="height:120px;">
+                    <label for="name">证照类别</label>
+                    @if (Model != null)
+                    {
+                        @Html.ListBox("jobCertificateType", ViewData["jobCertificateTypeList"] as IEnumerable<SelectListItem>, new { style = "height:120px" })
+                    }
+                    else
+                    {
+                        @Html.ListBox("jobCertificateType", ViewData["jobCertificateTypeList"] as IEnumerable<SelectListItem>, new { style = "height:120px" })
+                    }
+                </div>
+
                 <div class="marco-textarea">
                     <label for="remark">备注</label>
                     @if (Model != null)
-                {
+                    {
                         @Html.TextAreaFor(model => model.remark)
                     }
                     else

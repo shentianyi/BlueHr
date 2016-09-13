@@ -40,7 +40,7 @@ namespace BlueHrLibTests.Service.Implement
             job.name = "高级工程师@" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             job.remark = "高级工程师@" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            Assert.IsTrue(service.Update(job));
+            Assert.IsTrue(service.Update(job,""));
         }
     }
 }
