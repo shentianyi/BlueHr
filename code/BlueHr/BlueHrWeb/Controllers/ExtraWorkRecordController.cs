@@ -14,6 +14,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BlueHrWeb.CustomAttributes;
+using BlueHrLib.Data.Message;
+using BlueHrLib.Data.Model.Excel;
 
 namespace BlueHrWeb.Controllers
 {
@@ -23,6 +25,8 @@ namespace BlueHrWeb.Controllers
         [UserAuthorize]
         public ActionResult Index(int? page)
         {
+            SetDropDownList(null);
+
             int pageIndex = PagingHelper.GetPageIndex(page);
 
             ExtraWorkRecordSearchModel q = new ExtraWorkRecordSearchModel();
@@ -39,8 +43,10 @@ namespace BlueHrWeb.Controllers
             return View(models);
         }
 
-        public ActionResult Search([Bind(Include = "staffNr")] ExtraWorkRecordSearchModel q)
+        public ActionResult Search([Bind(Include = "staffNr,extraWorkTypeId,durStart,durEnd")] ExtraWorkRecordSearchModel q)
         {
+            SetDropDownList(null);
+
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
@@ -69,21 +75,32 @@ namespace BlueHrWeb.Controllers
 
         // POST: ExtraWorkRecord/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "extraWorkTypeId,staffNr, duration,durationType,otReason")] ExtraWorkRecord model)
+        public ActionResult Create([Bind(Include = "extraWorkTypeId,staffNr,otTime,duration,durationType,otReason")] ExtraWorkRecord model)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add insert logic here 
-                model.durationType = (int)DurationType.Day;
-                IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
-                 
-                //model.absenceDate = HttpContext.Request.Form["absenceDate"];
-                cs.Create(model);
-                return RedirectToAction("Index");
+                msg = DoValidation(model);
+
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
+                    bool isSucceed = cs.Create(model);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -100,29 +117,32 @@ namespace BlueHrWeb.Controllers
 
         // POST: ExtraWorkRecord/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id, extraWorkTypeId,staffNr, duration,durationType,otReason")] ExtraWorkRecord model)
+        public ActionResult Edit([Bind(Include = "id, extraWorkTypeId,staffNr,otTime, duration,durationType,otReason")] ExtraWorkRecord model)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                model.durationType = (int)DurationType.Day;
-                // TODO: Add update logic here
-                IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
+                msg = DoValidation(model);
 
-                bool updateResult = cs.Update(model);
-                if (!updateResult)
+                if (!msg.Success)
                 {
-                    SetDropDownList(model);
-                    return View();
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return RedirectToAction("Index");
-                }
+                    IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
+                    bool isSucceed = cs.Update(model);
 
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "更新失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -140,16 +160,35 @@ namespace BlueHrWeb.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add delete logic here
-                IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
-                cs.DeleteById(id);
-                return RedirectToAction("Index");
+                ////存在员工时不可删除
+                //IAbsenceRecordService shfSi = new AbsenceRecordService(Settings.Default.db);
+                //List<AbsenceRecrod> shf = shfSi.FindByAbsenceType(id);
+
+                //if (null != shf && shf.Count() > 0)
+                //{
+                //    msg.Success = false;
+                //    msg.Content = "缺勤类型正在使用,不能删除!";
+
+                //    return Json(msg, JsonRequestBehavior.AllowGet);
+                //}
+                //else
+                {
+                    IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
+                    bool isSucceed = cs.DeleteById(id);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "删除失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -167,11 +206,11 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        private void SetExtraWorkTypeList(int? type, bool allowBlank = false)
+        private void SetExtraWorkTypeList(int? type, bool allowBlank = true)
         {
             IExtraWorkTypeService cs = new ExtraWorkTypeService(Settings.Default.db);
 
-           
+
             List<ExtraWorkType> certType = cs.All();
 
             List<SelectListItem> select = new List<SelectListItem>();
@@ -218,6 +257,92 @@ namespace BlueHrWeb.Controllers
                 }
             }
             ViewData["durationTypeList"] = select;
+        }
+
+        public ActionResult Import()
+        {
+            var ff = Request.Files[0];
+            string fileName = BlueHrWeb.Helpers.FileHelper.SaveAsTmp(ff);
+            ExtraWorkTypeExcelHelper helper = new ExtraWorkTypeExcelHelper(Settings.Default.db, fileName);
+            ImportMessage msg = helper.Import();
+
+            //添加"text/html",防止IE 自动下载json 格式返回的数据
+            return Json(msg, "text/html");
+        }
+
+        [HttpPost]
+        //•	员工号（输入，不可空）
+        //•	缺勤类别（选择，不可空）
+        //•	缺勤原因（输入，可空），
+        //•	缺勤的小时或天长。（输入，不可空）
+        //•	时间单位（选择，不可空，选项为： 小时/天，默认为小时） 
+        public ResultMessage DoValidation(ExtraWorkRecord model)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            if (string.IsNullOrEmpty(model.staffNr))
+            {
+                msg.Success = false;
+                msg.Content = "员工号不能为空";
+
+                return msg;
+            }
+
+            if (model.extraWorkTypeId <= 0)
+            {
+                msg.Success = false;
+                msg.Content = "加班类别不能为空";
+
+                return msg;
+            }
+
+            if (model.durationType <= 0)
+            {
+                msg.Success = false;
+                msg.Content = "时间单位不能为空";
+
+                return msg;
+            }
+
+            if (model.duration <= 0)
+            {
+                msg.Success = false;
+                msg.Content = "加班时长不能为空";
+
+                return msg;
+            }
+
+            //IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
+            //List<AbsenceRecrod> abs = cs.GetAll();
+
+            //if (model.id <= 0)
+            //{
+            //    bool isRecordExists = abs.Where(p => p.staffNr == model.staffNr || p.absenceTypeId == model.absenceTypeId
+            //    || p.remark == model.remark || p.duration == model.duration).ToList().Count() > 0;
+
+            //    if (isRecordExists)
+            //    {
+            //        msg.Success = false;
+            //        msg.Content = "数据已经存在!";
+
+            //        return msg;
+            //    }
+            //}
+            //else
+            //{
+            //    bool isRecordExists = abs.Where(p => (p.staffNr == model.staffNr || p.absenceTypeId == model.absenceTypeId
+            //    || p.remark == model.remark || p.duration == model.duration) && p.id != model.id).ToList().Count() > 0;
+
+            //    if (isRecordExists)
+            //    {
+            //        msg.Success = false;
+            //        msg.Content = "数据已经存在!";
+
+            //        return msg;
+            //    }
+            //}
+
+            return new ResultMessage() { Success = true, Content = "" };
         }
     }
 }

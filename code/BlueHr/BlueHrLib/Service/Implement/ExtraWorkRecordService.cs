@@ -56,5 +56,13 @@ namespace BlueHrLib.Service.Implement
 
             return info;
         }
+
+        public bool Creates(List<ExtraWorkRecord> records)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            dc.Context.GetTable<ExtraWorkRecord>().InsertAllOnSubmit(records);
+            dc.Context.SubmitChanges();
+            return true;
+        }
     }
 }

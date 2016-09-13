@@ -1,15 +1,12 @@
 ﻿@model BlueHrLib.Data.ExtraWorkRecord
-
 <div id="extrawordrecord" style="margin:10px;">
     <ol class="breadcrumb current-position">
         您的位置：
         <li>@Html.ActionLink("加班管理", "Index")</li>
         <li>{{action}}</li>
     </ol>
-
     <hr class="hr-grey" />
-
-    @using (Html.BeginForm())
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -22,7 +19,6 @@
         <div class="marco-npanel-primary">
             <div class="marco-nheading">
                 {{action}}
-
                 <div class="pull-right">
                     <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;">
                         <i class="fa fa-check-circle-o"></i>
@@ -30,20 +26,16 @@
                     </button>
                 </div>
             </div>
-
-            @*<div class="marco-nbody row">
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>缺勤时间</span>
-                            @Html.EditorFor(model => model.absenceDate, new { htmlAttributes = new { @class = "date-picker" } })
-                         </div>
-                    </div>
-                </div>*@
-
-
             <div class="marco-nbody row">
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
+                    <div class="marco-igroup-primary">
+                        <span>加班时间</span>
+                        @Html.EditorFor(model => model.otTime, new { htmlAttributes = new { @class = "date-picker" } })
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
                         <span>员工号 </span>
                         @if (Model != null)
                         {
@@ -55,46 +47,41 @@
                         }
                     </div>
                 </div>
-
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
+                    <div class="marco-igroup-primary">
                         <span>加班类别 </span>
                         @Html.DropDownList("extraWorkTypeId", ViewData["extraWorkTypeList"] as IEnumerable<SelectListItem>)
                     </div>
                 </div>
-
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
+                    <div class="marco-igroup-primary">
                         <span>缺勤时长 </span>
                         @Html.EditorFor(model => model.duration, new { htmlAttributes = new { type = "number" } })
                     </div>
                 </div>
-
-                @*<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
                         <span>时间单位 </span>
                         @Html.DropDownList("durationType", ViewData["durationTypeList"] as IEnumerable<SelectListItem>)
                     </div>
-                </div>*@
+                </div>
             </div>
 
-
             <div class="marco-textarea">
-                <label for="remark">加班原因</label>
+                <label for="otReason">加班原因</label>
                 @if (Model != null)
                 {
                     @Html.TextAreaFor(model => model.otReason)
                 }
                 else
                 {
-                    <textarea name="remark" placeholder="加班原因"></textarea>
+                    <textarea name="otReason" placeholder="加班原因"></textarea>
                 }
             </div>
         </div>
 
     }
 </div>
-
 <script type="text/javascript">
     Layout.init();
 
@@ -106,4 +93,17 @@
 
     //Layout.datepicker('.datetimepicker');
     Layout.datepicker('.date-picker');
+
+    //回调函数
+    function post_return_action(data) {
+
+        if (!data.Success) {
+            Layout.popMsg('popMsg-danger', data.Content);
+            return false;
+        }
+        else {
+
+            location.href = '/ExtraWorkRecord/Index';
+        }
+    }
 </script>

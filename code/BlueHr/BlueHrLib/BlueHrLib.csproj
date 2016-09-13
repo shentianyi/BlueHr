@@ -102,6 +102,8 @@
     <Compile Include="Data\Model\Department.cs" />
     <Compile Include="Data\Enum\WorkStatus.cs" />
     <Compile Include="Data\Model\Excel\AbsenceRecordExcelModel.cs" />
+    <Compile Include="Data\Model\Excel\ExtraWorkRecordExcelModel.cs" />
+    <Compile Include="Helper\Excel\ExtraWorkTypeExcelHelper.cs" />
     <Compile Include="Data\Model\Excel\ShiftScheduleExcelModel.cs" />
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
