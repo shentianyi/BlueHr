@@ -161,17 +161,17 @@ Certificate.FillHiddenInput = function (atchName, addOrDel) {
         theName += atchName + ";";
     }
     else if (addOrDel == "DEL") {
-        console.log(theName);
-        console.log("1---------------------------");
+        //console.log(theName);
+        //console.log("1---------------------------");
 
-        console.log(atchName + ";");
-        console.log("2---------------------------");
+        //console.log(atchName + ";");
+        //console.log("2---------------------------");
 
         //删除-替换字符串
         theName = theName.replaceAll(atchName + ";", "");
 
-        console.log("3---------------------------");
-        console.log(theName);
+        //console.log("3---------------------------");
+        //console.log(theName);
     }
 
     $("#athment").val(theName);

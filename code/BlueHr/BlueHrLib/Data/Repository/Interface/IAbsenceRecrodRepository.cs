@@ -19,5 +19,7 @@ namespace BlueHrLib.Data.Repository.Interface
         bool DeleteById(int id);
 
         List<AbsenceRecrod> FindByAbsenceType(int id);
+
+        List<AbsenceRecrod> GetAll();
     }
 }

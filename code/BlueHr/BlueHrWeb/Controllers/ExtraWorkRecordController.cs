@@ -74,7 +74,7 @@ namespace BlueHrWeb.Controllers
             try
             {
                 // TODO: Add insert logic here 
-                model.durationType = (int)DurationType.Day;
+                model.durationType = (int)DurationType.Hour;
                 IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
                  
                 //model.absenceDate = HttpContext.Request.Form["absenceDate"];
@@ -104,7 +104,7 @@ namespace BlueHrWeb.Controllers
         {
             try
             {
-                model.durationType = (int)DurationType.Day;
+                model.durationType = (int)DurationType.Hour;
                 // TODO: Add update logic here
                 IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
 

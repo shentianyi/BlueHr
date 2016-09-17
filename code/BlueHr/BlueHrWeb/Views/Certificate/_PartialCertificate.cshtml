@@ -121,7 +121,7 @@
                                             else
                                             {
                                                 <td>
-                                                    <a href="/Certificate/DownFile?fileName=@attachment.name&filePath=@attachment.path">@attachment.name</a>
+                                                    <a href="/Certificate/DownFile?fileName=@attachment.name&filePath=@attachment.path" id="@attachment.id">@attachment.name</a>
                                                 </td>
                                             }
                                         } 
@@ -130,7 +130,7 @@
                                             <a href="/Certificate/DownFile?fileName=@attachment.name&filePath=@attachment.path">
                                                 <i class='fa fa-download option-icon-primary' id="atch_@attachment.id" style='margin-top:3px;'></i>
                                             </a>
-                                            <i class='fa fa-close option-icon-danger' id="atch_@attachment.id" style='margin-top:3px;' onclick="Certificate.deleteAtch('@attachment.id','@attachment.name')"></i>
+                                            <i class='fa fa-close option-icon-danger' id="atch_del_@attachment.id" style='margin-top:3px;' onclick="Certificate.deleteAtch('atch_del_@attachment.id','@attachment.name')"></i>
                                         </td>
                                     </tr>
                                                 }

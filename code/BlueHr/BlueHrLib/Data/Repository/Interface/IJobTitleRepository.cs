@@ -16,7 +16,7 @@ namespace BlueHrLib.Data.Repository.Interface
 
         JobTitle FindByName(string name);
 
-        bool Update(JobTitle jobTitle);
+        bool Update(JobTitle jobTitle, string jobCertTypeIds);
 
         bool DeleteById(int id);
 

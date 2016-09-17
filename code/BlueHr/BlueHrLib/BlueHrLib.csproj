@@ -101,6 +101,8 @@
     <Compile Include="Data\Message\ValidateMessage.cs" />
     <Compile Include="Data\Model\Department.cs" />
     <Compile Include="Data\Enum\WorkStatus.cs" />
+    <Compile Include="Data\Model\Excel\DepartmentExcelModel.cs" />
+    <Compile Include="Data\Model\Excel\AbsenceRecordExcelModel.cs" />
     <Compile Include="Data\Model\Excel\ShiftScheduleExcelModel.cs" />
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />
@@ -177,6 +179,8 @@
     <Compile Include="Data\TaskRound.cs" />
     <Compile Include="Data\User.cs" />
     <Compile Include="Helper\EmailHelper.cs" />
+    <Compile Include="Helper\Excel\DepartmentExcelHelper.cs" />
+    <Compile Include="Helper\Excel\AbsenceRecordExcelHelper.cs" />
     <Compile Include="Helper\Excel\ShiftScheduleExcelHelper.cs" />
     <Compile Include="Helper\Excel\StaffExcelHelper.cs" />
     <Compile Include="Helper\JSONHelper.cs" />

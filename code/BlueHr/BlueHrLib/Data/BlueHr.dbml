@@ -122,16 +122,6 @@
       <Association Name="Company_Staff" Member="Staff" ThisKey="id" OtherKey="companyId" Type="Staff" />
     </Type>
   </Table>
-  <Table Name="dbo.Department" Member="Department">
-    <Type Name="Department">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Department_Staff" Member="Staff" ThisKey="id" OtherKey="departmentId" Type="Staff" />
-      <Association Name="Company_Department" Member="Company" ThisKey="companyId" OtherKey="id" Type="Company" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.ExtraWorkRecord" Member="ExtraWorkRecord">
     <Type Name="ExtraWorkRecord">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -264,62 +254,6 @@
       <Column Name="scheduleAt" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Association Name="Shift_ShiftSchedule" Member="Shift" ThisKey="shiftId" OtherKey="id" Type="Shift" IsForeignKey="true" />
       <Association Name="Staff_ShiftSchedule" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Staff" Member="Staff">
-    <Type Name="Staff">
-      <Column Name="nr" Type="System.String" DbType="VarChar(200) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="sex" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ethnic" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="firstCompanyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="totalCompanySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="companyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="companySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="workStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="isOnTrial" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="trialOverAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="departmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="jobTitleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="photo" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="staffTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="degreeTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="speciality" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="residenceAddress" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="address" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="id" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="isIdChecked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="contactName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="contactPhone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="contactFamilyMemberType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="domicile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="residenceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="insureTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="isPayCPF" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="contractExpireAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="contractCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="totalSeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="workingYearsAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="Staff_AbsenceRecrod" Member="AbsenceRecrod" ThisKey="nr" OtherKey="staffNr" Type="AbsenceRecrod" />
-      <Association Name="Staff_AttendanceRecordCal" Member="AttendanceRecordCal" ThisKey="nr" OtherKey="staffNr" Type="AttendanceRecordCal" />
-      <Association Name="Staff_AttendanceRecordDetail" Member="AttendanceRecordDetail" ThisKey="nr" OtherKey="staffNr" Type="AttendanceRecordDetail" />
-      <Association Name="Staff_BankCard" Member="BankCard" ThisKey="nr" OtherKey="staffNr" Type="BankCard" />
-      <Association Name="Staff_Certificate" Member="Certificate" ThisKey="nr" OtherKey="staffNr" Type="Certificate" />
-      <Association Name="Staff_ExtraWorkRecord" Member="ExtraWorkRecord" ThisKey="nr" OtherKey="staffNr" Type="ExtraWorkRecord" />
-      <Association Name="Staff_FamilyMemeber" Member="FamilyMemeber" ThisKey="nr" OtherKey="staffNr" Type="FamilyMemeber" />
-      <Association Name="Staff_FullMemberRecord" Member="FullMemberRecord" ThisKey="nr" OtherKey="staffNr" Type="FullMemberRecord" />
-      <Association Name="Staff_ResignRecord" Member="ResignRecord" ThisKey="nr" OtherKey="staffNr" Type="ResignRecord" />
-      <Association Name="Staff_ShiftSchedule" Member="ShiftSchedule" ThisKey="nr" OtherKey="staffNr" Type="ShiftSchedule" />
-      <Association Name="Company_Staff" Member="Company" ThisKey="companyId" OtherKey="id" Type="Company" IsForeignKey="true" />
-      <Association Name="Department_Staff" Member="Department" ThisKey="departmentId" OtherKey="id" Type="Department" IsForeignKey="true" />
-      <Association Name="InsureType_Staff" Member="InsureType" ThisKey="insureTypeId" OtherKey="id" Type="InsureType" IsForeignKey="true" />
-      <Association Name="JobTitle_Staff" Member="JobTitle" ThisKey="jobTitleId" OtherKey="id" Type="JobTitle" IsForeignKey="true" />
-      <Association Name="StaffType_Staff" Member="StaffType" ThisKey="staffTypeId" OtherKey="id" Type="StaffType" IsForeignKey="true" />
-      <Association Name="DegreeType_Staff" Member="DegreeType" ThisKey="degreeTypeId" OtherKey="id" Type="DegreeType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.StaffType" Member="StaffType">
@@ -501,6 +435,76 @@
       <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
       <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Association Name="DegreeType_Staff" Member="Staff" ThisKey="id" OtherKey="degreeTypeId" Type="Staff" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Department" Member="Department">
+    <Type Name="Department">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="parentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Department_Department" Member="ChildDepartment" ThisKey="id" OtherKey="parentId" Type="Department" />
+      <Association Name="Department_Staff" Member="Staff" ThisKey="id" OtherKey="departmentId" Type="Staff" />
+      <Association Name="Company_Department" Member="Company" ThisKey="companyId" OtherKey="id" Type="Company" IsForeignKey="true" />
+      <Association Name="Department_Department" Member="ParentDepartment" ThisKey="parentId" OtherKey="id" Type="Department" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Staff" Member="Staff">
+    <Type Name="Staff">
+      <Column Name="nr" Type="System.String" DbType="VarChar(200) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="sex" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ethnic" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="firstCompanyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="totalCompanySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="companyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="companySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="workStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isOnTrial" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="trialOverAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="departmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="jobTitleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="photo" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="staffTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="degreeTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="speciality" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="residenceAddress" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="id" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="isIdChecked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactPhone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactFamilyMemberType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="domicile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="residenceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="insureTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isPayCPF" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="contractExpireAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="contractCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="totalSeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="workingYearsAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="contractExpireStr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Staff_AbsenceRecrod" Member="AbsenceRecrod" ThisKey="nr" OtherKey="staffNr" Type="AbsenceRecrod" />
+      <Association Name="Staff_AttendanceRecordCal" Member="AttendanceRecordCal" ThisKey="nr" OtherKey="staffNr" Type="AttendanceRecordCal" />
+      <Association Name="Staff_AttendanceRecordDetail" Member="AttendanceRecordDetail" ThisKey="nr" OtherKey="staffNr" Type="AttendanceRecordDetail" />
+      <Association Name="Staff_BankCard" Member="BankCard" ThisKey="nr" OtherKey="staffNr" Type="BankCard" />
+      <Association Name="Staff_Certificate" Member="Certificate" ThisKey="nr" OtherKey="staffNr" Type="Certificate" />
+      <Association Name="Staff_ExtraWorkRecord" Member="ExtraWorkRecord" ThisKey="nr" OtherKey="staffNr" Type="ExtraWorkRecord" />
+      <Association Name="Staff_FamilyMemeber" Member="FamilyMemeber" ThisKey="nr" OtherKey="staffNr" Type="FamilyMemeber" />
+      <Association Name="Staff_FullMemberRecord" Member="FullMemberRecord" ThisKey="nr" OtherKey="staffNr" Type="FullMemberRecord" />
+      <Association Name="Staff_ResignRecord" Member="ResignRecord" ThisKey="nr" OtherKey="staffNr" Type="ResignRecord" />
+      <Association Name="Staff_ShiftSchedule" Member="ShiftSchedule" ThisKey="nr" OtherKey="staffNr" Type="ShiftSchedule" />
+      <Association Name="Company_Staff" Member="Company" ThisKey="companyId" OtherKey="id" Type="Company" IsForeignKey="true" />
+      <Association Name="DegreeType_Staff" Member="DegreeType" ThisKey="degreeTypeId" OtherKey="id" Type="DegreeType" IsForeignKey="true" />
+      <Association Name="Department_Staff" Member="Department" ThisKey="departmentId" OtherKey="id" Type="Department" IsForeignKey="true" />
+      <Association Name="InsureType_Staff" Member="InsureType" ThisKey="insureTypeId" OtherKey="id" Type="InsureType" IsForeignKey="true" />
+      <Association Name="JobTitle_Staff" Member="JobTitle" ThisKey="jobTitleId" OtherKey="id" Type="JobTitle" IsForeignKey="true" />
+      <Association Name="StaffType_Staff" Member="StaffType" ThisKey="staffTypeId" OtherKey="id" Type="StaffType" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

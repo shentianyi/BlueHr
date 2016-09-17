@@ -11,6 +11,8 @@ using BlueHrWeb.Properties;
 using Brilliantech.Framwork.Utils.LogUtil;
 using MvcPaging;
 using BlueHrWeb.CustomAttributes;
+using BlueHrLib.Helper.Excel;
+using BlueHrLib.Data.Message;
 
 namespace BlueHrWeb.Controllers
 {
@@ -49,7 +51,8 @@ namespace BlueHrWeb.Controllers
         public ActionResult Create()
         {
             //读取所有公司列表
-            SetCompanyList(null);
+            SetCompanyList(null, false);
+            SetDepartmentList(null,null);
             return View();
         }
 
@@ -67,14 +70,19 @@ namespace BlueHrWeb.Controllers
                     name = departmentName,
                     remark = departmentRemark,
                     companyId = int.Parse(companyId)
+                    
                 };
-
+               if(!string.IsNullOrEmpty(collection["parentId"])  ){
+                    department.parentId = int.Parse(collection["parentId"]);
+                }
                 this.departmentService.Create(department);
 
+                SetCompanyList(null, false);
                 return RedirectToAction("Index");
             }
             catch
             {
+                SetCompanyList(null,false);
                 return View();
             }
         }
@@ -90,6 +98,7 @@ namespace BlueHrWeb.Controllers
 
             SetCompanyList(department.companyId, false);
 
+            SetDepartmentList(department.companyId, department.parentId);
             return View(department);
         }
 
@@ -103,6 +112,10 @@ namespace BlueHrWeb.Controllers
                 {
                     department.name = collection["name"];
                     department.remark = collection["remark"];
+
+                    if (!string.IsNullOrEmpty(collection["parentId"]) ) {
+                        department.parentId = int.Parse(collection["parentId"]);
+                    }
                     this.departmentService.Update(department);
                 }
                 return RedirectToAction("Index");
@@ -122,6 +135,8 @@ namespace BlueHrWeb.Controllers
         {
             var department = this.departmentService.FindById(id);
             SetCompanyList(department.companyId, false);
+            SetDepartmentList(department.companyId, department.parentId);
+
             return View(department);
         }
 
@@ -165,6 +180,17 @@ namespace BlueHrWeb.Controllers
             return View("Index", departments);
         }
 
+        public ActionResult Import()
+        {
+            var ff = Request.Files[0];
+            string fileName = BlueHrWeb.Helpers.FileHelper.SaveAsTmp(ff);
+            DepartmentExcelHelper helper = new DepartmentExcelHelper(Settings.Default.db, fileName);
+            ImportMessage msg = helper.Import();
+
+            //添加"text/html",防止IE 自动下载json 格式返回的数据
+            return Json(msg, "text/html");
+        }
+
         private void SetCompanyList(int? type, bool allowBlank = true)
         {
             ICompanyService cs = new CompanyService(Settings.Default.db);
@@ -192,6 +218,38 @@ namespace BlueHrWeb.Controllers
                 }
             }
             ViewData["companyList"] = select;
+        }
+
+        private void SetDepartmentList(int? companyId, int? type, bool allowBlank = true)
+        {
+            IDepartmentService ds = new DepartmentService(Settings.Default.db);
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            List<Department> departments = new List<Department>();
+            if (companyId.HasValue)
+            {
+                departments = ds.FindByCompanyId(companyId).ToList();
+
+                if (allowBlank)
+                {
+                    select.Add(new SelectListItem { Text = "", Value = "" });
+                }
+
+                foreach (var department in departments)
+                {
+                    if (type.HasValue && type.ToString().Equals(department.id))
+                    {
+                        select.Add(new SelectListItem { Text = department.name, Value = department.id.ToString(), Selected = true });
+                    }
+                    else
+                    {
+                        select.Add(new SelectListItem { Text = department.name, Value = department.id.ToString(), Selected = false });
+                    }
+                }
+            }
+
+            ViewData["departmentList"] = select;
         }
     }
 }

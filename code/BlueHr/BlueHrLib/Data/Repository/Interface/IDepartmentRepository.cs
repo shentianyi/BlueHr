@@ -17,6 +17,7 @@ namespace BlueHrLib.Data.Repository.Interface
         Department FindById(int id);
 
         Department FindByIdWithCompanyId(int? companyId, string departmentName);
+        Department FindByIdWithCompanyIdAndParentId(int? companyId, string departmentName,int parentId);
 
         bool Update(Department department);
 

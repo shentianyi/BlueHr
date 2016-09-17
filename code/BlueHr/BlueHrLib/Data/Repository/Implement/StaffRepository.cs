@@ -168,6 +168,7 @@ namespace BlueHrLib.Data.Repository.Implement
                     sf.insureTypeId = staff.insureTypeId;
                     sf.isPayCPF = staff.isPayCPF;
                     sf.contractExpireAt = staff.contractExpireAt;
+                    sf.contractExpireStr = staff.contractExpireStr;
                     sf.contractCount = staff.contractCount;
                     sf.totalSeniority = staff.totalSeniority;
                     sf.remark = staff.remark;

@@ -15,6 +15,7 @@ namespace BlueHrLib.Helper.Excel
 {
     public class StaffExcelHelper : ExcelHelperBase
     {
+        public string BankCardName = string.Empty;
         public StaffExcelHelper() { }
         public StaffExcelHelper(string dbString):base(dbString)
         {
@@ -44,6 +45,8 @@ namespace BlueHrLib.Helper.Excel
                     {
                         ExcelWorksheet ws = ep.Workbook.Worksheets.First();
                         sheetName = ws.Name;
+                        BankCardName =     ws.Cells[1, 34].Value == null ? string.Empty : ws.Cells[1, 34].Value.ToString();
+
                         for (int i = 2; i <= ws.Dimension.End.Row; i++)
                         {
                             records.Add(new StaffExcelModel()
@@ -83,7 +86,7 @@ namespace BlueHrLib.Helper.Excel
                                 ResidenceTypeStr = ws.Cells[i, 27].Value == null ? string.Empty : ws.Cells[i, 27].Value.ToString(),
                                 InsureTypeIdStr = ws.Cells[i, 28].Value == null ? string.Empty : ws.Cells[i, 28].Value.ToString(),
                                 IsPayCPFStr = ws.Cells[i, 29].Value == null ? string.Empty : ws.Cells[i, 29].Value.ToString(),
-                                ContractExpireAtStr = ws.Cells[i, 30].Value == null ? string.Empty : ws.Cells[i, 30].Value.ToString(),
+                                ContractExpireStr = ws.Cells[i, 30].Value == null ? string.Empty : ws.Cells[i, 30].Value.ToString(),
                                 ContractCountStr = ws.Cells[i, 31].Value == null ? string.Empty : ws.Cells[i, 31].Value.ToString(),
                                 //photo 字段 在Excel中， 但是无法将之转化到数据库中
                                 Photo = ws.Cells[i, 32].Value == null ? string.Empty : ws.Cells[i, 32].Value.ToString(),
@@ -97,6 +100,7 @@ namespace BlueHrLib.Helper.Excel
                                 FamilyMemberAgeStr = ws.Cells[i, 38].Value == null ? string.Empty : ws.Cells[i, 38].Value.ToString(),
 
                                 Remark = ws.Cells[i, 39].Value == null ? string.Empty : ws.Cells[i, 39].Value.ToString(),
+                                WorkStatusStr = ws.Cells[i, 40].Value == null ? string.Empty : ws.Cells[i, 40].Value.ToString()
                             });
                         }
                     }
@@ -117,8 +121,8 @@ namespace BlueHrLib.Helper.Excel
                             /// 创建错误文件
                             msg.Success = false;
                             /// 写入文件夹，然后返回
-                            string tmpFile = FileHelper.CreateFullTmpFilePath(Path.GetFileName(this.FilePath),true);
-                            msg.Content =FileHelper.GetDownloadTmpFilePath(tmpFile);
+                            string tmpFile = FileHelper.CreateFullTmpFilePath(Path.GetFileName(this.FilePath), true);
+                            msg.Content = FileHelper.GetDownloadTmpFilePath(tmpFile);
                             msg.ErrorFileFeed = true;
 
                             FileInfo tmpFileInfo = new FileInfo(tmpFile);
@@ -165,7 +169,7 @@ namespace BlueHrLib.Helper.Excel
                                     sheet.Cells[i + 2, 27].Value = records[i].ResidenceTypeStr;
                                     sheet.Cells[i + 2, 28].Value = records[i].InsureTypeIdStr;
                                     sheet.Cells[i + 2, 29].Value = records[i].IsPayCPFStr;
-                                    sheet.Cells[i + 2, 30].Value = records[i].ContractExpireAtStr;
+                                    sheet.Cells[i + 2, 30].Value = records[i].ContractExpireStr;
                                     sheet.Cells[i + 2, 31].Value = records[i].ContractCountStr;
                                     sheet.Cells[i + 2, 32].Value = records[i].Photo;
                                     sheet.Cells[i + 2, 33].Value = records[i].HealthCertificateEffectiveFromStr;
@@ -175,9 +179,10 @@ namespace BlueHrLib.Helper.Excel
                                     sheet.Cells[i + 2, 37].Value = records[i].FamilyMemberBirthdayStr;
                                     sheet.Cells[i + 2, 38].Value = records[i].FamilyMemberAgeStr;
                                     sheet.Cells[i + 2, 39].Value = records[i].Remark;
-                                    sheet.Cells[i + 2, 40].Value = records[i].ValidateMessage.ToString();
+                                    sheet.Cells[i + 2, 40].Value = records[i].WorkStatusStr;
+                                    sheet.Cells[i + 2, 41].Value = records[i].ValidateMessage.ToString();
                                 }
-                                
+
                                 /// 保存
                                 ep.Save();
                             }
@@ -186,7 +191,8 @@ namespace BlueHrLib.Helper.Excel
                         {
                             /// 数据写入数据库
 
-                            for(var i =0; i < records.Count; i++) { 
+                            for (var i = 0; i < records.Count; i++)
+                            {
                                 //公司
                                 if (!string.IsNullOrWhiteSpace(records[i].CompanyIdStr))
                                 {
@@ -281,8 +287,11 @@ namespace BlueHrLib.Helper.Excel
                                     }
                                 }
 
-                                List<Staff> details = StaffExcelModel.Convert(records);
+                            }
+                            List<Staff> details = StaffExcelModel.Convert(records);
 
+                            for (var i = 0; i < details.Count; i++)
+                            {
                                 //新增员工
                                 IStaffService ss = new StaffService(this.DbString);
                                 var StaffResult = ss.Create(details[i]);
@@ -297,7 +306,7 @@ namespace BlueHrLib.Helper.Excel
                                         BankCard bankCard = new BankCard();
 
                                         bankCard.nr = records[i].BankCardNrStr;
-                                        bankCard.bank = "交通银行";
+                                        bankCard.bank = BankCardName;
                                         bankCard.staffNr = records[i].Nr;
 
                                         IBankCardService bcs = new BankCardService(this.DbString);

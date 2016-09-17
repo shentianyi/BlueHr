@@ -23,7 +23,7 @@ namespace BlueHrLib.Service.Interface
         JobTitle FindByName(string name);
         bool Create(JobTitle title);
 
-        bool Update(JobTitle title);
+        bool Update(JobTitle title, string jobCertTypeIds);
 
         bool DeleteById(int id);
 

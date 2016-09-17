@@ -74,6 +74,11 @@ namespace BlueHrLib.Data.Repository.Implement
             }
         }
 
+        public Department FindByIdWithCompanyIdAndParentId(int? companyId, string departmentName, int parentId)
+        {
+            return this.context.GetTable<Department>().Where(m => m.companyId.Equals(companyId) && m.parentId.Equals(parentId)).FirstOrDefault(c => c.name.Equals(departmentName.Trim()));
+        }
+
         public IQueryable<Department> Search(DepartmentSearchModel searchModel)
         {
             IQueryable<Department> departments = this.context.Department;
@@ -96,6 +101,7 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 dep.name = department.name;
                 dep.remark = department.remark;
+                dep.parentId = department.parentId;
                 this.context.SubmitChanges();
                 return true;
             }

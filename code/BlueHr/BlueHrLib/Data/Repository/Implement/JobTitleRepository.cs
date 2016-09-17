@@ -59,13 +59,32 @@ namespace BlueHrLib.Data.Repository.Implement
             return this.context.GetTable<JobTitle>().FirstOrDefault(c => c.id.Equals(id));
         }
 
-        public bool Update(JobTitle title)
+        public bool Update(JobTitle title, string jobCertTypeIds)
         {
+            //先删除再添加
+            var jobcDep = this.context.GetTable<JobCertificate>().Where(p => p.jobTitleId.Equals(title.id)).ToList();
+            if (jobcDep != null)
+            {
+                this.context.GetTable<JobCertificate>().DeleteAllOnSubmit(jobcDep);
+                this.context.SubmitChanges();
+            }
+
+
             var dep = this.context.GetTable<JobTitle>().FirstOrDefault(c => c.id.Equals(title.id));
             if (dep != null)
             {
                 dep.name = title.name;
                 dep.remark = title.remark;
+
+                jobCertTypeIds.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
+                {
+                    dep.JobCertificate.Add(new JobCertificate()
+                    {
+                        certificateTypeId = int.Parse(p),
+                        jobTitleId = dep.id
+                    });
+                });
+
                 this.context.SubmitChanges();
                 return true;
             }
