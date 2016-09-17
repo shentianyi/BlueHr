@@ -18,13 +18,29 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public IQueryable<ExtraWorkRecord> Search(ExtraWorkRecordSearchModel searchModel)
         {
-            //TODO
-            IQueryable<ExtraWorkRecord> modelList = this.context.ExtraWorkRecord;
+            IQueryable<ExtraWorkRecord> q = this.context.ExtraWorkRecord; 
+
             if (!string.IsNullOrEmpty(searchModel.staffNr))
             {
-                modelList = modelList.Where(c => c.staffNr.Contains(searchModel.staffNr.Trim()));
+                q = q.Where(c => c.staffNr.Contains(searchModel.staffNr.Trim()));
             }
-            return modelList;
+
+            if (!string.IsNullOrEmpty(searchModel.extraWorkTypeId))
+            {
+                q = q.Where(c => c.extraWorkTypeId.Equals(searchModel.extraWorkTypeId));
+            }
+
+            if (searchModel.durStart.HasValue)
+            {
+                q = q.Where(s => s.otTime >= searchModel.durStart.Value);
+            }
+
+
+            if (searchModel.durEnd.HasValue)
+            {
+                q = q.Where(s => s.otTime <= searchModel.durEnd.Value);
+            }
+            return q.OrderByDescending(s => s.otTime);
         }
 
         public bool Create(ExtraWorkRecord parModel)

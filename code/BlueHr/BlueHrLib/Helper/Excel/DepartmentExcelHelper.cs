@@ -93,6 +93,7 @@ namespace BlueHrLib.Helper.Excel
                                     sheet.Cells[i + 2, 2].Value = records[i].Remark;
                                     sheet.Cells[i + 2, 3].Value = records[i].ParentDepartmentName;
                                     sheet.Cells[i + 2, 4].Value = records[i].CompanyName;
+                                    sheet.Cells[i + 2, 5].Value = records[i].ValidateMessage.ToString();
 
                                 }
 

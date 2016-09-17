@@ -74,9 +74,6 @@
     <Compile Include="Data\AttendanceRecordCalView.cs" />
     <Compile Include="Data\AttendanceRecordDetailView.cs" />
     <Compile Include="Data\AttendanceRecordDetail.cs" />
-    <Compile Include="Data\BlueHr.cs">
-      <DependentUpon>BlueHr.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Data\BlueHr.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -103,6 +100,8 @@
     <Compile Include="Data\Enum\WorkStatus.cs" />
     <Compile Include="Data\Model\Excel\DepartmentExcelModel.cs" />
     <Compile Include="Data\Model\Excel\AbsenceRecordExcelModel.cs" />
+    <Compile Include="Data\Model\Excel\ExtraWorkRecordExcelModel.cs" />
+    <Compile Include="Helper\Excel\ExtraWorkTypeExcelHelper.cs" />
     <Compile Include="Data\Model\Excel\ShiftScheduleExcelModel.cs" />
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
     <Compile Include="Data\Model\Excel\BaseExcelModel.cs" />

@@ -23,14 +23,14 @@ public enum ResidenceType
     /// 本地城镇
     /// </summary>
     [Description("本地城镇")]
-    NotFarmer = 0,
+    LocalCity = 0,
 
 
     /// <summary>
     /// 本地农村
     /// </summary>
     [Description("本地农村")]
-    Farmer = 1,
+    LocalFarmer = 1,
 
     /// <summary>
     /// 返聘人员
@@ -42,12 +42,24 @@ public enum ResidenceType
     /// 外地城镇
     /// </summary>
     [Description("外地城镇")]
-    OutNotFarmer =3,
+    OutCity =3,
 
 
     /// <summary>
     /// 外地农村
     /// </summary>
     [Description("外地农村")]
-    OutFarmer =4
+    OutFarmer =4,
+
+    /// <summary>
+    /// 非农业
+    /// </summary>
+    [Description("非农业")]
+    NotFarmer = 5,
+
+    /// <summary>
+    /// 非城镇
+    /// </summary>
+    [Description("非城镇")]
+    NotCity = 6
 }

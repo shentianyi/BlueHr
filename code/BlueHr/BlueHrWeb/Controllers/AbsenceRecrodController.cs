@@ -299,13 +299,13 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            if (model.durationType <= 0)
-            {
-                msg.Success = false;
-                msg.Content = "时间类别不能为空";
+            //if (model.durationType <= 0)
+            //{
+            //    msg.Success = false;
+            //    msg.Content = "时间类别不能为空";
 
-                return msg;
-            }
+            //    return msg;
+            //}
 
             if (null == model.duration || model.duration <= 0)
             {

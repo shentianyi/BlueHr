@@ -45,6 +45,13 @@ namespace BlueHrLib.Data.Enum
         /// 考勤数据不整齐
         /// </summary>
         [Description("考勤数据不整齐")]
-        MessRecord = 500
+        MessRecord = 500,
+
+
+        /// <summary>
+        /// 加班
+        /// </summary>
+        [Description("加班")]
+        ExtraWork = 600
     }
 }

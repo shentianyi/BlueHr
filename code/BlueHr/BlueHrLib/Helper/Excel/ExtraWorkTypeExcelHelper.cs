@@ -1,6 +1,6 @@
-﻿using BlueHrLib.Data;
-using BlueHrLib.Data.Message;
-using BlueHrLib.Data.Model.Excel;
+﻿using BlueHrLib.Data.Message;
+using BlueHrLib.Helper;
+using BlueHrLib.Helper.Excel;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
 using Brilliantech.Framwork.Utils.LogUtil;
@@ -11,18 +11,18 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace BlueHrLib.Helper.Excel
+namespace BlueHrLib.Data.Model.Excel
 {
-    public class AbsenceRecordExcelHelper : ExcelHelperBase
+    public class ExtraWorkTypeExcelHelper : ExcelHelperBase
     {
-        public AbsenceRecordExcelHelper() { }
+        public ExtraWorkTypeExcelHelper() { }
 
-        public AbsenceRecordExcelHelper(string dbString) : base(dbString)
+        public ExtraWorkTypeExcelHelper(string dbString) : base(dbString)
         {
             this.DbString = dbString;
         }
 
-        public AbsenceRecordExcelHelper(string dbString, string filePath) : base(dbString, filePath)
+        public ExtraWorkTypeExcelHelper(string dbString, string filePath) : base(dbString, filePath)
         {
         }
 
@@ -36,7 +36,7 @@ namespace BlueHrLib.Helper.Excel
             try
             {
                 FileInfo fileInfo = new FileInfo(this.FilePath);
-                List<AbsenceRecordExcelModel> records = new List<AbsenceRecordExcelModel>();
+                List<ExtraWorkRecordExcelModel> records = new List<ExtraWorkRecordExcelModel>();
                 string sheetName = "Tmp";
                 /// 读取excel文件
                 using (ExcelPackage ep = new ExcelPackage(fileInfo))
@@ -47,14 +47,14 @@ namespace BlueHrLib.Helper.Excel
                         sheetName = ws.Name;
                         for (int i = 2; i <= ws.Dimension.End.Row; i++)
                         {
-                            records.Add(new AbsenceRecordExcelModel()
+                            records.Add(new ExtraWorkRecordExcelModel()
                             {
-                                AbsenceDateStr = ws.Cells[i, 1].Value == null ? string.Empty : ws.Cells[i, 1].Value.ToString(),
+                                OtTimeStr = ws.Cells[i, 1].Value == null ? string.Empty : ws.Cells[i, 1].Value.ToString(),
                                 StaffNr = ws.Cells[i, 2].Value == null ? string.Empty : ws.Cells[i, 2].Value.ToString(),
                                 Name = ws.Cells[i, 3].Value == null ? string.Empty : ws.Cells[i, 3].Value.ToString(),
-                                AbsenceTypeStr = ws.Cells[i, 4].Value == null ? string.Empty : ws.Cells[i, 4].Value.ToString(),
-                                Remark = ws.Cells[i, 5].Value == null ? string.Empty : ws.Cells[i, 5].Value.ToString(),
-                                Duration = ws.Cells[i, 6].Value == null ? string.Empty : ws.Cells[i, 6].Value.ToString()
+                                ExtraWorkTypeStr = ws.Cells[i, 4].Value == null ? string.Empty : ws.Cells[i, 4].Value.ToString(),
+                                OtReason = ws.Cells[i, 5].Value == null ? string.Empty : ws.Cells[i, 5].Value.ToString(),
+                                Duration = ws.Cells[i, 6].Value == null ? string.Empty : ws.Cells[i, 6].Value.ToString(),
                             });
                         }
                     }
@@ -84,19 +84,19 @@ namespace BlueHrLib.Helper.Excel
                             {
                                 ExcelWorksheet sheet = ep.Workbook.Worksheets.Add(sheetName);
                                 ///写入Header
-                                for (int i = 0; i < AbsenceRecordExcelModel.Headers.Count(); i++)
+                                for (int i = 0; i < ExtraWorkRecordExcelModel.Headers.Count(); i++)
                                 {
-                                    sheet.Cells[1, i + 1].Value = AbsenceRecordExcelModel.Headers[i];
+                                    sheet.Cells[1, i + 1].Value = ExtraWorkRecordExcelModel.Headers[i];
                                 }
                                 ///写入错误数据
                                 for (int i = 0; i < records.Count(); i++)
                                 {
-                                    sheet.Cells[i + 2, 1].Value = records[i].AbsenceDateStr;
+                                    sheet.Cells[i + 2, 1].Value = records[i].OtTimeStr;
                                     sheet.Cells[i + 2, 2].Value = records[i].StaffNr;
                                     sheet.Cells[i + 2, 3].Value = records[i].Name;
-                                    sheet.Cells[i + 2, 4].Value = records[i].AbsenceTypeStr;
-                                    sheet.Cells[i + 2, 5].Value = records[i].Remark;
-                                    sheet.Cells[i + 2, 6].Value = records[i].Duration;
+                                    sheet.Cells[i + 2, 4].Value = records[i].DurationTypeStr;
+                                    sheet.Cells[i + 2, 5].Value = records[i].OtReason;
+                                    sheet.Cells[i + 2, 6].Value = records[i].Duration; 
                                     sheet.Cells[i + 2, 7].Value = records[i].ValidateMessage.ToString();
 
                                 }
@@ -109,8 +109,8 @@ namespace BlueHrLib.Helper.Excel
                         {
 
                             /// 数据写入数据库
-                            List<AbsenceRecrod> details = AbsenceRecordExcelModel.Convert(records);
-                            IAbsenceRecordService ss = new AbsenceRecordService(this.DbString);
+                            List<ExtraWorkRecord> details = ExtraWorkRecordExcelModel.Convert(records);
+                            IExtraWorkRecordService ss = new ExtraWorkRecordService(this.DbString);
                             ss.Creates(details);
 
                         }
@@ -132,7 +132,7 @@ namespace BlueHrLib.Helper.Excel
             return msg;
         }
 
-        public List<AbsenceRecordExcelModel> Validates(List<AbsenceRecordExcelModel> models)
+        public List<ExtraWorkRecordExcelModel> Validates(List<ExtraWorkRecordExcelModel> models)
         {
             foreach (var m in models)
             {

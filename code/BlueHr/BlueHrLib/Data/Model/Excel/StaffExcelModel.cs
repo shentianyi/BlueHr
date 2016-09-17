@@ -556,10 +556,10 @@ namespace BlueHrLib.Data.Model.Excel
                 msg.Contents.Add("员工号不可空");
             }
 
-            if (string.IsNullOrEmpty(this.Id))
-            {
-                msg.Contents.Add("身份证号码不可空");
-            }
+            //if (string.IsNullOrEmpty(this.Id))
+            //{
+            //    msg.Contents.Add("身份证号码不可空");
+            //}
 
             msg.Success = msg.Contents.Count == 0;
 
