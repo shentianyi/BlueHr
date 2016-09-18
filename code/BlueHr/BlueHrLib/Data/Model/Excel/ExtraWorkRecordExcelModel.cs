@@ -127,31 +127,31 @@ namespace BlueHrLib.Data.Model.Excel
                 }
             }
 
-            if (string.IsNullOrEmpty(this.DurationTypeStr))
-            {
-                msg.Contents.Add("时间单位不可空");
-            }
-            else
-            {
-                bool isVal = DurationTypeStr != "Hour" || DurationTypeStr != "Day";
+            //if (string.IsNullOrEmpty(this.DurationTypeStr))
+            //{
+            //    msg.Contents.Add("时间单位不可空");
+            //}
+            //else
+            //{
+            //    bool isVal = DurationTypeStr != "Hour" || DurationTypeStr != "Day";
 
-                if (!isVal)
-                {
-                    msg.Contents.Add("时间单位不存在");
-                }
-                else
-                {
-                    if (DurationTypeStr == "天" || DurationTypeStr == "Day")
-                    {
-                        DurationType = (int)BlueHrLib.Data.Enum.DurationType.Day;
-                    }
+            //    if (!isVal)
+            //    {
+            //        msg.Contents.Add("时间单位不存在");
+            //    }
+            //    else
+            //    {
+            //        if (DurationTypeStr == "天" || DurationTypeStr == "Day")
+            //        {
+            //            DurationType = (int)BlueHrLib.Data.Enum.DurationType.Day;
+            //        }
 
-                    if (DurationTypeStr == "小时" || DurationTypeStr == "Hour")
-                    {
-                        DurationType = (int)BlueHrLib.Data.Enum.DurationType.Hour;
-                    }
-                }
-            }
+            //        if (DurationTypeStr == "小时" || DurationTypeStr == "Hour")
+            //        {
+            //            DurationType = (int)BlueHrLib.Data.Enum.DurationType.Hour;
+            //        }
+            //    }
+            //}
 
             //if (string.IsNullOrEmpty(Remark))
             //{
@@ -196,7 +196,7 @@ namespace BlueHrLib.Data.Model.Excel
                     abr.extraWorkTypeId = p.ExtraWorkTypeId;
                     abr.staffNr = p.StaffNr;
                     abr.duration = double.Parse(p.Duration);
-                    abr.durationType = p.DurationType;
+                    abr.durationType = (int)BlueHrLib.Data.Enum.DurationType.Hour; // p.DurationType;
                     abr.otReason = p.OtReason;
                     abr.otTime = p.OtTime;
                     records.Add(abr);
