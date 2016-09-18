@@ -49,5 +49,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="datetime"></param>
         /// <returns></returns>
         List<AttendanceRecordDetailView> GetDetailsViewByStaffAndDate(string nr, DateTime datetime);
+
+        List<AttendanceRecordDetailView> GetDetailsViewByStaffAndDateWithExtrawork(string nr, DateTime datetime);
     }
 }

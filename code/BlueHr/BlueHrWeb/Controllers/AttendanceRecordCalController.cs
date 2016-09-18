@@ -61,7 +61,7 @@ namespace BlueHrWeb.Controllers
             {
                 List<AttendanceRecordDetailView> records = new List<AttendanceRecordDetailView>();
                 IAttendanceRecordDetailService s = new AttendanceRecordDetailService(Settings.Default.db);
-                records = s.GetDetailsViewByStaffAndDate(record.staffNr, record.attendanceDate.Add(new TimeSpan(23, 59, 59)));
+                records = s.GetDetailsViewByStaffAndDateWithExtrawork(record.staffNr, record.attendanceDate);
                 ViewData["attendRecords"] = records;
             }
             return View(record);

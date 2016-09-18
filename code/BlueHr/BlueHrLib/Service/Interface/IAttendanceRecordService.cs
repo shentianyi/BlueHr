@@ -19,6 +19,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="searchModel">需要计算的员工的查询条件, **NOT IMPLEMENT**</param>
         void CalculateAttendRecord(DateTime dateTime, List<string> shiftCodes = null, StaffSearchModel searchModel=null);
 
-       
+
+        void CalculateAttendRecordWithExtrawork(DateTime datetime, List<string> shiftCodes = null,   StaffSearchModel searchModel = null);
     }
 }

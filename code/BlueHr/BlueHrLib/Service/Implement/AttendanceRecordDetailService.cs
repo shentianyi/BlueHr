@@ -91,8 +91,8 @@ namespace BlueHrLib.Service.Implement
 
             foreach(ShiftScheduleView s in shifts)
             {
-                DateTime sq = s.fullStartAt.Value.AddHours(0-setting.validAttendanceRecordTime.Value);
-                DateTime eq = s.fullEndAt.Value.AddHours(setting.validAttendanceRecordTime.Value);
+                DateTime sq = s.fullStartAt.Value.AddMinutes(0-setting.validAttendanceRecordTime.Value);
+                DateTime eq = s.fullEndAt.Value.AddMinutes(setting.validAttendanceRecordTime.Value);
 
                 List<AttendanceRecordDetailView> shiftAttendRecords = dc.Context.GetTable<AttendanceRecordDetailView>().Where(ss=>ss.recordAt>=sq && ss.recordAt<=eq && ss.staffNr.Equals(nr)).OrderBy(ss=>ss.recordAt).ToList() ;//new List<AttendanceRecordDetailView>();
 
@@ -103,5 +103,54 @@ namespace BlueHrLib.Service.Implement
             
             return records;
         }
+
+        /// <summary>
+        /// 获取某一天的打卡记录，无论排班是否开始或结束
+        /// </summary>
+        /// <param name="nr"></param>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        public List<AttendanceRecordDetailView> GetDetailsViewByStaffAndDateWithExtrawork(string nr, DateTime datetime)
+        {
+            List<AttendanceRecordDetailView> records = new List<AttendanceRecordDetailView>();
+
+            SystemSetting setting = new SystemSettingService(this.DbString).Find();
+            DataContext dc = new DataContext(this.DbString);
+            List<ShiftScheduleView> shifts = dc.Context.GetTable<ShiftScheduleView>().Where(s => s.staffNr.Equals(nr) && s.fullStartAt.Value.Date.Equals(datetime.Date)).OrderBy(s => s.fullStartAt).ToList();
+            if (shifts.Count > 0)
+            {
+                /// 找出在单个shift之间的
+                foreach (var s in shifts)
+                {
+                    DateTime sq = s.fullStartAt.Value.AddMinutes(0 - setting.validAttendanceRecordTime.Value);
+                    DateTime eq = s.fullEndAt.Value.AddMinutes(setting.validAttendanceRecordTime.Value);
+                    List<AttendanceRecordDetailView> shiftAttendRecords = dc.Context.GetTable<AttendanceRecordDetailView>().Where(ss => ss.recordAt >= sq && ss.recordAt <= eq && ss.staffNr.Equals(nr)).OrderBy(ss => ss.recordAt).ToList();//new List<AttendanceRecordDetailView>();
+                    records.AddRange(shiftAttendRecords);
+                }
+
+                /// 找出每两个shift之间的，及A的结束到B的开始，如果没有B，则A的开始到datetime的次日23:59:59
+
+                foreach (var firstShift in shifts)
+                {
+                    ShiftScheduleView nextShift = dc.Context.GetTable<ShiftScheduleView>().Where(s => s.staffNr.Equals(nr) && s.fullStartAt > firstShift.fullEndAt).OrderBy(s => s.fullStartAt).FirstOrDefault();
+
+                    DateTime sq = firstShift.fullEndAt.Value.AddMinutes(0 + setting.validAttendanceRecordTime.Value);
+                    DateTime eq = nextShift == null ? datetime.Date.AddDays(1).Add(new TimeSpan(23, 59, 59)) : nextShift.fullStartAt.Value.AddMinutes(0 - setting.validAttendanceRecordTime.Value);
+                    List<AttendanceRecordDetailView> shiftAttendRecords = dc.Context.GetTable<AttendanceRecordDetailView>().Where(ss => ss.recordAt >= sq && ss.recordAt <= eq && ss.staffNr.Equals(nr)).OrderBy(ss => ss.recordAt).ToList();//new List<AttendanceRecordDetailView>();
+                    records.AddRange(shiftAttendRecords);
+                }
+            }
+            else
+            {
+                /// 如果没有排班，则找出前一天开始，到次日的结束
+                DateTime sq = datetime.Date.AddDays(-1);
+                DateTime eq = datetime.Date.AddDays(1).Add(new TimeSpan(23, 59, 59));
+                List<AttendanceRecordDetailView> shiftAttendRecords = dc.Context.GetTable<AttendanceRecordDetailView>().Where(ss => ss.recordAt >= sq && ss.recordAt <= eq && ss.staffNr.Equals(nr)).OrderBy(ss => ss.recordAt).ToList();//new List<AttendanceRecordDetailView>();
+                records.AddRange(shiftAttendRecords);
+            }
+
+            return records.Distinct().ToList(); ;
+        }
+
     }
 }

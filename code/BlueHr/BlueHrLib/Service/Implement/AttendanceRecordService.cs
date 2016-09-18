@@ -94,8 +94,8 @@ namespace BlueHrLib.Service.Implement
                     DateTime shiftStart = shift.fullStartAt.Value;//shift.scheduleAt.Add(shift.startAt);
                     DateTime shiftEnd = shift.fullEndAt.Value; //shift.scheduleAt.AddDays(shift.shiftType.Equals((int)ShiftType.Today) ? 0 : 1).Add(shift.endAt);
 
-                    DateTime sq = shiftStart.AddHours(0 - setting.validAttendanceRecordTime.Value);
-                    DateTime eq = shiftEnd.AddHours(setting.validAttendanceRecordTime.Value);
+                    DateTime sq = shiftStart.AddMinutes(0 - setting.validAttendanceRecordTime.Value);
+                    DateTime eq = shiftEnd.AddMinutes(setting.validAttendanceRecordTime.Value);
 
                     List<AttendanceRecordDetail> records = dc.Context.GetTable<AttendanceRecordDetail>().Where(s => s.staffNr.Equals(staffShiftShedule.Key) && s.recordAt >= sq && s.recordAt <= eq).OrderBy(s => s.recordAt).ToList();
                     //staff.AttendanceRecordDetail.Where(s => s.recordAt >= sq && s.recordAt <= eq).ToList().OrderBy(s => s.recordAt).ToList();
@@ -246,7 +246,10 @@ namespace BlueHrLib.Service.Implement
 
         }
 
-        
+        public void CalculateAttendRecordWithExtrawork(DateTime datetime, List<string> shiftCodes = null, StaffSearchModel searchModel = null)
+        {
+            throw new NotImplementedException();
+        }
 
         private void MarkRepeatRecord(List<AttendanceRecordDetail> records, float repeatFlag)
         {
