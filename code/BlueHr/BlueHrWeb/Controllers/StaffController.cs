@@ -91,7 +91,7 @@ namespace BlueHrWeb.Controllers
         public ActionResult Create([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
             "companySeniority, WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
             "Speciality, ResidenceAddress, Address, Id, Phone, ContactName, ContactPhone, ContactFamilyMemberType, Domicile, "+
-            "ResidenceType, inSureTypeId, IsPayCPF, ContractExpireAt, ContractCount,totalSeniority, Ethnic, Remark, workingYears")] Staff staff)
+            "ResidenceType, inSureTypeId, IsPayCPF, contractExpireStr, ContractCount,totalSeniority, Ethnic, Remark, workingYears")] Staff staff)
         {
             // TODO: Add insert logic here
 
@@ -253,7 +253,7 @@ namespace BlueHrWeb.Controllers
         public ActionResult Edit([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
             "companySeniority, WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
             "Speciality, ResidenceAddress, Address, Id, Phone, ContactName, ContactPhone, ContactFamilyMemberType, Domicile, "+
-            "ResidenceType, inSureTypeId, IsPayCPF, ContractExpireAt, ContractCount,totalSeniority, Ethnic, Remark, workingYears")] Staff staff)
+            "ResidenceType, inSureTypeId, IsPayCPF, contractExpireStr, ContractCount,totalSeniority, Ethnic, Remark, workingYears")] Staff staff)
         {
             try
             {

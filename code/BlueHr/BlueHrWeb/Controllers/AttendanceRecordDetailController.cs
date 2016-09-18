@@ -15,12 +15,14 @@ using BlueHrLib.Data.Message;
 using BlueHrLib.MQTask;
 using BlueHrLib.MQTask.Parameter;
 using BlueHrLib.Helper;
+using BlueHrWeb.CustomAttributes;
 
 namespace BlueHrWeb.Controllers
 {
     public class AttendanceRecordDetailController : Controller
     {
         // GET: AttendanceRecordDetail
+        [UserAuthorize]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);

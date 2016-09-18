@@ -51,6 +51,7 @@
                 <thead>
                     <tr>
                         <th>职位名称</th>
+                        <th>必须证照</th>
                         <th>备注</th>
                         <th>操作</th>
                     </tr>
@@ -64,6 +65,9 @@
 
                                 <td>
                                     @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    <span>@item.CertificateTypeStr</span>
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.remark)

@@ -89,7 +89,7 @@ body {
 .content-wrapper,
 .right-side {
   min-height: 100%;
-  background-color: #ecf0f5;
+  background: url('../Images/back.png') repeat;
   z-index: 800;
 }
 .main-footer {

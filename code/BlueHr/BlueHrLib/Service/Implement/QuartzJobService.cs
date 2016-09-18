@@ -18,6 +18,25 @@ namespace BlueHrLib.Service.Implement
     {
         public QuartzJobService(string dbString) : base(dbString) { }
 
+        public bool Create(QuartzJob job)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            dc.Context.GetTable<QuartzJob>().InsertOnSubmit(job);
+            dc.Context.SubmitChanges();
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            QuartzJob job = dc.Context.GetTable<QuartzJob>().FirstOrDefault(s => s.id.Equals(id));
+            if (job!=null) {
+                dc.Context.GetTable<QuartzJob>().DeleteOnSubmit(job);
+                dc.Context.SubmitChanges();
+            }
+            return true;
+        }
+
         public List<QuartzJob> GetByType(CronJobType type)
         {
             DataContext dc = new DataContext(this.DbString);

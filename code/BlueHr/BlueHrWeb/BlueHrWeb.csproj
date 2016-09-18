@@ -256,6 +256,7 @@
     <Compile Include="Controllers\InSureTypeController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\MessageRecordController.cs" />
+    <Compile Include="Controllers\QuartzJobController.cs" />
     <Compile Include="Controllers\ResignTypeController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
     <Compile Include="Controllers\ShiftScheduleController.cs" />
@@ -264,6 +265,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StaffTypeController.cs" />
+    <Compile Include="Controllers\SystemSettingController.cs" />
     <Compile Include="Controllers\TaskRoundController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomAttributes\UserAuthorizeAttribute.cs" />
@@ -315,6 +317,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\back.png" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\mCSB_buttons.png" />
     <Content Include="README.txt" />
@@ -373,6 +376,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\layout.js" />
+    <Content Include="Scripts\magnific-popup\jquery.magnific-popup.js" />
+    <Content Include="Scripts\magnific-popup\jquery.magnific-popup.min.js" />
+    <Content Include="Content\magnific-popup.css" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -509,6 +515,24 @@
     <Content Include="Views\User\_PartialUser.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\SystemSetting\Index.cshtml" />
+    <Content Include="Views\QuartzJob\Index.cshtml" />
+    <Content Include="Views\QuartzJob\Create.cshtml" />
+    <None Include="Template\员工信息导入文件模板.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Template\排班导入文件模板.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Template\缺勤记录导入文件模板.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Template\考勤记录导入文件模板.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Template\部门导文件模板.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

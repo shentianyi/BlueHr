@@ -13,12 +13,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BlueHrWeb.CustomAttributes;
+using BlueHrLib.Helper.Excel;
 
 namespace BlueHrWeb.Controllers
 {
     public class ShiftScheduleController : Controller
     {
         // GET: ShiftShedule
+        [UserAuthorize]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -182,22 +185,38 @@ namespace BlueHrWeb.Controllers
             return View(cp);
         }
 
+
         // POST: ShiftShedule/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
             try
             {
                 // TODO: Add delete logic here
                 IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
-                cs.DeleteById(id);
-                return RedirectToAction("Index");
+               msg.Success= cs.DeleteById(id);
+                return Json(msg, JsonRequestBehavior.AllowGet);
+                //return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                msg.Content = ex.Message;
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult Import()
+        {
+            var ff = Request.Files[0];
+            string fileName = BlueHrWeb.Helpers.FileHelper.SaveAsTmp(ff);
+            ShiftScheduleExcelHelper helper = new ShiftScheduleExcelHelper(Settings.Default.db, fileName);
+            ImportMessage msg = helper.Import();
+
+            //添加"text/html",防止IE 自动下载json 格式返回的数据
+            return Json(msg, "text/html");
+        }
+
 
         private void SetDropDownList(ShiftSchedule model)
         {
@@ -253,7 +272,7 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            if ( model.scheduleAt==null)
+            if ( model.scheduleAt==null || model.scheduleAt == DateTime.MinValue )
             {
                 msg.Success = false;
                 msg.Content = "日期不能为空";

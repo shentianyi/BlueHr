@@ -1,7 +1,13 @@
-﻿@{
+﻿@using BlueHrLib.Data
+
+@{
     ViewBag.Title = "首页";
 }
 
-<p>
-    欢迎使用德晋Hr系统.
-</p>
+<div class="container">
+    <div class="home">
+        <i class="fa fa-bell-o"></i>
+        <span>@((Session["user"] as User).name)</span>
+        <span>，欢迎使用德晋HR系统</span>
+    </div>
+</div>

@@ -21,5 +21,7 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         ExtraWorkRecordInfoModel GetExtraWorkRecordInfo(ExtraWorkRecordSearchModel searchModel);
+
+        bool Creates(List<ExtraWorkRecord> records);
     }
 }

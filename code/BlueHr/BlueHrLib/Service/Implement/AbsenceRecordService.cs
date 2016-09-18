@@ -61,5 +61,18 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.FindByAbsenceType(id);
         }
+
+        public bool Creates(List<AbsenceRecrod> records)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            dc.Context.GetTable<AbsenceRecrod>().InsertAllOnSubmit(records);
+            dc.Context.SubmitChanges();
+            return true;
+        }
+
+        public List<AbsenceRecrod> GetAll()
+        {
+            return rep.GetAll();
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace BlueHrLib.Service.Interface
 
         bool Create(Certificate title);
 
-        bool Update(Certificate title);
+        bool Update(Certificate title, string delAtchIds);
 
         bool DeleteById(int id);
 

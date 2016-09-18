@@ -43,5 +43,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="model"></param>
         /// <returns></returns>
         bool IsDup(ShiftSchedule model);
+
+        bool Creates(List<ShiftSchedule> records);
     }
 }

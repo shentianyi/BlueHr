@@ -35,7 +35,10 @@
                     <label for="remark">所属公司*</label>
                     @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
                 </div>
-
+                <div class="marco-igroup-primary">
+                    <span>上级</span>
+                    @Html.DropDownList("parentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
+                </div>
                 <div class="marco-igroup-primary">
                     <label for="name">部门名称*</label>
 
@@ -72,5 +75,7 @@
     $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     $(window).resize(function () {
         $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
-    });
+    }); 
+    Layout.CompanyAndDepartment('#companyId', '#parentId');
+ 
 </script>

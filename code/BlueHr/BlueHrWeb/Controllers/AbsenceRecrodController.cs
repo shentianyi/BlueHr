@@ -14,13 +14,20 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using BlueHrWeb.CustomAttributes;
+using BlueHrLib.Helper.Excel;
+using BlueHrLib.Data.Message;
+
 namespace BlueHrWeb.Controllers
 {
     public class AbsenceRecrodController : Controller
     {
         // GET: AbsenceRecrod
+        [UserAuthorize]
         public ActionResult Index(int? page)
         {
+            SetDropDownList(null);
+
             int pageIndex = PagingHelper.GetPageIndex(page);
 
             AbsenceRecrodSearchModel q = new AbsenceRecrodSearchModel();
@@ -37,8 +44,10 @@ namespace BlueHrWeb.Controllers
             return View(models);
         }
 
-        public ActionResult Search([Bind(Include = "Name")] AbsenceRecrodSearchModel q)
+        public ActionResult Search([Bind(Include = "staffNr,absenceTypeId,durStart,durEnd")] AbsenceRecrodSearchModel q)
         {
+            SetDropDownList(null);
+
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
@@ -69,19 +78,31 @@ namespace BlueHrWeb.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "absenceTypeId,staffNr, duration,durationType,remark,absenceDate")] AbsenceRecrod model)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add insert logic here 
+                msg = DoValidation(model);
 
-                IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
-              
-                //model.absenceDate = HttpContext.Request.Form["absenceDate"];
-                cs.Create(model);
-                return RedirectToAction("Index");
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    model.durationType = (int)DurationType.Hour;
+                    IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
+                    bool isSucceed = cs.Create(model);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -99,26 +120,31 @@ namespace BlueHrWeb.Controllers
         [HttpPost]
         public ActionResult Edit([Bind(Include = "id, absenceTypeId,staffNr, duration,durationType,remark,absenceDate")] AbsenceRecrod model)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add update logic here
-                IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
+                msg = DoValidation(model);
 
-                bool updateResult = cs.Update(model);
-                if (!updateResult)
+                if (!msg.Success)
                 {
-                    SetDropDownList(model);
-                    return View();
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return RedirectToAction("Index");
-                }
+                    model.durationType = (int)DurationType.Hour;
+                    IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
+                    bool isSucceed = cs.Update(model);
 
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "更新失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -136,16 +162,35 @@ namespace BlueHrWeb.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
-                // TODO: Add delete logic here
-                IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
-                cs.DeleteById(id);
-                return RedirectToAction("Index");
+                ////存在员工时不可删除
+                //IAbsenceRecordService shfSi = new AbsenceRecordService(Settings.Default.db);
+                //List<AbsenceRecrod> shf = shfSi.FindByAbsenceType(id);
+
+                //if (null != shf && shf.Count() > 0)
+                //{
+                //    msg.Success = false;
+                //    msg.Content = "缺勤类型正在使用,不能删除!";
+
+                //    return Json(msg, JsonRequestBehavior.AllowGet);
+                //}
+                //else
+                {
+                    IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
+                    bool isSucceed = cs.DeleteById(id);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "删除失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -159,7 +204,7 @@ namespace BlueHrWeb.Controllers
             else
             {
                 SetAbsenceTypeList(null);
-                SetDurationTypeCodeList(null);
+                SetDurationTypeCodeList(100);
             }
         }
 
@@ -216,6 +261,103 @@ namespace BlueHrWeb.Controllers
             }
             ViewData["durationTypeList"] = select;
         }
+
+        public ActionResult Import()
+        {
+            var ff = Request.Files[0];
+            string fileName = BlueHrWeb.Helpers.FileHelper.SaveAsTmp(ff);
+            AbsenceRecordExcelHelper helper = new AbsenceRecordExcelHelper(Settings.Default.db, fileName);
+            ImportMessage msg = helper.Import();
+
+            //添加"text/html",防止IE 自动下载json 格式返回的数据
+            return Json(msg, "text/html");
+        }
+
+        [HttpPost]
+        //•	员工号（输入，不可空）
+        //•	缺勤类别（选择，不可空）
+        //•	缺勤原因（输入，可空），
+        //•	缺勤的小时或天长。（输入，不可空）
+        //•	时间单位（选择，不可空，选项为： 小时/天，默认为小时） 
+        public ResultMessage DoValidation(AbsenceRecrod model)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            if (string.IsNullOrEmpty(model.staffNr))
+            {
+                msg.Success = false;
+                msg.Content = "员工号不能为空";
+
+                return msg;
+            }
+            else
+            {
+                IStaffService ss = new StaffService(Settings.Default.db);
+                if (ss.FindByNr(model.staffNr) == null)
+                {
+                    msg.Success = false;
+                    msg.Content = "员工号不存在";
+
+                    return msg;
+                }
+            }
+
+            if (model.absenceTypeId <= 0)
+            {
+                msg.Success = false;
+                msg.Content = "缺勤类别不能为空";
+
+                return msg;
+            }
+
+            if (model.absenceDate ==null)
+            {
+                msg.Success = false;
+                msg.Content = "缺勤时间不能为空，或格式必须正确";
+
+                return msg;
+            }
+
+            if ( model.duration <= 0)
+            {
+                msg.Success = false;
+                msg.Content = "缺勤时长不能为空";
+
+                return msg;
+            }
+
+            //IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
+            //List<AbsenceRecrod> abs = cs.GetAll();
+
+            //if (model.id <= 0)
+            //{
+            //    bool isRecordExists = abs.Where(p => p.staffNr == model.staffNr || p.absenceTypeId == model.absenceTypeId
+            //    || p.remark == model.remark || p.duration == model.duration).ToList().Count() > 0;
+
+            //    if (isRecordExists)
+            //    {
+            //        msg.Success = false;
+            //        msg.Content = "数据已经存在!";
+
+            //        return msg;
+            //    }
+            //}
+            //else
+            //{
+            //    bool isRecordExists = abs.Where(p => (p.staffNr == model.staffNr || p.absenceTypeId == model.absenceTypeId
+            //    || p.remark == model.remark || p.duration == model.duration) && p.id != model.id).ToList().Count() > 0;
+
+            //    if (isRecordExists)
+            //    {
+            //        msg.Success = false;
+            //        msg.Content = "数据已经存在!";
+
+            //        return msg;
+            //    }
+            //}
+
+            return new ResultMessage() { Success = true, Content = "" };
+        }
     }
 }
- 
+

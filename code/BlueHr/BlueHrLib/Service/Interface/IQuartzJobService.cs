@@ -19,5 +19,9 @@ namespace BlueHrLib.Service.Interface
         /// <param name="type"></param>
         /// <returns></returns>
         List<QuartzJob> GetByType(CronJobType type);
+
+        bool Create(QuartzJob job);
+
+        bool Delete(int id);
     }
 }

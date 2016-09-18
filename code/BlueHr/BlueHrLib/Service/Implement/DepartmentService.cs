@@ -41,6 +41,11 @@ namespace BlueHrLib.Service.Implement
             return depRep.FindByIdWithCompanyId(companyId, departmentName);
         }
 
+        public Department FindByIdWithCompanyIdAndParentId(int? companyId, string departmentName, int parentId)
+        {
+            return depRep.FindByIdWithCompanyIdAndParentId(companyId, departmentName, parentId);
+        }
+
         public IQueryable<Department> Search(DepartmentSearchModel searchModel)
         {
             return depRep.Search(searchModel);

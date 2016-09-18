@@ -68,5 +68,11 @@ namespace BlueHrLib.Service.Implement
 
             return info;
         }
+
+        public Shift FindByCode(string code)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            return dc.Context.GetTable<Shift>().FirstOrDefault(s => s.code.Equals(code));
+        }
     }
 }

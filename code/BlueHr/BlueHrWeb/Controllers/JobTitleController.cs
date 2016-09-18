@@ -11,12 +11,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BlueHrWeb.CustomAttributes;
 
 namespace BlueHrWeb.Controllers
 {
     public class JobTitleController : Controller
     {
         // GET: JobTitle 
+        [UserAuthorize]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -59,12 +61,13 @@ namespace BlueHrWeb.Controllers
         // GET: JobTitle/Create
         public ActionResult Create()
         {
+            SetDropDownList(null);
             return View();
         }
 
         // POST: JobTitle/Create
         [HttpPost]
-        public JsonResult Create([Bind(Include = "Name,remark")] JobTitle jobTitle)
+        public JsonResult Create([Bind(Include = "Name,remark,jobCertificateType")] JobTitle jobTitle)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -79,6 +82,21 @@ namespace BlueHrWeb.Controllers
                 else
                 {
                     IJobTitleService cs = new JobTitleService(Settings.Default.db);
+
+                    if (!string.IsNullOrEmpty(Request.Form["jobCertificateType"]))
+                    {
+                        //拼接Job Certificate Type
+                        string jobCerts = this.HttpContext.Request.Form["jobCertificateType"];
+
+                        jobCerts.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
+                         {
+                             jobTitle.JobCertificate.Add(new JobCertificate()
+                             {
+                                 certificateTypeId = int.Parse(p),
+                                 jobTitleId = jobTitle.id
+                             });
+                         });
+                    }
                     bool isSucceed = cs.Create(jobTitle);
 
                     msg.Success = isSucceed;
@@ -98,13 +116,13 @@ namespace BlueHrWeb.Controllers
         {
             IJobTitleService cs = new JobTitleService(Settings.Default.db);
             JobTitle jt = cs.FindById(id);
-
+            SetDropDownList(jt);
             return View(jt);
         }
 
         // POST: JobTitle/Edit/5
         [HttpPost]
-        public JsonResult Edit([Bind(Include = "id, name, remark")] JobTitle jobTitle)
+        public JsonResult Edit([Bind(Include = "id, name, remark,jobCertificateType")] JobTitle jobTitle)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -118,8 +136,10 @@ namespace BlueHrWeb.Controllers
                 }
                 else
                 {
+                    string jobCerts = this.HttpContext.Request.Form["jobCertificateType"];
+
                     IJobTitleService cs = new JobTitleService(Settings.Default.db);
-                    bool isSucceed = cs.Update(jobTitle);
+                    bool isSucceed = cs.Update(jobTitle, jobCerts);
 
                     msg.Success = isSucceed;
                     msg.Content = isSucceed ? "" : "更新失败";
@@ -138,7 +158,7 @@ namespace BlueHrWeb.Controllers
         {
             IJobTitleService cs = new JobTitleService(Settings.Default.db);
             JobTitle cp = cs.FindById(id);
-
+            SetDropDownList(cp);
             return View(cp);
         }
 
@@ -224,6 +244,59 @@ namespace BlueHrWeb.Controllers
             }
 
             return new ResultMessage() { Success = true, Content = "" };
+        }
+
+
+        private void SetDropDownList(JobTitle model)
+        {
+            if (model != null)
+            {
+
+                SetJobCertificateTypeList(model.JobCertificate.ToList());
+            }
+            else
+            {
+                SetJobCertificateTypeList(null);
+            }
+        }
+
+        private void SetJobCertificateTypeList(List<JobCertificate> jobCertis, bool allowBlank = false)
+        {
+            ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
+
+            CertificateTypeSearchModel csm = new CertificateTypeSearchModel();
+
+            List<CertificateType> certType = cs.Search(csm).ToList();
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var certt in certType)
+            {
+                if (jobCertis != null)
+                {
+                    bool hasSelected = jobCertis.Where(k => k.certificateTypeId == certt.id).ToList().Count() > 0;
+
+                    if (hasSelected)
+                    {
+                        select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = true });
+                    }
+                    else
+                    {
+                        select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = false });
+                    }
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = false });
+                }
+            }
+
+            ViewData["jobCertificateTypeList"] = select;
         }
     }
 }

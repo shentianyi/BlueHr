@@ -10,27 +10,44 @@
     <li>排班管理</li>
 </ol>
 <hr class="hr-grey" />
-<div class="row" style="margin:0;">
-    <form action="/ShiftSchedule/Search" method="get">
-        <div class="col-lg-8 col-md-8col-sm-8 col-xs-12">
+<form action="/ShiftSchedule/Search" method="get">
+    <div class="row" style="margin:0;">
+        <div class="col-lg-3 col-md-3 col-sm-5 col-xs-5">
             <div class="marco-igroup-primary">
                 <span>员工号(模糊)</span>
                 <input type="text" name="staffNr" id="StaffNr" placeholder="员工号" value="@ViewBag.Query.StaffNr" />
-                <span>员工号(精确)</span>
-                <input type="text" name="StaffNrAct" id="StaffNrAct" placeholder="员工号" value="@ViewBag.Query.StaffNrAct" />
-                <span>排班日期</span>
-                <input type="text" name="ScheduleAtFrom" id="ScheduleAtFrom" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.ScheduleAtFrom" /><span>~ </span><input type="text" name="ScheduleAtEnd" id="ScheduleAtEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.ScheduleAtEnd" />
-
             </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
-            <button type="submit" class="marco-btn-success">
-                <i class="glyphicon glyphicon-search"></i>
-                搜索
-            </button>
+
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-5">
+            <div class="marco-igroup-primary">
+                <span>员工号(精确)</span>
+                <input type="text" name="StaffNrAct" id="StaffNrAct" placeholder="员工号" value="@ViewBag.Query.StaffNrAct" />
+            </div>
         </div>
-    </form>
-</div>
+
+        <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
+            <div class="marco-igroup-primary">
+                <span>排班日期</span>
+                <input type="text" name="ScheduleAtFrom" id="ScheduleAtFrom" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.ScheduleAtFrom" />
+
+                <span style="margin-left: 5px;"> ~ </span>
+                <input type="text" name="ScheduleAtEnd" id="ScheduleAtEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.ScheduleAtEnd" />
+
+                <span class="marco-label-success" style="padding:0;">
+                    <button type="submit" class="marco-btn-success" style="padding:10px; margin:0;">
+                        <i class="fa fa-search"></i>
+                        搜索
+                    </button>
+
+                    <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
+                        导入排班记录
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="usual-table">
         <div class="table-heading">
@@ -109,11 +126,39 @@
     </div>
 </div>
 
+<!--导入数据-->
+<div id="dialog_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        导入排班
+    </div>
+    <div class="dialogModal_content">
+        <strong>选择数据文件:</strong>
+        <hr />
+        <input class="item-data-uploader" type="file" name="files[]" data-url="/ShiftSchedule/Import" />
+        <div class="item-data-uploader-preview" style="display:none;"></div>
+        <hr />
+        <a href="~/Template/排班导入文件模板.xlsx" target="_blank">下载文件模板</a>
+    </div>
+  
+</div>
+
 <script type="text/javascript">
     Layout.init();
     $('.datetimepicker').datetimepicker({
         format: 'Y-m-d',
         timepicker:false
     });
+    $('.import-button-dialog').click(function () {
+        $('#dialog_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+                data_upload(".item-data-uploader");
+            },
+            onClose: function () {
 
+            },
+        });
+    });
 </script>

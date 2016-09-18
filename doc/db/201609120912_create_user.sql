@@ -1,5 +1,12 @@
 USE [BlueHr]
 GO
+/****** Object:  Table [dbo].[User]    Script Date: 09/12/2016 21:24:27 ******/
+DROP TABLE [dbo].[User]
+GO
+
+
+USE [BlueHr]
+GO
 
 /****** Object:  Table [dbo].[User]    Script Date: 09/12/2016 14:30:37 ******/
 SET ANSI_NULLS ON
