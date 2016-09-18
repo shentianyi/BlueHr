@@ -18,15 +18,48 @@ public enum Sex
 
 public enum ResidenceType
 {
+
     /// <summary>
-    /// 农业
+    /// 本地城镇
     /// </summary>
-    [Description("农业")]
-    Farmer = 1,
+    [Description("本地城镇")]
+    LocalCity = 0,
+
+
+    /// <summary>
+    /// 本地农村
+    /// </summary>
+    [Description("本地农村")]
+    LocalFarmer = 1,
+
+    /// <summary>
+    /// 返聘人员
+    /// </summary>
+    [Description("返聘人员")]
+    Back =2,
+
+    /// <summary>
+    /// 外地城镇
+    /// </summary>
+    [Description("外地城镇")]
+    OutCity =3,
+
+
+    /// <summary>
+    /// 外地农村
+    /// </summary>
+    [Description("外地农村")]
+    OutFarmer =4,
 
     /// <summary>
     /// 非农业
     /// </summary>
-    [Description("非农")]
-    NotFarmer = 0
+    [Description("非农业")]
+    NotFarmer = 5,
+
+    /// <summary>
+    /// 非城镇
+    /// </summary>
+    [Description("非城镇")]
+    NotCity = 6
 }

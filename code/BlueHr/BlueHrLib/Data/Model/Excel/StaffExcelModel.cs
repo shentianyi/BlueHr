@@ -15,9 +15,9 @@ namespace BlueHrLib.Data.Model.Excel
     {
 
         public static List<string> Headers = new List<string>() { "计数", "工号", "姓名", "性别", "出生年月", "年龄", "最初进厂日期",
-            "进厂总工领", "进厂日期", "工龄", "试用期到期日", "部门", "单位", "职位", "人员类别", "最高学历", "所学专业", "职业证书", "户口地址", "通信地址",
-            "身份证号码", "联系电话", "紧急联络人", "紧急联络电话", "与员工关系", "户籍", "户口性质", "保险种类", "是否交公积金", "合同到期", "2008年签订合同次数",
-            "照片", "健康证发证日期", "交通银行卡号", "参加工作年限", "累计工龄", "子女出生日期", "子女年龄", "备注" };
+            "进厂总工领", "进厂日期", "工龄", "试用期到期日", "部门", "公司", "职位", "人员类别", "最高学历", "所学专业", "职业证书", "户口地址", "通信地址",
+            "身份证号码", "联系电话", "紧急联络人", "紧急联络电话", "与员工关系", "户籍", "户口性质", "保险种类", "是否交公积金(T/F)", "合同到期", "2008年签订合同次数",
+            "照片", "健康证发证日期", "交通银行卡号(可变为：交通银行卡号，农业银行卡号等)", "参加工作年限", "累计工龄", "子女出生日期", "子女年龄", "备注" ,"是否在职(T/F)"};
 
         public string NoStr { get; set; }
 
@@ -205,7 +205,7 @@ namespace BlueHrLib.Data.Model.Excel
             {
                 try
                 {
-                    return WorkStatusStr == "离职" ? 200 : 100;
+                    return WorkStatusStr == "T" ? 100 : 200;
                 }
                 catch
                 {
@@ -378,7 +378,7 @@ namespace BlueHrLib.Data.Model.Excel
             {
                 try
                 {
-                    return IsPayCPFStr == "是" ? true : false;
+                    return IsPayCPFStr == "T" ? true : false;
                 }
                 catch
                 {
@@ -390,7 +390,7 @@ namespace BlueHrLib.Data.Model.Excel
         /// <summary>
         /// 合同到期
         /// </summary>
-        public string ContractExpireAtStr { get; set; }
+        public string ContractExpireStr { get; set; }
 
         /// <summary>
         /// 合同到期日期 转化为日期
@@ -401,7 +401,7 @@ namespace BlueHrLib.Data.Model.Excel
             {
                 try
                 {
-                    return DateTime.Parse(this.ContractExpireAtStr);
+                    return DateTime.Parse(this.ContractExpireStr);
                 }
                 catch
                 {
@@ -556,10 +556,10 @@ namespace BlueHrLib.Data.Model.Excel
                 msg.Contents.Add("员工号不可空");
             }
 
-            if (string.IsNullOrEmpty(this.Id))
-            {
-                msg.Contents.Add("身份证号码不可空");
-            }
+            //if (string.IsNullOrEmpty(this.Id))
+            //{
+            //    msg.Contents.Add("身份证号码不可空");
+            //}
 
             msg.Success = msg.Contents.Count == 0;
 
@@ -619,7 +619,7 @@ namespace BlueHrLib.Data.Model.Excel
                         residenceType = m.ResidenceType,
                         insureTypeId = m.InsureTypeId,
                         isPayCPF = m.IsPayCPF,
-                        contractExpireAt = m.ContractExpireAt,
+                        contractExpireStr = m.ContractExpireStr,
                         contractCount = m.ContractCount,
                         workingYearsAt = m.WorkingYearsAt,
                         totalSeniority = m.TotalCompanySeniority,

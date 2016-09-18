@@ -32,6 +32,19 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public bool DeleteById(int id)
         {
+            List<Attachment> atms = this.context.GetTable<Attachment>().Where(p => p.certificateId.Equals(id)).ToList();
+
+            int deleteFlag = 0;
+            atms.ForEach(k =>
+            {
+                if (k != null)
+                {
+                    this.context.GetTable<Attachment>().DeleteOnSubmit(k);
+                    this.context.SubmitChanges();
+                    deleteFlag++;
+                }
+            });
+
             Certificate cp = this.context.GetTable<Certificate>().FirstOrDefault(c => c.id.Equals(id));
 
             if (cp != null)
@@ -59,10 +72,16 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 certf = certf.Where(c => c.staffNr.Contains(searchModel.StaffNr.Trim()));
             }
+
+            if (!string.IsNullOrEmpty(searchModel.StaffActNr))
+            {
+                certf = certf.Where(c => c.staffNr.Equals(searchModel.StaffActNr));
+            }
+
             return certf;
         }
 
-        public bool Update(Certificate certf)
+        public bool Update(Certificate certf, string delAtchIds)
         {
             Certificate cp = this.context.GetTable<Certificate>().FirstOrDefault(c => c.id.Equals(certf.id));
 
@@ -74,6 +93,30 @@ namespace BlueHrLib.Data.Repository.Implement
                 cp.effectiveFrom = certf.effectiveFrom;
                 cp.institution = certf.institution;
                 cp.remark = certf.remark;
+
+                //添加附件
+                certf.Attachments.ToList().ForEach(m =>
+                {
+                    cp.Attachments.Add(new Attachment()
+                    {
+                        attachmentAbleId = null,
+                        attachmentAbleType = "",
+                        attachmentType = -1,
+                        certificateId = certf.id,
+                        name = m.name,
+                        path = m.path
+                    }); 
+                }); 
+               
+
+                //删除附件
+                if (!string.IsNullOrEmpty(delAtchIds))
+                {
+                    cp.Attachments.Where(p => delAtchIds.Contains(p.id.ToString())).ToList().ForEach(k =>
+                    {
+                        cp.Attachments.Remove(k);
+                    });
+                }
 
                 this.context.SubmitChanges();
                 return true;

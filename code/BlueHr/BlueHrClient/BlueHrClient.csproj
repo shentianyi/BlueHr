@@ -126,6 +126,9 @@
     <None Include="Config\base.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="License.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="log4.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

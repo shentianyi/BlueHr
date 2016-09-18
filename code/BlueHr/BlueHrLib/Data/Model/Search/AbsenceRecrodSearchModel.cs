@@ -12,7 +12,7 @@ namespace BlueHrLib.Data.Model.Search
     {
         public string staffNr { get; set; }
 
-        public string absenceType { get; set; }
+        public string absenceTypeId { get; set; }
 
         public DateTime? durStart { get; set; }
 
