@@ -41,6 +41,14 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public bool DeleteById(int id)
         {
+            var jobcDep = this.context.GetTable<JobCertificate>().Where(p => p.jobTitleId.Equals(id)).ToList();
+            if (jobcDep != null)
+            {
+                this.context.GetTable<JobCertificate>().DeleteAllOnSubmit(jobcDep);
+                this.context.SubmitChanges();
+            }
+
+
             var dep = this.context.GetTable<JobTitle>().FirstOrDefault(c => c.id.Equals(id));
             if (dep != null)
             {
@@ -75,16 +83,17 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 dep.name = title.name;
                 dep.remark = title.remark;
-
-                jobCertTypeIds.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
+                if (!string.IsNullOrEmpty(jobCertTypeIds))
                 {
-                    dep.JobCertificate.Add(new JobCertificate()
+                    jobCertTypeIds.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
                     {
-                        certificateTypeId = int.Parse(p),
-                        jobTitleId = dep.id
+                        dep.JobCertificate.Add(new JobCertificate()
+                        {
+                            certificateTypeId = int.Parse(p),
+                            jobTitleId = dep.id
+                        });
                     });
-                });
-
+                }
                 this.context.SubmitChanges();
                 return true;
             }

@@ -21,13 +21,20 @@ Certificate.image_upload = function (idStr, format, callback) {
             valid = true;
             $.each(data.files, function (index, file) {
                 var msg = "上传中 ... ...";
-                if (reg) {
-                    if (!reg.test(file.name)) {
-                        msg = '格式错误';
-                        Layout.popMsg('popMsg-danger', msg);
-                        valid = false;
-                        return;
+                if (file.size < 20000000) {
+                    if (reg) {
+                        if (!reg.test(file.name)) {
+                            msg = '格式错误';
+                            Layout.popMsg('popMsg-danger', msg);
+                            valid = false;
+                            return;
+                        }
                     }
+                } else {
+                    msg = '最大20M';
+                    Layout.popMsg('popMsg-danger', msg);
+                    valid = false;
+                    return;
                 }
             });
         },

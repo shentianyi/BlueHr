@@ -83,18 +83,20 @@ namespace BlueHrWeb.Controllers
                 {
                     IJobTitleService cs = new JobTitleService(Settings.Default.db);
 
-                    //拼接Job Certificate Type
-                    string jobCerts = this.HttpContext.Request.Form["jobCertificateType"];
+                    if (!string.IsNullOrEmpty(Request.Form["jobCertificateType"]))
+                    {
+                        //拼接Job Certificate Type
+                        string jobCerts = this.HttpContext.Request.Form["jobCertificateType"];
 
-                    jobCerts.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
-                     {
-                         jobTitle.JobCertificate.Add(new JobCertificate()
+                        jobCerts.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
                          {
-                             certificateTypeId = int.Parse(p),
-                             jobTitleId = jobTitle.id
+                             jobTitle.JobCertificate.Add(new JobCertificate()
+                             {
+                                 certificateTypeId = int.Parse(p),
+                                 jobTitleId = jobTitle.id
+                             });
                          });
-                     });
-
+                    }
                     bool isSucceed = cs.Create(jobTitle);
 
                     msg.Success = isSucceed;
@@ -258,7 +260,7 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        private void SetJobCertificateTypeList(List<JobCertificate> jobCertis, bool allowBlank = true)
+        private void SetJobCertificateTypeList(List<JobCertificate> jobCertis, bool allowBlank = false)
         {
             ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
 

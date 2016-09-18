@@ -46,14 +46,24 @@
 
                 <div class="marco-igroup-primary" style="height:120px;">
                     <label for="name">证照类别</label>
-                    @if (Model != null)
-                    {
-                        @Html.ListBox("jobCertificateType", ViewData["jobCertificateTypeList"] as IEnumerable<SelectListItem>, new { style = "height:120px" })
-                    }
-                    else
-                    {
-                        @Html.ListBox("jobCertificateType", ViewData["jobCertificateTypeList"] as IEnumerable<SelectListItem>, new { style = "height:120px" })
-                    }
+                    <ul>
+                        @foreach (var i in ViewData["jobCertificateTypeList"] as IEnumerable<SelectListItem>)
+                        {
+                            <li style="background:none; list-style:none">
+                                <div class="marco-igroup-normal" style="background:none;">
+                                        @if (i.Selected)
+                                        {
+                                           <span style="background:none;"><input type="checkbox" checked name="jobCertificateType" value="@i.Value" /></span> <span style="background:none; color:black">@i.Text</span>
+                                        }
+                                        else
+                                        {
+                                           <span style="background:none;"> <input type="checkbox" name="jobCertificateType" value="@i.Value" /></span ><span style="background:none;color:black">@i.Text</span>
+                                        }
+                                    
+                                </div>
+                            </li>
+                        }
+                    </ul>
                 </div>
 
                 <div class="marco-textarea">

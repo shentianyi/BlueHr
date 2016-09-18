@@ -524,11 +524,15 @@
     <None Include="Template\排班导入文件模板.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="Template\缺勤记录导入文件模板.xlsx" />
+    <Content Include="Template\缺勤记录导入文件模板.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Template\考勤记录导入文件模板.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="Template\部门导文件模板.xlsx" />
+    <Content Include="Template\部门导文件模板.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

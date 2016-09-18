@@ -1,6 +1,6 @@
-*.csv
-*.xlsx
-*.xls
 *
+!*.csv
+!*.xlsx
+!*.xls
 !.gitignore
 !keep.txt

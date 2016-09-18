@@ -290,6 +290,17 @@ namespace BlueHrWeb.Controllers
 
                 return msg;
             }
+            else
+            {
+                IStaffService ss = new StaffService(Settings.Default.db);
+                if (ss.FindByNr(model.staffNr) == null)
+                {
+                    msg.Success = false;
+                    msg.Content = "员工号不存在";
+
+                    return msg;
+                }
+            }
 
             if (model.absenceTypeId <= 0)
             {
@@ -299,15 +310,15 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            //if (model.durationType <= 0)
-            //{
-            //    msg.Success = false;
-            //    msg.Content = "时间类别不能为空";
+            if (model.absenceDate ==null)
+            {
+                msg.Success = false;
+                msg.Content = "缺勤时间不能为空，或格式必须正确";
 
-            //    return msg;
-            //}
+                return msg;
+            }
 
-            if (null == model.duration || model.duration <= 0)
+            if ( model.duration <= 0)
             {
                 msg.Success = false;
                 msg.Content = "缺勤时长不能为空";

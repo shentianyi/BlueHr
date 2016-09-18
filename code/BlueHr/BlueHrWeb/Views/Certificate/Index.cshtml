@@ -51,18 +51,26 @@
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
         <div class="marco-igroup-primary">
             <span>部门</span>
-            @if (@ViewBag.StfModel != null)
+            @if (@ViewBag.StfModel != null && @ViewBag.StfModel.Department!=null)
             {
                 @ViewBag.StfModel.Department.name
+            }
+            else
+            {
+                <p>&nbsp;</p>
             }
         </div>
     </div>
     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
         <div class="marco-igroup-primary">
             <span>职位</span>
-            @if (@ViewBag.StfModel != null)
+            @if (@ViewBag.StfModel != null && @ViewBag.StfModel.JobTitle != null)
             {
                 @ViewBag.StfModel.JobTitle.name
+            }
+            else
+            {
+                <p>&nbsp;</p>
             }
         </div>
     </div>

@@ -152,6 +152,10 @@ namespace BlueHrLib.Service.Implement
 
         public bool Create(Staff staff)
         {
+            if ((!string.IsNullOrEmpty(staff.id)) && (FindByStaffId(staff.id)!= null))
+            {
+                return false;
+            }
             return staffRep.Create(staff);
         }
 

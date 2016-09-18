@@ -51,56 +51,56 @@ namespace BlueHrLib.Helper.Excel
                         {
                             records.Add(new StaffExcelModel()
                             {
-                                NoStr = ws.Cells[i, 1].Value == null? string.Empty:ws.Cells[i,1].Value.ToString(),
-                                Nr = ws.Cells[i, 2].Value == null? string.Empty:ws.Cells[i, 2].Value.ToString(),
-                                Name = ws.Cells[i, 3].Value == null ? string.Empty : ws.Cells[i, 3].Value.ToString(),
-                                SexStr = ws.Cells[i, 4].Value == null ? string.Empty : ws.Cells[i, 4].Value.ToString(),
-                                BirthdayStr = ws.Cells[i, 5].Value == null ? string.Empty : ws.Cells[i, 5].Value.ToString(),
+                                NoStr = ws.Cells[i, 1].Value == null? string.Empty:ws.Cells[i,1].Value.ToString().Trim(),
+                                Nr = ws.Cells[i, 2].Value == null? string.Empty:ws.Cells[i, 2].Value.ToString().Trim(),
+                                Name = ws.Cells[i, 3].Value == null ? string.Empty : ws.Cells[i, 3].Value.ToString().Trim(),
+                                SexStr = ws.Cells[i, 4].Value == null ? string.Empty : ws.Cells[i, 4].Value.ToString().Trim(),
+                                BirthdayStr = ws.Cells[i, 5].Value == null ? string.Empty : ws.Cells[i, 5].Value.ToString().Trim(),
                                 //年龄  数据库中没有这个字段
-                                AgeStr = ws.Cells[i, 6].Value == null ? string.Empty : ws.Cells[i, 6].Value.ToString(),
+                                AgeStr = ws.Cells[i, 6].Value == null ? string.Empty : ws.Cells[i, 6].Value.ToString().Trim(),
 
-                                FirstCompanyEmployAtStr = ws.Cells[i, 7].Value == null ? string.Empty : ws.Cells[i, 7].Value.ToString(),
-                                TotalCompanySeniorityStr = ws.Cells[i, 8].Value == null ? string.Empty : ws.Cells[i, 8].Value.ToString(),
-                                CompanyEmployAtStr = ws.Cells[i, 9].Value == null ? string.Empty : ws.Cells[i, 9].Value.ToString(),
-                                CompanySeniorityStr = ws.Cells[i, 10].Value == null ? string.Empty : ws.Cells[i, 10].Value.ToString(),
+                                FirstCompanyEmployAtStr = ws.Cells[i, 7].Value == null ? string.Empty : ws.Cells[i, 7].Value.ToString().Trim(),
+                                TotalCompanySeniorityStr = ws.Cells[i, 8].Value == null ? string.Empty : ws.Cells[i, 8].Value.ToString().Trim(),
+                                CompanyEmployAtStr = ws.Cells[i, 9].Value == null ? string.Empty : ws.Cells[i, 9].Value.ToString().Trim(),
+                                CompanySeniorityStr = ws.Cells[i, 10].Value == null ? string.Empty : ws.Cells[i, 10].Value.ToString().Trim(),
                                 //试用期到期时间， Excel没有IsOnTrial 字段
-                                TrialOverAtStr = ws.Cells[i, 11].Value == null ? string.Empty : ws.Cells[i, 11].Value.ToString(),
-                                DepartmentIdStr = ws.Cells[i, 12].Value == null ? string.Empty : ws.Cells[i, 12].Value.ToString(),
-                                CompanyIdStr = ws.Cells[i, 13].Value == null ? string.Empty : ws.Cells[i, 13].Value.ToString(),
-                                JobTitleIdStr = ws.Cells[i, 14].Value == null ? string.Empty : ws.Cells[i, 14].Value.ToString(),
-                                StaffTypeIdStr = ws.Cells[i, 15].Value == null ? string.Empty : ws.Cells[i, 15].Value.ToString(),
-                                DegreeTypeIdStr = ws.Cells[i, 16].Value == null ? string.Empty : ws.Cells[i, 16].Value.ToString(),
-                                Speciality = ws.Cells[i, 17].Value == null ? string.Empty : ws.Cells[i, 17].Value.ToString(),
+                                TrialOverAtStr = ws.Cells[i, 11].Value == null ? string.Empty : ws.Cells[i, 11].Value.ToString().Trim(),
+                                DepartmentIdStr = ws.Cells[i, 12].Value == null ? string.Empty : ws.Cells[i, 12].Value.ToString().Trim(),
+                                CompanyIdStr = ws.Cells[i, 13].Value == null ? string.Empty : ws.Cells[i, 13].Value.ToString().Trim(),
+                                JobTitleIdStr = ws.Cells[i, 14].Value == null ? string.Empty : ws.Cells[i, 14].Value.ToString().Trim(),
+                                StaffTypeIdStr = ws.Cells[i, 15].Value == null ? string.Empty : ws.Cells[i, 15].Value.ToString().Trim(),
+                                DegreeTypeIdStr = ws.Cells[i, 16].Value == null ? string.Empty : ws.Cells[i, 16].Value.ToString().Trim(),
+                                Speciality = ws.Cells[i, 17].Value == null ? string.Empty : ws.Cells[i, 17].Value.ToString().Trim(),
                                 //职业证书， 只有name ， 没法进行添加
-                                JobCertificate = ws.Cells[i, 18].Value == null ? string.Empty : ws.Cells[i, 18].Value.ToString(),
+                                JobCertificate = ws.Cells[i, 18].Value == null ? string.Empty : ws.Cells[i, 18].Value.ToString().Trim(),
 
-                                ResidenceAddress = ws.Cells[i, 19].Value == null ? string.Empty : ws.Cells[i, 19].Value.ToString(),
-                                Address = ws.Cells[i, 20].Value == null ? string.Empty : ws.Cells[i, 20].Value.ToString(),
+                                ResidenceAddress = ws.Cells[i, 19].Value == null ? string.Empty : ws.Cells[i, 19].Value.ToString().Trim(),
+                                Address = ws.Cells[i, 20].Value == null ? string.Empty : ws.Cells[i, 20].Value.ToString().Trim(),
                                 //身份证是否验证， 默认为false Excel没有 IsIdChecked字段
-                                Id = ws.Cells[i, 21].Value == null ? string.Empty : ws.Cells[i, 21].Value.ToString(),
-                                Phone = ws.Cells[i, 22].Value == null ? string.Empty : ws.Cells[i, 22].Value.ToString(),
-                                ContactName = ws.Cells[i, 23].Value == null ? string.Empty : ws.Cells[i, 23].Value.ToString(),
-                                ContactPhone = ws.Cells[i, 24].Value == null ? string.Empty : ws.Cells[i, 24].Value.ToString(),
-                                ContactFamilyMemberType = ws.Cells[i, 25].Value == null ? string.Empty : ws.Cells[i, 25].Value.ToString(),
-                                Domicile = ws.Cells[i, 26].Value == null ? string.Empty : ws.Cells[i, 26].Value.ToString(),
-                                ResidenceTypeStr = ws.Cells[i, 27].Value == null ? string.Empty : ws.Cells[i, 27].Value.ToString(),
-                                InsureTypeIdStr = ws.Cells[i, 28].Value == null ? string.Empty : ws.Cells[i, 28].Value.ToString(),
-                                IsPayCPFStr = ws.Cells[i, 29].Value == null ? string.Empty : ws.Cells[i, 29].Value.ToString(),
-                                ContractExpireStr = ws.Cells[i, 30].Value == null ? string.Empty : ws.Cells[i, 30].Value.ToString(),
-                                ContractCountStr = ws.Cells[i, 31].Value == null ? string.Empty : ws.Cells[i, 31].Value.ToString(),
+                                Id = ws.Cells[i, 21].Value == null ? string.Empty : ws.Cells[i, 21].Value.ToString().Trim(),
+                                Phone = ws.Cells[i, 22].Value == null ? string.Empty : ws.Cells[i, 22].Value.ToString().Trim(),
+                                ContactName = ws.Cells[i, 23].Value == null ? string.Empty : ws.Cells[i, 23].Value.ToString().Trim(),
+                                ContactPhone = ws.Cells[i, 24].Value == null ? string.Empty : ws.Cells[i, 24].Value.ToString().Trim(),
+                                ContactFamilyMemberType = ws.Cells[i, 25].Value == null ? string.Empty : ws.Cells[i, 25].Value.ToString().Trim(),
+                                Domicile = ws.Cells[i, 26].Value == null ? string.Empty : ws.Cells[i, 26].Value.ToString().Trim(),
+                                ResidenceTypeStr = ws.Cells[i, 27].Value == null ? string.Empty : ws.Cells[i, 27].Value.ToString().Trim(),
+                                InsureTypeIdStr = ws.Cells[i, 28].Value == null ? string.Empty : ws.Cells[i, 28].Value.ToString().Trim(),
+                                IsPayCPFStr = ws.Cells[i, 29].Value == null ? string.Empty : ws.Cells[i, 29].Value.ToString().Trim(),
+                                ContractExpireStr = ws.Cells[i, 30].Value == null ? string.Empty : ws.Cells[i, 30].Value.ToString().Trim(),
+                                ContractCountStr = ws.Cells[i, 31].Value == null ? string.Empty : ws.Cells[i, 31].Value.ToString().Trim(),
                                 //photo 字段 在Excel中， 但是无法将之转化到数据库中
-                                Photo = ws.Cells[i, 32].Value == null ? string.Empty : ws.Cells[i, 32].Value.ToString(),
+                                Photo = ws.Cells[i, 32].Value == null ? string.Empty : ws.Cells[i, 32].Value.ToString().Trim(),
                                 //健康证发证日期， 因为没有nr， 所以无法将之添加到证照表中
-                                HealthCertificateEffectiveFromStr = ws.Cells[i, 33].Value == null ? string.Empty : ws.Cells[i, 33].Value.ToString(),
-                                BankCardNrStr = ws.Cells[i, 34].Value == null ? string.Empty : ws.Cells[i, 34].Value.ToString(),
-                                WorkingYearsAtStr = ws.Cells[i, 35].Value == null ? string.Empty : ws.Cells[i, 35].Value.ToString(),
-                                TotalSeniorityStr = ws.Cells[i, 36].Value == null ? string.Empty : ws.Cells[i, 36].Value.ToString(),
+                                HealthCertificateEffectiveFromStr = ws.Cells[i, 33].Value == null ? string.Empty : ws.Cells[i, 33].Value.ToString().Trim(),
+                                BankCardNrStr = ws.Cells[i, 34].Value == null ? string.Empty : ws.Cells[i, 34].Value.ToString().Trim(),
+                                WorkingYearsAtStr = ws.Cells[i, 35].Value == null ? string.Empty : ws.Cells[i, 35].Value.ToString().Trim(),
+                                TotalSeniorityStr = ws.Cells[i, 36].Value == null ? string.Empty : ws.Cells[i, 36].Value.ToString().Trim(),
                                 //子女信息， excel只记录了 子女的出生日期和子女年龄， 没有子女姓名， 所以没法写入数据库
-                                FamilyMemberBirthdayStr = ws.Cells[i, 37].Value == null ? string.Empty : ws.Cells[i, 37].Value.ToString(),
-                                FamilyMemberAgeStr = ws.Cells[i, 38].Value == null ? string.Empty : ws.Cells[i, 38].Value.ToString(),
+                                FamilyMemberBirthdayStr = ws.Cells[i, 37].Value == null ? string.Empty : ws.Cells[i, 37].Value.ToString().Trim(),
+                                FamilyMemberAgeStr = ws.Cells[i, 38].Value == null ? string.Empty : ws.Cells[i, 38].Value.ToString().Trim(),
 
-                                Remark = ws.Cells[i, 39].Value == null ? string.Empty : ws.Cells[i, 39].Value.ToString(),
-                                WorkStatusStr = ws.Cells[i, 40].Value == null ? string.Empty : ws.Cells[i, 40].Value.ToString()
+                                Remark = ws.Cells[i, 39].Value == null ? string.Empty : ws.Cells[i, 39].Value.ToString().Trim(),
+                                WorkStatusStr = ws.Cells[i, 40].Value == null ? string.Empty : ws.Cells[i, 40].Value.ToString().Trim()
                             });
                         }
                     }

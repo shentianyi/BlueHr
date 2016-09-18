@@ -190,16 +190,19 @@ namespace BlueHrWeb.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
             try
             {
                 // TODO: Add delete logic here
                 IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
-                cs.DeleteById(id);
-                return RedirectToAction("Index");
+               msg.Success= cs.DeleteById(id);
+                return Json(msg, JsonRequestBehavior.AllowGet);
+                //return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                msg.Content = ex.Message;
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -269,7 +272,7 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            if ( model.scheduleAt==null)
+            if ( model.scheduleAt==null || model.scheduleAt == DateTime.MinValue )
             {
                 msg.Success = false;
                 msg.Content = "日期不能为空";
