@@ -120,5 +120,17 @@ namespace BlueHrLib.Service.Implement
             dc.Context.SubmitChanges();
             return true;
         }
+
+        /// <summary>
+        /// 获得员工时间点之后的下一个排班
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        public ShiftScheduleView GetNextShiftScheduleView(string staffNr, DateTime datetime)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            return dc.Context.GetTable<ShiftScheduleView>().Where(s => s.staffNr.Equals(staffNr) && s.fullStartAt >= datetime).OrderBy(s => s.fullStartAt).FirstOrDefault();
+        }
     }
 }

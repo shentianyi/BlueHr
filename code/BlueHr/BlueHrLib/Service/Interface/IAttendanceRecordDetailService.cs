@@ -51,5 +51,7 @@ namespace BlueHrLib.Service.Interface
         List<AttendanceRecordDetailView> GetDetailsViewByStaffAndDate(string nr, DateTime datetime);
 
         List<AttendanceRecordDetailView> GetDetailsViewByStaffAndDateWithExtrawork(string nr, DateTime datetime);
+
+        List<AttendanceRecordDetail> GetByStaffAndTimespan(string staffNr, DateTime startTime, DateTime endTime);
     }
 }

@@ -16,13 +16,19 @@ namespace TestCon
     {
         static void Main(string[] args)
         {
-            Staff s = new Staff();
-           
-         
-            s.PropertyChanging += S_PropertyChanging;
-            s.PropertyChanged += S_PropertyChanged;
-            s.address = "a";
-            s.address = "b";
+
+            DateTime st = DateTime.Parse("2016-9-1");
+
+            DateTime et = DateTime.Parse("2016-9-2 1:00");
+
+            Console.WriteLine((et - st).TotalDays);
+            //Staff s = new Staff();
+
+
+            //s.PropertyChanging += S_PropertyChanging;
+            //s.PropertyChanged += S_PropertyChanged;
+            //s.address = "a";
+            //s.address = "b";
 
             //DataContext dc = new DataContext(Settings.Default.db);
             //List<string> staffNrs = new List<string>();

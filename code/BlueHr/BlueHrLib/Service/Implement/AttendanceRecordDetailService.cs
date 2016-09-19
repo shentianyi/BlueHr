@@ -142,9 +142,12 @@ namespace BlueHrLib.Service.Implement
             }
             else
             {
+                ShiftScheduleView prevShift = dc.Context.GetTable<ShiftScheduleView>().Where(s => s.staffNr.Equals(nr) && s.fullEndAt < datetime).OrderByDescending(s => s.fullEndAt).FirstOrDefault();
+                ShiftScheduleView nextShift= dc.Context.GetTable<ShiftScheduleView>().Where(s => s.staffNr.Equals(nr) && s.fullStartAt > datetime).OrderBy(s => s.fullStartAt).FirstOrDefault();
                 /// 如果没有排班，则找出前一天开始，到次日的结束
-                DateTime sq = datetime.Date.AddDays(-1);
-                DateTime eq = datetime.Date.AddDays(1).Add(new TimeSpan(23, 59, 59));
+                DateTime sq = prevShift== null? datetime.Date.AddDays(-1) : prevShift.fullEndAt.Value.AddMinutes(0 + setting.validAttendanceRecordTime.Value);
+                DateTime eq = nextShift == null ? datetime.Date.AddDays(1).Add(new TimeSpan(23, 59, 59)) : nextShift.fullStartAt.Value.AddMinutes(0 - setting.validAttendanceRecordTime.Value);
+
                 List<AttendanceRecordDetailView> shiftAttendRecords = dc.Context.GetTable<AttendanceRecordDetailView>().Where(ss => ss.recordAt >= sq && ss.recordAt <= eq && ss.staffNr.Equals(nr)).OrderBy(ss => ss.recordAt).ToList();//new List<AttendanceRecordDetailView>();
                 records.AddRange(shiftAttendRecords);
             }
@@ -152,5 +155,10 @@ namespace BlueHrLib.Service.Implement
             return records.Distinct().ToList(); ;
         }
 
+        public List<AttendanceRecordDetail> GetByStaffAndTimespan(string staffNr, DateTime startTime, DateTime endTime)
+        {
+
+            return new DataContext(this.DbString).Context.GetTable<AttendanceRecordDetail>().Where(s => s.staffNr.Equals(staffNr) && s.recordAt >= startTime && s.recordAt <= startTime).OrderBy(s => s.recordAt).ToList();
+        }
     }
 }

@@ -31,7 +31,7 @@
                     <tr>
                         <th></th>
                         <th>执行时间</th>
-                        <th>班次代码</th>
+                        @*<th>班次代码</th>*@
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -46,9 +46,9 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.cronSchedule)
                                 </td>
-                                <td>
+                                @*<td>
                                     @Html.DisplayFor(modelItem => item.paramsStr)
-                                </td>
+                                </td>*@
                                  
                                 <td> 
                                         <a href="#" id="msg-@item.id" class="option-icon-warning" onclick="deletejob(@item.id)" title="删除">

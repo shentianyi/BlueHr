@@ -45,5 +45,13 @@ namespace BlueHrLib.Service.Interface
         bool IsDup(ShiftSchedule model);
 
         bool Creates(List<ShiftSchedule> records);
+
+        /// <summary>
+        /// 获得员工时间点之后的下一个排班
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        ShiftScheduleView GetNextShiftScheduleView(string staffNr, DateTime datetime);
     }
 }

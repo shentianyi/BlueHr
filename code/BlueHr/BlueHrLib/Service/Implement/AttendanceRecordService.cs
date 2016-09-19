@@ -245,10 +245,195 @@ namespace BlueHrLib.Service.Implement
             subDc.Context.SubmitChanges();
 
         }
-
+        
         public void CalculateAttendRecordWithExtrawork(DateTime datetime, List<string> shiftCodes = null, StaffSearchModel searchModel = null)
         {
-            throw new NotImplementedException();
+            // 是否是休息日
+            IWorkAndRestService wars = new WorkAndRestService(this.DbString);
+            WorkAndRest wr = wars.FindByDate(datetime);
+            bool isRestDay = wars.IsRestDay(wr);
+            SystemSetting setting = new SystemSettingService(this.DbString).Find();
+
+
+            DataContext dc = new DataContext(this.DbString);
+
+            
+            
+
+            // 计算在职人员的考勤
+            List<Staff> staffs = dc.Context.GetTable<Staff>().Where(s => s.workStatus == (int)WorkStatus.OnWork).ToList();
+            foreach(Staff staff in staffs)
+            {
+                double workdayHour = 0;
+
+                double extraHour = 0;
+                // 异常情况
+                List<AttendanceExceptionType> exceptions = new List<AttendanceExceptionType>();
+
+                // 获取已经结束的排班
+                List<ShiftScheduleView> shifts = dc.Context.GetTable<ShiftScheduleView>().Where(s => s.staffNr.Equals(staff.nr) && s.fullStartAt.Value >= datetime && s.fullEndAt <= DateTime.Now).ToList();
+                if (shifts.Count > 0)
+                {
+                    foreach (var shift in shifts)
+                    {
+                        DateTime validSQ= shift.fullStartAt.Value.AddMinutes(0 - setting.validAttendanceRecordTime.Value);
+                        DateTime validEQ=shift.fullEndAt.Value.AddMinutes(0 + setting.validAttendanceRecordTime.Value);
+                        DateTime sq = validSQ;
+                        DateTime eq = shift.shiftType == (int)ShiftType.Today ? datetime.Date.AddDays(1).AddHours(8) : datetime.Date.AddDays(1).AddHours(23);
+
+                        ShiftScheduleView nextShift = new ShiftSheduleService(this.DbString).GetNextShiftScheduleView(staff.nr, shift.fullEndAt.Value);
+
+                        if (nextShift != null)
+                        {
+                            if ((nextShift.fullStartAt.Value.Date - shift.fullStartAt.Value.Date).TotalDays < 2)
+                            {
+                                eq =nextShift.fullStartAt.Value.AddMinutes(0 + setting.validAttendanceRecordTime.Value);
+                            }
+                        }
+
+                        List<AttendanceRecordDetail> records = new AttendanceRecordDetailService(this.DbString).GetByStaffAndTimespan(staff.nr, sq, eq);
+                        if (records.Count == 0)
+                        {
+                            // 旷工，可能他有请假。。。
+                            exceptions.Add(AttendanceExceptionType.Absence);
+                        }
+                        else
+                        {
+                            /// 清洗数据
+                            MarkRepeatRecordByMinute(records, (float)setting.repeatAttendanceRecordTime.Value);
+                            records = records.Where(s => s.isRepeatedData == false).ToList();
+
+                            // 如果考勤记录不配对，如 进-出 的偶数被，则是打开记录不完整
+                            // 但是这不影响计算
+                            if (records.Count % 2 != 0)
+                            {
+                                exceptions.Add(AttendanceExceptionType.MessRecord);
+                            }
+
+                            /// 开始计算
+                            /// 早到的使用排班开始时间，晚到的算迟到，提早走的算早退
+                            /// 此处不涉及到多次进出-计算目前只能算出大概，很难精确
+                            /// 打卡迟了肯定算迟到
+                            /// 如果早退了一般不会来加班了
+                            // 是否有早打卡？
+                            // int hasEarlyCount= records.Where(s => s.recordAt < shift.fullStartAt.Value).Count();
+
+                            if (records.Count == 1) {
+                                exceptions.Add(AttendanceExceptionType.MessRecord);
+                                /// 以下都是推测，都是要人为的调整的
+                                DateTime recordAt = records[0].recordAt;
+                                // 如果是早来，迟走，可能是忘记打卡了
+                                if (recordAt < shift.fullStartAt.Value || (records.Last().recordAt >= shift.fullEndAt.Value && recordAt <= validEQ))
+                                {
+                                    workdayHour= (shift.fullEndAt.Value - shift.fullStartAt.Value).TotalHours;
+                                }// 如果迟走超过一个小时，可能是加班，即使此处误判，也需要加班单存在的
+                                else if(recordAt > shift.fullEndAt.Value.AddHours(1))
+                                {
+                                    exceptions.Add(AttendanceExceptionType.ExtraWork);
+
+                                    workdayHour = (shift.fullEndAt.Value - shift.fullStartAt.Value).TotalHours;
+                                    extraHour= (recordAt - shift.fullEndAt.Value).TotalHours;
+                                }
+                                else
+                                {
+                                    // 如果只有一次打卡记录在应该的工作区间内，则需要人工手动调整了！
+                                }
+                            }
+                            else
+                            {
+                                DateTime firstD = records.First().recordAt;
+                                DateTime lastD = records.Last().recordAt;
+                                // 正常上班，无加班
+                                // 1. 如果走时间在排班结束范围外内，则算整个排班时间
+                                if (  lastD >= shift.fullEndAt.Value &&
+                                      lastD <= validEQ)
+                                {
+                                    if (firstD < shift.fullStartAt)
+                                    {
+                                        // 正常
+                                        workdayHour = (shift.fullEndAt.Value - shift.fullStartAt.Value).TotalHours;
+                                    }
+                                    else
+                                    {
+                                        // 迟到
+                                        exceptions.Add(AttendanceExceptionType.Late);
+                                        workdayHour = (shift.fullEndAt.Value - firstD).TotalHours;
+
+                                    }
+                                }
+                                else
+                                {
+                                    if (lastD < shift.fullEndAt.Value)
+                                    {
+                                        // 早退
+                                        exceptions.Add(AttendanceExceptionType.EarlyLeave);
+                                        if (firstD < shift.fullStartAt)
+                                        {
+                                            workdayHour = (lastD- shift.fullEndAt.Value).TotalHours;
+                                        }
+                                        else
+                                        {
+                                            // 迟到+早退
+                                            exceptions.Add(AttendanceExceptionType.Late);
+                                            workdayHour = (lastD - firstD).TotalHours;
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (lastD > shift.fullEndAt.Value.AddHours(1))
+                                        {
+                                            exceptions.Add(AttendanceExceptionType.ExtraWork);
+
+                                            workdayHour = (shift.fullEndAt.Value - shift.fullStartAt.Value).TotalHours;
+                                            extraHour = (lastD - shift.fullEndAt.Value).TotalHours;
+                                        }
+                                    }  
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+                else
+                {
+                    // 如果没有排班怎么计算？
+                    // 如果没有排班，应该都是加班
+                    // TODO, 根据目前和德晋HR了解情况，会排班，所以这种情况暂时不考虑
+                }
+
+                /// 如果是双休或节假日都算加班！无论是否有排班
+                if (isRestDay)
+                {
+                    extraHour += workdayHour;
+                    workdayHour = 0;
+                }
+
+                DataContext comitDC = new DataContext(this.DbString);
+                AttendanceRecordCal calRecord = comitDC.Context.GetTable<AttendanceRecordCal>().FirstOrDefault(s => s.staffNr.Equals(staff.nr) && s.attendanceDate.Equals(datetime.Date));
+                if (calRecord == null)
+                {
+                    comitDC.Context.GetTable<AttendanceRecordCal>().InsertOnSubmit(new AttendanceRecordCal() {
+                        staffNr = staff.nr,
+                        attendanceDate = datetime.Date,
+                        oriWorkingHour=workdayHour,
+                        actWorkingHour=workdayHour,
+                        oriExtraWorkingHour = extraHour,
+                        actExtraWorkingHour = extraHour,
+                        attendanceExceptions=exceptions,
+                        createdAt=DateTime.Now
+                    });
+                }
+                else
+                {
+                    calRecord.oriWorkingHour = calRecord.actWorkingHour = workdayHour;
+                    calRecord.oriExtraWorkingHour = calRecord.actExtraWorkingHour = extraHour;
+                    calRecord.createdAt = DateTime.Now;
+                    calRecord.attendanceExceptions = exceptions;
+                }
+                comitDC.Context.SubmitChanges();
+            }
         }
 
         private void MarkRepeatRecord(List<AttendanceRecordDetail> records, float repeatFlag)
@@ -267,6 +452,22 @@ namespace BlueHrLib.Service.Implement
             }
         }
 
-       
+        private void MarkRepeatRecordByMinute(List<AttendanceRecordDetail> records, float repeatFlag)
+        {
+            for (int i = 0; i < records.Count - 1; i++)
+            {
+                MarkRepeatRecordCompareByMinute(records[i], records.Where(s => s.isRepeatedData == false).Skip(i + 1).Take(records.Count - 1).ToList(), repeatFlag);
+            }
+        }
+
+        private void MarkRepeatRecordCompareByMinute(AttendanceRecordDetail baseRecord, List<AttendanceRecordDetail> records, float repeatFlag)
+        {
+            foreach (var r in records)
+            {
+                r.isRepeatedData = Math.Abs((baseRecord.recordAt - r.recordAt).TotalMinutes) < repeatFlag;
+            }
+        }
+
+
     }
 }
