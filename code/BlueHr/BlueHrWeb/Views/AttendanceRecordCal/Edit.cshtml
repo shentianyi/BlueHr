@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
-                            <span>考勤工时</span>
+                            <span>工作日工时</span>
                             <input type="text" id="actWorkingHourRoundDisplay" style="text-align:center;" value="@Model.actWorkingHourRound" disabled />
                         </div>
                     </div>
@@ -76,8 +76,15 @@
                     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12" style="border-right: 1px dashed #999;">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
-                                <span>调整为</span>
+                                <span>工作日工时(小时)调整为</span>
                                 @Html.EditorFor(model => model.actWorkingHourRound)
+                            </div>
+                        </div>
+                     
+                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>加班工时(小时)调整为</span>
+                                @Html.EditorFor(model => model.actExtraWorkingHourRound)
                             </div>
                         </div>
 
@@ -159,18 +166,19 @@ else
     function updateActWorkingHour() {
         if (confirm("确认提交修改？")) {
             var hour = $("#actWorkingHourRound").val();
+            var extraHour = $("#actExtraWorkingHourRound").val();
             var id = $("#record-id").val();
             var handled = $("#isExceptionHandled").is(':checked');
             console.log(hour);
             console.log(id);
             console.log(handled);
 
-            if (isNaN(hour)) {
+            if (isNaN(hour) || isNaN(extraHour)) {
                 alert("请填写正确的数字");
                 return;
             }
 
-            $.post("/AttendanceRecordCal/UpdateActHour/" + id, { actWorkingHourRound: hour, isExceptionHandled: handled, remark: $("#remark").val() }, function (data) {
+            $.post("/AttendanceRecordCal/UpdateActHour/" + id, { actWorkingHourRound: hour, actExtraWorkingHourRound:extraHour, isExceptionHandled: handled, remark: $("#remark").val() }, function (data) {
                 if (data.Success) {
                     Layout.popMsg('popMsg-success', "调整成功!");
                     $("#actWorkingHourRoundDisplay").val(hour);

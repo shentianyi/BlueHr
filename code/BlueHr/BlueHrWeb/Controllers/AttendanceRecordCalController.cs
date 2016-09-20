@@ -35,7 +35,7 @@ namespace BlueHrWeb.Controllers
 
             return View(records);
         }
-
+        [UserAuthorize]
         public ActionResult Search([Bind(Include = "CompanyId,DepartmentId,StaffNr,IsException,IsExceptionHandled,AttendanceDateFrom,AttendanceDateEnd")] AttendanceRecordCalSearchModel q)
         {
             int pageIndex = 0;
@@ -78,9 +78,16 @@ namespace BlueHrWeb.Controllers
         {
             ResultMessage msg = new ResultMessage();
             double actHour = 0;
+            double actExtraHour = 0;
             if (!double.TryParse(Request.Form["actWorkingHourRound"], out actHour))
             {
-                msg.Content = "实际工时必须是数字";
+                msg.Content = "工作日工时必须是数字";
+                return Json(msg);
+            }
+
+            if (!double.TryParse(Request.Form["actExtraWorkingHourRound"], out actExtraHour))
+            {
+                msg.Content = "加班工时必须是数字";
                 return Json(msg);
             }
             bool handled = false;
@@ -95,16 +102,17 @@ namespace BlueHrWeb.Controllers
             AttendanceRecordCal record = ss.FindById(id);
 
             string oldHour = record.actWorkingHour.ToString();
-         
-            msg = ss.UpdateActHourById(id, actHour, handled,Request.Form["remark"]);
+            string oldActHour = record.actExtraWorkingHour.ToString();
+
+            msg = ss.UpdateActHourById(id, actHour,actExtraHour, handled,Request.Form["remark"]);
 
             string newHour = actHour.ToString();
-
+            string newActHour = actExtraHour.ToString();
             // 创建调整考勤记录##User##
             try
             {
                 IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
-                mrs.CreateStaffUpdateAttHourMessage(record.staffNr, (Session["user"] as User).id, oldHour, newHour);
+                mrs.CreateStaffUpdateAttHourMessage(record.staffNr, (Session["user"] as User).id, oldHour, newHour, oldActHour, newActHour);
             }
             catch { }
 

@@ -103,7 +103,7 @@ namespace TestWPF
 
             for (DateTime dt = startDateTime; dt <= endDateTime; dt=dt.AddDays(1))
             {
-                dtt.SendCalculateAttMessage(dt.Date.AddHours(23));
+                dtt.SendCalculateAttMessage(dt.Date.AddDays(-2));
             }
 
             MessageBox.Show("OK");

@@ -43,7 +43,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="isExceptionHandled">是否处理了异常</param>
         /// <param name="remark">备注</param>
         /// <returns></returns>
-        ResultMessage UpdateActHourById(int id,double actHour, bool isExceptionHandled,string remark);
+        ResultMessage UpdateActHourById(int id,double actHour,double actExtraHour, bool isExceptionHandled,string remark);
 
         /// <summary>
         /// 根据时间获取未处理的异常统计列表

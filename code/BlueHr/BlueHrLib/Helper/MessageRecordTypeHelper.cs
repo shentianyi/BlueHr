@@ -49,7 +49,7 @@ namespace BlueHrLib.Helper
                 case MessageRecordType.StaffShiftJob:
                     return string.Format("{0}在{1}对{2}({3})进行了调岗,从{4}调至{5}", record.operatorName, record.createdAtStr, record.staffNr, record.staffName, texts[0], texts[1]);
                 case MessageRecordType.StaffUpdateAttHour:
-                    return string.Format("{0}在{1}对{2}({3})进行了考勤调整,从{4}调至{5}", record.operatorName, record.createdAtStr, record.staffNr, record.staffName, texts[0], texts[1]);
+                    return string.Format("{0}在{1}对{2}({3})进行了考勤调整,工作日工时从{4}调至{5}，加班工时从{6}调至{7}", record.operatorName, record.createdAtStr, record.staffNr, record.staffName, texts[0], texts[1],texts[2],texts[3]);
                 case MessageRecordType.StaffIdCheck:
                     return string.Format("在{0}对{1}({2})进行了身份证验证", record.createdAtStr, record.staffNr, record.staffName);
             }

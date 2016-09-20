@@ -28,12 +28,22 @@ namespace BlueHrLib.Data
 
         public double oriWorkingHourRound
         {
-            get { return Math.Round(this.oriWorkingHour, 2); }
+            get { return Math.Round(this.oriWorkingHour, 1); }
         }
 
         public double actWorkingHourRound
         {
-            get { return Math.Round(this.actWorkingHour, 2); }
+            get { return Math.Round(this.actWorkingHour, 1); }
+        }
+
+        public double oriExtraWorkingHourRound
+        {
+            get { return Math.Round(this.oriExtraWorkingHour.Value, 1); }
+        }
+
+        public double actExtraWorkingHourRound
+        {
+            get { return Math.Round(this.actExtraWorkingHour.Value, 1); }
         }
 
         public List<string> exceptionStrs

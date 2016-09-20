@@ -150,9 +150,9 @@ namespace BlueHrLib.Service.Implement
         /// 创建员工调整考勤消息
         /// </summary>
         /// <param name="staffNr"></param>
-        public void CreateStaffUpdateAttHourMessage(string staffNr, int operatorId, string oldHour, string newHour)
+        public void CreateStaffUpdateAttHourMessage(string staffNr, int operatorId, string oldHour, string newHour, string oldActHour, string newActHour)
         {
-            Create(staffNr, operatorId, MessageRecordType.StaffUpdateAttHour, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr, oldHour, newHour));
+            Create(staffNr, operatorId, MessageRecordType.StaffUpdateAttHour, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr, oldHour, newHour,oldActHour,newActHour));
         }
 
         /// <summary>

@@ -38,7 +38,7 @@ namespace BlueHrLib.MQTask.Job
                     jj.JobDataMap.Add("queuePath", queuePath);
                     jj.JobDataMap.Add("dbString", dbString);
                     jj.JobDataMap.Add("code", j.paramsStr);
-
+                    
                     this.TriggerJobs.Add(jj);
                     this.Triggers.Add(trigger);
 

@@ -82,6 +82,32 @@ namespace BlueHrLib.Data
             }
         }
 
+
+        public string departmentName
+        {
+            get { return this.Department == null ? null : this.Department.name; }
+        }
+
+        public string jobTitleName
+        {
+            get { return this.JobTitle == null ?   null : this.JobTitle.name; }
+        }
+
+
+        public bool IsMinusExtraWorkHour
+        {
+            get
+            {
+                if((this.departmentName =="成型课") || ( this.jobTitleName=="司机" && this.departmentName== "行政课")){
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
         public static Dictionary<string, string> ValueName = new Dictionary<string, string>() {
              { "address","通信地址" },
              { "phone","联系电话" }

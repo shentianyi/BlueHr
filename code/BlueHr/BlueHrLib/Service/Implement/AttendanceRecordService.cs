@@ -269,9 +269,12 @@ namespace BlueHrLib.Service.Implement
                 double extraHour = 0;
                 // 异常情况
                 List<AttendanceExceptionType> exceptions = new List<AttendanceExceptionType>();
-
+                if (staff.nr.Equals("202274"))
+                {
+                    string s = "202274";
+                }
                 // 获取已经结束的排班
-                List<ShiftScheduleView> shifts = dc.Context.GetTable<ShiftScheduleView>().Where(s => s.staffNr.Equals(staff.nr) && s.fullStartAt.Value >= datetime && s.fullEndAt <= DateTime.Now).ToList();
+                List<ShiftScheduleView> shifts = dc.Context.GetTable<ShiftScheduleView>().Where(s => s.staffNr.Equals(staff.nr) && s.fullStartAt.Value.Date == datetime.Date && s.fullEndAt <= DateTime.Now).ToList();
                 if (shifts.Count > 0)
                 {
                     foreach (var shift in shifts)
@@ -287,7 +290,7 @@ namespace BlueHrLib.Service.Implement
                         {
                             if ((nextShift.fullStartAt.Value.Date - shift.fullStartAt.Value.Date).TotalDays < 2)
                             {
-                                eq =nextShift.fullStartAt.Value.AddMinutes(0 + setting.validAttendanceRecordTime.Value);
+                                eq =nextShift.fullStartAt.Value.AddMinutes(0 - setting.validAttendanceRecordTime.Value);
                             }
                         }
 
@@ -325,14 +328,18 @@ namespace BlueHrLib.Service.Implement
                                 // 如果是早来，迟走，可能是忘记打卡了
                                 if (recordAt < shift.fullStartAt.Value || (records.Last().recordAt >= shift.fullEndAt.Value && recordAt <= validEQ))
                                 {
-                                    workdayHour= (shift.fullEndAt.Value - shift.fullStartAt.Value).TotalHours;
+                                    /// 如果早来超过一个小时，可能是加班
+                                    if (recordAt < shift.fullStartAt.Value.AddHours(-1))
+                                    {
+                                        extraHour = (shift.fullStartAt.Value - recordAt).TotalHours;
+                                    }
+                                    workdayHour = (shift.fullEndAt.Value - shift.fullStartAt.Value).TotalHours;
                                 }// 如果迟走超过一个小时，可能是加班，即使此处误判，也需要加班单存在的
-                                else if(recordAt > shift.fullEndAt.Value.AddHours(1))
+                                else if (recordAt > shift.fullEndAt.Value.AddHours(1))
                                 {
                                     exceptions.Add(AttendanceExceptionType.ExtraWork);
-
                                     workdayHour = (shift.fullEndAt.Value - shift.fullStartAt.Value).TotalHours;
-                                    extraHour= (recordAt - shift.fullEndAt.Value).TotalHours;
+                                    extraHour = (recordAt - shift.fullEndAt.Value).TotalHours;
                                 }
                                 else
                                 {
@@ -350,6 +357,11 @@ namespace BlueHrLib.Service.Implement
                                 {
                                     if (firstD < shift.fullStartAt)
                                     {
+                                        /// 如果早来超过一个小时，可能是加班
+                                        if (firstD < shift.fullStartAt.Value.AddHours(-1))
+                                        {
+                                            extraHour = (shift.fullStartAt.Value - firstD).TotalHours;
+                                        }
                                         // 正常
                                         workdayHour = (shift.fullEndAt.Value - shift.fullStartAt.Value).TotalHours;
                                     }
@@ -369,6 +381,11 @@ namespace BlueHrLib.Service.Implement
                                         exceptions.Add(AttendanceExceptionType.EarlyLeave);
                                         if (firstD < shift.fullStartAt)
                                         {
+                                            /// 如果早来超过一个小时，可能是加班
+                                            if (firstD < shift.fullStartAt.Value.AddHours(-1))
+                                            {
+                                                extraHour = (shift.fullStartAt.Value - firstD).TotalHours;
+                                            }
                                             workdayHour = (lastD- shift.fullEndAt.Value).TotalHours;
                                         }
                                         else
@@ -376,7 +393,6 @@ namespace BlueHrLib.Service.Implement
                                             // 迟到+早退
                                             exceptions.Add(AttendanceExceptionType.Late);
                                             workdayHour = (lastD - firstD).TotalHours;
-
                                         }
                                     }
                                     else
@@ -402,37 +418,62 @@ namespace BlueHrLib.Service.Implement
                     // 如果没有排班，应该都是加班
                     // TODO, 根据目前和德晋HR了解情况，会排班，所以这种情况暂时不考虑
                 }
+                /// 暂时对没有排班的不处理
+                if (shifts.Count > 0)
+                {
+                    exceptions = exceptions.Distinct().ToList();
+                    // 基本工时都是 8 小时，不分部门和职称
+                    if (workdayHour > 8)
+                    {
+                        workdayHour = 8;
+                    }
+                    
+                    /// 如果是双休或节假日都算加班！无论是否有排班
+                    if (isRestDay)
+                    {
+                        extraHour += workdayHour;
+                        workdayHour = 0;
+                    }
 
-                /// 如果是双休或节假日都算加班！无论是否有排班
-                if (isRestDay)
-                {
-                    extraHour += workdayHour;
-                    workdayHour = 0;
-                }
 
-                DataContext comitDC = new DataContext(this.DbString);
-                AttendanceRecordCal calRecord = comitDC.Context.GetTable<AttendanceRecordCal>().FirstOrDefault(s => s.staffNr.Equals(staff.nr) && s.attendanceDate.Equals(datetime.Date));
-                if (calRecord == null)
-                {
-                    comitDC.Context.GetTable<AttendanceRecordCal>().InsertOnSubmit(new AttendanceRecordCal() {
-                        staffNr = staff.nr,
-                        attendanceDate = datetime.Date,
-                        oriWorkingHour=workdayHour,
-                        actWorkingHour=workdayHour,
-                        oriExtraWorkingHour = extraHour,
-                        actExtraWorkingHour = extraHour,
-                        attendanceExceptions=exceptions,
-                        createdAt=DateTime.Now
-                    });
+                    // 如果是成型课 或者 行政课的司机，则加班不减0.5h，其它的都减
+                    if (extraHour > 0)
+                    {
+                        if (  staff.IsMinusExtraWorkHour)
+                        {
+                            extraHour -= 0.5;
+                            if (extraHour < 0)
+                            {
+                                extraHour = 0;
+                            }
+                        }
+                    }
+
+                    DataContext comitDC = new DataContext(this.DbString);
+                    AttendanceRecordCal calRecord = comitDC.Context.GetTable<AttendanceRecordCal>().FirstOrDefault(s => s.staffNr.Equals(staff.nr) && s.attendanceDate.Equals(datetime.Date));
+                    if (calRecord == null)
+                    {
+                        comitDC.Context.GetTable<AttendanceRecordCal>().InsertOnSubmit(new AttendanceRecordCal()
+                        {
+                            staffNr = staff.nr,
+                            attendanceDate = datetime.Date,
+                            oriWorkingHour = workdayHour,
+                            actWorkingHour = workdayHour,
+                            oriExtraWorkingHour = extraHour,
+                            actExtraWorkingHour = extraHour,
+                            attendanceExceptions = exceptions.Distinct().ToList(),
+                            createdAt = DateTime.Now
+                        });
+                    }
+                    else
+                    {
+                        calRecord.oriWorkingHour = calRecord.actWorkingHour = workdayHour;
+                        calRecord.oriExtraWorkingHour = calRecord.actExtraWorkingHour = extraHour;
+                        calRecord.createdAt = DateTime.Now;
+                        calRecord.attendanceExceptions = exceptions;
+                    }
+                    comitDC.Context.SubmitChanges();
                 }
-                else
-                {
-                    calRecord.oriWorkingHour = calRecord.actWorkingHour = workdayHour;
-                    calRecord.oriExtraWorkingHour = calRecord.actExtraWorkingHour = extraHour;
-                    calRecord.createdAt = DateTime.Now;
-                    calRecord.attendanceExceptions = exceptions;
-                }
-                comitDC.Context.SubmitChanges();
             }
         }
 

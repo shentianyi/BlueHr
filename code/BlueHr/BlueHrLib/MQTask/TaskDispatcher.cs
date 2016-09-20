@@ -77,7 +77,7 @@ namespace BlueHrLib.MQTask
                         CalAttParameter calAtt = JSONHelper.parse<CalAttParameter>(ts.JsonParameter);
                         IAttendanceRecordService ars = new AttendanceRecordService(this.DbString);
                         //ars.CalculateAttendRecord(calAtt.AttCalculateDateTime, calAtt.ShiftCodes);
-                        ars.CalculateAttendRecordWithExtrawork(calAtt.AttCalculateDateTime);
+                         ars.CalculateAttendRecordWithExtrawork(calAtt.AttCalculateDateTime);
                         // add send email to queue
                         SendAttWarnEmailMessage(calAtt.AttCalculateDateTime, calAtt.ShiftCodes);
                         // create message record
@@ -158,31 +158,44 @@ namespace BlueHrLib.MQTask
         /// <param name="calculateAt"></param>
         public void SendAttWarnEmailMessage(DateTime calculateAt, List<string> shiftCodes)
         {
-            IShiftScheduleService sss = new ShiftSheduleService(this.DbString);
-            List<ShiftScheduleView> shifts = sss.GetDetailViewByDateTime(calculateAt, shiftCodes);
-            if (shifts.Count > 0)
+            AttWarnEmailParameter attWarnParam = new AttWarnEmailParameter()
             {
-                List<DateTime> datetimes = shifts.Select(s => s.scheduleAt).Distinct().ToList();
-                foreach (var dt in datetimes)
-                {
-                    AttWarnEmailParameter attWarnParam = new AttWarnEmailParameter()
-                    {
-                        AttWarnDate = dt,
-                        ShiftCodes = shiftCodes
-                    };
+                AttWarnDate = calculateAt,
+                ShiftCodes = shiftCodes
+            };
+            TaskSetting task = new TaskSetting()
+            {
+                TaskCreateAt = DateTime.Now,
+                TaskType = TaskType.SendAttExceptionMail,
+                JsonParameter = JSONHelper.stringify(attWarnParam),
+                LogTaskRound = false
+            };
+            SendMQMessage(task);
+            //IShiftScheduleService sss = new ShiftSheduleService(this.DbString);
+            //List<ShiftScheduleView> shifts = sss.GetDetailViewByDateTime(calculateAt, shiftCodes);
+            //if (shifts.Count > 0)
+            //{
+            //    List<DateTime> datetimes = shifts.Select(s => s.scheduleAt).Distinct().ToList();
+            //    foreach (var dt in datetimes)
+            //    {
+            //        AttWarnEmailParameter attWarnParam = new AttWarnEmailParameter()
+            //        {
+            //            AttWarnDate = dt,
+            //            ShiftCodes = shiftCodes
+            //        };
 
 
-                    TaskSetting task = new TaskSetting()
-                    {
-                        TaskCreateAt = DateTime.Now,
-                        TaskType = TaskType.SendAttExceptionMail,
-                        JsonParameter = JSONHelper.stringify(attWarnParam),
-                        LogTaskRound = false
-                    };
+            //        TaskSetting task = new TaskSetting()
+            //        {
+            //            TaskCreateAt = DateTime.Now,
+            //            TaskType = TaskType.SendAttExceptionMail,
+            //            JsonParameter = JSONHelper.stringify(attWarnParam),
+            //            LogTaskRound = false
+            //        };
 
-                    SendMQMessage(task);
-                }
-            }
+            //        SendMQMessage(task);
+            //    }
+            //}
         }
 
 
@@ -192,31 +205,44 @@ namespace BlueHrLib.MQTask
         /// <param name="calculateAt"></param>
         public void SendAttWarnMsgRecordMessage(DateTime calculateAt, List<string> shiftCodes)
         {
-            IShiftScheduleService sss = new ShiftSheduleService(this.DbString);
-            List<ShiftScheduleView> shifts = sss.GetDetailViewByDateTime(calculateAt, shiftCodes);
-            if (shifts.Count > 0)
+            AttWarnEmailParameter attWarnParam = new AttWarnEmailParameter()
             {
-                List<DateTime> datetimes = shifts.Select(s => s.scheduleAt).Distinct().ToList();
-                foreach (var dt in datetimes)
-                {
-                    AttWarnParameter attWarnParam = new AttWarnParameter()
-                    {
-                        AttWarnDate = dt,
-                        ShiftCodes = shiftCodes
-                    };
+                AttWarnDate = calculateAt,
+                ShiftCodes = shiftCodes
+            };
+            TaskSetting task = new TaskSetting()
+            {
+                TaskCreateAt = DateTime.Now,
+                TaskType = TaskType.AttExceptionWarn,
+                JsonParameter = JSONHelper.stringify(attWarnParam),
+                LogTaskRound = false
+            };
+            SendMQMessage(task);
+            //IShiftScheduleService sss = new ShiftSheduleService(this.DbString);
+            //List<ShiftScheduleView> shifts = sss.GetDetailViewByDateTime(calculateAt, shiftCodes);
+            //if (shifts.Count > 0)
+            //{
+            //    List<DateTime> datetimes = shifts.Select(s => s.scheduleAt).Distinct().ToList();
+            //    foreach (var dt in datetimes)
+            //    {
+            //        AttWarnParameter attWarnParam = new AttWarnParameter()
+            //        {
+            //            AttWarnDate = dt,
+            //            ShiftCodes = shiftCodes
+            //        };
 
 
-                    TaskSetting task = new TaskSetting()
-                    {
-                        TaskCreateAt = DateTime.Now,
-                        TaskType = TaskType.AttExceptionWarn,
-                        JsonParameter = JSONHelper.stringify(attWarnParam),
-                        LogTaskRound = false
-                    };
+            //        TaskSetting task = new TaskSetting()
+            //        {
+            //            TaskCreateAt = DateTime.Now,
+            //            TaskType = TaskType.AttExceptionWarn,
+            //            JsonParameter = JSONHelper.stringify(attWarnParam),
+            //            LogTaskRound = false
+            //        };
 
-                    SendMQMessage(task);
-                }
-            }
+            //        SendMQMessage(task);
+            //    }
+            //}
         }
 
 
