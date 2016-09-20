@@ -256,6 +256,12 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
       background: $clouds;
       color: $peter-river;
     }
+
+     &[readonly] {
+      cursor: not-allowed;
+      background: $clouds;
+      color: $peter-river;
+    }
   }
 }
 

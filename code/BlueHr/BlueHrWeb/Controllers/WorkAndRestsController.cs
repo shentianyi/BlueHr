@@ -85,20 +85,20 @@ namespace BlueHrWeb.Controllers
             {
                 msg = DoValidation(workAndRest);
 
-                IWorkAndRestService wrs = new WorkAndRestService(Settings.Default.db);
-
-                if (!wrs.HasDateAtExist(workAndRest.dateAt))
-                {
-                    msg.Success = false;
-                    msg.Content = "日期已存在，不可重复添加， 请进行编辑";
-                }
-
                 if (!msg.Success)
                 {
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
+                    IWorkAndRestService wrs = new WorkAndRestService(Settings.Default.db);
+
+                    if (!wrs.HasDateAtExist(workAndRest.dateAt))
+                    {
+                        msg.Success = false;
+                        msg.Content = "日期已存在，不可重复添加， 请进行编辑";
+                    }
+
                     bool isSucceed = wrs.Create(workAndRest);
 
                     msg.Success = isSucceed;
