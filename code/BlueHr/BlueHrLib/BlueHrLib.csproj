@@ -104,6 +104,11 @@
     <Compile Include="Data\Model\Excel\DepartmentExcelModel.cs" />
     <Compile Include="Data\Model\Excel\AbsenceRecordExcelModel.cs" />
     <Compile Include="Data\Model\Excel\ExtraWorkRecordExcelModel.cs" />
+    <Compile Include="Data\Model\Excel\WorkAndRestExcelModel.cs" />
+    <Compile Include="Data\Model\Search\WorkAndRestSearchModel.cs" />
+    <Compile Include="Data\Repository\Implement\WorkAndRestRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IWorkAndRestRepository.cs" />
+    <Compile Include="Data\WorkAndRest.cs" />
     <Compile Include="Helper\Excel\ExtraWorkTypeExcelHelper.cs" />
     <Compile Include="Data\Model\Excel\ShiftScheduleExcelModel.cs" />
     <Compile Include="Data\Model\Excel\AttendanceRecordDetailExcelModel.cs" />
@@ -184,6 +189,7 @@
     <Compile Include="Helper\Excel\DepartmentExcelHelper.cs" />
     <Compile Include="Helper\Excel\AbsenceRecordExcelHelper.cs" />
     <Compile Include="Helper\Excel\ShiftScheduleExcelHelper.cs" />
+    <Compile Include="Helper\Excel\WorkAndRestExcelHelper.cs" />
     <Compile Include="Helper\Excel\StaffExcelHelper.cs" />
     <Compile Include="Helper\JSONHelper.cs" />
     <Compile Include="Helper\MessageRecordTypeHelper.cs" />

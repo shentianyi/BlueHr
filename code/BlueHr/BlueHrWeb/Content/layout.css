@@ -298,6 +298,10 @@
       cursor: not-allowed;
       background: #ecf0f1;
       color: #3498db; }
+    .marco-igroup input[readonly], .marco-igroup select[readonly] {
+      cursor: not-allowed;
+      background: #ecf0f1;
+      color: #3498db; }
 
 .marco-igroup-normal {
   border: 1px solid #bdc3c7;
@@ -329,6 +333,10 @@
     width: 100%;
     line-height: 10px; }
     .marco-igroup-normal input[disabled], .marco-igroup-normal select[disabled] {
+      cursor: not-allowed;
+      background: #ecf0f1;
+      color: #3498db; }
+    .marco-igroup-normal input[readonly], .marco-igroup-normal select[readonly] {
       cursor: not-allowed;
       background: #ecf0f1;
       color: #3498db; }
@@ -366,6 +374,10 @@
       cursor: not-allowed;
       background: #ecf0f1;
       color: #3498db; }
+    .marco-igroup-default input[readonly], .marco-igroup-default select[readonly] {
+      cursor: not-allowed;
+      background: #ecf0f1;
+      color: #3498db; }
 
 .marco-igroup-primary {
   border: 1px solid #3498db;
@@ -397,6 +409,10 @@
     width: 100%;
     line-height: 10px; }
     .marco-igroup-primary input[disabled], .marco-igroup-primary select[disabled] {
+      cursor: not-allowed;
+      background: #ecf0f1;
+      color: #3498db; }
+    .marco-igroup-primary input[readonly], .marco-igroup-primary select[readonly] {
       cursor: not-allowed;
       background: #ecf0f1;
       color: #3498db; }
@@ -434,6 +450,10 @@
       cursor: not-allowed;
       background: #ecf0f1;
       color: #3498db; }
+    .marco-igroup-success input[readonly], .marco-igroup-success select[readonly] {
+      cursor: not-allowed;
+      background: #ecf0f1;
+      color: #3498db; }
 
 .marco-igroup-warning {
   border: 1px solid #faebcc;
@@ -468,6 +488,10 @@
       cursor: not-allowed;
       background: #ecf0f1;
       color: #3498db; }
+    .marco-igroup-warning input[readonly], .marco-igroup-warning select[readonly] {
+      cursor: not-allowed;
+      background: #ecf0f1;
+      color: #3498db; }
 
 .marco-igroup-danger {
   border: 1px solid #c0392b;
@@ -499,6 +523,10 @@
     width: 100%;
     line-height: 10px; }
     .marco-igroup-danger input[disabled], .marco-igroup-danger select[disabled] {
+      cursor: not-allowed;
+      background: #ecf0f1;
+      color: #3498db; }
+    .marco-igroup-danger input[readonly], .marco-igroup-danger select[readonly] {
       cursor: not-allowed;
       background: #ecf0f1;
       color: #3498db; }
@@ -682,17 +710,19 @@
 .marco-textarea {
   margin-top: 10px; }
   .marco-textarea label, .marco-textarea span {
+    height: 30px;
+    line-height: 30px;
     border: 1px solid #2980b9;
-    padding: 8px 10px;
+    padding: 10px;
     border-bottom-color: #2980b9;
-    margin-bottom: -1px;
     background: #3498db;
     color: #ecf0f1; }
   .marco-textarea textarea {
+    margin-top: -1px;
     padding: 10px;
     resize: none;
     width: 100%;
-    border-color: #3498db; }
+    border: 2px solid #3498db; }
     .marco-textarea textarea[disabled] {
       cursor: not-allowed;
       background: #ecf0f1; }

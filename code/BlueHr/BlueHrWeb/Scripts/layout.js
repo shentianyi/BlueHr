@@ -63,14 +63,19 @@ Layout.init = function () {
             $('.nav-basic').addClass('active');
             PageAction('#absencetype', '新建缺勤类型', '编辑缺勤类型', '缺勤类型详情', '创建', '更新', '删除');
             break;
+        case "ExtraWorkType":
+            $('.nav-basic').addClass('active');
+            PageAction('#extraworktype', '新建加班类型', '编辑加班类型', '加班类型详情', '创建', '更新', '删除');
+            break;
+        case "WorkAndRests":
+            $('.nav-basic').addClass('active');
+            PageAction('#workandrests', '新建作息表', '编辑作息表', '作息表详情', '创建', '更新', '删除');
+            break;
         case "Certificate":
             $('.nav-certificate').addClass('active');
             PageAction('#certificate', '新建证照', '编辑证照', '证照详情', '创建', '更新', '删除');
             break;
-        case "ExtraWorkType":
-            $('.nav-extraworktype').addClass('active');
-            PageAction('#extraworktype', '新建加班类型', '编辑加班类型', '加班类型详情', '创建', '更新', '删除');
-            break;
+       
         case "AbsenceRecrod":
             $('.nav-absencerecrod').addClass('active');
             PageAction('#absencerecord', '新建缺勤', '编辑缺勤', '缺勤详情', '创建', '更新', '删除');

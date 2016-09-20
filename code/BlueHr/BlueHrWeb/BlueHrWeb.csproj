@@ -254,6 +254,7 @@
     <Compile Include="Controllers\ExtraWorkRecordController.cs" />
     <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
+    <Compile Include="Controllers\WorkAndRestsController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\MessageRecordController.cs" />
     <Compile Include="Controllers\QuartzJobController.cs" />
@@ -533,6 +534,11 @@
     <Content Include="Template\部门导文件模板.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\WorkAndRests\Index.cshtml" />
+    <Content Include="Views\WorkAndRests\Create.cshtml" />
+    <Content Include="Views\WorkAndRests\_PartialWorkAndRest.cshtml" />
+    <Content Include="Views\WorkAndRests\Edit.cshtml" />
+    <Content Include="Views\WorkAndRests\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

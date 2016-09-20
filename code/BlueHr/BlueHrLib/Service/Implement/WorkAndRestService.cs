@@ -5,13 +5,30 @@ using System.Text;
 using BlueHrLib.CusException;
 using BlueHrLib.Data;
 using BlueHrLib.Data.Enum;
+using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Interface;
+using BlueHrLib.Data.Repository.Interface;
+using BlueHrLib.Data.Repository.Implement;
 
 namespace BlueHrLib.Service.Implement
 {
     public class WorkAndRestService : ServiceBase, IWorkAndRestService
     {
-        public WorkAndRestService(string dbString) : base(dbString) { }
+        private IWorkAndRestRepository workAndRestRep;
+
+        public WorkAndRestService(string dbString) : base(dbString) {
+            workAndRestRep = new WorkAndRestRepository(this.Context);
+        }
+
+        public bool Create(WorkAndRest wr)
+        {
+            return workAndRestRep.Create(wr);
+        }
+
+        public bool DeleteById(int id)
+        {
+            return workAndRestRep.DeleteById(id);
+        }
 
         public WorkAndRest FindByDate(DateTime datetime)
         {
@@ -20,6 +37,16 @@ namespace BlueHrLib.Service.Implement
             if (wr == null)
                 throw new WorkAndRestNotFoundException();
             return wr;
+        }
+
+        public WorkAndRest FindById(int id)
+        {
+            return workAndRestRep.FindById(id);
+        }
+
+        public bool HasDateAtExist(DateTime? datetime)
+        {
+            return workAndRestRep.HasDateAtExist(datetime);
         }
 
         public bool IsRestDay(WorkAndRest wr)
@@ -41,6 +68,15 @@ namespace BlueHrLib.Service.Implement
         {
             WorkAndRest wr = FindByDate(datetime.Date);
             return IsWorkDay(wr);
+        }
+
+        public IQueryable<WorkAndRest> Search(WorkAndRestSearchModel searchModel) {
+            return workAndRestRep.Search(searchModel);
+        }
+
+        public bool Update(WorkAndRest wr)
+        {
+            return workAndRestRep.Update(wr);
         }
     }
 }

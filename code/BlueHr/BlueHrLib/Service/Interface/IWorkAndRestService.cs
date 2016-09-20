@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BlueHrLib.Data;
+using BlueHrLib.Data.Model.Search;
 
 namespace BlueHrLib.Service.Interface
 {
@@ -30,5 +31,17 @@ namespace BlueHrLib.Service.Interface
         /// <param name="datetime"></param>
         /// <returns></returns>
         WorkAndRest FindByDate(DateTime datetime);
+
+        IQueryable<WorkAndRest> Search(WorkAndRestSearchModel wrs);
+
+        bool Create(WorkAndRest wr);
+
+        bool Update(WorkAndRest wr);
+
+        WorkAndRest FindById(int id);
+
+        bool DeleteById(int id);
+
+        bool HasDateAtExist(DateTime? datetime);
     }
 }
