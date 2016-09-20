@@ -31,6 +31,6 @@ namespace BlueHrLib.Data.Enum
         [Description("节假日")]
         Holiday = 300
 
-
+                
     }
 }

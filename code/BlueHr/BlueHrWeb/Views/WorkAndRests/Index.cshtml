@@ -1,0 +1,163 @@
+﻿@using MvcPaging
+
+@model IPagedList<BlueHrLib.Data.WorkAndRest>
+
+@{
+    ViewBag.Title = "作息表";
+}
+
+@*@Styles.Render("~/Content/degreetype")*@
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>基础信息</li>
+    <li>作息表</li>
+</ol>
+
+<hr class="hr-grey" />
+
+<div class="row" style="margin:0;">
+    <form action="/WorkAndRests/Search" method="get">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>日期</span>
+                <input type="text" class="date_picker" name="DateAtFrom" id="DateAtFrom" placeholder="起始日期" value="@ViewBag.Query.DateAtFrom" />
+                <span>~</span>
+                <input type="text" class="date_picker" name="DateAtTo" id="DateAtTo" placeholder="终止日期" value="@ViewBag.Query.DateAtTo" />
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>类型</span>
+                @Html.DropDownList("DateType", ViewData["workAndRestTypeList"] as IEnumerable<SelectListItem>)
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top:5px;">
+            <button type="submit" class="marco-btn-success">
+                <i class="glyphicon glyphicon-search"></i>
+                搜索
+            </button>
+
+            <button type="button" class="marco-btn-primary import-button-dialog pull-right">
+                <i class="glyphicon glyphicon-cloud-upload"></i>
+                <span>导入</span>
+            </button>
+
+        </div>
+    </form>
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="usual-table">
+        <div class="table-heading">
+            作息表
+            <div class="pull-right" style="margin-top:-12px;">
+                <a href="/WorkAndRests/Create">
+                    <button class="marco-btn-primary">
+                        <i class="glyphicon glyphicon-plus-sign"></i>
+                        <span>创建</span>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="table-body content_3">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>类型</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                           
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.dateAt)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.dateTypeDisplay)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.remark)
+                                </td>
+                                <td>
+                                    <a href="/WorkAndRests/Delete/@item.id" class="option-icon-primary" title="详情">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+
+                                    <a href="/WorkAndRests/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+        <div class="clearfix pagination">
+            <div class="pagination-inner">
+                @if (Model != null)
+                {
+                    if (ViewBag.Query != null)
+                    {
+                        var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                            .Options(o => o.AddRouteValue("DateAtFrom", ViewBag.Query.DateAtFrom))
+                            .Options(o => o.AddRouteValue("DateAtTo", ViewBag.Query.DateAtTo))
+                            .Options(o => o.AddRouteValue("DateType", ViewBag.Query.DateType));
+                        @html
+                    }
+                    else
+                    {
+                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dialog_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        导入作息表记录
+    </div>
+    <div class="dialogModal_content">
+        <strong>选择数据文件:</strong>
+        <hr />
+        <input class="item-data-uploader" type="file" name="files[]" data-url="/WorkAndRests/Import" />
+        <div class="item-data-uploader-preview" style="display:none;"></div>
+        <hr />
+        <a href="~/Template/作息表模板.xlsx" target="_blank">下载作息表模板</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    Layout.init();
+
+    Layout.datepicker('.date_picker')
+  
+    $('.import-button-dialog').click(function () {
+        $('#dialog_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+                data_upload(".item-data-uploader");
+            },
+            onClose: function () {
+
+            },
+        });
+    });
+</script>
