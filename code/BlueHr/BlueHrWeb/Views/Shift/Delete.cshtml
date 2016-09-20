@@ -1,7 +1,116 @@
-﻿
-@{
-    ViewBag.Title = "Delete";
-}
+﻿@model BlueHrLib.Data.Shift
+<div id="shift" style="margin:10px;">
+    <ol class="breadcrumb current-position">
+        您的位置：
+        <li>@Html.ActionLink("班次管理", "Index")</li>
+        <li>{{action}}</li>
+    </ol>
+    <hr class="hr-grey" />
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-@Html.Partial("_PartialShift")
+        if (Model != null)
+        {
+            @Html.HiddenFor(model => model.id)
+        }
 
+        <div class="marco-npanel-primary">
+            <div class="marco-nheading">
+                {{action}}
+                <div class="pull-right">
+                    <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;" id="submitform">
+                        <i class="fa fa-check-circle-o"></i>
+                        <span>{{actionBtn}}</span>
+                    </button>
+                </div>
+            </div>
+            <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>名称*</span>
+                        <input type="text" name="name" id="name" placeholder="名称" disabled value="@Model.name" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>代码*</span>
+                        <input type="text" name="code" id="code" placeholder="代码" disabled value="@Model.code" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>开始时间*</span>
+                        @if (Model != null)
+                        {
+                            string startAt = string.Format("{0:hh\\:mm}", Model.startAt);
+                            @Html.EditorFor(model => startAt, new { htmlAttributes = new { @class = "datetimepicker", @disabled = "disable" } })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.startAt, new { htmlAttributes = new { @class = "datetimepicker", @disabled = "disable" } })
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>班次类型*</span>
+                        @Html.DropDownList("shiftType", ViewData["shiftTypeList"] as IEnumerable<SelectListItem>, new { @disabled = "disable" })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>截止时间*</span>
+                        @if (Model != null)
+                        {
+                            string endAt = string.Format("{0:hh\\:mm}", Model.endAt);
+                            @Html.EditorFor(model => endAt, new { htmlAttributes = new { @class = "datetimepicker", @disabled = "disable" } })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.endAt, new { htmlAttributes = new { @class = "datetimepicker", @disabled = "disable" } })
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="marco-textarea">
+                <label for="remark">备注</label>
+                <textarea name="remark" placeholder="备注" disabled>@Model.remark</textarea>
+            </div>
+        </div>
+
+    }
+</div>
+<script type="text/javascript">
+    Layout.init();
+
+    //控制textarea高度
+    $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+    $(window).resize(function () {
+        $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+    });
+
+    $('.datetimepicker').datetimepicker({
+        format: 'H:i',
+        defaultTime: '00:00',
+        datepicker: false
+    });
+
+    //回调函数
+    function post_return_action(data) {
+
+        if (!data.Success) {
+            Layout.popMsg('popMsg-danger', data.Content);
+            return false;
+        }
+        else {
+
+            location.href = '/Shift/Index';
+        }
+    }
+
+</script>
