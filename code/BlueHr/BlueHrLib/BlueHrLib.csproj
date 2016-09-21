@@ -89,11 +89,14 @@
     <Compile Include="Data\Enum\MessageRecordCatetory.cs" />
     <Compile Include="Data\Enum\MessageRecordType.cs" />
     <Compile Include="Data\Enum\RoleType.cs" />
+    <Compile Include="Data\Enum\SystemAbsenceType.cs" />
+    <Compile Include="Data\Enum\SystemExtraType.cs" />
     <Compile Include="Data\Enum\WorkAndRestType.cs" />
     <Compile Include="Data\Enum\ShiftType.cs" />
     <Compile Include="Data\Enum\SystemCertificateType.cs" />
     <Compile Include="Data\Enum\StaffEnum.cs" />
     <Compile Include="Data\Enum\DurationType.cs" />
+    <Compile Include="Data\ExtraWorkRecord.cs" />
     <Compile Include="Data\JobTitle.cs" />
     <Compile Include="Data\MessageRecordView.cs" />
     <Compile Include="Data\Message\ImportMessage.cs" />

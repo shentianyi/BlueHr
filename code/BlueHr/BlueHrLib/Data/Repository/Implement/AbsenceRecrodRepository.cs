@@ -85,7 +85,8 @@ namespace BlueHrLib.Data.Repository.Implement
                 dep.remark = absRecord.remark;
                 dep.staffNr = absRecord.staffNr;
                 dep.absenceDate = absRecord.absenceDate;
-
+                dep.startHour = absRecord.startHour;
+                dep.endHour = absRecord.endHour;
                 this.context.SubmitChanges();
                 return true;
             }

@@ -75,7 +75,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: ExtraWorkRecord/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "extraWorkTypeId,staffNr,otTime,duration,durationType,otReason")] ExtraWorkRecord model)
+        public ActionResult Create([Bind(Include = "extraWorkTypeId,staffNr,otTime,startHour,endHour,duration,durationType,otReason")] ExtraWorkRecord model)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -119,7 +119,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: ExtraWorkRecord/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id, extraWorkTypeId,staffNr,otTime, duration,durationType,otReason")] ExtraWorkRecord model)
+        public ActionResult Edit([Bind(Include = "id, extraWorkTypeId,staffNr,startHour,endHour,otTime, duration,durationType,otReason")] ExtraWorkRecord model)
         {
             ResultMessage msg = new ResultMessage();
 

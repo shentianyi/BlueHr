@@ -52,9 +52,11 @@ namespace BlueHrLib.Data.Model.Excel
                                 OtTimeStr = ws.Cells[i, 1].Value == null ? string.Empty : ws.Cells[i, 1].Value.ToString(),
                                 StaffNr = ws.Cells[i, 2].Value == null ? string.Empty : ws.Cells[i, 2].Value.ToString(),
                                 Name = ws.Cells[i, 3].Value == null ? string.Empty : ws.Cells[i, 3].Value.ToString(),
-                                ExtraWorkTypeStr = ws.Cells[i, 4].Value == null ? string.Empty : ws.Cells[i, 4].Value.ToString(),
-                                OtReason = ws.Cells[i, 5].Value == null ? string.Empty : ws.Cells[i, 5].Value.ToString(),
+                                StartHourStr = ws.Cells[i, 4].Value == null ? string.Empty : ws.Cells[i, 4].Value.ToString(),
+                                EndHourStr = ws.Cells[i, 5].Value == null ? string.Empty : ws.Cells[i, 5].Value.ToString(),
                                 Duration = ws.Cells[i, 6].Value == null ? string.Empty : ws.Cells[i, 6].Value.ToString(),
+                                ExtraWorkTypeStr = ws.Cells[i, 7].Value == null ? string.Empty : ws.Cells[i, 7].Value.ToString(),
+                                OtReason = ws.Cells[i, 8].Value == null ? string.Empty : ws.Cells[i, 8].Value.ToString()
                             });
                         }
                     }
@@ -94,10 +96,12 @@ namespace BlueHrLib.Data.Model.Excel
                                     sheet.Cells[i + 2, 1].Value = records[i].OtTimeStr;
                                     sheet.Cells[i + 2, 2].Value = records[i].StaffNr;
                                     sheet.Cells[i + 2, 3].Value = records[i].Name;
-                                    sheet.Cells[i + 2, 4].Value = records[i].DurationTypeStr;
-                                    sheet.Cells[i + 2, 5].Value = records[i].OtReason;
-                                    sheet.Cells[i + 2, 6].Value = records[i].Duration; 
-                                    sheet.Cells[i + 2, 7].Value = records[i].ValidateMessage.ToString();
+                                    sheet.Cells[i + 2, 4].Value = records[i].StartHourStr;
+                                    sheet.Cells[i + 2, 5].Value = records[i].EndHourStr;
+                                    sheet.Cells[i + 2, 6].Value = records[i].Duration;
+                                    sheet.Cells[i + 2, 7].Value = records[i].DurationTypeStr;
+                                    sheet.Cells[i + 2, 8].Value = records[i].OtReason; 
+                                    sheet.Cells[i + 2, 9].Value = records[i].ValidateMessage.ToString();
 
                                 }
 

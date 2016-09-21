@@ -76,7 +76,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: AbsenceRecrod/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "absenceTypeId,staffNr, duration,durationType,remark,absenceDate")] AbsenceRecrod model)
+        public ActionResult Create([Bind(Include = "absenceTypeId,staffNr,startHour,endHour, duration,durationType,remark,absenceDate")] AbsenceRecrod model)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -118,7 +118,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: AbsenceRecrod/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id, absenceTypeId,staffNr, duration,durationType,remark,absenceDate")] AbsenceRecrod model)
+        public ActionResult Edit([Bind(Include = "id, absenceTypeId,staffNr,startHour,endHour, duration,durationType,remark,absenceDate")] AbsenceRecrod model)
         {
             ResultMessage msg = new ResultMessage();
 

@@ -183,6 +183,15 @@ Layout.datepicker = function (date_picker) {
     });
 }
 
+
+Layout.timepicker = function (time_picker) {
+    $(time_picker).datetimepicker({
+        format: 'H:i',
+        defaultTime: '00:00',
+        datepicker: false
+    });
+}
+
 Layout.datetimepicker = function (date_time_picker) {
     $(date_time_picker).datetimepicker({
         scrollInput: false

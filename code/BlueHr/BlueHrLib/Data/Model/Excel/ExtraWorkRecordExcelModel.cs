@@ -51,6 +51,17 @@ namespace BlueHrLib.Data.Model.Excel
         /// </summary>
         public string DurationTypeStr { get; set; }
 
+        public string StartHourStr { get; set; }
+        public string EndHourStr { get; set; }
+
+        public TimeSpan StartHour
+        {
+            get { try { return TimeSpan.Parse(this.StartHourStr); } catch { return DateTime.Now.TimeOfDay; } }
+        }
+        public TimeSpan EndHour
+        {
+            get { try { return TimeSpan.Parse(this.EndHourStr); } catch { return DateTime.Now.TimeOfDay; } }
+        }
         /// <summary>
         /// 时间单位
         /// </summary>
@@ -92,6 +103,56 @@ namespace BlueHrLib.Data.Model.Excel
                 }
             }
 
+            if (string.IsNullOrEmpty(this.StartHourStr))
+            {
+                msg.Contents.Add("开始时间不可空");
+            }
+            else
+            {
+                TimeSpan ts = DateTime.Now.TimeOfDay;
+                if (TimeSpan.TryParse(this.StartHourStr, out ts))
+                {
+                    //this.RecordAtDate = dt;
+                }
+                else
+                {
+                    msg.Contents.Add("开始时间格式错误");
+                }
+            }
+
+            if (string.IsNullOrEmpty(this.EndHourStr))
+            {
+                msg.Contents.Add("结束时间不可空");
+            }
+            else
+            {
+                TimeSpan ts = DateTime.Now.TimeOfDay;
+                if (TimeSpan.TryParse(this.EndHourStr, out ts))
+                {
+                    //this.RecordAtDate = dt;
+                }
+                else
+                {
+                    msg.Contents.Add("结束时间格式错误");
+                }
+            }
+
+            if (string.IsNullOrEmpty(this.OtTimeStr))
+            {
+                msg.Contents.Add("日期不可空");
+            }
+            else
+            {
+                DateTime dt = DateTime.Now;
+                if (DateTime.TryParse(this.OtTimeStr, out dt))
+                {
+                    //this.RecordAtDate = dt;
+                }
+                else
+                {
+                    msg.Contents.Add("日期格式错误");
+                }
+            }
             if (string.IsNullOrEmpty(this.StaffNr))
             {
                 msg.Contents.Add("工号");
@@ -199,6 +260,8 @@ namespace BlueHrLib.Data.Model.Excel
                     abr.durationType = (int)BlueHrLib.Data.Enum.DurationType.Hour; // p.DurationType;
                     abr.otReason = p.OtReason;
                     abr.otTime = p.OtTime;
+                    abr.startHour = p.StartHour;
+                    abr.endHour = p.EndHour;
                     records.Add(abr);
                 }
             });

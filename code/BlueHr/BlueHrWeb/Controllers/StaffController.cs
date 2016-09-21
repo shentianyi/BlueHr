@@ -903,7 +903,7 @@ namespace BlueHrWeb.Controllers
                 Staff staff = staffSi.FindByNr(record.staffNr);
 
                 staff.workStatus = (int)WorkStatus.OffWork;
-
+                staff.resignAt = record.resignAt;
                 staffSi.Update(staff);
             }
 

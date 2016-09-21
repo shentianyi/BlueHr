@@ -90,5 +90,27 @@ INSERT INTO [BlueHr].[dbo].[User]
            ,100)
 GO
 
+use BlueHr
+go
 
+insert into AbsenceType(code,name,systemCode) values('放','放班',100);
+insert into AbsenceType(code,name,systemCode) values('事','事假',200);
+insert into AbsenceType(code,name,systemCode) values('病','病假',300);
+insert into AbsenceType(code,name,systemCode) values('产','产假',400);
+insert into AbsenceType(code,name,systemCode) values('丧','丧假',500);
+insert into AbsenceType(code,name,systemCode) values('轮','轮休',600);
+insert into AbsenceType(code,name,systemCode) values('公','公休',700);
+insert into AbsenceType(code,name,systemCode) values('年','年',800);
+insert into AbsenceType(code,name,systemCode) values('新','新进',900);
+insert into AbsenceType(code,name,systemCode) values('旷','旷工',1000);
+insert into AbsenceType(code,name,systemCode) values('离','离职',1100);
+
+
+use BlueHr
+go
+
+insert into ExtraWorkType(name,systemCode) values('延时加班',100);
+insert into ExtraWorkType(name,systemCode) values('双休加班',200);
+insert into ExtraWorkType(name,systemCode) values('节假日加班',300);
+insert into ExtraWorkType(name,systemCode) values('其它加班',400);
 

@@ -55,6 +55,16 @@
 
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
+                        <span>缺勤起讫 </span>
+                        @Html.EditorFor(model => model.startHour, new { htmlAttributes = new { @class = "time-picker" } })
+                        ~
+                        @Html.EditorFor(model => model.endHour, new { htmlAttributes = new { @class = "time-picker" } })
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
                         <span>缺勤类别 </span>
                         @Html.DropDownList("absenceTypeId", ViewData["absenceTypeList"] as IEnumerable<SelectListItem>)
                     </div>
@@ -105,7 +115,7 @@
 
     //Layout.datepicker('.datetimepicker');
     Layout.datepicker('.date-picker');
-
+    Layout.timepicker('.time-picker');
     //回调函数
     function post_return_action(data) {
 

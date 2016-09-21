@@ -26,7 +26,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
             <div class="marco-igroup-primary">
-                <span>加班时间</span>
+                <span>加班日期</span>
                 <input type="text" name="durStart" id="durStart" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.durStart" />
                 <span style="margin-left: 5px;"> ~ </span>
                 <input type="text" name="durEnd" id="durEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.durEnd" />
@@ -61,10 +61,11 @@
                 <thead>
                     <tr>
                         <th>员工号</th>
-                        <th>加班时间</th>
+                        <th>加班日期</th>
+                        <th>起讫</th>
+                        <th>加班时长(小时)</th>
                         <th>加班类别</th>
                         <th>加班原因</th>
-                        <th>加班时长(小时)</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -81,24 +82,18 @@
                                     @Html.DisplayFor(modelItem => item.otTime)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem=> item.startEndHourStr)
+                                </td>
+                                <td>
+                                   @Html.DisplayFor(modelItem => item.duration)
+                                </td> 
+                                <td>
                                     @Html.DisplayFor(modelItem => item.ExtraWorkType.name)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.otReason)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.duration)
-                                    @*@{
-                                        if (item.durationType == 100)
-                                        {
-                                            <span>小时</span>
-                                        }
-                                        else
-                                        {
-                                            <span>天</span>
-                                        }
-                                    }*@
-                                </td> 
+                               
                                 <td>
                                     <a href="/ExtraWorkRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>

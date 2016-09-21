@@ -87,7 +87,8 @@ namespace BlueHrLib.Data.Repository.Implement
                 dep.duration = parModel.duration;
                 dep.durationType = parModel.durationType;
                 dep.otReason = parModel.otReason;
-
+                dep.startHour = parModel.startHour;
+                dep.endHour = parModel.endHour;
                 this.context.SubmitChanges();
                 return true;
             }
