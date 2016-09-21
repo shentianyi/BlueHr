@@ -135,13 +135,47 @@
                           {
                               AbsenceRecordView ab = ViewData["absenceRecord"] as AbsenceRecordView;
                               <tr>
-                                  <td></td>
+                                  <td>@ab.absenceDateStr</td>
+                                  <td>@ab.startEndHourStr</td>
+                                  <td>@ab.duration</td>
+                                  <td>@ab.name</td>
                               </tr>
                           }
                         </table>
             </div>
             </div>
+        </div>    
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="usual-table">
+            <div class="table-heading">
+                加班单
+            </div>
+            <div class="table-body content_3">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>日期</th>
+                            <th>起讫时间</th>
+                            <th>加班时长(小时)</th>
+                            <th>原因</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    @if (ViewData["extraWorkRecord"] != null)
+                    {
+                        ExtraWorkRecordView ew = ViewData["extraWorkRecord"] as ExtraWorkRecordView;
+                        <tr>
+                            <td>@ew.otTimeStr</td>
+                            <td>@ew.startEndHourStr</td>
+                            <td>@ew.duration</td>
+                            <td>@ew.name</td>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
+    </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="usual-table">
             <div class="table-heading">

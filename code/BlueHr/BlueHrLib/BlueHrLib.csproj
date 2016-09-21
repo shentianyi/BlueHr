@@ -64,6 +64,7 @@
     <Compile Include="Common\Extensions\CollectionExtensions.cs" />
     <Compile Include="Common\Patterns\Singleton.cs" />
     <Compile Include="CusException\WorkAndRestNotFoundException.cs" />
+    <Compile Include="Data\AbsenceRecordView.cs" />
     <Compile Include="Data\AttendanceRecordCalExceptionView.cs" />
     <Compile Include="CusException\DataNotFoundException.cs" />
     <Compile Include="CusException\SystemSettingNotSetException.cs" />
@@ -96,7 +97,9 @@
     <Compile Include="Data\Enum\SystemCertificateType.cs" />
     <Compile Include="Data\Enum\StaffEnum.cs" />
     <Compile Include="Data\Enum\DurationType.cs" />
+    <Compile Include="Data\AbsenceRecord.cs" />
     <Compile Include="Data\ExtraWorkRecord.cs" />
+    <Compile Include="Data\ExtraWorkRecordView.cs" />
     <Compile Include="Data\JobTitle.cs" />
     <Compile Include="Data\MessageRecordView.cs" />
     <Compile Include="Data\Message\ImportMessage.cs" />
