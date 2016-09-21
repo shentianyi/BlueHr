@@ -400,5 +400,11 @@
         <classShapeMoniker Id="b1a867d0-b337-462b-9e04-d15d373d7cee" />
       </nodes>
     </associationConnector>
+    <classShape Id="a4fdffea-7f3c-4147-87f1-7ab86a570cfc" absoluteBounds="1.25, 35.125, 2, 2.5266442871093751">
+      <DataClassMoniker Name="/BlueHrDataContext/ExtraWorkRecordView" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3c0f4da8-fb59-4616-853f-b496dc22e2e2" absoluteBounds="1.2650000000000001, 35.585, 1.9700000000000002, 1.966644287109375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

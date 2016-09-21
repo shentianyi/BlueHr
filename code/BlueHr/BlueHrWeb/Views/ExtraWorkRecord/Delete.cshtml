@@ -41,6 +41,14 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
+                        <span>加班起讫 </span>
+                        @Html.EditorFor(model => model.startHour, new { htmlAttributes = new { @class = "time-picker", @disabled = "disable" } })
+                        ~
+                        @Html.EditorFor(model => model.endHour, new { htmlAttributes = new { @class = "time-picker", @disabled = "disable" } })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
                         <span>加班类别 </span>
                         @Html.DropDownList("extraWorkTypeId", ViewData["extraWorkTypeList"] as IEnumerable<SelectListItem>, new { @disabled = "disable" })
                     </div>

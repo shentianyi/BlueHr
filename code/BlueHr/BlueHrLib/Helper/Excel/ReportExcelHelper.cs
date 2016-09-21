@@ -29,11 +29,14 @@ namespace BlueHrLib.Helper.Excel
             {
                 IStaffService ss = new StaffService(this.DbString);
 
-                List<Staff> staffs = ss.Search(searchModel).ToList();
+
                 string tmpFile = FileHelper.CreateFullTmpFilePath(fileName, true);
                 msg.Content = FileHelper.GetDownloadTmpFilePath(tmpFile);
 
-                
+
+
+
+
 
 
                 msg.Success = true;

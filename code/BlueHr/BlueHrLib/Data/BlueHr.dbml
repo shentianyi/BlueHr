@@ -542,4 +542,17 @@
       <Association Name="Staff_AttendanceRecordCal" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.ExtraWorkRecordView" Member="ExtraWorkRecordView">
+    <Type Name="ExtraWorkRecordView">
+      <Column Name="extraWorkTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="duration" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="otReason" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="otTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="startHour" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="endHour" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="systemCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>

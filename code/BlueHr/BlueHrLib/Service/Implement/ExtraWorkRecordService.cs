@@ -64,5 +64,11 @@ namespace BlueHrLib.Service.Implement
             dc.Context.SubmitChanges();
             return true;
         }
+
+        public ExtraWorkRecordView FindViewByStaffNrAndDate(string staffNr, DateTime date)
+        {
+            return new DataContext(this.DbString).Context.GetTable<ExtraWorkRecordView>().Where(s => s.staffNr.Equals(staffNr) && s.otTime == date).FirstOrDefault();
+
+        }
     }
 }

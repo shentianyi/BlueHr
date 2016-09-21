@@ -439,6 +439,14 @@ namespace BlueHrLib.Data
 				return this.GetTable<AttendanceRecordCal>();
 			}
 		}
+		
+		public System.Data.Linq.Table<ExtraWorkRecordView> ExtraWorkRecordView
+		{
+			get
+			{
+				return this.GetTable<ExtraWorkRecordView>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[User]")]
@@ -10955,6 +10963,177 @@ namespace BlueHrLib.Data
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ExtraWorkRecordView")]
+	public partial class ExtraWorkRecordView
+	{
+		
+		private int _extraWorkTypeId;
+		
+		private string _staffNr;
+		
+		private double _duration;
+		
+		private string _otReason;
+		
+		private System.Nullable<System.DateTime> _otTime;
+		
+		private System.Nullable<System.TimeSpan> _startHour;
+		
+		private System.Nullable<System.TimeSpan> _endHour;
+		
+		private System.Nullable<int> _systemCode;
+		
+		private string _name;
+		
+		public ExtraWorkRecordView()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_extraWorkTypeId", DbType="Int NOT NULL")]
+		public int extraWorkTypeId
+		{
+			get
+			{
+				return this._extraWorkTypeId;
+			}
+			set
+			{
+				if ((this._extraWorkTypeId != value))
+				{
+					this._extraWorkTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string staffNr
+		{
+			get
+			{
+				return this._staffNr;
+			}
+			set
+			{
+				if ((this._staffNr != value))
+				{
+					this._staffNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_duration", DbType="Float NOT NULL")]
+		public double duration
+		{
+			get
+			{
+				return this._duration;
+			}
+			set
+			{
+				if ((this._duration != value))
+				{
+					this._duration = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_otReason", DbType="VarChar(255)")]
+		public string otReason
+		{
+			get
+			{
+				return this._otReason;
+			}
+			set
+			{
+				if ((this._otReason != value))
+				{
+					this._otReason = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_otTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> otTime
+		{
+			get
+			{
+				return this._otTime;
+			}
+			set
+			{
+				if ((this._otTime != value))
+				{
+					this._otTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startHour", DbType="Time")]
+		public System.Nullable<System.TimeSpan> startHour
+		{
+			get
+			{
+				return this._startHour;
+			}
+			set
+			{
+				if ((this._startHour != value))
+				{
+					this._startHour = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endHour", DbType="Time")]
+		public System.Nullable<System.TimeSpan> endHour
+		{
+			get
+			{
+				return this._endHour;
+			}
+			set
+			{
+				if ((this._endHour != value))
+				{
+					this._endHour = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_systemCode", DbType="Int")]
+		public System.Nullable<int> systemCode
+		{
+			get
+			{
+				return this._systemCode;
+			}
+			set
+			{
+				if ((this._systemCode != value))
+				{
+					this._systemCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this._name = value;
+				}
 			}
 		}
 	}

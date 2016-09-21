@@ -27,5 +27,7 @@ namespace BlueHrLib.Service.Interface
         bool Creates(List<AbsenceRecrod> records);
 
         List<AbsenceRecrod> GetAll();
+
+        AbsenceRecordView FindViewByStaffNrAndDate(string staffNr, DateTime date);
     }
 }
