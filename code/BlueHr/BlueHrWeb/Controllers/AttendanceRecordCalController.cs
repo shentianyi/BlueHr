@@ -66,10 +66,15 @@ namespace BlueHrWeb.Controllers
             if (record != null)
             {
                 SetExtraWorkTypeList(record.extraworkType);
+                AbsenceRecordView absenceRecord = new AbsenceRecordService(Settings.Default.db).FindViewByStaffNrAndDate(record.staffNr, record.attendanceDate);
+                ExtraWorkRecordView extraWorkRecord = new ExtraWorkRecordService(Settings.Default.db).FindViewByStaffNrAndDate(record.staffNr, record.attendanceDate);
+
                 List<AttendanceRecordDetailView> records = new List<AttendanceRecordDetailView>();
                 IAttendanceRecordDetailService s = new AttendanceRecordDetailService(Settings.Default.db);
                 records = s.GetDetailsViewByStaffAndDateWithExtrawork(record.staffNr, record.attendanceDate);
                 ViewData["attendRecords"] = records;
+                ViewData["absenceRecord"] = absenceRecord;
+                ViewData["extraWorkRecord"] = extraWorkRecord;
             }else
             {
                 SetExtraWorkTypeList(null);

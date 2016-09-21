@@ -1,4 +1,5 @@
-﻿using BlueHrLib.Data.Model.Search;
+﻿using BlueHrLib.Data.Enum;
+using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Interface;
 using System;
 using System.Collections.Generic;
@@ -52,7 +53,7 @@ namespace BlueHrLib.Data.Repository.Implement
                 if (hasExistResult)
                 {
                     //添加
-                    attendanceRecordDetail.soureType = "300";
+                    attendanceRecordDetail.soureType = AttendanceRecordSourceType.ManualCreate.ToString();
                     attendanceRecordDetail.createdAt = DateTime.Now;
                     attendanceRecordDetail.isCalculated = false;
 

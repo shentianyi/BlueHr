@@ -23,5 +23,7 @@ namespace BlueHrLib.Service.Interface
         ExtraWorkRecordInfoModel GetExtraWorkRecordInfo(ExtraWorkRecordSearchModel searchModel);
 
         bool Creates(List<ExtraWorkRecord> records);
+
+        ExtraWorkRecordView FindViewByStaffNrAndDate(string staffNr, DateTime date);
     }
 }

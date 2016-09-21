@@ -261,7 +261,7 @@ namespace BlueHrLib.Service.Implement
             
 
             // 计算在职人员的考勤
-            List<Staff> staffs = dc.Context.GetTable<Staff>().Where(s => s.workStatus == (int)WorkStatus.OnWork).ToList();
+            List<Staff> staffs = dc.Context.GetTable<Staff>().Where(s => (s.workStatus == (int)WorkStatus.OnWork) || (s.workStatus==(int) WorkStatus.OffWork && s.resignAt>=datetime)).ToList();
             foreach(Staff staff in staffs)
             {
                 double workdayHour = 0;
@@ -329,13 +329,13 @@ namespace BlueHrLib.Service.Implement
                                 if (recordAt < shift.fullStartAt.Value || (records.Last().recordAt >= shift.fullEndAt.Value && recordAt <= validEQ))
                                 {
                                     /// 如果早来超过一个小时，可能是加班
-                                    if (recordAt < shift.fullStartAt.Value.AddHours(-1))
+                                    if (recordAt <= shift.fullStartAt.Value.AddHours(-1))
                                     {
                                         extraHour = (shift.fullStartAt.Value - recordAt).TotalHours;
                                     }
                                     workdayHour = (shift.fullEndAt.Value - shift.fullStartAt.Value).TotalHours;
                                 }// 如果迟走超过一个小时，可能是加班，即使此处误判，也需要加班单存在的
-                                else if (recordAt > shift.fullEndAt.Value.AddHours(1))
+                                else if (recordAt >= shift.fullEndAt.Value.AddHours(1))
                                 {
                                     exceptions.Add(AttendanceExceptionType.ExtraWork);
                                     workdayHour = (shift.fullEndAt.Value - shift.fullStartAt.Value).TotalHours;
@@ -355,10 +355,10 @@ namespace BlueHrLib.Service.Implement
                                 if (  lastD >= shift.fullEndAt.Value &&
                                       lastD <= validEQ)
                                 {
-                                    if (firstD < shift.fullStartAt)
+                                    if (firstD <= shift.fullStartAt)
                                     {
                                         /// 如果早来超过一个小时，可能是加班
-                                        if (firstD < shift.fullStartAt.Value.AddHours(-1))
+                                        if (firstD <= shift.fullStartAt.Value.AddHours(-1))
                                         {
                                             extraHour = (shift.fullStartAt.Value - firstD).TotalHours;
                                         }
@@ -382,11 +382,11 @@ namespace BlueHrLib.Service.Implement
                                         if (firstD < shift.fullStartAt)
                                         {
                                             /// 如果早来超过一个小时，可能是加班
-                                            if (firstD < shift.fullStartAt.Value.AddHours(-1))
+                                            if (firstD <= shift.fullStartAt.Value.AddHours(-1))
                                             {
                                                 extraHour = (shift.fullStartAt.Value - firstD).TotalHours;
                                             }
-                                            workdayHour = (lastD- shift.fullEndAt.Value).TotalHours;
+                                            workdayHour = (lastD- shift.fullStartAt.Value).TotalHours;
                                         }
                                         else
                                         {
@@ -397,7 +397,7 @@ namespace BlueHrLib.Service.Implement
                                     }
                                     else
                                     {
-                                        if (lastD > shift.fullEndAt.Value.AddHours(1))
+                                        if (lastD >= shift.fullEndAt.Value.AddHours(1))
                                         {
                                             exceptions.Add(AttendanceExceptionType.ExtraWork);
 
@@ -439,6 +439,7 @@ namespace BlueHrLib.Service.Implement
                     // 如果是成型课 或者 行政课的司机，则加班不减0.5h，其它的都减
                     if (extraHour > 0)
                     {
+                        exceptions.Add(AttendanceExceptionType.ExtraWork);
                         if (  staff.IsMinusExtraWorkHour)
                         {
                             extraHour -= 0.5;

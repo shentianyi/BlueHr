@@ -74,5 +74,10 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.GetAll();
         }
+
+        public AbsenceRecordView FindViewByStaffNrAndDate(string staffNr, DateTime date)
+        {
+            return new DataContext(this.DbString).Context.GetTable<AbsenceRecordView>().Where(s => s.staffNr.Equals(staffNr) && s.absenceDate == date).FirstOrDefault();
+        }
     }
 }
