@@ -6,6 +6,9 @@ using System.Text;
 
 namespace BlueHrLib.Data.Enum
 {
+    /// <summary>
+    /// 系统预设 缺勤类型
+    /// </summary>
     public enum SystemAbsenceType
     {
         /// <summary>

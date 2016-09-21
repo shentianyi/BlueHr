@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace BlueHrLib.Data.Enum
 {
+    /// <summary>
+    /// 系统预设 加班类型
+    /// </summary>
     public enum SystemExtraType
     {
         /// <summary>

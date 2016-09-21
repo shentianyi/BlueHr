@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BlueHrLib.Data.Enum
 {
+    /// <summary>
+    /// 系统预设 证照类型
+    /// </summary>
     public enum SystemCertificateType
     {
         /// <summary>
