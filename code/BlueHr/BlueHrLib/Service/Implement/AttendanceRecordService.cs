@@ -253,7 +253,7 @@ namespace BlueHrLib.Service.Implement
             WorkAndRest wr = wars.FindByDate(datetime);
             bool isRestDay = wars.IsRestDay(wr);
             SystemSetting setting = new SystemSettingService(this.DbString).Find();
-
+            
 
             DataContext dc = new DataContext(this.DbString);
 
@@ -461,6 +461,7 @@ namespace BlueHrLib.Service.Implement
                             actWorkingHour = workdayHour,
                             oriExtraWorkingHour = extraHour,
                             actExtraWorkingHour = extraHour,
+                            extraworkType = wr.dateType,
                             attendanceExceptions = exceptions.Distinct().ToList(),
                             createdAt = DateTime.Now
                         });

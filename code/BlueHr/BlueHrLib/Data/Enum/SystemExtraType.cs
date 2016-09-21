@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BlueHrLib.Data.Enum
 {
     /// <summary>
-    /// 系统预设 加班类型
+    /// 系统预设 加班类型, 这个类型中的前三个的值要与WorkAndRestType的值对应，分别为100,200,300
     /// </summary>
     public enum SystemExtraType
     {
@@ -29,14 +29,14 @@ namespace BlueHrLib.Data.Enum
         /// 节假日加班
         /// </summary>
         [Description("节假日加班")]
-        HolidayExtra = 300,
+        HolidayExtra = 300
 
 
 
-        /// <summary>
-        /// 其它加班
-        /// </summary>
-        [Description("其它加班")]
-        OtherExtra = 400
+        ///// <summary>
+        ///// 其它加班
+        ///// </summary>
+        //[Description("其它加班")]
+        //OtherExtra = 400
     }
 }

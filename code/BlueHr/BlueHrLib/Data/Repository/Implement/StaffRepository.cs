@@ -85,6 +85,10 @@ namespace BlueHrLib.Data.Repository.Implement
                 staffs = staffs.Where(c => c.nr.Contains(searchModel.Nr.Trim()));
             }
 
+            if (!string.IsNullOrWhiteSpace(searchModel.NrAct))
+            {
+                staffs = staffs.Where(c => c.nr.Equals(searchModel.NrAct.Trim()));
+            }
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
             {
                 staffs = staffs.Where(c => c.name.Contains(searchModel.Name.Trim()));

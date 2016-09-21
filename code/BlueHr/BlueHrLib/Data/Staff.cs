@@ -1,4 +1,5 @@
 ﻿using BlueHrLib.Data.Enum;
+using BlueHrLib.Data.Model.Excel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -131,6 +132,6 @@ namespace BlueHrLib.Data
             this.phone_Was = this.phone;
         }
 
-
+       
     }
 }

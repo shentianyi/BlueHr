@@ -100,6 +100,7 @@
     <Compile Include="Data\JobTitle.cs" />
     <Compile Include="Data\MessageRecordView.cs" />
     <Compile Include="Data\Message\ImportMessage.cs" />
+    <Compile Include="Data\Message\ReportMessage.cs" />
     <Compile Include="Data\Message\ResultMessage.cs" />
     <Compile Include="Data\Message\ValidateMessage.cs" />
     <Compile Include="Data\Model\Department.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Data\Model\Excel\AbsenceRecordExcelModel.cs" />
     <Compile Include="Data\Model\Excel\ExtraWorkRecordExcelModel.cs" />
     <Compile Include="Data\Model\Excel\WorkAndRestExcelModel.cs" />
+    <Compile Include="Data\Model\Excel\WorkSumExcelModel.cs" />
     <Compile Include="Data\Model\Search\WorkAndRestSearchModel.cs" />
     <Compile Include="Data\Repository\Implement\WorkAndRestRepository.cs" />
     <Compile Include="Data\Repository\Interface\IWorkAndRestRepository.cs" />
@@ -191,6 +193,7 @@
     <Compile Include="Helper\EmailHelper.cs" />
     <Compile Include="Helper\Excel\DepartmentExcelHelper.cs" />
     <Compile Include="Helper\Excel\AbsenceRecordExcelHelper.cs" />
+    <Compile Include="Helper\Excel\ReportExcelHelper.cs" />
     <Compile Include="Helper\Excel\ShiftScheduleExcelHelper.cs" />
     <Compile Include="Helper\Excel\WorkAndRestExcelHelper.cs" />
     <Compile Include="Helper\Excel\StaffExcelHelper.cs" />
