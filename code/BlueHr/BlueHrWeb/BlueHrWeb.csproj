@@ -539,6 +539,10 @@
     <Content Include="Views\WorkAndRests\_PartialWorkAndRest.cshtml" />
     <Content Include="Views\WorkAndRests\Edit.cshtml" />
     <Content Include="Views\WorkAndRests\Delete.cshtml" />
+    <Content Include="Views\AttendanceRecordDetail\_PartialAttendanceRecordDetail.cshtml" />
+    <Content Include="Views\AttendanceRecordDetail\Create.cshtml" />
+    <Content Include="Views\AttendanceRecordDetail\Delete.cshtml" />
+    <Content Include="Views\AttendanceRecordDetail\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -284,5 +284,10 @@ namespace BlueHrLib.Service.Implement
         {
             return staffRep.FindByInsureType(id);
         }
+
+        public bool IsStaffExist(string nr)
+        {
+            return staffRep.IsStaffExist(nr);
+        }
     }
 }

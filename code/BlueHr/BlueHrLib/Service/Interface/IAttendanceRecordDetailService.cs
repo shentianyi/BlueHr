@@ -53,5 +53,14 @@ namespace BlueHrLib.Service.Interface
         List<AttendanceRecordDetailView> GetDetailsViewByStaffAndDateWithExtrawork(string nr, DateTime datetime);
 
         List<AttendanceRecordDetail> GetByStaffAndTimespan(string staffNr, DateTime startTime, DateTime endTime);
+
+        bool Create(AttendanceRecordDetail attendanceRecordDetail);
+
+        bool Update(AttendanceRecordDetail attendanceRecordDetail);
+
+        AttendanceRecordDetail FindById(int id);
+
+        bool DeleteById(int id);
+
     }
 }

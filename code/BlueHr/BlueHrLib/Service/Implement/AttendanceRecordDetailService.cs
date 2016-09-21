@@ -16,8 +16,10 @@ namespace BlueHrLib.Service.Implement
 {
     public class AttendanceRecordDetailService : ServiceBase, IAttendanceRecordDetailService
     {
-        public AttendanceRecordDetailService(string dbString) : base(dbString) { }
-
+        private IAttendanceRecordDetailRepository attendanceRecordDetailRep;
+        public AttendanceRecordDetailService(string dbString) : base(dbString) {
+            attendanceRecordDetailRep = new AttendanceRecordDetailRepository(this.Context);
+        }
     
         /// <summary>
         /// 搜索详细考勤信息
@@ -159,6 +161,26 @@ namespace BlueHrLib.Service.Implement
         {
 
             return new DataContext(this.DbString).Context.GetTable<AttendanceRecordDetail>().Where(s => s.staffNr.Equals(staffNr) && s.recordAt >= startTime && s.recordAt <= endTime).OrderBy(s => s.recordAt).ToList();
+        }
+
+        public bool Create(AttendanceRecordDetail attendanceRecordDetail)
+        {
+            return attendanceRecordDetailRep.Create(attendanceRecordDetail);
+        }
+
+        public bool Update(AttendanceRecordDetail attendanceRecordDetail)
+        {
+            return attendanceRecordDetailRep.Update(attendanceRecordDetail);
+        }
+
+        public AttendanceRecordDetail FindById(int id)
+        {
+            return attendanceRecordDetailRep.FindById(id);
+        }
+
+        public bool DeleteById(int id)
+        {
+            return attendanceRecordDetailRep.DeleteById(id);
         }
     }
 }

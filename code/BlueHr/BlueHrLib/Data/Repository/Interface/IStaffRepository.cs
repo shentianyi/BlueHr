@@ -26,5 +26,7 @@ namespace BlueHrLib.Data.Repository.Interface
         List<Staff> FindByDegreeType(int id);
 
         List<Staff> FindByInsureType(int id);
+
+        bool IsStaffExist(string nr);
     }
 }

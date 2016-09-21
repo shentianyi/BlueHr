@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Delete";
+}
+
+@Html.Partial("_PartialAttendanceRecordDetail")
+
+<script type="text/javascript">
+    $('input').attr('disabled', 'disabled');
+    $('select').attr('disabled', 'disabled');
+    $('textarea').attr('disabled', 'disabled');
+    $('button[type="submit"]').removeClass('marco-btn-primary');
+    $('button[type="submit"]').addClass('marco-btn-danger');
+</script>

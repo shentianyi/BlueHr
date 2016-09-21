@@ -7,30 +7,32 @@
 }
 
 <style type="text/css">
-    .ui-widget-header{
-        background:#34495e;
-        border:none;
+    .ui-widget-header {
+        background: #34495e;
+        border: none;
         border-radius: 0;
     }
-    .ui-widget-header a{
-        color: red;
+
+        .ui-widget-header a {
+            color: red;
+        }
+
+    .ui-widget.ui-widget-content {
+        border: none;
+        border-radius: 0;
     }
 
-    .ui-widget.ui-widget-content{
-        border:none;
-        border-radius:0;
-    }
-    .ui-dialog{
-        padding:0;
+    .ui-dialog {
+        padding: 0;
     }
 
-    .ui-dialog .ui-dialog-content{
-        padding: 10px;
-    }
+        .ui-dialog .ui-dialog-content {
+            padding: 10px;
+        }
 
-    .ui-state-hover{
-        background:transparent!important;
-        border-color:transparent!important;
+    .ui-state-hover {
+        background: transparent !important;
+        border-color: transparent !important;
         color: darkred;
     }
 </style>
@@ -41,47 +43,56 @@
 
 <hr class="hr-grey" />
 
- <div class="row" style="margin:0;">
-     <form action="/AttendanceRecordDetail/Search" method="get">
-         @Html.Partial("Search/_CompanyAndDepartmentBar")
-         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-             <div class="marco-igroup-primary">
-                 <span>工号</span>
-                 <input type="text" name="StaffNr" id="StaffNr" placeholder="工号" value="@ViewBag.Query.StaffNr" />
-             </div>
-         </div>
+<div class="row" style="margin:0;">
+    <form action="/AttendanceRecordDetail/Search" method="get">
+        @Html.Partial("Search/_CompanyAndDepartmentBar")
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>工号</span>
+                <input type="text" name="StaffNr" id="StaffNr" placeholder="工号" value="@ViewBag.Query.StaffNr" />
+            </div>
+        </div>
 
-         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-             <div class="marco-igroup-primary">
-                 <span>刷卡时间</span>
-                 <input type="text" name="RecordAtFrom" id="RecordAtFrom" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.RecordAtFrom" /><span>~ </span><input type="text" name="RecordAtEnd" id="RecordAtEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.RecordAtEnd" />
-             </div>
-         </div>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>刷卡时间</span>
+                <input type="text" name="RecordAtFrom" id="RecordAtFrom" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.RecordAtFrom" /><span>~ </span><input type="text" name="RecordAtEnd" id="RecordAtEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.RecordAtEnd" />
+            </div>
+        </div>
 
-         <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6" style="margin-top: 5px;">
-             <div class="macro-bgroup">
-                 <button type="submit" class="marco-btn-success" style="margin-left:0;">
-                     <i class="glyphicon glyphicon-search"></i>
-                     &emsp;搜&emsp;索&emsp;
-                 </button>
+        <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6" style="margin-top: 5px;">
+            <div class="macro-bgroup">
+                <button type="submit" class="marco-btn-success" style="margin-left:0;">
+                    <i class="glyphicon glyphicon-search"></i>
+                    搜索
+                </button>
 
-                 <button type="button" class="marco-btn-danger cal-att-button-dialog">
-                     <i class="glyphicon glyphicon-dashboard"></i>
-                     新建计算任务
-                 </button>
+                <button type="button" class="marco-btn-danger cal-att-button-dialog">
+                    <i class="glyphicon glyphicon-dashboard"></i>
+                    计算任务
+                </button>
 
-                 <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
-                     导入打卡记录
-                 </button>
-             </div>
-         </div>
-     </form>
+                <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
+                    <i class="fa fa-cloud-upload"></i>
+                    导入
+                </button>
+            </div>
+        </div>
+    </form>
 </div>
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="usual-table">
         <div class="table-heading">
             考勤详细数据列表
+            <div class="pull-right" style="margin-top:-10px;">
+                <a href="/AttendanceRecordDetail/Create">
+                    <button class="marco-btn-primary">
+                        <i class="fa fa-plus"></i>
+                        <span>创建</span>
+                    </button>
+                </a>
+            </div>
         </div>
         <div class="table-body content_3">
             <table class="table table-bordered">
@@ -94,16 +105,17 @@
                         <th>刷卡日期</th>
                         <th>刷卡时间</th>
                         <th>设备编号</th>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if (Model != null)
+                    {
+                        int i = 0;
+                        foreach (var item in Model)
                         {
-                            int i = 0;
-                            foreach (var item in Model)
-                            {
                             <tr>
-                                <td>@(i+=1)</td>
+                                <td>@(i += 1)</td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.departmentName)
                                 </td>
@@ -121,6 +133,14 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.device)
+                                </td>
+                                <td>
+                                    <a href="/AttendanceRecordDetail/Delete/@item.id" class="option-icon-primary" title="详情">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="/AttendanceRecordDetail/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
                                 </td>
                             </tr>
                         }
@@ -158,7 +178,7 @@
 <!--导入数据-->
 <div id="dialog_content" class="import_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
-       导入考勤打卡记录
+        导入考勤打卡记录
     </div>
     <div class="dialogModal_content">
         <strong>选择数据文件:</strong>
@@ -169,8 +189,8 @@
         <a href="~/Template/考勤记录导入文件模板.xlsx" target="_blank">下载文件模板</a>
     </div>
     @*<div class="dialogModal_footer">
-        <button type="submit" class="btn btn-primary ff" style="width:200px;"  >OK</button>
-    </div>*@
+            <button type="submit" class="btn btn-primary ff" style="width:200px;"  >OK</button>
+        </div>*@
 </div>
 
 
@@ -186,10 +206,10 @@
     </div>
 
     @*<div class="marco-igroup-primary">
-        <span>选择班次(可选):</span>
-        @Html.DropDownList("ShiftCode", ViewData["shiftList"] as IEnumerable<SelectListItem>)
-    </div>*@
-    
+            <span>选择班次(可选):</span>
+            @Html.DropDownList("ShiftCode", ViewData["shiftList"] as IEnumerable<SelectListItem>)
+        </div>*@
+
     <hr class="hr-grey" />
 
     <button type="button" class="pull-left marco-btn-primary" style="width:200px;" onclick="calculateAttendance()">确定</button>
@@ -205,9 +225,9 @@
     });
 
     $('.current-datetimepicker').datetimepicker({
-                    format: 'Y-m-d H:i'
-        });
- 
+        format: 'Y-m-d H:i'
+    });
+
     $('.import-button-dialog').click(function () {
         $('#dialog_content').dialogModal({
             onOkBut: function () {
@@ -249,9 +269,9 @@
             type: 'POST',
             datatype: 'JSON',
             url: '/AttendanceRecordDetail/Calculate',
-            data:{
+            data: {
                 DateTime: dateTime,
-                ShiftCode:shiftCode
+                ShiftCode: shiftCode
             },
             success: function (data) {
                 if (data.Success) {
