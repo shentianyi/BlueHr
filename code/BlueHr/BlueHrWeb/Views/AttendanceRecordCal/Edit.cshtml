@@ -19,93 +19,102 @@
 @if (Model != null)
 {
     <div style="padding:0 15px;">
-        <div class="marco-npanel-primary">
-            <div class="marco-nbody">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>工号</span>
-                            <input type="text" style="text-align:center;" disabled value="@Model.staffNr" />
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>姓名 </span>
-                            <input type="text" style="text-align:center;" disabled value="@Model.name" />
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>部门 </span>
-                            <input type="text" style="text-align:center;" disabled value="@Model.departmentName" />
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>考勤日期</span>
-                            <input type="text" style="text-align:center;" disabled value="@Model.attendanceDateStr" />
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>工作日工时</span>
-                            <input type="text" id="actWorkingHourRoundDisplay" style="text-align:center;" value="@Model.actWorkingHourRound" disabled />
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        @if (Model.isException)
-                        {
-                            <div class="marco-igroup-danger">
-                                <span>存在异常</span>
-                                <input type="text" id="actWorkingHourRoundDisplay" style="text-align:center;" value="@Model.isExceptionStr" disabled />
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="marco-igroup-success">
-                                <span>存在异常</span>
-                                <input type="text" id="actWorkingHourRoundDisplay" style="text-align:center;" value="@Model.isExceptionStr" disabled />
-                            </div>
-                        }
+        <div class="marco-nbody">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>工号</span>
+                        <input type="text" style="text-align:center;" disabled value="@Model.staffNr" />
                     </div>
                 </div>
-
-                <hr class="hr-grey" />
-
-                <div class="row" style="margin-bottom:15px;">
-                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12" style="border-right: 1px dashed #999;">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="marco-igroup-primary">
-                                <span>工作日工时(小时)调整为</span>
-                                @Html.EditorFor(model => model.actWorkingHourRound)
-                            </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>姓名 </span>
+                        <input type="text" style="text-align:center;" disabled value="@Model.name" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>部门 </span>
+                        <input type="text" style="text-align:center;" disabled value="@Model.departmentName" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>考勤日期</span>
+                        <input type="text" style="text-align:center;" disabled value="@Model.attendanceDateStr" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>工作日工时</span>
+                        <input type="text" id="actWorkingHourRoundDisplay" style="text-align:center;" value="@Model.actWorkingHourRound" disabled />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    @if (Model.isException)
+                    {
+                        <div class="marco-igroup-danger">
+                            <span>存在异常</span>
+                            <input type="text" id="actWorkingHourRoundDisplay" style="text-align:center;" value="@Model.isExceptionStr" disabled />
                         </div>
-                     
-                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="marco-igroup-primary">
-                                <span>加班工时(小时)调整为</span>
-                                @Html.EditorFor(model => model.actExtraWorkingHourRound)
-                            </div>
+                    }
+                    else
+                    {
+                        <div class="marco-igroup-success">
+                            <span>存在异常</span>
+                            <input type="text" id="actWorkingHourRoundDisplay" style="text-align:center;" value="@Model.isExceptionStr" disabled />
                         </div>
+                    }
+                </div>
+            </div>
 
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="marco-igroup-primary">
-                                <span>是否处理</span>
-                                <input type="checkbox" checked="checked" id="isExceptionHandled" />
-                            </div>
-                        </div>
+            <hr class="hr-grey" />
 
-                        <div>
-                            <div class="marco-textarea">
-                                <textarea name="remark" id="remark" placeholder="备注信息">@Model.remark</textarea>
-                            </div>
+            <div class="marco-npanel-primary">
+                <div class="marco-nheading">
+                    调整工时
+                    <div class="pull-right" style="margin-top:-7px;">
+                        <button type="submit" class="marco-btn-primary" style="padding: 0 5px;" onclick="updateActWorkingHour()">
+                            <i class="fa fa-check"></i>
+                            <span>确定</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="marco-nbody row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>工作日工时(小时)调整为</span>
+                            @Html.EditorFor(model => model.actWorkingHourRound)
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="text-align:center;margin-top:35px;">
-                        <button type="submit" class="marco-btn-success" onclick="updateActWorkingHour()">
-                            <i class="glyphicon glyphicon-ok"></i>
-                            确定
-                        </button>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>加班工时(小时)调整为</span>
+                            @Html.EditorFor(model => model.actExtraWorkingHourRound)
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>是否处理</span>
+                            <input type="checkbox" checked="checked" id="isExceptionHandled" />
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>加班类型</span>
+                            @Html.DropDownList("extraWorkType", ViewData["extraWorkTypeList"] as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="marco-textarea">
+                            <span>备注信息</span>
+                            <textarea name="remark" id="remark" placeholder="备注信息">@Model.remark</textarea>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -224,23 +233,19 @@ else
     <span>未找到记录，请联系管理员</span>
 }
 <script type="text/javascript">
-
     function updateActWorkingHour() {
         if (confirm("确认提交修改？")) {
             var hour = $("#actWorkingHourRound").val();
             var extraHour = $("#actExtraWorkingHourRound").val();
             var id = $("#record-id").val();
             var handled = $("#isExceptionHandled").is(':checked');
-            console.log(hour);
-            console.log(id);
-            console.log(handled);
 
             if (isNaN(hour) || isNaN(extraHour)) {
                 alert("请填写正确的数字");
                 return;
             }
 
-            $.post("/AttendanceRecordCal/UpdateActHour/" + id, { actWorkingHourRound: hour, actExtraWorkingHourRound:extraHour, isExceptionHandled: handled, remark: $("#remark").val() }, function (data) {
+            $.post("/AttendanceRecordCal/UpdateActHour/" + id, { actWorkingHourRound: hour, actExtraWorkingHourRound: extraHour, isExceptionHandled: handled, remark: $("#remark").val(), extraWorkType: $('#extraWorkType').val() }, function (data) {
                 if (data.Success) {
                     Layout.popMsg('popMsg-success', "调整成功!");
                     $("#actWorkingHourRoundDisplay").val(hour);
@@ -250,6 +255,5 @@ else
             }, "json");
         }
     }
-
 
 </script>

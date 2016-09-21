@@ -29,11 +29,11 @@ Layout.init = function () {
             break;
         case "AttendanceRecordDetail":
             $('.nav-attendance-record').addClass('active');
-            PageAction('#attendance_record', '新建考勤数据', '编辑考勤数据', '考勤数据详情', '创建', '更新', '删除');
+            PageAction('#attendance_record', '新建考勤详细数据', '编辑考勤详细数据', '考勤详细数据详情', '创建', '更新', '删除');
             break;
         case "AttendanceRecordCal":
             $('.nav-attendance-record').addClass('active');
-            PageAction('#staff', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');
+            PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');
             break;
         case "CertificateType":
             $('.nav-basic').addClass('active');

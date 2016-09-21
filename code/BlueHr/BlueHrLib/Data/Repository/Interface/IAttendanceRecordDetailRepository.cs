@@ -10,5 +10,13 @@ namespace BlueHrLib.Data.Repository.Interface
     public interface IAttendanceRecordDetailRepository
     {
         IQueryable<AttendanceRecordDetail> Search(AttendanceRecordDetailSearchModel searchModel);
+
+        bool Create(AttendanceRecordDetail attendanceRecordDetail);
+
+        bool Update(AttendanceRecordDetail attendanceRecordDetail);
+
+        AttendanceRecordDetail FindById(int id);
+
+        bool DeleteById(int id);
     }
 }

@@ -235,5 +235,24 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<Staff>().Where(p => p.insureTypeId.Equals(id)).ToList();
         }
+
+        public bool IsStaffExist(string nr)
+        {
+            try
+            {
+                var Staff = this.context.GetTable<Staff>().FirstOrDefault(p => p.nr.Equals(nr));
+                if (Staff != null)
+                {
+                    return true;
+                }else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

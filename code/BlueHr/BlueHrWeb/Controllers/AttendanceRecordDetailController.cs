@@ -51,6 +51,120 @@ namespace BlueHrWeb.Controllers
             return View("Index", records);
         }
 
+        [AdminAuthorize]
+        // GET: AttendanceRecordDetail/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: AttendanceRecordDetail/Create
+        [HttpPost]
+        public JsonResult Create([Bind(Include = "staffNr,recordAt,device")] AttendanceRecordDetail ard)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            try
+            {
+                msg = DoValidation(ard);
+
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IAttendanceRecordDetailService ards = new AttendanceRecordDetailService(Settings.Default.db);
+                    bool isSucceed = ards.Create(ard);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "可能员工打卡时间已经存在";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        [AdminAuthorize]
+        // GET: AttendanceRecordDetail/Edit/5
+        public ActionResult Edit(int id)
+        {
+            IAttendanceRecordDetailService ards = new AttendanceRecordDetailService(Settings.Default.db);
+
+            AttendanceRecordDetail ard = ards.FindById(id);
+            return View(ard);
+        }
+
+        // POST: AttendanceRecordDetail/Edit/5
+        [HttpPost]
+        public ActionResult Edit([Bind(Include = "id,staffNr,recordAt,device")] AttendanceRecordDetail attendanceRecordDetail)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            try
+            {
+                msg = DoValidation(attendanceRecordDetail);
+
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IAttendanceRecordDetailService ards = new AttendanceRecordDetailService(Settings.Default.db);
+                    bool isSucceed = ards.Update(attendanceRecordDetail);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "可能员工打卡时间已经存在";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [AdminAuthorize]
+        // GET: AttendanceRecordDetail/Delete/5
+        public ActionResult Delete(int id)
+        {
+            IAttendanceRecordDetailService ards = new AttendanceRecordDetailService(Settings.Default.db);
+
+            AttendanceRecordDetail ard = ards.FindById(id);
+            return View(ard);
+        }
+
+        // POST: AttendanceRecordDetail/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            try
+            {
+
+                IAttendanceRecordDetailService ards = new AttendanceRecordDetailService(Settings.Default.db);
+                bool isSucceed = ards.DeleteById(id);
+
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "" : "删除失败";
+
+                return Json(msg, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult Import()
         {
             var ff = Request.Files[0];
@@ -94,7 +208,6 @@ namespace BlueHrWeb.Controllers
         {
             IShiftService ss = new ShiftService(Settings.Default.db);
 
-
             List<Shift> jt = ss.All();
 
             List<SelectListItem> select = new List<SelectListItem>();
@@ -108,5 +221,46 @@ namespace BlueHrWeb.Controllers
             ViewData["shiftList"] = select;
         }
 
+        public ResultMessage DoValidation(AttendanceRecordDetail model)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            if (string.IsNullOrEmpty(model.staffNr))
+            {
+                msg.Success = false;
+                msg.Content = "员工号不能为空";
+
+                return msg;
+            }
+            
+            if (string.IsNullOrWhiteSpace(model.recordAt.ToString()))
+            {
+                msg.Success = false;
+                msg.Content = "日期不能为空";
+
+                return msg;
+            }
+
+            if (string.IsNullOrEmpty(model.device))
+            {
+                msg.Success = false;
+                msg.Content = "设备号不能为空";
+
+                return msg;
+            }
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+            bool staffResult = ss.IsStaffExist(model.staffNr);
+
+            if (!staffResult)
+            {
+                msg.Success = false;
+                msg.Content = "员工不存在,请先创建员工";
+
+                return msg;
+            }
+
+            return new ResultMessage() { Success = true, Content = "" };
+        }
     }
 }

@@ -27,6 +27,13 @@ namespace BlueHrLib.Service.Interface
         Staff FindByNr(string nr);
 
         /// <summary>
+        /// 根据员工号判断 员工是否存在
+        /// </summary>
+        /// <param name="nr">员工号</param>
+        /// <returns></returns>
+        bool IsStaffExist(string nr);
+
+        /// <summary>
         /// 通过身份证号验证员工
         /// </summary>
         /// <param name="id"></param>

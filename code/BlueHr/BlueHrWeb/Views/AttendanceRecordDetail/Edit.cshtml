@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+
+@Html.Partial("_PartialAttendanceRecordDetail")
+
+<script type="text/javascript">
+    $('#staffNr').attr('readonly', 'readonly');
+    Layout.datetimepicker('.datetime-picker');
+</script>
