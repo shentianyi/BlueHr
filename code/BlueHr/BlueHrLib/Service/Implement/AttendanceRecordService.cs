@@ -448,10 +448,31 @@ namespace BlueHrLib.Service.Implement
                                 extraHour = 0;
                             }
                         }
+                        ExtraWorkRecord extraRecord = new ExtraWorkRecordService(this.DbString).FindByStaffNrAndDete(staff.nr, datetime.Date);
+                        if (extraRecord == null)
+                        {
+                            exceptions.Add(AttendanceExceptionType.ExtraWorkNoRecord);
+                        }
+                        else
+                        {
+                            if (extraHour != extraRecord.duration)
+                            {
+                                exceptions.Add(AttendanceExceptionType.ExtraWorkHourNotMatch);
+                            }
+
+                            if (wr.dateType != extraRecord.ExtraWorkType.systemCode)
+                            {
+                                exceptions.Add(AttendanceExceptionType.ExtraWorkTypeNotMatch);
+                            }
+
+                        }
                     }
 
                     DataContext comitDC = new DataContext(this.DbString);
                     AttendanceRecordCal calRecord = comitDC.Context.GetTable<AttendanceRecordCal>().FirstOrDefault(s => s.staffNr.Equals(staff.nr) && s.attendanceDate.Equals(datetime.Date));
+
+
+                    int? extraType = extraHour == 0 ? null : wr.dateType;
                     if (calRecord == null)
                     {
                         comitDC.Context.GetTable<AttendanceRecordCal>().InsertOnSubmit(new AttendanceRecordCal()
@@ -462,7 +483,7 @@ namespace BlueHrLib.Service.Implement
                             actWorkingHour = workdayHour,
                             oriExtraWorkingHour = extraHour,
                             actExtraWorkingHour = extraHour,
-                            extraworkType = wr.dateType,
+                            extraworkType = extraType,
                             attendanceExceptions = exceptions.Distinct().ToList(),
                             createdAt = DateTime.Now
                         });

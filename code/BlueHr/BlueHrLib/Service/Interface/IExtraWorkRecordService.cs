@@ -25,5 +25,7 @@ namespace BlueHrLib.Service.Interface
         bool Creates(List<ExtraWorkRecord> records);
 
         ExtraWorkRecordView FindViewByStaffNrAndDate(string staffNr, DateTime date);
+
+        ExtraWorkRecord FindByStaffNrAndDete(string staffNr, DateTime date);
     }
 }

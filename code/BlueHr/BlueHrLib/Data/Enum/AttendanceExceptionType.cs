@@ -52,6 +52,24 @@ namespace BlueHrLib.Data.Enum
         /// 加班
         /// </summary>
         [Description("加班")]
-        ExtraWork = 600
+        ExtraWork = 600,
+
+        /// <summary>
+        /// 与加班单时长不匹配
+        /// </summary>
+        [Description("与加班单时长不匹配")]
+        ExtraWorkHourNotMatch = 700,
+
+        /// <summary>
+        /// 与加班单类型不匹配
+        /// </summary>
+        [Description("与加班单类型不匹配")]
+        ExtraWorkTypeNotMatch = 800,
+
+        /// <summary>
+        /// 缺失加班单
+        /// </summary>
+        [Description("缺失加班单")]
+        ExtraWorkNoRecord = 900
     }
 }

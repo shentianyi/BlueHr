@@ -170,7 +170,7 @@ namespace BlueHrWeb.Controllers
             return View(records);
         }
 
-        private void SetExtraWorkTypeList(int? type, bool allowBlank = false)
+        private void SetExtraWorkTypeList(int? type, bool allowBlank = true)
         {
             List<EnumItem> item = EnumHelper.GetList(typeof(SystemExtraType));
 

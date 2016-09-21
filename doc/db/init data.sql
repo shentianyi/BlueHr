@@ -2,6 +2,8 @@ use BlueHr
 go
 
 -- 建立默认的证照类别
+
+delete from CertificateType
 insert CertificateType(name,remark,isSystem,isNecessary,systemCode)
 values('身份证','员工的身份证，系统默认证件照',1,0,100);
 
@@ -27,7 +29,7 @@ INSERT INTO [BlueHr].[dbo].[SystemSetting]
            ,[earlyLeaveExceptionTime],
             [systemHost])
      VALUES
-           (5,	NULL,	NULL,	NULL,	20,	2,	30,	30, 'http://localhost/')
+           (5,	NULL,	NULL,	NULL,	2,	50,	30,	30, 'http://localhost/')
 GO
 
 
@@ -41,36 +43,6 @@ INSERT INTO [BlueHr].[dbo].[QuartzJob]
            ('0 30 23 * * ? *'
            ,null
            ,100)
-GO
-
-
--- 建立加班类型
-
-
-INSERT INTO [BlueHr].[dbo].[ExtraWorkType]
-           ([name])
-     VALUES
-           ('延时加班')
-GO
-
-INSERT INTO [BlueHr].[dbo].[ExtraWorkType]
-           ([name])
-     VALUES
-           ('双休加班')
-GO
-
-
-INSERT INTO [BlueHr].[dbo].[ExtraWorkType]
-           ([name])
-     VALUES
-           ('节假日加班')
-GO
-
-
-INSERT INTO [BlueHr].[dbo].[ExtraWorkType]
-           ([name])
-     VALUES
-           ('其它加班')
 GO
 
 
@@ -92,7 +64,7 @@ GO
 
 use BlueHr
 go
-
+delete from AbsenceType;
 insert into AbsenceType(code,name,systemCode) values('放','放班',100);
 insert into AbsenceType(code,name,systemCode) values('事','事假',200);
 insert into AbsenceType(code,name,systemCode) values('病','病假',300);
@@ -109,8 +81,8 @@ insert into AbsenceType(code,name,systemCode) values('离','离职',1100);
 use BlueHr
 go
 
+delete from ExtraWorkType;
 insert into ExtraWorkType(name,systemCode) values('延时加班',100);
 insert into ExtraWorkType(name,systemCode) values('双休加班',200);
 insert into ExtraWorkType(name,systemCode) values('节假日加班',300);
-insert into ExtraWorkType(name,systemCode) values('其它加班',400);
 

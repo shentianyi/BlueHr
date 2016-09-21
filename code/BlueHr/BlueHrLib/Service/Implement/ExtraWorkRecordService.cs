@@ -70,5 +70,10 @@ namespace BlueHrLib.Service.Implement
             return new DataContext(this.DbString).Context.GetTable<ExtraWorkRecordView>().Where(s => s.staffNr.Equals(staffNr) && s.otTime == date).FirstOrDefault();
 
         }
+
+        public ExtraWorkRecord FindByStaffNrAndDete(string staffNr, DateTime date)
+        {
+            return new DataContext(this.DbString).Context.GetTable<ExtraWorkRecord>().Where(s => s.staffNr.Equals(staffNr) && s.otTime == date).FirstOrDefault();
+        }
     }
 }
