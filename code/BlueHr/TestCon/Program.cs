@@ -22,6 +22,7 @@ namespace TestCon
             DateTime et = DateTime.Parse("2016-9-2 1:00");
 
             Console.WriteLine((et - st).TotalDays);
+            Console.WriteLine(new TimeSpan(7, 8, 0).ToString("HH:mm"));
             //Staff s = new Staff();
 
 
