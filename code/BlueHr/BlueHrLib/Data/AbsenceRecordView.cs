@@ -11,7 +11,7 @@ namespace BlueHrLib.Data
 
 
         public string startEndHourStr {
-            get { return string.Format("{0}~{1}", this.startHour.Value.ToString("HH:mm"), this.endHour.Value.ToString("HH:mm")); }
+            get { return string.Format("{0}~{1}", this.startHour.Value.ToString("hh\\:mm"), this.endHour.Value.ToString("hh\\:mm")); }
         } 
     }
 }
