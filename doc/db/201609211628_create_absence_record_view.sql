@@ -1,7 +1,7 @@
 USE [BlueHr]
 GO
 
-/****** Object:  View [dbo].[AbsenceRecordView]    Script Date: 09/21/2016 16:28:13 ******/
+/****** Object:  View [dbo].[AbsenceRecordView]    Script Date: 09/22/2016 04:04:15 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -11,9 +11,16 @@ GO
 CREATE VIEW [dbo].[AbsenceRecordView]
 AS
 SELECT     dbo.AbsenceRecrod.id, dbo.AbsenceRecrod.absenceTypeId, dbo.AbsenceRecrod.staffNr, dbo.AbsenceRecrod.duration, dbo.AbsenceRecrod.absenceDate, 
-                      dbo.AbsenceRecrod.startHour, dbo.AbsenceRecrod.endHour, dbo.AbsenceType.code, dbo.AbsenceType.name, dbo.AbsenceType.systemCode
+                      dbo.AbsenceRecrod.startHour, dbo.AbsenceRecrod.endHour, dbo.AbsenceType.code, dbo.AbsenceType.name, dbo.AbsenceType.systemCode, dbo.Staff.nr, 
+                      dbo.Staff.name AS staffName, dbo.Staff.workStatus, dbo.Staff.sex, dbo.Staff.birthday, dbo.Staff.ethnic, dbo.Staff.totalCompanySeniority, 
+                      dbo.Staff.firstCompanyEmployAt, dbo.Staff.companyEmployAt, dbo.Staff.companySeniority, dbo.Staff.isOnTrial, dbo.Staff.trialOverAt, dbo.Staff.companyId, 
+                      dbo.Staff.departmentId, dbo.Staff.jobTitleId, dbo.Staff.photo, dbo.Staff.staffTypeId, dbo.Staff.degreeTypeId, dbo.Staff.speciality, dbo.Staff.residenceAddress, 
+                      dbo.Staff.address, dbo.Staff.id AS staffId, dbo.Staff.isIdChecked, dbo.Staff.phone, dbo.Staff.contactName, dbo.Staff.contactPhone, dbo.Staff.contactFamilyMemberType, 
+                      dbo.Staff.domicile, dbo.Staff.residenceType, dbo.Staff.insureTypeId, dbo.Staff.isPayCPF, dbo.Staff.contractExpireAt, dbo.Staff.contractCount, dbo.Staff.totalSeniority, 
+                      dbo.Staff.remark, dbo.Staff.workingYearsAt, dbo.Staff.contractExpireStr, dbo.Staff.resignAt
 FROM         dbo.AbsenceRecrod INNER JOIN
-                      dbo.AbsenceType ON dbo.AbsenceRecrod.absenceTypeId = dbo.AbsenceType.id
+                      dbo.AbsenceType ON dbo.AbsenceRecrod.absenceTypeId = dbo.AbsenceType.id INNER JOIN
+                      dbo.Staff ON dbo.AbsenceRecrod.staffNr = dbo.Staff.nr
 
 GO
 
@@ -22,7 +29,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+         Configuration = "(H (1[45] 4[30] 2[19] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -107,6 +114,16 @@ Begin DesignProperties =
             End
             DisplayFlags = 280
             TopColumn = 0
+         End
+         Begin Table = "Staff"
+            Begin Extent = 
+               Top = 6
+               Left = 589
+               Bottom = 240
+               Right = 806
+            End
+            DisplayFlags = 280
+            TopColumn = 27
          End
       End
    End

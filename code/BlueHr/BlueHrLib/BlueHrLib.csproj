@@ -264,6 +264,7 @@
     <Compile Include="Service\Implement\AttendanceRecordDetailService.cs" />
     <Compile Include="Service\Implement\AttendanceRecordService.cs" />
     <Compile Include="Service\Implement\CertificateService.cs" />
+    <Compile Include="Service\Implement\ExcelReportService.cs" />
     <Compile Include="Service\Implement\CertificateTypeService.cs" />
     <Compile Include="Service\Implement\CompanyService.cs" />
     <Compile Include="Service\Implement\ExtraWorkRecordService.cs" />
@@ -304,6 +305,7 @@
     <Compile Include="Service\Interface\IBankCardService.cs" />
     <Compile Include="Service\Interface\IMessageRecordService.cs" />
     <Compile Include="Service\Interface\IQuartzJobService.cs" />
+    <Compile Include="Service\Interface\IExcelReportService.cs" />
     <Compile Include="Service\Interface\IResignRecordService.cs" />
     <Compile Include="Service\Interface\IResignTypeService.cs" />
     <Compile Include="Service\Interface\IShiftScheduleService.cs" />

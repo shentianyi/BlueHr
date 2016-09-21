@@ -1,7 +1,7 @@
 USE [BlueHr]
 GO
 
-/****** Object:  View [dbo].[ExtraWorkRecordView]    Script Date: 09/21/2016 17:54:10 ******/
+/****** Object:  View [dbo].[ExtraWorkRecordView]    Script Date: 09/22/2016 04:07:14 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -10,10 +10,17 @@ GO
 
 CREATE VIEW [dbo].[ExtraWorkRecordView]
 AS
-SELECT     dbo.ExtraWorkRecord.extraWorkTypeId, dbo.ExtraWorkRecord.staffNr, dbo.ExtraWorkRecord.duration, dbo.ExtraWorkRecord.otReason, dbo.ExtraWorkRecord.otTime, 
-                      dbo.ExtraWorkRecord.startHour, dbo.ExtraWorkRecord.endHour, dbo.ExtraWorkType.systemCode, dbo.ExtraWorkType.name
+SELECT     dbo.ExtraWorkRecord.id, dbo.ExtraWorkRecord.extraWorkTypeId, dbo.ExtraWorkRecord.staffNr, dbo.ExtraWorkRecord.duration, dbo.ExtraWorkRecord.otReason, 
+                      dbo.ExtraWorkRecord.otTime, dbo.ExtraWorkRecord.startHour, dbo.ExtraWorkRecord.endHour, dbo.ExtraWorkType.systemCode, dbo.ExtraWorkType.name, 
+                      dbo.Staff.nr, dbo.Staff.name AS staffName, dbo.Staff.sex, dbo.Staff.birthday, dbo.Staff.ethnic, dbo.Staff.firstCompanyEmployAt, dbo.Staff.totalCompanySeniority, 
+                      dbo.Staff.companyEmployAt, dbo.Staff.companySeniority, dbo.Staff.workStatus, dbo.Staff.isOnTrial, dbo.Staff.trialOverAt, dbo.Staff.companyId, dbo.Staff.departmentId, 
+                      dbo.Staff.jobTitleId, dbo.Staff.photo, dbo.Staff.staffTypeId, dbo.Staff.degreeTypeId, dbo.Staff.speciality, dbo.Staff.residenceAddress, dbo.Staff.address, 
+                      dbo.Staff.id AS staffId, dbo.Staff.isIdChecked, dbo.Staff.phone, dbo.Staff.contactName, dbo.Staff.contactPhone, dbo.Staff.contactFamilyMemberType, dbo.Staff.domicile, 
+                      dbo.Staff.residenceType, dbo.Staff.insureTypeId, dbo.Staff.isPayCPF, dbo.Staff.contractExpireAt, dbo.Staff.contractCount, dbo.Staff.remark, dbo.Staff.totalSeniority, 
+                      dbo.Staff.workingYearsAt, dbo.Staff.contractExpireStr, dbo.Staff.resignAt
 FROM         dbo.ExtraWorkRecord INNER JOIN
-                      dbo.ExtraWorkType ON dbo.ExtraWorkRecord.extraWorkTypeId = dbo.ExtraWorkType.id
+                      dbo.ExtraWorkType ON dbo.ExtraWorkRecord.extraWorkTypeId = dbo.ExtraWorkType.id INNER JOIN
+                      dbo.Staff ON dbo.ExtraWorkRecord.staffNr = dbo.Staff.nr
 
 GO
 
@@ -22,7 +29,7 @@ Begin DesignProperties =
    Begin PaneConfigurations = 
       Begin PaneConfiguration = 0
          NumPanes = 4
-         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+         Configuration = "(H (1[41] 4[35] 2[6] 3) )"
       End
       Begin PaneConfiguration = 1
          NumPanes = 3
@@ -107,6 +114,16 @@ Begin DesignProperties =
             End
             DisplayFlags = 280
             TopColumn = 0
+         End
+         Begin Table = "Staff"
+            Begin Extent = 
+               Top = 6
+               Left = 436
+               Bottom = 215
+               Right = 653
+            End
+            DisplayFlags = 280
+            TopColumn = 28
          End
       End
    End

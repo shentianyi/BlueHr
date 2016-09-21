@@ -123,7 +123,7 @@ namespace BlueHrLib.Data
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString4, mappingSource)
 		{
 			OnCreated();
 		}
@@ -392,14 +392,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<AbsenceRecordView> AbsenceRecordView
-		{
-			get
-			{
-				return this.GetTable<AbsenceRecordView>();
-			}
-		}
-		
 		public System.Data.Linq.Table<ShiftScheduleView> ShiftScheduleView
 		{
 			get
@@ -413,6 +405,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<AttendanceRecordCalExceptionView>();
+			}
+		}
+		
+		public System.Data.Linq.Table<MessageRecordView> MessageRecordView
+		{
+			get
+			{
+				return this.GetTable<MessageRecordView>();
 			}
 		}
 		
@@ -432,19 +432,27 @@ namespace BlueHrLib.Data
 			}
 		}
 		
+		public System.Data.Linq.Table<StaffView> StaffView
+		{
+			get
+			{
+				return this.GetTable<StaffView>();
+			}
+		}
+		
+		public System.Data.Linq.Table<AbsenceRecordView> AbsenceRecordView
+		{
+			get
+			{
+				return this.GetTable<AbsenceRecordView>();
+			}
+		}
+		
 		public System.Data.Linq.Table<ExtraWorkRecordView> ExtraWorkRecordView
 		{
 			get
 			{
 				return this.GetTable<ExtraWorkRecordView>();
-			}
-		}
-		
-		public System.Data.Linq.Table<MessageRecordView> MessageRecordView
-		{
-			get
-			{
-				return this.GetTable<MessageRecordView>();
 			}
 		}
 	}
@@ -8591,195 +8599,6 @@ namespace BlueHrLib.Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AbsenceRecordView")]
-	public partial class AbsenceRecordView
-	{
-		
-		private int _id;
-		
-		private int _absenceTypeId;
-		
-		private string _staffNr;
-		
-		private double _duration;
-		
-		private System.Nullable<System.DateTime> _absenceDate;
-		
-		private System.Nullable<System.TimeSpan> _startHour;
-		
-		private System.Nullable<System.TimeSpan> _endHour;
-		
-		private string _code;
-		
-		private string _name;
-		
-		private System.Nullable<int> _systemCode;
-		
-		public AbsenceRecordView()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this._id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_absenceTypeId", DbType="Int NOT NULL")]
-		public int absenceTypeId
-		{
-			get
-			{
-				return this._absenceTypeId;
-			}
-			set
-			{
-				if ((this._absenceTypeId != value))
-				{
-					this._absenceTypeId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string staffNr
-		{
-			get
-			{
-				return this._staffNr;
-			}
-			set
-			{
-				if ((this._staffNr != value))
-				{
-					this._staffNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_duration", DbType="Float NOT NULL")]
-		public double duration
-		{
-			get
-			{
-				return this._duration;
-			}
-			set
-			{
-				if ((this._duration != value))
-				{
-					this._duration = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_absenceDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> absenceDate
-		{
-			get
-			{
-				return this._absenceDate;
-			}
-			set
-			{
-				if ((this._absenceDate != value))
-				{
-					this._absenceDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startHour", DbType="Time")]
-		public System.Nullable<System.TimeSpan> startHour
-		{
-			get
-			{
-				return this._startHour;
-			}
-			set
-			{
-				if ((this._startHour != value))
-				{
-					this._startHour = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endHour", DbType="Time")]
-		public System.Nullable<System.TimeSpan> endHour
-		{
-			get
-			{
-				return this._endHour;
-			}
-			set
-			{
-				if ((this._endHour != value))
-				{
-					this._endHour = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_code", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string code
-		{
-			get
-			{
-				return this._code;
-			}
-			set
-			{
-				if ((this._code != value))
-				{
-					this._code = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this._name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_systemCode", DbType="Int")]
-		public System.Nullable<int> systemCode
-		{
-			get
-			{
-				return this._systemCode;
-			}
-			set
-			{
-				if ((this._systemCode != value))
-				{
-					this._systemCode = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ShiftScheduleView")]
 	public partial class ShiftScheduleView
 	{
@@ -9068,6 +8887,249 @@ namespace BlueHrLib.Data
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MessageRecordView")]
+	public partial class MessageRecordView
+	{
+		
+		private int _id;
+		
+		private string _staffNr;
+		
+		private System.Nullable<int> _operatorId;
+		
+		private System.Nullable<int> _messageType;
+		
+		private System.Nullable<System.DateTime> _createdAt;
+		
+		private string _text;
+		
+		private System.Nullable<bool> _isRead;
+		
+		private System.Nullable<bool> _isHandled;
+		
+		private System.Nullable<int> _messageCategory;
+		
+		private string _uniqString;
+		
+		private string _operatorName;
+		
+		private string _operatorEmail;
+		
+		private string _staffName;
+		
+		public MessageRecordView()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200)")]
+		public string staffNr
+		{
+			get
+			{
+				return this._staffNr;
+			}
+			set
+			{
+				if ((this._staffNr != value))
+				{
+					this._staffNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_operatorId", DbType="Int")]
+		public System.Nullable<int> operatorId
+		{
+			get
+			{
+				return this._operatorId;
+			}
+			set
+			{
+				if ((this._operatorId != value))
+				{
+					this._operatorId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_messageType", DbType="Int")]
+		public System.Nullable<int> messageType
+		{
+			get
+			{
+				return this._messageType;
+			}
+			set
+			{
+				if ((this._messageType != value))
+				{
+					this._messageType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> createdAt
+		{
+			get
+			{
+				return this._createdAt;
+			}
+			set
+			{
+				if ((this._createdAt != value))
+				{
+					this._createdAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_text", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string text
+		{
+			get
+			{
+				return this._text;
+			}
+			set
+			{
+				if ((this._text != value))
+				{
+					this._text = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isRead", DbType="Bit")]
+		public System.Nullable<bool> isRead
+		{
+			get
+			{
+				return this._isRead;
+			}
+			set
+			{
+				if ((this._isRead != value))
+				{
+					this._isRead = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isHandled", DbType="Bit")]
+		public System.Nullable<bool> isHandled
+		{
+			get
+			{
+				return this._isHandled;
+			}
+			set
+			{
+				if ((this._isHandled != value))
+				{
+					this._isHandled = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_messageCategory", DbType="Int")]
+		public System.Nullable<int> messageCategory
+		{
+			get
+			{
+				return this._messageCategory;
+			}
+			set
+			{
+				if ((this._messageCategory != value))
+				{
+					this._messageCategory = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uniqString", DbType="VarChar(255)")]
+		public string uniqString
+		{
+			get
+			{
+				return this._uniqString;
+			}
+			set
+			{
+				if ((this._uniqString != value))
+				{
+					this._uniqString = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_operatorName", DbType="VarChar(50)")]
+		public string operatorName
+		{
+			get
+			{
+				return this._operatorName;
+			}
+			set
+			{
+				if ((this._operatorName != value))
+				{
+					this._operatorName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_operatorEmail", DbType="VarChar(50)")]
+		public string operatorEmail
+		{
+			get
+			{
+				return this._operatorEmail;
+			}
+			set
+			{
+				if ((this._operatorEmail != value))
+				{
+					this._operatorEmail = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffName", DbType="VarChar(50)")]
+		public string staffName
+		{
+			get
+			{
+				return this._staffName;
+			}
+			set
+			{
+				if ((this._staffName != value))
+				{
+					this._staffName = value;
+				}
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AttendanceRecordCalView")]
 	public partial class AttendanceRecordCalView
 	{
@@ -9167,6 +9229,8 @@ namespace BlueHrLib.Data
 		private System.Nullable<double> _totalSeniority;
 		
 		private string _departmentName;
+		
+		private System.Nullable<System.DateTime> _resignAt;
 		
 		private string _staffRemark;
 		
@@ -9944,6 +10008,22 @@ namespace BlueHrLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> resignAt
+		{
+			get
+			{
+				return this._resignAt;
+			}
+			set
+			{
+				if ((this._resignAt != value))
+				{
+					this._resignAt = value;
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffRemark", DbType="Text", UpdateCheck=UpdateCheck.Never)]
 		public string staffRemark
 		{
@@ -10058,6 +10138,8 @@ namespace BlueHrLib.Data
 		private System.Nullable<int> _contractCount;
 		
 		private System.Nullable<double> _totalSeniority;
+		
+		private System.Nullable<System.DateTime> _resignAt;
 		
 		private string _staffRemark;
 		
@@ -10693,6 +10775,22 @@ namespace BlueHrLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> resignAt
+		{
+			get
+			{
+				return this._resignAt;
+			}
+			set
+			{
+				if ((this._resignAt != value))
+				{
+					this._resignAt = value;
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffRemark", DbType="Text", UpdateCheck=UpdateCheck.Never)]
 		public string staffRemark
 		{
@@ -10742,9 +10840,1739 @@ namespace BlueHrLib.Data
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StaffView")]
+	public partial class StaffView
+	{
+		
+		private string _nr;
+		
+		private string _name;
+		
+		private string _sex;
+		
+		private System.Nullable<System.DateTime> _birthday;
+		
+		private System.Nullable<System.DateTime> _firstCompanyEmployAt;
+		
+		private string _ethnic;
+		
+		private System.Nullable<double> _totalCompanySeniority;
+		
+		private System.Nullable<System.DateTime> _companyEmployAt;
+		
+		private System.Nullable<double> _companySeniority;
+		
+		private int _workStatus;
+		
+		private bool _isOnTrial;
+		
+		private System.Nullable<System.DateTime> _trialOverAt;
+		
+		private System.Nullable<int> _companyId;
+		
+		private System.Nullable<int> _departmentId;
+		
+		private System.Nullable<int> _jobTitleId;
+		
+		private string _photo;
+		
+		private System.Nullable<int> _staffTypeId;
+		
+		private System.Nullable<int> _degreeTypeId;
+		
+		private string _speciality;
+		
+		private string _residenceAddress;
+		
+		private string _address;
+		
+		private string _id;
+		
+		private bool _isIdChecked;
+		
+		private string _phone;
+		
+		private string _contactName;
+		
+		private string _contactPhone;
+		
+		private string _contactFamilyMemberType;
+		
+		private string _domicile;
+		
+		private System.Nullable<int> _residenceType;
+		
+		private System.Nullable<int> _insureTypeId;
+		
+		private bool _isPayCPF;
+		
+		private System.Nullable<System.DateTime> _contractExpireAt;
+		
+		private System.Nullable<int> _contractCount;
+		
+		private System.Nullable<double> _totalSeniority;
+		
+		private string _remark;
+		
+		private System.Nullable<System.DateTime> _workingYearsAt;
+		
+		private string _contractExpireStr;
+		
+		private System.Nullable<System.DateTime> _resignAt;
+		
+		private string _companyName;
+		
+		private string _departmentName;
+		
+		private string _jobTitleName;
+		
+		private string _staffTypeName;
+		
+		private string _parenDepartName;
+		
+		private System.Nullable<int> _parentId;
+		
+		private System.Nullable<int> _parentDepartParentId;
+		
+		private string _parentParentDepartmentName;
+		
+		private System.Nullable<int> _parentParentDeparParentId;
+		
+		public StaffView()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string nr
+		{
+			get
+			{
+				return this._nr;
+			}
+			set
+			{
+				if ((this._nr != value))
+				{
+					this._nr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50)")]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this._name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sex", DbType="VarChar(10)")]
+		public string sex
+		{
+			get
+			{
+				return this._sex;
+			}
+			set
+			{
+				if ((this._sex != value))
+				{
+					this._sex = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_birthday", DbType="DateTime")]
+		public System.Nullable<System.DateTime> birthday
+		{
+			get
+			{
+				return this._birthday;
+			}
+			set
+			{
+				if ((this._birthday != value))
+				{
+					this._birthday = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_firstCompanyEmployAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> firstCompanyEmployAt
+		{
+			get
+			{
+				return this._firstCompanyEmployAt;
+			}
+			set
+			{
+				if ((this._firstCompanyEmployAt != value))
+				{
+					this._firstCompanyEmployAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ethnic", DbType="VarChar(50)")]
+		public string ethnic
+		{
+			get
+			{
+				return this._ethnic;
+			}
+			set
+			{
+				if ((this._ethnic != value))
+				{
+					this._ethnic = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_totalCompanySeniority", DbType="Float")]
+		public System.Nullable<double> totalCompanySeniority
+		{
+			get
+			{
+				return this._totalCompanySeniority;
+			}
+			set
+			{
+				if ((this._totalCompanySeniority != value))
+				{
+					this._totalCompanySeniority = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyEmployAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> companyEmployAt
+		{
+			get
+			{
+				return this._companyEmployAt;
+			}
+			set
+			{
+				if ((this._companyEmployAt != value))
+				{
+					this._companyEmployAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companySeniority", DbType="Float")]
+		public System.Nullable<double> companySeniority
+		{
+			get
+			{
+				return this._companySeniority;
+			}
+			set
+			{
+				if ((this._companySeniority != value))
+				{
+					this._companySeniority = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_workStatus", DbType="Int NOT NULL")]
+		public int workStatus
+		{
+			get
+			{
+				return this._workStatus;
+			}
+			set
+			{
+				if ((this._workStatus != value))
+				{
+					this._workStatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isOnTrial", DbType="Bit NOT NULL")]
+		public bool isOnTrial
+		{
+			get
+			{
+				return this._isOnTrial;
+			}
+			set
+			{
+				if ((this._isOnTrial != value))
+				{
+					this._isOnTrial = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trialOverAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> trialOverAt
+		{
+			get
+			{
+				return this._trialOverAt;
+			}
+			set
+			{
+				if ((this._trialOverAt != value))
+				{
+					this._trialOverAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyId", DbType="Int")]
+		public System.Nullable<int> companyId
+		{
+			get
+			{
+				return this._companyId;
+			}
+			set
+			{
+				if ((this._companyId != value))
+				{
+					this._companyId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departmentId", DbType="Int")]
+		public System.Nullable<int> departmentId
+		{
+			get
+			{
+				return this._departmentId;
+			}
+			set
+			{
+				if ((this._departmentId != value))
+				{
+					this._departmentId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_jobTitleId", DbType="Int")]
+		public System.Nullable<int> jobTitleId
+		{
+			get
+			{
+				return this._jobTitleId;
+			}
+			set
+			{
+				if ((this._jobTitleId != value))
+				{
+					this._jobTitleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string photo
+		{
+			get
+			{
+				return this._photo;
+			}
+			set
+			{
+				if ((this._photo != value))
+				{
+					this._photo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffTypeId", DbType="Int")]
+		public System.Nullable<int> staffTypeId
+		{
+			get
+			{
+				return this._staffTypeId;
+			}
+			set
+			{
+				if ((this._staffTypeId != value))
+				{
+					this._staffTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_degreeTypeId", DbType="Int")]
+		public System.Nullable<int> degreeTypeId
+		{
+			get
+			{
+				return this._degreeTypeId;
+			}
+			set
+			{
+				if ((this._degreeTypeId != value))
+				{
+					this._degreeTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_speciality", DbType="VarChar(200)")]
+		public string speciality
+		{
+			get
+			{
+				return this._speciality;
+			}
+			set
+			{
+				if ((this._speciality != value))
+				{
+					this._speciality = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_residenceAddress", DbType="VarChar(200)")]
+		public string residenceAddress
+		{
+			get
+			{
+				return this._residenceAddress;
+			}
+			set
+			{
+				if ((this._residenceAddress != value))
+				{
+					this._residenceAddress = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_address", DbType="VarChar(200)")]
+		public string address
+		{
+			get
+			{
+				return this._address;
+			}
+			set
+			{
+				if ((this._address != value))
+				{
+					this._address = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isIdChecked", DbType="Bit NOT NULL")]
+		public bool isIdChecked
+		{
+			get
+			{
+				return this._isIdChecked;
+			}
+			set
+			{
+				if ((this._isIdChecked != value))
+				{
+					this._isIdChecked = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone", DbType="VarChar(50)")]
+		public string phone
+		{
+			get
+			{
+				return this._phone;
+			}
+			set
+			{
+				if ((this._phone != value))
+				{
+					this._phone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contactName", DbType="VarChar(50)")]
+		public string contactName
+		{
+			get
+			{
+				return this._contactName;
+			}
+			set
+			{
+				if ((this._contactName != value))
+				{
+					this._contactName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contactPhone", DbType="VarChar(50)")]
+		public string contactPhone
+		{
+			get
+			{
+				return this._contactPhone;
+			}
+			set
+			{
+				if ((this._contactPhone != value))
+				{
+					this._contactPhone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contactFamilyMemberType", DbType="VarChar(50)")]
+		public string contactFamilyMemberType
+		{
+			get
+			{
+				return this._contactFamilyMemberType;
+			}
+			set
+			{
+				if ((this._contactFamilyMemberType != value))
+				{
+					this._contactFamilyMemberType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_domicile", DbType="VarChar(50)")]
+		public string domicile
+		{
+			get
+			{
+				return this._domicile;
+			}
+			set
+			{
+				if ((this._domicile != value))
+				{
+					this._domicile = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_residenceType", DbType="Int")]
+		public System.Nullable<int> residenceType
+		{
+			get
+			{
+				return this._residenceType;
+			}
+			set
+			{
+				if ((this._residenceType != value))
+				{
+					this._residenceType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_insureTypeId", DbType="Int")]
+		public System.Nullable<int> insureTypeId
+		{
+			get
+			{
+				return this._insureTypeId;
+			}
+			set
+			{
+				if ((this._insureTypeId != value))
+				{
+					this._insureTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isPayCPF", DbType="Bit NOT NULL")]
+		public bool isPayCPF
+		{
+			get
+			{
+				return this._isPayCPF;
+			}
+			set
+			{
+				if ((this._isPayCPF != value))
+				{
+					this._isPayCPF = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contractExpireAt", DbType="Date")]
+		public System.Nullable<System.DateTime> contractExpireAt
+		{
+			get
+			{
+				return this._contractExpireAt;
+			}
+			set
+			{
+				if ((this._contractExpireAt != value))
+				{
+					this._contractExpireAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contractCount", DbType="Int")]
+		public System.Nullable<int> contractCount
+		{
+			get
+			{
+				return this._contractCount;
+			}
+			set
+			{
+				if ((this._contractCount != value))
+				{
+					this._contractCount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_totalSeniority", DbType="Float")]
+		public System.Nullable<double> totalSeniority
+		{
+			get
+			{
+				return this._totalSeniority;
+			}
+			set
+			{
+				if ((this._totalSeniority != value))
+				{
+					this._totalSeniority = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this._remark = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_workingYearsAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> workingYearsAt
+		{
+			get
+			{
+				return this._workingYearsAt;
+			}
+			set
+			{
+				if ((this._workingYearsAt != value))
+				{
+					this._workingYearsAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contractExpireStr", DbType="VarChar(50)")]
+		public string contractExpireStr
+		{
+			get
+			{
+				return this._contractExpireStr;
+			}
+			set
+			{
+				if ((this._contractExpireStr != value))
+				{
+					this._contractExpireStr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> resignAt
+		{
+			get
+			{
+				return this._resignAt;
+			}
+			set
+			{
+				if ((this._resignAt != value))
+				{
+					this._resignAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyName", DbType="VarChar(200)")]
+		public string companyName
+		{
+			get
+			{
+				return this._companyName;
+			}
+			set
+			{
+				if ((this._companyName != value))
+				{
+					this._companyName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departmentName", DbType="VarChar(200)")]
+		public string departmentName
+		{
+			get
+			{
+				return this._departmentName;
+			}
+			set
+			{
+				if ((this._departmentName != value))
+				{
+					this._departmentName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_jobTitleName", DbType="VarChar(200)")]
+		public string jobTitleName
+		{
+			get
+			{
+				return this._jobTitleName;
+			}
+			set
+			{
+				if ((this._jobTitleName != value))
+				{
+					this._jobTitleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffTypeName", DbType="VarChar(200)")]
+		public string staffTypeName
+		{
+			get
+			{
+				return this._staffTypeName;
+			}
+			set
+			{
+				if ((this._staffTypeName != value))
+				{
+					this._staffTypeName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_parenDepartName", DbType="VarChar(200)")]
+		public string parenDepartName
+		{
+			get
+			{
+				return this._parenDepartName;
+			}
+			set
+			{
+				if ((this._parenDepartName != value))
+				{
+					this._parenDepartName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_parentId", DbType="Int")]
+		public System.Nullable<int> parentId
+		{
+			get
+			{
+				return this._parentId;
+			}
+			set
+			{
+				if ((this._parentId != value))
+				{
+					this._parentId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_parentDepartParentId", DbType="Int")]
+		public System.Nullable<int> parentDepartParentId
+		{
+			get
+			{
+				return this._parentDepartParentId;
+			}
+			set
+			{
+				if ((this._parentDepartParentId != value))
+				{
+					this._parentDepartParentId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_parentParentDepartmentName", DbType="VarChar(200)")]
+		public string parentParentDepartmentName
+		{
+			get
+			{
+				return this._parentParentDepartmentName;
+			}
+			set
+			{
+				if ((this._parentParentDepartmentName != value))
+				{
+					this._parentParentDepartmentName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_parentParentDeparParentId", DbType="Int")]
+		public System.Nullable<int> parentParentDeparParentId
+		{
+			get
+			{
+				return this._parentParentDeparParentId;
+			}
+			set
+			{
+				if ((this._parentParentDeparParentId != value))
+				{
+					this._parentParentDeparParentId = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AbsenceRecordView")]
+	public partial class AbsenceRecordView
+	{
+		
+		private int _id;
+		
+		private int _absenceTypeId;
+		
+		private string _staffNr;
+		
+		private double _duration;
+		
+		private System.Nullable<System.DateTime> _absenceDate;
+		
+		private System.Nullable<System.TimeSpan> _startHour;
+		
+		private System.Nullable<System.TimeSpan> _endHour;
+		
+		private string _code;
+		
+		private string _name;
+		
+		private System.Nullable<int> _systemCode;
+		
+		private string _nr;
+		
+		private string _staffName;
+		
+		private int _workStatus;
+		
+		private string _sex;
+		
+		private System.Nullable<System.DateTime> _birthday;
+		
+		private string _ethnic;
+		
+		private System.Nullable<double> _totalCompanySeniority;
+		
+		private System.Nullable<System.DateTime> _firstCompanyEmployAt;
+		
+		private System.Nullable<System.DateTime> _companyEmployAt;
+		
+		private System.Nullable<double> _companySeniority;
+		
+		private bool _isOnTrial;
+		
+		private System.Nullable<System.DateTime> _trialOverAt;
+		
+		private System.Nullable<int> _companyId;
+		
+		private System.Nullable<int> _departmentId;
+		
+		private System.Nullable<int> _jobTitleId;
+		
+		private string _photo;
+		
+		private System.Nullable<int> _staffTypeId;
+		
+		private System.Nullable<int> _degreeTypeId;
+		
+		private string _speciality;
+		
+		private string _residenceAddress;
+		
+		private string _address;
+		
+		private string _staffId;
+		
+		private bool _isIdChecked;
+		
+		private string _phone;
+		
+		private string _contactName;
+		
+		private string _contactPhone;
+		
+		private string _contactFamilyMemberType;
+		
+		private string _domicile;
+		
+		private System.Nullable<int> _residenceType;
+		
+		private System.Nullable<int> _insureTypeId;
+		
+		private bool _isPayCPF;
+		
+		private System.Nullable<System.DateTime> _contractExpireAt;
+		
+		private System.Nullable<int> _contractCount;
+		
+		private System.Nullable<double> _totalSeniority;
+		
+		private string _remark;
+		
+		private System.Nullable<System.DateTime> _workingYearsAt;
+		
+		private string _contractExpireStr;
+		
+		private System.Nullable<System.DateTime> _resignAt;
+		
+		public AbsenceRecordView()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_absenceTypeId", DbType="Int NOT NULL")]
+		public int absenceTypeId
+		{
+			get
+			{
+				return this._absenceTypeId;
+			}
+			set
+			{
+				if ((this._absenceTypeId != value))
+				{
+					this._absenceTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string staffNr
+		{
+			get
+			{
+				return this._staffNr;
+			}
+			set
+			{
+				if ((this._staffNr != value))
+				{
+					this._staffNr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_duration", DbType="Float NOT NULL")]
+		public double duration
+		{
+			get
+			{
+				return this._duration;
+			}
+			set
+			{
+				if ((this._duration != value))
+				{
+					this._duration = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_absenceDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> absenceDate
+		{
+			get
+			{
+				return this._absenceDate;
+			}
+			set
+			{
+				if ((this._absenceDate != value))
+				{
+					this._absenceDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startHour", DbType="Time")]
+		public System.Nullable<System.TimeSpan> startHour
+		{
+			get
+			{
+				return this._startHour;
+			}
+			set
+			{
+				if ((this._startHour != value))
+				{
+					this._startHour = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endHour", DbType="Time")]
+		public System.Nullable<System.TimeSpan> endHour
+		{
+			get
+			{
+				return this._endHour;
+			}
+			set
+			{
+				if ((this._endHour != value))
+				{
+					this._endHour = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_code", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string code
+		{
+			get
+			{
+				return this._code;
+			}
+			set
+			{
+				if ((this._code != value))
+				{
+					this._code = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this._name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_systemCode", DbType="Int")]
+		public System.Nullable<int> systemCode
+		{
+			get
+			{
+				return this._systemCode;
+			}
+			set
+			{
+				if ((this._systemCode != value))
+				{
+					this._systemCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string nr
+		{
+			get
+			{
+				return this._nr;
+			}
+			set
+			{
+				if ((this._nr != value))
+				{
+					this._nr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffName", DbType="VarChar(50)")]
+		public string staffName
+		{
+			get
+			{
+				return this._staffName;
+			}
+			set
+			{
+				if ((this._staffName != value))
+				{
+					this._staffName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_workStatus", DbType="Int NOT NULL")]
+		public int workStatus
+		{
+			get
+			{
+				return this._workStatus;
+			}
+			set
+			{
+				if ((this._workStatus != value))
+				{
+					this._workStatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sex", DbType="VarChar(10)")]
+		public string sex
+		{
+			get
+			{
+				return this._sex;
+			}
+			set
+			{
+				if ((this._sex != value))
+				{
+					this._sex = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_birthday", DbType="DateTime")]
+		public System.Nullable<System.DateTime> birthday
+		{
+			get
+			{
+				return this._birthday;
+			}
+			set
+			{
+				if ((this._birthday != value))
+				{
+					this._birthday = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ethnic", DbType="VarChar(50)")]
+		public string ethnic
+		{
+			get
+			{
+				return this._ethnic;
+			}
+			set
+			{
+				if ((this._ethnic != value))
+				{
+					this._ethnic = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_totalCompanySeniority", DbType="Float")]
+		public System.Nullable<double> totalCompanySeniority
+		{
+			get
+			{
+				return this._totalCompanySeniority;
+			}
+			set
+			{
+				if ((this._totalCompanySeniority != value))
+				{
+					this._totalCompanySeniority = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_firstCompanyEmployAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> firstCompanyEmployAt
+		{
+			get
+			{
+				return this._firstCompanyEmployAt;
+			}
+			set
+			{
+				if ((this._firstCompanyEmployAt != value))
+				{
+					this._firstCompanyEmployAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyEmployAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> companyEmployAt
+		{
+			get
+			{
+				return this._companyEmployAt;
+			}
+			set
+			{
+				if ((this._companyEmployAt != value))
+				{
+					this._companyEmployAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companySeniority", DbType="Float")]
+		public System.Nullable<double> companySeniority
+		{
+			get
+			{
+				return this._companySeniority;
+			}
+			set
+			{
+				if ((this._companySeniority != value))
+				{
+					this._companySeniority = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isOnTrial", DbType="Bit NOT NULL")]
+		public bool isOnTrial
+		{
+			get
+			{
+				return this._isOnTrial;
+			}
+			set
+			{
+				if ((this._isOnTrial != value))
+				{
+					this._isOnTrial = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trialOverAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> trialOverAt
+		{
+			get
+			{
+				return this._trialOverAt;
+			}
+			set
+			{
+				if ((this._trialOverAt != value))
+				{
+					this._trialOverAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyId", DbType="Int")]
+		public System.Nullable<int> companyId
+		{
+			get
+			{
+				return this._companyId;
+			}
+			set
+			{
+				if ((this._companyId != value))
+				{
+					this._companyId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departmentId", DbType="Int")]
+		public System.Nullable<int> departmentId
+		{
+			get
+			{
+				return this._departmentId;
+			}
+			set
+			{
+				if ((this._departmentId != value))
+				{
+					this._departmentId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_jobTitleId", DbType="Int")]
+		public System.Nullable<int> jobTitleId
+		{
+			get
+			{
+				return this._jobTitleId;
+			}
+			set
+			{
+				if ((this._jobTitleId != value))
+				{
+					this._jobTitleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string photo
+		{
+			get
+			{
+				return this._photo;
+			}
+			set
+			{
+				if ((this._photo != value))
+				{
+					this._photo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffTypeId", DbType="Int")]
+		public System.Nullable<int> staffTypeId
+		{
+			get
+			{
+				return this._staffTypeId;
+			}
+			set
+			{
+				if ((this._staffTypeId != value))
+				{
+					this._staffTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_degreeTypeId", DbType="Int")]
+		public System.Nullable<int> degreeTypeId
+		{
+			get
+			{
+				return this._degreeTypeId;
+			}
+			set
+			{
+				if ((this._degreeTypeId != value))
+				{
+					this._degreeTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_speciality", DbType="VarChar(200)")]
+		public string speciality
+		{
+			get
+			{
+				return this._speciality;
+			}
+			set
+			{
+				if ((this._speciality != value))
+				{
+					this._speciality = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_residenceAddress", DbType="VarChar(200)")]
+		public string residenceAddress
+		{
+			get
+			{
+				return this._residenceAddress;
+			}
+			set
+			{
+				if ((this._residenceAddress != value))
+				{
+					this._residenceAddress = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_address", DbType="VarChar(200)")]
+		public string address
+		{
+			get
+			{
+				return this._address;
+			}
+			set
+			{
+				if ((this._address != value))
+				{
+					this._address = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffId", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string staffId
+		{
+			get
+			{
+				return this._staffId;
+			}
+			set
+			{
+				if ((this._staffId != value))
+				{
+					this._staffId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isIdChecked", DbType="Bit NOT NULL")]
+		public bool isIdChecked
+		{
+			get
+			{
+				return this._isIdChecked;
+			}
+			set
+			{
+				if ((this._isIdChecked != value))
+				{
+					this._isIdChecked = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone", DbType="VarChar(50)")]
+		public string phone
+		{
+			get
+			{
+				return this._phone;
+			}
+			set
+			{
+				if ((this._phone != value))
+				{
+					this._phone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contactName", DbType="VarChar(50)")]
+		public string contactName
+		{
+			get
+			{
+				return this._contactName;
+			}
+			set
+			{
+				if ((this._contactName != value))
+				{
+					this._contactName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contactPhone", DbType="VarChar(50)")]
+		public string contactPhone
+		{
+			get
+			{
+				return this._contactPhone;
+			}
+			set
+			{
+				if ((this._contactPhone != value))
+				{
+					this._contactPhone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contactFamilyMemberType", DbType="VarChar(50)")]
+		public string contactFamilyMemberType
+		{
+			get
+			{
+				return this._contactFamilyMemberType;
+			}
+			set
+			{
+				if ((this._contactFamilyMemberType != value))
+				{
+					this._contactFamilyMemberType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_domicile", DbType="VarChar(50)")]
+		public string domicile
+		{
+			get
+			{
+				return this._domicile;
+			}
+			set
+			{
+				if ((this._domicile != value))
+				{
+					this._domicile = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_residenceType", DbType="Int")]
+		public System.Nullable<int> residenceType
+		{
+			get
+			{
+				return this._residenceType;
+			}
+			set
+			{
+				if ((this._residenceType != value))
+				{
+					this._residenceType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_insureTypeId", DbType="Int")]
+		public System.Nullable<int> insureTypeId
+		{
+			get
+			{
+				return this._insureTypeId;
+			}
+			set
+			{
+				if ((this._insureTypeId != value))
+				{
+					this._insureTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isPayCPF", DbType="Bit NOT NULL")]
+		public bool isPayCPF
+		{
+			get
+			{
+				return this._isPayCPF;
+			}
+			set
+			{
+				if ((this._isPayCPF != value))
+				{
+					this._isPayCPF = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contractExpireAt", DbType="Date")]
+		public System.Nullable<System.DateTime> contractExpireAt
+		{
+			get
+			{
+				return this._contractExpireAt;
+			}
+			set
+			{
+				if ((this._contractExpireAt != value))
+				{
+					this._contractExpireAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contractCount", DbType="Int")]
+		public System.Nullable<int> contractCount
+		{
+			get
+			{
+				return this._contractCount;
+			}
+			set
+			{
+				if ((this._contractCount != value))
+				{
+					this._contractCount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_totalSeniority", DbType="Float")]
+		public System.Nullable<double> totalSeniority
+		{
+			get
+			{
+				return this._totalSeniority;
+			}
+			set
+			{
+				if ((this._totalSeniority != value))
+				{
+					this._totalSeniority = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this._remark = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_workingYearsAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> workingYearsAt
+		{
+			get
+			{
+				return this._workingYearsAt;
+			}
+			set
+			{
+				if ((this._workingYearsAt != value))
+				{
+					this._workingYearsAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contractExpireStr", DbType="VarChar(50)")]
+		public string contractExpireStr
+		{
+			get
+			{
+				return this._contractExpireStr;
+			}
+			set
+			{
+				if ((this._contractExpireStr != value))
+				{
+					this._contractExpireStr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> resignAt
+		{
+			get
+			{
+				return this._resignAt;
+			}
+			set
+			{
+				if ((this._resignAt != value))
+				{
+					this._resignAt = value;
+				}
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ExtraWorkRecordView")]
 	public partial class ExtraWorkRecordView
 	{
+		
+		private int _id;
 		
 		private int _extraWorkTypeId;
 		
@@ -10764,8 +12592,100 @@ namespace BlueHrLib.Data
 		
 		private string _name;
 		
+		private string _nr;
+		
+		private string _staffName;
+		
+		private string _sex;
+		
+		private System.Nullable<System.DateTime> _birthday;
+		
+		private string _ethnic;
+		
+		private System.Nullable<System.DateTime> _firstCompanyEmployAt;
+		
+		private System.Nullable<double> _totalCompanySeniority;
+		
+		private System.Nullable<System.DateTime> _companyEmployAt;
+		
+		private System.Nullable<double> _companySeniority;
+		
+		private int _workStatus;
+		
+		private bool _isOnTrial;
+		
+		private System.Nullable<System.DateTime> _trialOverAt;
+		
+		private System.Nullable<int> _companyId;
+		
+		private System.Nullable<int> _departmentId;
+		
+		private System.Nullable<int> _jobTitleId;
+		
+		private string _photo;
+		
+		private System.Nullable<int> _staffTypeId;
+		
+		private System.Nullable<int> _degreeTypeId;
+		
+		private string _speciality;
+		
+		private string _residenceAddress;
+		
+		private string _address;
+		
+		private string _staffId;
+		
+		private bool _isIdChecked;
+		
+		private string _phone;
+		
+		private string _contactName;
+		
+		private string _contactPhone;
+		
+		private string _contactFamilyMemberType;
+		
+		private string _domicile;
+		
+		private System.Nullable<int> _residenceType;
+		
+		private System.Nullable<int> _insureTypeId;
+		
+		private bool _isPayCPF;
+		
+		private System.Nullable<System.DateTime> _contractExpireAt;
+		
+		private System.Nullable<int> _contractCount;
+		
+		private string _remark;
+		
+		private System.Nullable<double> _totalSeniority;
+		
+		private System.Nullable<System.DateTime> _workingYearsAt;
+		
+		private string _contractExpireStr;
+		
+		private System.Nullable<System.DateTime> _resignAt;
+		
 		public ExtraWorkRecordView()
 		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_extraWorkTypeId", DbType="Int NOT NULL")]
@@ -10911,230 +12831,19 @@ namespace BlueHrLib.Data
 				}
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MessageRecordView")]
-	public partial class MessageRecordView
-	{
 		
-		private int _id;
-		
-		private string _staffNr;
-		
-		private System.Nullable<int> _operatorId;
-		
-		private System.Nullable<int> _messageType;
-		
-		private System.Nullable<System.DateTime> _createdAt;
-		
-		private string _text;
-		
-		private System.Nullable<bool> _isRead;
-		
-		private System.Nullable<bool> _isHandled;
-		
-		private System.Nullable<int> _messageCategory;
-		
-		private string _uniqString;
-		
-		private string _operatorName;
-		
-		private string _operatorEmail;
-		
-		private string _staffName;
-		
-		public MessageRecordView()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
-		public int id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string nr
 		{
 			get
 			{
-				return this._id;
+				return this._nr;
 			}
 			set
 			{
-				if ((this._id != value))
+				if ((this._nr != value))
 				{
-					this._id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200)")]
-		public string staffNr
-		{
-			get
-			{
-				return this._staffNr;
-			}
-			set
-			{
-				if ((this._staffNr != value))
-				{
-					this._staffNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_operatorId", DbType="Int")]
-		public System.Nullable<int> operatorId
-		{
-			get
-			{
-				return this._operatorId;
-			}
-			set
-			{
-				if ((this._operatorId != value))
-				{
-					this._operatorId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_messageType", DbType="Int")]
-		public System.Nullable<int> messageType
-		{
-			get
-			{
-				return this._messageType;
-			}
-			set
-			{
-				if ((this._messageType != value))
-				{
-					this._messageType = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> createdAt
-		{
-			get
-			{
-				return this._createdAt;
-			}
-			set
-			{
-				if ((this._createdAt != value))
-				{
-					this._createdAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_text", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string text
-		{
-			get
-			{
-				return this._text;
-			}
-			set
-			{
-				if ((this._text != value))
-				{
-					this._text = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isRead", DbType="Bit")]
-		public System.Nullable<bool> isRead
-		{
-			get
-			{
-				return this._isRead;
-			}
-			set
-			{
-				if ((this._isRead != value))
-				{
-					this._isRead = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isHandled", DbType="Bit")]
-		public System.Nullable<bool> isHandled
-		{
-			get
-			{
-				return this._isHandled;
-			}
-			set
-			{
-				if ((this._isHandled != value))
-				{
-					this._isHandled = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_messageCategory", DbType="Int")]
-		public System.Nullable<int> messageCategory
-		{
-			get
-			{
-				return this._messageCategory;
-			}
-			set
-			{
-				if ((this._messageCategory != value))
-				{
-					this._messageCategory = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_uniqString", DbType="VarChar(255)")]
-		public string uniqString
-		{
-			get
-			{
-				return this._uniqString;
-			}
-			set
-			{
-				if ((this._uniqString != value))
-				{
-					this._uniqString = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_operatorName", DbType="VarChar(50)")]
-		public string operatorName
-		{
-			get
-			{
-				return this._operatorName;
-			}
-			set
-			{
-				if ((this._operatorName != value))
-				{
-					this._operatorName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_operatorEmail", DbType="VarChar(50)")]
-		public string operatorEmail
-		{
-			get
-			{
-				return this._operatorEmail;
-			}
-			set
-			{
-				if ((this._operatorEmail != value))
-				{
-					this._operatorEmail = value;
+					this._nr = value;
 				}
 			}
 		}
@@ -11151,6 +12860,582 @@ namespace BlueHrLib.Data
 				if ((this._staffName != value))
 				{
 					this._staffName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sex", DbType="VarChar(10)")]
+		public string sex
+		{
+			get
+			{
+				return this._sex;
+			}
+			set
+			{
+				if ((this._sex != value))
+				{
+					this._sex = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_birthday", DbType="DateTime")]
+		public System.Nullable<System.DateTime> birthday
+		{
+			get
+			{
+				return this._birthday;
+			}
+			set
+			{
+				if ((this._birthday != value))
+				{
+					this._birthday = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ethnic", DbType="VarChar(50)")]
+		public string ethnic
+		{
+			get
+			{
+				return this._ethnic;
+			}
+			set
+			{
+				if ((this._ethnic != value))
+				{
+					this._ethnic = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_firstCompanyEmployAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> firstCompanyEmployAt
+		{
+			get
+			{
+				return this._firstCompanyEmployAt;
+			}
+			set
+			{
+				if ((this._firstCompanyEmployAt != value))
+				{
+					this._firstCompanyEmployAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_totalCompanySeniority", DbType="Float")]
+		public System.Nullable<double> totalCompanySeniority
+		{
+			get
+			{
+				return this._totalCompanySeniority;
+			}
+			set
+			{
+				if ((this._totalCompanySeniority != value))
+				{
+					this._totalCompanySeniority = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyEmployAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> companyEmployAt
+		{
+			get
+			{
+				return this._companyEmployAt;
+			}
+			set
+			{
+				if ((this._companyEmployAt != value))
+				{
+					this._companyEmployAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companySeniority", DbType="Float")]
+		public System.Nullable<double> companySeniority
+		{
+			get
+			{
+				return this._companySeniority;
+			}
+			set
+			{
+				if ((this._companySeniority != value))
+				{
+					this._companySeniority = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_workStatus", DbType="Int NOT NULL")]
+		public int workStatus
+		{
+			get
+			{
+				return this._workStatus;
+			}
+			set
+			{
+				if ((this._workStatus != value))
+				{
+					this._workStatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isOnTrial", DbType="Bit NOT NULL")]
+		public bool isOnTrial
+		{
+			get
+			{
+				return this._isOnTrial;
+			}
+			set
+			{
+				if ((this._isOnTrial != value))
+				{
+					this._isOnTrial = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_trialOverAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> trialOverAt
+		{
+			get
+			{
+				return this._trialOverAt;
+			}
+			set
+			{
+				if ((this._trialOverAt != value))
+				{
+					this._trialOverAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyId", DbType="Int")]
+		public System.Nullable<int> companyId
+		{
+			get
+			{
+				return this._companyId;
+			}
+			set
+			{
+				if ((this._companyId != value))
+				{
+					this._companyId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departmentId", DbType="Int")]
+		public System.Nullable<int> departmentId
+		{
+			get
+			{
+				return this._departmentId;
+			}
+			set
+			{
+				if ((this._departmentId != value))
+				{
+					this._departmentId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_jobTitleId", DbType="Int")]
+		public System.Nullable<int> jobTitleId
+		{
+			get
+			{
+				return this._jobTitleId;
+			}
+			set
+			{
+				if ((this._jobTitleId != value))
+				{
+					this._jobTitleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_photo", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string photo
+		{
+			get
+			{
+				return this._photo;
+			}
+			set
+			{
+				if ((this._photo != value))
+				{
+					this._photo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffTypeId", DbType="Int")]
+		public System.Nullable<int> staffTypeId
+		{
+			get
+			{
+				return this._staffTypeId;
+			}
+			set
+			{
+				if ((this._staffTypeId != value))
+				{
+					this._staffTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_degreeTypeId", DbType="Int")]
+		public System.Nullable<int> degreeTypeId
+		{
+			get
+			{
+				return this._degreeTypeId;
+			}
+			set
+			{
+				if ((this._degreeTypeId != value))
+				{
+					this._degreeTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_speciality", DbType="VarChar(200)")]
+		public string speciality
+		{
+			get
+			{
+				return this._speciality;
+			}
+			set
+			{
+				if ((this._speciality != value))
+				{
+					this._speciality = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_residenceAddress", DbType="VarChar(200)")]
+		public string residenceAddress
+		{
+			get
+			{
+				return this._residenceAddress;
+			}
+			set
+			{
+				if ((this._residenceAddress != value))
+				{
+					this._residenceAddress = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_address", DbType="VarChar(200)")]
+		public string address
+		{
+			get
+			{
+				return this._address;
+			}
+			set
+			{
+				if ((this._address != value))
+				{
+					this._address = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffId", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string staffId
+		{
+			get
+			{
+				return this._staffId;
+			}
+			set
+			{
+				if ((this._staffId != value))
+				{
+					this._staffId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isIdChecked", DbType="Bit NOT NULL")]
+		public bool isIdChecked
+		{
+			get
+			{
+				return this._isIdChecked;
+			}
+			set
+			{
+				if ((this._isIdChecked != value))
+				{
+					this._isIdChecked = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone", DbType="VarChar(50)")]
+		public string phone
+		{
+			get
+			{
+				return this._phone;
+			}
+			set
+			{
+				if ((this._phone != value))
+				{
+					this._phone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contactName", DbType="VarChar(50)")]
+		public string contactName
+		{
+			get
+			{
+				return this._contactName;
+			}
+			set
+			{
+				if ((this._contactName != value))
+				{
+					this._contactName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contactPhone", DbType="VarChar(50)")]
+		public string contactPhone
+		{
+			get
+			{
+				return this._contactPhone;
+			}
+			set
+			{
+				if ((this._contactPhone != value))
+				{
+					this._contactPhone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contactFamilyMemberType", DbType="VarChar(50)")]
+		public string contactFamilyMemberType
+		{
+			get
+			{
+				return this._contactFamilyMemberType;
+			}
+			set
+			{
+				if ((this._contactFamilyMemberType != value))
+				{
+					this._contactFamilyMemberType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_domicile", DbType="VarChar(50)")]
+		public string domicile
+		{
+			get
+			{
+				return this._domicile;
+			}
+			set
+			{
+				if ((this._domicile != value))
+				{
+					this._domicile = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_residenceType", DbType="Int")]
+		public System.Nullable<int> residenceType
+		{
+			get
+			{
+				return this._residenceType;
+			}
+			set
+			{
+				if ((this._residenceType != value))
+				{
+					this._residenceType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_insureTypeId", DbType="Int")]
+		public System.Nullable<int> insureTypeId
+		{
+			get
+			{
+				return this._insureTypeId;
+			}
+			set
+			{
+				if ((this._insureTypeId != value))
+				{
+					this._insureTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isPayCPF", DbType="Bit NOT NULL")]
+		public bool isPayCPF
+		{
+			get
+			{
+				return this._isPayCPF;
+			}
+			set
+			{
+				if ((this._isPayCPF != value))
+				{
+					this._isPayCPF = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contractExpireAt", DbType="Date")]
+		public System.Nullable<System.DateTime> contractExpireAt
+		{
+			get
+			{
+				return this._contractExpireAt;
+			}
+			set
+			{
+				if ((this._contractExpireAt != value))
+				{
+					this._contractExpireAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contractCount", DbType="Int")]
+		public System.Nullable<int> contractCount
+		{
+			get
+			{
+				return this._contractCount;
+			}
+			set
+			{
+				if ((this._contractCount != value))
+				{
+					this._contractCount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this._remark = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_totalSeniority", DbType="Float")]
+		public System.Nullable<double> totalSeniority
+		{
+			get
+			{
+				return this._totalSeniority;
+			}
+			set
+			{
+				if ((this._totalSeniority != value))
+				{
+					this._totalSeniority = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_workingYearsAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> workingYearsAt
+		{
+			get
+			{
+				return this._workingYearsAt;
+			}
+			set
+			{
+				if ((this._workingYearsAt != value))
+				{
+					this._workingYearsAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contractExpireStr", DbType="VarChar(50)")]
+		public string contractExpireStr
+		{
+			get
+			{
+				return this._contractExpireStr;
+			}
+			set
+			{
+				if ((this._contractExpireStr != value))
+				{
+					this._contractExpireStr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> resignAt
+		{
+			get
+			{
+				return this._resignAt;
+			}
+			set
+			{
+				if ((this._resignAt != value))
+				{
+					this._resignAt = value;
 				}
 			}
 		}

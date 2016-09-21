@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using BlueHrLib.Data.Model.Excel;
+using BlueHrLib.Data.Enum;
 
 namespace BlueHrLib.Helper.Excel
 {
@@ -19,6 +21,8 @@ namespace BlueHrLib.Helper.Excel
         {
             this.DbString = dbString;
         }
+
+
 
         public ReportMessage ExportOriginExtraSumReport(DateTime startDate, DateTime endDate, StaffSearchModel searchModel)
         {
