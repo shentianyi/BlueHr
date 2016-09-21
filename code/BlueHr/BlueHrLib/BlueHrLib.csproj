@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="Data\Company.cs" />
     <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Data\Department.cs" />
     <Compile Include="Data\Enum\AttendanceExceptionType.cs" />
     <Compile Include="Data\Enum\AttendanceRecordSourceType.cs" />
     <Compile Include="Data\Enum\CronJobType.cs" />

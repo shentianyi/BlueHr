@@ -421,7 +421,7 @@ namespace BlueHrLib.Service.Implement
                 /// 暂时对没有排班的不处理
                 if (shifts.Count > 0)
                 {
-                    exceptions = exceptions.Distinct().ToList();
+                   
                     // 基本工时都是 8 小时，不分部门和职称
                     if (workdayHour > 8)
                     {
@@ -471,7 +471,7 @@ namespace BlueHrLib.Service.Implement
                     DataContext comitDC = new DataContext(this.DbString);
                     AttendanceRecordCal calRecord = comitDC.Context.GetTable<AttendanceRecordCal>().FirstOrDefault(s => s.staffNr.Equals(staff.nr) && s.attendanceDate.Equals(datetime.Date));
 
-
+                    exceptions = exceptions.Distinct().ToList();
                     int? extraType = extraHour == 0 ? null : wr.dateType;
                     if (calRecord == null)
                     {

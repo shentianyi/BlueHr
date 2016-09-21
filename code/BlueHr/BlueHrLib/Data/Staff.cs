@@ -83,10 +83,18 @@ namespace BlueHrLib.Data
             }
         }
 
-
+        public string companyName
+        {
+            get { return this.Company == null ? null : this.Company.name; }
+        }
         public string departmentName
         {
             get { return this.Department == null ? null : this.Department.name; }
+        }
+
+        public string parentNames
+        {
+            get { return this.Department == null ? null : this.Department.parentNames; }
         }
 
         public string jobTitleName

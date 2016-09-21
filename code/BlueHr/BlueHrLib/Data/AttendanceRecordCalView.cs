@@ -77,7 +77,7 @@ namespace BlueHrLib.Data
         {
             get
             {
-                return EnumHelper.GetDescription((SystemExtraType)this.extraworkType);
+                return this.extraworkType.HasValue ? EnumHelper.GetDescription((SystemExtraType)this.extraworkType) :  string.Empty;
             }
         }
     }

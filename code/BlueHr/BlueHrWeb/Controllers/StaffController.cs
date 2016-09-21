@@ -810,7 +810,10 @@ namespace BlueHrWeb.Controllers
             {
                 List<Department> deps = ds.FindByCompanyId(company.id).ToList();
                 Dictionary<string, string> department = new Dictionary<string, string>();
-
+                if (deps.Count > 0)
+                {
+                    department.Add(string.Empty,string.Empty);
+                }
                 foreach (var dep in deps)
                 {
                     department.Add(dep.id.ToString(), dep.name);

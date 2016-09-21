@@ -70,8 +70,10 @@
                         <th>人员编号</th>
                         <th>姓名</th>
                         <th>考勤日期</th>
-                        <th>计算工时</th>
-                        <th>实际工时</th>
+                        <th>正常计算工时</th>
+                        <th>正常实际工时</th>
+                        <th>加班计算工时</th>
+                        <th>加班实际工时</th>
                         <th>加班类型</th>
                         <th>是否异常</th>
                         <th>原因</th>
@@ -104,7 +106,12 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.actWorkingHourRound)
-                                </td>
+                                </td><td>
+    @Html.DisplayFor(modelItem => item.oriExtraWorkingHourRound)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.actExtraWorkingHourRound)
+</td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.extraWorkTypeDisplay)
                                 </td>
