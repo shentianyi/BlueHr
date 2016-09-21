@@ -16,6 +16,7 @@ using BlueHrLib.MQTask;
 using BlueHrLib.MQTask.Parameter;
 using BlueHrLib.Helper;
 using BlueHrWeb.CustomAttributes;
+using BlueHrLib.Data.Enum;
 
 namespace BlueHrWeb.Controllers
 {
@@ -33,6 +34,8 @@ namespace BlueHrWeb.Controllers
 
             ViewBag.Query = q;
 
+            SetExtraWorkTypeList(null);
+
             return View(records);
         }
         [UserAuthorize]
@@ -46,6 +49,9 @@ namespace BlueHrWeb.Controllers
             IPagedList<AttendanceRecordCalView> records = ss.SearchCalView(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
+
+            SetExtraWorkTypeList(null);
+
             return View("Index", records);
         }
 
@@ -59,11 +65,16 @@ namespace BlueHrWeb.Controllers
 
             if (record != null)
             {
+                SetExtraWorkTypeList(record.extraworkType);
                 List<AttendanceRecordDetailView> records = new List<AttendanceRecordDetailView>();
                 IAttendanceRecordDetailService s = new AttendanceRecordDetailService(Settings.Default.db);
                 records = s.GetDetailsViewByStaffAndDateWithExtrawork(record.staffNr, record.attendanceDate);
                 ViewData["attendRecords"] = records;
+            }else
+            {
+                SetExtraWorkTypeList(null);
             }
+
             return View(record);
         }
 
@@ -90,6 +101,7 @@ namespace BlueHrWeb.Controllers
                 msg.Content = "加班工时必须是数字";
                 return Json(msg);
             }
+
             bool handled = false;
             if (!bool.TryParse(Request.Form["isExceptionHandled"], out handled))
             {
@@ -97,14 +109,13 @@ namespace BlueHrWeb.Controllers
                 return Json(msg);
             }
 
-
             IAttendanceRecordCalService ss = new AttendanceRecordCalService(Settings.Default.db);
             AttendanceRecordCal record = ss.FindById(id);
 
             string oldHour = record.actWorkingHour.ToString();
             string oldActHour = record.actExtraWorkingHour.ToString();
 
-            msg = ss.UpdateActHourById(id, actHour,actExtraHour, handled,Request.Form["remark"]);
+            msg = ss.UpdateActHourById(id, actHour,actExtraHour, handled,Request.Form["remark"], int.Parse(Request.Form["extraWorkType"]));
 
             string newHour = actHour.ToString();
             string newActHour = actExtraHour.ToString();
@@ -152,6 +163,31 @@ namespace BlueHrWeb.Controllers
             ViewBag.endDate = endDate.ToString("yyyy-MM-dd");
 
             return View(records);
+        }
+
+        private void SetExtraWorkTypeList(int? type, bool allowBlank = false)
+        {
+            List<EnumItem> item = EnumHelper.GetList(typeof(SystemExtraType));
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in item)
+            {
+                if (type.HasValue && type.ToString().Equals(it.Value))
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                }
+            }
+            ViewData["extraWorkTypeList"] = select;
         }
 
     }

@@ -65,13 +65,14 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>&nbsp;</th>
+                        <th>No.</th>
                         <th>机构名称</th>
                         <th>人员编号</th>
                         <th>姓名</th>
                         <th>考勤日期</th>
                         <th>计算工时</th>
                         <th>实际工时</th>
+                        <th>加班类型</th>
                         <th>是否异常</th>
                         <th>原因</th>
                         <th>是否处理</th>
@@ -103,6 +104,9 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.actWorkingHourRound)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.extraWorkTypeDisplay)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.isExceptionStr)

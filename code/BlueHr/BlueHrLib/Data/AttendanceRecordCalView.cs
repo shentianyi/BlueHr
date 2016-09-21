@@ -50,7 +50,7 @@ namespace BlueHrLib.Data
         {
             get
             {
-                return this.exceptionCodes.Split(',').ToList();
+                return string.IsNullOrWhiteSpace(this.exceptionCodes)? null: this.exceptionCodes.Split(',').ToList();
             }
         }
 
@@ -60,11 +60,24 @@ namespace BlueHrLib.Data
             {
                 string es = string.Empty;
                 List<string> strs = this.exceptionStrs;
-                foreach(var s in strs)
+
+                if (strs != null)
                 {
-                    es += EnumHelper.GetDescriptionByFiledName(s,typeof(AttendanceExceptionType))+";";
+                    foreach (var s in strs)
+                    {
+                        es += EnumHelper.GetDescriptionByFiledName(s, typeof(AttendanceExceptionType)) + ";";
+                    }
                 }
+                
                 return es;
+            }
+        }
+
+        public string extraWorkTypeDisplay
+        {
+            get
+            {
+                return EnumHelper.GetDescription((SystemExtraType)this.extraworkType);
             }
         }
     }

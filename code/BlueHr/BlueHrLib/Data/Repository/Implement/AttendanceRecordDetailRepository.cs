@@ -54,7 +54,7 @@ namespace BlueHrLib.Data.Repository.Implement
                     //添加
                     attendanceRecordDetail.soureType = "300";
                     attendanceRecordDetail.createdAt = DateTime.Now;
-                    attendanceRecordDetail.isCalculated = true;
+                    attendanceRecordDetail.isCalculated = false;
 
                     this.context.GetTable<AttendanceRecordDetail>().InsertOnSubmit(attendanceRecordDetail);
                     this.context.SubmitChanges();

@@ -55,7 +55,7 @@ namespace BlueHrLib.Service.Implement
         /// <param name="isExceptionHandled">是否处理了异常</param>
         /// <param name="remark">备注</param>
         /// <returns></returns>
-        public ResultMessage UpdateActHourById(int id, double actHour, double actExtraHour, bool isExceptionHandled,string remark)
+        public ResultMessage UpdateActHourById(int id, double actHour, double actExtraHour, bool isExceptionHandled,string remark, int? extraWorkType)
         {
             ResultMessage msg = new ResultMessage();
             try {
@@ -72,6 +72,7 @@ namespace BlueHrLib.Service.Implement
                 record.isManualCal = true;
                 record.isExceptionHandled = isExceptionHandled;
                 record.remark = remark;
+                record.extraworkType = extraWorkType;
                 dc.Context.SubmitChanges();
                 msg.Success = true;
             } catch(Exception ex)
