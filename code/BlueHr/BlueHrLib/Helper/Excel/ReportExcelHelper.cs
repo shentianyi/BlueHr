@@ -54,6 +54,7 @@ namespace BlueHrLib.Helper.Excel
 
 
                     // 写Title
+                    #region 写Title
                     sheet.Cells[1, 1].Value = startDate.Year;
                     sheet.Cells[1, 2].Value = startDate.Month;
                     sheet.Cells[1, 4].Value = startDate.ToString("yyyy-M-d");
@@ -86,8 +87,21 @@ namespace BlueHrLib.Helper.Excel
                         sheet.Cells[3, i].Value = s.Day;
                         i += 1;
                     }
+                    #endregion
 
-                    // 写表A
+                    /// 写表内容
+                    #region 写表内容
+                    // 写 员工基本信息
+                    #region 写 员工基本信息
+                    #endregion
+
+                    
+
+                    #endregion
+
+
+                    //设置格式
+                    #region 设置格式
                     foreach (var v in sheet.Cells)
                     {
                         v.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
@@ -109,6 +123,7 @@ namespace BlueHrLib.Helper.Excel
                             }
                         }
                     }
+                    #endregion
                 }
                 /// 保存
                 ep.Save();
