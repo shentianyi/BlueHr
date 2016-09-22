@@ -221,7 +221,7 @@ namespace BlueHrWeb.Controllers
             ViewData["shiftList"] = select;
         }
 
-        public ResultMessage DoValidation(AttendanceRecordDetail model)
+        private ResultMessage DoValidation(AttendanceRecordDetail model)
         {
             ResultMessage msg = new ResultMessage();
 

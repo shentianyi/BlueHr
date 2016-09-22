@@ -1,10 +1,10 @@
-﻿@model BlueHrLib.Data.AttendanceRecordDetail
+﻿@model BlueHrLib.Data.AttendanceRecordCal
 
-<div id="attendance_record" style="margin:10px;">
+<div id="attendancerecordcal" style="margin:10px;">
     <ol class="breadcrumb current-position">
         您的位置：
-        <li>基础信息</li>
-        <li>@Html.ActionLink("详细记录管理", "Index")</li>
+        <li>考勤管理</li>
+        <li>@Html.ActionLink("统计记录管理", "Index")</li>
         <li>{{action}}</li>
     </ol>
 
@@ -28,23 +28,44 @@
 
             <div class="marco-nbody row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
+                    <div class="marco-igroup-danger">
                         <span>员工号</span>
                         @Html.EditorFor(model => model.staffNr)
                     </div>
                 </div>
 
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
+                    <div class="marco-igroup-danger">
                         <span>日期</span>
-                        @Html.EditorFor(model => model.recordAt, new { htmlAttributes = new { @class = "datetime-picker" } })
+                        @Html.EditorFor(model => model.attendanceDate, new { htmlAttributes = new { @class = "date-picker" } })
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-danger">
+                        <span>工作时长</span>
+                        @Html.EditorFor(model => model.actWorkingHour, new { htmlAttributes = new { type="number" } })
                     </div>
                 </div>
 
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <span>设备号</span>
-                        @Html.EditorFor(model => model.device)
+                        <span>加班时长</span>
+                        @Html.EditorFor(model => model.actExtraWorkingHour, new { htmlAttributes = new { type = "number" } })
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>加班类型</span>
+                        @Html.DropDownList("extraWorkType", ViewData["extraWorkTypeList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="marco-textarea">
+                        <span>备注信息</span>
+                        @Html.TextAreaFor(model => model.remark)
                     </div>
                 </div>
             </div>
@@ -64,7 +85,7 @@
         }
         else {
 
-            location.href = '/AttendanceRecordDetail/Index';
+            location.href = '/AttendanceRecordCal/Index';
         }
     }
 </script>

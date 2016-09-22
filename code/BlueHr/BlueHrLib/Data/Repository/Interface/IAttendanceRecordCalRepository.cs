@@ -10,5 +10,9 @@ namespace BlueHrLib.Data.Repository.Interface
     public interface IAttendanceRecordCalRepository
     {
         AttendanceRecordCal FindById(int id);
+
+        bool Create(AttendanceRecordCal attendanceRecordCal);
+
+        bool DeleteById(int id);
     }
 }

@@ -70,5 +70,20 @@ namespace BlueHrLib.Service.Interface
         /// <param name="isExceptionHandled">是否已异常处理</param>
         /// <returns></returns>
         List<AttendanceRecordCalView> GetListByDateAndIsException(DateTime attendanceDate,  bool isException = true, bool isExceptionHandled = false);
+
+        /// <summary>
+        /// 创建考勤统计数据
+        /// </summary>
+        /// <param name="attendanceRecorCal">统计考勤 参数</param>
+        /// <returns></returns>
+        bool Create(AttendanceRecordCal attendanceRecordCal);
+
+        /// <summary>
+        /// 通过ID 删除 统计考勤数据
+        /// </summary>
+        /// <param name="id"> 统计考勤 ID</param>
+        /// <returns></returns>
+        bool DeleteById(int id);
+
     }
 }

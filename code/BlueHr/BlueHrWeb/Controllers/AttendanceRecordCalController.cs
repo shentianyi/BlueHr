@@ -22,7 +22,7 @@ namespace BlueHrWeb.Controllers
 {
     public class AttendanceRecordCalController : Controller
     {
-        // GET: AttendanceRecordDetail
+        // GET: AttendanceRecordCal
         [UserAuthorize]
         public ActionResult Index(int? page)
         {
@@ -55,6 +55,48 @@ namespace BlueHrWeb.Controllers
             return View("Index", records);
         }
 
+
+        [AdminAuthorize]
+        // GET: AttendanceRecordCal/Create
+        public ActionResult Create()
+        {
+            SetExtraWorkTypeList(null);
+
+            return View();
+        }
+
+        // POST: AttendanceRecordCal/Create
+        [HttpPost]
+        public JsonResult Create([Bind(Include = "staffNr,attendanceDate, actWorkingHour, remark, actExtraWorkingHour, extraWorkType")] AttendanceRecordCal arc)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            try
+            {
+                msg = DoValidation(arc);
+
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IAttendanceRecordCalService arcs = new AttendanceRecordCalService(Settings.Default.db);
+                    bool isSucceed = arcs.Create(arc);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "创建失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
         // GET: AttendanceRecordDetail/Edit/5
         [HttpGet]
         [UserAuthorize]
@@ -83,7 +125,45 @@ namespace BlueHrWeb.Controllers
             return View(record);
         }
 
-        // POST: AttendanceRecordDetail/UpdateActHour/5
+        [AdminAuthorize]
+        // GET: AttendanceRecordCal/Delete/5
+        public ActionResult Delete(int id)
+        {
+            IAttendanceRecordCalService arcs = new AttendanceRecordCalService(Settings.Default.db);
+
+            AttendanceRecordCal arc = arcs.FindById(id);
+
+            SetExtraWorkTypeList(arc.extraworkType);
+
+            return View(arc);
+        }
+
+        // POST: AttendanceRecordCal/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            try
+            {
+
+                IAttendanceRecordCalService arcs = new AttendanceRecordCalService(Settings.Default.db);
+                bool isSucceed = arcs.DeleteById(id);
+
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "" : "删除失败";
+
+                return Json(msg, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        // POST: AttendanceRecordCal/UpdateActHour/5
         /// <summary>
         /// 修改实际工时
         /// </summary>
@@ -101,7 +181,10 @@ namespace BlueHrWeb.Controllers
                 return Json(msg);
             }
 
-            if (!double.TryParse(Request.Form["actExtraWorkingHourRound"], out actExtraHour))
+            // 加班时间可以为空 
+            // 如果加班为空， 直接写入0
+            // 如果不为空， 则所填必须为数字
+            if (!string.IsNullOrWhiteSpace(Request.Form["actExtraWorkingHourRound"]) && !double.TryParse(Request.Form["actExtraWorkingHourRound"], out actExtraHour))
             {
                 msg.Content = "加班工时必须是数字";
                 return Json(msg);
@@ -120,7 +203,17 @@ namespace BlueHrWeb.Controllers
             string oldHour = record.actWorkingHour.ToString();
             string oldActHour = record.actExtraWorkingHour.ToString();
 
-            msg = ss.UpdateActHourById(id, actHour,actExtraHour, handled,Request.Form["remark"], int.Parse(Request.Form["extraWorkType"]));
+            //判断加班类型是否为空， 如果为空， 就返回null
+            // 如果做判断，直接使用int.Parse转，会报异常
+
+            int? ExtraWorkType = null;
+
+            if (!string.IsNullOrWhiteSpace(Request.Form["extraWorkType"]))
+            {
+                ExtraWorkType = int.Parse(Request.Form["extraWorkType"]);
+            }
+
+            msg = ss.UpdateActHourById(id, actHour,actExtraHour, handled,Request.Form["remark"], ExtraWorkType);
 
             string newHour = actHour.ToString();
             string newActHour = actExtraHour.ToString();
@@ -170,6 +263,11 @@ namespace BlueHrWeb.Controllers
             return View(records);
         }
 
+        /// <summary>
+        /// 加班类型可以为空， 有可能不加班
+        /// </summary>
+        /// <param name="type">加班类型字段</param>
+        /// <param name="allowBlank">可以为空</param>
         private void SetExtraWorkTypeList(int? type, bool allowBlank = true)
         {
             List<EnumItem> item = EnumHelper.GetList(typeof(SystemExtraType));
@@ -195,5 +293,59 @@ namespace BlueHrWeb.Controllers
             ViewData["extraWorkTypeList"] = select;
         }
 
+        private ResultMessage DoValidation(AttendanceRecordCal model)
+        {
+            ResultMessage msg = new ResultMessage();
+            double actHour = 0;
+            double actExtraHour = 0;
+
+            if (string.IsNullOrEmpty(model.staffNr))
+            {
+                msg.Success = false;
+                msg.Content = "员工号不能为空";
+
+                return msg;
+            }
+
+            if (string.IsNullOrWhiteSpace(model.attendanceDate.ToString()))
+            {
+                msg.Success = false;
+                msg.Content = "日期不能为空";
+
+                return msg;
+            }
+
+            if (!double.TryParse(model.actWorkingHour.ToString(), out actHour))
+            {
+                msg.Success = false;
+                msg.Content = "工作时长必须是数字";
+
+                return msg;
+            }
+
+            //可以为空
+            //不为空的时候检查是否是数字
+
+            if (!string.IsNullOrWhiteSpace(model.actExtraWorkingHour.ToString()) && !double.TryParse(model.actExtraWorkingHour.ToString(), out actExtraHour))
+            {
+                msg.Success = false;
+                msg.Content = "加班时长必须是数字";
+
+                return msg;
+            }
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+            bool staffResult = ss.IsStaffExist(model.staffNr);
+
+            if (!staffResult)
+            {
+                msg.Success = false;
+                msg.Content = "员工不存在,请先创建员工";
+
+                return msg;
+            }
+
+            return new ResultMessage() { Success = true, Content = "" };
+        }
     }
 }
