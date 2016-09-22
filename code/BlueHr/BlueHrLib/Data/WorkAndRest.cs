@@ -16,5 +16,11 @@ namespace BlueHrLib.Data
                 return EnumHelper.GetDescription((WorkAndRestType)this.dateType);
             }
         }
+
+        public bool IsWorkDay
+        {
+            get
+            { return this.dateType == (int)WorkAndRestType.WorkDay; }
+        }
     }
 }

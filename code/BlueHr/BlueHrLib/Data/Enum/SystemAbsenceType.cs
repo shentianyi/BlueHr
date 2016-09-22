@@ -60,22 +60,22 @@ namespace BlueHrLib.Data.Enum
         [Description("年休")]
         YearAbsence = 800,
 
-        /// <summary>
-        /// 新进
-        /// </summary>
-        [Description("新进")]
-        NewAbsence = 900,
+        ///// <summary>
+        ///// 新进
+        ///// </summary>
+        //[Description("新进")]
+        //NewAbsence = 900,
 
         /// <summary>
         /// 旷工
         /// </summary>
         [Description("旷工")]
-        WorkAbsence = 1000,
+        WorkAbsence = 1000
 
-        /// <summary>
-        /// 离职
-        /// </summary>
-        [Description("离职")]
-        ResignAbsence = 1100
+        ///// <summary>
+        ///// 离职
+        ///// </summary>
+        //[Description("离职")]
+        //ResignAbsence = 1100
     }
 }

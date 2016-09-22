@@ -24,5 +24,7 @@ namespace BlueHrLib.Service.Interface
         AbsenceTypeInfoModel GetAbsenceTypeInfo(AbsenceTypeSearchModel searchModel);
 
         List<AbsenceType> GetAll();
+
+        List<AbsenceType> GetSystemTypes();
     }
 }

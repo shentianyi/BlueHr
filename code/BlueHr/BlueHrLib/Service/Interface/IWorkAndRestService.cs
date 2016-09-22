@@ -43,5 +43,7 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         bool HasDateAtExist(DateTime? datetime);
+
+        List<WorkAndRest> GetByDateSpan(DateTime startDate, DateTime endDate);
     }
 }

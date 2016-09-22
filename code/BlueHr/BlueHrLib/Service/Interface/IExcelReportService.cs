@@ -16,6 +16,6 @@ namespace BlueHrLib.Service.Interface
         /// <param name="endDate"></param>
         /// <param name="searchModel"></param>
         /// <returns></returns>
-        List<WorkSumExcelModel> GetSumExcelModels(DateTime startDate, DateTime endDate, StaffSearchModel searchModel);
+        List<WorkSumExcelModel> GetSumExcelModels(DateTime startDate, DateTime endDate, StaffSearchModel searchModel, double maxExtraTotalHour = 36);
     }
 }

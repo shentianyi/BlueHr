@@ -62,5 +62,10 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.GetAll();
         }
+
+        public List<AbsenceType> GetSystemTypes()
+        {
+        return    new DataContext(this.DbString).Context.GetTable<AbsenceType>().Where(s => s.systemCode > 0).ToList();
+        }
     }
 }

@@ -9,6 +9,8 @@ using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
 using TestCon.Properties;
 using Brilliantech.Framwork.Utils.LogUtil;
+using BlueHrLib.Helper.Excel;
+using BlueHrLib.Data.Message;
 
 namespace TestCon
 {
@@ -16,13 +18,19 @@ namespace TestCon
     {
         static void Main(string[] args)
         {
+            ReportExcelHelper helper = new ReportExcelHelper(Settings.Default.db);
 
-            DateTime st = DateTime.Parse("2016-9-1");
+           ReportMessage msg= helper.ExportExtraSumReport(DateTime.Parse("2016-8-1"), DateTime.Parse("2016-8-31"), new StaffSearchModel());
+            Console.WriteLine(msg.Success);
+            Console.WriteLine(msg.Content);
+            //Console.WriteLine(DateTime.Now.DayOfWeek.ToString());
 
-            DateTime et = DateTime.Parse("2016-9-2 1:00");
+            //DateTime st = DateTime.Parse("2016-9-1");
 
-            Console.WriteLine((et - st).TotalDays);
-            Console.WriteLine(new TimeSpan(7, 8, 0).ToString("hh\\:mm"));
+            //DateTime et = DateTime.Parse("2016-9-2 1:00");
+
+            //Console.WriteLine((et - st).TotalDays);
+            //Console.WriteLine(new TimeSpan(7, 8, 0).ToString("hh\\:mm"));
             //Staff s = new Staff();
 
 
