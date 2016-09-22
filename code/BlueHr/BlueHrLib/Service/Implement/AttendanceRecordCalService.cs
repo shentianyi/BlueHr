@@ -19,7 +19,12 @@ namespace BlueHrLib.Service.Implement
 {
     public class AttendanceRecordCalService : ServiceBase, IAttendanceRecordCalService
     {
-        public AttendanceRecordCalService(string dbString) : base(dbString) { }
+        private AttendanceRecordCalRepository attendanceRecordCalRepo;
+
+        public AttendanceRecordCalService(string dbString) : base(dbString)
+        {
+            attendanceRecordCalRepo = new AttendanceRecordCalRepository(this.Context);
+        }
 
         public AttendanceRecordCal FindById(int id)
         {
@@ -149,6 +154,16 @@ namespace BlueHrLib.Service.Implement
             && s.isException.Equals(isException) 
             && s.isExceptionHandled.Equals(isExceptionHandled)).ToList();
             
+        }
+
+        public bool Create(AttendanceRecordCal attendanceRecordCal)
+        {
+            return attendanceRecordCalRepo.Create(attendanceRecordCal);
+        }
+
+        public bool DeleteById(int id)
+        {
+            return attendanceRecordCalRepo.DeleteById(id);
         }
     }
 }

@@ -60,6 +60,14 @@
     <div class="usual-table">
         <div class="table-heading">
             考勤统计数据列表
+            <div class="pull-right" style="margin-top: -11px;">
+                <a href="/AttendanceRecordCal/Create">
+                    <button type="button" class="marco-btn-primary">
+                        <i class="fa fa-plus"></i>
+                        创建
+                    </button>
+                </a>
+            </div>
         </div>
         <div class="table-body content_3">
             <table class="table table-bordered">
@@ -83,12 +91,12 @@
                 </thead>
                 <tbody>
                     @if (Model != null)
+                    {
+                        int i = 0;
+                        foreach (var item in Model)
                         {
-                            int i = 0;
-                            foreach (var item in Model)
-                            {
                             <tr>
-                                <td>@(i+=1)</td>
+                                <td>@(i += 1)</td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.departmentName)
                                 </td>
@@ -106,12 +114,13 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.actWorkingHourRound)
-                                </td><td>
-    @Html.DisplayFor(modelItem => item.oriExtraWorkingHourRound)
-</td>
-<td>
-    @Html.DisplayFor(modelItem => item.actExtraWorkingHourRound)
-</td>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.oriExtraWorkingHourRound)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.actExtraWorkingHourRound)
+                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.extraWorkTypeDisplay)
                                 </td>
@@ -119,14 +128,17 @@
                                     @Html.DisplayFor(modelItem => item.isExceptionStr)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem=>item.exceptionStr)
+                                    @Html.DisplayFor(modelItem => item.exceptionStr)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.isExceptionHandledStr)
                                 </td>
                                 <td>
-                                    <a href="/AttendanceRecordCal/Edit/@item.id" target="_blank" title="调整工时">
-                                        <i class="glyphicon glyphicon-edit"></i>
+                                    <a href="/AttendanceRecordCal/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="/AttendanceRecordCal/Edit/@item.id" target="_blank" class="option-icon-warning" title="调整工时">
+                                        <i class="fa fa-pencil"></i>
                                     </a>
                                 </td>
                             </tr>

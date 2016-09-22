@@ -36,6 +36,9 @@ namespace BlueHrLib.Data
             get { return Math.Round(this.actWorkingHour, 1); }
         }
 
+        /// <summary>
+        /// 有可能为空， 如果为空，默认填写0
+        /// </summary>
         public double oriExtraWorkingHourRound
         {
             get { return Math.Round(this.oriExtraWorkingHour.Value, 1); }
