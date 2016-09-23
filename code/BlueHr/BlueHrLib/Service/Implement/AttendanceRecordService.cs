@@ -434,7 +434,8 @@ namespace BlueHrLib.Service.Implement
                         extraHour += workdayHour;
                         workdayHour = 0;
                     }
-
+                    extraHour = Math.Round(extraHour, 1);
+                    workdayHour = Math.Round(workdayHour, 1);
 
                     // 如果是成型课 或者 行政课的司机，则加班不减0.5h，其它的都减
                     if (extraHour > 0)
@@ -490,6 +491,7 @@ namespace BlueHrLib.Service.Implement
                     }
                     else
                     {
+                        calRecord.extraworkType = extraType;
                         calRecord.oriWorkingHour = calRecord.actWorkingHour = workdayHour;
                         calRecord.oriExtraWorkingHour = calRecord.actExtraWorkingHour = extraHour;
                         calRecord.createdAt = DateTime.Now;

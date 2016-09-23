@@ -10,7 +10,7 @@ namespace BlueHrLib.Data.Model.Excel
 {
     public class AbsenceRecordExcelModel : BaseExcelModel
     {
-        public static List<string> Headers = new List<string>() { "日期", "工号", "姓名", "缺勤类型", "缺勤原因", "缺勤小时", "时间单位" };
+        public static List<string> Headers = new List<string>() { "日期", "工号", "姓名", "开始时间(小时)", "结束时间(小时)", "缺勤时长(小时)", "缺勤类型", "缺勤原因" };
 
         /// <summary>
         /// 日期字符串
@@ -159,7 +159,7 @@ namespace BlueHrLib.Data.Model.Excel
                 IAbsenceTypeService si = new AbsenceTypeService(dbString);
                 List<AbsenceType> absTs = si.GetAll();
 
-                bool hasExists = absTs.Where(p => p.name.Equals(this.AbsenceTypeStr)).Count() > 0;
+                bool hasExists = absTs.Where(p => p.name.Equals(this.AbsenceTypeStr)).ToList().Count() > 0;
 
                 if (!hasExists)
                 {

@@ -11,7 +11,8 @@ namespace BlueHrLib.Data.Model.Excel
 
     public class ExtraWorkRecordExcelModel : BaseExcelModel
     {
-        public static List<string> Headers = new List<string>() { "日期", "工号", "加班类别", "加班时长", "时间单位", "加班原因", };
+        public static List<string> Headers = new List<string>() {  "日期", "工号", "姓名", "开始时间(小时)", "结束时间(小时)", "加班时长(小时)", "加班类型", "加班原因" };
+   
 
         /// <summary>
         /// 日期字符串
@@ -175,7 +176,7 @@ namespace BlueHrLib.Data.Model.Excel
                 IExtraWorkTypeService si = new ExtraWorkTypeService(dbString);
                 List<ExtraWorkType> absTs = si.All();
 
-                bool hasExists = absTs.Where(p => p.name.Equals(this.ExtraWorkTypeStr)).Count() > 0;
+                bool hasExists = absTs.Where(p => p.name.Equals(this.ExtraWorkTypeStr)).ToList().Count() > 0;
 
                 if (!hasExists)
                 {

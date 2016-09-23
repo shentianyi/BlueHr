@@ -387,7 +387,9 @@
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Template\keep.txt" />
+    <Content Include="Template\keep.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="TmpFile\keep.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -519,18 +521,24 @@
     <Content Include="Views\SystemSetting\Index.cshtml" />
     <Content Include="Views\QuartzJob\Index.cshtml" />
     <Content Include="Views\QuartzJob\Create.cshtml" />
-    <None Include="Template\员工信息导入文件模板.xlsx">
+    <Content Include="Template\作息表模板.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Template\排班导入文件模板.xlsx">
+    </Content>
+    <Content Include="Template\加班记录导入文件模板.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="Template\员工信息导入文件模板.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Template\排班导入文件模板.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Template\缺勤记录导入文件模板.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Template\考勤记录导入文件模板.xlsx">
+    <Content Include="Template\考勤记录导入文件模板.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="Template\部门导文件模板.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

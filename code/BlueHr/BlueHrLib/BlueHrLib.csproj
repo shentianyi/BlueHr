@@ -118,6 +118,7 @@
     <Compile Include="Data\Model\Search\WorkAndRestSearchModel.cs" />
     <Compile Include="Data\Repository\Implement\WorkAndRestRepository.cs" />
     <Compile Include="Data\Repository\Interface\IWorkAndRestRepository.cs" />
+    <Compile Include="Data\StaffView.cs" />
     <Compile Include="Data\WorkAndRest.cs" />
     <Compile Include="Helper\DateTimeHelper.cs" />
     <Compile Include="Helper\Excel\ExtraWorkTypeExcelHelper.cs" />

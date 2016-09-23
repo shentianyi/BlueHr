@@ -25,5 +25,7 @@ namespace BlueHrLib.Data.Model.Search
         public bool? IsOnTrial { get; set; }
 
         public int? WorkStatus { get; set; }
+
+        public List<string> StaffNrs { get; set; }
     }
 }

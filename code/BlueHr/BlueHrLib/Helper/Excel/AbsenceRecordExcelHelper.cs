@@ -54,9 +54,9 @@ namespace BlueHrLib.Helper.Excel
                                 Name = ws.Cells[i, 3].Value == null ? string.Empty : ws.Cells[i, 3].Value.ToString(),
                                 StartHourStr = ws.Cells[i, 4].Value == null ? string.Empty : ws.Cells[i, 4].Value.ToString(),
                                 EndHourStr = ws.Cells[i, 5].Value == null ? string.Empty : ws.Cells[i, 5].Value.ToString(),
-                                AbsenceTypeStr = ws.Cells[i, 6].Value == null ? string.Empty : ws.Cells[i, 4].Value.ToString(),
-                                Remark = ws.Cells[i, 7].Value == null ? string.Empty : ws.Cells[i, 5].Value.ToString(),
-                                Duration = ws.Cells[i, 8].Value == null ? string.Empty : ws.Cells[i, 6].Value.ToString()
+                                Duration = ws.Cells[i, 6].Value == null ? string.Empty : ws.Cells[i, 6].Value.ToString(),
+                                AbsenceTypeStr = ws.Cells[i, 7].Value == null ? string.Empty : ws.Cells[i, 7].Value.ToString(),
+                                Remark = ws.Cells[i, 8].Value == null ? string.Empty : ws.Cells[i, 8].Value.ToString()
                             });
                         }
                     }

@@ -52,6 +52,13 @@ namespace BlueHrLib.Service.Implement
                 abQ = abQ.Where(s => s.departmentId == searchModel.departmentId.Value);
             }
 
+            if(searchModel.StaffNrs!=null && searchModel.StaffNrs.Count > 0)
+            {
+                staffQ = staffQ.Where(s =>   searchModel.StaffNrs.Contains(s.nr));
+                attQ = attQ.Where(s => searchModel.StaffNrs.Contains(s.nr));
+                abQ = abQ.Where(s => searchModel.StaffNrs.Contains(s.nr));
+            }
+
             attQ = attQ.Where(s => s.attendanceDate >= startDate && s.attendanceDate <= endDate);
             abQ = abQ.Where(s => s.absenceDate >= startDate && s.absenceDate <= endDate);
 
@@ -141,7 +148,7 @@ namespace BlueHrLib.Service.Implement
                 #endregion
 
 
-
+                records.Add(sumModel);
 
             }
 

@@ -23,6 +23,12 @@ namespace BlueHrLib.Data
                     this.isExceptionHandled = false;
                     this.exceptionCodes = string.Join(",", this._attendanceExceptions.ToArray());
                 }
+                else
+                {
+                    this.isException = false;
+                    this.isExceptionHandled = false;
+                    this.exceptionCodes = null;
+                }
             }
         }
     }
