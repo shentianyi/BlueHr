@@ -220,21 +220,22 @@
     @*<blockquote class="marco-blockquote-primary">
         导出考勤报表
     </blockquote>*@
-
     <div>
-        @Html.Partial("Search/_CompanyAndDepartmentBar", new ViewDataDictionary() { new KeyValuePair<string, object>("companyId", "companyId1"), new KeyValuePair<string, object>("departmentId", "departmentId1") })
-     </div>
-    <br />
-    <br />
-
-    <div>
-        <div class="marco-igroup-primary">
-
-            <span>日期*</span>
-            <input type="text" name="startDate" id="startDate" class="datepicker" placeholder="开始" /><span>~ </span><input type="text" name="endDate" id="endDate" class="datepicker" placeholder="结束" />
+        <div  style="display:inline-block; height:30px">
+            @Html.Partial("Search/_CompanyAndDepartmentBar", new ViewDataDictionary() { new KeyValuePair<string, object>("companyId", "companyId1"), new KeyValuePair<string, object>("departmentId", "departmentId1") })
         </div>
-    </div>
+        <br />
+        <br />
 
+        <div style="margin-left:15px;max-width:400px;">
+            
+            <div class="marco-igroup-primary">
+
+                <span>日期*</span>
+                <input type="text" name="startDate" id="startDate" class="datepicker" placeholder="开始" /><span>~ </span><input type="text" name="endDate" id="endDate" class="datepicker" placeholder="结束" />
+            </div>
+        </div>
+    </div>  
         <hr class="hr-grey" />
         <button type="submit" class="btn btn-primary ff" style="width:200px;" onclick="exportReport(100)">导出汇总报表</button>
         <button type="submit" class="btn btn-info ff" style="width:200px;" onclick="exportReport(200)">导出考勤详细记录</button>
@@ -249,7 +250,7 @@
     Layout.datepicker('.datepicker');
 
     function exportReport(type) {
-        if ($("#CompanyId1").val() == "") {
+        if ($("#CompanyId1").val()==null|| $("#CompanyId1").val() == "") {
             alert("请选择公司");
             return;
         }
