@@ -157,7 +157,7 @@ namespace BlueHrLib.Service.Implement
                 double workHoliday = sumModel.HolidayWork;
                 if (workHoliday > 0)
                 {
-                    if (sumModel.OriHolidayExtraHour > workHoliday)
+                    if (sumModel.OriHolidayExtraHour >= workHoliday)
                     {
                         sumModel.MinusedHolidayWorkHolidayLeftExtraHour = sumModel.OriHolidayExtraHour - workHoliday;
                         workHoliday = 0;
@@ -169,7 +169,7 @@ namespace BlueHrLib.Service.Implement
                     }
                     if (workHoliday > 0)
                     {
-                        if (sumModel.OriWeekendExtraHour > workHoliday)
+                        if (sumModel.OriWeekendExtraHour >= workHoliday)
                         {
                             sumModel.MinusedHolidayWorkWeekendLeftExtraHour = sumModel.OriWeekendExtraHour - workHoliday;
                             workHoliday = 0;
@@ -182,7 +182,7 @@ namespace BlueHrLib.Service.Implement
 
                         if (workHoliday > 0)
                         {
-                            if (sumModel.OriWorkExtraHour > workHoliday)
+                            if (sumModel.OriWorkExtraHour >= workHoliday)
                             {
                                 sumModel.MinusedHolidayWorkWorkLeftExtraHour = sumModel.OriWorkExtraHour - workHoliday;
                                 workHoliday = 0;
