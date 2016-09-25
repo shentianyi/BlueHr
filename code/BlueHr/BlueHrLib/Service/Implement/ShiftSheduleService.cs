@@ -134,9 +134,17 @@ namespace BlueHrLib.Service.Implement
         }
 
         public ShiftScheduleView GetFirstShiftByStaffAndDate(string staffNr, DateTime date)
-        { 
+        {
             DataContext dc = new DataContext(this.DbString);
             return dc.Context.GetTable<ShiftScheduleView>().Where(s => s.staffNr.Equals(staffNr) && s.fullStartAt.Value.Date == date).OrderBy(s => s.fullStartAt).FirstOrDefault();
+        }
+
+        public List<ShiftScheduleView> GetShiftsByStaffAndDateSpan(string staffNr, DateTime startDate, DateTime endDate)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            return dc.Context.GetTable<ShiftScheduleView>().Where(s => s.staffNr.Equals(staffNr) && s.fullStartAt.Value.Date >= startDate && s.fullEndAt.Value.Date<=endDate).OrderBy(s => s.fullStartAt).ToList();
+
+
         }
     }
 }

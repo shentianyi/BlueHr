@@ -61,5 +61,15 @@ namespace BlueHrLib.Service.Interface
         /// <param name="date"></param>
         /// <returns></returns>
         ShiftScheduleView GetFirstShiftByStaffAndDate(string staffNr, DateTime date);
+
+
+
+        /// <summary>
+        /// 获得员工某一段时间的所有排班
+        /// </summary>
+        /// <param name="staffNr"></param>
+        /// <param name="startDate"></param>
+        /// <returns></returns>
+        List<ShiftScheduleView> GetShiftsByStaffAndDateSpan(string staffNr, DateTime startDate,DateTime endDate);
     }
 }

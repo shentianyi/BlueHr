@@ -1,4 +1,15 @@
-﻿var Layout = {};
+﻿function show_handle_dialog() {
+    document.getElementById('handle-dialog-modal').style.display = 'block';
+    document.getElementById('dialog-overlay').style.display = 'block';
+}
+
+function hide_handle_dialog() {
+    document.getElementById('handle-dialog-modal').style.display = 'none';
+    document.getElementById('dialog-overlay').style.display = 'none';
+}
+
+
+var Layout = {};
 
 Layout.init = function () {
     //IE 提示console找不到 解决办法
@@ -141,9 +152,13 @@ Layout.CompanyAndDepartment = function (companyId, departmentId) {
 
         var companyID = $(companyId).find("option:selected").val();
         var Html = "";
-
+        if (Object.keys(Department[companyID]).length > 0) {
+            Html += "<option value=''></option>";
+        }
         for (dep in Department[companyID]) {
-            Html += '<option value=' + dep + '>' + Department[companyID][dep] + '</option>';
+            if (dep != null && dep!="") {
+                Html += '<option value=' + dep + '>' + Department[companyID][dep] + '</option>';
+            }
         }
 
         $(Html).appendTo(departmentId);

@@ -190,7 +190,11 @@ namespace BlueHrWeb.Controllers
                 {
                     shiftCodes = new List<string>() { Request.Form.Get("ShiftCode") };
                 };
-                td.SendCalculateAttMessage(calculateAt.Date.AddDays(-2), shiftCodes);
+                //计算所选一天的
+                td.SendCalculateAttMessage(calculateAt.Date, shiftCodes);
+
+
+                //td.SendCalculateAttMessage(calculateAt.Date.AddDays(-2), shiftCodes);
                 
                 msg.Success = true;
                 msg.Content = "计算任务新建成功，请到系统任务页面查看结果!";

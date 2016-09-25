@@ -290,11 +290,15 @@ namespace BlueHrLib.Helper.Excel
 
                 foreach (var r in records)
                 {
+                    IShiftScheduleService ss = new ShiftSheduleService(this.DbString);
+                    List<ShiftScheduleView> shifts = ss.GetShiftsByStaffAndDateSpan(r.Staff.nr, startDate, endDate);
+
                     // 每个Items代表一天
                     foreach (var rr in r.Items)
                     {
                         List<AttendanceRecordDetailView> atts = new List<AttendanceRecordDetailView>();
 
+                      
                         // 是否被减过加班时间
                         if (rr.IsMinusedHolidayWorkHour || rr.IsMinusedThresholdHour)
                         {
@@ -304,8 +308,8 @@ namespace BlueHrLib.Helper.Excel
                                 {
                                     // 看看是不是有排班，根据排班的情况造数据，开始结束有25-45分钟的冗余，
                                     // 就是下班到打卡设备的时间
-                                    IShiftScheduleService ss = new ShiftSheduleService(this.DbString);
-                                    var shift = ss.GetFirstShiftByStaffAndDate(rr.Staff.nr, rr.DateTime);
+                                    // var shift = ss.GetFirstShiftByStaffAndDate(rr.Staff.nr, rr.DateTime);
+                                    var shift = shifts.Where(s => s.fullEndAt.Value.Date == rr.DateTime).FirstOrDefault();
                                     if (shift == null)
                                     {
                                         //   break;
@@ -314,7 +318,10 @@ namespace BlueHrLib.Helper.Excel
                                     {
                                         DateTime startTime = shift.fullStartAt.Value.AddMinutes(0-new Random().Next(25,45));
                                         DateTime endTime = shift.fullEndAt.Value.AddHours(rr.MinuseHolidayWorkAndThresHoldLeftExtraHour).AddMinutes(new Random().Next(25, 45));
-
+                                        if (rr.MinuseHolidayWorkAndThresHoldLeftExtraHour > 0)
+                                        {
+                                            int u = 0;
+                                        }
                                         excelRecords.Add(new string[6] { rr.Staff.departmentName, rr.Staff.nr, rr.Staff.name, startTime.ToString("yyyy-MM-dd"), startTime.ToString("HH:mm"), "001" });
 
                                         excelRecords.Add(new string[6] { rr.Staff.departmentName, rr.Staff.nr, rr.Staff.name, endTime.ToString("yyyy-MM-dd"), endTime.ToString("HH:mm"), "001" });

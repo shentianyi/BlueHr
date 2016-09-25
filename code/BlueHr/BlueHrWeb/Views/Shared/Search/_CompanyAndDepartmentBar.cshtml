@@ -7,17 +7,59 @@
 
 @*有可能 ViewBag.Query 不存在*@
 @*TODO:// 在Edit 的时候，ViewBag.Query 也不存在 在Edit的时候，定义 ViewBag.Query = StaffSearchModel q . Delete 的时候也是一样*@
+@{
 
+    string companyId = ViewData["companyId"] == null ? "companyId" : ViewData["companyId"].ToString();
+    string departmentId = ViewData["departmentId"] == null ? "departmentId" : ViewData["departmentId"].ToString();
+}
 @if (ViewBag.Query!=null)
 {
-    @PartialViewHelper.CompanyAndDepartmentDropDownList(this.Html, ViewBag.Query.companyId, ViewBag.Query.departmentId)
+    @PartialViewHelper.CompanyAndDepartmentDropDownList(this.Html, ViewBag.Query.companyId, ViewBag.Query.departmentId,companyId,departmentId)
 }
 else
 {
-    @PartialViewHelper.CompanyAndDepartmentDropDownList(this.Html, null, null)
+    @PartialViewHelper.CompanyAndDepartmentDropDownList(this.Html, null, null,companyId,departmentId)
 }
 
 
 <script type="text/javascript">
-    Layout.CompanyAndDepartment('#companyId', '#departmentId');
+
+  // Layout.CompanyAndDepartment('#@companyId', '#@departmentId');
+
+    $(function () {
+        var companyId='#@companyId', departmentId='#@departmentId';
+
+        var Department1 = new Array();
+
+        $.ajax({
+            url: '/Staff/GetCompanyAndDepartment',
+            type: 'get',
+            async: false,
+            success: function (data) {
+                Department1 = data;
+            },
+            error: function () {
+                console.log("获取公司和部门信息出错");
+            }
+        });
+            
+        $(companyId).change(function () {
+            $(departmentId).empty();
+
+            var companyID = $(companyId).find("option:selected").val();
+            var Html = "";
+            console.log(Object.keys(Department1[companyID]).length);
+            if (Object.keys(Department1[companyID]).length > 0) {
+                Html += "<option value=''></option>";
+            }
+            for (dep in Department1[companyID]) {
+
+                
+                if (dep != "")
+                    Html += '<option value=' + dep + '>' + Department1[companyID][dep] + '</option>';
+            }
+
+            $(Html).appendTo(departmentId);
+        });
+    });
 </script>

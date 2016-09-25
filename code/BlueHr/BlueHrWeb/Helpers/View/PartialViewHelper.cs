@@ -23,7 +23,7 @@ namespace BlueHrWeb.Helpers.View
         /// <param name="companyId"></param>
         /// <param name="departmentId"></param>
         /// <returns></returns>
-        public static MvcHtmlString CompanyAndDepartmentDropDownList(this HtmlHelper htmlHelper, int? companyId, int? departmentId)
+        public static MvcHtmlString CompanyAndDepartmentDropDownList(this HtmlHelper htmlHelper, int? companyId, int? departmentId,string cid= "companyId",string did= "departmentId")
         {
             var list = string.Empty;
 
@@ -52,7 +52,7 @@ namespace BlueHrWeb.Helpers.View
             list += @"<div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
                         <div class='marco-igroup-primary'> 
                         <span>公司</span>";
-            list += htmlHelper.DropDownList("companyId", companySelect).ToHtmlString();
+            list += htmlHelper.DropDownList(cid, companySelect).ToHtmlString();
             list += @"  </div>
                      </div>";
 
@@ -87,7 +87,7 @@ namespace BlueHrWeb.Helpers.View
             list += @"<div class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
                        <div class='marco-igroup-primary'>
                         <span>部门</span>";
-            list += htmlHelper.DropDownList("departmentId", departmentSelect).ToHtmlString();
+            list += htmlHelper.DropDownList(did, departmentSelect).ToHtmlString();
             list += @"</div></div>";
             return new MvcHtmlString(list);
         }

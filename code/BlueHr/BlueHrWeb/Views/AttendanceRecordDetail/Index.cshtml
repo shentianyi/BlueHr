@@ -202,7 +202,7 @@
 
     <div class="marco-igroup-primary">
         <span>选择时间(必选):</span>
-        <input type="text" name="CalDate" id="CalDate" class="current-datetimepicker" placeholder="考勤时间" value="@DateTime.Now.ToString("yyyy-MM-dd hh:00")" />
+        <input type="text" name="CalDate" id="CalDate" class="current-datetimepicker" placeholder="考勤时间" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
     </div>
 
     @*<div class="marco-igroup-primary">
@@ -225,7 +225,7 @@
     });
 
     $('.current-datetimepicker').datetimepicker({
-        format: 'Y-m-d H:i'
+        format: 'Y-m-d'
     });
 
     $('.import-button-dialog').click(function () {

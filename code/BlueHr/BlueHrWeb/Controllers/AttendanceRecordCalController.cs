@@ -284,6 +284,26 @@ namespace BlueHrWeb.Controllers
             return View(records);
         }
 
+        [HttpGet]
+       public ActionResult ExportReport([Bind(Include = "CompanyId,DepartmentId")] StaffSearchModel q)
+        {
+            var msg = new ReportMessage();
+            if (Request.QueryString["type"] == "100")
+            {
+                msg = new ReportExcelHelper(Settings.Default.db).ExportExtraSumReport(
+                    DateTime.Parse(Request.QueryString["startDate"]),
+                    DateTime.Parse(Request.QueryString["endDate"]), q);
+            }
+            else
+            {
+
+                msg = new ReportExcelHelper(Settings.Default.db).ExportHandledAttendDetail(
+                    DateTime.Parse(Request.QueryString["startDate"]),
+                    DateTime.Parse(Request.QueryString["endDate"]), q);
+            }
+            return Json(msg, JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// 加班类型可以为空， 有可能不加班
         /// </summary>
