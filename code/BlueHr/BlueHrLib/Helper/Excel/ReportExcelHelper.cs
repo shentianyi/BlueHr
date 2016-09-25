@@ -167,13 +167,13 @@ namespace BlueHrLib.Helper.Excel
                         sheet.Cells[4 + j, i + 2].Value = record.HolidayExtraHourDisplay(type);
                         sheet.Cells[4 + j, i + 3].Value = record.TotalExtraHourDisplay(type);
 
-                        // 出勤工时
-                        sheet.Cells[4 + j, i + 4].Value = record.AttendHour;
-
+                       
                         // 白班、夜班、轮班费
+                        sheet.Cells[4 + j, i + 4].Value = string.Empty;
                         sheet.Cells[4 + j, i + 5].Value = string.Empty;
                         sheet.Cells[4 + j, i + 6].Value = string.Empty;
-                        sheet.Cells[4 + j, i + 7].Value = string.Empty;
+                        // 出勤工时
+                        sheet.Cells[4 + j, i + 7].Value = record.AttendHour;
 
                         // 基本假期
                         sheet.Cells[4 + j, i + 8].Value = record.HolidayAbsence;
@@ -185,9 +185,9 @@ namespace BlueHrLib.Helper.Excel
                         sheet.Cells[4 + j, i + 14].Value = record.YearAbsence;
 
                         // 新进、旷工、离职、放班
-                        sheet.Cells[4 + j, i + 15].Value = record.NewAbsence;
-                        sheet.Cells[4 + j, i + 16].Value = record.WorkAbsence;
-                        sheet.Cells[4 + j, i + 17].Value = record.ResignAbsence;
+                        sheet.Cells[4 + j, i + 15].Value =0- record.NewAbsence;
+                        sheet.Cells[4 + j, i + 16].Value = string.Empty; //record.WorkAbsence;
+                        sheet.Cells[4 + j, i + 17].Value =0- record.ResignAbsence;
                         sheet.Cells[4 + j, i + 18].Value = record.HolidayWork;
 
                         // 费用

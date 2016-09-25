@@ -72,7 +72,7 @@ insert into AbsenceType(code,name,systemCode) values('产','产假',400);
 insert into AbsenceType(code,name,systemCode) values('丧','丧假',500);
 insert into AbsenceType(code,name,systemCode) values('轮','轮休',600);
 insert into AbsenceType(code,name,systemCode) values('公','公休',700);
-insert into AbsenceType(code,name,systemCode) values('年','年',800);
+insert into AbsenceType(code,name,systemCode) values('年','年假',800);
 --insert into AbsenceType(code,name,systemCode) values('新','新进',900);
 insert into AbsenceType(code,name,systemCode) values('旷','旷工',1000);
 --insert into AbsenceType(code,name,systemCode) values('离','离职',1100);

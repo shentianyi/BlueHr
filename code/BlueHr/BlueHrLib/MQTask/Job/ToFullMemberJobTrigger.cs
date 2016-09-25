@@ -35,12 +35,12 @@ namespace BlueHrLib.MQTask.Job
                                                           .WithIdentity("ToFullMemberJobTrigger-" + i.ToString(), groupId)
                                                           .WithCronSchedule(j.cronSchedule)
                                                           .Build();
-                IJobDetail jj = JobBuilder.Create<CalAttJob>()
+                IJobDetail jj = JobBuilder.Create<ToFullMemberJob>()
                    .WithIdentity("ToFullMemberJob-" + i.ToString(), groupId)
                    .Build();
                 jj.JobDataMap.Add("queuePath", queuePath);
                 jj.JobDataMap.Add("dbString", dbString);
-                jj.JobDataMap.Add("code", j.paramsStr);
+              //  jj.JobDataMap.Add("code", j.paramsStr);
 
                 this.TriggerJobs.Add(jj);
 

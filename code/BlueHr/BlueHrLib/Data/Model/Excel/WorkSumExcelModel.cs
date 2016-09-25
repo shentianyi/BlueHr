@@ -465,6 +465,7 @@ namespace BlueHrLib.Data.Model.Excel
                         break;
                     case WorkSumExcelType.MinusHolidayWork:
                         value = Math.Round(this.MinuseHolidayWorkLeftExtraHour, 1);
+                       //value = Math.Round(this.AttendanceRecordCal.actExtraWorkingHour.Value, 1);
                         break;
                     case WorkSumExcelType.MinusThreasholdWork:
                         value = Math.Round(this.MinuseHolidayWorkAndThresHoldLeftExtraHour, 1);

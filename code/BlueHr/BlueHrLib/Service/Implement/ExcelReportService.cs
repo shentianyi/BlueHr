@@ -94,6 +94,8 @@ namespace BlueHrLib.Service.Implement
 
                 // 节假日总时间的统计
                 #region 节假日总时间的统计
+
+                // 放班- -
                 double? HolidayWork = sumModel.Items.Where(s => s.AbsenceRecord!=null && s.AbsenceRecord.absenceTypeId == abTypesDic[SystemAbsenceType.HolidayWork]).Sum(s => s.AbsenceRecord.duration);
                 sumModel.HolidayWork = HolidayWork.HasValue ? HolidayWork.Value : 0;
 
@@ -130,7 +132,7 @@ namespace BlueHrLib.Service.Implement
 
                 // 出勤工时
                 #region 出勤工时
-                sumModel.AttendHour = OriginAttendHours - sumModel.Items.Where(s => s.AbsenceRecord != null && abTypesDic.Values.Contains(s.AbsenceRecord.absenceTypeId)).Sum(s => s.AbsenceRecord.duration) - sumModel.NewAbsence - sumModel.ResignAbsence;
+                sumModel.AttendHour = OriginAttendHours - sumModel.Items.Where(s => s.AbsenceRecord != null  && abTypesDic.Where(ss=>ss.Key!=SystemAbsenceType.HolidayWork).Select(ss=>ss.Value).Contains(s.AbsenceRecord.absenceTypeId) ).Sum(s => s.AbsenceRecord.duration) - sumModel.NewAbsence - sumModel.ResignAbsence;
                 #endregion
 
                 // 原始记录的加班统计
@@ -145,6 +147,59 @@ namespace BlueHrLib.Service.Implement
 
                 double? HolidayExtraHour = baseATQ.Where(s => s.extraworkType == (int)SystemExtraType.HolidayExtra).Sum(s => s.actExtraWorkingHour);
                 sumModel.OriHolidayExtraHour = HolidayExtraHour.HasValue ? HolidayExtraHour.Value : 0;
+                #endregion
+
+                // 计算统计！！！！
+                #region
+                // 计算减去放班的加班总计
+                // 计算A->B，减去放班的统计
+                #region 计算A->B，减去放班的统计
+                double workHoliday = sumModel.HolidayWork;
+                if (workHoliday > 0)
+                {
+                    if (sumModel.OriHolidayExtraHour > workHoliday)
+                    {
+                        sumModel.MinusedHolidayWorkHolidayLeftExtraHour = sumModel.OriHolidayExtraHour - workHoliday;
+                        workHoliday = 0;
+                    }
+                    else
+                    {
+                        sumModel.MinusedHolidayWorkHolidayLeftExtraHour = 0;
+                        workHoliday = workHoliday - sumModel.OriHolidayExtraHour;
+                    }
+                    if (workHoliday > 0)
+                    {
+                        if (sumModel.OriWeekendExtraHour > workHoliday)
+                        {
+                            sumModel.MinusedHolidayWorkWeekendLeftExtraHour = sumModel.OriWeekendExtraHour - workHoliday;
+                            workHoliday = 0;
+                        }
+                        else
+                        {
+                            sumModel.MinusedHolidayWorkWeekendLeftExtraHour = 0;
+                            workHoliday = workHoliday - sumModel.OriWeekendExtraHour;
+                        }
+
+                        if (workHoliday > 0)
+                        {
+                            if (sumModel.OriWorkExtraHour > workHoliday)
+                            {
+                                sumModel.MinusedHolidayWorkWorkLeftExtraHour = sumModel.OriWorkExtraHour - workHoliday;
+                                workHoliday = 0;
+                            }
+                            else
+                            {
+                                sumModel.MinusedHolidayWorkWorkLeftExtraHour = 0;
+                                workHoliday = workHoliday - sumModel.OriWorkExtraHour;
+                            }
+                        }
+                    }
+
+                }
+                #endregion
+
+
+
                 #endregion
 
 
