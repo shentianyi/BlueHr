@@ -236,7 +236,6 @@ namespace BlueHrLib.Service.Implement
                                 double xfactor = item.AttendanceRecordCal.actExtraWorkingHour.Value - factor;
                                 if (xfactor >= 4)
                                 {
-                                     
                                     sumModel.Items.FirstOrDefault(s => s.Id == item.Id).MinusedHolidayWorkHour = factor;
                                 }
                                 else

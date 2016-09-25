@@ -22,7 +22,9 @@ namespace TestCon
             StaffSearchModel searchModel = new StaffSearchModel();
             searchModel.StaffNrs = new List<string>() { "200268", "200835", "202274", "202348", "202487" };
 
-           ReportMessage msg= helper.ExportExtraSumReport(DateTime.Parse("2016-8-1"), DateTime.Parse("2016-8-31"),searchModel);
+            //ReportMessage msg= helper.ExportExtraSumReport(DateTime.Parse("2016-8-1"), DateTime.Parse("2016-8-31"),searchModel);
+            ReportMessage msg = helper.ExportHandledAttendDetail(DateTime.Parse("2016-8-1"), DateTime.Parse("2016-8-31"), searchModel);
+
             Console.WriteLine(msg.Success);
             Console.WriteLine(msg.Content);
             //Console.WriteLine(DateTime.Now.DayOfWeek.ToString());
