@@ -334,6 +334,9 @@ namespace BlueHrLib.Data.Model.Excel
 
             this.MinusedThresholdHour = 0;
         }
+
+        public string Id { get; set; }
+
         public StaffView Staff { get; set; }
         /// <summary>
         /// 日期
@@ -370,7 +373,7 @@ namespace BlueHrLib.Data.Model.Excel
         /// <summary>
         /// 是否被减阀值小时
         /// </summary>
-        public bool IsMinusedThresholdHour { get; set; }
+        public bool IsMinusedThresholdHour { get { return this.MinusedThresholdHour > 0; } }
 
         /// <summary>
         /// 被减掉的阀值小时数

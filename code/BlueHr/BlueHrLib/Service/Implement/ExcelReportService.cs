@@ -22,6 +22,14 @@ namespace BlueHrLib.Service.Implement
         
         public ExcelReportService(string dbString) : base(dbString) { }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="searchModel"></param>
+        /// <param name="maxExtraTotalHour"></param>
+        /// <returns></returns>
         public List<WorkSumExcelModel> GetSumExcelModels(DateTime startDate, DateTime endDate, StaffSearchModel searchModel,double maxExtraTotalHour=36)
         {
             List<WorkSumExcelModel> records = new List<WorkSumExcelModel>();
@@ -86,7 +94,7 @@ namespace BlueHrLib.Service.Implement
                     AttendanceRecordCalView at = attends.FirstOrDefault(s => s.staffNr.Equals(staff.nr) && s.attendanceDate == date);
                     AbsenceRecordView ab = abs.FirstOrDefault(s => s.staffNr.Equals(staff.nr) && s.absenceDate == date);
                     WorkAndRest wr = wrs.FirstOrDefault(s => s.dateAt == date);
-                    sumModel.Items.Add(new WorkSumExcelItemModel() { Staff = staff, DateTime = date, WorkAndRest=wr, AttendanceRecordCal = at, AbsenceRecord = ab });
+                    sumModel.Items.Add(new WorkSumExcelItemModel() { Id = Guid.NewGuid().ToString(), Staff = staff, DateTime = date, WorkAndRest = wr, AttendanceRecordCal = at, AbsenceRecord = ab });
                 }
 
                 IEnumerable<AttendanceRecordCalView> baseATQ = attends.Where(s => s.staffNr.Equals(staff.nr));
@@ -152,56 +160,202 @@ namespace BlueHrLib.Service.Implement
                 // 计算统计！！！！
                 #region
                 // 计算减去放班的加班总计
-                // 计算A->B，减去放班的统计
-                #region 计算A->B，减去放班的统计
-                double workHoliday = sumModel.HolidayWork;
-                if (workHoliday > 0)
+                // 计算A->B，减去放班的统计 PlanA, 可以根据其他的总计，舍弃这个这个方式
+                //#region 计算A->B，减去放班的统计
+                //double workHoliday = sumModel.HolidayWork;
+                //if (workHoliday >= 0)
+                //{
+                //    if (sumModel.OriHolidayExtraHour >= workHoliday)
+                //    {
+                //        sumModel.MinusedHolidayWorkHolidayLeftExtraHour = sumModel.OriHolidayExtraHour - workHoliday;
+                //        workHoliday = 0;
+                //    }
+                //    else
+                //    {
+                //        sumModel.MinusedHolidayWorkHolidayLeftExtraHour = 0;
+                //        workHoliday = workHoliday - sumModel.OriHolidayExtraHour;
+                //    }
+                //    if (workHoliday >= 0)
+                //    {
+                //        if (sumModel.OriWeekendExtraHour >= workHoliday)
+                //        {
+                //            sumModel.MinusedHolidayWorkWeekendLeftExtraHour = sumModel.OriWeekendExtraHour - workHoliday;
+                //            workHoliday = 0;
+                //        }
+                //        else
+                //        {
+                //            sumModel.MinusedHolidayWorkWeekendLeftExtraHour = 0;
+                //            workHoliday = workHoliday - sumModel.OriWeekendExtraHour;
+                //        }
+
+                //        if (workHoliday >= 0)
+                //        {
+                //            if (sumModel.OriWorkExtraHour >= workHoliday)
+                //            {
+                //                sumModel.MinusedHolidayWorkWorkLeftExtraHour = sumModel.OriWorkExtraHour - workHoliday;
+                //                workHoliday = 0;
+                //            }
+                //            else
+                //            {
+                //                sumModel.MinusedHolidayWorkWorkLeftExtraHour = 0;
+                //                workHoliday = workHoliday - sumModel.OriWorkExtraHour;
+                //            }
+                //        }
+                //    }
+
+                //}
+                //#endregion
+
+                // 计算 
+
+                // 分别计算单个的 去掉放班的时间
+                #region 分别计算单个的 去掉放班 的时间
+                if (sumModel.HolidayWork>0)
                 {
-                    if (sumModel.OriHolidayExtraHour >= workHoliday)
+                    double factor = sumModel.HolidayWork;
+                    
+                    // 先将 Items 排序，
+                    // 按 type 降序，即 节假日、双休、平时，
+                    // 按 加班量 降序
+                    var q = sumModel.Items.Where(s=>s.AttendanceRecordCal!=null)
+                        .OrderByDescending(s=>s.DateTime)
+                      //  .OrderByDescending(s => s.AttendanceRecordCal.actExtraWorkingHour)
+                        .OrderByDescending(s => s.AttendanceRecordCal.extraworkType);
+                    List<WorkSumExcelItemModel> sortedItems = q.ToList();
+                    foreach(var item in sortedItems)
                     {
-                        sumModel.MinusedHolidayWorkHolidayLeftExtraHour = sumModel.OriHolidayExtraHour - workHoliday;
-                        workHoliday = 0;
-                    }
-                    else
-                    {
-                        sumModel.MinusedHolidayWorkHolidayLeftExtraHour = 0;
-                        workHoliday = workHoliday - sumModel.OriHolidayExtraHour;
-                    }
-                    if (workHoliday > 0)
-                    {
-                        if (sumModel.OriWeekendExtraHour >= workHoliday)
+                       
+                        if (factor <= 0)
                         {
-                            sumModel.MinusedHolidayWorkWeekendLeftExtraHour = sumModel.OriWeekendExtraHour - workHoliday;
-                            workHoliday = 0;
+                            sumModel.Items.FirstOrDefault(s => s.Id == item.Id).MinusedHolidayWorkHour = 0;
                         }
                         else
                         {
-                            sumModel.MinusedHolidayWorkWeekendLeftExtraHour = 0;
-                            workHoliday = workHoliday - sumModel.OriWeekendExtraHour;
-                        }
-
-                        if (workHoliday > 0)
-                        {
-                            if (sumModel.OriWorkExtraHour >= workHoliday)
+                            if (factor <= item.AttendanceRecordCal.actExtraWorkingHour)
                             {
-                                sumModel.MinusedHolidayWorkWorkLeftExtraHour = sumModel.OriWorkExtraHour - workHoliday;
-                                workHoliday = 0;
+                                double xfactor = item.AttendanceRecordCal.actExtraWorkingHour.Value - factor;
+                                if (xfactor >= 4)
+                                {
+                                     
+                                    sumModel.Items.FirstOrDefault(s => s.Id == item.Id).MinusedHolidayWorkHour = factor;
+                                }
+                                else
+                                {
+                                    sumModel.Items.FirstOrDefault(s => s.Id == item.Id).MinusedHolidayWorkHour = item.AttendanceRecordCal.actExtraWorkingHour.Value;
+                                }
+                                factor = 0;
                             }
                             else
                             {
-                                sumModel.MinusedHolidayWorkWorkLeftExtraHour = 0;
-                                workHoliday = workHoliday - sumModel.OriWorkExtraHour;
+                                sumModel.Items.FirstOrDefault(s => s.Id == item.Id).MinusedHolidayWorkHour = item.AttendanceRecordCal.actExtraWorkingHour.Value;
+                                factor = factor - item.AttendanceRecordCal.actExtraWorkingHour.Value;
                             }
                         }
                     }
+                }
+                #endregion
+                
+                // 计算减去放班的加班总计
+                // 计算A->B，减去放班的统计 PlanB
+                #region 计算A->B，减去放班的统计
+                double? MinusedHolidayWorkWorkLeftExtraHour = sumModel.Items.Where(s => s.AttendanceRecordCal != null && s.AttendanceRecordCal.extraworkType == (int)SystemExtraType.WorkExtra).Sum(s => s.MinuseHolidayWorkLeftExtraHour);
+                sumModel.MinusedHolidayWorkWorkLeftExtraHour = MinusedHolidayWorkWorkLeftExtraHour.HasValue ? MinusedHolidayWorkWorkLeftExtraHour.Value : 0;
 
+
+                double? MinusedHolidayWorkWeekendLeftExtraHour = sumModel.Items.Where(s => s.AttendanceRecordCal != null && s.AttendanceRecordCal.extraworkType == (int)SystemExtraType.WeekendExtra).Sum(s => s.MinuseHolidayWorkLeftExtraHour);
+                sumModel.MinusedHolidayWorkWeekendLeftExtraHour = MinusedHolidayWorkWeekendLeftExtraHour.HasValue ? MinusedHolidayWorkWeekendLeftExtraHour.Value : 0;
+
+                double? MinusedHolidayWorkHolidayLeftExtraHour = sumModel.Items.Where(s => s.AttendanceRecordCal != null && s.AttendanceRecordCal.extraworkType == (int)SystemExtraType.HolidayExtra).Sum(s => s.MinuseHolidayWorkLeftExtraHour);
+                sumModel.MinusedHolidayWorkHolidayLeftExtraHour = MinusedHolidayWorkHolidayLeftExtraHour.HasValue ? MinusedHolidayWorkHolidayLeftExtraHour.Value : 0;
+
+                #endregion
+
+
+                // 分别计算单个的 去掉放班的时间
+                #region 分别计算单个的 打于maxExtraTotalHour 的时间
+                if (sumModel.MinusedHolidayLeftTotalExtraHour > maxExtraTotalHour)
+                {
+                    double factor = sumModel.MinusedHolidayLeftTotalExtraHour-maxExtraTotalHour;
+                    // 先将 Items 排序，
+                    // 按 type 降序，即 节假日、双休、平时，
+                    // 按 加班量减掉放班的剩余量 降序
+                    var q = sumModel.Items.Where(s => s.AttendanceRecordCal != null)
+                        //.OrderBy(s => s.DateTime)
+                        .OrderByDescending(s => s.MinuseHolidayWorkLeftExtraHour)
+                        .OrderByDescending(s => s.AttendanceRecordCal.extraworkType);
+                    List<WorkSumExcelItemModel> sortedItems = q.ToList();
+
+                    foreach (var item in sortedItems)
+                    {
+                        if (factor <= 0)
+                        {
+                            sumModel.Items.FirstOrDefault(s => s.Id == item.Id).MinusedThresholdHour = 0;
+                        }
+                        else
+                        {
+                            if (factor <= item.MinuseHolidayWorkLeftExtraHour)
+                            {
+                                //sumModel.Items.FirstOrDefault(s => s.Id == item.Id).MinusedThresholdHour = factor;
+                                //factor = 0;
+                                double xfactor = item.MinuseHolidayWorkLeftExtraHour - factor;
+                                if (xfactor >= 4 )
+                                {
+                                    sumModel.Items.FirstOrDefault(s => s.Id == item.Id).MinusedThresholdHour = factor;
+                                }
+                                else
+                                {
+                                    sumModel.Items.FirstOrDefault(s => s.Id == item.Id).MinusedThresholdHour = item.MinuseHolidayWorkLeftExtraHour;
+                                }
+                                factor = 0;
+                            }
+                            else
+                            {
+                                sumModel.Items.FirstOrDefault(s => s.Id == item.Id).MinusedThresholdHour = item.MinuseHolidayWorkLeftExtraHour;
+                                factor = factor - item.MinuseHolidayWorkLeftExtraHour;
+                            }
+                        }
+                    }
                 }
                 #endregion
 
 
+                #region 统计加班
+               
+
+
+                // 计算B->C，减去多余加班的统计
+                #region 计算B->C，减去多余加班的统计
+                double? MinusedThresholdWorkLeftExtraHour = sumModel.Items.Where(s => s.AttendanceRecordCal != null && s.AttendanceRecordCal.extraworkType == (int)SystemExtraType.WorkExtra).Sum(s => s.MinuseHolidayWorkAndThresHoldLeftExtraHour);
+                sumModel.MinusedThresholdWorkLeftExtraHour = MinusedThresholdWorkLeftExtraHour.HasValue ? MinusedThresholdWorkLeftExtraHour.Value : 0;
+
+
+                double? MinusedThresholdWeekendLeftExtraHour = sumModel.Items.Where(s => s.AttendanceRecordCal != null && s.AttendanceRecordCal.extraworkType == (int)SystemExtraType.WeekendExtra).Sum(s => s.MinuseHolidayWorkAndThresHoldLeftExtraHour);
+                sumModel.MinusedThresholdWeekendLeftExtraHour = MinusedThresholdWeekendLeftExtraHour.HasValue ? MinusedThresholdWeekendLeftExtraHour.Value : 0;
+
+                double? MinusedThresholdHolidayLeftExtraHour = sumModel.Items.Where(s => s.AttendanceRecordCal != null && s.AttendanceRecordCal.extraworkType == (int)SystemExtraType.HolidayExtra).Sum(s => s.MinuseHolidayWorkAndThresHoldLeftExtraHour);
+                sumModel.MinusedThresholdHolidayLeftExtraHour = MinusedThresholdHolidayLeftExtraHour.HasValue ? MinusedThresholdHolidayLeftExtraHour.Value : 0;
 
                 #endregion
 
+
+                // 计算C->D，被减去多余加班的统计
+                #region 计算C->D，被减去多余加班的统计
+                double? MinusedThresholdWorkExtraHour = sumModel.Items.Where(s => s.AttendanceRecordCal != null && s.AttendanceRecordCal.extraworkType == (int)SystemExtraType.WorkExtra).Sum(s => s.MinusedThresholdHour);
+                sumModel.MinusedThresholdWorkExtraHour = MinusedThresholdWorkExtraHour.HasValue ? MinusedThresholdWorkExtraHour.Value : 0;
+
+
+                double? MinusedThresholdWeekendExtraHour = sumModel.Items.Where(s => s.AttendanceRecordCal != null && s.AttendanceRecordCal.extraworkType == (int)SystemExtraType.WeekendExtra).Sum(s => s.MinusedThresholdHour);
+                sumModel.MinusedThresholdWeekendExtraHour = MinusedThresholdWeekendExtraHour.HasValue ? MinusedThresholdWeekendExtraHour.Value : 0;
+
+                double? MinusedThresholdHolidayExtraHour = sumModel.Items.Where(s => s.AttendanceRecordCal != null && s.AttendanceRecordCal.extraworkType == (int)SystemExtraType.HolidayExtra).Sum(s => s.MinusedThresholdHour);
+                sumModel.MinusedThresholdHolidayExtraHour = MinusedThresholdHolidayExtraHour.HasValue ? MinusedThresholdHolidayExtraHour.Value : 0;
+
+                #endregion
+
+
+                #endregion
+
+                #endregion
 
                 records.Add(sumModel);
 
