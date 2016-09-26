@@ -23,7 +23,7 @@ namespace BlueHrWeb.Helpers.View
         /// <param name="companyId"></param>
         /// <param name="departmentId"></param>
         /// <returns></returns>
-        public static MvcHtmlString CompanyAndDepartmentDropDownList(this HtmlHelper htmlHelper, int? companyId, int? departmentId,string cid= "companyId",string did= "departmentId")
+        public static MvcHtmlString CompanyAndDepartmentDropDownList(this HtmlHelper htmlHelper, int? companyId, int? departmentId,string cid= "CompanyId",string did= "DepartmentId")
         {
             var list = string.Empty;
 

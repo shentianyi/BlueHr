@@ -9,8 +9,8 @@
 @*TODO:// 在Edit 的时候，ViewBag.Query 也不存在 在Edit的时候，定义 ViewBag.Query = StaffSearchModel q . Delete 的时候也是一样*@
 @{
 
-    string companyId = ViewData["companyId"] == null ? "companyId" : ViewData["companyId"].ToString();
-    string departmentId = ViewData["departmentId"] == null ? "departmentId" : ViewData["departmentId"].ToString();
+    string companyId = ViewData["companyId"] == null ? "CompanyId" : ViewData["companyId"].ToString();
+    string departmentId = ViewData["departmentId"] == null ? "DepartmentId" : ViewData["departmentId"].ToString();
 }
 @if (ViewBag.Query!=null)
 {
@@ -24,7 +24,7 @@ else
 
 <script type="text/javascript">
 
-  // Layout.CompanyAndDepartment('#@companyId', '#@departmentId');
+//  Layout.CompanyAndDepartment('#@companyId', '#@departmentId');
 
     $(function () {
         var companyId='#@companyId', departmentId='#@departmentId';
