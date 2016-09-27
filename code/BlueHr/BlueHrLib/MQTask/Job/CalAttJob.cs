@@ -21,7 +21,7 @@ namespace BlueHrLib.MQTask.Job
 
                 TaskDispatcher td = new TaskDispatcher(context.JobDetail.JobDataMap["dbString"].ToString(),
                     context.JobDetail.JobDataMap["queuePath"].ToString());
-                td.SendCalculateAttMessage(DateTime.Now.Date.AddDays(-2), new List<string>() { context.JobDetail.JobDataMap["code"].ToString() });
+                td.SendCalculateAttMessage(DateTime.Now.Date.AddDays(-1), new List<string>() { context.JobDetail.JobDataMap["code"].ToString() });
             }
             catch (Exception ex)
             {

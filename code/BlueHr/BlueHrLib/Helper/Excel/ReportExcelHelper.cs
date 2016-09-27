@@ -252,7 +252,7 @@ namespace BlueHrLib.Helper.Excel
 
 
                 msg.Success = true;
-            }
+        }
             catch (Exception ex)
             {
                 LogUtil.Logger.Error(ex.Message, ex);

@@ -269,9 +269,9 @@ namespace BlueHrLib.Service.Implement
                 double extraHour = 0;
                 // 异常情况
                 List<AttendanceExceptionType> exceptions = new List<AttendanceExceptionType>();
-                if (staff.nr.Equals("202274"))
+                if (staff.nr.Equals("201471"))
                 {
-                    string s = "202274";
+                    string s = "201471";
                 }
                 // 获取已经结束的排班
                 List<ShiftScheduleView> shifts = dc.Context.GetTable<ShiftScheduleView>().Where(s => s.staffNr.Equals(staff.nr) && s.fullStartAt.Value.Date == datetime.Date && s.fullEndAt <= DateTime.Now).ToList();
