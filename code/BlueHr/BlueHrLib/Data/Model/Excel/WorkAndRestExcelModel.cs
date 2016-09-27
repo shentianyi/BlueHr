@@ -50,6 +50,9 @@ namespace BlueHrLib.Data.Model.Excel
                 else if (DateTypeStr == "公休日"|| DateTypeStr=="双休日")
                 {
                     return 200;
+                }else if (DateTypeStr == "工作日")
+                {
+                    return 100;
                 }
                 else
                 {
@@ -98,7 +101,7 @@ namespace BlueHrLib.Data.Model.Excel
 
             if (!DateType.HasValue)
             {
-                msg.Contents.Add("类型不正确，只能为（法定假日/调休日/节假日）或者（公休日/双休日）");
+                msg.Contents.Add("类型不正确，只能为（法定假日/调休日/节假日）、（公休日/双休日）、（工作日）");
             }
 
             msg.Success = msg.Contents.Count == 0;
