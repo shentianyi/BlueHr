@@ -127,7 +127,14 @@ namespace BlueHrLib.Service.Implement
                     DateTime sq = s.fullStartAt.Value.AddMinutes(0 - setting.validAttendanceRecordTime.Value);
                     DateTime eq = s.fullEndAt.Value.AddMinutes(setting.validAttendanceRecordTime.Value);
                     List<AttendanceRecordDetailView> shiftAttendRecords = dc.Context.GetTable<AttendanceRecordDetailView>().Where(ss => ss.recordAt >= sq && ss.recordAt <= eq && ss.staffNr.Equals(nr)).OrderBy(ss => ss.recordAt).ToList();//new List<AttendanceRecordDetailView>();
-                    records.AddRange(shiftAttendRecords);
+                   // records.AddRange(shiftAttendRecords);
+                    foreach (var r in shiftAttendRecords)
+                    {
+                        if (records.FirstOrDefault(ss => s.id == r.id) == null)
+                        {
+                            records.Add(r);
+                        }
+                    }
                 }
 
                 /// 找出每两个shift之间的，及A的结束到B的开始，如果没有B，则A的开始到datetime的次日23:59:59
@@ -139,7 +146,14 @@ namespace BlueHrLib.Service.Implement
                     DateTime sq = firstShift.fullEndAt.Value.AddMinutes(0 + setting.validAttendanceRecordTime.Value);
                     DateTime eq = nextShift == null ? datetime.Date.AddDays(1).Add(new TimeSpan(23, 59, 59)) : nextShift.fullStartAt.Value.AddMinutes(0 - setting.validAttendanceRecordTime.Value);
                     List<AttendanceRecordDetailView> shiftAttendRecords = dc.Context.GetTable<AttendanceRecordDetailView>().Where(ss => ss.recordAt >= sq && ss.recordAt <= eq && ss.staffNr.Equals(nr)).OrderBy(ss => ss.recordAt).ToList();//new List<AttendanceRecordDetailView>();
-                    records.AddRange(shiftAttendRecords);
+                                                                                                                                                                                                                                             // records.AddRange(shiftAttendRecords);
+                    foreach (var r in shiftAttendRecords)
+                    {
+                        if (records.FirstOrDefault(ss => ss.id == r.id) == null)
+                        {
+                            records.Add(r);
+                        }
+                    }
                 }
             }
             else
@@ -153,8 +167,15 @@ namespace BlueHrLib.Service.Implement
                 //List<AttendanceRecordDetailView> shiftAttendRecords = dc.Context.GetTable<AttendanceRecordDetailView>().Where(ss => ss.recordAt >= sq && ss.recordAt <= eq && ss.staffNr.Equals(nr)).OrderBy(ss => ss.recordAt).ToList();//new List<AttendanceRecordDetailView>();
                 //records.AddRange(shiftAttendRecords);
             }
-
-            return records.Distinct().ToList(); ;
+            List<AttendanceRecordDetailView> todayRecords = dc.Context.GetTable<AttendanceRecordDetailView>().Where(ss => ss.recordAt >= datetime.Date && ss.recordAt <= datetime.Date.Add(new TimeSpan(23, 59, 59)) && ss.staffNr.Equals(nr)).OrderBy(ss => ss.recordAt).ToList();
+         foreach(var r in todayRecords)
+            {
+                if (records.FirstOrDefault(s => s.id == r.id)==null)
+                {
+                    records.Add(r);
+                }
+            }
+            return records.Distinct().OrderBy(ss => ss.recordAt).ToList(); ;
         }
 
         public List<AttendanceRecordDetail> GetByStaffAndTimespan(string staffNr, DateTime startTime, DateTime endTime)
