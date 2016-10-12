@@ -58,7 +58,7 @@ namespace BlueHrLib.Data
                     }
                 }
                 List<int> hasCers = new List<int>();
-                foreach (var c in this.Certificate)
+                foreach (var c in this.Certificates)
                 {
                     hasCers.Add(c.certificateTypeId);
                 }

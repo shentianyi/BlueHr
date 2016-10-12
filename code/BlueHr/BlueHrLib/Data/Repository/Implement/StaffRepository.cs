@@ -78,7 +78,7 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public IQueryable<Staff> Search(StaffSearchModel searchModel)
         {
-            IQueryable<Staff> staffs = this.context.Staff;
+            IQueryable<Staff> staffs = this.context.Staffs;
 
             if (!string.IsNullOrWhiteSpace(searchModel.Nr))
             {
