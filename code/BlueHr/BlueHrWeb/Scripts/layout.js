@@ -103,6 +103,10 @@ Layout.init = function () {
             $('.nav-shift').addClass('active');
             PageAction('#shiftschedule', '新建排班', '编辑排班', '排班详情', '创建', '更新', '删除');
             break;
+        case "SysRole":
+            $('.nav-shift').addClass('active');
+            PageAction('#sysrole', '新建角色', '编辑角色', '角色详情', '创建', '更新', '删除');
+            break;
         case "TaskRound":
             $('.nav-taskround').addClass('active');
             break;

@@ -688,4 +688,33 @@
       <Association Name="Staff_Certificate" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.SysRole" Member="SysRoles">
+    <Type Name="SysRole">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SysRoleAuthorization" Member="SysRoleAuthorizations">
+    <Type Name="SysRoleAuthorization">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="roleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="authId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SysAuthorization" Member="SysAuthorizations">
+    <Type Name="SysAuthorization">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="authType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SysUserRole" Member="SysUserRoles">
+    <Type Name="SysUserRole">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="roleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

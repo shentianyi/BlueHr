@@ -254,6 +254,8 @@
     <Compile Include="Controllers\ExtraWorkRecordController.cs" />
     <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
+    <Compile Include="Controllers\SysRoleController.cs" />
+    <Compile Include="Controllers\SystemAuthorizationController.cs" />
     <Compile Include="Controllers\WorkAndRestsController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\MessageRecordController.cs" />
@@ -555,6 +557,15 @@
     <Content Include="Views\AttendanceRecordCal\Create.cshtml" />
     <Content Include="Views\AttendanceRecordCal\Delete.cshtml" />
     <Content Include="Views\AttendanceRecordCal\_PartialDetail.cshtml" />
+    <Content Include="Views\SysRole\Index.cshtml" />
+    <Content Include="Views\SysRole\_PartialSysRole.cshtml" />
+    <Content Include="Views\SysRole\Create.cshtml" />
+    <Content Include="Views\SysRole\Delete.cshtml" />
+    <Content Include="Views\SystemAuthorization\Index.cshtml" />
+    <Content Include="Views\SystemAuthorization\Details.cshtml" />
+    <Content Include="Views\SystemAuthorization\Create.cshtml" />
+    <Content Include="Views\SystemAuthorization\Delete.cshtml" />
+    <Content Include="Views\SysRole\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

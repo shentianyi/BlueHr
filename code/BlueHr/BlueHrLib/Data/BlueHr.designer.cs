@@ -120,6 +120,18 @@ namespace BlueHrLib.Data
     partial void InsertCertificate(Certificate instance);
     partial void UpdateCertificate(Certificate instance);
     partial void DeleteCertificate(Certificate instance);
+    partial void InsertSysRole(SysRole instance);
+    partial void UpdateSysRole(SysRole instance);
+    partial void DeleteSysRole(SysRole instance);
+    partial void InsertSysRoleAuthorization(SysRoleAuthorization instance);
+    partial void UpdateSysRoleAuthorization(SysRoleAuthorization instance);
+    partial void DeleteSysRoleAuthorization(SysRoleAuthorization instance);
+    partial void InsertSysAuthorization(SysAuthorization instance);
+    partial void UpdateSysAuthorization(SysAuthorization instance);
+    partial void DeleteSysAuthorization(SysAuthorization instance);
+    partial void InsertSysUserRole(SysUserRole instance);
+    partial void UpdateSysUserRole(SysUserRole instance);
+    partial void DeleteSysUserRole(SysUserRole instance);
     #endregion
 		
 		public BlueHrDataContext() : 
@@ -453,6 +465,38 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<Certificate>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SysRole> SysRoles
+		{
+			get
+			{
+				return this.GetTable<SysRole>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SysRoleAuthorization> SysRoleAuthorizations
+		{
+			get
+			{
+				return this.GetTable<SysRoleAuthorization>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SysAuthorization> SysAuthorizations
+		{
+			get
+			{
+				return this.GetTable<SysAuthorization>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SysUserRole> SysUserRoles
+		{
+			get
+			{
+				return this.GetTable<SysUserRole>();
 			}
 		}
 	}
@@ -13511,6 +13555,470 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.Certificate = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SysRole")]
+	public partial class SysRole : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _name;
+		
+		private string _remarks;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnremarksChanging(string value);
+    partial void OnremarksChanged();
+    #endregion
+		
+		public SysRole()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(50)")]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remarks", DbType="NVarChar(500)")]
+		public string remarks
+		{
+			get
+			{
+				return this._remarks;
+			}
+			set
+			{
+				if ((this._remarks != value))
+				{
+					this.OnremarksChanging(value);
+					this.SendPropertyChanging();
+					this._remarks = value;
+					this.SendPropertyChanged("remarks");
+					this.OnremarksChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SysRoleAuthorization")]
+	public partial class SysRoleAuthorization : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private System.Nullable<int> _roleId;
+		
+		private System.Nullable<int> _authId;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnroleIdChanging(System.Nullable<int> value);
+    partial void OnroleIdChanged();
+    partial void OnauthIdChanging(System.Nullable<int> value);
+    partial void OnauthIdChanged();
+    #endregion
+		
+		public SysRoleAuthorization()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_roleId", DbType="Int")]
+		public System.Nullable<int> roleId
+		{
+			get
+			{
+				return this._roleId;
+			}
+			set
+			{
+				if ((this._roleId != value))
+				{
+					this.OnroleIdChanging(value);
+					this.SendPropertyChanging();
+					this._roleId = value;
+					this.SendPropertyChanged("roleId");
+					this.OnroleIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_authId", DbType="Int")]
+		public System.Nullable<int> authId
+		{
+			get
+			{
+				return this._authId;
+			}
+			set
+			{
+				if ((this._authId != value))
+				{
+					this.OnauthIdChanging(value);
+					this.SendPropertyChanging();
+					this._authId = value;
+					this.SendPropertyChanged("authId");
+					this.OnauthIdChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SysAuthorization")]
+	public partial class SysAuthorization : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _authType;
+		
+		private string _name;
+		
+		private string _remarks;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnauthTypeChanging(string value);
+    partial void OnauthTypeChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnremarksChanging(string value);
+    partial void OnremarksChanged();
+    #endregion
+		
+		public SysAuthorization()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_authType", DbType="NVarChar(50)")]
+		public string authType
+		{
+			get
+			{
+				return this._authType;
+			}
+			set
+			{
+				if ((this._authType != value))
+				{
+					this.OnauthTypeChanging(value);
+					this.SendPropertyChanging();
+					this._authType = value;
+					this.SendPropertyChanged("authType");
+					this.OnauthTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(50)")]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remarks", DbType="NVarChar(500)")]
+		public string remarks
+		{
+			get
+			{
+				return this._remarks;
+			}
+			set
+			{
+				if ((this._remarks != value))
+				{
+					this.OnremarksChanging(value);
+					this.SendPropertyChanging();
+					this._remarks = value;
+					this.SendPropertyChanged("remarks");
+					this.OnremarksChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SysUserRole")]
+	public partial class SysUserRole : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private System.Nullable<int> _userId;
+		
+		private System.Nullable<int> _roleId;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnuserIdChanging(System.Nullable<int> value);
+    partial void OnuserIdChanged();
+    partial void OnroleIdChanging(System.Nullable<int> value);
+    partial void OnroleIdChanged();
+    #endregion
+		
+		public SysUserRole()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userId", DbType="Int")]
+		public System.Nullable<int> userId
+		{
+			get
+			{
+				return this._userId;
+			}
+			set
+			{
+				if ((this._userId != value))
+				{
+					this.OnuserIdChanging(value);
+					this.SendPropertyChanging();
+					this._userId = value;
+					this.SendPropertyChanged("userId");
+					this.OnuserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_roleId", DbType="Int")]
+		public System.Nullable<int> roleId
+		{
+			get
+			{
+				return this._roleId;
+			}
+			set
+			{
+				if ((this._roleId != value))
+				{
+					this.OnroleIdChanging(value);
+					this.SendPropertyChanging();
+					this._roleId = value;
+					this.SendPropertyChanged("roleId");
+					this.OnroleIdChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }
