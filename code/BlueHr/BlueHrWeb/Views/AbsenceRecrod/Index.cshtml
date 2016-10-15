@@ -108,7 +108,7 @@
                                     <a href="/AbsenceRecrod/Edit/@item.id" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a href="#" class="option-icon-warning" title="审核" id="shAbsenceRecord">
+                                    <a href="#" class="option-icon-warning" title="审核" id="shAbsenceRecord" onclick="shAbsenceRecord(@item.id)">
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                 </td>
@@ -156,6 +156,41 @@
         <hr />
         <a href="~/Template/缺勤记录导入文件模板.xlsx" target="_blank">下载文件模板</a>
     </div>
+</div>
+<div id="approval_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        缺勤审批
+    </div>
+    <div class="dialogModal_content">
+        <div class="marco-nbody row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>审批状态</span>
+                    <select id="aplStatus">
+                        <option value="未审批">未审批</option>
+                        <option value="通过审批">通过审批</option>
+                        <option value="未通过审批">未通过审批</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>审批备注</span>
+                    <textarea id="apvRemarks" name="apvRemarks" placeholder="备注"></textarea>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <input id="thePkId" hidden="hidden" />
+                <button class="marco-btn-primary import-button-dialog" title="确定" type="button" onclick="approvalConfirm()">
+                    确定
+                </button>
+
+
+            </div>
+        </div>
+    </div>
 
 </div>
 <script type="text/javascript">
@@ -181,7 +216,47 @@
     });
 
     //审核
-    $("#shAbsenceRecord").click(function () {
+    function shAbsenceRecord(id) {
 
-    });
+        $("#thePkId").val(id);
+
+        $('#approval_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+                //data_upload(".item-data-uploader");
+            },
+            onClose: function () {
+                //window.location.reload();
+            }
+        });
+    }
+
+    //
+    function approvalConfirm() {
+        var approvalStatus = $("#aplStatus").val();
+        var approvalRemarks = $("#apvRemarks").val();
+
+        if (approvalStatus == null || approvalStatus == "") {
+            Layout.popMsg('popMsg-danger', "请选择审批状态！");
+            return;
+        }
+        else {
+            $.post("/AbsenceRecrod/ApprovalAbsenceRecord", { absRecordId: $("#thePkId").val(), approvalStatus: approvalStatus, approvalRemarks: approvalRemarks }, function (data) {
+
+
+                if (!data.Success) {
+                    $('#approval_content').dialogModal("hide");
+                    Layout.popMsg('popMsg-danger', data.Content);
+                    return false;
+                }
+                else {
+                    $('#approval_content').dialogModal("hide");
+                    Layout.popMsg('popMsg-danger', data.Content);
+                    window.location.reload();
+                }
+            });
+        }
+    }
 </script>

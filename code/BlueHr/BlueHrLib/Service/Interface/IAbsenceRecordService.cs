@@ -29,5 +29,7 @@ namespace BlueHrLib.Service.Interface
         List<AbsenceRecrod> GetAll();
 
         AbsenceRecordView FindViewByStaffNrAndDate(string staffNr, DateTime date);
+
+        bool ApprovalTheRecord(AbsenceRecordApproval absRecordApproval);
     }
 }

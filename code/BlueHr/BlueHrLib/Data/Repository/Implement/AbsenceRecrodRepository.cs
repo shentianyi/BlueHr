@@ -105,5 +105,20 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<AbsenceRecrod>().ToList();
         }
+
+        //审批
+        public bool ApprovalTheRecord(AbsenceRecordApproval absRecordApproval)
+        {
+            try
+            {
+                this.context.GetTable<AbsenceRecordApproval>().InsertOnSubmit(absRecordApproval);
+                this.context.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

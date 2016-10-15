@@ -36,7 +36,7 @@ namespace BlueHrWeb.Controllers
 
             IPagedList<AbsenceRecrod> models = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
-            ViewBag.Query = q; 
+            ViewBag.Query = q;
 
             AbsenceRecrodInfoModel info = ss.GetAbsenceRecrodInfo(q);
             ViewBag.Info = info;
@@ -310,7 +310,7 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            if (model.absenceDate ==null)
+            if (model.absenceDate == null)
             {
                 msg.Success = false;
                 msg.Content = "缺勤时间不能为空，或格式必须正确";
@@ -318,7 +318,7 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            if ( model.duration <= 0)
+            if (model.duration <= 0)
             {
                 msg.Success = false;
                 msg.Content = "缺勤时长不能为空";
@@ -357,6 +357,51 @@ namespace BlueHrWeb.Controllers
             //}
 
             return new ResultMessage() { Success = true, Content = "" };
+        }
+
+        [HttpPost]
+        public JsonResult ApprovalAbsenceRecord(string absRecordId, string approvalStatus, string approvalRemarks)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            try
+            {
+                //check user
+
+                if (Session["user"] == null)
+                {
+                    msg.Success = false;
+                    msg.Content = "用户未登录，请登录后重试！";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+
+                AbsenceRecordApproval absApproval = new AbsenceRecordApproval();
+                absApproval.absRecordId = !string.IsNullOrEmpty(absRecordId) ? int.Parse(absRecordId) : -1;
+                absApproval.approvalStatus = approvalStatus;
+                absApproval.approvalTime = DateTime.Now;
+                absApproval.remarks = approvalRemarks;
+
+                if (Session["user"] != null)
+                {
+                    User user = Session["user"] as User;
+                    absApproval.userId = user.id;
+                }
+
+                IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
+                bool isSucceed = cs.ApprovalTheRecord(absApproval);
+
+                msg.Success = isSucceed;
+                msg.Content = "审批成功！";
+
+                return Json(msg,JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                msg.Success = false;
+                msg.Content = ex.Message;
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
