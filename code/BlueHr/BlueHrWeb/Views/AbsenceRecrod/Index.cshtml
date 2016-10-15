@@ -67,6 +67,7 @@
                         <th>缺勤时长(小时)</th>
                         <th>缺勤类型</th>
                         <th>缺勤原因</th>
+                        <th>审核状态</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -97,7 +98,9 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.remark)
                                 </td>
-                            
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AbsenceRecordApprovals.OrderByDescending(p => p.id).FirstOrDefault().approvalStatus)
+                                </td>
                                 <td>
                                     <a href="/AbsenceRecrod/Delete/@item.id" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>
@@ -105,10 +108,13 @@
                                     <a href="/AbsenceRecrod/Edit/@item.id" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
                                     </a>
+                                    <a href="#" class="option-icon-warning" title="审核" id="shAbsenceRecord">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
                                 </td>
                             </tr>
-                                            }
-                                        }
+                        }
+                    }
                 </tbody>
             </table>
         </div>
@@ -172,5 +178,10 @@
                 window.location.reload();
             }
         });
+    });
+
+    //审核
+    $("#shAbsenceRecord").click(function () {
+
     });
 </script>

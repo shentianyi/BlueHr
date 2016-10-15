@@ -36,7 +36,7 @@ namespace BlueHrWeb.Controllers
 
             IPagedList<AbsenceRecrod> models = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
-            ViewBag.Query = q;
+            ViewBag.Query = q; 
 
             AbsenceRecrodInfoModel info = ss.GetAbsenceRecrodInfo(q);
             ViewBag.Info = info;

@@ -18,7 +18,7 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public IQueryable<AbsenceRecrod> Search(AbsenceRecrodSearchModel searchModel)
         {
-            IQueryable<AbsenceRecrod> q = this.context.AbsenceRecrod;
+            IQueryable<AbsenceRecrod> q = this.context.AbsenceRecrods;
             if (!string.IsNullOrEmpty(searchModel.staffNr))
             {
                 q = q.Where(c => c.staffNr.Contains(searchModel.staffNr.Trim()));
