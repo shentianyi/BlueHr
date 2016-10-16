@@ -166,18 +166,18 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                ////存在员工时不可删除
-                //IAbsenceRecordService shfSi = new AbsenceRecordService(Settings.Default.db);
-                //List<AbsenceRecrod> shf = shfSi.FindByAbsenceType(id);
+                //审批后不可删除
+                IAbsenceRecordService shfSi = new AbsenceRecordService(Settings.Default.db);
+                AbsenceRecrod shf = shfSi.FindById(id);
 
-                //if (null != shf && shf.Count() > 0)
-                //{
-                //    msg.Success = false;
-                //    msg.Content = "缺勤类型正在使用,不能删除!";
+                if (null != shf && shf.AbsenceRecordApprovals.Count() > 0)
+                {
+                    msg.Success = false;
+                    msg.Content = "缺勤审批后不可删除!";
 
-                //    return Json(msg, JsonRequestBehavior.AllowGet);
-                //}
-                //else
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
                 {
                     IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
                     bool isSucceed = cs.DeleteById(id);
@@ -394,7 +394,7 @@ namespace BlueHrWeb.Controllers
                 msg.Success = isSucceed;
                 msg.Content = "审批成功！";
 
-                return Json(msg,JsonRequestBehavior.AllowGet);
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

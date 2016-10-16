@@ -167,18 +167,18 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                ////存在员工时不可删除
-                //IAbsenceRecordService shfSi = new AbsenceRecordService(Settings.Default.db);
-                //List<AbsenceRecrod> shf = shfSi.FindByAbsenceType(id);
+                //审批后不可删除
+                IExtraWorkRecordService shfSi = new ExtraWorkRecordService(Settings.Default.db);
+                ExtraWorkRecord shf = shfSi.FindById(id);
 
-                //if (null != shf && shf.Count() > 0)
-                //{
-                //    msg.Success = false;
-                //    msg.Content = "缺勤类型正在使用,不能删除!";
+                if (null != shf && shf.ExtraWorkRecordApprovals.Count() > 0)
+                {
+                    msg.Success = false;
+                    msg.Content = "加班审批后不可删除!";
 
-                //    return Json(msg, JsonRequestBehavior.AllowGet);
-                //}
-                //else
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
                 {
                     IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
                     bool isSucceed = cs.DeleteById(id);
@@ -357,6 +357,51 @@ namespace BlueHrWeb.Controllers
             //}
 
             return new ResultMessage() { Success = true, Content = "" };
+        }
+
+        [HttpPost]
+        public JsonResult ApprovalExtraWorkRecord(string extralRecordId, string approvalStatus, string approvalRemarks)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            try
+            {
+                //check user
+
+                if (Session["user"] == null)
+                {
+                    msg.Success = false;
+                    msg.Content = "用户未登录，请登录后重试！";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+
+                ExtraWorkRecordApproval extralApproval = new ExtraWorkRecordApproval();
+                extralApproval.extraWorkId = !string.IsNullOrEmpty(extralRecordId) ? int.Parse(extralRecordId) : -1;
+                extralApproval.approvalStatus = approvalStatus;
+                extralApproval.approvalTime = DateTime.Now;
+                extralApproval.remarks = approvalRemarks;
+
+                if (Session["user"] != null)
+                {
+                    User user = Session["user"] as User;
+                    extralApproval.userId = user.id;
+                }
+
+                IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
+                bool isSucceed = cs.ApprovalTheRecord(extralApproval);
+
+                msg.Success = isSucceed;
+                msg.Content = "审批成功！";
+
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                msg.Success = false;
+                msg.Content = ex.Message;
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

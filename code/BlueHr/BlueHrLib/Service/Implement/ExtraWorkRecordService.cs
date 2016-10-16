@@ -75,5 +75,10 @@ namespace BlueHrLib.Service.Implement
         {
             return new DataContext(this.DbString).Context.GetTable<ExtraWorkRecord>().Where(s => s.staffNr.Equals(staffNr) && s.otTime == date).FirstOrDefault();
         }
+
+        public bool ApprovalTheRecord(ExtraWorkRecordApproval extralApproval)
+        {
+            return rep.ApprovalTheRecord(extralApproval);
+        }
     }
 }

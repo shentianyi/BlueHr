@@ -97,5 +97,20 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             }
         }
+
+        //审批
+        public bool ApprovalTheRecord(ExtraWorkRecordApproval extralApproval)
+        {
+            try
+            {
+                this.context.GetTable<ExtraWorkRecordApproval>().InsertOnSubmit(extralApproval);
+                this.context.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
