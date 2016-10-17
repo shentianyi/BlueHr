@@ -270,18 +270,6 @@
       <Column Name="uuid" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.[User]" Member="User">
-    <Type Name="User">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="pwd" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="isLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="role" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="User_AbsenceRecordApproval" Member="AbsenceRecordApprovals" ThisKey="id" OtherKey="userId" Type="AbsenceRecordApproval" />
-      <Association Name="User_ExtraWorkRecordApproval" Member="ExtraWorkRecordApprovals" ThisKey="id" OtherKey="userId" Type="ExtraWorkRecordApproval" />
-    </Type>
-  </Table>
   <Table Name="dbo.ShiftScheduleView" Member="ShiftScheduleView">
     <Type Name="ShiftScheduleView">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -654,35 +642,6 @@
       <Association Name="CertificateType_Certificate" Member="CertificateType" ThisKey="certificateTypeId" OtherKey="id" Type="CertificateType" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.SysRole" Member="SysRoles">
-    <Type Name="SysRole">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="remarks" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SysRoleAuthorization" Member="SysRoleAuthorizations">
-    <Type Name="SysRoleAuthorization">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="roleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="authId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SysAuthorization" Member="SysAuthorizations">
-    <Type Name="SysAuthorization">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="authType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="remarks" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SysUserRole" Member="SysUserRoles">
-    <Type Name="SysUserRole">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="roleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.CertificateType" Member="CertificateTypes">
     <Type Name="CertificateType">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -743,6 +702,60 @@
       <Column Name="remarks" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
       <Association Name="ExtraWorkRecord_ExtraWorkRecordApproval" Member="ExtraWorkRecord" ThisKey="extraWorkId" OtherKey="id" Type="ExtraWorkRecord" IsForeignKey="true" />
       <Association Name="User_ExtraWorkRecordApproval" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="pwd" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="isLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="role" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_AbsenceRecordApproval" Member="AbsenceRecordApprovals" ThisKey="id" OtherKey="userId" Type="AbsenceRecordApproval" />
+      <Association Name="User_ExtraWorkRecordApproval" Member="ExtraWorkRecordApprovals" ThisKey="id" OtherKey="userId" Type="ExtraWorkRecordApproval" />
+      <Association Name="User_SysUserDataAuth" Member="SysUserDataAuths" ThisKey="id" OtherKey="userId" Type="SysUserDataAuth" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SysAuthorization" Member="SysAuthorizations">
+    <Type Name="SysAuthorization">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="controlName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="actionName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="parentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="funCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="isDelete" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="SysAuthorization_SysRoleAuthorization" Member="SysRoleAuthorizations" ThisKey="id" OtherKey="authId" Type="SysRoleAuthorization" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SysRole" Member="SysRoles">
+    <Type Name="SysRole">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="SysRole_SysRoleAuthorization" Member="SysRoleAuthorizations" ThisKey="id" OtherKey="roleId" Type="SysRoleAuthorization" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SysRoleAuthorization" Member="SysRoleAuthorizations">
+    <Type Name="SysRoleAuthorization">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="roleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="authId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="SysAuthorization_SysRoleAuthorization" Member="SysAuthorization" ThisKey="authId" OtherKey="id" Type="SysAuthorization" IsForeignKey="true" />
+      <Association Name="SysRole_SysRoleAuthorization" Member="SysRole" ThisKey="roleId" OtherKey="id" Type="SysRole" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SysUserDataAuth" Member="SysUserDataAuths">
+    <Type Name="SysUserDataAuth">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="cmpId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="departId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="User_SysUserDataAuth" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

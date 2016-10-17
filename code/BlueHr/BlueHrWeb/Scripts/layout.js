@@ -107,6 +107,10 @@ Layout.init = function () {
             $('.nav-shift').addClass('active');
             PageAction('#sysrole', '新建角色', '编辑角色', '角色详情', '创建', '更新', '删除');
             break;
+        case "SysAuthorization":
+            $('.nav-shift').addClass('active');
+            PageAction('#sysauthorization', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
+            break;
         case "TaskRound":
             $('.nav-taskround').addClass('active');
             break;

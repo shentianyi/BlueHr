@@ -21,17 +21,27 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             IQueryable<SysAuthorization> q = this.context.SysAuthorizations;
 
-            if (!string.IsNullOrEmpty(searchModel.AuthType))
+            if (!string.IsNullOrEmpty(searchModel.funCode))
             {
-                q = q.Where(c => c.authType.Contains(searchModel.AuthType.Trim()));
+                q = q.Where(c => c.funCode.Contains(searchModel.funCode.Trim()));
             }
 
             if (!string.IsNullOrEmpty(searchModel.Name))
             {
-                q = q.Where(c => c.name.Equals(searchModel.Name));
+                q = q.Where(c => c.name.Contains(searchModel.Name.Trim()));
             }
-            
-            return q.OrderByDescending(s => s.name);
+
+            if (!string.IsNullOrEmpty(searchModel.controlName))
+            {
+                q = q.Where(c => c.controlName.Contains(searchModel.controlName.Trim()));
+            }
+
+            if (!string.IsNullOrEmpty(searchModel.actionName))
+            {
+                q = q.Where(c => c.actionName.Contains(searchModel.actionName.Trim()));
+            }
+
+            return q.OrderBy(s => s.id);
         }
 
         public bool Create(SysAuthorization sysAuth)
@@ -73,7 +83,7 @@ namespace BlueHrLib.Data.Repository.Implement
             var dep = this.context.GetTable<SysAuthorization>().FirstOrDefault(c => c.id.Equals(sysAuth.id));
             if (dep != null)
             {
-                dep.authType = sysAuth.authType;
+                //dep.authType = sysAuth.authType;
                 dep.name = sysAuth.name;
                 dep.remarks = sysAuth.remarks; 
                 this.context.SubmitChanges();
