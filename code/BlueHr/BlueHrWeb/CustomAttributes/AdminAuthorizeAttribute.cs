@@ -14,7 +14,7 @@ namespace BlueHrWeb.CustomAttributes
         public void OnAuthorization(AuthorizationContext filterContext)
         {
             User user = System.Web.HttpContext.Current.Session["user"] as User;
-            if (user == null || user.role != (int)RoleType.Admin)
+            if (user == null /*|| user.role != (int)RoleType.Admin*/)
             {
                 System.Web.HttpContext.Current.Session["user"] = null;
                 filterContext.Result =

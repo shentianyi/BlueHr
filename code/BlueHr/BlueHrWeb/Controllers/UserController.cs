@@ -31,6 +31,41 @@ namespace BlueHrWeb.Controllers
 
             IPagedList<User> users = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
+            users.ToList().ForEach(p =>
+            {
+                ISysRoleService rSi = new SysRoleService(Settings.Default.db);
+                SysRole sRole = rSi.FindById(p.role ?? -1);
+
+                p.roleStr = sRole != null ? sRole.name : "";
+
+                //set 权限公司 AuthCompany 权限部门 AuthDepartment
+                ISysUserDataAuthService userDataSi = new SysUserDataAuthService(Settings.Default.db);
+                List<SysUserDataAuth> allDataAuth = userDataSi.GetAll();
+
+                List<string> cmpIds = new List<string>();
+                List<string> departMentIds = new List<string>();
+
+                string bindCmpIds = "";
+                string bindDepartIds = "";
+
+                allDataAuth.Where(m => m.userId.ToString() == p.id.ToString()).ToList().ForEach(k =>
+                {
+                    cmpIds.Add(k.cmpId.ToString());
+                    bindCmpIds += k.cmpId + ",";
+
+                    departMentIds.Add(k.departId.ToString());
+                    bindDepartIds += k.cmpId + "|" + k.departId.ToString() + ",";
+                });
+
+                ICompanyService cmpSi = new CompanyService(Settings.Default.db);
+
+                p.AuthCompany = cmpSi.FindByIds(cmpIds);
+
+                IDepartmentService depSi = new DepartmentService(Settings.Default.db);
+                p.AuthDepartment = depSi.FindByIds(departMentIds);
+            });
+
+            
 
             ViewBag.Query = q;
 
@@ -107,10 +142,16 @@ namespace BlueHrWeb.Controllers
             List<string> cmpIds = new List<string>();
             List<string> departMentIds = new List<string>();
 
+            string bindCmpIds = "";
+            string bindDepartIds = "";
+
             allDataAuth.Where(p => p.userId.ToString() == id.ToString()).ToList().ForEach(k =>
             {
                 cmpIds.Add(k.cmpId.ToString());
+                bindCmpIds += k.cmpId + ",";
+
                 departMentIds.Add(k.departId.ToString());
+                bindDepartIds += k.cmpId + "|" + k.departId.ToString() + ",";
             });
 
             ICompanyService cmpSi = new CompanyService(Settings.Default.db);
@@ -119,6 +160,9 @@ namespace BlueHrWeb.Controllers
 
             IDepartmentService depSi = new DepartmentService(Settings.Default.db);
             user.AuthDepartment = depSi.FindByIds(departMentIds);
+
+            ViewBag.TheCmpIds = bindCmpIds;
+            ViewBag.TheDepIds = bindDepartIds;
 
             return View(user);
         }
@@ -147,6 +191,7 @@ namespace BlueHrWeb.Controllers
                     string theRoleId = HttpContext.Request.Form["theRoleId"];
 
                     user.role = !string.IsNullOrEmpty(theRoleId) ? int.Parse(theRoleId) : -1;
+                    user.isLocked = false;
 
                     bool isSucceed = cs.Update(user);
 
@@ -305,10 +350,12 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            string authCmp = HttpContext.Request.Form["selCompanys"];
-            string authDep = HttpContext.Request.Form["selDeparts"];
+            string selCompanys = HttpContext.Request.Form["selCompanys"];
+            string selDeparts = HttpContext.Request.Form["selDeparts"];
             string theRoleId = HttpContext.Request.Form["theRoleId"];
-
+            string roleStr = HttpContext.Request.Form["roleStr"];
+            string authCompany = HttpContext.Request.Form["authCompany"];
+            string authDep = HttpContext.Request.Form["authDep"];
 
             //if (!model.role.HasValue)
             //{
@@ -318,25 +365,34 @@ namespace BlueHrWeb.Controllers
             //    return msg;
             //}
 
-            if(string.IsNullOrEmpty(authCmp))
+            if (string.IsNullOrEmpty(authCompany))
             {
-                msg.Success = false;
-                msg.Content = "公司权限不能为空";
-                return msg;
+                if (string.IsNullOrEmpty(selCompanys))
+                {
+                    msg.Success = false;
+                    msg.Content = "公司权限不能为空";
+                    return msg;
+                }
             }
 
             if (string.IsNullOrEmpty(authDep))
             {
-                msg.Success = false;
-                msg.Content = "部门权限不能为空";
-                return msg;
+                if (string.IsNullOrEmpty(selDeparts))
+                {
+                    msg.Success = false;
+                    msg.Content = "部门权限不能为空";
+                    return msg;
+                }
             }
 
-            if (string.IsNullOrEmpty(theRoleId))
+            if (string.IsNullOrEmpty(roleStr))
             {
-                msg.Success = false;
-                msg.Content = "角色不能为空";
-                return msg;
+                if (string.IsNullOrEmpty(theRoleId))
+                {
+                    msg.Success = false;
+                    msg.Content = "角色不能为空";
+                    return msg;
+                }
             }
 
             IUserService cs = new UserService(Settings.Default.db);
