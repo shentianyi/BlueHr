@@ -11,8 +11,8 @@ using System.Text;
 
 namespace BlueHrLib.Service.Implement
 {
-   
-   public class SysRoleAuthorizationService : ServiceBase, ISysRoleAuthorizationService
+
+    public class SysRoleAuthorizationService : ServiceBase, ISysRoleAuthorizationService
     {
         private ISysRoleAuthorizationRepository rep;
 
@@ -21,9 +21,9 @@ namespace BlueHrLib.Service.Implement
             rep = new SysRoleAuthorizationRepository(this.Context);
         }
 
-        public IQueryable<SysRoleAuthorization> Search(SysRoleAuthorizationSearchModel searchModel)
+        public IQueryable<SysAuthorization> SearchByRoleAndAuth(SysRoleAuthorizationSearchModel searchModel)
         {
-            return rep.Search(searchModel);
+            return rep.SearchByRoleAndAuth(searchModel);
         }
 
         public bool Create(SysRoleAuthorization model)
@@ -46,14 +46,14 @@ namespace BlueHrLib.Service.Implement
             return rep.Update(model);
         }
 
-        public SysRoleAuthorizationInfoModel GetSysRoleAuthorizationInfo(SysRoleAuthorizationSearchModel searchModel)
+        public SysAuthorizationInfoModel GetSysAuthorizationInfo(SysRoleAuthorizationSearchModel searchModel)
         {
-            SysRoleAuthorizationInfoModel info = new SysRoleAuthorizationInfoModel();
+            SysAuthorizationInfoModel info = new SysAuthorizationInfoModel();
             DataContext dc = new DataContext(this.DbString);
             ISysRoleAuthorizationRepository rep = new SysRoleAuthorizationRepository(dc);
-            IQueryable<SysRoleAuthorization> results = rep.Search(searchModel);
+            IQueryable<SysAuthorization> results = rep.SearchByRoleAndAuth(searchModel);
 
-            info.sysRoleAuthorizationInfoCount = dc.Context.GetTable<SysRoleAuthorization>().Where(c => c.id.Equals(results.Count() > 0 ? results.First().id : -1)).Count();
+            info.SysAuthorizationCount = dc.Context.GetTable<SysAuthorization>().Where(c => c.id.Equals(results.Count() > 0 ? results.First().id : -1)).Count();
 
             return info;
         }
@@ -69,6 +69,11 @@ namespace BlueHrLib.Service.Implement
         public List<SysRoleAuthorization> GetAll()
         {
             return rep.GetAll();
+        }
+
+        public List<SysRoleAuthorization> GetSysRoleAuthListByRoleName(string roleName)
+        {
+            return rep.GetSysRoleAuthListByRoleName(roleName);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace BlueHrLib.Data.Repository.Interface
     
     interface ISysRoleAuthorizationRepository
     {
-        IQueryable<SysRoleAuthorization> Search(SysRoleAuthorizationSearchModel searchModel);
+        IQueryable<SysAuthorization> SearchByRoleAndAuth(SysRoleAuthorizationSearchModel searchModel);
 
         bool Create(SysRoleAuthorization roleAuth);
 
@@ -22,5 +22,7 @@ namespace BlueHrLib.Data.Repository.Interface
         //List<AbsenceRecrod> FindByAbsenceType(int id);
 
         List<SysRoleAuthorization> GetAll();
+
+        List<SysRoleAuthorization> GetSysRoleAuthListByRoleName(string roleName);
     }
 }

@@ -11,7 +11,7 @@ namespace BlueHrLib.Service.Interface
 
     public interface ISysRoleAuthorizationService
     {
-        IQueryable<SysRoleAuthorization> Search(SysRoleAuthorizationSearchModel searchModel);
+        IQueryable<SysAuthorization> SearchByRoleAndAuth(SysRoleAuthorizationSearchModel searchModel);
 
         SysRoleAuthorization FindById(int id);
 
@@ -21,12 +21,13 @@ namespace BlueHrLib.Service.Interface
 
         bool DeleteById(int id);
 
-        SysRoleAuthorizationInfoModel GetSysRoleAuthorizationInfo(SysRoleAuthorizationSearchModel searchModel);
-
+        SysAuthorizationInfoModel GetSysAuthorizationInfo(SysRoleAuthorizationSearchModel searchModel);
 
         bool Creates(List<SysRoleAuthorization> records);
 
         List<SysRoleAuthorization> GetAll();
+
+        List<SysRoleAuthorization> GetSysRoleAuthListByRoleName(string roleName);
 
     }
 }

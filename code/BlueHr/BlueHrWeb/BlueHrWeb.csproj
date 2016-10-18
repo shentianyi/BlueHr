@@ -254,6 +254,7 @@
     <Compile Include="Controllers\ExtraWorkRecordController.cs" />
     <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
+    <Compile Include="Controllers\SysRoleAuthorizationController.cs" />
     <Compile Include="Controllers\SysRoleController.cs" />
     <Compile Include="Controllers\SysAuthorizationController.cs" />
     <Compile Include="Controllers\WorkAndRestsController.cs" />
@@ -566,6 +567,11 @@
     <Content Include="Views\SysAuthorization\Create.cshtml" />
     <Content Include="Views\SysAuthorization\Delete.cshtml" />
     <Content Include="Views\SysRole\Edit.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\Index.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\Create.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\Edit.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\Delete.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\_PartialSysRoleAuthorization.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

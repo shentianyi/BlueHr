@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 
 namespace BlueHrLib.Data.Repository.Implement
-{ 
+{
     public class SysRoleAuthorizationRepository : RepositoryBase<SysRoleAuthorization>, ISysRoleAuthorizationRepository
     {
         private BlueHrDataContext context;
@@ -16,14 +16,22 @@ namespace BlueHrLib.Data.Repository.Implement
             this.context = dataContextFactory.Context as BlueHrDataContext;
         }
 
-        public IQueryable<SysRoleAuthorization> Search(SysRoleAuthorizationSearchModel searchModel)
+        //根据角色名或权限名获取权限列表
+        public IQueryable<SysAuthorization> SearchByRoleAndAuth(SysRoleAuthorizationSearchModel searchModel)
         {
-            IQueryable<SysRoleAuthorization> q = this.context.SysRoleAuthorizations;
+            IQueryable<SysAuthorization> q = this.context.SysAuthorizations;
+
+            if (!string.IsNullOrEmpty(searchModel.AuthName))
+            {
+                q = q.Where(c => c.funCode.Contains(searchModel.AuthName.Trim()));
+            }
+
+
             //if (!string.IsNullOrEmpty(searchModel.Name))
             //{
             //    q = q.Where(c => c.staffNr.Contains(searchModel.staffNr.Trim()));
             //}
-            
+
             return q.OrderByDescending(s => s.id);
         }
 
@@ -68,7 +76,7 @@ namespace BlueHrLib.Data.Repository.Implement
             if (dep != null)
             {
                 dep.authId = absRecord.authId;
-                dep.roleId = absRecord.roleId; 
+                dep.roleId = absRecord.roleId;
                 this.context.SubmitChanges();
                 return true;
             }
@@ -86,6 +94,11 @@ namespace BlueHrLib.Data.Repository.Implement
         public List<SysRoleAuthorization> GetAll()
         {
             return this.context.GetTable<SysRoleAuthorization>().ToList();
+        }
+
+        public List<SysRoleAuthorization> GetSysRoleAuthListByRoleName(string roleName)
+        {
+            return this.context.GetTable<SysRoleAuthorization>().ToList().Where(p => p.roleId.ToString() == roleName).ToList();
         }
     }
 }
