@@ -141,7 +141,39 @@ namespace BlueHrWeb.Controllers
                 else
                 {
                     IUserService cs = new UserService(Settings.Default.db);
+
+                    string authCmp = HttpContext.Request.Form["selCompanys"];
+                    string authDep = HttpContext.Request.Form["selDeparts"];
+                    string theRoleId = HttpContext.Request.Form["theRoleId"];
+
+                    user.role = !string.IsNullOrEmpty(theRoleId) ? int.Parse(theRoleId) : -1;
+
                     bool isSucceed = cs.Update(user);
+
+                    //add auth company and department
+
+                    ISysUserDataAuthService si = new SysUserDataAuthService(Settings.Default.db);
+
+                    List<SysUserDataAuth> userDataAuth = new List<SysUserDataAuth>();
+                    authCmp.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
+                    {
+                        authDep.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(k =>
+                        {
+                            string[] tp2 = k.Split('|');
+
+                            if (tp2[0] == p)
+                            {
+                                SysUserDataAuth tmp = new SysUserDataAuth();
+                                tmp.cmpId = int.Parse(p);
+                                tmp.userId = user.id;
+                                tmp.departId = int.Parse(tp2[1].ToString());
+
+                                userDataAuth.Add(tmp);
+                            }
+                        });
+                    });
+
+                    si.Creates(userDataAuth);
 
                     msg.Success = isSucceed;
                     msg.Content = isSucceed ? "" : "添加失败";
@@ -273,11 +305,37 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            if (!model.role.HasValue)
+            string authCmp = HttpContext.Request.Form["selCompanys"];
+            string authDep = HttpContext.Request.Form["selDeparts"];
+            string theRoleId = HttpContext.Request.Form["theRoleId"];
+
+
+            //if (!model.role.HasValue)
+            //{
+            //    msg.Success = false;
+            //    msg.Content = "角色不能为空";
+
+            //    return msg;
+            //}
+
+            if(string.IsNullOrEmpty(authCmp))
+            {
+                msg.Success = false;
+                msg.Content = "公司权限不能为空";
+                return msg;
+            }
+
+            if (string.IsNullOrEmpty(authDep))
+            {
+                msg.Success = false;
+                msg.Content = "部门权限不能为空";
+                return msg;
+            }
+
+            if (string.IsNullOrEmpty(theRoleId))
             {
                 msg.Success = false;
                 msg.Content = "角色不能为空";
-
                 return msg;
             }
 
