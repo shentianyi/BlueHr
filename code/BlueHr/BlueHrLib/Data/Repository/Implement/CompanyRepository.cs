@@ -30,19 +30,20 @@ namespace BlueHrLib.Data.Repository.Implement
 
                 return false;
             }
-            
+
         }
 
         public bool DeleteById(int id)
         {
             Company cp = this.context.GetTable<Company>().FirstOrDefault(c => c.id.Equals(id));
 
-            if(cp != null)
+            if (cp != null)
             {
                 this.context.GetTable<Company>().DeleteOnSubmit(cp);
                 this.context.SubmitChanges();
                 return true;
-            }else
+            }
+            else
             {
                 return false;
             }
@@ -52,6 +53,20 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             Company cp = this.context.GetTable<Company>().FirstOrDefault(c => c.id.Equals(id));
             return cp;
+        }
+
+        //根据公司ID列表获取所有公司名
+        public string FindByIds(List<string> ids)
+        {
+            string cmpNames = "";
+
+            List<Company> cp = this.context.GetTable<Company>().Where(p => ids.Contains(p.id.ToString())).ToList();
+            cp.ForEach(p =>
+            {
+                cmpNames += p.name + ",";
+            });
+
+            return cmpNames;
         }
 
         public Company FindByName(string name)
@@ -90,7 +105,8 @@ namespace BlueHrLib.Data.Repository.Implement
 
                     return false;
                 }
-            }else
+            }
+            else
             {
                 return false;
             }

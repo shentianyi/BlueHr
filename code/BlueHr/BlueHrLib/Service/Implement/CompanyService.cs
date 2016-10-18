@@ -48,5 +48,10 @@ namespace BlueHrLib.Service.Implement
         {
             return companyRep.Update(company);
         }
+
+        public string FindByIds(List<string> ids)
+        {
+            return companyRep.FindByIds(ids);
+        }
     }
 }

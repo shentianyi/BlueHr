@@ -30,5 +30,7 @@ namespace BlueHrLib.Service.Interface
         bool Update(Company company);
 
         bool DeleteById(int id);
+
+        string FindByIds(List<string> ids);
     }
 }

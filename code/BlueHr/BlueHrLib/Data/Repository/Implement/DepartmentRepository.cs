@@ -61,6 +61,18 @@ namespace BlueHrLib.Data.Repository.Implement
             return this.context.GetTable<Department>().FirstOrDefault(c => c.id.Equals(id));
         }
 
+        public string FindByIds(List<string> ids)
+        {
+            List<Department> deps = this.context.GetTable<Department>().Where(p => ids.Contains(p.id.ToString())).ToList();
+            string depsNames = "";
+            deps.ForEach(p =>
+            {
+                depsNames += p.name + ",";
+            });
+
+            return depsNames;
+        }
+
         public Department FindByIdWithCompanyId(int? companyId, string departmentName)
         {
             //如果没有companyID， 那么查找表中第一个匹配的职位名称 的 职位ID
@@ -68,7 +80,8 @@ namespace BlueHrLib.Data.Repository.Implement
             if (companyId.HasValue)
             {
                 return this.context.GetTable<Department>().Where(m => m.companyId.Equals(companyId)).FirstOrDefault(c => c.name.Equals(departmentName.Trim()));
-            }else
+            }
+            else
             {
                 return this.context.GetTable<Department>().FirstOrDefault(c => c.name.Equals(departmentName.Trim()));
             }

@@ -31,7 +31,8 @@ namespace BlueHrWeb.Controllers
 
             IPagedList<User> users = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
-            ViewBag.Query = q; 
+
+            ViewBag.Query = q;
 
             return View(users);
         }
@@ -84,12 +85,41 @@ namespace BlueHrWeb.Controllers
 
         [AdminAuthorize]
         // GET: User/Edit/5
-        public ActionResult   Edit(int id)
+        public ActionResult Edit(int id)
         {
             IUserService cs = new UserService(Settings.Default.db);
 
             User user = cs.FindById(id);
-            SetRoleList(user.role);
+            //SetRoleList(user.role);
+
+            ISysRoleService rSi = new SysRoleService(Settings.Default.db);
+            SysRole sRole = rSi.FindById(user.role ?? -1);
+
+            user.roleStr = sRole != null ? sRole.name : "";
+
+            SetSysRoleList(false);
+            SetCmpList(false);
+
+            //set 权限公司 AuthCompany 权限部门 AuthDepartment
+            ISysUserDataAuthService userDataSi = new SysUserDataAuthService(Settings.Default.db);
+            List<SysUserDataAuth> allDataAuth = userDataSi.GetAll();
+
+            List<string> cmpIds = new List<string>();
+            List<string> departMentIds = new List<string>();
+
+            allDataAuth.Where(p => p.userId.ToString() == id.ToString()).ToList().ForEach(k =>
+            {
+                cmpIds.Add(k.cmpId.ToString());
+                departMentIds.Add(k.departId.ToString());
+            });
+
+            ICompanyService cmpSi = new CompanyService(Settings.Default.db);
+
+            user.AuthCompany = cmpSi.FindByIds(cmpIds);
+
+            IDepartmentService depSi = new DepartmentService(Settings.Default.db);
+            user.AuthDepartment = depSi.FindByIds(departMentIds);
+
             return View(user);
         }
 
@@ -144,15 +174,15 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                 
-                    IUserService cs = new UserService(Settings.Default.db);
-                    bool isSucceed = cs.DeleteById(id);
 
-                    msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "删除失败";
+                IUserService cs = new UserService(Settings.Default.db);
+                bool isSucceed = cs.DeleteById(id);
 
-                    return Json(msg, JsonRequestBehavior.AllowGet);
-               
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "" : "删除失败";
+
+                return Json(msg, JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception ex)
             {
@@ -172,7 +202,7 @@ namespace BlueHrWeb.Controllers
             {
 
                 IUserService cs = new UserService(Settings.Default.db);
-                bool isSucceed = cs.LockUnLock (id);
+                bool isSucceed = cs.LockUnLock(id);
 
                 msg.Success = isSucceed;
                 msg.Content = isSucceed ? "" : "操作失败";
@@ -253,16 +283,240 @@ namespace BlueHrWeb.Controllers
 
             IUserService cs = new UserService(Settings.Default.db);
 
-            if (cs.FindByEmail(model.email)!=null && model.id<=0)
+            if (cs.FindByEmail(model.email) != null && model.id <= 0)
             {
                 msg.Success = false;
                 msg.Content = "邮箱已存在不可重复添加";
 
                 return msg;
             }
- 
+
 
             return new ResultMessage() { Success = true, Content = "" };
         }
+
+        private void SetSysRoleList(bool allowBlank = false)
+        {
+            //ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
+            ISysRoleService cs = new SysRoleService(Settings.Default.db);
+
+            SysRoleSearchModel csm = new SysRoleSearchModel();
+
+            List<SysRole> sysRoleList = cs.Search(csm).ToList();
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            //select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = false });
+
+            foreach (var sysRole in sysRoleList)
+            {
+                select.Add(new SelectListItem { Text = sysRole.name, Value = sysRole.id.ToString() });
+            }
+
+            ViewData["SysRoleList"] = select;
+        }
+
+        private void SetCmpList(bool allowBlank = false)
+        {
+            //ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
+            ICompanyService cs = new CompanyService(Settings.Default.db);
+
+            CompanySearchModel csm = new CompanySearchModel();
+
+            List<Company> sysRoleList = cs.Search(csm).ToList();
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            //select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = false });
+
+            foreach (var sysRole in sysRoleList)
+            {
+                select.Add(new SelectListItem { Text = sysRole.name, Value = sysRole.id.ToString() });
+            }
+
+            ViewData["CompanyList"] = select;
+        }
+
+        [HttpPost]
+        public JsonResult AsignRole(string userId, string roleId)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            try
+            {
+                //check user
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    msg.Success = false;
+                    msg.Content = "用户错误！";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+
+                if (string.IsNullOrEmpty(roleId))
+                {
+                    msg.Success = false;
+                    msg.Content = "请选择角色！";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+
+                //AbsenceRecordApproval absApproval = new AbsenceRecordApproval();
+                //absApproval.absRecordId = !string.IsNullOrEmpty(absRecordId) ? int.Parse(absRecordId) : -1;
+                //absApproval.approvalStatus = approvalStatus;
+                //absApproval.approvalTime = DateTime.Now;
+                //absApproval.remarks = approvalRemarks;
+
+                //if (Session["user"] != null)
+                //{
+                //    User user = Session["user"] as User;
+                //    absApproval.userId = user.id;
+                //}
+
+                //IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
+                //bool isSucceed = cs.ApprovalTheRecord(absApproval);
+
+                //msg.Success = isSucceed;
+                //msg.Content = "审批成功！";
+
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                msg.Success = false;
+                msg.Content = ex.Message;
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetCompanys()
+        {
+            ICompanyService cs = new CompanyService(Settings.Default.db);
+
+            CompanySearchModel csm = new CompanySearchModel();
+
+            List<Company> cmps = cs.Search(csm).ToList();
+
+            List<DepartTree> dpTrees = new List<DepartTree>();
+
+            cmps.ForEach(p =>
+            {
+                DepartTree itm = new DepartTree();
+                itm.id = p.id.ToString();
+                itm.text = p.name;
+
+                dpTrees.Add(itm);
+            });
+
+            return Json(dpTrees, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetDepartmentsByCompany(string companyId)
+        {
+            //ResultMessage msg = new ResultMessage();
+
+            try
+            {
+                IDepartmentService depSi = new DepartmentService(Settings.Default.db);
+
+                List<Department> deps = depSi.FindByCompanyId(int.Parse(companyId)).ToList();
+
+                List<DepartTree> dpTrees = new List<DepartTree>();
+
+                //get all parents
+                deps.Where(p => string.IsNullOrEmpty(p.parentId.ToString())).ToList().ForEach(k =>
+                {
+                    DepartTree item = new DepartTree();
+                    item.text = k.name;
+                    item.id = k.id.ToString();
+
+                    dpTrees.Add(item);
+                });
+
+                //get all childs 5 circle
+                dpTrees.ForEach(p =>
+                {
+                    List<DepItem> allList = new List<DepItem>();
+
+                    deps.Where(k => k.parentId.ToString() == p.id).ToList().ForEach(m =>
+                    {
+                        DepItem im = new DepItem();
+                        im.text = m.name;
+                        im.id = m.id.ToString();
+
+                        allList.Add(im);
+                    });
+
+                    p.nodes = allList;
+                });
+
+
+
+                if (dpTrees.Count > 0)
+                {
+                    return Json(dpTrees, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("empty_result", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                //msg.Success = false;
+                //msg.Content = ex.Message;
+                return Json("empty_result", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public class DepItem
+        {
+            public string text { get; set; }
+            public string id { get; set; }
+        }
+
+        public class DepartTree
+        {
+            //          {
+            //  text: "Parent 1",
+            //  nodes: [
+            //    {
+            //      text: "Child 1",
+            //      nodes: [
+            //        {
+            //          text: "Grandchild 1"
+            //        },
+            //        {
+            //          text: "Grandchild 2"
+            //        }
+            //      ]
+            //    },
+            //    {
+            //      text: "Child 2"
+            //    }
+            //  ]
+            //},
+            //{
+            //  text: "Parent 2"
+            //},
+
+            public string text { get; set; }
+            public string id { get; set; }
+            public List<DepItem> nodes { get; set; }
+        }
     }
+
 }

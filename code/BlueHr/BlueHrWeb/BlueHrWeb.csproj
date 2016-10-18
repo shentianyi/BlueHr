@@ -328,6 +328,8 @@
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\AdminLTE.js" />
+    <Content Include="Scripts\bootstrap-treeview-1.2.0\bootstrap-treeview.css" />
+    <Content Include="Scripts\bootstrap-treeview-1.2.0\bootstrap-treeview.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
