@@ -272,6 +272,7 @@
     <Compile Include="Controllers\SystemSettingController.cs" />
     <Compile Include="Controllers\TaskRoundController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="CustomAttributes\RoleAndDataAuthorizationAttribute.cs" />
     <Compile Include="CustomAttributes\UserAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
