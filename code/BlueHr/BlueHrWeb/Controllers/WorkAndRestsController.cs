@@ -59,6 +59,7 @@ namespace BlueHrWeb.Controllers
             return View("Index", workAndRests);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Import()
         {
             var ff = Request.Files[0];

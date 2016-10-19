@@ -1,0 +1,126 @@
+USE [BlueHr]
+GO
+ 
+ 
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'角色列表', N'SysRole', N'Index', NULL, N'权限管理', 0, N'[Index 页面]角色管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'角色创建', N'SysRole', N'Create', NULL, N'权限管理', 0, N'[Create 请求]角色管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'角色编辑', N'SysRole', N'Edit', NULL, N'权限管理', 0, N'[Edit 请求]角色管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'角色删除', N'SysRole', N'Delete', NULL, N'权限管理', 0, N'[Delete 请求]角色管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'权限列表', N'SystemAuthorization', N'Index', NULL, N'权限管理', 0, N'[Index 页面]权限管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'权限创建', N'SystemAuthorization', N'Create', NULL, N'权限管理', 0, N'[Create 请求]权限管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'权限编辑', N'SystemAuthorization', N'Edit', NULL, N'权限管理', 0, N'[Edit 请求]权限管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'权限删除', N'SystemAuthorization', N'Delete', NULL, N'权限管理', 0, N'[Delete 请求]权限管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'角色权限列表', N'SysRoleAuthorization', N'Index', NULL, N'权限管理', 0, N'[Index 页面]角色权限')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'角色权限创建', N'SysRoleAuthorization', N'Create', NULL, N'权限管理', 0, N'[Create 请求]角色权限')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'角色权限编辑', N'SysRoleAuthorization', N'Edit', NULL, N'权限管理', 0, N'[Edit 请求]角色权限')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'角色权限删除', N'SysRoleAuthorization', N'Delete', NULL, N'权限管理', 0, N'[Delete 请求]角色权限')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'用户列表', N'User', N'Index', NULL, N'用户管理', 0, N'[Index 页面]用户管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'用户创建', N'User', N'Create', NULL, N'用户管理', 0, N'[Create 请求]用户管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'用户编辑', N'User', N'Edit', NULL, N'用户管理', 0, N'[Edit 请求]用户管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'用户删除', N'User', N'Delete', NULL, N'用户管理', 0, N'[Delete 请求]用户管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'职位列表', N'JobTitle', N'Index', NULL, N'基础信息', 0, N'[Index 页面]职位管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'职位添加', N'JobTitle', N'Create', NULL, N'基础信息', 0, N'[Create 请求]职位管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'职位编辑', N'JobTitle', N'Edit', NULL, N'基础信息', 0, N'[Edit 请求]职位管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'职位删除', N'JobTitle', N'Delete', NULL, N'基础信息', 0, N'[Delete 请求]职位管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'人员类型列表', N'StaffType', N'Index', NULL, N'基础信息', 0, N'[Index 页面]人员类型管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'人员类型添加', N'StaffType', N'Create', NULL, N'基础信息', 0, N'[Create 请求]人员类型管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'人员类型编辑', N'StaffType', N'Edit', NULL, N'基础信息', 0, N'[Edit 请求]人员类型管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'人员类型删除', N'StaffType', N'Delete', NULL, N'基础信息', 0, N'[Delete 请求]人员类型管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'证照类型列表', N'CertificateType', N'Index', NULL, N'基础信息', 0, N'[Index 页面]证照类型管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'证照类型添加', N'CertificateType', N'Create', NULL, N'基础信息', 0, N'[Create 请求]证照类型管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'证照类型编辑', N'CertificateType', N'Edit', NULL, N'基础信息', 0, N'[Edit 请求]证照类型管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'证照类型删除', N'CertificateType', N'Delete', NULL, N'基础信息', 0, N'[Delete 请求]证照类型管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'学历列表', N'DegreeType', N'Index', NULL, N'基础信息', 0, N'[Index 页面]学历管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'学历添加', N'DegreeType', N'Create', NULL, N'基础信息', 0, N'[Create 请求]学历管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'学历编辑', N'DegreeType', N'Edit', NULL, N'基础信息', 0, N'[Edit 请求]学历管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'学历删除', N'DegreeType', N'Delete', NULL, N'基础信息', 0, N'[Delete 请求]学历管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'保险列表', N'InSureType', N'Index', NULL, N'基础信息', 0, N'[Index 页面]保险管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'保险添加', N'InSureType', N'Create', NULL, N'基础信息', 0, N'[Create 请求]保险管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'保险编辑', N'InSureType', N'Edit', NULL, N'基础信息', 0, N'[Edit 请求]保险管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'保险删除', N'InSureType', N'Delete', NULL, N'基础信息', 0, N'[Delete 请求]保险管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'离职类型列表', N'ResignType', N'Index', NULL, N'基础信息', 0, N'[Index 页面]离职类型管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'离职类型添加', N'ResignType', N'Create', NULL, N'基础信息', 0, N'[Create 请求]离职类型管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'离职类型编辑', N'ResignType', N'Edit', NULL, N'基础信息', 0, N'[Edit 请求]离职类型管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'离职类型删除', N'ResignType', N'Delete', NULL, N'基础信息', 0, N'[Delete 请求]离职类型管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'缺勤类型列表', N'AbsenceType', N'Index', NULL, N'基础信息', 0, N'[Index 页面]缺勤类型管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'缺勤类型添加', N'AbsenceType', N'Create', NULL, N'基础信息', 0, N'[Create 请求]缺勤类型管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'缺勤类型编辑', N'AbsenceType', N'Edit', NULL, N'基础信息', 0, N'[Edit 请求]缺勤类型管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'缺勤类型删除', N'AbsenceType', N'Delete', NULL, N'基础信息', 0, N'[Delete 请求]缺勤类型管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'加班类型列表', N'ExtraWorkType', N'Index', NULL, N'基础信息', 0, N'[Index 页面]加班类型管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'作息表列表', N'WorkAndRests', N'Index', NULL, N'基础信息', 0, N'[Index 页面]作息表管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'作息表添加', N'WorkAndRests', N'Create', NULL, N'基础信息', 0, N'[Create 请求]作息表管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'作息表编辑', N'WorkAndRests', N'Edit', NULL, N'基础信息', 0, N'[Edit 请求]作息表管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'作息表删除', N'WorkAndRests', N'Delete', NULL, N'基础信息', 0, N'[Delete 请求]作息表管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'作息表导入', N'WorkAndRests', N'Import', NULL, N'基础信息', 0, N'[Import 请求]作息表管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'公司列表', N'Company', N'Index', NULL, N'公司管理', 0, N'[Index 页面]公司管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'公司添加', N'Company', N'Create', NULL, N'公司管理', 0, N'[Create 请求]公司管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'公司编辑', N'Company', N'Edit', NULL, N'公司管理', 0, N'[Edit 请求]公司管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'公司删除', N'Company', N'Delete', NULL, N'公司管理', 0, N'[Delete 请求]公司管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'部门列表', N'Department', N'Index', NULL, N'部门管理', 0, N'[Index 页面]部门管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'部门添加', N'Department', N'Create', NULL, N'部门管理', 0, N'[Create 请求]部门管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'部门编辑', N'Department', N'Edit', NULL, N'部门管理', 0, N'[Edit 请求]部门管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'部门删除', N'Department', N'Delete', NULL, N'部门管理', 0, N'[Delete 请求]部门管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'部门导入', N'Department', N'Import', NULL, N'部门管理', 0, N'[Import 请求]部门管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'员工列表', N'Staff', N'Index', NULL, N'基础信息', 0, N'[Index 页面]员工管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'员工添加', N'Staff', N'Create', NULL, N'基础信息', 0, N'[Create 请求]员工管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'员工编辑', N'Staff', N'Edit', NULL, N'基础信息', 0, N'[Edit 请求]员工管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'员工删除', N'Staff', N'Delete', NULL, N'基础信息', 0, N'[Delete 请求]员工管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'班次列表', N'Shift', N'Index', NULL, N'排班管理', 0, N'[Index 页面]班次管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'班次添加', N'Shift', N'Create', NULL, N'排班管理', 0, N'[Create 请求]班次管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'班次编辑', N'Shift', N'Edit', NULL, N'排班管理', 0, N'[Edit 请求]班次管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'班次删除', N'Shift', N'Delete', NULL, N'排班管理', 0, N'[Delete 请求]班次管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'排班列表', N'ShiftSchedule', N'Index', NULL, N'排班管理', 0, N'[Index 页面]排班管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'排班添加', N'ShiftSchedule', N'Create', NULL, N'排班管理', 0, N'[Create 请求]排班管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'排班编辑', N'ShiftSchedule', N'Edit', NULL, N'排班管理', 0, N'[Edit 请求]排班管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'排班删除', N'ShiftSchedule', N'Delete', NULL, N'排班管理', 0, N'[Delete 请求]排班管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'详细记录列表', N'AttendanceRecordDetail', N'Index', NULL, N'考勤管理', 0, N'[Index 页面]详细记录管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'详细记录添加', N'AttendanceRecordDetail', N'Create', NULL, N'考勤管理', 0, N'[Create 请求]详细记录管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'详细记录编辑', N'AttendanceRecordDetail', N'Edit', NULL, N'考勤管理', 0, N'[Edit 请求]详细记录管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'详细记录删除', N'AttendanceRecordDetail', N'Delete', NULL, N'考勤管理', 0, N'[Delete 请求]详细记录管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'统计记录列表', N'AttendanceRecordCal', N'Index', NULL, N'考勤管理', 0, N'[Index 页面]统计记录管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'统计记录添加', N'AttendanceRecordCal', N'Create', NULL, N'考勤管理', 0, N'[Create 请求]统计记录管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'统计记录编辑', N'AttendanceRecordCal', N'Edit', NULL, N'考勤管理', 0, N'[Edit 请求]统计记录管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'统计记录删除', N'AttendanceRecordCal', N'Delete', NULL, N'考勤管理', 0, N'[Delete 请求]统计记录管理')
+
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'异常统计列表', N'AttendanceRecordCal', N'ExceptionList', NULL, N'考勤管理', 0, N'[Index 页面]异常统计管理')
+ 
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'缺勤列表', N'AbsenceRecrod', N'Index', NULL, N'缺勤管理', 0, N'[Index 页面]缺勤管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'缺勤添加', N'AbsenceRecrod', N'Create', NULL, N'缺勤管理', 0, N'[Create 请求]缺勤管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'缺勤编辑', N'AbsenceRecrod', N'Edit', NULL, N'缺勤管理', 0, N'[Edit 请求]缺勤管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'缺勤删除', N'AbsenceRecrod', N'Delete', NULL, N'缺勤管理', 0, N'[Delete 请求]缺勤管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'加班列表', N'ExtraWorkRecord', N'Index', NULL, N'加班管理', 0, N'[Index 页面]加班管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'加班添加', N'ExtraWorkRecord', N'Create', NULL, N'加班管理', 0, N'[Create 请求]加班管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'加班编辑', N'ExtraWorkRecord', N'Edit', NULL, N'加班管理', 0, N'[Edit 请求]加班管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'加班删除', N'ExtraWorkRecord', N'Delete', NULL, N'加班管理', 0, N'[Delete 请求]加班管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'系统任务列表', N'TaskRound', N'Index', NULL, N'系统任务管理', 0, N'[Index 页面]系统任务管理') 
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'考勤计算设置列表', N'QuartzJob', N'Index', NULL, N'系统设置', 0, N'[Index 页面]考勤计算设置管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'考勤计算设置添加', N'QuartzJob', N'Create', NULL, N'系统设置', 0, N'[Create 请求]考勤计算设置管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'考勤计算设置编辑', N'QuartzJob', N'Edit', NULL, N'系统设置', 0, N'[Edit 请求]考勤计算设置管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'考勤计算设置删除', N'QuartzJob', N'Delete', NULL, N'系统设置', 0, N'[Delete 请求]考勤计算设置管理')
+
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'系统信息设置列表', N'SystemSetting', N'Index', NULL, N'系统设置', 0, N'[Index 页面]系统信息设置管理') 
+
+ 
