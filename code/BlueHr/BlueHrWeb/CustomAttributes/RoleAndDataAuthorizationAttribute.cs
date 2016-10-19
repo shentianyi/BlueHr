@@ -68,11 +68,15 @@ namespace BlueHrWeb.CustomAttributes
                         dataActions.Add(authAction.ToLower());
                     }
 
-                    //更新页面跳转回index页面 只有controllerName 拼接/index
+                    //更新页面跳转回index页面 只有controllerName 拼接/index 
+                    //fix 分页没权限
 
-                    if ("/" + p.controlName.ToLower() == theRequestUrl)
+                    if ("/" + p.controlName.ToLower() == theRequestUrl )
                     {
+                        string tmp = "/" + p.controlName.ToLower(); 
+
                         theRequestUrl += "/index";
+                        //theRequestUrl +=;
                     }
                 });
 
