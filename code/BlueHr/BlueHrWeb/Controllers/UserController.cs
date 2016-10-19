@@ -20,6 +20,7 @@ namespace BlueHrWeb.Controllers
     public class UserController : Controller
     {
         // GET: User
+        //
         [AdminAuthorize]
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
