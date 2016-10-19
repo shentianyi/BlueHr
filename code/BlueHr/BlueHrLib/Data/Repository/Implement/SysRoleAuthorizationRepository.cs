@@ -23,7 +23,7 @@ namespace BlueHrLib.Data.Repository.Implement
 
             if (!string.IsNullOrEmpty(searchModel.AuthName))
             {
-                q = q.Where(c => c.funCode.Contains(searchModel.AuthName.Trim()));
+                q = q.Where(c => c.funCode.IndexOf(searchModel.AuthName.Trim()) != -1);
             }
 
 

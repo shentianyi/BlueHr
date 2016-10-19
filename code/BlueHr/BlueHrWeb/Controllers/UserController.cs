@@ -87,9 +87,9 @@ namespace BlueHrWeb.Controllers
 
                     string authCmp = HttpContext.Request.Form["selCompanys"];
                     string authDep = HttpContext.Request.Form["selDeparts"];
-                    //string theRoleId = HttpContext.Request.Form["theRoleId"];
+                    string theRoleId = HttpContext.Request.Form["role"];
 
-                    //user.role = !string.IsNullOrEmpty(theRoleId) ? int.Parse(theRoleId) : -1;
+                    user.role = !string.IsNullOrEmpty(theRoleId) ? int.Parse(theRoleId) : -1;
                     user.isLocked = false;
 
                     bool isSucceed = cs.Create(user);
@@ -159,7 +159,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: User/Edit/5
         [HttpPost]
-        [RoleAndDataAuthorizationAttribute]
+        //[RoleAndDataAuthorizationAttribute]
         public ActionResult Edit([Bind(Include = "id,name,email,pwd,role")] User user)
         {
             ResultMessage msg = new ResultMessage();
@@ -178,9 +178,9 @@ namespace BlueHrWeb.Controllers
 
                     string authCmp = HttpContext.Request.Form["selCompanys"];
                     string authDep = HttpContext.Request.Form["selDeparts"];
-                    //string theRoleId = HttpContext.Request.Form["theRoleId"];
+                    string theRoleId = HttpContext.Request.Form["role"];
 
-                    //user.role = !string.IsNullOrEmpty(theRoleId) ? int.Parse(theRoleId) : -1;
+                    user.role = !string.IsNullOrEmpty(theRoleId) ? int.Parse(theRoleId) : -1;
                     user.isLocked = false;
 
                     bool isSucceed = cs.Update(user);
@@ -188,6 +188,8 @@ namespace BlueHrWeb.Controllers
                     //add auth company and department
 
                     ISysUserDataAuthService si = new SysUserDataAuthService(Settings.Default.db);
+
+                    List<SysUserDataAuth> allAuthList = si.GetAll().Where(p => p.userId == user.id).ToList(); 
 
                     List<SysUserDataAuth> userDataAuth = new List<SysUserDataAuth>();
                     authCmp.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
@@ -198,12 +200,17 @@ namespace BlueHrWeb.Controllers
 
                             if (tp2[0] == p)
                             {
-                                SysUserDataAuth tmp = new SysUserDataAuth();
-                                tmp.cmpId = int.Parse(p);
-                                tmp.userId = user.id;
-                                tmp.departId = int.Parse(tp2[1].ToString());
+                                bool isExist = allAuthList.Where(mm => mm.cmpId.ToString() == p && mm.departId.ToString() == tp2[1].ToString()).ToList().Count > 0;
 
-                                userDataAuth.Add(tmp);
+                                if (!isExist)
+                                {
+                                    SysUserDataAuth tmp = new SysUserDataAuth();
+                                    tmp.cmpId = int.Parse(p);
+                                    tmp.userId = user.id;
+                                    tmp.departId = int.Parse(tp2[1].ToString());
+
+                                    userDataAuth.Add(tmp);
+                                }
                             }
                         });
                     });

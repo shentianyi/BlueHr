@@ -134,6 +134,40 @@ namespace BlueHrLib.Data.Repository.Implement
                 staffs = staffs.Where(c => c.isOnTrial.Equals(searchModel.IsOnTrial));
             }
 
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            if (searchModel.loginUser != null)
+            {
+                User lgUser = searchModel.loginUser;
+
+                List<SysUserDataAuth> allDataAuths = this.context.GetTable<SysUserDataAuth>().Where(p => p.userId == lgUser.id).ToList();
+
+                List<string> cmpIds = new List<string>();
+                List<string> depIds = new List<string>();
+
+                allDataAuths.ForEach(p =>
+                {
+                    if (!cmpIds.Contains(p.cmpId.ToString()))
+                    {
+                        cmpIds.Add(p.cmpId.ToString());
+                    }
+
+                    if (!depIds.Contains(p.departId.ToString()))
+                    {
+                        depIds.Add(p.departId.ToString());
+                    }
+                });
+
+                if (cmpIds.Count > 0)
+                {
+                    staffs = staffs.Where(c => cmpIds.Contains(c.companyId.ToString()));
+                }
+
+                if (depIds.Count > 0)
+                {
+                    staffs = staffs.Where(c => depIds.Contains(c.departmentId.ToString()));
+                }
+            }
+
             return staffs;
         }
 
@@ -229,9 +263,9 @@ namespace BlueHrLib.Data.Repository.Implement
         public List<Staff> FindByDegreeType(int id)
         {
             return this.context.GetTable<Staff>().Where(p => p.degreeTypeId.Equals(id)).ToList();
-        } 
+        }
 
-        public List<Staff>FindByInsureType(int id)
+        public List<Staff> FindByInsureType(int id)
         {
             return this.context.GetTable<Staff>().Where(p => p.insureTypeId.Equals(id)).ToList();
         }
@@ -244,7 +278,8 @@ namespace BlueHrLib.Data.Repository.Implement
                 if (Staff != null)
                 {
                     return true;
-                }else
+                }
+                else
                 {
                     return false;
                 }

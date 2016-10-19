@@ -33,6 +33,10 @@ namespace BlueHrWeb.Controllers
 
             AbsenceRecrodSearchModel q = new AbsenceRecrodSearchModel();
 
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.lgUser = user;
+
             IAbsenceRecordService ss = new AbsenceRecordService(Settings.Default.db);
 
             IPagedList<AbsenceRecrod> models = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
@@ -49,6 +53,10 @@ namespace BlueHrWeb.Controllers
         public ActionResult Search([Bind(Include = "staffNr,absenceTypeId,durStart,durEnd")] AbsenceRecrodSearchModel q)
         {
             SetDropDownList(null);
+
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.lgUser = user;
 
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);

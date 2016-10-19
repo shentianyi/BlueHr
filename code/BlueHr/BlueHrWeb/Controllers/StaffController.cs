@@ -34,6 +34,10 @@ namespace BlueHrWeb.Controllers
 
             StaffSearchModel q = new StaffSearchModel();
 
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            User user = System.Web.HttpContext.Current.Session["user"] as User; 
+            q.loginUser = user;
+
             IStaffService ss = new StaffService(Settings.Default.db);
 
             IPagedList<Staff> staffs = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
@@ -49,6 +53,10 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "Nr, Name, Id, Sex, JobTitleId, CompanyId, DepartmentId, CompanyEmployAtFrom, CompanyEmployAtTo, IsOnTrial")] StaffSearchModel q)
         {
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.loginUser = user;
+
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
@@ -517,7 +525,7 @@ namespace BlueHrWeb.Controllers
                     string newJobStr = string.Format("{0}-{1}-{2}", newCompany, newDepartment, newJobTitle);
                     IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
 
-                    mrs.CreateStaffShiftJobMessage(changeJob[0], (Session["user"] as　User).id, oldJobStr, newJobStr);
+                    mrs.CreateStaffShiftJobMessage(changeJob[0], (Session["user"] as User).id, oldJobStr, newJobStr);
                 }
                 catch { }
             }
@@ -820,7 +828,7 @@ namespace BlueHrWeb.Controllers
                 Dictionary<string, string> department = new Dictionary<string, string>();
                 if (deps.Count > 0)
                 {
-                    department.Add(string.Empty,string.Empty);
+                    department.Add(string.Empty, string.Empty);
                 }
                 foreach (var dep in deps)
                 {

@@ -32,6 +32,10 @@ namespace BlueHrWeb.Controllers
 
             ExtraWorkRecordSearchModel q = new ExtraWorkRecordSearchModel();
 
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.lgUser = user;
+
             IExtraWorkRecordService ss = new ExtraWorkRecordService(Settings.Default.db);
 
             IPagedList<ExtraWorkRecord> models = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
@@ -47,6 +51,10 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "staffNr,extraWorkTypeId,durStart,durEnd")] ExtraWorkRecordSearchModel q)
         {
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.lgUser = user;
+
             SetDropDownList(null);
 
             int pageIndex = 0;

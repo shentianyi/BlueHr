@@ -78,9 +78,9 @@
                                 }
                                 else
                                 {
-                                    <input type="text" name="roleStr" id="roleStr" placeholder="" readonly="readonly" />
+                                    <input type="text" name="roleStr" id="roleStr" placeholder="" readonly="readonly" value="@Model.roleStr" />
                                 }
-                                <input type="text" name="role" hidden="hidden" />
+                                <input type="text" name="role" id="role" hidden="hidden" value="@Model.role" />
                             </div>
                         </div>
                         <div class="col col-lg-3">
@@ -148,8 +148,8 @@
         <div hidden="hidden">
             <input type="text" id="selCompanys" name="selCompanys" value="@ViewBag.TheCmpIds" />
             <input type="text" id="selDeparts" name="selDeparts" value="@ViewBag.TheDepIds" />
-            @*<input type="text" id="theRoleId" name="theRoleId" hidden="hidden" />*@
-            @*<input type="text" id="theRoleName" name="theRoleName" hidden="hidden" />*@
+            @*<input type="text" id="theRoleId" name="theRoleId" hidden="hidden" />
+                <input type="text" id="theRoleName" name="theRoleName" hidden="hidden" />*@
         </div>
     }
 </div>
@@ -244,7 +244,7 @@
 
     $("#btnEdit3").click(function () {
         $('#myModal6').modal('hide');
-    }); 
+    });
 
     function theconfirmAsign() {
         var RoleName = document.getElementsByClassName("roleCls")[1].selectedOptions[0].title;
@@ -258,6 +258,9 @@
             $("#roleStr").val(RoleName);
             $("#role").val(RoleId);
         }
+
+        console.log($("#role").val());
+        console.log($("#roleStr").val());
 
         $('#approval_content').dialogModal("hide");
     }

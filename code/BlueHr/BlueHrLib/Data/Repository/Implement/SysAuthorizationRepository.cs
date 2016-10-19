@@ -111,10 +111,10 @@ namespace BlueHrLib.Data.Repository.Implement
             List<SysRoleAuthorization> allRoleAuth = this.context.GetTable<SysRoleAuthorization>().ToList();
 
             List<string> allAuthIds = new List<string>();
-            allRoleAuth.Where(p => p.roleId == int.Parse(roleId)).ToList().ForEach(k =>
-            {
-                allAuthIds.Add(k.authId.ToString());
-            });
+            allRoleAuth.Where(p => p.roleId == (!string.IsNullOrEmpty(roleId) ? int.Parse(roleId) : -1)).ToList().ForEach(k =>
+                {
+                    allAuthIds.Add(k.authId.ToString());
+                });
 
             List<SysAuthorization> all = this.context.GetTable<SysAuthorization>().ToList();
 
