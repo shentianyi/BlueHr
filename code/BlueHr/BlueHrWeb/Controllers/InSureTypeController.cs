@@ -20,6 +20,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: InSureType
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -38,6 +39,7 @@ namespace BlueHrWeb.Controllers
             return View(insureTypes);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "Name")] InSureTypeSearchModel q)
         {
             int pageIndex = 0;
@@ -54,18 +56,21 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: InSureType/Details/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: InSureType/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: InSureType/Create
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Create([Bind(Include = "Name, remark")] InsureType insureType)
         {
@@ -97,6 +102,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: InSureType/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             IInSureTypeService cs = new InSureTypeService(Settings.Default.db);
@@ -106,6 +112,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: InSureType/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Edit([Bind(Include = "id, name, remark")] InsureType insureType)
         {
@@ -137,6 +144,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: InSureType/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             IInSureTypeService cs = new InSureTypeService(Settings.Default.db);
@@ -146,6 +154,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: InSureType/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Delete(int id, FormCollection collection)
         {

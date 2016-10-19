@@ -23,6 +23,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: ExtraWorkRecord
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             SetDropDownList(null);
@@ -43,6 +44,7 @@ namespace BlueHrWeb.Controllers
             return View(models);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "staffNr,extraWorkTypeId,durStart,durEnd")] ExtraWorkRecordSearchModel q)
         {
             SetDropDownList(null);
@@ -61,12 +63,14 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: ExtraWorkRecord/Details/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: ExtraWorkRecord/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             SetDropDownList(null);
@@ -74,6 +78,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: ExtraWorkRecord/Create
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Create([Bind(Include = "extraWorkTypeId,staffNr,otTime,startHour,endHour,duration,durationType,otReason")] ExtraWorkRecord model)
         {
@@ -108,6 +113,7 @@ namespace BlueHrWeb.Controllers
 
 
         // GET: ExtraWorkRecord/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
@@ -118,6 +124,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: ExtraWorkRecord/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Edit([Bind(Include = "id, extraWorkTypeId,staffNr,startHour,endHour,otTime, duration,durationType,otReason")] ExtraWorkRecord model)
         {
@@ -150,6 +157,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: ExtraWorkRecord/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
@@ -160,6 +168,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: ExtraWorkRecord/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

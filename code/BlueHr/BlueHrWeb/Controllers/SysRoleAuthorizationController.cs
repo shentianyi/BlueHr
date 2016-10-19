@@ -4,6 +4,7 @@ using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
+using BlueHrWeb.CustomAttributes;
 using BlueHrWeb.Helpers;
 using BlueHrWeb.Properties;
 using MvcPaging;
@@ -18,6 +19,8 @@ namespace BlueHrWeb.Controllers
     public class SysRoleAuthorizationController : Controller
     {
         // GET: SysRoleAuthorization
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
 
@@ -58,7 +61,7 @@ namespace BlueHrWeb.Controllers
             return View(jobTitles);
         }
 
-
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "RoleName,AuthName")] SysRoleAuthorizationSearchModel q)
         {
             int pageIndex = 0;
@@ -96,12 +99,15 @@ namespace BlueHrWeb.Controllers
             return View();
         }
 
+        [RoleAndDataAuthorizationAttribute]
+
         // GET: SysRoleAuthorization/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // POST: SysRoleAuthorization/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
@@ -118,12 +124,14 @@ namespace BlueHrWeb.Controllers
             }
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // GET: SysRoleAuthorization/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // POST: SysRoleAuthorization/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
@@ -140,12 +148,15 @@ namespace BlueHrWeb.Controllers
             }
         }
 
+        [RoleAndDataAuthorizationAttribute]
+
         // GET: SysRoleAuthorization/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // POST: SysRoleAuthorization/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)

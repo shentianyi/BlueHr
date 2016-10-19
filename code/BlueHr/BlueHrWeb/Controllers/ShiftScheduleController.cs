@@ -22,6 +22,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: ShiftShedule
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -62,6 +63,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: ShiftShedule/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             SetDropDownList(null);
@@ -69,6 +71,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: ShiftShedule/Create
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Create([Bind(Include = "shiftId,staffNr,scheduleAt")] ShiftSchedule model)
         {
@@ -113,6 +116,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: ShiftShedule/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
 
@@ -124,6 +128,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: ShiftShedule/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Edit([Bind(Include = "id,shiftId,staffNr,scheduleAt")] ShiftSchedule model)
         {
@@ -176,6 +181,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: ShiftShedule/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
@@ -187,6 +193,7 @@ namespace BlueHrWeb.Controllers
 
 
         // POST: ShiftShedule/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

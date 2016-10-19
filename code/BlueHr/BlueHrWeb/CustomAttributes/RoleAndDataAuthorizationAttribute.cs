@@ -18,6 +18,17 @@ namespace BlueHrWeb.CustomAttributes
         {
             User user = System.Web.HttpContext.Current.Session["user"] as User;
 
+            if (user == null || !user.isLocked.HasValue || user.isLocked.Value)
+            {
+                System.Web.HttpContext.Current.Session["user"] = null;
+                filterContext.Result =
+                 new System.Web.Mvc.RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary {{ "controller", "Account" },
+                                              { "action", "Login" },
+                                             { "returnUrl",    filterContext.HttpContext.Request.RawUrl } });
+
+                return;
+            }
+
             //最高权限用户
             string sysAdminMail = System.Configuration.ConfigurationManager.AppSettings["SysAdministrator"];
 

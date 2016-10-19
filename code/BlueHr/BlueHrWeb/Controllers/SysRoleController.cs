@@ -4,6 +4,7 @@ using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
+using BlueHrWeb.CustomAttributes;
 using BlueHrWeb.Helpers;
 using BlueHrWeb.Properties;
 using MvcPaging;
@@ -17,6 +18,8 @@ namespace BlueHrWeb.Controllers
 {
     public class SysRoleController : Controller
     {
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         // GET: SysRole
         public ActionResult Index(int? page)
         {
@@ -36,6 +39,7 @@ namespace BlueHrWeb.Controllers
             return View(jobTitles);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "Name")] SysRoleSearchModel q)
         {
             int pageIndex = 0;
@@ -51,18 +55,21 @@ namespace BlueHrWeb.Controllers
             return View("Index", jobTitles);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // GET: SysRole/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // GET: SysRole/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // POST: SysRole/Create
         [HttpPost]
         public JsonResult Create([Bind(Include = "name,remarks")] SysRole jobTitle)
@@ -109,6 +116,7 @@ namespace BlueHrWeb.Controllers
             }
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // GET: SysRole/Edit/5
         public ActionResult Edit(int id)
         {
@@ -117,6 +125,7 @@ namespace BlueHrWeb.Controllers
             return View(jt);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // POST: SysRole/Edit/5
         [HttpPost]
         public JsonResult Edit([Bind(Include = "id, name, remarks")] SysRole jobTitle)
@@ -150,6 +159,7 @@ namespace BlueHrWeb.Controllers
             }
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // GET: SysRole/Delete/5
         public ActionResult Delete(int id)
         {
@@ -158,6 +168,7 @@ namespace BlueHrWeb.Controllers
             return View(cp);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // POST: SysRole/Delete/5
         [HttpPost]
         public JsonResult Delete(int id, FormCollection collection)

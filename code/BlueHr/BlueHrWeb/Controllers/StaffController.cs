@@ -27,6 +27,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: Company
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -45,6 +46,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "Nr, Name, Id, Sex, JobTitleId, CompanyId, DepartmentId, CompanyEmployAtFrom, CompanyEmployAtTo, IsOnTrial")] StaffSearchModel q)
         {
             int pageIndex = 0;
@@ -79,6 +81,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: Company/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             SetDropDownList(null);
@@ -87,6 +90,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: Company/Create
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Create([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
             "companySeniority, WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
@@ -225,6 +229,7 @@ namespace BlueHrWeb.Controllers
 
         // GET: Company/Edit/5
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -250,6 +255,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: Company/Edit/5
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
             "companySeniority, WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
             "Speciality, ResidenceAddress, Address, Id, Phone, ContactName, ContactPhone, ContactFamilyMemberType, Domicile, "+
@@ -300,6 +306,7 @@ namespace BlueHrWeb.Controllers
 
         // GET: Company/Delete/5
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -327,6 +334,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: Company/Delete/5
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(string nr, FormCollection collection)
         {
             // TODO: Add delete logic here

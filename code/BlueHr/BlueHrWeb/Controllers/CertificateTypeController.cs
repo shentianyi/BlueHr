@@ -22,6 +22,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: CertificateType
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -40,6 +41,7 @@ namespace BlueHrWeb.Controllers
             return View(certfs);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "Name")] CertificateTypeSearchModel q)
         {
             int pageIndex = 0;
@@ -57,12 +59,14 @@ namespace BlueHrWeb.Controllers
 
 
         // GET: CertificateType/Details/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: CertificateType/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             SetDropDownList(null);
@@ -70,6 +74,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: CertificateType/Create
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Create([Bind(Include = "Name,remark,isNecessary")] CertificateType certf)
         {
@@ -103,6 +108,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: CertificateType/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
@@ -115,6 +121,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: CertificateType/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Edit([Bind(Include = "id,Name, remark,isNecessary")] CertificateType certf)
         {
@@ -148,6 +155,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: CertificateType/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             ICertificateTypeService cs = new CertificateTypeService(Settings.Default.db);
@@ -158,6 +166,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: CertificateType/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Delete(int id, FormCollection collection)
         {

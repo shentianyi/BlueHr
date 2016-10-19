@@ -38,6 +38,7 @@ namespace BlueHrWeb.Controllers
             return View(jobTitles);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "Name")] JobTitleSearchModel q)
         {
             int pageIndex = 0;
@@ -54,12 +55,14 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: JobTitle/Details/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: JobTitle/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             SetDropDownList(null);
@@ -68,6 +71,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: JobTitle/Create
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public JsonResult Create([Bind(Include = "Name,remark,jobCertificateType")] JobTitle jobTitle)
         {
             ResultMessage msg = new ResultMessage();
@@ -113,6 +117,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: JobTitle/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             IJobTitleService cs = new JobTitleService(Settings.Default.db);
@@ -122,6 +127,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: JobTitle/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Edit([Bind(Include = "id, name, remark,jobCertificateType")] JobTitle jobTitle)
         {
@@ -155,6 +161,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: JobTitle/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             IJobTitleService cs = new JobTitleService(Settings.Default.db);
@@ -164,6 +171,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: JobTitle/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Delete(int id, FormCollection collection)
         {

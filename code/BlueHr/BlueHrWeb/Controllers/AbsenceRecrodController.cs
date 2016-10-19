@@ -24,6 +24,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: AbsenceRecrod
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             SetDropDownList(null);
@@ -44,6 +45,7 @@ namespace BlueHrWeb.Controllers
             return View(models);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "staffNr,absenceTypeId,durStart,durEnd")] AbsenceRecrodSearchModel q)
         {
             SetDropDownList(null);
@@ -67,6 +69,7 @@ namespace BlueHrWeb.Controllers
             return View();
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // GET: AbsenceRecrod/Create
         public ActionResult Create()
         {
@@ -74,6 +77,7 @@ namespace BlueHrWeb.Controllers
             return View();
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // POST: AbsenceRecrod/Create
         [HttpPost]
         public ActionResult Create([Bind(Include = "absenceTypeId,staffNr,startHour,endHour, duration,durationType,remark,absenceDate")] AbsenceRecrod model)
@@ -106,6 +110,7 @@ namespace BlueHrWeb.Controllers
             }
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // GET: AbsenceRecrod/Edit/5
         public ActionResult Edit(int id)
         {
@@ -116,6 +121,7 @@ namespace BlueHrWeb.Controllers
             return View(jt);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // POST: AbsenceRecrod/Edit/5
         [HttpPost]
         public ActionResult Edit([Bind(Include = "id, absenceTypeId,staffNr,startHour,endHour, duration,durationType,remark,absenceDate")] AbsenceRecrod model)
@@ -148,6 +154,7 @@ namespace BlueHrWeb.Controllers
             }
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // GET: AbsenceRecrod/Delete/5
         public ActionResult Delete(int id)
         {
@@ -158,6 +165,7 @@ namespace BlueHrWeb.Controllers
             return View(cp);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // POST: AbsenceRecrod/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)

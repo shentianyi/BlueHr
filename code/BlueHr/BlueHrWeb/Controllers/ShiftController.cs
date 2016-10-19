@@ -22,6 +22,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: Shift
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -40,6 +41,7 @@ namespace BlueHrWeb.Controllers
             return View(models);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "Name")]  ShiftSearchModel q)
         {
             int pageIndex = 0;
@@ -57,12 +59,14 @@ namespace BlueHrWeb.Controllers
 
 
         // GET: Shift/Details/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: Shift/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             SetDropDownList(null);
@@ -70,6 +74,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: Shift/Create 
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Create([Bind(Include = "code,name,startAt,endAt,shiftType,remark")] Shift model)
         {
@@ -101,6 +106,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: Shift/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             IShiftService cs = new ShiftService(Settings.Default.db);
@@ -111,6 +117,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: Shift/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Edit([Bind(Include = "id,code,name,startAt,endAt,shiftType,remark")] Shift model)
         {
@@ -142,6 +149,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: Shift/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             IShiftService cs = new ShiftService(Settings.Default.db);
@@ -154,6 +162,7 @@ namespace BlueHrWeb.Controllers
         // POST: Shift/Delete/5
         [HttpPost]
         //如果存在员工排班，则不可删除
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id, FormCollection collection)
         {
             ResultMessage msg = new ResultMessage();

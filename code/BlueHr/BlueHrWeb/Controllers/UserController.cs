@@ -21,6 +21,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: User
         [AdminAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -46,7 +47,7 @@ namespace BlueHrWeb.Controllers
         }
 
 
-
+        [RoleAndDataAuthorizationAttribute]
         // GET: User/Details/5
         public ActionResult Details(int id)
         {
@@ -54,6 +55,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [AdminAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         // GET: User/Create
         public ActionResult Create()
         {
@@ -64,6 +66,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: User/Create
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Create([Bind(Include = "name,email,pwd,role")] User user)
         {
@@ -130,6 +133,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [AdminAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         // GET: User/Edit/5
         public ActionResult Edit(int id)
         {
@@ -154,6 +158,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: User/Edit/5
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit([Bind(Include = "id,name,email,pwd,role")] User user)
         {
             ResultMessage msg = new ResultMessage();
@@ -217,6 +222,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [AdminAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         // GET: User/Delete/5
         public ActionResult Delete(int id)
         {
@@ -229,6 +235,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: User/Delete/5
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id, FormCollection collection)
         {
             ResultMessage msg = new ResultMessage();

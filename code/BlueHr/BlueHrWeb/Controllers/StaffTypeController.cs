@@ -39,6 +39,7 @@ namespace BlueHrWeb.Controllers
             return View(staffTypes);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "Name")] StaffTypeSearchModel q)
         {
             int pageIndex = 0;
@@ -55,18 +56,21 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: StaffType/Details/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: StaffType/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: StaffType/Create
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Create([Bind(Include = "Name, remark")] StaffType staffType)
         {
@@ -98,6 +102,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: StaffType/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             IStaffTypeService cs = new StaffTypeService(Settings.Default.db);
@@ -108,6 +113,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: StaffType/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Edit([Bind(Include = "id, name, remark")] StaffType staffType)
         {
@@ -139,6 +145,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: StaffType/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             IStaffTypeService cs = new StaffTypeService(Settings.Default.db);
@@ -149,6 +156,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: StaffType/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Delete(int id, FormCollection collection)
         {

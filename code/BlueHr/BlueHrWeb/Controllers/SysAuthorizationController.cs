@@ -4,6 +4,7 @@ using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
+using BlueHrWeb.CustomAttributes;
 using BlueHrWeb.Helpers;
 using BlueHrWeb.Properties;
 using MvcPaging;
@@ -18,6 +19,8 @@ namespace BlueHrWeb.Controllers
     public class SysAuthorizationController : Controller
     {
         // GET: SystemAuthorization
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -36,7 +39,8 @@ namespace BlueHrWeb.Controllers
             return View(jobTitles);
         }
 
-         
+        [RoleAndDataAuthorizationAttribute]
+
         public ActionResult Search([Bind(Include = "Name,funCode,controlName,actionName")] SysAuthorizationSearchModel q)
         {
             int pageIndex = 0;
@@ -58,12 +62,14 @@ namespace BlueHrWeb.Controllers
             return View();
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // GET: SystemAuthorization/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // POST: SystemAuthorization/Create
         [HttpPost]
         public JsonResult Create([Bind(Include = "name,controlName,actionName,isDelete,parentId,funCode,remarks")] SysAuthorization jobTitle)
@@ -114,6 +120,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: SystemAuthorization/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             ISysAuthorizationService cs = new SysAuthorizationService(Settings.Default.db);
@@ -122,6 +129,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: SystemAuthorization/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Edit([Bind(Include = "id,name,controlName,actionName,isDelete,parentId,funCode,remarks")] SysAuthorization jobTitle)
         {
@@ -155,6 +163,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: SystemAuthorization/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             ISysAuthorizationService cs = new SysAuthorizationService(Settings.Default.db);
@@ -163,6 +172,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: SystemAuthorization/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Delete(int id, FormCollection collection)
         {
