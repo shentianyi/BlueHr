@@ -14,5 +14,8 @@ namespace BlueHrLib.Data.Repository.Interface
         SysAuthorization FindById(int id);
         bool Update(SysAuthorization sysAuth);
         List<SysAuthorization> GetAll();
+
+        //根据roleid 获取所有权限列表
+        List<SysAuthorization> GetSysAuthByRoleId(string roleId);
     }
 }

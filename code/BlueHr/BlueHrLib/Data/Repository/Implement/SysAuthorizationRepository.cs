@@ -7,8 +7,8 @@ using System.Text;
 
 namespace BlueHrLib.Data.Repository.Implement
 {
-    
-   public class SysAuthorizationRepository : RepositoryBase<SysAuthorization>, ISysAuthorizationRepository
+
+    public class SysAuthorizationRepository : RepositoryBase<SysAuthorization>, ISysAuthorizationRepository
     {
         private BlueHrDataContext context;
 
@@ -85,7 +85,7 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 //dep.authType = sysAuth.authType;
                 dep.name = sysAuth.name;
-                dep.remarks = sysAuth.remarks; 
+                dep.remarks = sysAuth.remarks;
                 this.context.SubmitChanges();
                 return true;
             }
@@ -103,6 +103,25 @@ namespace BlueHrLib.Data.Repository.Implement
         public List<SysAuthorization> GetAll()
         {
             return this.context.GetTable<SysAuthorization>().ToList();
+        }
+
+        //根据roleid 获取所有权限列表
+        public List<SysAuthorization> GetSysAuthByRoleId(string roleId)
+        {
+            List<SysRoleAuthorization> allRoleAuth = this.context.GetTable<SysRoleAuthorization>().ToList();
+
+            List<string> allAuthIds = new List<string>();
+            allRoleAuth.Where(p => p.roleId == int.Parse(roleId)).ToList().ForEach(k =>
+            {
+                allAuthIds.Add(k.authId.ToString());
+            });
+
+            List<SysAuthorization> all = this.context.GetTable<SysAuthorization>().ToList();
+
+            List<SysAuthorization> returns = all.Where(p => allAuthIds.Contains(p.id.ToString())).ToList();
+
+            return returns;
+
         }
     }
 }

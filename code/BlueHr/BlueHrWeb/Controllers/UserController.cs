@@ -33,44 +33,18 @@ namespace BlueHrWeb.Controllers
 
             users.ToList().ForEach(p =>
             {
-                ISysRoleService rSi = new SysRoleService(Settings.Default.db);
-                SysRole sRole = rSi.FindById(p.role ?? -1);
+                Tuple<string, string, string, string, string> cmpDep = GetAuthCompanyAndDepartment(p);
 
-                p.roleStr = sRole != null ? sRole.name : "";
-
-                //set 权限公司 AuthCompany 权限部门 AuthDepartment
-                ISysUserDataAuthService userDataSi = new SysUserDataAuthService(Settings.Default.db);
-                List<SysUserDataAuth> allDataAuth = userDataSi.GetAll();
-
-                List<string> cmpIds = new List<string>();
-                List<string> departMentIds = new List<string>();
-
-                string bindCmpIds = "";
-                string bindDepartIds = "";
-
-                allDataAuth.Where(m => m.userId.ToString() == p.id.ToString()).ToList().ForEach(k =>
-                {
-                    cmpIds.Add(k.cmpId.ToString());
-                    bindCmpIds += k.cmpId + ",";
-
-                    departMentIds.Add(k.departId.ToString());
-                    bindDepartIds += k.cmpId + "|" + k.departId.ToString() + ",";
-                });
-
-                ICompanyService cmpSi = new CompanyService(Settings.Default.db);
-
-                p.AuthCompany = cmpSi.FindByIds(cmpIds);
-
-                IDepartmentService depSi = new DepartmentService(Settings.Default.db);
-                p.AuthDepartment = depSi.FindByIds(departMentIds);
+                p.roleStr = cmpDep.Item1;
+                p.AuthCompany = cmpDep.Item2;
+                p.AuthDepartment = cmpDep.Item3;
             });
-
-            
 
             ViewBag.Query = q;
 
             return View(users);
         }
+
 
 
         // GET: User/Details/5
@@ -83,7 +57,9 @@ namespace BlueHrWeb.Controllers
         // GET: User/Create
         public ActionResult Create()
         {
-            SetRoleList(null);
+            SetSysRoleList(false);
+            ViewBag.TheCmpIds = "";
+            ViewBag.TheDepIds = "";
             return View();
         }
 
@@ -104,7 +80,42 @@ namespace BlueHrWeb.Controllers
                 else
                 {
                     IUserService cs = new UserService(Settings.Default.db);
+
+                    string authCmp = HttpContext.Request.Form["selCompanys"];
+                    string authDep = HttpContext.Request.Form["selDeparts"];
+                    string theRoleId = HttpContext.Request.Form["theRoleId"];
+
+                    user.role = !string.IsNullOrEmpty(theRoleId) ? int.Parse(theRoleId) : -1;
+                    user.isLocked = false;
+
                     bool isSucceed = cs.Create(user);
+
+                    //add auth company and department
+
+                    ISysUserDataAuthService si = new SysUserDataAuthService(Settings.Default.db);
+
+                    List<SysUserDataAuth> userDataAuth = new List<SysUserDataAuth>();
+                    authCmp.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
+                    {
+                        authDep.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(k =>
+                        {
+                            string[] tp2 = k.Split('|');
+
+                            if (tp2[0] == p)
+                            {
+                                SysUserDataAuth tmp = new SysUserDataAuth();
+                                tmp.cmpId = int.Parse(p);
+                                tmp.userId = user.id;
+                                tmp.departId = int.Parse(tp2[1].ToString());
+
+                                userDataAuth.Add(tmp);
+                            }
+                        });
+                    });
+
+                    si.Creates(userDataAuth);
+
+                    //bool isSucceed = cs.Create(user);
 
                     msg.Success = isSucceed;
                     msg.Content = isSucceed ? "" : "添加失败";
@@ -123,46 +134,19 @@ namespace BlueHrWeb.Controllers
         public ActionResult Edit(int id)
         {
             IUserService cs = new UserService(Settings.Default.db);
-
             User user = cs.FindById(id);
-            //SetRoleList(user.role);
-
-            ISysRoleService rSi = new SysRoleService(Settings.Default.db);
-            SysRole sRole = rSi.FindById(user.role ?? -1);
-
-            user.roleStr = sRole != null ? sRole.name : "";
 
             SetSysRoleList(false);
             SetCmpList(false);
 
-            //set 权限公司 AuthCompany 权限部门 AuthDepartment
-            ISysUserDataAuthService userDataSi = new SysUserDataAuthService(Settings.Default.db);
-            List<SysUserDataAuth> allDataAuth = userDataSi.GetAll();
+            Tuple<string, string, string, string, string> cmpDep = GetAuthCompanyAndDepartment(user);
 
-            List<string> cmpIds = new List<string>();
-            List<string> departMentIds = new List<string>();
+            user.roleStr = cmpDep.Item1;
+            user.AuthCompany = cmpDep.Item2;
+            user.AuthDepartment = cmpDep.Item3;
 
-            string bindCmpIds = "";
-            string bindDepartIds = "";
-
-            allDataAuth.Where(p => p.userId.ToString() == id.ToString()).ToList().ForEach(k =>
-            {
-                cmpIds.Add(k.cmpId.ToString());
-                bindCmpIds += k.cmpId + ",";
-
-                departMentIds.Add(k.departId.ToString());
-                bindDepartIds += k.cmpId + "|" + k.departId.ToString() + ",";
-            });
-
-            ICompanyService cmpSi = new CompanyService(Settings.Default.db);
-
-            user.AuthCompany = cmpSi.FindByIds(cmpIds);
-
-            IDepartmentService depSi = new DepartmentService(Settings.Default.db);
-            user.AuthDepartment = depSi.FindByIds(departMentIds);
-
-            ViewBag.TheCmpIds = bindCmpIds;
-            ViewBag.TheDepIds = bindDepartIds;
+            ViewBag.TheCmpIds = cmpDep.Item4;
+            ViewBag.TheDepIds = cmpDep.Item5;
 
             return View(user);
         }
@@ -292,6 +276,45 @@ namespace BlueHrWeb.Controllers
                 return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public Tuple<string, string, string, string, string> GetAuthCompanyAndDepartment(User user)
+        {
+            ISysRoleService rSi = new SysRoleService(Settings.Default.db);
+            SysRole sRole = rSi.FindById(user.role ?? -1);
+
+            string roleStr = sRole != null ? sRole.name : "";
+
+            //set 权限公司 AuthCompany 权限部门 AuthDepartment
+            ISysUserDataAuthService userDataSi = new SysUserDataAuthService(Settings.Default.db);
+            List<SysUserDataAuth> allDataAuth = userDataSi.GetAll();
+
+            List<string> cmpIds = new List<string>();
+            List<string> departMentIds = new List<string>();
+
+            string bindCmpIds = "";
+            string bindDepartIds = "";
+
+            allDataAuth.Where(m => m.userId.ToString() == user.id.ToString()).ToList().ForEach(k =>
+            {
+                cmpIds.Add(k.cmpId.ToString());
+                bindCmpIds += k.cmpId + ",";
+
+                departMentIds.Add(k.departId.ToString());
+                bindDepartIds += k.cmpId + "|" + k.departId.ToString() + ",";
+            });
+
+            ICompanyService cmpSi = new CompanyService(Settings.Default.db);
+
+            string AuthCompany = cmpSi.FindByIds(cmpIds);
+
+            IDepartmentService depSi = new DepartmentService(Settings.Default.db);
+            string AuthDepartment = depSi.FindByIds(departMentIds);
+
+            Tuple<string, string, string, string, string> cmpDep = new Tuple<string, string, string, string, string>(roleStr, AuthCompany, AuthDepartment, bindCmpIds, bindDepartIds);
+
+            return cmpDep;
+        }
+
 
         private void SetRoleList(int? type, bool allowBlank = false)
         {

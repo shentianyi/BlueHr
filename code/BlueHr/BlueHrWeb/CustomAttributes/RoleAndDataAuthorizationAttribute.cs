@@ -1,6 +1,9 @@
 ﻿using BlueHrLib.Data;
 using BlueHrLib.Data.Enum;
+using BlueHrLib.Service.Implement;
+using BlueHrLib.Service.Interface;
 using BlueHrWeb.Models;
+using BlueHrWeb.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,29 +17,61 @@ namespace BlueHrWeb.CustomAttributes
         public void OnAuthorization(AuthorizationContext filterContext)
         {
             User user = System.Web.HttpContext.Current.Session["user"] as User;
-            if (user == null /*|| user.role != (int)RoleType.Admin*/)
+
+            //最高权限用户
+            string sysAdminMail = System.Configuration.ConfigurationManager.AppSettings["SysAdministrator"];
+
+            if (user.email.Trim() != sysAdminMail.Trim())
             {
-                System.Web.HttpContext.Current.Session["user"] = null;
-                filterContext.Result =
-                 new System.Web.Mvc.RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary {{ "controller", "Account" },
-                                              { "action", "Login" },
-                                             { "returnUrl",    filterContext.HttpContext.Request.RawUrl } });
-                return;
+                string userId = user.id.ToString();
+                string roldId = user.role.ToString();
+
+                //根据用户角色获取所有权限
+                ISysAuthorizationService authSi = new SysAuthorizationService(Settings.Default.db);
+                List<SysAuthorization> allAuths = authSi.GetSysAuthByRoleId(roldId);
+
+
+                string theRequestUrl = filterContext.HttpContext.Request.RawUrl;
+
+                List<string> authUrls = new List<string>();
+                List<string> dataActions = new List<string>();
+
+                allAuths.ForEach(p =>
+                {
+
+                    if (p.actionName.ToLower() == "index")
+                    {
+                        string authUrl = p.controlName + "/" + p.actionName;
+
+                        authUrls.Add(authUrl.ToLower());
+                    }
+                    else
+                    {
+
+                        string authAction = p.controlName + "/" + p.actionName;
+                        dataActions.Add(authAction.ToLower());
+                    }
+                });
+
+                //菜单访问权限 (index)
+                bool hasViewAcess = authUrls.Contains(theRequestUrl);
+
+                if (!hasViewAcess)
+                {
+                    filterContext.Result = new RedirectResult("/Home/NoAuthPage/1");
+                }
+
+
+                //操作访问权限 (create,update,delete)
+                bool hasActionAccess = dataActions.Contains(theRequestUrl);
+
+                if (!hasActionAccess)
+                {
+                    filterContext.Result = new RedirectResult("/Home/NoAuthPage/2");
+                } 
+
+                //3. 数据查询权限
             }
-
-            string userId = user.id.ToString();
-
-            //get all roles and authorizations by userid
-
-
-
-            //1. menu authorization
-
-
-            //2. data authorization
-
-
-            //3. data filter with company and department
         }
     }
 }

@@ -575,6 +575,7 @@
     <Content Include="Views\SysRoleAuthorization\Edit.cshtml" />
     <Content Include="Views\SysRoleAuthorization\Delete.cshtml" />
     <Content Include="Views\SysRoleAuthorization\_PartialSysRoleAuthorization.cshtml" />
+    <Content Include="Views\Home\NoAuthPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

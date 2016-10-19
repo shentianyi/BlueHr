@@ -20,6 +20,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: StaffType
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
