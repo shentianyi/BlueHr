@@ -42,7 +42,7 @@ namespace BlueHrWeb.CustomAttributes
                 List<SysAuthorization> allAuths = authSi.GetSysAuthByRoleId(roldId);
 
 
-                string theRequestUrl = filterContext.HttpContext.Request.RawUrl.ToLower();
+                string theRequestUrl = filterContext.HttpContext.Request.Path.ToLower();
 
                 //if (theRequestUrl.IndexOf("index") <= 0)
                 //{
