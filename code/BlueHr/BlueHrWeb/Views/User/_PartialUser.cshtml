@@ -148,8 +148,8 @@
         <div hidden="hidden">
             <input type="text" id="selCompanys" name="selCompanys" value="@ViewBag.TheCmpIds" />
             <input type="text" id="selDeparts" name="selDeparts" value="@ViewBag.TheDepIds" />
-            <input type="text" id="theRoleId" name="theRoleId" hidden="hidden" />
-            <input type="text" id="theRoleName" name="theRoleName" hidden="hidden" />
+            @*<input type="text" id="theRoleId" name="theRoleId" hidden="hidden" />*@
+            @*<input type="text" id="theRoleName" name="theRoleName" hidden="hidden" />*@
         </div>
     }
 </div>
@@ -162,7 +162,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>角色列表</span>
-                    <select id="roleList" name="roleList" onchange="selRoleStatus(this.options[this.options.selectedIndex].value, this.options[this.options.selectedIndex].text)">
+                    <select class="roleCls" id="roleList" name="roleList">
                         @{
                             foreach (var item in (ViewData["SysRoleList"] as IEnumerable<SelectListItem>))
                             {
@@ -180,39 +180,7 @@
         </div>
     </div>
 </div>
-@*<div id="cmpDep_content" class="import_content" style="display:none;">
-        <div class="dialogModal_header" style="background:steelblue;color:white;">
-            选择公司和部门
-        </div>
-        <div class="dialogModal_content">
-            <div class="marco-nbody row">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <div class="marco-igroup-primary">
-                        <span>公司列表</span>
-                        <select id="roleList" name="roleList" onchange="selCompany(this.options[this.options.selectedIndex].value, this.options[this.options.selectedIndex].text)">
-                            @{
-                                foreach (var item in (ViewData["CompanyList"] as IEnumerable<SelectListItem>))
-                                {
-                                    <option value="@item.Value" title="@item.Text">@item.Text</option>
-                                }
-                            }
-                        </select>
-                        <div id="cmpTree"></div>
-                    </div>
-                </div>
-                <div class="col col-lg-9">
-                    <div id="depTree"></div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <input id="theRoleId" hidden="hidden" />
-                    <input id="theRoleName" hidden="hidden" />
-                    <button class="marco-btn-primary " title="确定" type="button" id="confirmAsign" onclick="theconfirmAsign()">
-                        确定
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>*@
+
 <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -276,16 +244,11 @@
 
     $("#btnEdit3").click(function () {
         $('#myModal6').modal('hide');
-    });
-
-    function selRoleStatus(s, t) {
-        $("#theRoleId").val(s);
-        $("#theRoleName").val(t);
-    }
+    }); 
 
     function theconfirmAsign() {
-        var RoleName = $("#theRoleName").val();
-        var RoleId = $("#theRoleId").val();
+        var RoleName = document.getElementsByClassName("roleCls")[1].selectedOptions[0].title;
+        var RoleId = document.getElementsByClassName("roleCls")[1].value;
 
         if (RoleName == null || RoleName == "") {
             Layout.popMsg('popMsg-danger', "请选择角色！");
@@ -303,10 +266,6 @@
 
     //公司和部门
     function asignCmpDepConfirm(id) {
-
-        //clear the selection
-        //$("#selCompanys").val("");
-        //$("#selDeparts").val("");
         $('#myModal6').modal('show');
     }
 
@@ -437,6 +396,5 @@
             }
         });
     }
-
 
 </script>

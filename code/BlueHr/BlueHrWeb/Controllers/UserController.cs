@@ -87,9 +87,9 @@ namespace BlueHrWeb.Controllers
 
                     string authCmp = HttpContext.Request.Form["selCompanys"];
                     string authDep = HttpContext.Request.Form["selDeparts"];
-                    string theRoleId = HttpContext.Request.Form["theRoleId"];
+                    //string theRoleId = HttpContext.Request.Form["theRoleId"];
 
-                    user.role = !string.IsNullOrEmpty(theRoleId) ? int.Parse(theRoleId) : -1;
+                    //user.role = !string.IsNullOrEmpty(theRoleId) ? int.Parse(theRoleId) : -1;
                     user.isLocked = false;
 
                     bool isSucceed = cs.Create(user);
@@ -178,9 +178,9 @@ namespace BlueHrWeb.Controllers
 
                     string authCmp = HttpContext.Request.Form["selCompanys"];
                     string authDep = HttpContext.Request.Form["selDeparts"];
-                    string theRoleId = HttpContext.Request.Form["theRoleId"];
+                    //string theRoleId = HttpContext.Request.Form["theRoleId"];
 
-                    user.role = !string.IsNullOrEmpty(theRoleId) ? int.Parse(theRoleId) : -1;
+                    //user.role = !string.IsNullOrEmpty(theRoleId) ? int.Parse(theRoleId) : -1;
                     user.isLocked = false;
 
                     bool isSucceed = cs.Update(user);
@@ -383,7 +383,7 @@ namespace BlueHrWeb.Controllers
 
             string selCompanys = HttpContext.Request.Form["selCompanys"];
             string selDeparts = HttpContext.Request.Form["selDeparts"];
-            string theRoleId = HttpContext.Request.Form["theRoleId"];
+            string theRoleId = HttpContext.Request.Form["role"];
             string roleStr = HttpContext.Request.Form["roleStr"];
             string authCompany = HttpContext.Request.Form["authCompany"];
             string authDep = HttpContext.Request.Form["authDep"];

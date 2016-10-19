@@ -146,14 +146,15 @@ namespace BlueHrWeb.Controllers
         }
 
         [HttpPost]
-        [RoleAndDataAuthorizationAttribute]
+        //[RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
-            {
+            { 
+
                 var department = this.departmentService.FindById(id);
                 if (null != department)
-                {
+                { 
                     this.departmentService.DeleteById(id);
                 }
                 //IStaffService staffService = new StaffService(Settings.Default.db);

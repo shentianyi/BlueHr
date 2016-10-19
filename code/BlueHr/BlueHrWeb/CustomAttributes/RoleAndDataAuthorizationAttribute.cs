@@ -44,6 +44,11 @@ namespace BlueHrWeb.CustomAttributes
 
                 string theRequestUrl = filterContext.HttpContext.Request.RawUrl.ToLower();
 
+                //if (theRequestUrl.IndexOf("index") <= 0)
+                //{
+                //    theRequestUrl += "/index";
+                //}
+
                 List<string> authUrls = new List<string>();
                 List<string> dataActions = new List<string>();
 
@@ -62,6 +67,13 @@ namespace BlueHrWeb.CustomAttributes
                         string authAction = "/" + p.controlName + "/" + p.actionName;
                         dataActions.Add(authAction.ToLower());
                     }
+
+                    //更新页面跳转回index页面 只有controllerName 拼接/index
+
+                    if ("/" + p.controlName.ToLower() == theRequestUrl)
+                    {
+                        theRequestUrl += "/index";
+                    }
                 });
 
 
@@ -79,9 +91,17 @@ namespace BlueHrWeb.CustomAttributes
                 else
                 {
                     //操作访问权限 (create,update,delete)
-                    bool hasActionAccess = dataActions.Contains(theRequestUrl);
+                    int hasActionAccess = 0;
 
-                    if (!hasActionAccess)
+                    dataActions.ForEach(p =>
+                    {
+                        if (theRequestUrl.IndexOf(p) != -1)
+                        {
+                            hasActionAccess++;
+                        }
+                    });
+
+                    if (hasActionAccess <= 0)
                     {
                         filterContext.Result = new RedirectResult("/Home/NoAuthPage/2");
                     }
