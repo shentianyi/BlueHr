@@ -45,15 +45,19 @@ namespace BlueHrWeb.Controllers
             SysRoleSearchModel csm = new SysRoleSearchModel();
             List<SysRole> sysRoleList = cs.Search(csm).ToList();
 
-            List<SysRoleAuthorization> roleAuths = ss.GetSysRoleAuthListByRoleName(sysRoleList.FirstOrDefault().id.ToString());
             List<string> AuthList = new List<string>();
-
             string thRoleAuthList = "";
-            roleAuths.ForEach(p =>
+
+            if (sysRoleList != null && sysRoleList.Count > 0)
             {
-                thRoleAuthList += p.authId + ",";
-                AuthList.Add(p.authId.ToString());
-            });
+                List<SysRoleAuthorization> roleAuths = ss.GetSysRoleAuthListByRoleName(sysRoleList.FirstOrDefault().id.ToString());
+
+                roleAuths.ForEach(p =>
+                {
+                    thRoleAuthList += p.authId + ",";
+                    AuthList.Add(p.authId.ToString());
+                }); 
+            }
 
             ViewBag.TheRoleAuthList = thRoleAuthList;
             ViewBag.TheAuthList = AuthList;
@@ -193,7 +197,7 @@ namespace BlueHrWeb.Controllers
 
             foreach (var sysRole in sysRoleList)
             {
-                select.Add(new SelectListItem { Text = sysRole.name, Value = sysRole.id.ToString()});
+                select.Add(new SelectListItem { Text = sysRole.name, Value = sysRole.id.ToString() });
             }
 
             ViewData["SysRoleList"] = select;

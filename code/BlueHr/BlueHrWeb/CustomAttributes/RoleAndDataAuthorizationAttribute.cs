@@ -42,7 +42,7 @@ namespace BlueHrWeb.CustomAttributes
                 List<SysAuthorization> allAuths = authSi.GetSysAuthByRoleId(roldId);
 
 
-                string theRequestUrl = filterContext.HttpContext.Request.RawUrl;
+                string theRequestUrl = filterContext.HttpContext.Request.RawUrl.ToLower();
 
                 List<string> authUrls = new List<string>();
                 List<string> dataActions = new List<string>();
@@ -52,35 +52,40 @@ namespace BlueHrWeb.CustomAttributes
 
                     if (p.actionName.ToLower() == "index")
                     {
-                        string authUrl = p.controlName + "/" + p.actionName;
+                        string authUrl = "/" + p.controlName + "/" + p.actionName;
 
                         authUrls.Add(authUrl.ToLower());
                     }
                     else
                     {
 
-                        string authAction = p.controlName + "/" + p.actionName;
+                        string authAction = "/" + p.controlName + "/" + p.actionName;
                         dataActions.Add(authAction.ToLower());
                     }
                 });
 
-                //菜单访问权限 (index)
-                bool hasViewAcess = authUrls.Contains(theRequestUrl);
 
-                if (!hasViewAcess)
+                if (theRequestUrl.IndexOf("index") != -1)
                 {
-                    filterContext.Result = new RedirectResult("/Home/NoAuthPage/1");
+                    //菜单访问权限 (index)
+                    bool hasViewAcess = authUrls.Contains(theRequestUrl);
+
+                    if (!hasViewAcess)
+                    {
+                        filterContext.Result = new RedirectResult("/Home/NoAuthPage/1");
+                    }
                 }
 
-
-                //操作访问权限 (create,update,delete)
-                bool hasActionAccess = dataActions.Contains(theRequestUrl);
-
-                if (!hasActionAccess)
+                else
                 {
-                    filterContext.Result = new RedirectResult("/Home/NoAuthPage/2");
-                } 
+                    //操作访问权限 (create,update,delete)
+                    bool hasActionAccess = dataActions.Contains(theRequestUrl);
 
+                    if (!hasActionAccess)
+                    {
+                        filterContext.Result = new RedirectResult("/Home/NoAuthPage/2");
+                    }
+                }
                 //3. 数据查询权限
             }
         }

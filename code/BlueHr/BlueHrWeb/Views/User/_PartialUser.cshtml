@@ -71,12 +71,10 @@
                         <div class="col col-lg-9">
                             <div class="marco-igroup-primary">
                                 <label for="role">角色*</label>
-                                @if (Model != null)
+                                @if (Model != null && !string.IsNullOrEmpty(Model.roleStr))
                                 {
-                                    if (!string.IsNullOrEmpty(Model.roleStr))
-                                    {
-                                        @Html.EditorFor(model => model.roleStr)
-                                    }
+                                    @Html.EditorFor(model => model.roleStr)
+
                                 }
                                 else
                                 {
@@ -104,12 +102,9 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="marco-igroup-primary">
                         <label for="pwd">权限公司</label>
-                        @if (Model != null)
+                        @if (Model != null && !string.IsNullOrEmpty(Model.AuthCompany))
                         {
-                            if (!string.IsNullOrEmpty(Model.AuthCompany))
-                            {
-                                <input type="text" name="authCompany" id="authCompany" placeholder="" value="@Model.AuthCompany" readonly="readonly" />
-                            }
+                            <input type="text" name="authCompany" id="authCompany" placeholder="" value="@Model.AuthCompany" readonly="readonly" />
                         }
                         else
                         {
@@ -122,12 +117,9 @@
                         <div class="col col-lg-9">
                             <div class="marco-igroup-primary">
                                 <label for="pwd">权限部门</label>
-                                @if (Model != null)
+                                @if (Model != null && !string.IsNullOrEmpty(Model.AuthDepartment))
                                 {
-                                    if (!string.IsNullOrEmpty(Model.AuthDepartment))
-                                    {
-                                        <input type="text" name="authDep" id="authDep" placeholder="" value="@Model.AuthDepartment" readonly="readonly" />
-                                    }
+                                    <input type="text" name="authDep" id="authDep" placeholder="" value="@Model.AuthDepartment" readonly="readonly" />
                                 }
                                 else
                                 {
@@ -281,6 +273,10 @@
             }
         });
     }
+
+    $("#btnEdit3").click(function () {
+        $('#myModal6').modal('hide');
+    });
 
     function selRoleStatus(s, t) {
         $("#theRoleId").val(s);
