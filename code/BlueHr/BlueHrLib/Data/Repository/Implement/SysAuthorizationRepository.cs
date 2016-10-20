@@ -84,6 +84,9 @@ namespace BlueHrLib.Data.Repository.Implement
             if (dep != null)
             {
                 //dep.authType = sysAuth.authType;
+                dep.actionName = sysAuth.actionName;
+                dep.controlName = sysAuth.controlName;
+                dep.funCode = sysAuth.funCode;
                 dep.name = sysAuth.name;
                 dep.remarks = sysAuth.remarks;
                 this.context.SubmitChanges();
