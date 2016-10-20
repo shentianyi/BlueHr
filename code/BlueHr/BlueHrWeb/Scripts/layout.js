@@ -86,7 +86,6 @@ Layout.init = function () {
             $('.nav-certificate').addClass('active');
             PageAction('#certificate', '新建证照', '编辑证照', '证照详情', '创建', '更新', '删除');
             break;
-       
         case "AbsenceRecrod":
             $('.nav-absencerecrod').addClass('active');
             PageAction('#absencerecord', '新建缺勤', '编辑缺勤', '缺勤详情', '创建', '更新', '删除');
@@ -103,13 +102,19 @@ Layout.init = function () {
             $('.nav-shift').addClass('active');
             PageAction('#shiftschedule', '新建排班', '编辑排班', '排班详情', '创建', '更新', '删除');
             break;
+        case "QuartzJob":
+            $('.nav-system-setting').addClass('active');
+            PageAction('#quartzjob', '新建考勤计算设置', '编辑考勤计算设置', '考勤计算设置详情', '创建', '更新', '删除');
+            break;
         case "SysRole":
-            $('.nav-shift').addClass('active');
+            $('.nav-sysRole').addClass('active');
             PageAction('#sysrole', '新建角色', '编辑角色', '角色详情', '创建', '更新', '删除');
             break;
+        case "SysRoleAuthorization":
+            $('.nav-sysRole').addClass('active');
+            break;
         case "SysAuthorization":
-            $('.nav-shift').addClass('active');
-            PageAction('#sysauthorization', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
+            $('.nav-sysRole').addClass('active');
             break;
         case "TaskRound":
             $('.nav-taskround').addClass('active');
