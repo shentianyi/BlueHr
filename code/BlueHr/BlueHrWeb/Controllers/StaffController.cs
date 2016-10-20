@@ -27,11 +27,16 @@ namespace BlueHrWeb.Controllers
     {
         // GET: Company
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
 
             StaffSearchModel q = new StaffSearchModel();
+
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            User user = System.Web.HttpContext.Current.Session["user"] as User; 
+            q.loginUser = user;
 
             IStaffService ss = new StaffService(Settings.Default.db);
 
@@ -45,8 +50,13 @@ namespace BlueHrWeb.Controllers
         }
 
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "Nr, Name, Id, Sex, JobTitleId, CompanyId, DepartmentId, CompanyEmployAtFrom, CompanyEmployAtTo, IsOnTrial")] StaffSearchModel q)
         {
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.loginUser = user;
+
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
@@ -79,6 +89,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: Company/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             SetDropDownList(null);
@@ -87,6 +98,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: Company/Create
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Create([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
             "companySeniority, WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
@@ -225,6 +237,7 @@ namespace BlueHrWeb.Controllers
 
         // GET: Company/Edit/5
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -250,6 +263,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: Company/Edit/5
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
             "companySeniority, WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
             "Speciality, ResidenceAddress, Address, Id, Phone, ContactName, ContactPhone, ContactFamilyMemberType, Domicile, "+
@@ -300,6 +314,7 @@ namespace BlueHrWeb.Controllers
 
         // GET: Company/Delete/5
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(string nr)
         {
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -327,6 +342,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: Company/Delete/5
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(string nr, FormCollection collection)
         {
             // TODO: Add delete logic here
@@ -509,7 +525,7 @@ namespace BlueHrWeb.Controllers
                     string newJobStr = string.Format("{0}-{1}-{2}", newCompany, newDepartment, newJobTitle);
                     IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
 
-                    mrs.CreateStaffShiftJobMessage(changeJob[0], (Session["user"] as　User).id, oldJobStr, newJobStr);
+                    mrs.CreateStaffShiftJobMessage(changeJob[0], (Session["user"] as User).id, oldJobStr, newJobStr);
                 }
                 catch { }
             }
@@ -812,7 +828,7 @@ namespace BlueHrWeb.Controllers
                 Dictionary<string, string> department = new Dictionary<string, string>();
                 if (deps.Count > 0)
                 {
-                    department.Add(string.Empty,string.Empty);
+                    department.Add(string.Empty, string.Empty);
                 }
                 foreach (var dep in deps)
                 {

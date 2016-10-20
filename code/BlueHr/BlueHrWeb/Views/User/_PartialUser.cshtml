@@ -1,14 +1,11 @@
 ﻿@model BlueHrLib.Data.User
-
 <div id="user" style="margin:10px;">
     <ol class="breadcrumb current-position">
         您的位置：
         <li>@Html.ActionLink("用户管理", "Index")</li>
         <li>{{action}}</li>
     </ol>
-
     <hr class="hr-grey" />
-
     @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
     {
         @Html.AntiForgeryToken()
@@ -22,7 +19,6 @@
         <div class="marco-npanel-primary">
             <div class="marco-nheading">
                 {{action}}
-
                 <div class="pull-right">
                     <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;">
                         <i class="fa fa-check-circle-o"></i>
@@ -30,7 +26,6 @@
                     </button>
                 </div>
             </div>
-
             <div class="marco-nbody row">
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
@@ -45,7 +40,6 @@
                         }
                     </div>
                 </div>
-         
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <label for="email">邮箱地址*</label>
@@ -59,35 +53,157 @@
                         }
                     </div>
                 </div>
-                 
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <label for="role">角色*</label> 
-                        @Html.DropDownList("role", ViewData["role"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <label for="pwd">密码*</label>
                         @if (Model != null)
                         {
-                            <input type="password" name="pwd" id="pwd" placeholder="密码" value="@Model.pwd"/>
+                            <input type="password" name="pwd" id="pwd" placeholder="密码" value="@Model.pwd" />
                         }
                         else
                         {
-                            <input type="password" name="pwd"  id="pwd"  placeholder="密码" />
+                            <input type="password" name="pwd" id="pwd" placeholder="密码" />
                         }
                     </div>
                 </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="row">
+                        <div class="col col-lg-9">
+                            <div class="marco-igroup-primary">
+                                <label for="role">角色*</label>
+                                @if (Model != null && !string.IsNullOrEmpty(Model.roleStr))
+                                {
+                                    @Html.EditorFor(model => model.roleStr)
 
-
+                                }
+                                else
+                                {
+                                    <input type="text" name="roleStr" id="roleStr" placeholder="" readonly="readonly" value="@Model.roleStr" />
+                                }
+                                <input type="text" name="role" id="role" hidden="hidden" value="@Model.role" />
+                            </div>
+                        </div>
+                        <div class="col col-lg-3">
+                            @if (Model != null)
+                            {
+                                <button class="marco-btn-primary" style="padding:8px;" title="确定" type="button" id="asignRole" onclick="asignRoleConfirm(@Model.id)">
+                                    分配角色
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="marco-btn-primary" style="padding:8px;" title="确定" type="button" id="asignRole" onclick="asignRoleConfirm(-1)">
+                                    分配角色
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <label for="pwd">权限公司</label>
+                        @if (Model != null && !string.IsNullOrEmpty(Model.AuthCompany))
+                        {
+                            <input type="text" name="authCompany" id="authCompany" placeholder="" value="@Model.AuthCompany" readonly="readonly" />
+                        }
+                        else
+                        {
+                            <input type="text" name="authCompany" id="authCompany" placeholder="" readonly="readonly" />
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="row">
+                        <div class="col col-lg-9">
+                            <div class="marco-igroup-primary">
+                                <label for="pwd">权限部门</label>
+                                @if (Model != null && !string.IsNullOrEmpty(Model.AuthDepartment))
+                                {
+                                    <input type="text" name="authDep" id="authDep" placeholder="" value="@Model.AuthDepartment" readonly="readonly" />
+                                }
+                                else
+                                {
+                                    <input type="text" name="authDep" id="authDep" placeholder="" readonly="readonly" />
+                                }
+                            </div>
+                        </div>
+                        <div class="col col-lg-3">
+                            @if (Model != null)
+                            {
+                                <button class="marco-btn-primary" style="padding:8px;" title="确定" type="button" id="asignCmpDep" onclick="asignCmpDepConfirm(@Model.id)">
+                                    公司和部门
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="marco-btn-primary" style="padding:8px;" title="确定" type="button" id="asignCmpDep" onclick="asignCmpDepConfirm(-1)">
+                                    公司和部门
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-        </div>  
+        </div>
+        <div hidden="hidden">
+            <input type="text" id="selCompanys" name="selCompanys" value="@ViewBag.TheCmpIds" />
+            <input type="text" id="selDeparts" name="selDeparts" value="@ViewBag.TheDepIds" />
+            @*<input type="text" id="theRoleId" name="theRoleId" hidden="hidden" />
+                <input type="text" id="theRoleName" name="theRoleName" hidden="hidden" />*@
+        </div>
     }
 </div>
+<div id="approval_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        分配角色
+    </div>
+    <div class="dialogModal_content">
+        <div class="marco-nbody row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>角色列表</span>
+                    <select class="roleCls" id="roleList" name="roleList">
+                        @{
+                            foreach (var item in (ViewData["SysRoleList"] as IEnumerable<SelectListItem>))
+                            {
+                                <option value="@item.Value" title="@item.Text">@item.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <button class="marco-btn-primary " title="确定" type="button" id="confirmAsign" onclick="theconfirmAsign()">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <p class="modal-title">选择权限公司和部门</p>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col col-lg-4">
+                        <div id="cmpTree"></div>
+                    </div>
+                    <div class="col col-lg-8">
+                        <div id="depTree"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnEdit3" class="btn btn-primary" style="border-radius:3px;">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     Layout.init();
 
@@ -109,4 +225,179 @@
             location.href = '/User/Index';
         }
     }
+
+    //审核
+    function asignRoleConfirm(id) {
+
+        $('#approval_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+
+            },
+            onClose: function () {
+                //window.location.reload();
+            }
+        });
+    }
+
+    $("#btnEdit3").click(function () {
+        $('#myModal6').modal('hide');
+    });
+
+    function theconfirmAsign() {
+        var RoleName = document.getElementsByClassName("roleCls")[1].selectedOptions[0].title;
+        var RoleId = document.getElementsByClassName("roleCls")[1].value;
+
+        if (RoleName == null || RoleName == "") {
+            Layout.popMsg('popMsg-danger', "请选择角色！");
+            return;
+        }
+        else {
+            $("#roleStr").val(RoleName);
+            $("#role").val(RoleId);
+        }
+
+        console.log($("#role").val());
+        console.log($("#roleStr").val());
+
+        $('#approval_content').dialogModal("hide");
+    }
+
+    bindCompany();
+
+    //公司和部门
+    function asignCmpDepConfirm(id) {
+        $('#myModal6').modal('show');
+    }
+
+    function bindCompany() {
+        $.post("/User/GetCompanys", {}, function (response) {
+
+            if (response == "empty_result") {
+                $('#cmpDep_content').dialogModal("hide");
+                Layout.popMsg('popMsg-danger', "公司初始化错误！");
+                return false;
+            }
+            else {
+                $('#cmpTree').treeview({
+                    data: response,         // 数据源
+                    showCheckbox: true,   //是否显示复选框
+                    highlightSelected: true,    //是否高亮选中
+                    //nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
+                    //nodeIcon: 'glyphicon glyphicon-globe',
+                    emptyIcon: '',    //没有子节点的节点图标
+                    //multiSelect: true,    //多选
+                    onNodeChecked: function (event, data) {
+                        bindDepTree(data.id);
+
+                        var cmps = $("#selCompanys").val();
+
+                        if (cmps.indexOf(data.id) == -1) {
+                            cmps += data.id + ",";
+                        }
+
+                        $("#selCompanys").val(cmps);
+
+                        var cmpName = $("#authCompany").val();
+                        if (cmpName.indexOf(data.text) == -1) {
+                            cmpName += data.text + ",";
+                        }
+                        $("#authCompany").val(cmpName);
+
+                        console.log("select company is=>");
+                        console.log($("#selCompanys").val());
+                    },
+
+                    //未选中
+                    onNodeUnchecked: function (event, data) {
+                        var cmps = $("#selCompanys").val();
+
+                        cmps = cmps.replace(data.id + ",", "");
+                        $("#selCompanys").val(cmps);
+
+                        var cmpName = $("#authCompany").val();
+                        cmpName = cmpName.replace(data.text + ",", "");
+                        $("#authCompany").val(cmpName);
+
+                        console.log("select company is=>");
+                        console.log($("#selCompanys").val());
+                    },
+
+                    onNodeSelected: function (event, data) {
+                        bindDepTree(data.id);
+                    }
+                });
+
+                //选中
+                //var selectedCmps = $("#selCompanys").val();
+                //var vals = selectedCmps.split(',');
+
+                //for (var i = 0; i < vals.length; i++) {
+                //    $('#cmpTree').treeview('checkNode', [vals[i], { silent: true }]);
+                //}
+
+
+                //vals.each(function (data) {
+                //    console.log(data);
+                //    $('#cmpTree').treeview('checkNode',[data, { silent: true }]);
+                //});
+
+
+            }
+        });
+    }
+
+    function bindDepTree(cmpId) {
+
+        $.post("/User/GetDepartmentsByCompany", { companyId: cmpId }, function (response) {
+
+            if (response == "empty_result") {
+                $('#cmpDep_content').dialogModal("hide");
+                Layout.popMsg('popMsg-danger', "部门初始化错误！");
+                return false;
+            }
+            else {
+                $('#depTree').treeview({
+                    data: response,         // 数据源
+                    showCheckbox: true,   //是否显示复选框
+                    highlightSelected: true,    //是否高亮选中
+                    //nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
+                    //nodeIcon: 'glyphicon glyphicon-globe',
+                    emptyIcon: '',    //没有子节点的节点图标
+                    multiSelect: true,    //多选
+                    onNodeChecked: function (event, data) {
+                        var deps = $("#selDeparts").val();
+                        deps += cmpId + "|" + data.id + ",";
+                        $("#selDeparts").val(deps);
+
+                        var depName = $("#authDep").val();
+                        depName += data.text + ",";
+                        $("#authDep").val(depName);
+
+                        console.log("select depart is=>");
+                        console.log($("#selDeparts").val());
+                    },
+                    onNodeSelected: function (event, data) {
+                        //alert(data.nodeId);
+                    },
+                    //未选中
+                    onNodeUnchecked: function (event, data) {
+                        var deps = $("#selDeparts").val();
+                        deps = deps.replace(cmpId + "|" + data.id + ",", "");
+                        $("#selDeparts").val(deps);
+
+                        var depName = $("#authDep").val();
+                        depName = depName.replace(data.text + ",", "");
+                        $("#authDep").val(depName);
+
+                        console.log("select depart is=>");
+                        console.log($("#selDeparts").val());
+                    }
+                });
+            }
+        });
+    }
+
 </script>

@@ -79,5 +79,10 @@ namespace BlueHrLib.Service.Implement
         {
             return new DataContext(this.DbString).Context.GetTable<AbsenceRecordView>().Where(s => s.staffNr.Equals(staffNr) && s.absenceDate == date).FirstOrDefault();
         }
+
+        public bool ApprovalTheRecord(AbsenceRecordApproval absRecordApproval)
+        {
+            return rep.ApprovalTheRecord(absRecordApproval);
+        }
     }
 }

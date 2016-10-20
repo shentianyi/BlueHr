@@ -19,6 +19,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: QuartzJob
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index()
         {
             IQuartzJobService js = new QuartzJobService(Settings.Default.db);
@@ -28,6 +29,7 @@ namespace BlueHrWeb.Controllers
 
 
         // GET: QuartzJob/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             SetShiftScheduleList(null);
@@ -36,6 +38,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: QuartzJob/Create
         [HttpPost]
+        //[RoleAndDataAuthorizationAttribute]
         public JsonResult Create([Bind(Include = "cronSchedule,params")] QuartzJob job)
         {
             ResultMessage msg = new ResultMessage();
@@ -75,6 +78,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: QuartzJob/Delete/5
         [HttpPost]
+        //[RoleAndDataAuthorizationAttribute]
         //如果存在员工排班，则不可删除
         public ActionResult Delete(int id, FormCollection collection)
         {

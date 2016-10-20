@@ -22,6 +22,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: JobTitle 
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -38,6 +39,8 @@ namespace BlueHrWeb.Controllers
 
             return View(workAndRests);
         }
+
+        [RoleAndDataAuthorizationAttribute]
 
         public ActionResult Search([Bind(Include = "DateAtFrom,DateAtTo, DateType")] WorkAndRestSearchModel q)
         {
@@ -56,6 +59,7 @@ namespace BlueHrWeb.Controllers
             return View("Index", workAndRests);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Import()
         {
             var ff = Request.Files[0];
@@ -69,6 +73,7 @@ namespace BlueHrWeb.Controllers
 
         [AdminAuthorize]
         // GET: WorkAndRest/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             SetWorkAndRestTypeList(null);
@@ -77,6 +82,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: WorkAndRest/Create
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public JsonResult Create([Bind(Include = "dateAt,dateType,remark")] WorkAndRest workAndRest)
         {
             ResultMessage msg = new ResultMessage();
@@ -115,6 +121,7 @@ namespace BlueHrWeb.Controllers
 
 
         [AdminAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         // GET: WorkAndRest/Edit/5
         public ActionResult Edit(int id)
         {
@@ -128,6 +135,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: WorkAndRest/Edit/5
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit([Bind(Include = "id,dateAt,dateType,remark")] WorkAndRest workAndRest)
         {
             ResultMessage msg = new ResultMessage();
@@ -158,6 +166,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [AdminAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         // GET: WorkAndRest/Delete/5
         public ActionResult Delete(int id)
         {
@@ -170,6 +179,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: WorkAndRest/Delete/5
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id, FormCollection collection)
         {
             ResultMessage msg = new ResultMessage();

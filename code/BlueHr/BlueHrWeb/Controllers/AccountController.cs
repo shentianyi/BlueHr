@@ -492,10 +492,14 @@ namespace BlueHrWeb.Controllers
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            //if (returnUrl != "/")
             {
-                return Redirect(returnUrl);
+                if (Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
             }
+            
             return RedirectToAction("Index", "Home");
         }
 

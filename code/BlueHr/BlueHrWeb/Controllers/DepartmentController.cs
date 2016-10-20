@@ -24,6 +24,7 @@ namespace BlueHrWeb.Controllers
         #region 部门列表
 
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -47,7 +48,7 @@ namespace BlueHrWeb.Controllers
         #region 创建部门
 
 
-
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             //读取所有公司列表
@@ -56,6 +57,7 @@ namespace BlueHrWeb.Controllers
             return View();
         }
 
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -92,6 +94,7 @@ namespace BlueHrWeb.Controllers
         #region 编辑部门
 
         // GET: Department/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             var department = this.departmentService.FindById(id);
@@ -103,6 +106,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
@@ -131,6 +135,7 @@ namespace BlueHrWeb.Controllers
 
         #region 删除部门
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             var department = this.departmentService.FindById(id);
@@ -141,13 +146,15 @@ namespace BlueHrWeb.Controllers
         }
 
         [HttpPost]
+        //[RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
-            {
+            { 
+
                 var department = this.departmentService.FindById(id);
                 if (null != department)
-                {
+                { 
                     this.departmentService.DeleteById(id);
                 }
                 //IStaffService staffService = new StaffService(Settings.Default.db);
@@ -180,6 +187,7 @@ namespace BlueHrWeb.Controllers
             return View("Index", departments);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Import()
         {
             var ff = Request.Files[0];

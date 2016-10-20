@@ -22,6 +22,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: ResignType
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -40,6 +41,7 @@ namespace BlueHrWeb.Controllers
             return View(resignTypes);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "Name")] ResignTypeSearchModel q)
         {
             int pageIndex = 0;
@@ -56,12 +58,14 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: ResignType/Details/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: ResignType/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             //SetDropDownList(null);
@@ -69,6 +73,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: ResignType/Create
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Create([Bind(Include = "Name,code, remark")] ResignType resignType)
         {
@@ -100,6 +105,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: ResignType/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             IResignTypeService cs = new ResignTypeService(Settings.Default.db);
@@ -110,6 +116,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: ResignType/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Edit([Bind(Include = "id, name,code, remark")] ResignType resignType)
         {
@@ -141,6 +148,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: ResignType/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             IResignTypeService cs = new ResignTypeService(Settings.Default.db);
@@ -151,6 +159,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: ResignType/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Delete(int id, FormCollection collection)
         {

@@ -23,6 +23,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: AttendanceRecordDetail
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -36,6 +37,7 @@ namespace BlueHrWeb.Controllers
             return View(records);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "CompanyId,DepartmentId,StaffNr,RecordAtFrom,RecordAtEnd")] AttendanceRecordDetailSearchModel q)
         {
             int pageIndex = 0;
@@ -52,6 +54,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [AdminAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         // GET: AttendanceRecordDetail/Create
         public ActionResult Create()
         {
@@ -60,6 +63,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: AttendanceRecordDetail/Create
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public JsonResult Create([Bind(Include = "staffNr,recordAt,device")] AttendanceRecordDetail ard)
         {
             ResultMessage msg = new ResultMessage();
@@ -91,6 +95,7 @@ namespace BlueHrWeb.Controllers
 
 
         [AdminAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         // GET: AttendanceRecordDetail/Edit/5
         public ActionResult Edit(int id)
         {
@@ -102,6 +107,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: AttendanceRecordDetail/Edit/5
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit([Bind(Include = "id,staffNr,recordAt,device")] AttendanceRecordDetail attendanceRecordDetail)
         {
             ResultMessage msg = new ResultMessage();
@@ -132,6 +138,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [AdminAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         // GET: AttendanceRecordDetail/Delete/5
         public ActionResult Delete(int id)
         {
@@ -143,6 +150,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: AttendanceRecordDetail/Delete/5
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id, FormCollection collection)
         {
             ResultMessage msg = new ResultMessage();

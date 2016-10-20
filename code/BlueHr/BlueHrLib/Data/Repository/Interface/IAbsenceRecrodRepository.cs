@@ -21,5 +21,7 @@ namespace BlueHrLib.Data.Repository.Interface
         List<AbsenceRecrod> FindByAbsenceType(int id);
 
         List<AbsenceRecrod> GetAll();
+
+        bool ApprovalTheRecord(AbsenceRecordApproval absRecordApproval);
     }
 }

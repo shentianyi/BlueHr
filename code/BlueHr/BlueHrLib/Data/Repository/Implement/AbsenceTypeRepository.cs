@@ -18,7 +18,7 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public IQueryable<AbsenceType> Search(AbsenceTypeSearchModel searchModel)
         {
-            IQueryable<AbsenceType> absenceTypes = this.context.AbsenceType;
+            IQueryable<AbsenceType> absenceTypes = this.context.AbsenceTypes;
             if (!string.IsNullOrEmpty(searchModel.Name))
             {
                 absenceTypes = absenceTypes.Where(c => c.name.Contains(searchModel.Name.Trim()));

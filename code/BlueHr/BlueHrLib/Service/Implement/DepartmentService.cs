@@ -5,6 +5,7 @@ using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Implement;
 using BlueHrLib.Data.Repository.Interface;
 using BlueHrLib.Service.Interface;
+using System.Collections.Generic;
 
 namespace BlueHrLib.Service.Implement
 {
@@ -54,6 +55,11 @@ namespace BlueHrLib.Service.Implement
         public bool Update(Department department)
         {
             return depRep.Update(department);
+        }
+
+        public string FindByIds(List<string> ids)
+        {
+            return depRep.FindByIds(ids);
         }
     }
 }

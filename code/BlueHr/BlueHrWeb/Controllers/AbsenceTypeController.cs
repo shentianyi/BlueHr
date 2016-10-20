@@ -22,6 +22,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: AbsenceType
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -40,6 +41,7 @@ namespace BlueHrWeb.Controllers
             return View(models);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "Name")] AbsenceTypeSearchModel q)
         {
             int pageIndex = 0;
@@ -62,6 +64,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: AbsenceType/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             //SetDropDownList(null);
@@ -70,6 +73,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: AbsenceType/Create
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public JsonResult Create([Bind(Include = "Name,code, remark")] AbsenceType model)
         {
             ResultMessage msg = new ResultMessage();
@@ -100,6 +104,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: AbsenceType/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             IAbsenceTypeService cs = new AbsenceTypeService(Settings.Default.db);
@@ -110,6 +115,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: AbsenceType/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Edit([Bind(Include = "id, name,code, remark")] AbsenceType model)
         {
@@ -141,6 +147,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: AbsenceType/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             IAbsenceTypeService cs = new AbsenceTypeService(Settings.Default.db);
@@ -151,6 +158,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: AbsenceType/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

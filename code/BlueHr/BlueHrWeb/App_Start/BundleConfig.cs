@@ -66,6 +66,10 @@ namespace BlueHrWeb
                 "~/Scripts/magnific-popup/jquery.magnific-popup.js"
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap-treeview").Include(
+              "~/Scripts/bootstrap-treeview-1.2.0/bootstrap-treeview.js"
+              ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      "~/Content/site.css",
                      "~/Content/bootstrap.css",
@@ -91,6 +95,10 @@ namespace BlueHrWeb
             bundles.Add(new StyleBundle("~/Content/magnific-popup").Include(
                    "~/Content/magnific-popup.css"
                ));
+
+            bundles.Add(new StyleBundle("~/Content/bootstrap-treeview").Include(
+                  "~/Scripts/bootstrap-treeview-1.2.0/bootstrap-treeview.css"
+              ));
         }
     }
 }

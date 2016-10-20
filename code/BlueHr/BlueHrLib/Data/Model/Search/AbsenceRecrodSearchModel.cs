@@ -17,5 +17,7 @@ namespace BlueHrLib.Data.Model.Search
         public DateTime? durStart { get; set; }
 
         public DateTime? durEnd { get; set; }
+
+        public User lgUser { get; set; }
     }
 }

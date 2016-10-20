@@ -25,5 +25,9 @@ namespace BlueHrLib.Data.Repository.Interface
         bool Update(Company company);
 
         bool DeleteById(int id);
+
+        string FindByIds(List<string> ids);
+      
+
     }
 }

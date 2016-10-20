@@ -17,6 +17,7 @@ namespace BlueHrWeb.Controllers
         // GET: SystemSetting
 
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index()
         {
             ISystemSettingService ss = new SystemSettingService(Settings.Default.db);

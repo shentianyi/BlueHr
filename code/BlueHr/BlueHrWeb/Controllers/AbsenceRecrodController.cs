@@ -24,6 +24,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: AbsenceRecrod
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             SetDropDownList(null);
@@ -31,6 +32,10 @@ namespace BlueHrWeb.Controllers
             int pageIndex = PagingHelper.GetPageIndex(page);
 
             AbsenceRecrodSearchModel q = new AbsenceRecrodSearchModel();
+
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.lgUser = user;
 
             IAbsenceRecordService ss = new AbsenceRecordService(Settings.Default.db);
 
@@ -44,9 +49,14 @@ namespace BlueHrWeb.Controllers
             return View(models);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "staffNr,absenceTypeId,durStart,durEnd")] AbsenceRecrodSearchModel q)
         {
             SetDropDownList(null);
+
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.lgUser = user;
 
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
@@ -67,6 +77,7 @@ namespace BlueHrWeb.Controllers
             return View();
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // GET: AbsenceRecrod/Create
         public ActionResult Create()
         {
@@ -74,6 +85,7 @@ namespace BlueHrWeb.Controllers
             return View();
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // POST: AbsenceRecrod/Create
         [HttpPost]
         public ActionResult Create([Bind(Include = "absenceTypeId,staffNr,startHour,endHour, duration,durationType,remark,absenceDate")] AbsenceRecrod model)
@@ -106,6 +118,7 @@ namespace BlueHrWeb.Controllers
             }
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // GET: AbsenceRecrod/Edit/5
         public ActionResult Edit(int id)
         {
@@ -116,6 +129,7 @@ namespace BlueHrWeb.Controllers
             return View(jt);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // POST: AbsenceRecrod/Edit/5
         [HttpPost]
         public ActionResult Edit([Bind(Include = "id, absenceTypeId,staffNr,startHour,endHour, duration,durationType,remark,absenceDate")] AbsenceRecrod model)
@@ -148,6 +162,7 @@ namespace BlueHrWeb.Controllers
             }
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // GET: AbsenceRecrod/Delete/5
         public ActionResult Delete(int id)
         {
@@ -158,6 +173,7 @@ namespace BlueHrWeb.Controllers
             return View(cp);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         // POST: AbsenceRecrod/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
@@ -166,18 +182,18 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                ////存在员工时不可删除
-                //IAbsenceRecordService shfSi = new AbsenceRecordService(Settings.Default.db);
-                //List<AbsenceRecrod> shf = shfSi.FindByAbsenceType(id);
+                //审批后不可删除
+                IAbsenceRecordService shfSi = new AbsenceRecordService(Settings.Default.db);
+                AbsenceRecrod shf = shfSi.FindById(id);
 
-                //if (null != shf && shf.Count() > 0)
-                //{
-                //    msg.Success = false;
-                //    msg.Content = "缺勤类型正在使用,不能删除!";
+                if (null != shf && shf.AbsenceRecordApprovals.Count() > 0)
+                {
+                    msg.Success = false;
+                    msg.Content = "缺勤审批后不可删除!";
 
-                //    return Json(msg, JsonRequestBehavior.AllowGet);
-                //}
-                //else
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
                 {
                     IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
                     bool isSucceed = cs.DeleteById(id);
@@ -310,7 +326,7 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            if (model.absenceDate ==null)
+            if (model.absenceDate == null)
             {
                 msg.Success = false;
                 msg.Content = "缺勤时间不能为空，或格式必须正确";
@@ -318,7 +334,7 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            if ( model.duration <= 0)
+            if (model.duration <= 0)
             {
                 msg.Success = false;
                 msg.Content = "缺勤时长不能为空";
@@ -357,6 +373,51 @@ namespace BlueHrWeb.Controllers
             //}
 
             return new ResultMessage() { Success = true, Content = "" };
+        }
+
+        [HttpPost]
+        public JsonResult ApprovalAbsenceRecord(string absRecordId, string approvalStatus, string approvalRemarks)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            try
+            {
+                //check user
+
+                if (Session["user"] == null)
+                {
+                    msg.Success = false;
+                    msg.Content = "用户未登录，请登录后重试！";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+
+                AbsenceRecordApproval absApproval = new AbsenceRecordApproval();
+                absApproval.absRecordId = !string.IsNullOrEmpty(absRecordId) ? int.Parse(absRecordId) : -1;
+                absApproval.approvalStatus = approvalStatus;
+                absApproval.approvalTime = DateTime.Now;
+                absApproval.remarks = approvalRemarks;
+
+                if (Session["user"] != null)
+                {
+                    User user = Session["user"] as User;
+                    absApproval.userId = user.id;
+                }
+
+                IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
+                bool isSucceed = cs.ApprovalTheRecord(absApproval);
+
+                msg.Success = isSucceed;
+                msg.Content = "审批成功！";
+
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                msg.Success = false;
+                msg.Content = ex.Message;
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

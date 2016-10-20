@@ -14,6 +14,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: ExtraWorkType
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index()
         {
             IExtraWorkTypeService s = new ExtraWorkTypeService(Settings.Default.db);

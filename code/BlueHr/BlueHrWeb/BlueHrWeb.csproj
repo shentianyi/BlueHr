@@ -254,6 +254,9 @@
     <Compile Include="Controllers\ExtraWorkRecordController.cs" />
     <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
+    <Compile Include="Controllers\SysRoleAuthorizationController.cs" />
+    <Compile Include="Controllers\SysRoleController.cs" />
+    <Compile Include="Controllers\SysAuthorizationController.cs" />
     <Compile Include="Controllers\WorkAndRestsController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\MessageRecordController.cs" />
@@ -269,6 +272,7 @@
     <Compile Include="Controllers\SystemSettingController.cs" />
     <Compile Include="Controllers\TaskRoundController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="CustomAttributes\RoleAndDataAuthorizationAttribute.cs" />
     <Compile Include="CustomAttributes\UserAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -325,6 +329,8 @@
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\AdminLTE.js" />
+    <Content Include="Scripts\bootstrap-treeview-1.2.0\bootstrap-treeview.css" />
+    <Content Include="Scripts\bootstrap-treeview-1.2.0\bootstrap-treeview.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -555,6 +561,21 @@
     <Content Include="Views\AttendanceRecordCal\Create.cshtml" />
     <Content Include="Views\AttendanceRecordCal\Delete.cshtml" />
     <Content Include="Views\AttendanceRecordCal\_PartialDetail.cshtml" />
+    <Content Include="Views\SysRole\Index.cshtml" />
+    <Content Include="Views\SysRole\_PartialSysRole.cshtml" />
+    <Content Include="Views\SysRole\Create.cshtml" />
+    <Content Include="Views\SysRole\Delete.cshtml" />
+    <Content Include="Views\SysAuthorization\Index.cshtml" />
+    <Content Include="Views\SysAuthorization\_PartialSysAuthorization.cshtml" />
+    <Content Include="Views\SysAuthorization\Create.cshtml" />
+    <Content Include="Views\SysAuthorization\Delete.cshtml" />
+    <Content Include="Views\SysRole\Edit.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\Index.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\Create.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\Edit.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\Delete.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\_PartialSysRoleAuthorization.cshtml" />
+    <Content Include="Views\Home\NoAuthPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
