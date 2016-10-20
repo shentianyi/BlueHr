@@ -377,6 +377,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public JsonResult ApprovalExtraWorkRecord(string extralRecordId, string approvalStatus, string approvalRemarks)
         {
             ResultMessage msg = new ResultMessage();

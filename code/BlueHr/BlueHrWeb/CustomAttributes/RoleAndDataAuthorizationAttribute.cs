@@ -1,5 +1,6 @@
 ﻿using BlueHrLib.Data;
 using BlueHrLib.Data.Enum;
+using BlueHrLib.Data.Message;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
 using BlueHrWeb.Models;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace BlueHrWeb.CustomAttributes
@@ -107,7 +109,15 @@ namespace BlueHrWeb.CustomAttributes
 
                     if (hasActionAccess <= 0)
                     {
-                        filterContext.Result = new RedirectResult("/Home/NoAuthPage/2");
+                        if (filterContext.RequestContext.HttpContext.Request.ContentType == "application/x-www-form-urlencoded; charset=UTF-8")
+                        {
+                            //throw new Exception("无权操作！");
+                            var msg = new ResultMessage() { Content = "无权操作！" };
+                            filterContext.Result = new JsonResult() { Data=msg};
+                        }
+                        else {
+                            filterContext.Result = new RedirectResult("/Home/NoAuthPage/2");
+                        }
                     }
                 }
                 //3. 数据查询权限

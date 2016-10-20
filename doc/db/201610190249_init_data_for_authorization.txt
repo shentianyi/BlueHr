@@ -108,11 +108,16 @@ INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId
 INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'缺勤添加', N'AbsenceRecrod', N'Create', NULL, N'缺勤管理', 0, N'[Create 请求]缺勤管理')
 INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'缺勤编辑', N'AbsenceRecrod', N'Edit', NULL, N'缺勤管理', 0, N'[Edit 请求]缺勤管理')
 INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'缺勤删除', N'AbsenceRecrod', N'Delete', NULL, N'缺勤管理', 0, N'[Delete 请求]缺勤管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'缺勤审批', N'AbsenceRecrod', N'ApprovalAbsenceRecord', NULL, N'缺勤管理', 0, N'[ApprovalAbsenceRecord 请求]缺勤管理')
+
 
 INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'加班列表', N'ExtraWorkRecord', N'Index', NULL, N'加班管理', 0, N'[Index 页面]加班管理')
 INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'加班添加', N'ExtraWorkRecord', N'Create', NULL, N'加班管理', 0, N'[Create 请求]加班管理')
 INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'加班编辑', N'ExtraWorkRecord', N'Edit', NULL, N'加班管理', 0, N'[Edit 请求]加班管理')
 INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'加班删除', N'ExtraWorkRecord', N'Delete', NULL, N'加班管理', 0, N'[Delete 请求]加班管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'加班审批', N'ExtraWorkRecord', N'ApprovalExtraWorkRecord', NULL, N'加班管理', 0, N'[ApprovalExtraWorkRecord 请求]加班管理')
+
+
 
 INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'系统任务列表', N'TaskRound', N'Index', NULL, N'系统任务管理', 0, N'[Index 页面]系统任务管理') 
 

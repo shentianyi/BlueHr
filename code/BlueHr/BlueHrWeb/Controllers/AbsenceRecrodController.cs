@@ -376,6 +376,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public JsonResult ApprovalAbsenceRecord(string absRecordId, string approvalStatus, string approvalRemarks)
         {
             ResultMessage msg = new ResultMessage();
