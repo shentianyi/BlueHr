@@ -76,10 +76,10 @@ INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId
 INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'部门删除', N'Department', N'Delete', NULL, N'部门管理', 0, N'[Delete 请求]部门管理')
 INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'部门导入', N'Department', N'Import', NULL, N'部门管理', 0, N'[Import 请求]部门管理')
 
-INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'员工列表', N'Staff', N'Index', NULL, N'基础信息', 0, N'[Index 页面]员工管理')
-INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'员工添加', N'Staff', N'Create', NULL, N'基础信息', 0, N'[Create 请求]员工管理')
-INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'员工编辑', N'Staff', N'Edit', NULL, N'基础信息', 0, N'[Edit 请求]员工管理')
-INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'员工删除', N'Staff', N'Delete', NULL, N'基础信息', 0, N'[Delete 请求]员工管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'员工列表', N'Staff', N'Index', NULL, N'员工管理', 0, N'[Index 页面]员工管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'员工添加', N'Staff', N'Create', NULL, N'员工管理', 0, N'[Create 请求]员工管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'员工编辑', N'Staff', N'Edit', NULL, N'员工管理', 0, N'[Edit 请求]员工管理')
+INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'员工删除', N'Staff', N'Delete', NULL, N'员工管理', 0, N'[Delete 请求]员工管理')
 
 INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'班次列表', N'Shift', N'Index', NULL, N'排班管理', 0, N'[Index 页面]班次管理')
 INSERT [dbo].[SysAuthorization] ( [name], [controlName], [actionName], [parentId], [funCode], [isDelete], [remarks]) VALUES ( N'班次添加', N'Shift', N'Create', NULL, N'排班管理', 0, N'[Create 请求]班次管理')
