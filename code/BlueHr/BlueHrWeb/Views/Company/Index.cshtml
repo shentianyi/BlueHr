@@ -1,4 +1,6 @@
 ﻿@using MvcPaging
+@using BlueHrWeb.Helpers.View
+
 
 @model IPagedList<BlueHrLib.Data.Company>
 
@@ -14,7 +16,12 @@
 </ol>
 
 <hr class="hr-grey" />
+@{
+    bool canDelete = MenuAuthHelper.CanShow("Company", "Delete");
+    bool canEdit = MenuAuthHelper.CanShow("Company", "Edit");
+    bool canCreate = MenuAuthHelper.CanShow("Company", "Create");
 
+}
 <form action="/Company/Search" method="get">
     <div class="row" style="margin:0;">
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -37,12 +44,15 @@
         <div class="table-heading">
             公司列表
             <div class="pull-right" style="margin-top:-12px;">
+                @if (canCreate)
+                {
                 <a href="/Company/Create">
                     <button class="marco-btn-primary">
                         <i class="glyphicon glyphicon-plus-sign"></i>
                         <span>创建</span>
                     </button>
                 </a>
+                }
             </div>
         </div>
         <div class="table-body content_3">
@@ -77,13 +87,18 @@
                                     @Html.DisplayFor(modelItem => item.remark)
                                 </td>
                                 <td>
+                                    @if (canDelete)
+                                    {
                                     <a href="/Company/Delete/@item.id" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>
                                     </a>
-
+                                    }
+                                    @if (canEdit)
+                                    {
                                     <a href="/Company/Edit/@item.id" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
                                     </a>
+                                    }
                                 </td>
                             </tr>
                         }

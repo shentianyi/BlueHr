@@ -372,7 +372,7 @@
                     @*Edit Delete 显示 信息 *@
                     @if (Model != null)
                     {
-                        foreach (var bankCard in Model.BankCard)
+                        foreach (var bankCard in Model.BankCards)
                         {
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 card-box-primary">
                                 <div class="card-box">
@@ -446,7 +446,7 @@
                         @*Edit Delete 显示 信息 *@
                         @if (Model != null)
                         {
-                            foreach (var family in Model.FamilyMemeber)
+                            foreach (var family in Model.FamilyMemebers)
                             {
                                 <tr>
                                     <td><input type="text" class="marco-input-primary" name="familyName" value="@family.memberName" /></td>

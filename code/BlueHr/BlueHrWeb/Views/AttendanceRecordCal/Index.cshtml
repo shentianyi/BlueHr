@@ -7,6 +7,13 @@
     ViewBag.Title = "Index";
 }
 
+@{
+    bool canShow = MenuAuthHelper.CanShow("AttendanceRecordCal", "Show");
+    bool canEdit = MenuAuthHelper.CanShow("AttendanceRecordCal", "Edit");
+    bool canCreate = MenuAuthHelper.CanShow("AttendanceRecordCal", "Create");
+
+    bool canExport = MenuAuthHelper.CanShow("AttendanceRecordCal", "ExportReport");
+}
 <style type="text/css">
     .ui-widget-header {
         background: #34495e;
@@ -82,12 +89,13 @@
                  <i class="glyphicon glyphicon-search"></i>
                  搜索
              </button>
-
+             @if (canExport)
+             {
              <button type="button" class="marco-btn-danger export-button-dialog" style="width: 150px; height:40px;">
                  <i class="glyphicon glyphicon-dashboard"></i>
                  导出考勤报表
              </button>
-            
+             }
 
 
          </div>
@@ -99,12 +107,15 @@
         <div class="table-heading">
             考勤统计数据列表
             <div class="pull-right" style="margin-top: -11px;">
+                @if (canCreate)
+                {
                 <a href="/AttendanceRecordCal/Create">
                     <button type="button" class="marco-btn-primary">
                         <i class="fa fa-plus"></i>
                         创建
                     </button>
                 </a>
+                }
             </div>
         </div>
         <div class="table-body content_3">
@@ -172,12 +183,18 @@
                                     @Html.DisplayFor(modelItem => item.isExceptionHandledStr)
                                 </td>
                                 <td>
+                                    @if (canShow)
+                                    {
                                     <a href="/AttendanceRecordCal/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>
                                     </a>
+                                    }
+                                    @if (canEdit)
+                                    {
                                     <a href="/AttendanceRecordCal/Edit/@item.id" target="_blank" class="option-icon-warning" title="调整工时">
                                         <i class="fa fa-pencil"></i>
                                     </a>
+                                    }
                                 </td>
                             </tr>
                         }

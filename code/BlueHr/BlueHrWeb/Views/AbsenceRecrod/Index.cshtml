@@ -1,4 +1,6 @@
 ﻿@using MvcPaging
+@using BlueHrWeb.Helpers.View
+
 @model IPagedList<BlueHrLib.Data.AbsenceRecrod>
 @{
     ViewBag.Title = "缺勤管理";
@@ -10,6 +12,14 @@
     <li>缺勤管理</li>
 </ol>
 <hr class="hr-grey" />
+@{
+    bool canDelete = MenuAuthHelper.CanShow("AbsenceRecrod", "Delete");
+    bool canEdit = MenuAuthHelper.CanShow("AbsenceRecrod", "Edit");
+    bool canCreate = MenuAuthHelper.CanShow("AbsenceRecrod", "Create");
+    
+    bool canApp = MenuAuthHelper.CanShow("AbsenceRecrod", "ApprovalAbsenceRecord");
+    bool canImport = MenuAuthHelper.CanShow("AbsenceRecrod", "Import");
+}
 <div class="row" style="margin:0;">
     <form action="/AbsenceRecrod/Search" method="get">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -35,9 +45,12 @@
                         <i class="fa fa-search"></i>
                         搜索
                     </button>
+                    @if (canImport)
+                    {
                     <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
                         导入缺勤记录
                     </button>
+                    }
                 </span>
             </div>
         </div>
@@ -48,12 +61,15 @@
         <div class="table-heading">
             缺勤列表
             <div class="pull-right" style="margin-top:-12px;">
+                @if (canCreate)
+                {
                 <a href="/AbsenceRecrod/Create">
                     <button class="marco-btn-primary">
                         <i class="glyphicon glyphicon-plus-sign"></i>
                         <span>创建</span>
                     </button>
                 </a>
+                }
             </div>
         </div>
         <div class="table-body content_3">
@@ -112,15 +128,24 @@
                                     </td>
                                 }
                                     <td>
+                                        @if (canDelete)
+                                        {
                                         <a href="/AbsenceRecrod/Delete/@item.id" class="option-icon-primary" title="详情">
                                             <i class="fa fa-eye"></i>
                                         </a>
+                                        }
+                                        @if (canEdit)
+                                        {
                                         <a href="/AbsenceRecrod/Edit/@item.id" class="option-icon-warning" title="编辑">
                                             <i class="fa fa-pencil"></i>
                                         </a>
+                                        }
+                                        @if (canApp)
+                                        {
                                         <a class="option-icon-warning" title="审核" id="shAbsenceRecord" onclick="shAbsenceRecord(@item.id)">
                                             <i class="fa fa-calculator"></i>
                                         </a>
+                                        }
                                     </td>
                                 </tr>
                         }

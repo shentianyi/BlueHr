@@ -403,35 +403,35 @@ namespace BlueHrWeb.Controllers
             //    return msg;
             //}
 
-            if (string.IsNullOrEmpty(authCompany))
-            {
-                if (string.IsNullOrEmpty(selCompanys))
-                {
-                    msg.Success = false;
-                    msg.Content = "公司权限不能为空";
-                    return msg;
-                }
-            }
+            //if (string.IsNullOrEmpty(authCompany))
+            //{
+            //    if (string.IsNullOrEmpty(selCompanys))
+            //    {
+            //        msg.Success = false;
+            //        msg.Content = "公司权限不能为空";
+            //        return msg;
+            //    }
+            //}
 
-            if (string.IsNullOrEmpty(authDep))
-            {
-                if (string.IsNullOrEmpty(selDeparts))
-                {
-                    msg.Success = false;
-                    msg.Content = "部门权限不能为空";
-                    return msg;
-                }
-            }
+            //if (string.IsNullOrEmpty(authDep))
+            //{
+            //    if (string.IsNullOrEmpty(selDeparts))
+            //    {
+            //        msg.Success = false;
+            //        msg.Content = "部门权限不能为空";
+            //        return msg;
+            //    }
+            //}
 
-            if (string.IsNullOrEmpty(roleStr))
-            {
-                if (string.IsNullOrEmpty(theRoleId))
-                {
-                    msg.Success = false;
-                    msg.Content = "角色不能为空";
-                    return msg;
-                }
-            }
+            //if (string.IsNullOrEmpty(roleStr))
+            //{
+            //    if (string.IsNullOrEmpty(theRoleId))
+            //    {
+            //        msg.Success = false;
+            //        msg.Content = "角色不能为空";
+            //        return msg;
+            //    }
+            //}
 
             IUserService cs = new UserService(Settings.Default.db);
 

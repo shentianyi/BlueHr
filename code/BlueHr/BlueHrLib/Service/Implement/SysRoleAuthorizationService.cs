@@ -75,5 +75,24 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.GetSysRoleAuthListByRoleName(roleName);
         }
+
+        public bool AuthUrl(int roleId, string controller, string action)
+        {
+            bool r = false;
+            DataContext dc = new DataContext(this.DbString);
+
+            var q = from sra in dc.Context.GetTable<SysRoleAuthorization>()
+                    join
+sa in dc.Context.GetTable<SysAuthorization>()
+on sra.authId equals sa.id
+                    select new { roleId = sra.roleId, controller = sa.controlName, action = sa.actionName }
+                   into ssra
+                    where ssra.roleId == roleId
+                    && ssra.action == action && ssra.controller == controller
+                    select ssra;
+
+            r = q.FirstOrDefault() != null;
+            return r;
+        }
     }
 }

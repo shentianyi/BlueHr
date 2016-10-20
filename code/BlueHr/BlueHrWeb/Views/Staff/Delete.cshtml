@@ -1,10 +1,17 @@
 ﻿@model BlueHrLib.Data.Staff
+@using BlueHrWeb.Helpers.View
 
 @{
     ViewBag.Title = "Delete";
 }
 <div>
     @{
+        bool canDelete = MenuAuthHelper.CanShow("Staff", "Delete");
+        bool canFullMemeber = MenuAuthHelper.CanShow("Staff", "ToFullMemeber");
+        bool canResign = MenuAuthHelper.CanShow("Staff", "Resign");
+        bool canChangeJob = MenuAuthHelper.CanShow("Staff", "changeJob");
+        bool canCert= MenuAuthHelper.CanShow("Certificate", "Index");
+
         var toFullTitle = Model.canTobeFullMember ? "可转正" : "已转正";
         var toFullUrl = Model.canTobeFullMember ? "/Staff/ToFullMemeber?nr=" + Model.nr : "#";
 
@@ -14,31 +21,41 @@
     }
 
     <div style="position:fixed; bottom:0; right:80px;z-index:99999;">
+        @if (canCert)
+        {
         <a href="/Certificate?nr=@Model.nr" title="证照管理">
             <button class="marco-btn-warning pull-right">
                 <i class="glyphicon glyphicon-picture"></i>
                 <span>证 照</span>
             </button>
         </a>
+        }
 
+        @if (canResign)
+        {
         <a href="@resignUrl" title="@resignTitle">
             <button class="marco-btn-warning pull-right">
                 <i class="glyphicon glyphicon-random"></i>
                 <span>离 职</span>
             </button>
         </a>
-
+        }
+        @if (canFullMemeber)
+        {
         <a href="@toFullUrl" title="@toFullTitle">
             <button class="marco-btn-success pull-right">
                 <i class="glyphicon glyphicon-repeat"></i>
                 <span>转正</span>
             </button>
         </a>
-
+        }
+        @if (canResign)
+        {
         <button class="marco-btn-primary pull-right change-job">
             <i class="glyphicon glyphicon-refresh"></i>
             <span>调 岗</span>
         </button>
+        }
     </div>
 </div>
 

@@ -75,13 +75,13 @@
                                 {
                                     @*@Html.EditorFor(model => model.roleStr)*@
                                     <input type="text" name="role" id="role" hidden="hidden" value="@Model.role" />
-                                    <input type="text" name="roleStr" id="roleStr" placeholder="" readonly="readonly" value="@Model.roleStr" />
+                                    <input type="text" name="roleStr" style="text-align:left" id="roleStr" placeholder="" readonly="readonly" value="@Model.roleStr" />
                                 }
                                 else
                                 {
                                      <input type="text" name="role" id="role" hidden="hidden" />
 
-                                     <input type="text" name="roleStr" id="roleStr" placeholder="" readonly="readonly"/>
+                                     <input type="text" name="roleStr" style="text-align:left" id="roleStr" placeholder="" readonly="readonly"/>
                                 }
                             </div>
                         </div>
@@ -249,10 +249,10 @@
     });
 
     function theconfirmAsign() {
-        var RoleName =$('.roleCls').text(); //document.getElementsByClassName("roleCls")[1].selectedOptions[0].title;
-        var RoleId = $('.roleCls').val();//document.getElementsByClassName("roleCls")[1].value;
-        alert(RoleName);
-        alert(RoleId);
+        var RoleName =$('.roleCls:last').find("option:selected").text(); //document.getElementsByClassName("roleCls")[1].selectedOptions[0].title;
+        var RoleId = $('.roleCls:last').find("option:selected").val();//document.getElementsByClassName("roleCls")[1].value;
+        console.log(RoleName);
+        console.log(RoleId);
         if (RoleName == null || RoleName == "") {
             Layout.popMsg('popMsg-danger', "请选择角色！");
             return;

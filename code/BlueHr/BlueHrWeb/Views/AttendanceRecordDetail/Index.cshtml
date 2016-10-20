@@ -1,11 +1,19 @@
 ﻿@using MvcPaging
+@using BlueHrWeb.Helpers.View
 
 @model IPagedList<BlueHrLib.Data.AttendanceRecordDetailView>
 
 @{
     ViewBag.Title = "Index";
 }
+@{
+    bool canDelete = MenuAuthHelper.CanShow("AttendanceRecordDetail", "Delete");
+    bool canEdit = MenuAuthHelper.CanShow("AttendanceRecordDetail", "Edit");
+    bool canCreate = MenuAuthHelper.CanShow("AttendanceRecordDetail", "Create");
 
+    bool canImport = MenuAuthHelper.CanShow("AttendanceRecordDetail", "Import");
+    bool canCal = MenuAuthHelper.CanShow("AttendanceRecordDetail", "Calculate");
+}
 <style type="text/css">
     .ui-widget-header {
         background: #34495e;
@@ -66,16 +74,20 @@
                     <i class="glyphicon glyphicon-search"></i>
                     搜索
                 </button>
-
+                @if (canCal)
+                {
                 <button type="button" class="marco-btn-danger cal-att-button-dialog">
                     <i class="glyphicon glyphicon-dashboard"></i>
                     计算任务
                 </button>
-
+                }
+                @if (canImport)
+                {
                 <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
                     <i class="fa fa-cloud-upload"></i>
                     导入
                 </button>
+                }
             </div>
         </div>
     </form>
@@ -135,12 +147,18 @@
                                     @Html.DisplayFor(modelItem => item.device)
                                 </td>
                                 <td>
+                                    @if (canDelete)
+                                    {
                                     <a href="/AttendanceRecordDetail/Delete/@item.id" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>
                                     </a>
+                                    }
+                                    @if (canEdit)
+                                    {
                                     <a href="/AttendanceRecordDetail/Edit/@item.id" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
                                     </a>
+                                    }
                                 </td>
                             </tr>
                         }

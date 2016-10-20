@@ -279,6 +279,7 @@
     </Compile>
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="CustomAttributes\AdminAuthorizeAttribute.cs" />
+    <Compile Include="Helpers\View\MenuAuthHelper.cs" />
     <Compile Include="Models\MessageCategory.cs" />
     <Compile Include="Helpers\PagingHelper.cs" />
     <Compile Include="Helpers\View\PartialViewHelper.cs" />

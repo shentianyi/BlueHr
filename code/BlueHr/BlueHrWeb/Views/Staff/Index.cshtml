@@ -1,6 +1,8 @@
 ﻿@using MvcPaging
 
 @model IPagedList<BlueHrLib.Data.Staff>
+@using BlueHrWeb.Helpers.View
+
 
 @{
     ViewBag.Title = "Index";
@@ -13,7 +15,13 @@
 </ol>
 
 <hr class="hr-grey" />
+@{ 
+    bool canImport = MenuAuthHelper.CanShow("Staff", "Import");
+    bool canCreate = MenuAuthHelper.CanShow("Staff", "Create");
+    bool canEdit  = MenuAuthHelper.CanShow("Staff", "Edit");
+    bool canShow= MenuAuthHelper.CanShow("Staff", "Show");
 
+}
 @*Search*@
 <div class="search">
     <form action="/Staff/Search" method="get">
@@ -48,11 +56,13 @@
                         <i class="fa fa-filter"></i>
                         <span>高级搜索</span>
                     </button>
-
+                    @if (canImport)
+                    {
                     <button type="button" class="marco-btn-primary import-dialog-btn pull-right">
                         <i class="fa fa-cloud-upload"></i>
                         <span>上传</span>
                     </button>
+                    }
                 </div>
             </div>
         </div>
@@ -110,12 +120,15 @@
         <div class="table-heading">
             员工列表
             <div class="pull-right" style="margin-top:-12px;">
+                @if (canCreate)
+                {
                 <a href="/Staff/Create">
                     <button class="marco-btn-primary">
                         <i class="glyphicon glyphicon-plus-sign"></i>
                         <span>创建</span>
                     </button>
                 </a>
+                 }
             </div>
         </div>
         <div class="table-body content_3">
@@ -190,13 +203,17 @@
                                 </td>
 
                                 <td>
+                                    @if (canShow)
+                                    {
                                     <a href="/Staff/Delete/@item.nr" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>
                                     </a>
-
+                                    }
+                                    @if (canEdit)
+                                    {
                                     <a href="/Staff/Edit/@item.nr" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
-                                    </a>
+                                    </a>}
                                 </td>
                             </tr>
                         }
