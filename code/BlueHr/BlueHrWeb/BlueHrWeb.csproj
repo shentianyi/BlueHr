@@ -326,6 +326,7 @@
     <Content Include="Images\back.png" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\mCSB_buttons.png" />
+    <Content Include="Images\NoAuth.png" />
     <Content Include="README.txt" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
@@ -351,6 +352,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <None Include="Properties\PublishProfiles\BlueHrWeb.pubxml" />
     <None Include="Properties\PublishProfiles\BlueHrWebPubConfig.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -237,7 +237,8 @@ namespace BlueHrWeb.Controllers
             IUserService cs = new UserService(Settings.Default.db);
 
             User user = cs.FindById(id);
-            SetRoleList(user.role);
+            SetRoleList(user.role); SetSysRoleList();
+            SetCmpList();
             return View(user);
         }
 
