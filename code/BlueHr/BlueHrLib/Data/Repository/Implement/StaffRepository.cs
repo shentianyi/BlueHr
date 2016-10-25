@@ -151,10 +151,17 @@ namespace BlueHrLib.Data.Repository.Implement
                         cmpIds.Add(p.cmpId.ToString());
                     }
 
-                    if (!depIds.Contains(p.departId.ToString()))
+                    p.departId.Split(',').ToList().ForEach(p =>
                     {
-                        depIds.Add(p.departId.ToString());
-                    }
+                        if(!string.IsNullOrEmpty(p))
+                        {
+                            depIds.Add(p);
+                        }
+                    });
+                    //if (!depIds.Contains(p.departId.ToString()))
+                    //{
+                    //    depIds.Add(p.departId.ToString());
+                    //}
                 });
 
                 if (cmpIds.Count > 0)
