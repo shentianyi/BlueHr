@@ -14872,7 +14872,7 @@ namespace BlueHrLib.Data
 		
 		private System.Nullable<int> _cmpId;
 		
-		private System.Nullable<int> _departId;
+		private string _departId;
 		
 		private string _remarks;
 		
@@ -14888,7 +14888,7 @@ namespace BlueHrLib.Data
     partial void OnuserIdChanged();
     partial void OncmpIdChanging(System.Nullable<int> value);
     partial void OncmpIdChanged();
-    partial void OndepartIdChanging(System.Nullable<int> value);
+    partial void OndepartIdChanging(string value);
     partial void OndepartIdChanged();
     partial void OnremarksChanging(string value);
     partial void OnremarksChanged();
@@ -14964,8 +14964,8 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departId", DbType="Int")]
-		public System.Nullable<int> departId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departId", DbType="NVarChar(200)")]
+		public string departId
 		{
 			get
 			{

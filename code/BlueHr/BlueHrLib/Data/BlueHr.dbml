@@ -753,7 +753,7 @@
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="cmpId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="departId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="departId" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
       <Column Name="remarks" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
       <Association Name="User_SysUserDataAuth" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
     </Type>

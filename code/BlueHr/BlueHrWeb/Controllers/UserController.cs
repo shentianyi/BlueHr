@@ -85,8 +85,9 @@ namespace BlueHrWeb.Controllers
                 {
                     IUserService cs = new UserService(Settings.Default.db);
 
-                    string authCmp = HttpContext.Request.Form["selCompanys"];
-                    string authDep = HttpContext.Request.Form["selDeparts"];
+                    //string authCmp = HttpContext.Request.Form["selCompanys"];
+                    //string authDep = HttpContext.Request.Form["selDeparts"];
+                    string authCmpDep = HttpContext.Request.Form["selCmpDepIds"];
                     string theRoleId = HttpContext.Request.Form["role"];
 
                     user.role = !string.IsNullOrEmpty(theRoleId) ? int.Parse(theRoleId) : -1;
@@ -99,23 +100,36 @@ namespace BlueHrWeb.Controllers
                     ISysUserDataAuthService si = new SysUserDataAuthService(Settings.Default.db);
 
                     List<SysUserDataAuth> userDataAuth = new List<SysUserDataAuth>();
-                    authCmp.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
+
+                    authCmpDep.Split(new Char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
                     {
-                        authDep.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(k =>
-                        {
-                            string[] tp2 = k.Split('|');
+                        List<string> xk = p.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                            if (tp2[0] == p)
-                            {
-                                SysUserDataAuth tmp = new SysUserDataAuth();
-                                tmp.cmpId = int.Parse(p);
-                                tmp.userId = user.id;
-                                tmp.departId = int.Parse(tp2[1].ToString());
+                        SysUserDataAuth tmp = new SysUserDataAuth();
+                        tmp.cmpId = int.Parse(xk[0].ToString());
+                        tmp.userId = user.id;
+                        tmp.departId = xk.Count > 1 && xk[1] != null ? xk[1].ToString() : "";
 
-                                userDataAuth.Add(tmp);
-                            }
-                        });
+                        userDataAuth.Add(tmp);
                     });
+
+                    //authCmp.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
+                    //{
+                    //    authDep.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(k =>
+                    //    {
+                    //        string[] tp2 = k.Split('|');
+
+                    //        if (tp2[0] == p)
+                    //        {
+                    //            SysUserDataAuth tmp = new SysUserDataAuth();
+                    //            tmp.cmpId = int.Parse(p);
+                    //            tmp.userId = user.id;
+                    //            tmp.departId = int.Parse(tp2[1].ToString());
+
+                    //            userDataAuth.Add(tmp);
+                    //        }
+                    //    });
+                    //});
 
                     si.Creates(userDataAuth);
 
@@ -149,9 +163,8 @@ namespace BlueHrWeb.Controllers
             user.roleStr = cmpDep.Item1;
             user.AuthCompany = cmpDep.Item2;
             user.AuthDepartment = cmpDep.Item3;
-
-            ViewBag.TheCmpIds = cmpDep.Item4;
-            ViewBag.TheDepIds = cmpDep.Item5;
+            ViewBag.TheCmpDepIds = cmpDep.Item4;
+            ViewBag.TheSelCmpDepNames = cmpDep.Item5;
 
             return View(user);
         }
@@ -176,8 +189,9 @@ namespace BlueHrWeb.Controllers
                 {
                     IUserService cs = new UserService(Settings.Default.db);
 
-                    string authCmp = HttpContext.Request.Form["selCompanys"];
-                    string authDep = HttpContext.Request.Form["selDeparts"];
+                    //string authCmp = HttpContext.Request.Form["selCompanys"];
+                    //string authDep = HttpContext.Request.Form["selDeparts"];
+                    string authCmpDep = HttpContext.Request.Form["selCmpDepIds"];
                     string theRoleId = HttpContext.Request.Form["role"];
 
                     user.role = !string.IsNullOrEmpty(theRoleId) ? int.Parse(theRoleId) : -1;
@@ -189,31 +203,45 @@ namespace BlueHrWeb.Controllers
 
                     ISysUserDataAuthService si = new SysUserDataAuthService(Settings.Default.db);
 
-                    List<SysUserDataAuth> allAuthList = si.GetAll().Where(p => p.userId == user.id).ToList(); 
+                    List<SysUserDataAuth> allAuthList = si.GetAll().Where(p => p.userId == user.id).ToList();
+
+                    //先全部删除然后再加
+                    allAuthList.ForEach(kk =>
+                    {
+                        si.DeleteById(kk.id);
+                    });
 
                     List<SysUserDataAuth> userDataAuth = new List<SysUserDataAuth>();
-                    authCmp.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
+
+                    authCmpDep.Split(new Char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
                     {
-                        authDep.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(k =>
-                        {
-                            string[] tp2 = k.Split('|');
+                        List<string> xk = p.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                            if (tp2[0] == p)
-                            {
-                                bool isExist = allAuthList.Where(mm => mm.cmpId.ToString() == p && mm.departId.ToString() == tp2[1].ToString()).ToList().Count > 0;
+                        SysUserDataAuth tmp = new SysUserDataAuth();
+                        tmp.cmpId = int.Parse(xk[0].ToString());
+                        tmp.userId = user.id;
+                        tmp.departId = xk.Count > 1 && xk[1] != null ? xk[1].ToString() : "";
 
-                                if (!isExist)
-                                {
-                                    SysUserDataAuth tmp = new SysUserDataAuth();
-                                    tmp.cmpId = int.Parse(p);
-                                    tmp.userId = user.id;
-                                    tmp.departId = int.Parse(tp2[1].ToString());
-
-                                    userDataAuth.Add(tmp);
-                                }
-                            }
-                        });
+                        userDataAuth.Add(tmp);
                     });
+
+                    //authCmp.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
+                    //{
+                    //    authDep.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(k =>
+                    //    {
+                    //        string[] tp2 = k.Split('|');
+
+                    //        if (tp2[0] == p)
+                    //        {
+                    //            SysUserDataAuth tmp = new SysUserDataAuth();
+                    //            tmp.cmpId = int.Parse(p);
+                    //            tmp.userId = user.id;
+                    //            tmp.departId = int.Parse(tp2[1].ToString());
+
+                    //            userDataAuth.Add(tmp);
+                    //        }
+                    //    });
+                    //});
 
                     si.Creates(userDataAuth);
 
@@ -307,16 +335,44 @@ namespace BlueHrWeb.Controllers
             List<string> cmpIds = new List<string>();
             List<string> departMentIds = new List<string>();
 
-            string bindCmpIds = "";
-            string bindDepartIds = "";
+            string bindCmpDepIds = "";
+            string bindCmpDepIdsWithName = "";
 
             allDataAuth.Where(m => m.userId.ToString() == user.id.ToString()).ToList().ForEach(k =>
             {
+                //company section
                 cmpIds.Add(k.cmpId.ToString());
-                bindCmpIds += k.cmpId + ",";
+                string depStr = k.departId;
 
-                departMentIds.Add(k.departId.ToString());
-                bindDepartIds += k.cmpId + "|" + k.departId.ToString() + ",";
+                //bind id with names
+                ICompanyService icmpSi = new CompanyService(Settings.Default.db);
+                Company tMode = icmpSi.FindById(k.cmpId ?? -1);
+                string tmpCmp = k.cmpId + "&" + tMode.name;
+
+                string aTmpDepsList = "";
+                //department section
+                depStr.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(m =>
+                {
+                    departMentIds.Add(m.ToString());
+
+                    IDepartmentService idepSi = new DepartmentService(Settings.Default.db);
+                    Department dMode = idepSi.FindById(int.Parse(m));
+
+                    string tmpDep = m + "&" + dMode.name;
+                    aTmpDepsList += tmpDep + ",";
+                });
+
+                string tmp = k.cmpId.ToString() + "|";
+                tmp += k.departId;
+
+                bindCmpDepIds += tmp + ";";
+
+
+                string withNameTmmp = "";
+                withNameTmmp += tmpCmp + "|" + aTmpDepsList;
+
+                bindCmpDepIdsWithName += withNameTmmp + ";";
+
             });
 
             ICompanyService cmpSi = new CompanyService(Settings.Default.db);
@@ -326,7 +382,7 @@ namespace BlueHrWeb.Controllers
             IDepartmentService depSi = new DepartmentService(Settings.Default.db);
             string AuthDepartment = depSi.FindByIds(departMentIds);
 
-            Tuple<string, string, string, string, string> cmpDep = new Tuple<string, string, string, string, string>(roleStr, AuthCompany, AuthDepartment, bindCmpIds, bindDepartIds);
+            Tuple<string, string, string, string, string> cmpDep = new Tuple<string, string, string, string, string>(roleStr, AuthCompany, AuthDepartment, bindCmpDepIds, bindCmpDepIdsWithName);
 
             return cmpDep;
         }
