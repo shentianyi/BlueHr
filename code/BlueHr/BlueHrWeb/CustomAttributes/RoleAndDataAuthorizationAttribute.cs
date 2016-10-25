@@ -45,7 +45,7 @@ namespace BlueHrWeb.CustomAttributes
 
 
                 string theRequestUrl = filterContext.HttpContext.Request.Path.ToLower();
-                if (theRequestUrl.IndexOf("Search") >= 0)
+                if (theRequestUrl.IndexOf("search") >= 0)
                 { return; }
                 //if (theRequestUrl.IndexOf("index") <= 0)
                 //{
