@@ -57,11 +57,11 @@ namespace BlueHrLib.Data.Repository.Implement
                         cmpIds.Add(p.cmpId.ToString());
                     }
 
-                    p.departId.Split(',').ToList().ForEach(p =>
+                    p.departId.Split(',').ToList().ForEach(pp =>
                     {
-                        if (!string.IsNullOrEmpty(p))
+                        if (!string.IsNullOrEmpty(pp))
                         {
-                            depIds.Add(p);
+                            depIds.Add(pp);
                         }
                     });
                 });

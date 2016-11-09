@@ -37,9 +37,14 @@ namespace BlueHrWeb.Controllers
             {
                 Tuple<string, string, string, string, string> cmpDep = GetAuthCompanyAndDepartment(p);
 
-                p.roleStr = cmpDep.Item1;
-                p.AuthCompany = cmpDep.Item2;
-                p.AuthDepartment = cmpDep.Item3;
+                string dep = cmpDep.Item3.TrimEnd(',');
+                if (dep.Split(',').Count() > 5)
+                {
+                    dep = string.Join(",", dep.Split(',').Take(5).ToArray()) + " ...";
+                }
+                p.roleStr = cmpDep.Item1.TrimEnd(',');
+                p.AuthCompany = cmpDep.Item2.TrimEnd(',');
+                p.AuthDepartment = dep;
             });
 
             ViewBag.Query = q;
@@ -159,10 +164,14 @@ namespace BlueHrWeb.Controllers
             SetCmpList(false);
 
             Tuple<string, string, string, string, string> cmpDep = GetAuthCompanyAndDepartment(user);
-
-            user.roleStr = cmpDep.Item1;
-            user.AuthCompany = cmpDep.Item2;
-            user.AuthDepartment = cmpDep.Item3;
+            string dep = cmpDep.Item3.TrimEnd(',');
+            if (dep.Split(',').Count() > 5)
+            {
+                dep = string.Join(",", dep.Split(',').Take(5).ToArray())+ " ...";
+            }
+            user.roleStr = cmpDep.Item1.TrimEnd(',');
+            user.AuthCompany = cmpDep.Item2.TrimEnd(',');
+            user.AuthDepartment =dep;
             ViewBag.TheCmpDepIds = cmpDep.Item4;
             ViewBag.TheSelCmpDepNames = cmpDep.Item5;
 
@@ -265,8 +274,32 @@ namespace BlueHrWeb.Controllers
             IUserService cs = new UserService(Settings.Default.db);
 
             User user = cs.FindById(id);
-            SetRoleList(user.role); SetSysRoleList();
-            SetCmpList();
+
+           
+
+
+            SetRoleList(user.role);
+            SetSysRoleList(false);
+            SetCmpList(false);
+
+            Tuple<string, string, string, string, string> cmpDep = GetAuthCompanyAndDepartment(user);
+
+            string dep = cmpDep.Item3.TrimEnd(',');
+            if (dep.Split(',').Count() > 5)
+            {
+                dep = string.Join(",", dep.Split(',').Take(5).ToArray()) + " ...";
+            }
+            user.roleStr = cmpDep.Item1.TrimEnd(',');
+            user.AuthCompany = cmpDep.Item2.TrimEnd(',');
+            user.AuthDepartment = dep;
+
+
+            ViewBag.TheCmpDepIds = cmpDep.Item4;
+            ViewBag.TheSelCmpDepNames = cmpDep.Item5;
+
+
+            //SetSysRoleList();
+            //SetCmpList();
             return View(user);
         }
 

@@ -51,7 +51,7 @@ namespace BlueHrWeb.Controllers
 
         [UserAuthorize]
         [RoleAndDataAuthorizationAttribute]
-        public ActionResult Search([Bind(Include = "Nr, Name, Id, Sex, JobTitleId, CompanyId, DepartmentId, CompanyEmployAtFrom, CompanyEmployAtTo, IsOnTrial")] StaffSearchModel q)
+        public ActionResult Search([Bind(Include = "Nr, Name, Id, Sex, JobTitleId, CompanyId,companyNames,companyIds, DepartmentId,departmentNames,departmentIds, CompanyEmployAtFrom, CompanyEmployAtTo, IsOnTrial")] StaffSearchModel q)
         {
             //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
             User user = System.Web.HttpContext.Current.Session["user"] as User;
@@ -89,7 +89,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: Company/Create
-        [RoleAndDataAuthorizationAttribute]
+       // [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             SetDropDownList(null);
@@ -957,11 +957,11 @@ namespace BlueHrWeb.Controllers
                 {
                     if (type.HasValue && type.ToString().Equals(department.id))
                     {
-                        select.Add(new SelectListItem { Text = department.name, Value = department.id.ToString(), Selected = true });
+                        select.Add(new SelectListItem { Text = department.fullName, Value = department.id.ToString(), Selected = true });
                     }
                     else
                     {
-                        select.Add(new SelectListItem { Text = department.name, Value = department.id.ToString(), Selected = false });
+                        select.Add(new SelectListItem { Text = department.fullName, Value = department.id.ToString(), Selected = false });
                     }
                 }
             }
