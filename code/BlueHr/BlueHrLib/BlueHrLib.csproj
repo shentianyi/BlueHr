@@ -221,6 +221,7 @@
     <Compile Include="Helper\Excel\WorkAndRestExcelHelper.cs" />
     <Compile Include="Helper\Excel\StaffExcelHelper.cs" />
     <Compile Include="Helper\JSONHelper.cs" />
+    <Compile Include="Helper\MD5Helper.cs" />
     <Compile Include="Helper\MessageRecordTypeHelper.cs" />
     <Compile Include="MQTask\Job\JobBase.cs" />
     <Compile Include="MQTask\Job\CalAttJob.cs" />

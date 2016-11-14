@@ -330,6 +330,59 @@ namespace BlueHrWeb.Controllers
 
 
 
+        [AdminAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        // GET: User/Create
+        public ActionResult ChangePwd(int? id)
+        {
+            if (id.HasValue)
+            {
+                ViewBag.id = id;
+
+                return View();
+            }
+            else {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [AdminAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        // GET: User/Create
+        [HttpPost]
+        public ActionResult ChangePwd(int id, string pwd,string pwdcompare)
+        {
+            ViewBag.id = id;
+             IUserService cs = new UserService(Settings.Default.db);
+            if (string.IsNullOrEmpty(pwd.Trim()))
+            {
+                ViewBag.error = "密码不可为空";
+                return View("ChangePwd");
+            }
+            else
+            {
+                if (pwd == pwdcompare)
+                {
+                    try
+                    {
+                        bool b = cs.ChangePwd(id, pwd);
+                        ViewBag.error = "修改成功";
+                        return View("ChangePwd");
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.error = ex.Message;
+                        return View("ChangePwd");
+                    }
+                }
+                else
+                {
+                    ViewBag.error = "密码不一致";
+                    return View("ChangePwd");
+                }
+            }
+        }
+
         // POST: User/Delete/5
         [HttpPost]
         public ActionResult LockUnLock(int id)

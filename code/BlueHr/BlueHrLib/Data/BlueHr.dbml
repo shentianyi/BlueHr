@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHr" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=120.24.169.31;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString9" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=WANGSONG-PC\MSSQLSERVER2008R;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString3" Provider="System.Data.SqlClient" />
   <Table Name="dbo.WorkAndRest" Member="WorkAndRest">
     <Type Name="WorkAndRest">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -704,19 +704,6 @@
       <Association Name="User_ExtraWorkRecordApproval" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[User]" Member="Users">
-    <Type Name="User">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="pwd" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="isLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="role" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="User_AbsenceRecordApproval" Member="AbsenceRecordApprovals" ThisKey="id" OtherKey="userId" Type="AbsenceRecordApproval" />
-      <Association Name="User_ExtraWorkRecordApproval" Member="ExtraWorkRecordApprovals" ThisKey="id" OtherKey="userId" Type="ExtraWorkRecordApproval" />
-      <Association Name="User_SysUserDataAuth" Member="SysUserDataAuths" ThisKey="id" OtherKey="userId" Type="SysUserDataAuth" />
-    </Type>
-  </Table>
   <Table Name="dbo.SysAuthorization" Member="SysAuthorizations">
     <Type Name="SysAuthorization">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -756,6 +743,20 @@
       <Column Name="departId" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
       <Column Name="remarks" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
       <Association Name="User_SysUserDataAuth" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="User">
+    <Type Name="User">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="pwd" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="isLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="role" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="pwdSalt" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Association Name="User_AbsenceRecordApproval" Member="AbsenceRecordApproval" ThisKey="id" OtherKey="userId" Type="AbsenceRecordApproval" />
+      <Association Name="User_ExtraWorkRecordApproval" Member="ExtraWorkRecordApproval" ThisKey="id" OtherKey="userId" Type="ExtraWorkRecordApproval" />
+      <Association Name="User_SysUserDataAuth" Member="SysUserDataAuth" ThisKey="id" OtherKey="userId" Type="SysUserDataAuth" />
     </Type>
   </Table>
 </Database>

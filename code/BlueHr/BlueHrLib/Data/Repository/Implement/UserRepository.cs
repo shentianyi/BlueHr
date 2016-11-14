@@ -19,7 +19,7 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public IQueryable<User> Search(UserSearchModel searchModel)
         {
-            IQueryable<User> users = this.context.Users;
+            IQueryable<User> users = this.context.User;
          
             return users;
         }

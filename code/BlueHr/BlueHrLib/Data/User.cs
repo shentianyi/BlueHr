@@ -26,5 +26,22 @@ namespace BlueHrLib.Data
 
         //权限部门
         public string AuthDepartment { get; set; }
+
+
+        public string GenSalt()
+        {
+            // return Guid.NewGuid().ToString();
+            System.Security.Cryptography.RNGCryptoServiceProvider rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            byte[] saltBytes = new byte[36];
+            rng.GetBytes(saltBytes);
+            string salt = Convert.ToBase64String(saltBytes);
+            return salt;
+        }
+
+
+        public bool Auth(string pwd)
+        {
+            return this.pwd == MD5Helper.Encryt(string.Format("{0}{1}", pwd, this.pwdSalt));
+        }
     }
 }
