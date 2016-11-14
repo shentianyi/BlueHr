@@ -20,6 +20,8 @@ namespace BlueHrLib.Service.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         IQueryable<Department> FindByCompanyId(int? id);
+
+        IQueryable<Department> FindByParentId(int id);
         /// <summary>
         /// 根据部门ID获取部门信息
         /// </summary>

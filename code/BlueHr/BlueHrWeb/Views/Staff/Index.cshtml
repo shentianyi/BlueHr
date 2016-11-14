@@ -547,6 +547,9 @@
                                     depSelNode.depName = data.nodes[xxk].text;
                                     pushDeps(cmpId, depSelNode);
                                 }
+
+
+                                checknode(cmpId, data.nodes[xxk].nodes);
                             }
                         }
                     },
@@ -589,6 +592,12 @@
                                         }
                                     }
                                 }
+
+
+
+
+                                unchecknode(cmpId, data.nodes[xxk].nodes);
+
                             }
                         }
                     }
@@ -713,6 +722,59 @@
     }
 
    
+
+
+
+    function checknode(cmpId, nodes) {
+        if (nodes != null && nodes.length > 0) {
+
+
+            for (var xxxk = 0; xxxk < nodes.length; xxxk++) {
+
+                $('#depTree').treeview('checkNode', [nodes[xxxk].nodeId, { silent: true }]);
+
+                var isSel = ifDepSelected(cmpId, nodes[xxxk].id);
+
+                if (!isSel) {
+                    var cdepSelNode = {};
+                    cdepSelNode.depId = nodes[xxxk].id;
+                    cdepSelNode.depName = nodes[xxxk].text;
+                    pushDeps(cmpId, cdepSelNode);
+                }
+
+                checknode(cmpId, nodes[xxxk].nodes);
+            }
+
+
+        }
+
+    }
+
+    function unchecknode(cmpId, nodes) {
+        if (nodes != null && nodes.length > 0) {
+            for (var xxxk = 0; xxxk < nodes.length; xxxk++) {
+                $('#depTree').treeview('uncheckNode', [nodes[xxxk].nodeId, { silent: true }]);
+
+                var delKey = nodes[xxxk].id;
+                for (var i = 0; i < cmpList.length; i++) {
+
+                    if (cmpList[i].cmpId == cmpId) {
+                        var depsTmp = cmpList[i].deps;
+
+                        for (var mm = 0; mm < depsTmp.length; mm++) {
+                            if (depsTmp[mm].depId == nodes[xxxk].id) {
+                                cmpList[i].deps.splice(mm, 1);
+                            }
+                        }
+                    }
+
+
+                }
+
+                unchecknode(cmpId, nodes[xxxk].nodes);
+            }
+        }
+    }
 
 </script>
 

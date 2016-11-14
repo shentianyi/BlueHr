@@ -61,5 +61,10 @@ namespace BlueHrLib.Service.Implement
         {
             return depRep.FindByIds(ids);
         }
+
+        public IQueryable<Department> FindByParentId(int id)
+        {
+            return this.Context.Context.GetTable<Department>().Where(s => s.parentId == id);
+        }
     }
 }

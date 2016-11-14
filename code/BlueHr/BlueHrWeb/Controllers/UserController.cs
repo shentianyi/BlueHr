@@ -700,6 +700,40 @@ namespace BlueHrWeb.Controllers
                         im.id = m.id.ToString();
 
                         allList.Add(im);
+
+                        List<DepItem> callList = new List<DepItem>();
+                        List<Department> cdeps = depSi.FindByParentId(m.id).ToList();
+                        cdeps.ForEach(cm =>
+                        {
+                            DepItem cim = new DepItem();
+                            cim.text = cm.name;
+                            cim.id = cm.id.ToString();
+
+                            callList.Add(cim);
+
+
+
+                            List<DepItem> ccallList = new List<DepItem>();
+                            List<Department> ccdeps = depSi.FindByParentId(cm.id).ToList();
+                            ccdeps.ForEach(ccm =>
+                            {
+                                DepItem ccim = new DepItem();
+                                ccim.text = ccm.name;
+                                ccim.id = ccm.id.ToString();
+
+                                ccallList.Add(ccim);
+
+
+                            });
+                            if (ccallList.Count > 0)
+                            {
+                                cim.nodes = ccallList;
+                            }
+                        });
+                        if (callList.Count > 0)
+                        {
+                            im.nodes = callList;
+                        }
                     });
 
                     p.nodes = allList;
@@ -728,6 +762,7 @@ namespace BlueHrWeb.Controllers
         {
             public string text { get; set; }
             public string id { get; set; }
+            public List<DepItem> nodes { get; set; }
         }
 
         public class DepartTree
