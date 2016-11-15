@@ -182,7 +182,7 @@ namespace BlueHrWeb.Controllers
         // POST: User/Edit/5
         [HttpPost]
         //[RoleAndDataAuthorizationAttribute]
-        public ActionResult Edit([Bind(Include = "id,name,email,pwd,role")] User user)
+        public ActionResult Edit([Bind(Include = "id,name,email,role")] User user)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -523,13 +523,13 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            if (string.IsNullOrEmpty(model.pwd))
-            {
-                msg.Success = false;
-                msg.Content = "密码不能为空";
+            //if (string.IsNullOrEmpty(model.pwd))
+            //{
+            //    msg.Success = false;
+            //    msg.Content = "密码不能为空";
 
-                return msg;
-            }
+            //    return msg;
+            //}
 
             string selCompanys = HttpContext.Request.Form["selCompanys"];
             string selDeparts = HttpContext.Request.Form["selDeparts"];
