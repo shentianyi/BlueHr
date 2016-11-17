@@ -17,6 +17,7 @@ using BlueHrLib.MQTask.Parameter;
 using BlueHrLib.Helper;
 using BlueHrWeb.CustomAttributes;
 
+//
 namespace BlueHrWeb.Controllers
 {
     public class AttendanceRecordDetailController : Controller

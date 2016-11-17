@@ -57,10 +57,13 @@ namespace BlueHrLib.Data.Repository.Implement
                         cmpIds.Add(p.cmpId.ToString());
                     }
 
-                    if (!depIds.Contains(p.departId.ToString()))
+                    p.departId.Split(',').ToList().ForEach(pp =>
                     {
-                        depIds.Add(p.departId.ToString());
-                    }
+                        if (!string.IsNullOrEmpty(pp))
+                        {
+                            depIds.Add(pp);
+                        }
+                    });
                 });
 
                 IQueryable<Staff> staffs = this.context.Staffs;

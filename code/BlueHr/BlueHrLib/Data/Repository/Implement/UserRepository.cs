@@ -19,7 +19,7 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public IQueryable<User> Search(UserSearchModel searchModel)
         {
-            IQueryable<User> users = this.context.Users;
+            IQueryable<User> users = this.context.User;
          
             return users;
         }
@@ -60,7 +60,9 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 user.name = tuser.name;
                 user.email = tuser.email;
-                user.pwd = tuser.pwd;
+
+                //user.pwd = tuser.pwd;
+
                 user.role = tuser.role;
                 user.isLocked = tuser.isLocked;
                 this.context.SubmitChanges();

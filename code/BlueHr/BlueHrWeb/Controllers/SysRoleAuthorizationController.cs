@@ -65,7 +65,7 @@ namespace BlueHrWeb.Controllers
             return View(jobTitles);
         }
 
-        [RoleAndDataAuthorizationAttribute]
+       // [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "RoleName,AuthName")] SysRoleAuthorizationSearchModel q)
         {
             int pageIndex = 0;

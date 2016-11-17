@@ -55,13 +55,13 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <label for="pwd">密码*</label>
+                     
                         @if (Model != null)
                         {
-                            <input type="password" name="pwd" id="pwd" placeholder="密码" value="@Model.pwd" />
+                            @*<input type="password" name="pwd" id="pwd" placeholder="密码" value="@Model.pwd" />*@
                         }
                         else
-                        {
+                        {   <label for="pwd">密码*</label>
                             <input type="password" name="pwd" id="pwd" placeholder="密码" />
                         }
                     </div>
@@ -73,15 +73,13 @@
                                 <label for="role">角色*</label>
                                 @if (Model != null && !string.IsNullOrEmpty(Model.roleStr))
                                 {
-                                    @*@Html.EditorFor(model => model.roleStr)*@
                                     <input type="text" name="role" id="role" hidden="hidden" value="@Model.role" />
                                     <input type="text" name="roleStr" style="text-align:left" id="roleStr" placeholder="" readonly="readonly" value="@Model.roleStr" />
                                 }
                                 else
                                 {
-                                     <input type="text" name="role" id="role" hidden="hidden" />
-
-                                     <input type="text" name="roleStr" style="text-align:left" id="roleStr" placeholder="" readonly="readonly"/>
+                                    <input type="text" name="role" id="role" hidden="hidden" />
+                                    <input type="text" name="roleStr" style="text-align:left" id="roleStr" placeholder="" readonly="readonly" />
                                 }
                             </div>
                         </div>
@@ -148,10 +146,10 @@
             </div>
         </div>
         <div hidden="hidden">
-            <input type="text" id="selCompanys" name="selCompanys" value="@ViewBag.TheCmpIds" />
-            <input type="text" id="selDeparts" name="selDeparts" value="@ViewBag.TheDepIds" />
-            @*<input type="text" id="theRoleId" name="theRoleId" hidden="hidden" />
-                <input type="text" id="theRoleName" name="theRoleName" hidden="hidden" />*@
+            @*<input type="text" id="selCompanys" name="selCompanys" value="@ViewBag.TheCmpIds" />
+                <input type="text" id="selDeparts" name="selDeparts" value="@ViewBag.TheDepIds" />*@
+            <input type="text" id="selCmpDepIds" name="selCmpDepIds" value="@ViewBag.TheCmpDepIds" />
+            <input type="text" id="selCmpDepNames" name="selCmpDepNames" value="@ViewBag.TheSelCmpDepNames" />
         </div>
     }
 </div>
@@ -209,6 +207,8 @@
 <script type="text/javascript">
     Layout.init();
 
+    var cmpList = [];
+
     //控制textarea高度
     $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     $(window).resize(function () {
@@ -217,7 +217,6 @@
 
     //回调函数
     function post_return_action(data) {
-
         if (!data.Success) {
             Layout.popMsg('popMsg-danger', data.Content);
             return false;
@@ -230,29 +229,58 @@
 
     //审核
     function asignRoleConfirm(id) {
-
         $('#approval_content').dialogModal({
-            onOkBut: function () {
-            },
+            onOkBut: function () { },
             onCancelBut: function () { },
             onLoad: function () {
-
+                var theSel = $("#role").val();
+                if (theSel != "" && theSel != undefined && theSel != null) {
+                    $(".roleCls:last").find("option[value='" + theSel + "']").attr("selected", true);
+                }
             },
-            onClose: function () {
-                //window.location.reload();
-            }
+            onClose: function () { }
         });
     }
 
     $("#btnEdit3").click(function () {
+
+        var theIds = "";
+        var theCmpNames = "";//所有公司列表
+        var theDepNameList = "";//所有部门列表
+
+        for (var i = 0; i < cmpList.length; i++) {
+
+            theCmpNames += cmpList[i].cmpName + ",";
+
+            var tmp = "";
+            var depTmpIds = "";
+
+            var deps = cmpList[i].deps;
+
+            for (var k = 0; k < deps.length; k++) {
+                depTmpIds += deps[k].depId + ",";
+                theDepNameList += deps[k].depName + ",";
+            }
+
+            tmp += cmpList[i].cmpId + "|";
+            tmp += depTmpIds;
+            theIds += tmp + ";";//数据库传入参数
+        }
+
+        $("#authCompany").val(theCmpNames);//页面显示
+        $("#authDep").val(theDepNameList);//页面显示
+        $("#selCmpDepIds").val(theIds);//数据库传入参数
+
+        //公司ID|部门ID,;
+        //1|2,1,4,;3|7,;4|5,;5|6,8,;
+        //console.log(theIds);
         $('#myModal6').modal('hide');
     });
 
     function theconfirmAsign() {
-        var RoleName =$('.roleCls:last').find("option:selected").text(); //document.getElementsByClassName("roleCls")[1].selectedOptions[0].title;
-        var RoleId = $('.roleCls:last').find("option:selected").val();//document.getElementsByClassName("roleCls")[1].value;
-        console.log(RoleName);
-        console.log(RoleId);
+        var RoleName = $('.roleCls:last').find("option:selected").text();
+        var RoleId = $('.roleCls:last').find("option:selected").val();
+
         if (RoleName == null || RoleName == "") {
             Layout.popMsg('popMsg-danger', "请选择角色！");
             return;
@@ -261,9 +289,6 @@
             $("#roleStr").val(RoleName);
             $("#role").val(RoleId);
         }
-
-        console.log($("#role").val());
-        console.log($("#roleStr").val());
 
         $('#approval_content').dialogModal("hide");
     }
@@ -275,7 +300,153 @@
         $('#myModal6').modal('show');
     }
 
+    //公司是否存在列表
+    function ifCmpSelected(id) {
+        var k = 0;
+        for (var i = 0; i < cmpList.length; i++) {
+            if (cmpList[i].cmpId == id) {
+                k++;
+            }
+        }
+
+        return k > 0;
+    }
+
+    //部门是否存在列表
+    function ifDepSelected(cmpId, id) {
+        var k = 0;
+        for (var i = 0; i < cmpList.length; i++) {
+            if (cmpList[i].cmpId == cmpId) {
+
+                var depsTmp = cmpList[i].deps;
+
+                for (var m = 0; m < depsTmp.length; m++) {
+                    if (depsTmp[m].depId == id) {
+                        k++;
+                    }
+                }
+
+            }
+        }
+
+        return k > 0;
+    }
+
+    //添加部门
+    function pushDeps(cmpId, selNode) {
+        for (var i = 0; i < cmpList.length; i++) {
+            if (cmpList[i].cmpId == cmpId) {
+
+                var depsTmp = cmpList[i].deps;
+                var isSel = ifDepSelected(cmpId, selNode.depId);
+
+                if (!isSel) {
+                    cmpList[i].deps.push(selNode);
+                }
+            }
+        }
+    }
+
+    function RinTheValues() {
+        if (cmpList.length <= 0) {
+            cmpList = [];
+            var theBindComDep = $("#selCmpDepNames").val();
+
+            theBindComDep.split(';').forEach(function (item, index) {
+
+                var singleCmp = item.split('|');
+
+                if (singleCmp.length > 0 || singleCmp.length > 1) {
+
+                    if (singleCmp[0] != "" && singleCmp[0] != null) {
+
+                        var ab = singleCmp[0].split('&');
+
+                        if (ab[0] != null && ab[0] != "") {
+                            var cmpSelNode = {};
+                            cmpSelNode.cmpId = ab[0];
+                            cmpSelNode.cmpName = ab[1];
+                            cmpSelNode.deps = [];
+
+                            if (singleCmp.length > 1) {
+                                singleCmp[1].split(",").forEach(function (item1, index1) {
+
+                                    if (item1 != "" && item1 != null) {
+
+                                        var txkf = item1.split('&');
+
+                                        if (txkf[0] != "" && txkf[0] != null) {
+
+                                            var depSelNode = {};
+                                            depSelNode.depId = txkf[0];
+                                            depSelNode.depName = txkf[1];
+
+                                            cmpSelNode.deps.push(depSelNode);
+                                        }
+                                    }
+                                });
+                            }
+
+                            cmpList.push(cmpSelNode);
+                        }
+                    }
+                }
+
+
+                //1|1,2,4,
+                //console.log("the bind value");
+                //console.log(theBindComDep);
+
+                //console.log(cmpList);
+            });
+        }
+    }
+
+    function reBindCompany() {
+        var allNodes = $('#cmpTree').treeview('getUnselected');
+
+        for (var tm = 0; tm < allNodes.length; tm++) {
+            for (var i = 0; i < cmpList.length; i++) {
+                if (cmpList[i].cmpId == allNodes[tm].id) {
+                    $('#cmpTree').treeview('checkNode', [allNodes[tm].nodeId, { silent: true }]);
+                }
+            }
+        }
+
+        //bind default deptree
+        var allSelNodes = $('#cmpTree').treeview('getChecked');
+
+        if (allSelNodes.length > 0) {
+            bindDepTree(allSelNodes[0].id);
+        }
+    }
+
+    function reBindDepartment(cmpId) {
+        for (var i = 0; i < cmpList.length; i++) {
+
+            if (cmpList[i].cmpId == cmpId) {
+
+                var deps = cmpList[i].deps;
+
+                var allDepNodes = $('#depTree').treeview('getUnselected');
+
+                for (var m = 0; m < allDepNodes.length; m++) {
+                    for (var kk = 0; kk < deps.length; kk++) {
+
+                        if (deps[kk].depId == allDepNodes[m].id) {
+
+                            $('#depTree').treeview('checkNode', [allDepNodes[m].nodeId, { silent: true }]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     function bindCompany() {
+
+        RinTheValues();
+
         $.post("/User/GetCompanys", {}, function (response) {
 
             if (response == "empty_result") {
@@ -291,41 +462,31 @@
                     //nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
                     //nodeIcon: 'glyphicon glyphicon-globe',
                     emptyIcon: '',    //没有子节点的节点图标
-                    //multiSelect: true,    //多选
+                    multiSelect: false,    //多选
                     onNodeChecked: function (event, data) {
                         bindDepTree(data.id);
 
-                        var cmps = $("#selCompanys").val();
+                        //check if selected
+                        var isSel = ifCmpSelected(data.id);
 
-                        if (cmps.indexOf(data.id) == -1) {
-                            cmps += data.id + ",";
+                        if (!isSel) {
+                            var cmpSelNode = {};
+                            cmpSelNode.cmpId = data.id;
+                            cmpSelNode.cmpName = data.text;
+                            cmpSelNode.deps = [];
+                            cmpList.push(cmpSelNode);
                         }
-
-                        $("#selCompanys").val(cmps);
-
-                        var cmpName = $("#authCompany").val();
-                        if (cmpName.indexOf(data.text) == -1) {
-                            cmpName += data.text + ",";
-                        }
-                        $("#authCompany").val(cmpName);
-
-                        console.log("select company is=>");
-                        console.log($("#selCompanys").val());
                     },
 
                     //未选中
                     onNodeUnchecked: function (event, data) {
-                        var cmps = $("#selCompanys").val();
-
-                        cmps = cmps.replace(data.id + ",", "");
-                        $("#selCompanys").val(cmps);
-
-                        var cmpName = $("#authCompany").val();
-                        cmpName = cmpName.replace(data.text + ",", "");
-                        $("#authCompany").val(cmpName);
-
-                        console.log("select company is=>");
-                        console.log($("#selCompanys").val());
+                        var delKey = data.id;
+                        for (var i = 0; i < cmpList.length; i++) {
+                            var keyTemp = cmpList[i].cmpId;
+                            if (keyTemp === delKey) {
+                                cmpList.splice(i, 1);
+                            }
+                        }
                     },
 
                     onNodeSelected: function (event, data) {
@@ -333,27 +494,12 @@
                     }
                 });
 
-                //选中
-                //var selectedCmps = $("#selCompanys").val();
-                //var vals = selectedCmps.split(',');
-
-                //for (var i = 0; i < vals.length; i++) {
-                //    $('#cmpTree').treeview('checkNode', [vals[i], { silent: true }]);
-                //}
-
-
-                //vals.each(function (data) {
-                //    console.log(data);
-                //    $('#cmpTree').treeview('checkNode',[data, { silent: true }]);
-                //});
-
-
+                reBindCompany();
             }
         });
     }
 
     function bindDepTree(cmpId) {
-
         $.post("/User/GetDepartmentsByCompany", { companyId: cmpId }, function (response) {
 
             if (response == "empty_result") {
@@ -371,36 +517,167 @@
                     emptyIcon: '',    //没有子节点的节点图标
                     multiSelect: true,    //多选
                     onNodeChecked: function (event, data) {
-                        var deps = $("#selDeparts").val();
-                        deps += cmpId + "|" + data.id + ",";
-                        $("#selDeparts").val(deps);
 
-                        var depName = $("#authDep").val();
-                        depName += data.text + ",";
-                        $("#authDep").val(depName);
+                        console.log(data);
 
-                        console.log("select depart is=>");
-                        console.log($("#selDeparts").val());
+                        var isSel = ifDepSelected(cmpId, data.id);
+
+                        if (!isSel) {
+                            var depSelNode = {};
+                            depSelNode.depId = data.id;
+                            depSelNode.depName = data.text;
+                            pushDeps(cmpId, depSelNode);
+                        }
+
+                        //选中所有子节点
+                        if (data.nodes != null && data.nodes.length > 0) {
+                            for (var xxk = 0; xxk < data.nodes.length; xxk++) {
+
+                                $('#depTree').treeview('checkNode', [data.nodes[xxk].nodeId, { silent: true }]);
+
+                                var isSel = ifDepSelected(cmpId, data.nodes[xxk].id);
+
+                                if (!isSel) {
+                                    var depSelNode = {};
+                                    depSelNode.depId = data.nodes[xxk].id;
+                                    depSelNode.depName = data.nodes[xxk].text;
+                                    pushDeps(cmpId, depSelNode);
+                                }
+
+                                checknode(cmpId,data.nodes[xxk].nodes);
+                            }
+                        }
                     },
-                    onNodeSelected: function (event, data) {
-                        //alert(data.nodeId);
-                    },
+
+                    onNodeSelected: function (event, data) { },
+
                     //未选中
                     onNodeUnchecked: function (event, data) {
-                        var deps = $("#selDeparts").val();
-                        deps = deps.replace(cmpId + "|" + data.id + ",", "");
-                        $("#selDeparts").val(deps);
 
-                        var depName = $("#authDep").val();
-                        depName = depName.replace(data.text + ",", "");
-                        $("#authDep").val(depName);
+                        var delKey = data.id;
+                        for (var i = 0; i < cmpList.length; i++) {
 
-                        console.log("select depart is=>");
-                        console.log($("#selDeparts").val());
+                            if (cmpList[i].cmpId == cmpId) {
+                                var depsTmp = cmpList[i].deps;
+
+                                for (var mm = 0; mm < depsTmp.length; mm++) {
+                                    if (depsTmp[mm].depId == data.id) {
+                                        cmpList[i].deps.splice(mm, 1);
+                                    }
+                                }
+                            }
+                        }
+
+                        //取消所有子节点
+                        if(data.nodes!=null&&data.nodes.length>0)
+                        {
+                            for (var xxk = 0; xxk < data.nodes.length; xxk++) {
+
+                                $('#depTree').treeview('uncheckNode', [data.nodes[xxk].nodeId, { silent: true }]);
+
+                                var delKey = data.nodes[xxk].id;
+                                for (var i = 0; i < cmpList.length; i++) {
+
+                                    if (cmpList[i].cmpId == cmpId) {
+                                        var depsTmp = cmpList[i].deps;
+
+                                        for (var mm = 0; mm < depsTmp.length; mm++) {
+                                            if (depsTmp[mm].depId == data.nodes[xxk].id) {
+                                                cmpList[i].deps.splice(mm, 1);
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+                                unchecknode(cmpId,data.nodes[xxk].nodes);
+
+
+                                //var nodes=data.nodes[xxk].nodes;
+                                //if (nodes != null && nodes.length > 0) {
+                                //    for (var xxxk = 0; xxk < nodes.length; xxxk++) {
+                                //        $('#depTree').treeview('uncheckNode', [nodes[xxxk].nodeId, { silent: true }]);
+
+                                //        var delKey = nodes[xxxk].id;
+                                //        for (var i = 0; i < cmpList.length; i++) {
+
+                                //            if (cmpList[i].cmpId == cmpId) {
+                                //                var depsTmp = cmpList[i].deps;
+
+                                //                for (var mm = 0; mm < depsTmp.length; mm++) {
+                                //                    if (depsTmp[mm].depId == nodes[xxxk].id) {
+                                //                        cmpList[i].deps.splice(mm, 1);
+                                //                    }
+                                //                }
+                                //            }
+
+
+                                //        }
+                                //    }
+                                //}
+
+
+
+
+                            }
+                        }
                     }
                 });
+
+                reBindDepartment(cmpId);
             }
         });
     }
 
+    function checknode(cmpId,nodes) {
+        if (nodes != null && nodes.length > 0) {
+        
+
+            for (var xxxk = 0; xxxk < nodes.length; xxxk++) {
+
+                $('#depTree').treeview('checkNode', [nodes[xxxk].nodeId, { silent: true }]);
+
+                var isSel = ifDepSelected(cmpId, nodes[xxxk].id);
+
+                if (!isSel) {
+                    var cdepSelNode = {};
+                    cdepSelNode.depId = nodes[xxxk].id;
+                    cdepSelNode.depName = nodes[xxxk].text;
+                    pushDeps(cmpId, cdepSelNode);
+                }
+
+                checknode(cmpId, nodes[xxxk].nodes);
+            }
+
+
+        }
+
+    }
+
+    function unchecknode(cmpId,nodes) {
+        if (nodes != null && nodes.length > 0) {
+            for (var xxxk = 0; xxxk < nodes.length; xxxk++) {
+                $('#depTree').treeview('uncheckNode', [nodes[xxxk].nodeId, { silent: true }]);
+
+                var delKey = nodes[xxxk].id;
+                for (var i = 0; i < cmpList.length; i++) {
+
+                    if (cmpList[i].cmpId == cmpId) {
+                        var depsTmp = cmpList[i].deps;
+
+                        for (var mm = 0; mm < depsTmp.length; mm++) {
+                            if (depsTmp[mm].depId == nodes[xxxk].id) {
+                                cmpList[i].deps.splice(mm, 1);
+                            }
+                        }
+                    }
+
+
+                }
+
+                unchecknode(cmpId, nodes[xxxk].nodes);
+            }
+        }
+    }
 </script>

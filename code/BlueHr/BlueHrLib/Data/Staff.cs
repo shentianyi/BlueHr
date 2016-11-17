@@ -92,6 +92,11 @@ namespace BlueHrLib.Data
             get { return this.Department == null ? null : this.Department.name; }
         }
 
+        public string departmentFullName
+        {
+            get { return this.Department == null ? null : this.Department.fullName; }
+        }
+
         public string parentNames
         {
             get { return this.Department == null ? null : this.Department.parentNames; }

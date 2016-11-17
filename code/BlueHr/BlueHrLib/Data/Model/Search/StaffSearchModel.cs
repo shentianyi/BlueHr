@@ -16,6 +16,13 @@ namespace BlueHrLib.Data.Model.Search
 
         public int? JobTitleId { get; set; }
         //二级联动
+
+        public string  companyNames { get; set; }
+        public string departmentNames { get; set; }
+        public string companyIds { get; set; }
+        public string departmentIds { get; set; }
+
+
         public int? companyId { get; set; }
         public int? departmentId { get; set; }
 
