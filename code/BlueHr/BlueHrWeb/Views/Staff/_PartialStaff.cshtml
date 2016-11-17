@@ -150,38 +150,70 @@
                     </div>
 
                     @*@Html.Partial("Search/_CompanyAndDepartmentBar")*@
-                    @if (Model != null)
-                    {
+
                     <div class="marco-igroup-primary">
                         <span>公司</span>
-                        <input type="text" name="companyName" id="companyName" placeholder="" readonly="readonly" value="@Model.Company.name" />
 
-                        <input type="hidden" name="companyId" id="companyId" value="@Model.companyId" />
+                        @if (Model != null && Model.companyId != null)
+                        {
+                            <input type="text" name="companyName" id="companyName" placeholder="" readonly="readonly" value="@Model.Company.name" />
+                            <input type="hidden" name="companyId" id="companyId" value="@Model.companyId" />
+                        }
+                        else
+                        {
+                            <input type="text" name="companyName" id="companyName" placeholder="" readonly="readonly" />
+                            <input type="hidden" name="companyId" id="companyId" />
+                        }
 
                         <span>部门</span>
-                        <input type="text" name="departmentName" id="departmentName" placeholder="" readonly="readonly" value="@Model.Department.fullName" />
 
-                        <input type="hidden" name="departmentId" id="departmentId" value="@Model.departmentId" />
+                        @if (Model != null && Model.departmentId != null)
+                        {
+                            <input type="text" name="departmentName" id="departmentName" placeholder="" readonly="readonly" value="@Model.Department.fullName" />
+                            <input type="hidden" name="departmentId" id="departmentId" value="@Model.departmentId" />
+                        }
+                        else
+                        {
+                            <input type="text" name="departmentName" id="departmentName" placeholder="" readonly="readonly" />
+                            <input type="hidden" name="departmentId" id="departmentId" />
+                        }
                         @* @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)*@
                     </div>
-                    }
-                    else
-                    {
-                        <div class="marco-igroup-primary">
-                            <span>公司</span>
-                            <input type="text" name="companyName" id="companyName" placeholder="" readonly="readonly"  />
 
-                            <input type="hidden" name="companyId" id="companyId" />
 
-                            <span>部门</span>
-                            <input type="text" name="departmentName" id="departmentName" placeholder="" readonly="readonly" />
+                    @*@if (Model != null)
+                        {
+                            <div class="marco-igroup-primary">
+                                <span>公司</span>
 
-                            <input type="hidden" name="departmentId" id="departmentId" />
-                            @* @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)*@
-                        </div>
-                    }
+                                <input type="text" name="companyName" id="companyName" placeholder="" readonly="readonly" value="@Model.Company.name" />
 
-                  
+                                <input type="hidden" name="companyId" id="companyId" value="@Model.companyId" />
+
+                                <span>部门</span>
+                                <input type="text" name="departmentName" id="departmentName" placeholder="" readonly="readonly" value="@Model.Department.fullName" />
+
+                                <input type="hidden" name="departmentId" id="departmentId" value="@Model.departmentId" />
+                                @* @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)*@
+                    @*</div>
+                        }
+                        else
+                        {
+                            <div class="marco-igroup-primary">
+                                <span>公司</span>
+                                <input type="text" name="companyName" id="companyName" placeholder="" readonly="readonly" />
+
+                                <input type="hidden" name="companyId" id="companyId" />
+
+                                <span>部门</span>
+                                <input type="text" name="departmentName" id="departmentName" placeholder="" readonly="readonly" />
+
+                                <input type="hidden" name="departmentId" id="departmentId" />
+                                @* @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)*@
+                    @*</div>
+                        }*@
+
+
                     <input type="button" onclick="asignCmpDepConfirm(-1)" class="submit-btn marco-btn-primary" value="选择公司和部门" />
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
@@ -529,7 +561,7 @@
                     </div>
                 </div>
             </div>
-           
+
         </div>
     </div>
 </div>
@@ -585,7 +617,7 @@
             Layout.popMsg('popMsg-danger', "公积金不能为空");
             return false;
         }
-        
+
         if ($('#contractCount').val() < 0) {
             Layout.popMsg('popMsg-danger', "签订合同次数不能为负");
             return false;
@@ -820,9 +852,9 @@
                         var checkedNodes = $("#cmpTree").treeview('getChecked');
                         $(checkedNodes).each(function (index, element) {
                             if (element.nodeId != data.nodeId) {
-                                 $('#cmpTree').treeview('toggleNodeChecked', [data.nodeId, { silent: true }]);
+                                $('#cmpTree').treeview('toggleNodeChecked', [data.nodeId, { silent: true }]);
 
-                              //  $("#cmpTree").treeview('unselectNode', [element, { silent: true }]);
+                                //  $("#cmpTree").treeview('unselectNode', [element, { silent: true }]);
                             }
                         });
 
