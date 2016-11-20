@@ -1,5 +1,7 @@
 ﻿@model BlueHrLib.Data.Staff
 
+@using BlueHrWeb.Helpers.View
+
 <div id="staff" style="margin:10px;">
     <ol class="breadcrumb current-position">
         您的位置：
@@ -536,6 +538,7 @@
         <input type="text" id="selDeparts" name="selDeparts" value="@ViewBag.TheDepIds" />*@
     <input type="text" id="selCmpDepIds" name="selCmpDepIds" />
     <input type="text" id="selCmpDepNames" name="selCmpDepNames" />
+    <input type="hidden" id="DefaultTrailMonth" name="DefaultTrailMonth" value="@MenuAuthHelper.DefaultTrailMonth()"/>
 </div>
 @Scripts.Render("~/bundles/staff")
 
@@ -561,6 +564,28 @@
             timepicker: false
         });
     }
+
+    $("#isOnTrial").change(function () {
+        console.log($(this).val());
+        var s = $(this).val();
+        if (s == "true") {
+
+            var month = $("#DefaultTrailMonth").val();
+            var startTime = $("#companyEmployAt").val();
+            console.log(month);
+            console.log(startTime);
+            if (startTime != "") {
+                var stime = new Date(startTime);
+                console.log(stime); console.log(stime.getFullYear());
+                var date = new Date(stime.getFullYear(), (stime.getMonth()) +parseInt( month), stime.getDate()); // new Date(stime.setMonth(stime.getMonth() + month));
+                console.log(date);
+                var dates = date.getFullYear() + "-" + (date.getMonth() + 1)+"-" + date.getDate();
+                $("#trialOverAt").val(dates);
+            }
+        } else {
+            $("#trialOverAt").val("");
+        }
+    });
 
     Staff.image_upload('#photoUpload');
 

@@ -27,7 +27,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateBasic([Bind(Include = "daysBeforeAlertStaffGoFull ,goFullAlertMails ,unCertifacteAlertMails,attendanceExceptionAlertMails,repeatAttendanceRecordTime,validAttendanceRecordTime,lateExceptionTime,earlyLeaveExceptionTime,systemHost,emaiSMTPHost,emailUser,emailPwd,emailAddress")] SystemSetting setting)
+        public ActionResult UpdateBasic([Bind(Include = "daysBeforeAlertStaffGoFull ，defaultTrailMonth,goFullAlertMails ,unCertifacteAlertMails,attendanceExceptionAlertMails,repeatAttendanceRecordTime,validAttendanceRecordTime,lateExceptionTime,earlyLeaveExceptionTime,systemHost,emaiSMTPHost,emailUser,emailPwd,emailAddress")] SystemSetting setting)
         {
             ResultMessage msg = new ResultMessage();
 

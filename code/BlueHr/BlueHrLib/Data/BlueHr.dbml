@@ -257,6 +257,7 @@
       <Column Name="emailUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="emailPwd" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="emailAddress" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="defaultTrailMonth" Type="System.Int32" DbType="int" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.TaskRound" Member="TaskRound">

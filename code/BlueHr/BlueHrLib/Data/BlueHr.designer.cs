@@ -5389,6 +5389,8 @@ namespace BlueHrLib.Data
 		
 		private string _emailAddress;
 		
+		private System.Nullable<int> _defaultTrailMonth;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -5421,6 +5423,8 @@ namespace BlueHrLib.Data
     partial void OnemailPwdChanged();
     partial void OnemailAddressChanging(string value);
     partial void OnemailAddressChanged();
+    partial void OndefaultTrailMonthChanging(System.Nullable<int> value);
+    partial void OndefaultTrailMonthChanged();
     #endregion
 		
 		public SystemSetting()
@@ -5704,6 +5708,26 @@ namespace BlueHrLib.Data
 					this._emailAddress = value;
 					this.SendPropertyChanged("emailAddress");
 					this.OnemailAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_defaultTrailMonth", DbType="int")]
+		public System.Nullable<int> defaultTrailMonth
+		{
+			get
+			{
+				return this._defaultTrailMonth;
+			}
+			set
+			{
+				if ((this._defaultTrailMonth != value))
+				{
+					this.OndefaultTrailMonthChanging(value);
+					this.SendPropertyChanging();
+					this._defaultTrailMonth = value;
+					this.SendPropertyChanged("defaultTrailMonth");
+					this.OndefaultTrailMonthChanged();
 				}
 			}
 		}
