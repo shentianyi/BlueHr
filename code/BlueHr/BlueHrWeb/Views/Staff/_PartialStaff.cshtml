@@ -257,45 +257,45 @@
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>最初进厂日期</span>
-                        @Html.EditorFor(model => model.firstCompanyEmployAt, new { htmlAttributes = new { @class = "date-start-picker" } })
+                        @Html.EditorFor(model => model.firstCompanyEmployAt )
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>进厂总工龄</span>
-                        @Html.EditorFor(model => model.totalCompanySeniority, new { htmlAttributes = new { type = "number" } })
-                        <span class="marco-label-default">年</span>
+                        @Html.EditorFor(model => model.firstCompanyEmployAtCalDisplay, new { htmlAttributes = new { @readonly=true } })
+                        @*<span class="marco-label-default">年</span>*@
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>进厂日期</span>
-                        @Html.EditorFor(model => model.companyEmployAt, new { htmlAttributes = new { @class = "date-end-picker" } })
+                        @Html.EditorFor(model => model.companyEmployAt )
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>工龄</span>
-                        @Html.EditorFor(model => model.companySeniority, new { htmlAttributes = new { type = "number" } })
-                        <span class="marco-label-default">年</span>
+                        @Html.EditorFor(model => model.companyEmployAtCalDisplay, new { htmlAttributes = new { @readonly=true} })
+                        @*<span class="marco-label-default">年</span>*@
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>参加工作年限</span>
-                        @Html.EditorFor(model => model.workingYearsAt, new { htmlAttributes = new { @class = "date-end-picker" } })
+                        @Html.EditorFor(model => model.workingYearsAt )
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>累计工龄</span>
-                        @Html.EditorFor(model => model.totalSeniority)
-                        <span class="marco-label-default">年</span>
+                        @Html.EditorFor(model => model.workingYearsAtCalDisplay, new { htmlAttributes = new { @readonly = true } })
+                        @*<span class="marco-label-default">年</span>*@
                     </div>
                 </div>
             </div>
@@ -541,8 +541,27 @@
 
 <script type="text/javascript">
     Layout.init();
-    Layout.rangedatepicker('.date-start-picker', '.date-end-picker');
-    Layout.datepicker('.date-picker');
+    //Layout.rangedatepicker('.date-start-picker', '.date-end-picker');
+    //Layout.datepicker('.date-picker');
+    var datepicks = ["firstCompanyEmployAt", "companyEmployAt", "workingYearsAt"];
+    for (var i = 0; i < datepicks.length; i++) {
+      
+        $("#" + datepicks[i]).datetimepicker({
+            format: 'Y-m-d',
+            id: datepicks[i],
+            onChangeDateTime: function (dt) {
+                console.log(dt);
+                var did = $(this).attr("id") + "CalDisplay";
+                console.log($(this).attr("id")); console.log(did);
+                var year = (new Date()).getFullYear() - dt.getFullYear();
+                var month = (new Date()).getMonth() - dt.getMonth();
+                $("#" + did).val(year + "年" + month + "月");
+            },
+            scrollInput: false,
+            timepicker: false
+        });
+    }
+
     Staff.image_upload('#photoUpload');
 
     $('.submit-btn').click(function () {
