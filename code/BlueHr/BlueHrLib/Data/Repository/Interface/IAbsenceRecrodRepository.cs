@@ -9,6 +9,7 @@ namespace BlueHrLib.Data.Repository.Interface
     interface IAbsenceRecrodRepository
     {
         IQueryable<AbsenceRecrod> Search(AbsenceRecrodSearchModel searchModel);
+        IQueryable<AbsenceRecordView> SearchDetail(AbsenceRecrodSearchModel searchModel);
 
         bool Create(AbsenceRecrod absenceRecord);
 

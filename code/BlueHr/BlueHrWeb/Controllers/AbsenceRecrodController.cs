@@ -393,21 +393,26 @@ namespace BlueHrWeb.Controllers
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
 
-                AbsenceRecordApproval absApproval = new AbsenceRecordApproval();
-                absApproval.absRecordId = !string.IsNullOrEmpty(absRecordId) ? int.Parse(absRecordId) : -1;
-                absApproval.approvalStatus = approvalStatus;
-                absApproval.approvalTime = DateTime.Now;
-                absApproval.remarks = approvalRemarks;
 
-                if (Session["user"] != null)
+                var ids = absRecordId.Split(',');
+                bool isSucceed = false;
+                foreach (var id in ids)
                 {
-                    User user = Session["user"] as User;
-                    absApproval.userId = user.id;
+                    AbsenceRecordApproval absApproval = new AbsenceRecordApproval();
+                    absApproval.absRecordId = !string.IsNullOrEmpty(id) ? int.Parse(id) : -1;
+                    absApproval.approvalStatus = approvalStatus;
+                    absApproval.approvalTime = DateTime.Now;
+                    absApproval.remarks = approvalRemarks;
+
+                    if (Session["user"] != null)
+                    {
+                        User user = Session["user"] as User;
+                        absApproval.userId = user.id;
+                    }
+
+                    IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
+                      isSucceed = cs.ApprovalTheRecord(absApproval);
                 }
-
-                IAbsenceRecordService cs = new AbsenceRecordService(Settings.Default.db);
-                bool isSucceed = cs.ApprovalTheRecord(absApproval);
-
                 msg.Success = isSucceed;
                 msg.Content = "审批成功！";
 

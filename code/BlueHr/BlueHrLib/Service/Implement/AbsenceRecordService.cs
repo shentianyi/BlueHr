@@ -84,5 +84,10 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.ApprovalTheRecord(absRecordApproval);
         }
+
+        public IQueryable<AbsenceRecordView> SearchDetail(AbsenceRecrodSearchModel searchModel)
+        {
+            return rep.SearchDetail(searchModel);
+        }
     }
 }
