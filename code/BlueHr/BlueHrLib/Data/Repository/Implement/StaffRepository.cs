@@ -192,6 +192,11 @@ namespace BlueHrLib.Data.Repository.Implement
                 {
                     staffs = staffs.Where(c => depIds.Contains(c.departmentId.ToString()));
                 }
+
+                if (searchModel.WorkStatus.HasValue)
+                {
+                        staffs = staffs.Where(c => c.workStatus.Equals(searchModel.WorkStatus));
+                }
             }
 
             return staffs;

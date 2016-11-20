@@ -41,7 +41,8 @@ namespace BlueHrWeb
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/jquery.slimscroll.js",
-                      "~/Scripts/AdminLTE.js"
+                      "~/Scripts/AdminLTE.js",
+                      "~/Scripts/jquery.combo.select.js"
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/layout").Include(
@@ -80,7 +81,8 @@ namespace BlueHrWeb
                      "~/Content/jquery.datetimepicker.css",
                      "~/Content/jquery-ui.css",
                      "~/Content/AdminLTE.css",
-                     "~/Content/AdminLTEBlue.css"
+                     "~/Content/AdminLTEBlue.css",
+                     "~/Content/combo.select.css"
                      ));
 
             bundles.Add(new StyleBundle("~/Content/layout").Include(
