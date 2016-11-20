@@ -134,7 +134,7 @@ Certificate.AddTmpAttachment = function (atchName) {
     }
 
     Html += '    <td class="option-icon-primary">';
-    Html += '        <a href="' + '/Certificate/DownFile?fileName=' + showAtchName + '&filePath=' + downloadPath + '">';
+    Html += '        <a target="_blank" href="' + '/Certificate/DownFile?fileName=' + showAtchName + '&filePath=' + downloadPath + '">';
     Html += '        <i class="fa fa-download" id="' + "atch_down_" + atchId + '" style="margin-top:3px;"></i>';
     Html += '        </a>';
     Html += '        <i class="fa fa-close" id="' + "atch_del_" + atchId + '" style="margin-top:3px;" onclick="Certificate.deleteAtch(' + "'" + "atch_del_" + atchId + "'" + ',' + "'" + atchName + "'" + ')"></i>';

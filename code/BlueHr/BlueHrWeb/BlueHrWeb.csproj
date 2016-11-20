@@ -298,6 +298,7 @@
     <Content Include="Content\AdminLTE.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\combo.select.css" />
     <Content Include="Content\company.css">
       <DependentUpon>company.scss</DependentUpon>
     </Content>
@@ -372,6 +373,7 @@
       <DependentUpon>jquery-ui-1.9.1.custom.min.es5.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-ui-1.9.1.custom.min.js" />
+    <Content Include="Scripts\jquery.combo.select.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.datetimepicker.full.js" />
     <Content Include="Scripts\jquery.file.upload\jquery.fileupload.js" />

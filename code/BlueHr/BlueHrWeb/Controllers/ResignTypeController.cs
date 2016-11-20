@@ -249,5 +249,23 @@ namespace BlueHrWeb.Controllers
 
             return new ResultMessage() { Success = true, Content = "" };
         }
+
+
+        [HttpPost]
+        public JsonResult IsResignTypeExit(string resignType)
+        {
+
+            IResignTypeService rts = new ResignTypeService(Settings.Default.db);
+            ResignType getResignType = rts.IsResignTypeExit(resignType);
+
+            Dictionary<string, string> rt = new Dictionary<string, string>();
+
+            rt.Add("ID", getResignType.id.ToString());
+            rt.Add("Code", getResignType.code);
+            rt.Add("Name", getResignType.name);
+            rt.Add("Remark", getResignType.remark);
+
+            return Json(rt, JsonRequestBehavior.DenyGet);
+        }
     }
 }

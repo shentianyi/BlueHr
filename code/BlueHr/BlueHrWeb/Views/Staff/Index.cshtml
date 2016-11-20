@@ -3,7 +3,6 @@
 @model IPagedList<BlueHrLib.Data.Staff>
 @using BlueHrWeb.Helpers.View
 
-
 @{
     ViewBag.Title = "Index";
 }
@@ -45,7 +44,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 5px;">
                 <div class="marco-bgroup">
                     <button type="submit" class="marco-btn-success pull-left">
                         <i class="fa fa-search"></i>
@@ -75,23 +74,24 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>公司</span>
                     <input type="text" name="companyNames" id="companyNames" placeholder="" readonly="readonly" value="@ViewBag.Query.companyNames" />
 
                     <input type="hidden" name="companyIds" id="companyIds" value="@ViewBag.Query.companyIds"/>
                    @* @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)*@
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
+               
                     <span>部门</span>
                     <input type="text" name="departmentNames" id="departmentNames" placeholder="" readonly="readonly" value="@ViewBag.Query.departmentNames" />
 
                     <input type="hidden" name="departmentIds" id="departmentIds"    value="@ViewBag.Query.departmentIds"/>
                     @*@Html.DropDownList("departmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)*@
-                    <input type="button" onclick="asignCmpDepConfirm(-1)" value="选择公司和部门"/>
+                    <span>
+                        <button type="button" class="marco-btn-default" onclick="asignCmpDepConfirm(-1)" style="margin:0; background:transparent; border-color:transparent;">
+                            选择
+                        </button>
+                    </span>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -115,6 +115,14 @@
                     <span>是否为试用期</span>
 
                     @Html.DropDownList("IsOnTrial", ViewData["isOnTrialList"] as IEnumerable<SelectListItem>)
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>是否在职</span>
+
+                    @Html.DropDownList("WorkStatus", ViewData["workStatusList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
         </div>
@@ -212,13 +220,13 @@
                                 <td>
                                     @if (canShow)
                                     {
-                                    <a href="/Staff/Delete/@item.nr" class="option-icon-primary" title="详情">
+                                    <a href="/Staff/Delete/@item.nr" target="_blank" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     }
                                     @if (canEdit)
                                     {
-                                    <a href="/Staff/Edit/@item.nr" class="option-icon-warning" title="编辑">
+                                    <a href="/Staff/Edit/@item.nr" target="_blank" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
                                     </a>}
                                 </td>

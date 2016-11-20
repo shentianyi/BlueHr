@@ -23,5 +23,7 @@ namespace BlueHrLib.Service.Interface
         ResignTypeInfoModel GetResignTypeInfo(ResignTypeSearchModel searchModel);
 
         List<ResignType> GetAll();
+
+        ResignType IsResignTypeExit(string resignType);
     }
 }
