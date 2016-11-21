@@ -3,6 +3,7 @@
 <div id="shift" style="margin:10px;">
     <ol class="breadcrumb current-position">
         您的位置：
+        <li>排班管理</li>  
         <li>@Html.ActionLink("班次管理", "Index")</li>
         <li>{{action}}</li>
     </ol>
@@ -98,14 +99,10 @@
 
                     </div>
                 </div>
-
-             
-
             </div>
 
-
-            <div class="marco-textarea">
-                <label for="remark">备注</label>
+            <div class="marco-textarea" style="margin: 4px;">
+                <label for="remark" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">备注</label>
                 @if (Model != null)
                 {
                     @Html.TextAreaFor(model => model.remark)

@@ -45,19 +45,21 @@
                         <i class="fa fa-search"></i>
                         搜索
                     </button>
-                    @if (canImport)
-                    {
-                    <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
-                        导入缺勤记录
-                    </button>
-                    }
+                    
                 </span>
             </div>
         </div>
     </form>
 </div>
 <div class="row" style="margin-left:15px;">
-    <button type="button" class="marco-btn-success" style="padding:10px; margin:0;" onclick="shBatchAbsenceRecord()">
+    @if (canImport)
+    {
+        <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
+            导入缺勤记录
+        </button>   
+    }
+
+    <button type="button" class="marco-btn-success" onclick="shBatchAbsenceRecord()">
         <i class="fa fa-pencil"></i>
         批量审批
     </button>
