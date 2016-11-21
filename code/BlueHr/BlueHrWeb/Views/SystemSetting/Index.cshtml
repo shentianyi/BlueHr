@@ -20,6 +20,14 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
+        
+        <div class="form-group">
+            <label class="control-label col-md-2" for="defaultTrailMonth">试用期月数</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.defaultTrailMonth, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.defaultTrailMonth, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="control-label col-md-2" for="daysBeforeAlertStaffGoFull">提前通知转正天数</label>

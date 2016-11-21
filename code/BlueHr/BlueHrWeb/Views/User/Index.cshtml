@@ -73,13 +73,13 @@
                                     @Html.DisplayFor(modelItem => item.AuthDepartment)
                                 </td>
                                 <td>
-                                    <a href="/User/Delete/@item.id" class="option-icon-primary" title="详情">
+                                    <a href="/User/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a href="/User/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                    <a href="/User/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a href="/User/changepwd?id=@item.id" class="option-icon-danger" title="修改密码">
+                                    <a href="/User/changepwd?id=@item.id" target="_blank" class="option-icon-danger" title="修改密码">
                                         <i class="fa fa-paste"></i>
                                     </a>
                                     @if (item.isLocked.Value)

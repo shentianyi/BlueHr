@@ -33,6 +33,7 @@ namespace BlueHrWeb.Controllers
             int pageIndex = PagingHelper.GetPageIndex(page);
 
             StaffSearchModel q = new StaffSearchModel();
+            q.WorkStatus = 100;
 
             //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
             User user = System.Web.HttpContext.Current.Session["user"] as User; 
@@ -43,6 +44,7 @@ namespace BlueHrWeb.Controllers
             IPagedList<Staff> staffs = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
+
 
             SetDropDownList(null);
 
@@ -76,7 +78,6 @@ namespace BlueHrWeb.Controllers
             staff.jobTitleId = q.JobTitleId;
             staff.isOnTrial = Convert.ToBoolean(q.IsOnTrial);
             SetDropDownList(staff);
-
             ViewBag.Query = q;
 
             return View("Index", staffs);
@@ -893,9 +894,29 @@ namespace BlueHrWeb.Controllers
         {
             IStaffService ss = new StaffService(Settings.Default.db);
             Staff staff = ss.FindByNr(nr);
-            SetResignTypeList(null);
+            //SetResignTypeList(null);
             return View(staff);
         }
+
+
+        [HttpGet]
+        public JsonResult GetResignType()
+        {
+            IResignTypeService rts = new ResignTypeService(Settings.Default.db);
+            ResignTypeSearchModel csm = new ResignTypeSearchModel();
+
+            List<ResignType> certType = rts.Search(csm).ToList();
+
+            Dictionary<string, string> Result = new Dictionary<string, string>();
+
+            foreach(var resignType in certType)
+            {
+                Result.Add(resignType.id.ToString(), resignType.name);
+            }
+
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
+        
 
         /// <summary>
         /// 执行员工离职
@@ -935,7 +956,6 @@ namespace BlueHrWeb.Controllers
             catch { }
             return Json(msg);
         }
-
 
         private void SetDepartmentList(int? companyId, int? type, bool allowBlank = true)
         {
@@ -998,33 +1018,33 @@ namespace BlueHrWeb.Controllers
             ViewData["companyList"] = select;
         }
 
-        private void SetResignTypeList(int? type, bool allowBlank = true)
-        {
-            IResignTypeService cs = new ResignTypeService(Settings.Default.db);
+        //    private void SetResignTypeList(int? type, bool allowBlank = true)
+        //    {
+        //        IResignTypeService cs = new ResignTypeService(Settings.Default.db);
 
-            ResignTypeSearchModel csm = new ResignTypeSearchModel();
+        //        ResignTypeSearchModel csm = new ResignTypeSearchModel();
 
-            List<ResignType> certType = cs.Search(csm).ToList();
+        //        List<ResignType> certType = cs.Search(csm).ToList();
 
-            List<SelectListItem> select = new List<SelectListItem>();
+        //        List<SelectListItem> select = new List<SelectListItem>();
 
-            if (allowBlank)
-            {
-                select.Add(new SelectListItem { Text = "", Value = "" });
-            }
+        //        if (allowBlank)
+        //        {
+        //            select.Add(new SelectListItem { Text = "", Value = "" });
+        //        }
 
-            foreach (var certt in certType)
-            {
-                if (type.HasValue && type.ToString().Equals(certt.id))
-                {
-                    select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = true });
-                }
-                else
-                {
-                    select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = false });
-                }
-            }
-            ViewData["resignTypeList"] = select;
-        }
+        //        foreach (var certt in certType)
+        //        {
+        //            if (type.HasValue && type.ToString().Equals(certt.id))
+        //            {
+        //                select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = true });
+        //            }
+        //            else
+        //            {
+        //                select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = false });
+        //            }
+        //        }
+        //        ViewData["resignTypeList"] = select;
+        //    }
     }
 }

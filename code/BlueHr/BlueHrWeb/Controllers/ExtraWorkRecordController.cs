@@ -394,21 +394,25 @@ namespace BlueHrWeb.Controllers
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
 
-                ExtraWorkRecordApproval extralApproval = new ExtraWorkRecordApproval();
-                extralApproval.extraWorkId = !string.IsNullOrEmpty(extralRecordId) ? int.Parse(extralRecordId) : -1;
-                extralApproval.approvalStatus = approvalStatus;
-                extralApproval.approvalTime = DateTime.Now;
-                extralApproval.remarks = approvalRemarks;
-
-                if (Session["user"] != null)
+                var ids = extralRecordId.Split(',');
+                bool isSucceed=false;
+                foreach (var id in ids)
                 {
-                    User user = Session["user"] as User;
-                    extralApproval.userId = user.id;
+                    ExtraWorkRecordApproval extralApproval = new ExtraWorkRecordApproval();
+                    extralApproval.extraWorkId = !string.IsNullOrEmpty(id) ? int.Parse(id) : -1;
+                    extralApproval.approvalStatus = approvalStatus;
+                    extralApproval.approvalTime = DateTime.Now;
+                    extralApproval.remarks = approvalRemarks;
+
+                    if (Session["user"] != null)
+                    {
+                        User user = Session["user"] as User;
+                        extralApproval.userId = user.id;
+                    }
+
+                    IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
+                 isSucceed= cs.ApprovalTheRecord(extralApproval);
                 }
-
-                IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
-                bool isSucceed = cs.ApprovalTheRecord(extralApproval);
-
                 msg.Success = isSucceed;
                 msg.Content = "审批成功！";
 

@@ -36,7 +36,7 @@ namespace BlueHrLib.Service.Implement
             if (oldsetting == null)
                 throw new SystemSettingNotSetException();
 
-
+            oldsetting.defaultTrailMonth = setting.defaultTrailMonth;
             oldsetting.daysBeforeAlertStaffGoFull = setting.daysBeforeAlertStaffGoFull;
             oldsetting.goFullAlertMails = setting.goFullAlertMails;
             oldsetting.unCertifacteAlertMails = setting.unCertifacteAlertMails;

@@ -82,5 +82,52 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<ResignType>().ToList();
         }
+
+        public ResignType FindByName(string name)
+        {
+            try
+            {
+                return this.context.GetTable<ResignType>().FirstOrDefault(c => c.name.Equals(name));
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public ResignType IsResignTypeExit(string resignType)
+        {
+            ResignType getResignType = FindByName(resignType);
+
+            if (getResignType != null)
+            {
+                //代表已经存在
+                return getResignType;
+            }else
+            {
+                ResignType rt = new ResignType();
+
+                rt.code = resignType;
+                rt.name = resignType;
+                rt.remark = resignType;
+
+                try
+                {
+                    bool Result = Create(rt);
+
+                    if (Result)
+                    {
+                        return IsResignTypeExit(rt.name);
+                    }else
+                    {
+                        return null;
+                    }
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
     }
 }
