@@ -87,28 +87,24 @@
                         }
                     </div>
                 </div>
-
-
-                
-
-              
-
             </div>
 
-
-            <div class="marco-textarea">
-                <label for="remark">备注</label>
-                @if (Model != null)
-                {
-                    @Html.TextAreaFor(model => model.remarks)
-                }
-                else
-                {
-                    <textarea name="remarks" placeholder="备注"></textarea>
-                }
+            <div class="row" style="padding: 4px;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="marco-textarea">
+                        <label for="remark" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">备注</label>
+                        @if (Model != null)
+                        {
+                            @Html.TextAreaFor(model => model.remarks)
+                        }
+                        else
+                        {
+                            <textarea name="remarks" placeholder="备注" style="margin-top: -5px;"></textarea>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
-
     }
 </div>
 

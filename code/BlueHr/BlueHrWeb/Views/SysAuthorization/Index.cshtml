@@ -12,39 +12,34 @@
 <hr class="hr-grey" />
 <div class="row" style="margin:0;">
     <form action="/SysAuthorization/Search" method="get">
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 ol-xs-12">
             <div class="marco-igroup-primary">
                 <span>模块</span>
                 <input type="text" name="funCode" id="funCode" placeholder="模块" value="@ViewBag.Query.funCode" />
             </div>
         </div> 
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 ol-xs-12">
             <div class="marco-igroup-primary">
                 <span>控制器</span>
                 <input type="text" name="controlName" id="controlName" placeholder="控制器" value="@ViewBag.Query.controlName" />
             </div>
         </div> 
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 ol-xs-12">
             <div class="marco-igroup-primary">
                 <span>动作</span>
                 <input type="text" name="actionName" id="actionName" placeholder="动作" value="@ViewBag.Query.actionName" />
             </div>
         </div> 
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 ol-xs-12">
             <div class="marco-igroup-primary">
                 <span>权限名称</span>
                 <input type="text" name="Name" id="Name" placeholder="权限名称" value="@ViewBag.Query.Name" />
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <div class="marco-igroup-primary">
-                 
-                <span class="marco-label-success" style="padding:0;">
-                    <button type="submit" class="marco-btn-success" style="padding:10px; margin:0;">
+
+                <span>
+                    <button type="submit" class="marco-btn-primary" style="margin:0;">
                         <i class="fa fa-search"></i>
                         搜索
                     </button>
-                   
                 </span>
             </div>
         </div>

@@ -1138,7 +1138,7 @@
   position: fixed;
   top: 52px;
   right: 10px;
-  width: 200px;
+  min-width: 200px;
   padding: 4px;
   text-align: center;
   background: #bdc3c7;
@@ -1157,7 +1157,7 @@
   position: fixed;
   top: 52px;
   right: 10px;
-  width: 200px;
+  min-width: 200px;
   padding: 4px;
   text-align: center;
   background: #3498db;
@@ -1176,7 +1176,7 @@
   position: fixed;
   top: 52px;
   right: 10px;
-  width: 200px;
+  min-width: 200px;
   padding: 4px;
   text-align: center;
   background: #1abc9c;
@@ -1195,7 +1195,7 @@
   position: fixed;
   top: 52px;
   right: 10px;
-  width: 200px;
+  min-width: 200px;
   padding: 4px;
   text-align: center;
   background: #f39c12;
@@ -1214,7 +1214,7 @@
   position: fixed;
   top: 52px;
   right: 10px;
-  width: 200px;
+  min-width: 200px;
   padding: 4px;
   text-align: center;
   background: #e74c3c;

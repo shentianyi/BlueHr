@@ -199,7 +199,6 @@
       <Column Name="resignChecker" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="ResignType_ResignRecord" Member="ResignType" ThisKey="resignTypeId" OtherKey="id" Type="ResignType" IsForeignKey="true" />
-      <Association Name="Staff_ResignRecord" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ResignType" Member="ResignType">
@@ -614,7 +613,6 @@
       <Association Name="Staff_ExtraWorkRecord" Member="ExtraWorkRecords" ThisKey="nr" OtherKey="staffNr" Type="ExtraWorkRecord" />
       <Association Name="Staff_FamilyMemeber" Member="FamilyMemebers" ThisKey="nr" OtherKey="staffNr" Type="FamilyMemeber" />
       <Association Name="Staff_FullMemberRecord" Member="FullMemberRecords" ThisKey="nr" OtherKey="staffNr" Type="FullMemberRecord" />
-      <Association Name="Staff_ResignRecord" Member="ResignRecords" ThisKey="nr" OtherKey="staffNr" Type="ResignRecord" />
       <Association Name="Staff_ShiftSchedule" Member="ShiftSchedules" ThisKey="nr" OtherKey="staffNr" Type="ShiftSchedule" />
       <Association Name="Staff_Certificate" Member="Certificates" ThisKey="nr" OtherKey="staffNr" Type="Certificate" />
       <Association Name="Staff_AbsenceRecrod" Member="AbsenceRecrods" ThisKey="nr" OtherKey="staffNr" Type="AbsenceRecrod" />

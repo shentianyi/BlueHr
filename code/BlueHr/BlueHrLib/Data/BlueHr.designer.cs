@@ -4361,8 +4361,6 @@ namespace BlueHrLib.Data
 		
 		private EntityRef<ResignType> _ResignType;
 		
-		private EntityRef<Staff> _Staff;
-		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -4384,7 +4382,6 @@ namespace BlueHrLib.Data
 		public ResignRecord()
 		{
 			this._ResignType = default(EntityRef<ResignType>);
-			this._Staff = default(EntityRef<Staff>);
 			OnCreated();
 		}
 		
@@ -4443,10 +4440,6 @@ namespace BlueHrLib.Data
 			{
 				if ((this._staffNr != value))
 				{
-					if (this._Staff.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnstaffNrChanging(value);
 					this.SendPropertyChanging();
 					this._staffNr = value;
@@ -4546,40 +4539,6 @@ namespace BlueHrLib.Data
 						this._resignTypeId = default(int);
 					}
 					this.SendPropertyChanged("ResignType");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_ResignRecord", Storage="_Staff", ThisKey="staffNr", OtherKey="nr", IsForeignKey=true)]
-		public Staff Staff
-		{
-			get
-			{
-				return this._Staff.Entity;
-			}
-			set
-			{
-				Staff previousValue = this._Staff.Entity;
-				if (((previousValue != value) 
-							|| (this._Staff.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Staff.Entity = null;
-						previousValue.ResignRecords.Remove(this);
-					}
-					this._Staff.Entity = value;
-					if ((value != null))
-					{
-						value.ResignRecords.Add(this);
-						this._staffNr = value.nr;
-					}
-					else
-					{
-						this._staffNr = default(string);
-					}
-					this.SendPropertyChanged("Staff");
 				}
 			}
 		}
@@ -10895,8 +10854,6 @@ namespace BlueHrLib.Data
 		
 		private EntitySet<FullMemberRecord> _FullMemberRecords;
 		
-		private EntitySet<ResignRecord> _ResignRecords;
-		
 		private EntitySet<ShiftSchedule> _ShiftSchedules;
 		
 		private EntitySet<Certificate> _Certificates;
@@ -11005,7 +10962,6 @@ namespace BlueHrLib.Data
 			this._ExtraWorkRecords = new EntitySet<ExtraWorkRecord>(new Action<ExtraWorkRecord>(this.attach_ExtraWorkRecords), new Action<ExtraWorkRecord>(this.detach_ExtraWorkRecords));
 			this._FamilyMemebers = new EntitySet<FamilyMemeber>(new Action<FamilyMemeber>(this.attach_FamilyMemebers), new Action<FamilyMemeber>(this.detach_FamilyMemebers));
 			this._FullMemberRecords = new EntitySet<FullMemberRecord>(new Action<FullMemberRecord>(this.attach_FullMemberRecords), new Action<FullMemberRecord>(this.detach_FullMemberRecords));
-			this._ResignRecords = new EntitySet<ResignRecord>(new Action<ResignRecord>(this.attach_ResignRecords), new Action<ResignRecord>(this.detach_ResignRecords));
 			this._ShiftSchedules = new EntitySet<ShiftSchedule>(new Action<ShiftSchedule>(this.attach_ShiftSchedules), new Action<ShiftSchedule>(this.detach_ShiftSchedules));
 			this._Certificates = new EntitySet<Certificate>(new Action<Certificate>(this.attach_Certificates), new Action<Certificate>(this.detach_Certificates));
 			this._AbsenceRecrods = new EntitySet<AbsenceRecrod>(new Action<AbsenceRecrod>(this.attach_AbsenceRecrods), new Action<AbsenceRecrod>(this.detach_AbsenceRecrods));
@@ -11880,19 +11836,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_ResignRecord", Storage="_ResignRecords", ThisKey="nr", OtherKey="staffNr")]
-		public EntitySet<ResignRecord> ResignRecords
-		{
-			get
-			{
-				return this._ResignRecords;
-			}
-			set
-			{
-				this._ResignRecords.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_ShiftSchedule", Storage="_ShiftSchedules", ThisKey="nr", OtherKey="staffNr")]
 		public EntitySet<ShiftSchedule> ShiftSchedules
 		{
@@ -12223,18 +12166,6 @@ namespace BlueHrLib.Data
 		}
 		
 		private void detach_FullMemberRecords(FullMemberRecord entity)
-		{
-			this.SendPropertyChanging();
-			entity.Staff = null;
-		}
-		
-		private void attach_ResignRecords(ResignRecord entity)
-		{
-			this.SendPropertyChanging();
-			entity.Staff = this;
-		}
-		
-		private void detach_ResignRecords(ResignRecord entity)
 		{
 			this.SendPropertyChanging();
 			entity.Staff = null;

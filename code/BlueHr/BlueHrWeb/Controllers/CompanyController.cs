@@ -132,16 +132,19 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            ICompanyService cs = new CompanyService(Settings.Default.db);
+            Company company = cs.FindById(id);
             try
             {
                 // TODO: Add delete logic here
-                ICompanyService cs = new CompanyService(Settings.Default.db);
                 cs.DeleteById(id);
+
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                ViewBag.ErrorMsg = "删除失败， 请先删除部门后再删除公司";
+                return View(company);
             }
         }
     }

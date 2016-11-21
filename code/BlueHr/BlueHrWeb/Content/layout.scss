@@ -654,7 +654,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
     position:fixed;
     top: 52px;
     right: 10px;
-    width: 200px;
+    min-width: 200px;
     padding: 4px;
     text-align:center;
     background: $marco-bg;

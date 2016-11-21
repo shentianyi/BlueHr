@@ -152,43 +152,51 @@
                     </div>
 
                     @*@Html.Partial("Search/_CompanyAndDepartmentBar")*@
+                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>公司</span>
 
-                    <div class="marco-igroup-primary">
-                        <span>公司</span>
+                            @if (Model != null && Model.companyId != null)
+                            {
+                                <input type="text" name="companyName" id="companyName" placeholder="" readonly="readonly" value="@Model.Company.name" />
+                                <input type="hidden" name="companyId" id="companyId" value="@Model.companyId" />
+                            }
+                            else
+                            {
+                                <input type="text" name="companyName" id="companyName" placeholder="" readonly="readonly" />
+                                <input type="hidden" name="companyId" id="companyId" />
+                            }
 
-                        @if (Model != null && Model.companyId != null)
-                        {
-                            <input type="text" name="companyName" id="companyName" placeholder="" readonly="readonly" value="@Model.Company.name" />
-                            <input type="hidden" name="companyId" id="companyId" value="@Model.companyId" />
-                        }
-                        else
-                        {
-                            <input type="text" name="companyName" id="companyName" placeholder="" readonly="readonly" />
-                            <input type="hidden" name="companyId" id="companyId" />
-                        }
+                            <span>部门</span>
 
-                        <span>部门</span>
+                            @if (Model != null && Model.departmentId != null)
+                            {
+                                <input type="text" name="departmentName" id="departmentName" placeholder="" readonly="readonly" value="@Model.Department.fullName" />
+                                <input type="hidden" name="departmentId" id="departmentId" value="@Model.departmentId" />
+                            }
+                            else
+                            {
+                                <input type="text" name="departmentName" id="departmentName" placeholder="" readonly="readonly" />
+                                <input type="hidden" name="departmentId" id="departmentId" />
+                            }
 
-                        @if (Model != null && Model.departmentId != null)
-                        {
-                            <input type="text" name="departmentName" id="departmentName" placeholder="" readonly="readonly" value="@Model.Department.fullName" />
-                            <input type="hidden" name="departmentId" id="departmentId" value="@Model.departmentId" />
-                        }
-                        else
-                        {
-                            <input type="text" name="departmentName" id="departmentName" placeholder="" readonly="readonly" />
-                            <input type="hidden" name="departmentId" id="departmentId" />
-                        }
-                        @* @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)*@
+                            <span>
+                                <button type="button" onclick="asignCmpDepConfirm(-1)" class="submit-btn marco-btn-primary"  style="margin: 0; background:transparent; border-color:transparent;">
+                                    选择公司和部门
+                                </button>
+                            </span>
+                            @* @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)*@
+                        </div>
                     </div>
 
-                    <input type="button" onclick="asignCmpDepConfirm(-1)" class="submit-btn marco-btn-primary" value="选择公司和部门" />
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <span>职位</span>
                             @Html.DropDownList("jobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
