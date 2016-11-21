@@ -73,8 +73,9 @@
                     <div class="card-body-multiple">
                         <div class="marco-igroup-default">
                             <span>离职类别</span>
-                            <select name="resignTypeId" id="resignTypeId">
-                            </select>
+
+                            <select name="resignTypeId" id="resignTypeId"></select>
+
                             @*@Html.DropDownList("resignTypeId", ViewData["resignTypeList"] as IEnumerable<SelectListItem>)*@
                         </div>
 
@@ -93,7 +94,7 @@
                         <hr class="hr-grey" />
                         <div style="text-align:right;">
                             <button type="submit" class="marco-btn-success" onclick="toResign()">
-                                <i class="glyphicon glyphicon-ok"></i>确定
+                                <i class="glyphicon glyphicon-ok"></i>  确定
                             </button>
                         </div>
                     </div>
