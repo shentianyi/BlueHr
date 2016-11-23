@@ -403,6 +403,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TmpFile\keep.txt" />
+    <Content Include="UploadCertificate\.gitignore" />
+    <Content Include="UploadCertificate\A001\20160912183930_photo.jpg" />
+    <Content Include="UploadCertificate\A001\20160912184058_photo.jpg" />
+    <Content Include="UploadCertificate\A001\20160912184100_1435643954_ZJFrtEQM.jpg" />
+    <Content Include="UploadCertificate\A001\20160912184106_CycleTime Detail.png" />
+    <Content Include="UploadCertificate\keep.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -525,11 +531,11 @@
     <Content Include="Views\ShiftSchedule\Edit.cshtml" />
     <Content Include="Views\ShiftSchedule\Delete.cshtml" />
     <Content Include="Views\ShiftSchedule\_PartialShiftSchedule.cshtml" />
-    <Content Include="Views\StaffType\User\Index.cshtml" />
-    <Content Include="Views\StaffType\User\Create.cshtml" />
-    <Content Include="Views\StaffType\User\_PartialUser.cshtml" />
-    <Content Include="Views\StaffType\User\Delete.cshtml" />
-    <Content Include="Views\StaffType\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\_PartialUser.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\SystemSetting\Index.cshtml" />
     <Content Include="Views\QuartzJob\Index.cshtml" />
     <Content Include="Views\QuartzJob\Create.cshtml" />
@@ -583,7 +589,7 @@
     <Content Include="Views\SysRoleAuthorization\_PartialSysRoleAuthorization.cshtml" />
     <Content Include="Views\Home\NoAuthPage.cshtml" />
     <Content Include="Views\SysAuthorization\Edit.cshtml" />
-    <Content Include="Views\StaffType\User\ChangePwd.cshtml" />
+    <Content Include="Views\User\ChangePwd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

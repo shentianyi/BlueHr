@@ -49,9 +49,9 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                   <div class="marco-igroup-primary">
-                  <span>加班起讫 </span>
+                     <span>加班起讫 </span>
                       @Html.EditorFor(model => model.startHour, new { htmlAttributes = new { @class = "time-picker" } })
-                      ~
+                      <span>~</span>  
                       @Html.EditorFor(model => model.endHour, new { htmlAttributes = new { @class = "time-picker" } })
                   </div>
                 </div>
@@ -75,7 +75,7 @@
                 </div>*@
             </div>
 
-            <div class="marco-textarea">
+            <div class="marco-textarea" style="margin: 5px;">
                 <label for="otReason">加班原因</label>
                 @if (Model != null)
                 {

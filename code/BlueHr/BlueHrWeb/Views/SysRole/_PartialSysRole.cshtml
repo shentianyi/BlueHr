@@ -3,7 +3,8 @@
 <div id="sysrole" style="margin:10px;">
     <ol class="breadcrumb current-position">
         您的位置：
-        <li>@Html.ActionLink("角色管理", "Index")</li>
+        <li>权限管理</li>
+        <li>@Html.ActionLink("角色列表", "Index")</li>
         <li>{{action}}</li>
     </ol>
 
@@ -44,10 +45,8 @@
                     }
                 </div>
 
-               
-
                 <div class="marco-textarea">
-                    <label for="remark">备注</label>
+                    <label for="remark" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">备注</label>
                     @if (Model != null)
                     {
                         @Html.TextAreaFor(model => model.remarks)
@@ -73,13 +72,11 @@
 
     //回调函数
     function post_return_action(data) {
-
         if (!data.Success) {
             Layout.popMsg('popMsg-danger', data.Content);
             return false;
         }
         else {
-
             location.href = '/SysRole/Index';
         }
     }
