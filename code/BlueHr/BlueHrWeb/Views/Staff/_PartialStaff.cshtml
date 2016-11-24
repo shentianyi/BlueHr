@@ -152,7 +152,7 @@
 
                     @*@Html.Partial("Search/_CompanyAndDepartmentBar")*@
                     <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
+                        <div class="marco-igroup-danger">
                             <span>公司</span>
 
                             @if (Model != null && Model.companyId != null)
@@ -622,6 +622,16 @@
 
         if (Layout.IsStringNull($('#workStatus').val())) {
             Layout.popMsg('popMsg-danger', "职位状态不能为空");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#companyId').val())) {
+            Layout.popMsg('popMsg-danger', "请选择公司");
+            return false;
+        }
+
+        if (Layout.IsStringNull($('#departmentId').val())) {
+            Layout.popMsg('popMsg-danger', "请选择部门");
             return false;
         }
 

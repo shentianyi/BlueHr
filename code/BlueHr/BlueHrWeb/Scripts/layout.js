@@ -204,7 +204,7 @@ Layout.TbodyHeight = function (cls, height) {
 Layout.datepicker = function (date_picker) {
     $(date_picker).datetimepicker({
         format: 'Y-m-d',
-        scrollInput: false,
+        //scrollInput: false,
         timepicker: false
     });
 }
@@ -220,7 +220,7 @@ Layout.timepicker = function (time_picker) {
 
 Layout.datetimepicker = function (date_time_picker) {
     $(date_time_picker).datetimepicker({
-        scrollInput: false
+        //scrollInput: false
     });
 }
 
@@ -243,7 +243,7 @@ Layout.rangedatepicker = function (date_picker_start, date_picker_end) {
                 minDate: $(date_picker_start).val() ? $(date_picker_start).val() : false
             })
         },
-        scrollInput: false,
+        //scrollInput: false,
         timepicker: false
     });
 }
