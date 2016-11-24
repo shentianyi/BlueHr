@@ -247,11 +247,35 @@
 
 @if (MenuAuthHelper.CanShow("Staff", "Index"))
 {
-                    <li class="nav-staff">
-                        <a href="/Staff/Index">
+                    <li class="treeview nav-shift">
+                        <a href="#" >
                             <i class="fa fa-users"></i>
                             <span>员工管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
                         </a>
+
+                        <ul class="treeview-menu">
+                            <li class="nav-staff" >
+                                <a href="/Staff/Index">
+                                    <i class="fa fa-users"></i>
+                                    <span>员工管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Staff/Tree">
+                                    <i class="fa fa-list-ol"></i>
+                                    <span>树状显示</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Staff/ID">
+                                    <i class="fa fa-vk"></i>
+                                    <span>身份证管理</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 }
                     @*<li class="nav-certificate">
