@@ -710,13 +710,14 @@
 .marco-textarea {
   margin-top: 10px; }
   .marco-textarea label, .marco-textarea span {
-    height: 30px;
-    line-height: 30px;
+    height: 35px;
+    line-height: 20px;
     border: 1px solid #2980b9;
     padding: 10px;
     border-bottom-color: #2980b9;
     background: #3498db;
-    color: #ecf0f1; }
+    color: #ecf0f1;
+    margin-bottom: -3px; }
   .marco-textarea textarea {
     margin-top: -1px;
     padding: 10px;
