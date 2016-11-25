@@ -23,6 +23,53 @@
 }
 <form action="/ShiftSchedule/Search" method="get">
     <div class="row" style="margin:0;">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>字段名称</span>
+                <select name="Name" id="Name">
+                    <option value=""></option>
+                    <option value="1">员工号</option>
+                    <option value="2">排班日期</option>
+                    <option value="3">班次</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
+            <button type="submit" class="marco-btn-success">
+                <i class="glyphicon glyphicon-search"></i>
+                查找
+            </button>
+        </div>
+    </div>
+    <div class="row" style="margin:0;">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>条件</span>
+                <input type="text" name="requirements" id="requirements" value="" />
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>值1</span>
+                <input type="text" name="value1" id="value1" value="" />
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>值2</span>
+                <input type="text" name="value2" id="value2" value="" />
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>逻辑关系</span>
+                <input type="text" name=" relationship" id=" relationship" value="" />
+            </div>
+        </div>
+    </div>
+</form>
+@*<form action="/ShiftSchedule/Search" method="get">
+    <div class="row" style="margin:0;">
         <div class="col-lg-3 col-md-3 col-sm-5 col-xs-5">
             <div class="marco-igroup-primary">
                 <span>员工号(模糊)</span>
@@ -60,7 +107,7 @@
             </div>
         </div>
     </div>
-</form>
+</form>*@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="usual-table">
         <div class="table-heading">

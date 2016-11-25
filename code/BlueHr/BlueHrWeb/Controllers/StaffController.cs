@@ -9,6 +9,7 @@ using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
 using BlueHrWeb.CustomAttributes;
 using BlueHrWeb.Helpers;
+using BlueHrWeb.Models;
 using BlueHrWeb.Properties;
 using MvcPaging;
 using System;
@@ -37,6 +38,30 @@ namespace BlueHrWeb.Controllers
 
             //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
             User user = System.Web.HttpContext.Current.Session["user"] as User; 
+            q.loginUser = user;
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+
+            IPagedList<Staff> staffs = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+
+            SetDropDownList(null);
+
+            return View(staffs);
+        }
+
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult Idcard(int? page)
+        {
+            int pageIndex = PagingHelper.GetPageIndex(page);
+
+            StaffSearchModel q = new StaffSearchModel();
+            q.WorkStatus = 100;
+
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
             q.loginUser = user;
 
             IStaffService ss = new StaffService(Settings.Default.db);
@@ -1045,5 +1070,31 @@ namespace BlueHrWeb.Controllers
         //        }
         //        ViewData["resignTypeList"] = select;
         //    }
+        //[HttpGet]
+        //public List<UserIDCardViewModel> getStaffUserIDCard()
+        //{
+
+        //    List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+
+        //    Dictionary<string, string> aa = new Dictionary<string, string>();
+        //    IStaffService ss = new StaffService(Settings.Default.db);
+
+                      
+
+        //        foreach(var a in ss)
+        //    {
+
+        //        aa.Add("ID", ":SAD");
+        //        a
+
+
+
+
+        //            Result.Add(aa);
+        //    }
+
+
+        //    return UserIDCardViewModel.Converts(new StaffService(Settings.Default.db).getStaffUserIDCard());
+        //}
     }
 }
