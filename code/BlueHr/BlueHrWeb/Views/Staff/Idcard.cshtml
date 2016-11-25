@@ -20,28 +20,28 @@
                     <tr>
                         <th>身份证号</th>
                         <th>所属区域</th>
-                        <th>备注</th>
+                        <th>工号</th>
+                       
                         
                     </tr>
                 </thead>
                 <tbody>
                    
-                foreach (var item in Model)
+                @foreach (var item in Model)
                 {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.nr)
+                                    @Html.DisplayFor(modelItem => item.id)
                                 </td>
                                 
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.name)
+                                    @Html.DisplayFor(modelItem => item.residenceAddress)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.sexDisplay)
+                                    @Html.DisplayFor(modelItem => item.nr)
                                 </td>
                             </tr>
                         }
-                    }
                 </tbody>
             </table>
         </div>

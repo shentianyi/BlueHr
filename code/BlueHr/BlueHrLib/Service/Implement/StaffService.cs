@@ -289,5 +289,10 @@ namespace BlueHrLib.Service.Implement
         {
             return staffRep.IsStaffExist(nr);
         }
+
+        //public List<Staff> getStaffUserIDCard()
+        //{
+        //    return staffRep.getStaffUserIDCard();
+        //}
     }
 }

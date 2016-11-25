@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Interface;
 using BlueHrLib.Service.Implement;
+using BlueHrLib.Data.Model;
 
 namespace BlueHrLib.Data.Repository.Implement
 {
@@ -324,5 +325,18 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             }
         }
+
+        //public List<Staff> getStaffUserIDCard()
+        //{
+        //    var staffs = context.GetTable<Staff>().Select(s => new { nr = s.nr, id = s.id, residenceAddress = s.residenceAddress }).ToList();
+        //    List<Staff> staff = staffs.Select(s => new Staff { nr = s.nr, id = s.id, residenceAddress = s.residenceAddress }).ToList();
+        //    return staff;
+        //    //var movies = from m in db.Movies
+        //    //             where m.ReleaseDate > new DateTime(1984, 6, 1)
+        //    //             select new { ID = m.ID, Title = m.Title, Price = m.Price };
+
+        //    //List<Movie> movie = movies.ToList()
+        //    //                        .Select(m => new Movie { ID = m.ID, Title = m.Title, Price = m.Price }).ToList();
+        //}
     }
 }
