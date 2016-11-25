@@ -65,374 +65,583 @@
             <aside class="main-sidebar">
             <section class="sidebar">
                 <ul class="sidebar-menu">
-                    @if (canSysRole || canSysAuthorization || canSysRoleAuthorization)
+                   
+                        
+                            <li class="nav-myIndex">
+                                <a href="#">
+                                    <i class="fa fa-home"></i>
+                                    <span>我的主页</span>
+                                
+                                </a>
+                            </li>
+
+
+                                @if (canSysRole || canSysAuthorization || canSysRoleAuthorization)
                     {
+                                <li class="nav-sysRole">
+                                    <a href="#">
+                                        <i class="fa fa-inbox"></i>
+                                        <span>权限管理</span>
+                                        <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>
+                                    </a>
+
+                                    <ul class="treeview-menu">
+
+                                            <li class="nav-users">
+                                                <a href="/User/Index">
+                                                    <i class="fa fa-user-secret"></i>
+                                                    用户管理
+                                                </a>
+                                            </li>
+
+                                        @if (canSysRole)
+                                        {
+                                            <li>
+                                                <a href="/SysRole/Index">
+                                                    <i class="fa fa-briefcase"></i>
+                                                    角色列表
+                                                </a>
+                                            </li>
+                                        }
+                                        @if (canSysAuthorization)
+                                        {
+                                            <li>
+                                                <a href="/SysAuthorization/Index">
+                                                    <i class="fa fa-group"></i>
+                                                    权限列表
+                                                </a>
+                                            </li>
+                                        }
+                                        @if (canSysRoleAuthorization)
+                                        {
+                                            <li>
+                                                <a href="/SysRoleAuthorization/Index">
+                                                    <i class="fa fa-group"></i>
+                                                    角色权限列表
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                                }
+
                     <li class="nav-sysRole">
                         <a href="#">
                             <i class="fa fa-inbox"></i>
-                            <span>权限管理</span>
+                            <span>系统操作</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
 
                         <ul class="treeview-menu">
-                            @if (canSysRole)
-                            {
-                            <li>
-                                <a href="/SysRole/Index">
-                                    <i class="fa fa-briefcase"></i>
-                                    角色列表
+
+                            <li class="nav-users">
+                                <a href="/User/Index">
+                                    <i class="fa fa-user-secret"></i>
+                                       友情提醒
                                 </a>
                             </li>
-                            }
-                            @if (canSysAuthorization)
-                            {
-                            <li>
-                                <a href="/SysAuthorization/Index">
-                                    <i class="fa fa-group"></i>
-                                    权限列表
-                                </a>
-                            </li> 
-                            }
-                            @if (canSysRoleAuthorization)
-                            {
-                            <li>
-                                <a href="/SysRoleAuthorization/Index">
-                                    <i class="fa fa-group"></i>
-                                    角色权限列表
-                                </a>
-                            </li> 
-                            }
+
+                            
+                                <li>
+                                    <a href="/SysRole/Index">
+                                        <i class="fa fa-briefcase"></i>
+                                        登录日志
+                                    </a>
+                                </li>
+                            
+                            
                         </ul>
                     </li>
-                    }
-                    @if (MenuAuthHelper.CanShow("User", "Index"))
+
+
+
+                                @*@if (MenuAuthHelper.CanShow("User", "Index"))
                     {
-                    <li class="nav-users">
-                        <a href="/User/Index">
-                            <i class="fa fa-user-secret"></i>
-                            <span>用户管理</span>
-                        </a>
-                    </li>
-                    }
-                    @{ 
-                        bool canJobTitle = MenuAuthHelper.CanShow("JobTitle", "Index");
+                                    <li class="nav-users">
+                                        <a href="/User/Index">
+                                            <i class="fa fa-user-secret"></i>
+                                            <span>用户管理</span>
+                                        </a>
+                                    </li>
+                                }*@
+                                @{
+                                    bool canJobTitle = MenuAuthHelper.CanShow("JobTitle", "Index");
 
-                        bool canStaffType = MenuAuthHelper.CanShow("StaffType", "Index");
-                        bool canCertificateType = MenuAuthHelper.CanShow("CertificateType", "Index");
-                        bool canDegreeType = MenuAuthHelper.CanShow("DegreeType", "Index");
-                        bool canResignType = MenuAuthHelper.CanShow("DegreeType", "Index");
-                        bool canInSureType = MenuAuthHelper.CanShow("InSureType", "Index");
-                        bool canAbsenceType = MenuAuthHelper.CanShow("AbsenceType", "Index");
-                        bool canExtraWorkType = MenuAuthHelper.CanShow("ExtraWorkType", "Index");
-                        bool canWorkAndRests = MenuAuthHelper.CanShow("WorkAndRests", "Index");
-                    }
-                    @if (canJobTitle || canStaffType || canCertificateType || canDegreeType || canResignType || canInSureType || canAbsenceType || canExtraWorkType || canWorkAndRests)
-                    {
-                    <li class="nav-basic">
-                        <a href="#">
-                            <i class="fa fa-inbox"></i>
-                            <span>基础信息</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-
-                        <ul class="treeview-menu">
-                            @if (canJobTitle)
-                            {
-                            <li>
-                                <a href="/JobTitle/Index">
-                                    <i class="fa fa-briefcase"></i>
-                                    职位管理
-                                </a>
-                            </li>
-                            }
-                            @if (canStaffType)
-                            {
-                            <li>
-                                <a href="/StaffType/Index">
-                                    <i class="fa fa-group"></i>
-                                    人员类型
-                                </a>
-                            </li>
-                            }
-                            @if (canCertificateType)
-                            {
-                            <li>
-                                <a href="/CertificateType/Index">
-                                    <i class="fa fa-newspaper-o"></i>
-                                    证照类型
-                                </a>
-                            </li>
-                            }
-                            @if (canDegreeType)
-                            {
-                            <li>
-                                <a href="/DegreeType/Index">
-                                    <i class="fa fa-graduation-cap"></i>
-                                    学历管理
-                                </a>
-                            </li>
-                            }
-                            @if (canInSureType)
-                            {
-                            <li>
-                                <a href="/InSureType/Index">
-                                    <i class="fa fa-flash"></i>
-                                    保险管理
-                                </a>
-                            </li>
-                            }
-                            @if (canResignType)
-                            {
-                            <li>
-                                <a href="/ResignType/Index">
-                                    <i class="fa fa-sign-out"></i>
-                                    离职类型
-                                </a>
-                            </li>
-                            }
-                            @if (canAbsenceType)
-                            {
-                            <li>
-                                <a href="/AbsenceType/Index">
-                                    <i class="fa fa-street-view"></i>
-                                    缺勤类型
-                                </a>
-                            </li>
-                            }
-                            @if (canExtraWorkType)
-                            {
-                            <li>
-                                <a href="/ExtraWorkType/Index">
-                                    <i class="fa fa-hourglass-1"></i>
-                                    加班类型
-                                </a>
-                            </li>
-                            }
-                            @if (canWorkAndRests)
-                            {
-                            <li>
-                                <a href="/WorkAndRests/Index">
-                                    <i class="fa fa-calendar-minus-o"></i>
-                                    作息表
-                                </a>
-                            </li>
-                            }
-                        </ul>
-                    </li>
-                    }
-                    
-@if (MenuAuthHelper.CanShow("Company", "Index"))
-{
-                    <li class="nav-company">
-                        <a href="/Company/Index">
-                            <i class="fa fa-sitemap"></i>
-                            <span>公司管理</span>
-                        </a>
-                    </li>
-}
-
-@if (MenuAuthHelper.CanShow("Department", "Index"))
-{
-                    <li class="nav-department">
-                        <a href="/Department/Index">
-                            <i class="fa fa-cubes"></i>
-                            <span>部门管理</span>
-                        </a>
-                    </li>
-}
-
-@if (MenuAuthHelper.CanShow("Staff", "Index"))
-{
-                    <li class="treeview nav-shift">
-                        <a href="#" >
-                            <i class="fa fa-users"></i>
-                            <span>员工管理</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-
-                        <ul class="treeview-menu">
-                            <li class="nav-staff" >
-                                <a href="/Staff/Index">
-                                    <i class="fa fa-users"></i>
-                                    <span>员工管理</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/Staff/Tree">
-                                    <i class="fa fa-list-ol"></i>
-                                    <span>树状显示</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/Staff/ID">
-                                    <i class="fa fa-vk"></i>
-                                    <span>身份证管理</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-}
-                    @*<li class="nav-certificate">
-                        <a href="/Certificate/Index">
-                            <i class="fa fa-folder"></i>
-                            <span>证照管理</span>
-                        </a>
-                    </li>*@
-                        @{ 
-                            bool canShift = MenuAuthHelper.CanShow("Shift", "Index");
-
-                            bool canShiftSc = MenuAuthHelper.CanShow("ShiftSchedule", "Index");
+                                    bool canStaffType = MenuAuthHelper.CanShow("StaffType", "Index");
+                                    bool canCertificateType = MenuAuthHelper.CanShow("CertificateType", "Index");
+                                    bool canDegreeType = MenuAuthHelper.CanShow("DegreeType", "Index");
+                                    bool canResignType = MenuAuthHelper.CanShow("DegreeType", "Index");
+                                    bool canInSureType = MenuAuthHelper.CanShow("InSureType", "Index");
+                                    bool canAbsenceType = MenuAuthHelper.CanShow("AbsenceType", "Index");
+                                    bool canExtraWorkType = MenuAuthHelper.CanShow("ExtraWorkType", "Index");
+                                    bool canWorkAndRests = MenuAuthHelper.CanShow("WorkAndRests", "Index");
                                 }
-                    @if (canShift || canShiftSc)
+                                @if (canJobTitle || canStaffType || canCertificateType || canDegreeType || canResignType || canInSureType || canAbsenceType || canExtraWorkType || canWorkAndRests)
                     {
-                    <li class="treeview nav-shift">
-                        <a href="#">
-                            <i class="fa fa-calculator"></i>
-                            <span>排班管理</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            @if (canShift)
-                            {
-                            <li>
-                                <a href="/Shift/Index">
-                                    <i class="fa fa-list-ol"></i>
-                                    班次管理
-                                </a>
-                            </li>
-                            }
-                            @if (canShiftSc)
-                            {
-                            <li>
-                                <a href="/ShiftSchedule/Index">
-                                    <i class="fa fa-table"></i>
-                                    排班管理
-                                </a>
-                            </li>
-                            }
-                        </ul>
-                    </li>
+                                    <li class="nav-basic">
+                                        <a href="#">
+                                            <i class="fa fa-inbox"></i>
+                                            <span>基础信息</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
 
-                    }
-                    @{ 
-                        bool canAttDetail = MenuAuthHelper.CanShow("AttendanceRecordDetail", "Index");
-                        bool canAttCal = MenuAuthHelper.CanShow("AttendanceRecordCal", "Index");
-                        bool canAttException= MenuAuthHelper.CanShow("AttendanceRecordCal", "ExceptionList");
+                                        <ul class="treeview-menu">
+                                            @if (canJobTitle)
+                                            {
+                                                <li>
+                                                    <a href="/JobTitle/Index">
+                                                        <i class="fa fa-briefcase"></i>
+                                                        职位管理
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (canStaffType)
+                                            {
+                                                <li>
+                                                    <a href="/StaffType/Index">
+                                                        <i class="fa fa-group"></i>
+                                                        人员类型
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (canCertificateType)
+                                            {
+                                                <li>
+                                                    <a href="/CertificateType/Index">
+                                                        <i class="fa fa-newspaper-o"></i>
+                                                        证照类型
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (canDegreeType)
+                                            {
+                                                <li>
+                                                    <a href="/DegreeType/Index">
+                                                        <i class="fa fa-graduation-cap"></i>
+                                                        学历管理
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (canInSureType)
+                                            {
+                                                <li>
+                                                    <a href="/InSureType/Index">
+                                                        <i class="fa fa-flash"></i>
+                                                        保险管理
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (canResignType)
+                                            {
+                                                <li>
+                                                    <a href="/ResignType/Index">
+                                                        <i class="fa fa-sign-out"></i>
+                                                        离职类型
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (canAbsenceType)
+                                            {
+                                                <li>
+                                                    <a href="/AbsenceType/Index">
+                                                        <i class="fa fa-street-view"></i>
+                                                        缺勤类型
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (canExtraWorkType)
+                                            {
+                                                <li>
+                                                    <a href="/ExtraWorkType/Index">
+                                                        <i class="fa fa-hourglass-1"></i>
+                                                        加班类型
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (canWorkAndRests)
+                                            {
+                                                <li>
+                                                    <a href="/WorkAndRests/Index">
+                                                        <i class="fa fa-calendar-minus-o"></i>
+                                                        作息表
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
 
-                    }
-                    @if (canAttDetail || canAttCal || canAttException)
+                                @if (MenuAuthHelper.CanShow("Company", "Index"))
+                                {
+                                    <li class="nav-company">
+                                        <a href="/Company/Index">
+                                            <i class="fa fa-sitemap"></i>
+                                            <span>公司管理</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li>
+                                                <a href="/ExtraWorkType/Index">
+                                                    <i class="fa fa-hourglass-1"></i>
+                                                    公司列表
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/ExtraWorkType/Index">
+                                                    <i class="fa fa-hourglass-1"></i>
+                                                    公司组织架构
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/ExtraWorkType/Index">
+                                                    <i class="fa fa-hourglass-1"></i>
+                                                    部门组织架构
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                }
+
+                                @if (MenuAuthHelper.CanShow("Department", "Index"))
+                                {
+                                    <li class="nav-department">
+                                        <a href="/Department/Index">
+                                            <i class="fa fa-cubes"></i>
+                                            <span>部门管理</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li>
+                                                <a href="/ExtraWorkType/Index">
+                                                    <i class="fa fa-hourglass-1"></i>
+                                                    列表显示
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/ExtraWorkType/Index">
+                                                    <i class="fa fa-hourglass-1"></i>
+                                                     树状显示
+                                                </a>
+                                            </li>
+                                         
+                                        </ul>
+                                    </li>
+                                }
+
+                                @if (MenuAuthHelper.CanShow("Staff", "Index"))
+                                {
+                                    <li class="treeview nav-staff">
+                                        <a href="#">
+                                            <i class="fa fa-users"></i>
+                                            <span>员工管理</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+
+                                        <ul class="treeview-menu">
+                                            <li class="nav-staff">
+                                                <a href="/Staff/Index">
+                                                    <i class="fa fa-users"></i>
+                                                    员工管理
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Staff/Tree">
+                                                    <i class="fa fa-list-ol"></i>
+                                                   树状显示
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Staff/Tree">
+                                                    <i class="fa fa-list-ol"></i>
+                                                    试用期员工
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Staff/Tree">
+                                                    <i class="fa fa-list-ol"></i>
+                                                    员工兼职
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Staff/Tree">
+                                                    <i class="fa fa-list-ol"></i>
+                                                    直接主管配置
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Staff/Idcard">
+                                                    <i class="fa fa-vk"></i>
+                                                    身份证管理
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                }
+                                @*<li class="nav-certificate">
+                            <a href="/Certificate/Index">
+                                <i class="fa fa-folder"></i>
+                                <span>证照管理</span>
+                            </a>
+                        </li>*@
+                                @{
+                                    bool canShift = MenuAuthHelper.CanShow("Shift", "Index");
+
+                                    bool canShiftSc = MenuAuthHelper.CanShow("ShiftSchedule", "Index");
+                                }
+                                @if (canShift || canShiftSc)
                     {
+                                    <li class="treeview nav-shift">
+                                        <a href="#">
+                                            <i class="fa fa-calculator"></i>
+                                            <span>排班管理</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            @if (canShift)
+                                            {
+                                                <li>
+                                                    <a href="/Shift/Index">
+                                                        <i class="fa fa-list-ol"></i>
+                                                        班次管理
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (canShiftSc)
+                                            {
+                                                <li>
+                                                    <a href="/ShiftSchedule/Index">
+                                                        <i class="fa fa-table"></i>
+                                                        排班管理
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+
+                                }
+                                @{
+                                    bool canAttDetail = MenuAuthHelper.CanShow("AttendanceRecordDetail", "Index");
+                                    bool canAttCal = MenuAuthHelper.CanShow("AttendanceRecordCal", "Index");
+                                    bool canAttException = MenuAuthHelper.CanShow("AttendanceRecordCal", "ExceptionList");
+
+                                }
+                                @if (canAttDetail || canAttCal || canAttException)
+                    {
+                                    <li class="treeview nav-attendance-record">
+                                        <a href="#">
+                                            <i class="fa fa-calendar-check-o"></i>
+                                            <span>考勤管理</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            @if (canAttDetail)
+                                            {
+                                                <li>
+                                                    <a href="/AttendanceRecordDetail/Index">
+                                                        <i class="fa fa-list-ol"></i>
+                                                        详细记录管理
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (canAttCal)
+                                            {
+                                                <li>
+                                                    <a href="/AttendanceRecordCal/Index">
+                                                        <i class="fa fa-table"></i>
+                                                        统计记录管理
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (canAttException)
+                                            {
+                                                <li>
+                                                    <a href="/AttendanceRecordCal/ExceptionList">
+                                                        <i class="fa fa-exclamation-triangle"></i>
+                                                        异常统计管理
+                                                    </a>
+                                                </li>
+                                            }
+                                                <li class="nav-absencerecrod">
+                                                    <a href="/AbsenceRecrod/Index">
+                                                        <i class="fa fa-adjust"></i>
+                                                       缺勤管理
+                                                    </a>
+                                                </li>
+                                                <li class="nav-extrawordrecord">
+                                                    <a href="/ExtraWorkRecord/Index">
+                                                        <i class="fa fa-tachometer"></i>
+                                                        加班管理
+                                                    </a>
+                                                </li>
+                                        </ul>
+                                    </li>
+                                }
+                                @*@if (MenuAuthHelper.CanShow("AbsenceRecrod", "Index"))
+                                {
+                                    <li class="nav-absencerecrod">
+                                        <a href="/AbsenceRecrod/Index">
+                                            <i class="fa fa-adjust"></i>
+                                            <span>缺勤管理</span>
+                                        </a>
+                                    </li>
+                                }*@
+                                @*@if (MenuAuthHelper.CanShow("ExtraWorkRecord", "Index"))
+                    {
+                                    <li class="nav-extrawordrecord">
+                                        <a href="/ExtraWorkRecord/Index">
+                                            <i class="fa fa-tachometer"></i>
+                                            <span>加班管理</span>
+                                        </a>
+                                    </li>
+                                }*@
+
                     <li class="treeview nav-attendance-record">
                         <a href="#">
                             <i class="fa fa-calendar-check-o"></i>
-                            <span>考勤管理</span>
+                            <span>离退管理</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            @if (canAttDetail)
-                            {
+                           
+                                <li>
+                                    <a href="/AttendanceRecordDetail/Index">
+                                        <i class="fa fa-list-ol"></i>
+                                        离退申请
+                                    </a>
+                                </li>
+                            
+                            
+                                <li>
+                                    <a href="/AttendanceRecordCal/Index">
+                                        <i class="fa fa-table"></i>
+                                        离退面谈
+                                    </a>
+                                </li>
+                            
+                            
+                                <li>
+                                    <a href="/AttendanceRecordCal/ExceptionList">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                        离退审核
+                                    </a>
+                                </li>
+                            
+                            <li class="nav-absencerecrod">
+                                <a href="/AbsenceRecrod/Index">
+                                    <i class="fa fa-adjust"></i>
+                                    <span>离退结清</span>
+                                </a>
+                            </li>
+                           
+                        </ul>
+                    </li>
+
+                    <li class="treeview nav-attendance-record">
+                        <a href="#">
+                            <i class="fa fa-calendar-check-o"></i>
+                            <span>回聘管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+
                             <li>
                                 <a href="/AttendanceRecordDetail/Index">
                                     <i class="fa fa-list-ol"></i>
-                                    详细记录管理
+                                    回聘申请
                                 </a>
                             </li>
-                            }
-                            @if (canAttCal)
-                            {
+
+
                             <li>
                                 <a href="/AttendanceRecordCal/Index">
                                     <i class="fa fa-table"></i>
-                                    统计记录管理
+                                    回聘审核
                                 </a>
                             </li>
-                            }
-                            @if (canAttException)
-                            {
-                            <li>
-                                <a href="/AttendanceRecordCal/ExceptionList">
-                                    <i class="fa fa-exclamation-triangle"></i>
-                                    异常统计管理
-                                </a>
-                            </li>
-                            }
+
+
+                           
+
                         </ul>
                     </li>
-                    }
-                    @if (MenuAuthHelper.CanShow("AbsenceRecrod", "Index")) { 
-                    <li class="nav-absencerecrod">
-                        <a href="/AbsenceRecrod/Index">
-                            <i class="fa fa-adjust"></i>
-                            <span>缺勤管理</span>
-                        </a>
-                    </li>
-                    }
-                    @if (MenuAuthHelper.CanShow("ExtraWorkRecord", "Index"))
-                    {
-                    <li class="nav-extrawordrecord">
-                        <a href="/ExtraWorkRecord/Index">
-                            <i class="fa fa-tachometer"></i>
-                            <span>加班管理</span>
-                        </a>
-                    </li>
-                    }
-                    @if (MenuAuthHelper.CanShow("TaskRound", "Index"))
-                    {
-                    <li class="nav-taskround">
-                        <a href="/TaskRound/Index">
-                            <i class="fa fa-tasks"></i>
-                            <span>系统任务</span>
-                        </a>
-                    </li>
-                    }
-                    @{                      
-                        bool canJob = MenuAuthHelper.CanShow("QuartzJob", "Index");
-                        bool canSystemSetting = MenuAuthHelper.CanShow("SystemSetting", "Index");
-                    }
-                    @if (canJob || canSystemSetting)
-                    {
-                    <li class="treeview nav-system-setting">
+
+                    <li class="treeview nav-attendance-record">
                         <a href="#">
-                            <i class="fa fa-cogs"></i>
-                            <span>系统设置</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
+                            <i class="fa fa-calendar-check-o"></i>
+                            <span>报表汇总</span>
+                            
                         </a>
-                        <ul class="treeview-menu">
-                            @if (canJob)
-                            {
-                            <li>
-                                <a href="/QuartzJob/Index">
-                                    <i class="fa fa-rocket"></i>
-                                     考勤计算设置
-                                </a>
-                            </li>
-                            }
-                            @if (canSystemSetting)
-                            {
-                            <li>
-                                <a href="/SystemSetting/Index">
-                                    <i class="fa fa-cog"></i>
-                                    系统信息设置
-                                </a>
-                            </li>
-                            }
-                        </ul>
-                    </li>
-                    }
-                </ul>
-            </section>
+                     </li>
+
+
+
+                        @if (MenuAuthHelper.CanShow("TaskRound", "Index"))
+                        {
+<li class="nav-taskround">
+                                        <a href="/TaskRound/Index">
+                                            <i class="fa fa-tasks"></i>
+                                            <span>系统任务</span>
+                                        </a>
+                                    </li>
+                                }
+                                @{
+                                    bool canJob = MenuAuthHelper.CanShow("QuartzJob", "Index");
+                                    bool canSystemSetting = MenuAuthHelper.CanShow("SystemSetting", "Index");
+                                }
+                                @if (canJob || canSystemSetting)
+                    {
+                                    <li class="treeview nav-system-setting">
+                                        <a href="#">
+                                            <i class="fa fa-cogs"></i>
+                                            <span>系统设置</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            @if (canJob)
+                                            {
+                                                <li>
+                                                    <a href="/QuartzJob/Index">
+                                                        <i class="fa fa-rocket"></i>
+                                                        考勤计算设置
+                                                    </a>
+                                                </li>
+                                            }
+                                            @if (canSystemSetting)
+                                            {
+                                                <li>
+                                                    <a href="/SystemSetting/Index">
+                                                        <i class="fa fa-cog"></i>
+                                                        系统信息设置
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+</section>
         </aside>
                         }
 @if (Session["user"] != null)

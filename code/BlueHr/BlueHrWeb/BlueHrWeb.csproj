@@ -585,6 +585,7 @@
     <Content Include="Views\Home\NoAuthPage.cshtml" />
     <Content Include="Views\SysAuthorization\Edit.cshtml" />
     <Content Include="Views\StaffType\User\ChangePwd.cshtml" />
+    <Content Include="Views\Staff\Idcard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
