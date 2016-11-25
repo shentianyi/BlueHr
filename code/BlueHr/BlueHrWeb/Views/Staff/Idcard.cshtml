@@ -1,0 +1,83 @@
+﻿@using MvcPaging
+
+@model IPagedList<BlueHrLib.Data.Staff>
+
+@{
+    ViewBag.Title = "身份证管理";
+}
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>身份证管理</li>
+</ol>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="usual-table">
+        <div class="table-heading">
+            身份证列表    
+        </div>
+        <div class="table-body content_3">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>身份证号</th>
+                        <th>所属区域</th>
+                        <th>备注</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                foreach (var item in Model)
+                {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nr)
+                                </td>
+                                
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.sexDisplay)
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+        <div class="clearfix pagination">
+            <div class="pagination-inner">
+                @if (Model != null)
+            {
+                if (ViewBag.Query != null)
+                {
+                    //TODO: 添加其他搜索条件
+                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        .Options(o => o.AddRouteValue("Nr", ViewBag.Query.Nr))
+                        .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name))
+                        .Options(o => o.AddRouteValue("Id", ViewBag.Query.Id))
+                        .Options(o => o.AddRouteValue("Sex", ViewBag.Query.Sex))
+                        .Options(o => o.AddRouteValue("JobTitleId", ViewBag.Query.JobTitleId))
+                        .Options(o => o.AddRouteValue("companyId", ViewBag.Query.companyId))
+                        .Options(o => o.AddRouteValue("departmentId", ViewBag.Query.departmentId))
+                        .Options(o => o.AddRouteValue("companyIds", ViewBag.Query.companyIds))
+                        .Options(o => o.AddRouteValue("departmentIds", ViewBag.Query.departmentIds))
+                        .Options(o => o.AddRouteValue("companyNames", ViewBag.Query.companyNames))
+                        .Options(o => o.AddRouteValue("departmentNames", ViewBag.Query.departmentNames))
+                        .Options(o => o.AddRouteValue("CompanyEmployAtFrom", ViewBag.Query.CompanyEmployAtFrom))
+                        .Options(o => o.AddRouteValue("CompanyEmployAtTo", ViewBag.Query.CompanyEmployAtTo))
+                        .Options(o => o.AddRouteValue("IsOnTrial", ViewBag.Query.IsOnTrial));
+                        @html
+                    }
+                    else
+                    {
+                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
