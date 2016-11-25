@@ -149,7 +149,10 @@ namespace BlueHrLib.Service.Implement
         {
             return new DataContext(this.DbString).Context.GetTable<Staff>().FirstOrDefault(s => s.nr.Equals(nr));
         }
-
+        public Staff FindByNrThis(string nr)
+        {
+            return this.Context.Context.GetTable<Staff>().FirstOrDefault(s => s.nr == nr);
+        }
         public bool Create(Staff staff)
         {
             if ((!string.IsNullOrEmpty(staff.id)) && (FindByStaffId(staff.id)!= null))
@@ -288,6 +291,11 @@ namespace BlueHrLib.Service.Implement
         public bool IsStaffExist(string nr)
         {
             return staffRep.IsStaffExist(nr);
+        }
+
+        public List<Staff> SearchPermanentStaff(StaffSearchModel searchModel)
+        {
+            return staffRep.SearchPermanentStaff(searchModel);
         }
 
         //public List<Staff> getStaffUserIDCard()

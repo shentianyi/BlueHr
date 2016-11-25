@@ -40,6 +40,22 @@ namespace BlueHrWeb.Controllers
             return View(records);
         }
 
+        public ActionResult ToEmployees(string allOrUnread = "unread", int? page = null)
+        {
+            ViewBag.allOrUnread = allOrUnread;
+
+            MessageRecordSearchModel q = new MessageRecordSearchModel();
+
+            int pageIndex = PagingHelper.GetPageIndex(page);
+            IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+            IPagedList<MessageRecordView> records = mrs
+                .GetEmployee(MessageRecordCatetory.Alert)
+                .ToPagedList<MessageRecordView>(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+
+            return View(records);
+        }
 
         public ActionResult Search([Bind(Include = "StaffNr,StaffNrAct")] MessageRecordSearchModel q)
         {

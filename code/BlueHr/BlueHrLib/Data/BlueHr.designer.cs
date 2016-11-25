@@ -72,9 +72,6 @@ namespace BlueHrLib.Data
     partial void InsertJobCertificate(JobCertificate instance);
     partial void UpdateJobCertificate(JobCertificate instance);
     partial void DeleteJobCertificate(JobCertificate instance);
-    partial void InsertJobTitle(JobTitle instance);
-    partial void UpdateJobTitle(JobTitle instance);
-    partial void DeleteJobTitle(JobTitle instance);
     partial void InsertMessageRecord(MessageRecord instance);
     partial void UpdateMessageRecord(MessageRecord instance);
     partial void DeleteMessageRecord(MessageRecord instance);
@@ -138,10 +135,13 @@ namespace BlueHrLib.Data
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertJobTitle(JobTitle instance);
+    partial void UpdateJobTitle(JobTitle instance);
+    partial void DeleteJobTitle(JobTitle instance);
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString3, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString10, mappingSource)
 		{
 			OnCreated();
 		}
@@ -279,14 +279,6 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<JobCertificate>();
-			}
-		}
-		
-		public System.Data.Linq.Table<JobTitle> JobTitle
-		{
-			get
-			{
-				return this.GetTable<JobTitle>();
 			}
 		}
 		
@@ -519,6 +511,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<JobTitle> JobTitle
+		{
+			get
+			{
+				return this.GetTable<JobTitle>();
 			}
 		}
 	}
@@ -3583,9 +3583,9 @@ namespace BlueHrLib.Data
 		
 		private int _certificateTypeId;
 		
-		private EntityRef<JobTitle> _JobTitle;
-		
 		private EntityRef<CertificateType> _CertificateType;
+		
+		private EntityRef<JobTitle> _JobTitle;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -3601,8 +3601,8 @@ namespace BlueHrLib.Data
 		
 		public JobCertificate()
 		{
-			this._JobTitle = default(EntityRef<JobTitle>);
 			this._CertificateType = default(EntityRef<CertificateType>);
+			this._JobTitle = default(EntityRef<JobTitle>);
 			OnCreated();
 		}
 		
@@ -3674,40 +3674,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_JobCertificate", Storage="_JobTitle", ThisKey="jobTitleId", OtherKey="id", IsForeignKey=true)]
-		public JobTitle JobTitle
-		{
-			get
-			{
-				return this._JobTitle.Entity;
-			}
-			set
-			{
-				JobTitle previousValue = this._JobTitle.Entity;
-				if (((previousValue != value) 
-							|| (this._JobTitle.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._JobTitle.Entity = null;
-						previousValue.JobCertificate.Remove(this);
-					}
-					this._JobTitle.Entity = value;
-					if ((value != null))
-					{
-						value.JobCertificate.Add(this);
-						this._jobTitleId = value.id;
-					}
-					else
-					{
-						this._jobTitleId = default(int);
-					}
-					this.SendPropertyChanged("JobTitle");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CertificateType_JobCertificate", Storage="_CertificateType", ThisKey="certificateTypeId", OtherKey="id", IsForeignKey=true)]
 		public CertificateType CertificateType
 		{
@@ -3742,145 +3708,37 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.JobTitle")]
-	public partial class JobTitle : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _name;
-		
-		private string _remark;
-		
-		private EntitySet<JobCertificate> _JobCertificate;
-		
-		private EntitySet<Staff> _Staffs;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OnremarkChanging(string value);
-    partial void OnremarkChanged();
-    #endregion
-		
-		public JobTitle()
-		{
-			this._JobCertificate = new EntitySet<JobCertificate>(new Action<JobCertificate>(this.attach_JobCertificate), new Action<JobCertificate>(this.detach_JobCertificate));
-			this._Staffs = new EntitySet<Staff>(new Action<Staff>(this.attach_Staffs), new Action<Staff>(this.detach_Staffs));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_JobCertificate", Storage="_JobTitle", ThisKey="jobTitleId", OtherKey="id", IsForeignKey=true)]
+		public JobTitle JobTitle
 		{
 			get
 			{
-				return this._id;
+				return this._JobTitle.Entity;
 			}
 			set
 			{
-				if ((this._id != value))
+				JobTitle previousValue = this._JobTitle.Entity;
+				if (((previousValue != value) 
+							|| (this._JobTitle.HasLoadedOrAssignedValue == false)))
 				{
-					this.OnidChanging(value);
 					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
+					if ((previousValue != null))
+					{
+						this._JobTitle.Entity = null;
+						previousValue.JobCertificate.Remove(this);
+					}
+					this._JobTitle.Entity = value;
+					if ((value != null))
+					{
+						value.JobCertificate.Add(this);
+						this._jobTitleId = value.id;
+					}
+					else
+					{
+						this._jobTitleId = default(int);
+					}
+					this.SendPropertyChanged("JobTitle");
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="VarChar(255)")]
-		public string remark
-		{
-			get
-			{
-				return this._remark;
-			}
-			set
-			{
-				if ((this._remark != value))
-				{
-					this.OnremarkChanging(value);
-					this.SendPropertyChanging();
-					this._remark = value;
-					this.SendPropertyChanged("remark");
-					this.OnremarkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_JobCertificate", Storage="_JobCertificate", ThisKey="id", OtherKey="jobTitleId")]
-		public EntitySet<JobCertificate> JobCertificate
-		{
-			get
-			{
-				return this._JobCertificate;
-			}
-			set
-			{
-				this._JobCertificate.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_Staff", Storage="_Staffs", ThisKey="id", OtherKey="jobTitleId")]
-		public EntitySet<Staff> Staffs
-		{
-			get
-			{
-				return this._Staffs;
-			}
-			set
-			{
-				this._Staffs.Assign(value);
 			}
 		}
 		
@@ -3902,30 +3760,6 @@ namespace BlueHrLib.Data
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_JobCertificate(JobCertificate entity)
-		{
-			this.SendPropertyChanging();
-			entity.JobTitle = this;
-		}
-		
-		private void detach_JobCertificate(JobCertificate entity)
-		{
-			this.SendPropertyChanging();
-			entity.JobTitle = null;
-		}
-		
-		private void attach_Staffs(Staff entity)
-		{
-			this.SendPropertyChanging();
-			entity.JobTitle = this;
-		}
-		
-		private void detach_Staffs(Staff entity)
-		{
-			this.SendPropertyChanging();
-			entity.JobTitle = null;
 		}
 	}
 	
@@ -10842,6 +10676,8 @@ namespace BlueHrLib.Data
 		
 		private System.Nullable<System.DateTime> _resignAt;
 		
+		private string _ParentStaffNr;
+		
 		private EntitySet<AttendanceRecordCal> _AttendanceRecordCals;
 		
 		private EntitySet<AttendanceRecordDetail> _AttendanceRecordDetails;
@@ -10868,9 +10704,9 @@ namespace BlueHrLib.Data
 		
 		private EntityRef<InsureType> _InsureType;
 		
-		private EntityRef<JobTitle> _JobTitle;
-		
 		private EntityRef<StaffType> _StaffType;
+		
+		private EntityRef<JobTitle> _JobTitle;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -10952,6 +10788,8 @@ namespace BlueHrLib.Data
     partial void OncontractExpireStrChanged();
     partial void OnresignAtChanging(System.Nullable<System.DateTime> value);
     partial void OnresignAtChanged();
+    partial void OnparentStaffNrChanging(string value);
+    partial void OnparentStaffNrChanged();
     #endregion
 		
 		public Staff()
@@ -10969,8 +10807,8 @@ namespace BlueHrLib.Data
 			this._DegreeType = default(EntityRef<DegreeType>);
 			this._Department = default(EntityRef<Department>);
 			this._InsureType = default(EntityRef<InsureType>);
-			this._JobTitle = default(EntityRef<JobTitle>);
 			this._StaffType = default(EntityRef<StaffType>);
+			this._JobTitle = default(EntityRef<JobTitle>);
 			OnCreated();
 		}
 		
@@ -11758,6 +11596,26 @@ namespace BlueHrLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="ParentStaffNr", Storage="_ParentStaffNr")]
+		public string parentStaffNr
+		{
+			get
+			{
+				return this._ParentStaffNr;
+			}
+			set
+			{
+				if ((this._ParentStaffNr != value))
+				{
+					this.OnparentStaffNrChanging(value);
+					this.SendPropertyChanging();
+					this._ParentStaffNr = value;
+					this.SendPropertyChanged("parentStaffNr");
+					this.OnparentStaffNrChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_AttendanceRecordCal", Storage="_AttendanceRecordCals", ThisKey="nr", OtherKey="staffNr")]
 		public EntitySet<AttendanceRecordCal> AttendanceRecordCals
 		{
@@ -12011,40 +11869,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_Staff", Storage="_JobTitle", ThisKey="jobTitleId", OtherKey="id", IsForeignKey=true)]
-		public JobTitle JobTitle
-		{
-			get
-			{
-				return this._JobTitle.Entity;
-			}
-			set
-			{
-				JobTitle previousValue = this._JobTitle.Entity;
-				if (((previousValue != value) 
-							|| (this._JobTitle.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._JobTitle.Entity = null;
-						previousValue.Staffs.Remove(this);
-					}
-					this._JobTitle.Entity = value;
-					if ((value != null))
-					{
-						value.Staffs.Add(this);
-						this._jobTitleId = value.id;
-					}
-					else
-					{
-						this._jobTitleId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("JobTitle");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="StaffType_Staff", Storage="_StaffType", ThisKey="staffTypeId", OtherKey="id", IsForeignKey=true)]
 		public StaffType StaffType
 		{
@@ -12075,6 +11899,40 @@ namespace BlueHrLib.Data
 						this._staffTypeId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("StaffType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_Staff", Storage="_JobTitle", ThisKey="jobTitleId", OtherKey="id", IsForeignKey=true)]
+		public JobTitle JobTitle
+		{
+			get
+			{
+				return this._JobTitle.Entity;
+			}
+			set
+			{
+				JobTitle previousValue = this._JobTitle.Entity;
+				if (((previousValue != value) 
+							|| (this._JobTitle.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._JobTitle.Entity = null;
+						previousValue.Staff.Remove(this);
+					}
+					this._JobTitle.Entity = value;
+					if ((value != null))
+					{
+						value.Staff.Add(this);
+						this._jobTitleId = value.id;
+					}
+					else
+					{
+						this._jobTitleId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("JobTitle");
 				}
 			}
 		}
@@ -15035,6 +14893,196 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.JobTitle")]
+	public partial class JobTitle : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _name;
+		
+		private string _remark;
+		
+		private System.Nullable<int> _IsRevoked;
+		
+		private EntitySet<JobCertificate> _JobCertificate;
+		
+		private EntitySet<Staff> _Staff;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnremarkChanging(string value);
+    partial void OnremarkChanged();
+    partial void OnIsRevokedChanging(System.Nullable<int> value);
+    partial void OnIsRevokedChanged();
+    #endregion
+		
+		public JobTitle()
+		{
+			this._JobCertificate = new EntitySet<JobCertificate>(new Action<JobCertificate>(this.attach_JobCertificate), new Action<JobCertificate>(this.detach_JobCertificate));
+			this._Staff = new EntitySet<Staff>(new Action<Staff>(this.attach_Staff), new Action<Staff>(this.detach_Staff));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="VarChar(255)")]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this.OnremarkChanging(value);
+					this.SendPropertyChanging();
+					this._remark = value;
+					this.SendPropertyChanged("remark");
+					this.OnremarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsRevoked", DbType="Int")]
+		public System.Nullable<int> IsRevoked
+		{
+			get
+			{
+				return this._IsRevoked;
+			}
+			set
+			{
+				if ((this._IsRevoked != value))
+				{
+					this.OnIsRevokedChanging(value);
+					this.SendPropertyChanging();
+					this._IsRevoked = value;
+					this.SendPropertyChanged("IsRevoked");
+					this.OnIsRevokedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_JobCertificate", Storage="_JobCertificate", ThisKey="id", OtherKey="jobTitleId")]
+		public EntitySet<JobCertificate> JobCertificate
+		{
+			get
+			{
+				return this._JobCertificate;
+			}
+			set
+			{
+				this._JobCertificate.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_Staff", Storage="_Staff", ThisKey="id", OtherKey="jobTitleId")]
+		public EntitySet<Staff> Staff
+		{
+			get
+			{
+				return this._Staff;
+			}
+			set
+			{
+				this._Staff.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_JobCertificate(JobCertificate entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle = this;
+		}
+		
+		private void detach_JobCertificate(JobCertificate entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle = null;
+		}
+		
+		private void attach_Staff(Staff entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle = this;
+		}
+		
+		private void detach_Staff(Staff entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle = null;
 		}
 	}
 }

@@ -28,6 +28,7 @@ namespace BlueHrLib.Data.Repository.Interface
         List<Staff> FindByInsureType(int id);
 
         bool IsStaffExist(string nr);
+        List<Staff> SearchPermanentStaff(StaffSearchModel searchModel);
         //List<Staff> getStaffUserIDCard();
     }
 }

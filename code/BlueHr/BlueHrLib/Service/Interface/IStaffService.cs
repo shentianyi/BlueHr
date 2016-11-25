@@ -25,6 +25,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="nr">员工号</param>
         /// <returns></returns>
         Staff FindByNr(string nr);
+        Staff FindByNrThis(string nr);
 
         /// <summary>
         /// 根据员工号判断 员工是否存在
@@ -96,5 +97,6 @@ namespace BlueHrLib.Service.Interface
         List<Staff> FindByDegreeType(int id);
 
         List<Staff> FindByInsureType(int id);
+        List<Staff> SearchPermanentStaff(StaffSearchModel searchModel);
     }
 }
