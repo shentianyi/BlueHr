@@ -54,7 +54,7 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public IQueryable<CertificateType> Search(CertificateTypeSearchModel searchModel)
         {
-            IQueryable<CertificateType> certf = this.context.CertificateType;
+            IQueryable<CertificateType> certf = this.context.CertificateTypes;
             if (!string.IsNullOrEmpty(searchModel.Name))
             {
                 certf = certf.Where(c => c.name.Contains(searchModel.Name.Trim()));

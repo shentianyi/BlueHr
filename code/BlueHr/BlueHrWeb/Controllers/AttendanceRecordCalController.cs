@@ -24,6 +24,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: AttendanceRecordCal
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -38,7 +39,9 @@ namespace BlueHrWeb.Controllers
 
             return View(records);
         }
+
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "CompanyId,DepartmentId,StaffNr,IsException,IsExceptionHandled,AttendanceDateFrom,AttendanceDateEnd")] AttendanceRecordCalSearchModel q)
         {
             int pageIndex = 0;
@@ -57,6 +60,7 @@ namespace BlueHrWeb.Controllers
 
 
         [AdminAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         // GET: AttendanceRecordCal/Create
         public ActionResult Create()
         {
@@ -66,6 +70,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: AttendanceRecordCal/Create
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Create([Bind(Include = "staffNr,attendanceDate, actWorkingHour, remark, actExtraWorkingHour, extraWorkType")] AttendanceRecordCal arc)
         {
@@ -100,6 +105,7 @@ namespace BlueHrWeb.Controllers
         // GET: AttendanceRecordDetail/Edit/5
         [HttpGet]
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             IAttendanceRecordCalService ss = new AttendanceRecordCalService(Settings.Default.db);
@@ -126,6 +132,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [AdminAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         // GET: AttendanceRecordCal/Delete/5
         public ActionResult Delete(int id)
         {
@@ -161,6 +168,7 @@ namespace BlueHrWeb.Controllers
 
         // POST: AttendanceRecordCal/Delete/5
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id, FormCollection collection)
         {
             ResultMessage msg = new ResultMessage();
@@ -190,7 +198,7 @@ namespace BlueHrWeb.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost] 
         public ActionResult UpdateActHour(int id)
         {
             ResultMessage msg = new ResultMessage();
@@ -249,6 +257,7 @@ namespace BlueHrWeb.Controllers
             return Json(msg);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult ExceptionList()
         {
             IAttendanceRecordCalService ss = new AttendanceRecordCalService(Settings.Default.db);
@@ -285,7 +294,8 @@ namespace BlueHrWeb.Controllers
         }
 
         [HttpGet]
-       public ActionResult ExportReport([Bind(Include = "CompanyId,DepartmentId")] StaffSearchModel q)
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult ExportReport([Bind(Include = "CompanyId,DepartmentId")] StaffSearchModel q)
         {
             var msg = new ReportMessage();
             if (Request.QueryString["type"] == "100")

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Interface;
 using BlueHrLib.Service.Implement;
+using BlueHrLib.Data.Model;
 
 namespace BlueHrLib.Data.Repository.Implement
 {
@@ -78,7 +79,7 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public IQueryable<Staff> Search(StaffSearchModel searchModel)
         {
-            IQueryable<Staff> staffs = this.context.Staff;
+            IQueryable<Staff> staffs = this.context.Staffs;
 
             if (!string.IsNullOrWhiteSpace(searchModel.Nr))
             {
@@ -134,6 +135,71 @@ namespace BlueHrLib.Data.Repository.Implement
                 staffs = staffs.Where(c => c.isOnTrial.Equals(searchModel.IsOnTrial));
             }
 
+            if (!string.IsNullOrEmpty(searchModel.companyIds))
+            {
+                List<string> ids = searchModel.companyIds.TrimEnd().TrimEnd(',').Split(',').Where(s=>s!="").ToList();
+                if (ids.Count > 0)
+                {
+                    staffs = staffs.Where(c => ids.Contains(c.companyId.ToString()));
+
+                }
+            }
+
+            if (!string.IsNullOrEmpty(searchModel.departmentIds))
+            {
+                List<string> ids = searchModel.departmentIds.TrimEnd().TrimEnd(',').Split(',').Where(s => s != "").ToList();
+                if (ids.Count > 0)
+                {
+                    staffs = staffs.Where(c => ids.Contains(c.departmentId.ToString()));
+
+                }
+            }
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            if (searchModel.loginUser != null)
+            {
+                User lgUser = searchModel.loginUser;
+
+                List<SysUserDataAuth> allDataAuths = this.context.GetTable<SysUserDataAuth>().Where(p => p.userId == lgUser.id).ToList();
+
+                List<string> cmpIds = new List<string>();
+                List<string> depIds = new List<string>();
+
+                allDataAuths.ForEach(p =>
+                {
+                    if (!cmpIds.Contains(p.cmpId.ToString()))
+                    {
+                        cmpIds.Add(p.cmpId.ToString());
+                    }
+
+                    p.departId.Split(',').ToList().ForEach(pp =>
+                    {
+                        if(!string.IsNullOrEmpty(pp))
+                        {
+                            depIds.Add(pp);
+                        }
+                    });
+                    //if (!depIds.Contains(p.departId.ToString()))
+                    //{
+                    //    depIds.Add(p.departId.ToString());
+                    //}
+                });
+
+                if (cmpIds.Count > 0)
+                {
+                    staffs = staffs.Where(c => cmpIds.Contains(c.companyId.ToString()));
+                }
+
+                if (depIds.Count > 0)
+                {
+                    staffs = staffs.Where(c => depIds.Contains(c.departmentId.ToString()));
+                }
+
+                if (searchModel.WorkStatus.HasValue)
+                {
+                        staffs = staffs.Where(c => c.workStatus.Equals(searchModel.WorkStatus));
+                }
+            }
+
             return staffs;
         }
 
@@ -180,6 +246,10 @@ namespace BlueHrLib.Data.Repository.Implement
                     sf.photo = staff.photo;
                     sf.workingYearsAt = staff.workingYearsAt;
                     sf.resignAt = staff.resignAt;
+                    sf.jobTitleId = staff.jobTitleId;
+                    sf.companyId = staff.companyId;
+                    sf.departmentId = staff.departmentId;
+
                     this.context.SubmitChanges();
                     return true;
                 }
@@ -229,9 +299,9 @@ namespace BlueHrLib.Data.Repository.Implement
         public List<Staff> FindByDegreeType(int id)
         {
             return this.context.GetTable<Staff>().Where(p => p.degreeTypeId.Equals(id)).ToList();
-        } 
+        }
 
-        public List<Staff>FindByInsureType(int id)
+        public List<Staff> FindByInsureType(int id)
         {
             return this.context.GetTable<Staff>().Where(p => p.insureTypeId.Equals(id)).ToList();
         }
@@ -244,7 +314,8 @@ namespace BlueHrLib.Data.Repository.Implement
                 if (Staff != null)
                 {
                     return true;
-                }else
+                }
+                else
                 {
                     return false;
                 }
@@ -254,5 +325,18 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             }
         }
+
+        //public List<Staff> getStaffUserIDCard()
+        //{
+        //    var staffs = context.GetTable<Staff>().Select(s => new { nr = s.nr, id = s.id, residenceAddress = s.residenceAddress }).ToList();
+        //    List<Staff> staff = staffs.Select(s => new Staff { nr = s.nr, id = s.id, residenceAddress = s.residenceAddress }).ToList();
+        //    return staff;
+        //    //var movies = from m in db.Movies
+        //    //             where m.ReleaseDate > new DateTime(1984, 6, 1)
+        //    //             select new { ID = m.ID, Title = m.Title, Price = m.Price };
+
+        //    //List<Movie> movie = movies.ToList()
+        //    //                        .Select(m => new Movie { ID = m.ID, Title = m.Title, Price = m.Price }).ToList();
+        //}
     }
 }

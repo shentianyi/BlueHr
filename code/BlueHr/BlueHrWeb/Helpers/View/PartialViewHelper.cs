@@ -74,11 +74,11 @@ namespace BlueHrWeb.Helpers.View
                 {
                     if (departmentId.HasValue && departmentId.ToString().Equals(department.id))
                     {
-                        departmentSelect.Add(new SelectListItem { Text = department.name, Value = department.id.ToString(), Selected = true });
+                        departmentSelect.Add(new SelectListItem { Text = department.fullName, Value = department.id.ToString(), Selected = true });
                     }
                     else
                     {
-                        departmentSelect.Add(new SelectListItem { Text = department.name, Value = department.id.ToString(), Selected = false });
+                        departmentSelect.Add(new SelectListItem { Text = department.fullName, Value = department.id.ToString(), Selected = false });
                     }
                 }
             }

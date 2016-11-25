@@ -9,7 +9,7 @@
     <li>用户管理</li>
 </ol>
 <hr class="hr-grey" />
- 
+
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="usual-table">
         <div class="table-heading">
@@ -32,18 +32,20 @@
                         <th>邮箱地址</th>
                         <th>角色</th>
                         <th>锁定状态</th>
+                        <th>权限公司</th>
+                        <th>权限部门</th>
                         <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if (Model != null)
-                                {
-                                    int i = 0;
-                                    foreach (var item in Model)
-                                    {
+                    {
+                        int i = 0;
+                        foreach (var item in Model)
+                        {
                             <tr>
                                 <td>
-                                    @(i+=1)
+                                    @(i += 1)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.name)
@@ -54,28 +56,37 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.roleStr)
                                 </td>
-                                 <td>
-                                     @if (item.isLocked.Value)
-                                     {
-                                             <i class="fa fa-lock"></i>
-                                     }
-                                     else
-                                     {
-                                             <i class="fa fa-unlock"></i>
-                                     }
+                                <td>
+                                    @if (item.isLocked.Value)
+                                    {
+                                        <i class="fa fa-lock"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-unlock"></i>
+                                    }
                                 </td>
                                 <td>
-                                    <a href="/User/Delete/@item.id" class="option-icon-primary" title="详情">
+                                    @Html.DisplayFor(modelItem => item.AuthCompany)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AuthDepartment)
+                                </td>
+                                <td>
+                                    <a href="/User/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a href="/User/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                    <a href="/User/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="/User/changepwd?id=@item.id" target="_blank" class="option-icon-danger" title="修改密码">
+                                        <i class="fa fa-paste"></i>
                                     </a>
                                     @if (item.isLocked.Value)
                                     {
-                                    <a href="#" class="option-icon-danger" title="解锁" onclick="lock(@item.id)">
-    <i class="fa fa-unlock"></i>
-</a>
+                                        <a href="#" class="option-icon-danger" title="解锁" onclick="lock(@item.id)">
+                                            <i class="fa fa-unlock"></i>
+                                        </a>
                                     }
                                     else
                                     {
@@ -97,7 +108,7 @@
             <div class="pagination-inner">
                 @if (Model != null)
                 {
-                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
                 }
             </div>
         </div>

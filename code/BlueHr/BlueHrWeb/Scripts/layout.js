@@ -86,7 +86,6 @@ Layout.init = function () {
             $('.nav-certificate').addClass('active');
             PageAction('#certificate', '新建证照', '编辑证照', '证照详情', '创建', '更新', '删除');
             break;
-       
         case "AbsenceRecrod":
             $('.nav-absencerecrod').addClass('active');
             PageAction('#absencerecord', '新建缺勤', '编辑缺勤', '缺勤详情', '创建', '更新', '删除');
@@ -102,6 +101,22 @@ Layout.init = function () {
         case "ShiftSchedule":
             $('.nav-shift').addClass('active');
             PageAction('#shiftschedule', '新建排班', '编辑排班', '排班详情', '创建', '更新', '删除');
+            break;
+        case "QuartzJob":
+            $('.nav-system-setting').addClass('active');
+            PageAction('#quartzjob', '新建考勤计算设置', '编辑考勤计算设置', '考勤计算设置详情', '创建', '更新', '删除');
+            break;
+        case "SysRole":
+            $('.nav-sysRole').addClass('active');
+            PageAction('#sysrole', '新建角色', '编辑角色', '角色详情', '创建', '更新', '删除');
+            break;
+        case "SysAuthorization":
+            $('.nav-sysRole').addClass('active');
+            PageAction('#sysauthorization', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
+            break;
+        case "SysRoleAuthorization":
+            $('.nav-sysRole').addClass('active');
+            PageAction('#sysauthorization', '新建角色权限', '编辑角色权限', '角色权限详情', '创建', '更新', '删除');
             break;
         case "TaskRound":
             $('.nav-taskround').addClass('active');
@@ -193,7 +208,7 @@ Layout.TbodyHeight = function (cls, height) {
 Layout.datepicker = function (date_picker) {
     $(date_picker).datetimepicker({
         format: 'Y-m-d',
-        scrollInput: false,
+        //scrollInput: false,
         timepicker: false
     });
 }
@@ -209,7 +224,7 @@ Layout.timepicker = function (time_picker) {
 
 Layout.datetimepicker = function (date_time_picker) {
     $(date_time_picker).datetimepicker({
-        scrollInput: false
+        //scrollInput: false
     });
 }
 
@@ -232,7 +247,7 @@ Layout.rangedatepicker = function (date_picker_start, date_picker_end) {
                 minDate: $(date_picker_start).val() ? $(date_picker_start).val() : false
             })
         },
-        scrollInput: false,
+        //scrollInput: false,
         timepicker: false
     });
 }
@@ -244,4 +259,28 @@ Layout.IsStringNull = function (str) {
     } else {
         return false;
     }
+}
+
+Date.prototype.Format = function (fmt) { //author: meizz   
+    var o = {
+        "M+": this.getMonth() + 1,                 //月份   
+        "d+": this.getDate(),                    //日   
+        "h+": this.getHours(),                   //小时   
+        "m+": this.getMinutes(),                 //分   
+        "s+": this.getSeconds(),                 //秒   
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度   
+        "S": this.getMilliseconds()             //毫秒   
+    };
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt))
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+
+function FutureDate(day) {
+    var now = new Date();
+    var FutureDate = new Date(now.getTime() - day * 24 * 60 * 60 * 1000).Format("yyyy-MM-dd hh:mm");
+    return FutureDate;
 }

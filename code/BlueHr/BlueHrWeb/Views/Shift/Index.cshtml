@@ -1,4 +1,6 @@
 ﻿@using MvcPaging
+@using BlueHrWeb.Helpers.View
+
 @model IPagedList<BlueHrLib.Data.Shift>
 @{
     ViewBag.Title = "班次管理";
@@ -6,10 +8,15 @@
 @*@Styles.Render("~/Content/degreetype")*@
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
-    <li>基础信息</li>
+    <li>排班管理</li>
     <li>班次管理</li>
 </ol>
 <hr class="hr-grey" />
+@{
+    bool canDelete = MenuAuthHelper.CanShow("Shift", "Delete");
+    bool canEdit = MenuAuthHelper.CanShow("Shift", "Edit");
+    bool canCreate = MenuAuthHelper.CanShow("Shift", "Create");
+}
 <div class="row" style="margin:0;">
     <form action="/Shift/Search" method="get">
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -31,12 +38,15 @@
         <div class="table-heading">
             班次列表
             <div class="pull-right" style="margin-top:-12px;">
+                @if (canCreate)
+                {
                 <a href="/Shift/Create">
                     <button class="marco-btn-primary">
                         <i class="glyphicon glyphicon-plus-sign"></i>
                         <span>创建</span>
                     </button>
                 </a>
+                }
             </div>
         </div>
         <div class="table-body content_3">
@@ -84,12 +94,17 @@
                                     @Html.DisplayFor(modelItem => item.remark)
                                 </td>
                                 <td>
-                                    <a href="/Shift/Delete/@item.id" class="option-icon-primary" title="详情">
+                                    @if (canDelete)
+                                    {
+                                    <a href="/Shift/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a href="/Shift/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                    </a>}
+                                    @if (canEdit)
+                                    {
+                                    <a href="/Shift/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
                                     </a>
+                                    }
                                 </td>
                             </tr>
                                             }

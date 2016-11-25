@@ -15,6 +15,13 @@
             <ul class="dropdown-menu">
                 @*设置登出样式*@
 
+                <li style="margin:10px">
+                    <a href="/user/changepwd?id=@((Session["user"] as User).id)" style="color:#c0392b;">
+                        <i class="fa fa-paste"></i>
+                        <span style="margin-left:0px;"> 修改密码 </span>
+                    </a>
+                </li>
+
                 <li style="margin: 10px;">
                     @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                     {

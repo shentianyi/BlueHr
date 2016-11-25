@@ -23,6 +23,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: ExtraWorkRecord
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             SetDropDownList(null);
@@ -30,6 +31,10 @@ namespace BlueHrWeb.Controllers
             int pageIndex = PagingHelper.GetPageIndex(page);
 
             ExtraWorkRecordSearchModel q = new ExtraWorkRecordSearchModel();
+
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.lgUser = user;
 
             IExtraWorkRecordService ss = new ExtraWorkRecordService(Settings.Default.db);
 
@@ -43,8 +48,13 @@ namespace BlueHrWeb.Controllers
             return View(models);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "staffNr,extraWorkTypeId,durStart,durEnd")] ExtraWorkRecordSearchModel q)
         {
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.lgUser = user;
+
             SetDropDownList(null);
 
             int pageIndex = 0;
@@ -61,12 +71,14 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: ExtraWorkRecord/Details/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: ExtraWorkRecord/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             SetDropDownList(null);
@@ -74,6 +86,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: ExtraWorkRecord/Create
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Create([Bind(Include = "extraWorkTypeId,staffNr,otTime,startHour,endHour,duration,durationType,otReason")] ExtraWorkRecord model)
         {
@@ -108,6 +121,7 @@ namespace BlueHrWeb.Controllers
 
 
         // GET: ExtraWorkRecord/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
@@ -118,6 +132,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: ExtraWorkRecord/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Edit([Bind(Include = "id, extraWorkTypeId,staffNr,startHour,endHour,otTime, duration,durationType,otReason")] ExtraWorkRecord model)
         {
@@ -150,6 +165,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: ExtraWorkRecord/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
@@ -160,6 +176,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: ExtraWorkRecord/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -167,18 +184,18 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                ////存在员工时不可删除
-                //IAbsenceRecordService shfSi = new AbsenceRecordService(Settings.Default.db);
-                //List<AbsenceRecrod> shf = shfSi.FindByAbsenceType(id);
+                //审批后不可删除
+                IExtraWorkRecordService shfSi = new ExtraWorkRecordService(Settings.Default.db);
+                ExtraWorkRecord shf = shfSi.FindById(id);
 
-                //if (null != shf && shf.Count() > 0)
-                //{
-                //    msg.Success = false;
-                //    msg.Content = "缺勤类型正在使用,不能删除!";
+                if (null != shf && shf.ExtraWorkRecordApprovals.Count() > 0)
+                {
+                    msg.Success = false;
+                    msg.Content = "加班审批后不可删除!";
 
-                //    return Json(msg, JsonRequestBehavior.AllowGet);
-                //}
-                //else
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
                 {
                     IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
                     bool isSucceed = cs.DeleteById(id);
@@ -357,6 +374,56 @@ namespace BlueHrWeb.Controllers
             //}
 
             return new ResultMessage() { Success = true, Content = "" };
+        }
+
+        [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
+        public JsonResult ApprovalExtraWorkRecord(string extralRecordId, string approvalStatus, string approvalRemarks)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            try
+            {
+                //check user
+
+                if (Session["user"] == null)
+                {
+                    msg.Success = false;
+                    msg.Content = "用户未登录，请登录后重试！";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+
+                var ids = extralRecordId.Split(',');
+                bool isSucceed=false;
+                foreach (var id in ids)
+                {
+                    ExtraWorkRecordApproval extralApproval = new ExtraWorkRecordApproval();
+                    extralApproval.extraWorkId = !string.IsNullOrEmpty(id) ? int.Parse(id) : -1;
+                    extralApproval.approvalStatus = approvalStatus;
+                    extralApproval.approvalTime = DateTime.Now;
+                    extralApproval.remarks = approvalRemarks;
+
+                    if (Session["user"] != null)
+                    {
+                        User user = Session["user"] as User;
+                        extralApproval.userId = user.id;
+                    }
+
+                    IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
+                 isSucceed= cs.ApprovalTheRecord(extralApproval);
+                }
+                msg.Success = isSucceed;
+                msg.Content = "审批成功！";
+
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                msg.Success = false;
+                msg.Content = ex.Message;
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

@@ -32,5 +32,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         bool LockUnLock(int id);
+
+        bool ChangePwd(int id, string pwd);
     }
 }

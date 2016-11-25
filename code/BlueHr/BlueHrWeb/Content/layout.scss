@@ -406,13 +406,14 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 .marco-textarea{
     margin-top:10px;
     label, span{
-        height:30px;
-        line-height:30px;
+        height:35px;
+        line-height:20px;
         border: 1px solid $brlize-hole;
         padding: 10px;
         border-bottom-color: $brlize-hole;
         background:$peter-river;
         color:$clouds;
+        margin-bottom: -3px;    
     }
 
     textarea{
@@ -654,7 +655,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
     position:fixed;
     top: 52px;
     right: 10px;
-    width: 200px;
+    min-width: 200px;
     padding: 4px;
     text-align:center;
     background: $marco-bg;

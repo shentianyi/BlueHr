@@ -1,15 +1,26 @@
 ﻿@using MvcPaging
+@using BlueHrWeb.Helpers.View
+
+
 @model IPagedList<BlueHrLib.Data.ShiftSchedule>
 @{
     ViewBag.Title = "排班管理";
 }
+
 @*@Styles.Render("~/Content/degreetype")*@
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
-    <li>基础信息</li>
+    <li>排班管理</li>
     <li>排班管理</li>
 </ol>
 <hr class="hr-grey" />
+@{
+    bool canDelete = MenuAuthHelper.CanShow("ShiftSchedule", "Delete");
+    bool canEdit = MenuAuthHelper.CanShow("ShiftSchedule", "Edit");
+    bool canCreate = MenuAuthHelper.CanShow("ShiftSchedule", "Create");
+
+    bool canImport = MenuAuthHelper.CanShow("ShiftSchedule", "Import");
+}
 <form action="/ShiftSchedule/Search" method="get">
     <div class="row" style="margin:0;">
         <div class="col-lg-3 col-md-3 col-sm-5 col-xs-5">
@@ -39,10 +50,12 @@
                         <i class="fa fa-search"></i>
                         搜索
                     </button>
-
+                    @if (canImport)
+                    {
                     <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
                         导入排班记录
                     </button>
+                    }
                 </span>
             </div>
         </div>
@@ -53,12 +66,15 @@
         <div class="table-heading">
             排班列表
             <div class="pull-right" style="margin-top:-12px;">
-                <a href="/ShiftSchedule/Create">
+                @if (canCreate)
+                {
+                <a href="/ShiftSchedule/Create" target="_blank">
                     <button class="marco-btn-primary">
                         <i class="glyphicon glyphicon-plus-sign"></i>
                         <span>创建</span>
                     </button>
                 </a>
+                }
             </div>
         </div>
         <div class="table-body content_3">
@@ -87,12 +103,18 @@
                                     @Html.DisplayFor(modelItem => item.Shift.code)
                                 </td> 
                                 <td>
-                                    <a href="/ShiftSchedule/Delete/@item.id" class="option-icon-primary" title="详情">
+                                    @if (canDelete)
+                                    {
+                                    <a href="/ShiftSchedule/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a href="/ShiftSchedule/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                    }
+                                    @if (canEdit)
+                                    {
+                                    <a href="/ShiftSchedule/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
                                         <i class="fa fa-pencil"></i>
                                     </a>
+                                    }
                                 </td>
                             </tr>
                         }

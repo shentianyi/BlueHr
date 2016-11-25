@@ -7,7 +7,6 @@
 }
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
-    <li>用户管理</li>
     <li><a href="/Staff">员工管理</a></li>
     <li><a href="#" id="staff_delete">员工详情</a></li>
     <li>员工离职</li>
@@ -73,11 +72,14 @@
                     <div class="card-body-multiple">
                         <div class="marco-igroup-default">
                             <span>离职类别</span>
-                            @Html.DropDownList("resignTypeId", ViewData["resignTypeList"] as IEnumerable<SelectListItem>)
+
+                            <select name="resignTypeId" id="resignTypeId"></select>
+
+                            @*@Html.DropDownList("resignTypeId", ViewData["resignTypeList"] as IEnumerable<SelectListItem>)*@
                         </div>
 
                         <div class="marco-igroup-default">
-                            <span>&nbsp;&nbsp;离职时间&nbsp;&nbsp;</span>
+                            <span>&nbsp;&nbsp;离职日期&nbsp;&nbsp;</span>
                             <input type="text" class="datetimepicker" id="resignAt" />
                         </div>
                         <div class="marco-igroup-default">
@@ -91,7 +93,7 @@
                         <hr class="hr-grey" />
                         <div style="text-align:right;">
                             <button type="submit" class="marco-btn-success" onclick="toResign()">
-                                <i class="glyphicon glyphicon-ok"></i>确定
+                                <i class="glyphicon glyphicon-ok"></i>  确定
                             </button>
                         </div>
                     </div>
@@ -105,43 +107,80 @@
 @Scripts.Render("~/bundles/staff")
 
 <script type="text/javascript">
-
     Staff.other_image_preview('#photo_name', '#photo', '.photo_preview');
 
-    Layout.datepicker('.datetimepicker');
+    $("#resignAt").val(FutureDate(0));
+
+    Layout.datetimepicker('.datetimepicker');
 
     //设置href
     var StaffNr = $("#staffNr").val();
     $('#staff_delete').attr('href', '/Staff/Delete/' + StaffNr);
 
+    $.ajax({
+        url: 'GetResignType',
+        type: 'get',
+        success: function (data) {
+            console.log(data);
+            for (var resignType in data) {
+                console.log(data[resignType]);
+                $("#resignTypeId").append("<option id=" + resignType + "> " + data[resignType] + "</option>");
+            }
+
+            $('#resignTypeId').comboSelect();
+        },
+        error: function () {
+            console.log("Error!");
+        }
+    });
+
+
     function toResign() {
         if (confirm("确认提交离职？")) {
+            var SelfResion = $(".combo-input").val();
 
-            var staffNr = $("#staffNr").val();
-            var resignTypeId = $("#resignTypeId").val();
-            var resignAt = $("#resignAt").val();
-            var resignChecker = $("#resignChecker").val();
-            var remark = $("#remark").val();
+            //判断是否在系统中存在
 
-            if (resignTypeId == "" || resignTypeId == null) {
-                alert("请选择离职类型");
-                return;
-            }
+            $.ajax({
+                url: '/ResignType/IsResignTypeExit',
+                type: 'post',
+                data: {
+                    resignType: SelfResion
+                },
+                success: function (data) {
 
-            if (resignAt == "" || resignAt == null) {
-                alert("请选择离职时间");
-                return;
-            }
+                    var staffNr = $("#staffNr").val();
+                    var resignTypeId = data.ID;
+                    var resignAt = $("#resignAt").val();
+                    var resignChecker = $("#resignChecker").val();
+                    var remark = $("#remark").val();
 
-            $.post("/Staff/DoResign/", { resignTypeId: resignTypeId, staffNr: staffNr, resignAt: resignAt, resignChecker: resignChecker, remark: remark }, function (data) {
-                if (data.Success) {
-                    alert("离职成功！");
-                    window.location = "/Staff/Index/";
+                    if (resignTypeId == "" || resignTypeId == null) {
+                        alert("请选择离职类型");
+                        return;
+                    }
 
-                } else {
-                    alert("离职失败：" + data.Content);
+                    if (resignAt == "" || resignAt == null) {
+                        alert("请选择离职时间");
+                        return;
+                    }
+
+                    $.post("/Staff/DoResign/", { resignTypeId: resignTypeId, staffNr: staffNr, resignAt: resignAt, resignChecker: resignChecker, remark: remark }, function (data) {
+                        if (data.Success) {
+                            alert("离职成功！");
+
+                            window.location = "/Staff/Index/";
+
+                        } else {
+                            alert("离职失败：" + data.Content);
+                        }
+                    }, "json");
+
+                },
+                error: function () {
+                    console.log("Something Error!");
                 }
-            }, "json");
+            });
         }
     }
 </script>

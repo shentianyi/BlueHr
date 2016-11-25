@@ -17,5 +17,7 @@ namespace BlueHrLib.Data.Repository.Interface
         bool Update(ExtraWorkRecord parModel);
 
         bool DeleteById(int id);
+
+        bool ApprovalTheRecord(ExtraWorkRecordApproval extralApproval);
     }
 }

@@ -58,7 +58,7 @@ namespace BlueHrLib.Data
                     }
                 }
                 List<int> hasCers = new List<int>();
-                foreach (var c in this.Certificate)
+                foreach (var c in this.Certificates)
                 {
                     hasCers.Add(c.certificateTypeId);
                 }
@@ -92,6 +92,11 @@ namespace BlueHrLib.Data
             get { return this.Department == null ? null : this.Department.name; }
         }
 
+        public string departmentFullName
+        {
+            get { return this.Department == null ? null : this.Department.fullName; }
+        }
+
         public string parentNames
         {
             get { return this.Department == null ? null : this.Department.parentNames; }
@@ -121,6 +126,149 @@ namespace BlueHrLib.Data
              { "address","通信地址" },
              { "phone","联系电话" }
         };
+        public string firstCompanyEmployAtDisplay
+        {
+            get
+            {
+              return  this.firstCompanyEmployAt.HasValue ? this.firstCompanyEmployAt.Value.ToString("yyyy-MM-dd") : "";
+            }
+        }
+
+        private string _firstCompanyEmployAtCalDisplay;
+        public string firstCompanyEmployAtCalDisplay
+        {
+            get
+            {
+                if (this.firstCompanyEmployAt.HasValue)
+                {
+                    int year = DateTime.Today.Year - this.firstCompanyEmployAt.Value.Year;
+                    int month = DateTime.Today.Month - this.firstCompanyEmployAt.Value.Month;
+                    return string.Format("{0}年{1}月", year, month);
+                }
+                else
+                {
+                    return "";
+                }
+                //return _totalCompanySeniorityDisplay;
+            }
+            set { _firstCompanyEmployAtCalDisplay = value; }
+        }
+
+
+        public string companyEmployAtDisplay
+        {
+            get
+            {
+                return this.companyEmployAt.HasValue ? this.companyEmployAt.Value.ToString("yyyy-MM-dd") : "";
+            }
+        }
+
+        private string _companyEmployAtCalDisplay;
+        public string companyEmployAtCalDisplay
+        {
+            get {
+                if (this.companyEmployAt.HasValue)
+                {
+                    int year = DateTime.Today.Year - this.companyEmployAt.Value.Year;
+                    int month = DateTime.Today.Month - this.companyEmployAt.Value.Month;
+                    return string.Format("{0}年{1}月", year, month);
+                }
+                else
+                {
+                    return "";
+                }
+                //    return _companySeniorityDisplay;
+            }
+            set { _companyEmployAtCalDisplay = value; }
+        }
+
+        public string workingYearsAtDisplay
+        {
+            get
+            {
+                return this.workingYearsAt.HasValue ? this.workingYearsAt.Value.ToString("yyyy-MM-dd") : "";
+            }
+        }
+
+        private string _workingYearsAtCalDisplay;
+        public string workingYearsAtCalDisplay
+        {
+            get {
+
+                if (this.workingYearsAt.HasValue)
+                {
+                    int year = DateTime.Today.Year - this.workingYearsAt.Value.Year;
+                    int month = DateTime.Today.Month - this.workingYearsAt.Value.Month;
+                    return string.Format("{0}年{1}月", year, month);
+                }
+                else
+                {
+                    return "";
+                }
+
+                //    return _totalSeniorityDisplay;
+            }
+            set { _workingYearsAtCalDisplay = value; }
+        }
+
+        #region dis
+        //private int _totalCompanySeniorityYear;
+        //public int totalCompanySeniorityYear
+        //{
+        //    get { return _totalCompanySeniorityYear; }
+        //    set { _totalCompanySeniorityYear = value; }
+        //}
+
+        //private int _totalCompanySeniorityMonth = 0;
+        //public int totalCompanySeniorityMonth
+        //{
+        // get { return _totalCompanySeniorityMonth; }
+        //    set
+        //    {
+        //        _totalCompanySeniorityMonth = value;
+        //    }
+        //}
+        //private int _companySeniorityYear = 0;
+        //public int companySeniorityYear
+        //{
+        //    get
+        //    {
+        //        return _companySeniorityYear;
+        //    }
+        //    set
+        //    {
+        //        _companySeniorityYear = value;
+        //    }
+        //}
+
+        //private int _companySeniorityMonth = 0;
+        //public int companySeniorityMonth
+        //{ get {
+        //        return _companySeniorityMonth;
+        //    } set
+        //    {
+        //        _companySeniorityMonth = value;
+        //    }
+        //}
+
+        //private int _totalSeniorityYear = 0;
+        //public int totalSeniorityYear
+        //{
+        //    get { return _totalSeniorityYear; }
+        //    set
+        //    {
+        //        _totalSeniorityYear = value;
+        //    }
+        //}
+
+        //private int _totalSeniorityMonth;
+
+        //public int totalSeniorityMonth
+        //{
+        //    get { return _totalSeniorityMonth; }
+        //    set { _totalSeniorityMonth = value; }
+        //}
+        #endregion
         /// <summary>
         /// 操作者Id
         /// </summary>

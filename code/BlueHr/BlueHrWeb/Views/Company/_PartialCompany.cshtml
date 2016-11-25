@@ -9,6 +9,8 @@
 
     <hr class="hr-grey" />
 
+    <input type="hidden" id="error_info" value="@ViewBag.ErrorMsg" />
+
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -45,7 +47,7 @@
                 </div>
 
                 <div class="marco-textarea">
-                    <label for="address">公司地址</label>
+                    <label for="address" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">公司地址</label>
                     @if (Model != null)
                 {
                         @Html.TextAreaFor(model => model.address)
@@ -57,7 +59,7 @@
                 </div>
 
                 <div class="marco-textarea">
-                    <label for="remark">公司备注</label>
+                    <label for="remark" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">公司备注</label>
                     @if (Model != null)
                 {
                         @Html.TextAreaFor(model => model.remark)
@@ -80,4 +82,11 @@
     $(window).resize(function () {
         $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     });
+
+    console.log($("#error_info").val());
+    
+    if ($("#error_info").val() != "" && $("#error_info").val() != undefined) {
+        Layout.popMsg("popMsg-danger", $("#error_info").val());
+    }
+
 </script>

@@ -1,44 +1,60 @@
 ﻿@model BlueHrLib.Data.Staff
+@using BlueHrWeb.Helpers.View
 
 @{
     ViewBag.Title = "Delete";
 }
 <div>
     @{
+        bool canDelete = MenuAuthHelper.CanShow("Staff", "Delete");
+        bool canFullMemeber = MenuAuthHelper.CanShow("Staff", "ToFullMemeber");
+        bool canResign = MenuAuthHelper.CanShow("Staff", "Resign");
+        bool canChangeJob = MenuAuthHelper.CanShow("Staff", "changeJob");
+        bool canCert = MenuAuthHelper.CanShow("Certificate", "Index");
+
         var toFullTitle = Model.canTobeFullMember ? "可转正" : "已转正";
         var toFullUrl = Model.canTobeFullMember ? "/Staff/ToFullMemeber?nr=" + Model.nr : "#";
-
 
         var resignTitle = Model.canResign ? "可离职" : "已离职";
         var resignUrl = Model.canResign ? "/Staff/Resign?nr=" + Model.nr : "#";
     }
 
     <div style="position:fixed; bottom:0; right:80px;z-index:99999;">
-        <a href="/Certificate?nr=@Model.nr" title="证照管理">
-            <button class="marco-btn-warning pull-right">
-                <i class="glyphicon glyphicon-picture"></i>
-                <span>证 照</span>
-            </button>
-        </a>
+        @if (canCert)
+        {
+            <a href="/Certificate?nr=@Model.nr" title="证照管理">
+                <button class="marco-btn-warning pull-right">
+                    <i class="glyphicon glyphicon-picture"></i>
+                    <span>证 照</span>
+                </button>
+            </a>
+        }
 
-        <a href="@resignUrl" title="@resignTitle">
-            <button class="marco-btn-warning pull-right">
-                <i class="glyphicon glyphicon-random"></i>
-                <span>离 职</span>
+        @if (canResign)
+        {
+            <a href="@resignUrl" title="@resignTitle">
+                <button class="marco-btn-warning pull-right">
+                    <i class="glyphicon glyphicon-random"></i>
+                    <span>离 职</span>
+                </button>
+            </a>
+        }
+        @if (canFullMemeber)
+        {
+            <a href="@toFullUrl" title="@toFullTitle">
+                <button class="marco-btn-success pull-right">
+                    <i class="glyphicon glyphicon-repeat"></i>
+                    <span>转正</span>
+                </button>
+            </a>
+        }
+        @if (canResign)
+        {
+            <button class="marco-btn-primary pull-right change-job">
+                <i class="glyphicon glyphicon-refresh"></i>
+                <span>调 岗</span>
             </button>
-        </a>
-
-        <a href="@toFullUrl" title="@toFullTitle">
-            <button class="marco-btn-success pull-right">
-                <i class="glyphicon glyphicon-repeat"></i>
-                <span>转正</span>
-            </button>
-        </a>
-
-        <button class="marco-btn-primary pull-right change-job">
-            <i class="glyphicon glyphicon-refresh"></i>
-            <span>调 岗</span>
-        </button>
+        }
     </div>
 </div>
 
@@ -51,6 +67,7 @@
 
         <div class="marco-nbody" style="background: #f2f2f2;">
             <div class="row">
+                @* 公司没有问题， 部门需要二级联动 ，职位不需要*@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>公司</span>
@@ -60,7 +77,10 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>部门</span>
-                        @Html.DropDownList("departmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
+                        <select id="departmentId" name="departmentId">
+
+                        </select>
+                        @*@Html.DropDownList("departmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)*@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -73,7 +93,7 @@
 
             <hr class="hr-grey" />
             <div class="row" style="margin:0;">
-                <span class="pull-left error-msg" style="color:red;margin-left:10px;"></span>
+                <span class="pull-left error-msg" style="color:red; margin-left:10px;"></span>
                 <button type="button" class="marco-btn-primary pull-right change-job-btn">确定</button>
             </div>
         </div>
@@ -97,6 +117,8 @@
             $('#change_job_content').css({ display: 'none' });
             $('#fullpage-overlay').css({ display: 'none' });
         });
+
+        Layout.CompanyAndDepartment("#companyId", "#departmentId");
 
         $('.change-job-btn').click(function () {
             var Dialog = $(this).parent().parent();

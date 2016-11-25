@@ -17,6 +17,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: TaskRound
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);

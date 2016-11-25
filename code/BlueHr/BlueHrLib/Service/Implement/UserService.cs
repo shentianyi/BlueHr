@@ -5,6 +5,7 @@ using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Implement;
 using BlueHrLib.Data.Repository.Interface;
 using BlueHrLib.Service.Interface;
+using BlueHrLib.Helper;
 
 namespace BlueHrLib.Service.Implement
 {
@@ -15,8 +16,26 @@ namespace BlueHrLib.Service.Implement
 
         public UserService(string dbString) : base(dbString) { }
 
+        public bool ChangePwd(int id, string pwd)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            User user = dc.Context.GetTable<User>().FirstOrDefault(s => s.id.Equals(id));
+            if (user != null)
+            {
+                user.pwd = user.pwd = MD5Helper.Encryt(string.Format("{0}{1}", pwd, user.pwdSalt));
+                dc.Context.SubmitChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool Create(User user)
         {
+            user.pwdSalt = user.GenSalt();
+            user.pwd = MD5Helper.Encryt(string.Format("{0}{1}", user.pwd, user.pwdSalt));
             return new UserRepository(new DataContext(this.DbString)).Create(user);
         }
 

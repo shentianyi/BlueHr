@@ -18,6 +18,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: Company
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -32,6 +33,8 @@ namespace BlueHrWeb.Controllers
 
             return View(companies);
         }
+
+        [RoleAndDataAuthorizationAttribute]
 
         public ActionResult Search([Bind(Include = "Name")] CompanySearchModel q)
         {
@@ -50,18 +53,21 @@ namespace BlueHrWeb.Controllers
 
 
         // GET: Company/Details/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: Company/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: Company/Create
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Create([Bind(Include = "Name, remark, address")] Company company)
         {
@@ -82,6 +88,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: Company/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             ICompanyService cs = new CompanyService(Settings.Default.db);
@@ -92,6 +99,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: Company/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public ActionResult Edit([Bind(Include = "id, name, address, remark")] Company company)
         {
@@ -109,6 +117,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: Company/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             ICompanyService cs = new CompanyService(Settings.Default.db);
@@ -120,18 +129,22 @@ namespace BlueHrWeb.Controllers
 
         // POST: Company/Delete/5
         [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            ICompanyService cs = new CompanyService(Settings.Default.db);
+            Company company = cs.FindById(id);
             try
             {
                 // TODO: Add delete logic here
-                ICompanyService cs = new CompanyService(Settings.Default.db);
                 cs.DeleteById(id);
+
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                ViewBag.ErrorMsg = "删除失败， 请先删除部门后再删除公司";
+                return View(company);
             }
         }
     }

@@ -20,6 +20,8 @@ namespace BlueHrLib.Service.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         IQueryable<Department> FindByCompanyId(int? id);
+
+        IQueryable<Department> FindByParentId(int id);
         /// <summary>
         /// 根据部门ID获取部门信息
         /// </summary>
@@ -44,7 +46,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="departmentName">部门Name</param>
         /// <param name="parentId"></param>
         /// <returns></returns>
-        Department FindByIdWithCompanyIdAndParentId(int? companyId, string departmentName,int parentId);
+        Department FindByIdWithCompanyIdAndParentId(int? companyId, string departmentName, int parentId);
 
         /// <summary>
         /// 创建部门
@@ -66,5 +68,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         bool DeleteById(int id);
+
+        string FindByIds(List<string> ids);
     }
 }

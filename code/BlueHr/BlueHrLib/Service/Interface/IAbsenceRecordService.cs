@@ -11,6 +11,7 @@ namespace BlueHrLib.Service.Interface
    public interface IAbsenceRecordService
     {
         IQueryable<AbsenceRecrod> Search(AbsenceRecrodSearchModel searchModel);
+        IQueryable<AbsenceRecordView> SearchDetail(AbsenceRecrodSearchModel searchModel);
 
         AbsenceRecrod FindById(int id);
 
@@ -29,5 +30,7 @@ namespace BlueHrLib.Service.Interface
         List<AbsenceRecrod> GetAll();
 
         AbsenceRecordView FindViewByStaffNrAndDate(string staffNr, DateTime date);
+
+        bool ApprovalTheRecord(AbsenceRecordApproval absRecordApproval);
     }
 }

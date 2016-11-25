@@ -19,6 +19,7 @@ namespace BlueHrWeb.Controllers
     {
         // GET: DegreeType
         [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
@@ -37,6 +38,7 @@ namespace BlueHrWeb.Controllers
             return View(degreeTypes);
         }
 
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "Name")] DegreeTypeSearchModel q)
         {
             int pageIndex = 0;
@@ -53,18 +55,21 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: DegreeType/Details/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: DegreeType/Create
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: DegreeType/Create
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Create([Bind(Include = "Name, remark")] DegreeType degreeType)
         {
@@ -96,6 +101,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: DegreeType/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             IDegreeTypeService cs = new DegreeTypeService(Settings.Default.db);
@@ -106,6 +112,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: DegreeType/Edit/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Edit([Bind(Include = "id, name, remark")] DegreeType degreeType)
         {
@@ -137,6 +144,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // GET: DegreeType/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             IDegreeTypeService cs = new DegreeTypeService(Settings.Default.db);
@@ -147,6 +155,7 @@ namespace BlueHrWeb.Controllers
         }
 
         // POST: DegreeType/Delete/5
+        [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Delete(int id, FormCollection collection)
         {

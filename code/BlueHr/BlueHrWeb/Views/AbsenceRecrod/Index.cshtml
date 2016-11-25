@@ -1,4 +1,6 @@
 ﻿@using MvcPaging
+@using BlueHrWeb.Helpers.View
+
 @model IPagedList<BlueHrLib.Data.AbsenceRecrod>
 @{
     ViewBag.Title = "缺勤管理";
@@ -10,6 +12,14 @@
     <li>缺勤管理</li>
 </ol>
 <hr class="hr-grey" />
+@{
+    bool canDelete = MenuAuthHelper.CanShow("AbsenceRecrod", "Delete");
+    bool canEdit = MenuAuthHelper.CanShow("AbsenceRecrod", "Edit");
+    bool canCreate = MenuAuthHelper.CanShow("AbsenceRecrod", "Create");
+    
+    bool canApp = MenuAuthHelper.CanShow("AbsenceRecrod", "ApprovalAbsenceRecord");
+    bool canImport = MenuAuthHelper.CanShow("AbsenceRecrod", "Import");
+}
 <div class="row" style="margin:0;">
     <form action="/AbsenceRecrod/Search" method="get">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -35,25 +45,39 @@
                         <i class="fa fa-search"></i>
                         搜索
                     </button>
-                    <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
-                        导入缺勤记录
-                    </button>
+                    
                 </span>
             </div>
         </div>
     </form>
+</div>
+<div class="row" style="margin-left:15px;">
+    @if (canImport)
+    {
+        <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
+            导入缺勤记录
+        </button>   
+    }
+
+    <button type="button" class="marco-btn-success" onclick="shBatchAbsenceRecord()">
+        <i class="fa fa-pencil"></i>
+        批量审批
+    </button>
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="usual-table">
         <div class="table-heading">
             缺勤列表
             <div class="pull-right" style="margin-top:-12px;">
+                @if (canCreate)
+                {
                 <a href="/AbsenceRecrod/Create">
                     <button class="marco-btn-primary">
                         <i class="glyphicon glyphicon-plus-sign"></i>
                         <span>创建</span>
                     </button>
                 </a>
+                }
             </div>
         </div>
         <div class="table-body content_3">
@@ -63,10 +87,13 @@
                         <th>日期</th>
                         <th>工号</th>
                         <th>姓名</th>
+                        <th>公司</th>
+                        <th>部门</th>
                         <th>起讫</th>
                         <th>缺勤时长(小时)</th>
                         <th>缺勤类型</th>
                         <th>缺勤原因</th>
+                        <th>审批状态</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -77,6 +104,10 @@
                         {
                             <tr>
                                 <td>
+                                    <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
+                                </td>
+
+                                <td>
                                     @Html.DisplayFor(modelItem => item.absenceDateStr)
                                 </td>
                                 <td>
@@ -84,6 +115,13 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Staff.name)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Staff.companyName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Staff.departmentFullName)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.startEndHourStr)
@@ -97,18 +135,42 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.remark)
                                 </td>
-                            
-                                <td>
-                                    <a href="/AbsenceRecrod/Delete/@item.id" class="option-icon-primary" title="详情">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a href="/AbsenceRecrod/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                                            }
+
+                                @if (item.AbsenceRecordApprovals.OrderByDescending(p => p.id).Count() > 0)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AbsenceRecordApprovals.OrderByDescending(p => p.id).FirstOrDefault().approvalStatus)
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        未审批
+                                    </td>
+                                }
+                                    <td>
+                                        @if (canDelete)
+                                        {
+                                        <a href="/AbsenceRecrod/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
                                         }
+                                        @if (canEdit)
+                                        {
+                                        <a href="/AbsenceRecrod/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        }
+                                        @if (canApp)
+                                        {
+                                        <a class="option-icon-warning" title="审核" id="shAbsenceRecord" onclick="shAbsenceRecord(@item.id)">
+                                            <i class="fa fa-calculator"></i>
+                                        </a>
+                                        }
+                                    </td>
+                                </tr>
+                        }
+                    }
                 </tbody>
             </table>
         </div>
@@ -122,10 +184,10 @@
                     {
 
                         var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                            .Options(o => o.AddRouteValue("staffNr", ViewBag.Query.staffNr))
-                            .Options(o => o.AddRouteValue("absenceTypeId", ViewBag.Query.absenceTypeId))
-                            .Options(o => o.AddRouteValue("durStart", ViewBag.Query.durStart))
-                            .Options(o => o.AddRouteValue("durEnd", ViewBag.Query.durEnd));
+                        .Options(o => o.AddRouteValue("staffNr", ViewBag.Query.staffNr))
+                        .Options(o => o.AddRouteValue("absenceTypeId", ViewBag.Query.absenceTypeId))
+                        .Options(o => o.AddRouteValue("durStart", ViewBag.Query.durStart))
+                        .Options(o => o.AddRouteValue("durEnd", ViewBag.Query.durEnd));
                         @html
                     }
                     else
@@ -150,8 +212,45 @@
         <hr />
         <a href="~/Template/缺勤记录导入文件模板.xlsx" target="_blank">下载文件模板</a>
     </div>
-
 </div>
+
+<div id="approval_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        缺勤审批
+    </div>
+
+    <div class="dialogModal_content">
+        <div class="marco-nbody row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>审批状态</span>
+                    <select id="aplStatus" name="aplStatus" onchange="selAplStatus(this.options[this.options.selectedIndex].value)">
+                        <option value="未审批">未审批</option>
+                        <option value="通过审批">通过审批</option>
+                        <option value="未通过审批">未通过审批</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>审批备注</span>
+                    <textarea id="apvRemarks" name="apvRemarks" onchange="checkField(this.value)"></textarea>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <input id="thePkId" hidden="hidden" />
+                <input id="theAplStatus" hidden="hidden" />
+                <input id="theApvRemarks" hidden="hidden" />
+                <button class="marco-btn-primary " title="确定" type="button" id="apprvalConfirm" onclick="theApprvalConfirm()">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div> 
+</div>
+
 <script type="text/javascript">
     Layout.init();
 
@@ -173,4 +272,92 @@
             }
         });
     });
+
+    //审核
+    function shAbsenceRecord(id) {
+        $("#thePkId").val(id);
+
+        $('#approval_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+
+            },
+            onClose: function () {
+                //window.location.reload();
+            }
+        });
+    }
+
+
+    //批量审核
+    function shBatchAbsenceRecord() {
+        var items = get_items();
+        if (items.length == 0) {
+            alert("请选择需要审批项");
+            return;
+        }
+        $("#thePkId").val(items);
+
+        $('#approval_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+
+            },
+            onClose: function () {
+                //window.location.reload();
+            }
+        });
+    }
+
+
+    function selAplStatus(s) {
+        $("#theAplStatus").val(s);
+    }
+
+    function checkField(s) {
+        $("#theApvRemarks").val(s);
+    }
+
+    var theApprvalConfirm = function () {
+
+        var approvalStatus = $("#theAplStatus").val();
+        var approvalRemarks = $("#theApvRemarks").val();
+
+        if (approvalStatus == null || approvalStatus == "") {
+            Layout.popMsg('popMsg-danger', "请选择审批状态！");
+            return;
+        }
+        else {
+            $.post("/AbsenceRecrod/ApprovalAbsenceRecord", { absRecordId: $("#thePkId").val(), approvalStatus: approvalStatus, approvalRemarks: approvalRemarks }, function (data) {
+
+                if (!data.Success) {
+                    $('#approval_content').dialogModal("hide");
+                    Layout.popMsg('popMsg-danger', data.Content);
+                    return false;
+                }
+                else {
+                    $('#approval_content').dialogModal("hide");
+                    Layout.popMsg('popMsg-danger', data.Content);
+                    window.location.reload();
+                }
+            });
+        }
+    }
+
+
+
+    function get_items() {
+        var items = [];
+        $.each($('.record-approve:checked'), function (i, item) {
+            console.log($(item).attr('id'));
+            items.push($(item).attr('id'));
+        });
+        return items;
+    }
+
+
 </script>

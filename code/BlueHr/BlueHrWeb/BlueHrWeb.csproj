@@ -254,6 +254,9 @@
     <Compile Include="Controllers\ExtraWorkRecordController.cs" />
     <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
+    <Compile Include="Controllers\SysRoleAuthorizationController.cs" />
+    <Compile Include="Controllers\SysRoleController.cs" />
+    <Compile Include="Controllers\SysAuthorizationController.cs" />
     <Compile Include="Controllers\WorkAndRestsController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\MessageRecordController.cs" />
@@ -269,18 +272,21 @@
     <Compile Include="Controllers\SystemSettingController.cs" />
     <Compile Include="Controllers\TaskRoundController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="CustomAttributes\RoleAndDataAuthorizationAttribute.cs" />
     <Compile Include="CustomAttributes\UserAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="CustomAttributes\AdminAuthorizeAttribute.cs" />
+    <Compile Include="Helpers\View\MenuAuthHelper.cs" />
     <Compile Include="Models\MessageCategory.cs" />
     <Compile Include="Helpers\PagingHelper.cs" />
     <Compile Include="Helpers\View\PartialViewHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UserIDCardViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -293,6 +299,7 @@
     <Content Include="Content\AdminLTE.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\combo.select.css" />
     <Content Include="Content\company.css">
       <DependentUpon>company.scss</DependentUpon>
     </Content>
@@ -321,10 +328,13 @@
     <Content Include="Images\back.png" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\mCSB_buttons.png" />
+    <Content Include="Images\NoAuth.png" />
     <Content Include="README.txt" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\AdminLTE.js" />
+    <Content Include="Scripts\bootstrap-treeview-1.2.0\bootstrap-treeview.css" />
+    <Content Include="Scripts\bootstrap-treeview-1.2.0\bootstrap-treeview.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -344,6 +354,8 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <None Include="Properties\PublishProfiles\BlueHr.pubxml" />
+    <None Include="Properties\PublishProfiles\BlueHrWeb.pubxml" />
     <None Include="Properties\PublishProfiles\BlueHrWebPubConfig.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -363,6 +375,7 @@
       <DependentUpon>jquery-ui-1.9.1.custom.min.es5.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-ui-1.9.1.custom.min.js" />
+    <Content Include="Scripts\jquery.combo.select.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.datetimepicker.full.js" />
     <Content Include="Scripts\jquery.file.upload\jquery.fileupload.js" />
@@ -513,11 +526,11 @@
     <Content Include="Views\ShiftSchedule\Edit.cshtml" />
     <Content Include="Views\ShiftSchedule\Delete.cshtml" />
     <Content Include="Views\ShiftSchedule\_PartialShiftSchedule.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\Create.cshtml" />
-    <Content Include="Views\User\_PartialUser.cshtml" />
-    <Content Include="Views\User\Delete.cshtml" />
-    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\StaffType\User\Index.cshtml" />
+    <Content Include="Views\StaffType\User\Create.cshtml" />
+    <Content Include="Views\StaffType\User\_PartialUser.cshtml" />
+    <Content Include="Views\StaffType\User\Delete.cshtml" />
+    <Content Include="Views\StaffType\User\Edit.cshtml" />
     <Content Include="Views\SystemSetting\Index.cshtml" />
     <Content Include="Views\QuartzJob\Index.cshtml" />
     <Content Include="Views\QuartzJob\Create.cshtml" />
@@ -555,6 +568,23 @@
     <Content Include="Views\AttendanceRecordCal\Create.cshtml" />
     <Content Include="Views\AttendanceRecordCal\Delete.cshtml" />
     <Content Include="Views\AttendanceRecordCal\_PartialDetail.cshtml" />
+    <Content Include="Views\SysRole\Index.cshtml" />
+    <Content Include="Views\SysRole\_PartialSysRole.cshtml" />
+    <Content Include="Views\SysRole\Create.cshtml" />
+    <Content Include="Views\SysRole\Delete.cshtml" />
+    <Content Include="Views\SysAuthorization\Index.cshtml" />
+    <Content Include="Views\SysAuthorization\_PartialSysAuthorization.cshtml" />
+    <Content Include="Views\SysAuthorization\Create.cshtml" />
+    <Content Include="Views\SysAuthorization\Delete.cshtml" />
+    <Content Include="Views\SysRole\Edit.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\Index.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\Create.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\Edit.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\Delete.cshtml" />
+    <Content Include="Views\SysRoleAuthorization\_PartialSysRoleAuthorization.cshtml" />
+    <Content Include="Views\Home\NoAuthPage.cshtml" />
+    <Content Include="Views\SysAuthorization\Edit.cshtml" />
+    <Content Include="Views\StaffType\User\ChangePwd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -612,10 +642,4 @@
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target> -->
 </Project>

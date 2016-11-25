@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "ChangePwd";
+}
+
+
+
+
+<div class="container">
+    <div class="home">
+        <div style="width:400px">
+            <div style="text-align:center;">
+                <h2>修改密码</h2>
+            </div>
+            <h4 style="color:red">@ViewBag.error</h4>
+            <form action="/user/changepwd/" method="post">
+                <span>密&nbsp;&nbsp;&nbsp;码：  <input type="text" value="" name="pwd" id="pwd" /></span>
+                <span>密码确认： <input type="text" value="" name="pwdcompare" id="pwdcompare" /></span>
+                <input type="hidden" value="@ViewBag.id" name="id" id="id" />
+                <div style="text-align:center;">
+                    <input type="submit" class="btn btn-lg btn-info" value="确 认" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

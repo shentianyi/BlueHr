@@ -33,5 +33,22 @@ namespace BlueHrWeb.Controllers
 
             return View();
         }
+
+        public ActionResult NoAuthPage(string id)
+        {
+            //没有权限访问的类别
+
+            if (id == "1")
+            {
+                ViewBag.Msg = "抱歉，你没有权限访问该页面，请联系管理员！";
+            }
+
+            if (id == "2")
+            {
+                ViewBag.Msg = "抱歉，你没有权限进行操作，请联系管理员！";
+            }
+
+            return View();
+        }
     }
 }

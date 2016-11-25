@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Delete";
+}
+
+@Html.Partial("_PartialSysAuthorization")
+
+<script type="text/javascript">
+    //使之不可编辑
+    $('input').attr('disabled', 'disabled');
+    $('select').attr('disabled', 'disabled');
+    $('textarea').attr('disabled', 'disabled');
+    $('button[type="submit"]').removeClass('marco-btn-primary');
+    $('button[type="submit"]').addClass('marco-btn-danger');
+    $('.remove-card').attr('disabled', 'disabled');
+    $('.remove-family').attr('disabled', 'disabled');
+</script>
