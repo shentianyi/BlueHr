@@ -38,6 +38,27 @@ namespace BlueHrWeb.Controllers
             return View(jobTitles);
         }
 
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        [HttpGet]
+        public ActionResult GetAll()
+        {
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+
+            IJobTitleService ss = new JobTitleService(Settings.Default.db);
+
+            foreach (var a in ss.GetAll())
+            {
+                Dictionary<string, string> one = new Dictionary<string, string>();
+                one.Add("id", a.id.ToString());
+                one.Add("name", a.name);
+                one.Add("remark", a.remark);
+                one.Add("IsRevoked", a.IsRevoked.ToString());
+                Result.Add(one);
+            }
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
+
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "Name")] JobTitleSearchModel q)
         {

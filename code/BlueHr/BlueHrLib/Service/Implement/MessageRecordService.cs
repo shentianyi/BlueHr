@@ -210,6 +210,29 @@ namespace BlueHrLib.Service.Implement
              return q.OrderByDescending(s => s.createdAt);
         }
 
+        public IQueryable<MessageRecordView> GetEmployee(MessageRecordCatetory catetory, MessageRecordSearchModel searchModel = null)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            IQueryable<MessageRecordView> q = dc.Context.GetTable<MessageRecordView>();
+            // q = q.Where(s => s.messageCategory==(int)catetory);
+
+            q = q.Where(s => s.messageType == 201);
+            if (searchModel != null)
+            {
+                if (!string.IsNullOrEmpty(searchModel.StaffNr))
+                {
+                    q = q.Where(s => s.staffNr.Contains(searchModel.StaffNr));
+                }
+
+                if (!string.IsNullOrEmpty(searchModel.StaffNrAct))
+                {
+                    q = q.Where(s => s.staffNr.Equals(searchModel.StaffNrAct));
+                }
+            }
+
+            return q.OrderByDescending(s => s.createdAt);
+        }
+
         public bool Read(int id)
         {
             

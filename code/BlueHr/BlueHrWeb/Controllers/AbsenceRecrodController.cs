@@ -425,6 +425,37 @@ namespace BlueHrWeb.Controllers
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
         }
+
+        //[HttpGet]
+        //public ActionResult GetFileds()
+        //{
+        //    List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+        //    IAbsenceRecordService ss = new AbsenceRecordService(Settings.Default.db);
+        //    foreach (var a in ss.GetAll())
+        //    {
+        //        Dictionary<string, string> one = new Dictionary<string, string>();
+        //        one.Add("id", a.id.ToString());
+        //        one.Add("name", a.name);
+        //        one.Add("remark", a.remark);
+        //        one.Add("IsRevoked", a.IsRevoked.ToString());
+        //        Result.Add(one);
+        //    }
+        //    var db = new NorthwindDataContext();
+
+        //    Console.WriteLine("Database: {0}", db.Mapping.DatabaseName);
+        //    var tables = from t in db.Mapping.GetTables()
+        //                 orderby t.TableName
+        //                 select t;
+        //    foreach (var table in tables)
+        //    {
+        //        Console.WriteLine(table.TableName);
+        //        foreach (var col in table.RowType.DataMembers)
+        //        {
+        //            Console.WriteLine("/t{0}/t{1}", col.MappedName, col.DbType);
+        //        }
+        //    }
+        //    return Json(Result, JsonRequestBehavior.AllowGet);
+        //}
     }
 }
 

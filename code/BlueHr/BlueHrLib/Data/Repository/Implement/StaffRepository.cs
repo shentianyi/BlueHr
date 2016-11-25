@@ -202,7 +202,20 @@ namespace BlueHrLib.Data.Repository.Implement
 
             return staffs;
         }
-
+        public List<Staff> SearchPermanentStaff(StaffSearchModel searchModel)
+        {
+            List<Staff> staffs = this.context.Staffs.Where(s => s.isOnTrial == false).ToList(); ;
+            IQueryable<MessageRecord> messages = this.context.MessageRecord.Where(m => m.messageType == 201);
+            foreach (var a in messages.ToList())
+            {
+                staffs.Add( FindByNr(a.staffNr));
+            }
+            return staffs;
+        }
+        public Staff FindByNr(string nr)
+        {
+            return this.context.GetTable<Staff>().FirstOrDefault(s => s.nr == nr);
+        }
         public bool Update(Staff staff)
         {
             try
@@ -325,6 +338,8 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             }
         }
+
+
 
         //public List<Staff> getStaffUserIDCard()
         //{

@@ -97,6 +97,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="all">true is all, false is unread</param>
         /// <returns></returns>
         IQueryable<MessageRecordView> GetByCateAndAllOrUnread(MessageRecordCatetory catetory, bool all,MessageRecordSearchModel searchModel = null);
+        IQueryable<MessageRecordView> GetEmployee(MessageRecordCatetory catetory, MessageRecordSearchModel searchModel = null);
 
         /// <summary>
         /// 阅读消息

@@ -1042,6 +1042,37 @@ namespace BlueHrWeb.Controllers
             ViewData["companyList"] = select;
         }
 
+        [HttpPost]
+        public JsonResult SetStaffParentId(string nr,string ParentNr)
+        {
+            try
+            {
+                IStaffService ss = new StaffService(Settings.Default.db);
+                Staff staff = ss.FindByNrThis(nr);
+                staff.parentStaffNr = ParentNr;
+                ss.Update(staff);
+                return Json(true, JsonRequestBehavior.DenyGet);
+            }catch
+            {
+                return Json(false, JsonRequestBehavior.DenyGet);
+            }
+        }
+
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult PermanentStaff(int? page)
+        {
+            int pageIndex = PagingHelper.GetPageIndex(page);
+            StaffSearchModel q = new StaffSearchModel();
+            q.WorkStatus = 100;
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.loginUser = user;
+            IStaffService ss = new StaffService(Settings.Default.db);
+            IPagedList<Staff> staffs = ss.SearchPermanentStaff(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            ViewBag.Query = q;
+            SetDropDownList(null);
+            return View(staffs);
+        }
         //    private void SetResignTypeList(int? type, bool allowBlank = true)
         //    {
         //        IResignTypeService cs = new ResignTypeService(Settings.Default.db);
@@ -1079,9 +1110,9 @@ namespace BlueHrWeb.Controllers
         //    Dictionary<string, string> aa = new Dictionary<string, string>();
         //    IStaffService ss = new StaffService(Settings.Default.db);
 
-                      
 
-        //        foreach(var a in ss)
+
+        //    foreach (var a in ss)
         //    {
 
         //        aa.Add("ID", ":SAD");
