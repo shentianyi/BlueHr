@@ -142,5 +142,27 @@ namespace BlueHrLib.Properties {
                 return ((string)(this["BlueHrConnectionString10"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SFZ-PC\\SQLEXPRESS;Initial Catalog=BlueHrV2;Persist Security Info=True" +
+            ";User ID=sa")]
+        public string BlueHrV2ConnectionString {
+            get {
+                return ((string)(this["BlueHrV2ConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SFZ-PC\\SQLEXPRESS;Initial Catalog=BlueHrV2;Persist Security Info=True" +
+            ";User ID=sa;Password=1")]
+        public string BlueHrV2ConnectionString1 {
+            get {
+                return ((string)(this["BlueHrV2ConnectionString1"]));
+            }
+        }
     }
 }

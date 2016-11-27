@@ -100,5 +100,35 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<SysRoleAuthorization>().ToList().Where(p => p.roleId.ToString() == roleName).ToList();
         }
+
+        public List<SysRoleAuthorization> FindByRoleId(int roleId)
+        {
+            return this.context.GetTable<SysRoleAuthorization>().Where(p => p.roleId.Equals(roleId)).ToList();
+        }
+
+        public bool DeleteByRoleId(int roleId)
+        {
+            try
+            {
+                var roleAuths = this.context.GetTable<SysRoleAuthorization>().Where(c => c.roleId.Equals(roleId));
+                if (roleAuths != null)
+                {
+                    foreach (var roleAuth in roleAuths)
+                    {
+                        this.context.GetTable<SysRoleAuthorization>().DeleteOnSubmit(roleAuth);
+                        this.context.SubmitChanges();
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

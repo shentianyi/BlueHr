@@ -34,7 +34,6 @@ namespace BlueHrWeb.Controllers
             int pageIndex = PagingHelper.GetPageIndex(page);
 
             StaffSearchModel q = new StaffSearchModel();
-            q.WorkStatus = 100;
 
             //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
             User user = System.Web.HttpContext.Current.Session["user"] as User; 
@@ -58,7 +57,6 @@ namespace BlueHrWeb.Controllers
             int pageIndex = PagingHelper.GetPageIndex(page);
 
             StaffSearchModel q = new StaffSearchModel();
-            q.WorkStatus = 100;
 
             //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
             User user = System.Web.HttpContext.Current.Session["user"] as User;
@@ -107,14 +105,68 @@ namespace BlueHrWeb.Controllers
             return View("Index", staffs);
         }
 
-        // GET: Company/Details/5
-        public ActionResult Details(int id)
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult AdvancedSearch(StaffSearchModel q)
         {
-            return View();
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.loginUser = user;
+            ViewBag.Query = q;
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            IPagedList<Staff> staffs = null;
+
+            string AllTableName = null;
+            string SearchConditions = null;
+            string SearchValueFirst = null;
+            string SearchValueSecond =null;
+
+            Console.Write(Request.Form.Get("allTableName"));
+            Console.Write(Request.Form.Get("searchConditions"));
+            Console.Write(Request.Form.Get("searchValueFirst"));
+
+            if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
+            {
+                AllTableName = Request.Form["allTableName"].ToString();
+
+                if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
+                {
+                    SearchConditions = Request.Form.Get("searchConditions").ToString();
+
+                    if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
+                    {
+                        SearchValueFirst = Request.Form.Get("searchValueFirst").ToString();
+
+                        if (!string.IsNullOrEmpty(Request.Form.Get("searchValueSecond")))
+                        {
+                            SearchValueSecond = Request.Form.Get("searchValueSecond").ToString();
+                            //有两个值， 需要进行两个值的查询
+                            staffs = ss.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
+                        }
+                        else
+                        {
+                            //有一个值， 进行查询
+                            staffs = ss.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
+                        }
+                    }
+                    else
+                    {
+                        //不能进行查询
+                    }
+                }
+            }
+
+            SetDropDownList(null);
+
+            return View("Index", staffs);
         }
 
         // GET: Company/Create
-       // [RoleAndDataAuthorizationAttribute]
+        // [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
             SetDropDownList(null);
@@ -578,6 +630,8 @@ namespace BlueHrWeb.Controllers
                 SetIsPayCPFList(staff.isPayCPF);
                 SetResidenceTypeList(staff.residenceType);
                 SetWorkStatusList(staff.workStatus);
+                SetAllTableName();
+                SetSearchConditions(null);
             }
             else
             {
@@ -592,7 +646,54 @@ namespace BlueHrWeb.Controllers
                 SetIsPayCPFList(false);
                 SetResidenceTypeList(0);
                 SetWorkStatusList(100);
+                SetAllTableName();
+                SetSearchConditions(null);
             }
+        }
+
+        private void SetAllTableName(bool allowBlank = false)
+        {
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+
+            var Staffs = ss.GetAllTableName();
+
+            if (Staffs != null)
+            {
+                //获取当前记录的属性
+                foreach (var property in Staffs[0].GetType().GetProperties())
+                {
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name });
+                }
+            }
+
+            ViewData["getAllTableNameList"] = select;
+        }
+
+        private void SetSearchConditions(bool? type, bool allowBlank = false)
+        {
+            var item = EnumHelper.GetList(typeof(SearchConditions));
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in item)
+            {
+                if (type.HasValue && type.ToString().Equals(it.Value))
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                }
+            }
+            ViewData["searchConditionsList"] = select;
         }
 
         private void SetIsOnTrialList(bool? type, bool allowBlank = true)
@@ -940,7 +1041,38 @@ namespace BlueHrWeb.Controllers
 
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
-        
+
+        [HttpGet]
+        public JsonResult StaffTree(int companyId, int departmentId)
+        {
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+
+            List<Staff> staffs = ss.FindByCompanyAndDepartment(companyId, departmentId).ToList();
+
+            foreach (var staff in staffs)
+            {
+                Dictionary<string, string> st = new Dictionary<string, string>();
+                st.Add("id", staff.id.ToString());
+                st.Add("nr", staff.nr);
+                st.Add("name", staff.nr + " / " + staff.name);
+                st.Add("pId", staff.parentStaffNr);
+                st.Add("open", "false");
+                //父节点和子节点图标不同
+                if (staff.parentStaffNr==""||staff.parentStaffNr==null)
+                {
+                    st.Add("iconSkin", "bankIcon");
+                }
+                else
+                {
+                    st.Add("iconSkin", "parentBankIcon");
+                }
+
+                Result.Add(st);
+            }
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         /// 执行员工离职

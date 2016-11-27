@@ -30,5 +30,9 @@ namespace BlueHrLib.Service.Interface
         List<SysRoleAuthorization> GetSysRoleAuthListByRoleName(string roleName);
 
         bool AuthUrl(int roleId, string controller, string action);
+
+        List<SysRoleAuthorization> FindByRoleId(int roleId);
+
+        bool DeleteByRoleId(int roleId);
     }
 }

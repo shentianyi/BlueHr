@@ -48,6 +48,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.Linq.Dynamic">
+      <HintPath>..\ThridPart\System.Data.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.Net" />
@@ -100,6 +103,7 @@
     <Compile Include="Data\Enum\StaffEnum.cs" />
     <Compile Include="Data\Enum\DurationType.cs" />
     <Compile Include="Data\AbsenceRecord.cs" />
+    <Compile Include="Data\Enum\SearchConditions.cs" />
     <Compile Include="Data\ExtraWorkRecord.cs" />
     <Compile Include="Data\ExtraWorkRecordView.cs" />
     <Compile Include="Data\JobTitle.cs" />
@@ -126,11 +130,13 @@
     <Compile Include="Data\Model\Search\WorkAndRestSearchModel.cs" />
     <Compile Include="Data\Repository\Implement\SysAuthorizationRepository.cs" />
     <Compile Include="Data\Repository\Implement\SysRoleAuthorizationRepository.cs" />
+    <Compile Include="Data\Repository\Implement\SysRoleAuthViewRepository.cs" />
     <Compile Include="Data\Repository\Implement\SysRoleRepository.cs" />
     <Compile Include="Data\Repository\Implement\SysUserDataAuthRepository.cs" />
     <Compile Include="Data\Repository\Implement\WorkAndRestRepository.cs" />
     <Compile Include="Data\Repository\Interface\ISysAuthorizationRepository.cs" />
     <Compile Include="Data\Repository\Interface\ISysRoleAuthorizationRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ISysRoleAuthRepository.cs" />
     <Compile Include="Data\Repository\Interface\ISysRoleRepository.cs" />
     <Compile Include="Data\Repository\Interface\ISysUserDataAuthRepository.cs" />
     <Compile Include="Data\Repository\Interface\IWorkAndRestRepository.cs" />
@@ -300,6 +306,7 @@
     <Compile Include="Service\Implement\ShiftService.cs" />
     <Compile Include="Service\Implement\ShiftSheduleService.cs" />
     <Compile Include="Service\Implement\SysAuthorizationService.cs" />
+    <Compile Include="Service\Implement\SysRoleAuthViewService.cs" />
     <Compile Include="Service\Implement\SysRoleAuthorizationService.cs" />
     <Compile Include="Service\Implement\SysRoleService.cs" />
     <Compile Include="Service\Implement\SystemSettingService.cs" />
@@ -336,6 +343,7 @@
     <Compile Include="Service\Interface\IShiftService.cs" />
     <Compile Include="Service\Interface\ISysAuthorizationService.cs" />
     <Compile Include="Service\Interface\ISysRoleAuthorizationService.cs" />
+    <Compile Include="Service\Interface\ISysRoleAuthViewService.cs" />
     <Compile Include="Service\Interface\ISysRoleService.cs" />
     <Compile Include="Service\Interface\ISystemSettingService.cs" />
     <Compile Include="Service\Interface\ISysUserDataAuthService.cs" />

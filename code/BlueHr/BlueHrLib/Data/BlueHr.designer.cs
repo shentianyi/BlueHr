@@ -22,7 +22,7 @@ namespace BlueHrLib.Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BlueHr")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BlueHrV2")]
 	public partial class BlueHrDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -141,7 +141,7 @@ namespace BlueHrLib.Data
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString10, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.BlueHrV2ConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -519,6 +519,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<JobTitle>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SysRoleAuthView> SysRoleAuthView
+		{
+			get
+			{
+				return this.GetTable<SysRoleAuthView>();
 			}
 		}
 	}
@@ -15083,6 +15091,267 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.JobTitle = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SysRoleAuthView")]
+	public partial class SysRoleAuthView
+	{
+		
+		private int _SysAuthId;
+		
+		private string _SysAuthName;
+		
+		private string _controlName;
+		
+		private string _actionName;
+		
+		private System.Nullable<int> _SysAuthParentId;
+		
+		private string _funCode;
+		
+		private System.Nullable<int> _isDelete;
+		
+		private string _SysAuthRemarks;
+		
+		private System.Nullable<int> _id;
+		
+		private string _SysRoleName;
+		
+		private string _SysRoleRemarks;
+		
+		private System.Nullable<int> _roleId;
+		
+		private System.Nullable<int> _authId;
+		
+		private string _SysRoleAuthRemarks;
+		
+		public SysRoleAuthView()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SysAuthId", DbType="Int NOT NULL")]
+		public int SysAuthId
+		{
+			get
+			{
+				return this._SysAuthId;
+			}
+			set
+			{
+				if ((this._SysAuthId != value))
+				{
+					this._SysAuthId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SysAuthName", DbType="NVarChar(50)")]
+		public string SysAuthName
+		{
+			get
+			{
+				return this._SysAuthName;
+			}
+			set
+			{
+				if ((this._SysAuthName != value))
+				{
+					this._SysAuthName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_controlName", DbType="NVarChar(50)")]
+		public string controlName
+		{
+			get
+			{
+				return this._controlName;
+			}
+			set
+			{
+				if ((this._controlName != value))
+				{
+					this._controlName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actionName", DbType="NVarChar(50)")]
+		public string actionName
+		{
+			get
+			{
+				return this._actionName;
+			}
+			set
+			{
+				if ((this._actionName != value))
+				{
+					this._actionName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SysAuthParentId", DbType="Int")]
+		public System.Nullable<int> SysAuthParentId
+		{
+			get
+			{
+				return this._SysAuthParentId;
+			}
+			set
+			{
+				if ((this._SysAuthParentId != value))
+				{
+					this._SysAuthParentId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_funCode", DbType="NVarChar(50)")]
+		public string funCode
+		{
+			get
+			{
+				return this._funCode;
+			}
+			set
+			{
+				if ((this._funCode != value))
+				{
+					this._funCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isDelete", DbType="Int")]
+		public System.Nullable<int> isDelete
+		{
+			get
+			{
+				return this._isDelete;
+			}
+			set
+			{
+				if ((this._isDelete != value))
+				{
+					this._isDelete = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SysAuthRemarks", DbType="NVarChar(200)")]
+		public string SysAuthRemarks
+		{
+			get
+			{
+				return this._SysAuthRemarks;
+			}
+			set
+			{
+				if ((this._SysAuthRemarks != value))
+				{
+					this._SysAuthRemarks = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int")]
+		public System.Nullable<int> id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SysRoleName", DbType="NVarChar(50)")]
+		public string SysRoleName
+		{
+			get
+			{
+				return this._SysRoleName;
+			}
+			set
+			{
+				if ((this._SysRoleName != value))
+				{
+					this._SysRoleName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SysRoleRemarks", DbType="NVarChar(500)")]
+		public string SysRoleRemarks
+		{
+			get
+			{
+				return this._SysRoleRemarks;
+			}
+			set
+			{
+				if ((this._SysRoleRemarks != value))
+				{
+					this._SysRoleRemarks = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_roleId", DbType="Int")]
+		public System.Nullable<int> roleId
+		{
+			get
+			{
+				return this._roleId;
+			}
+			set
+			{
+				if ((this._roleId != value))
+				{
+					this._roleId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_authId", DbType="Int")]
+		public System.Nullable<int> authId
+		{
+			get
+			{
+				return this._authId;
+			}
+			set
+			{
+				if ((this._authId != value))
+				{
+					this._authId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SysRoleAuthRemarks", DbType="NVarChar(200)")]
+		public string SysRoleAuthRemarks
+		{
+			get
+			{
+				return this._SysRoleAuthRemarks;
+			}
+			set
+			{
+				if ((this._SysRoleAuthRemarks != value))
+				{
+					this._SysRoleAuthRemarks = value;
+				}
+			}
 		}
 	}
 }

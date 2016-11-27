@@ -74,6 +74,9 @@ namespace BlueHrLib.Data.Repository.Implement
             }
         }
 
-        
+        public List<User> FindByRoleId(int sysRoleId)
+        {
+            return this.context.GetTable<User>().Where(c => c.role.Equals(sysRoleId)).ToList();
+        }
     }
 }

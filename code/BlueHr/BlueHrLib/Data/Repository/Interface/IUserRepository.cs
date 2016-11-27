@@ -16,6 +16,8 @@ namespace BlueHrLib.Data.Repository.Interface
 
         bool Update(User resignType);
 
-        bool DeleteById(int id); 
+        bool DeleteById(int id);
+
+        List<User> FindByRoleId(int sysRoleId);
     }
 }

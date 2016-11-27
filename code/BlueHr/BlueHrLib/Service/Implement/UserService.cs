@@ -6,14 +6,12 @@ using BlueHrLib.Data.Repository.Implement;
 using BlueHrLib.Data.Repository.Interface;
 using BlueHrLib.Service.Interface;
 using BlueHrLib.Helper;
+using System.Collections.Generic;
 
 namespace BlueHrLib.Service.Implement
 {
     public class UserService : ServiceBase, IUserService
     {
-
-
-
         public UserService(string dbString) : base(dbString) { }
 
         public bool ChangePwd(int id, string pwd)
@@ -55,6 +53,11 @@ namespace BlueHrLib.Service.Implement
             return new UserRepository(new DataContext(this.DbString)).FindById(id);
         }
 
+        public List<User> FindByRoleId(int sysRoleId)
+        {
+            return new UserRepository(new DataContext(this.DbString)).FindByRoleId(sysRoleId);
+        }
+
         public bool LockUnLock(int id)
         {
             DataContext dc = new DataContext(this.DbString);
@@ -80,7 +83,6 @@ namespace BlueHrLib.Service.Implement
         public bool Update(User user)
         {
             return new UserRepository(new DataContext(this.DbString)).Update(user);
-
         }
     }
 }
