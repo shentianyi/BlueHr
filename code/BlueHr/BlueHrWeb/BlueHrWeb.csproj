@@ -336,6 +336,7 @@
     <Content Include="Images\jquery-ui\ui-icons_ffffff_256x240.png" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\mCSB_buttons.png" />
+    <Content Include="Images\No.png" />
     <Content Include="Images\NoAuth.png" />
     <Content Include="Images\pqgrid\horiz-bg.png" />
     <Content Include="Images\pqgrid\horiz-slider-bg.png" />
