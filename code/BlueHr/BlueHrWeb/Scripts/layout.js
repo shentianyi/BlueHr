@@ -321,7 +321,4 @@ Layout.TransferTableToGrid = function (width, height, editable, divID, title, rP
     newObj.pageModel = { rPP: rPP, type: "local" };
 
     $("#" + gridID).pqGrid(newObj);
-
-    console.log(gridID);
-    console.log($("#" + gridID));
 }
