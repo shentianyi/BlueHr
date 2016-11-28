@@ -87,5 +87,17 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             }
         }
+
+        public List<Shift> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<Shift>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

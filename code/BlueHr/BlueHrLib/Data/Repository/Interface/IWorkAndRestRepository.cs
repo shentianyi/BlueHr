@@ -19,5 +19,6 @@ namespace BlueHrLib.Data.Repository.Interface
         bool DeleteById(int id);
 
         bool HasDateAtExist(DateTime? datetime);
+        List<WorkAndRest> GetAllTableName();
     }
 }

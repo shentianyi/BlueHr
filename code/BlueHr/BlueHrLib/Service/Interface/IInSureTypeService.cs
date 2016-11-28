@@ -27,5 +27,6 @@ namespace BlueHrLib.Service.Interface
         InSureTypeInfoModel GetInsureTypeInfo(InSureTypeSearchModel searchModel);
 
         List<InsureType> GetAll();
+        List<InsureType> GetAllTableName();
     }
 }

@@ -24,5 +24,6 @@ namespace BlueHrLib.Data.Repository.Interface
         List<AbsenceRecrod> GetAll();
 
         bool ApprovalTheRecord(AbsenceRecordApproval absRecordApproval);
+        List<AbsenceRecrod> GetAllTableName();
     }
 }

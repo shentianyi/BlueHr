@@ -32,5 +32,6 @@ namespace BlueHrLib.Service.Interface
         AbsenceRecordView FindViewByStaffNrAndDate(string staffNr, DateTime date);
 
         bool ApprovalTheRecord(AbsenceRecordApproval absRecordApproval);
+        List<AbsenceRecrod> GetAllTableName();
     }
 }

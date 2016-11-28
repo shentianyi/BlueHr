@@ -23,5 +23,6 @@ namespace BlueHrLib.Service.Interface
         bool Create(QuartzJob job);
 
         bool Delete(int id);
+        List<QuartzJob> GetAllTableName();
     }
 }

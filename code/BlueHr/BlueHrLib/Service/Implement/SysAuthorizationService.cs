@@ -75,5 +75,10 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.GetSysAuthByRoleId(roleId);
         }
+
+        public List<SysAuthorization> GetAllTableName()
+        {
+            return rep.GetAllTableName();
+        }
     }
 }

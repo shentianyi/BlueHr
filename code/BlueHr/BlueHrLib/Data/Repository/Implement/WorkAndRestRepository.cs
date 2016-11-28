@@ -134,5 +134,17 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             }
         }
+
+        public List<WorkAndRest> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<WorkAndRest>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

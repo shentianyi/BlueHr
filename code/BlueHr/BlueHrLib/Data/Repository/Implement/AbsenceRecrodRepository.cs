@@ -258,5 +258,17 @@ namespace BlueHrLib.Data.Repository.Implement
 
             return q.OrderByDescending(s => s.absenceDate);
         }
+
+        public List<AbsenceRecrod> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<AbsenceRecrod>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

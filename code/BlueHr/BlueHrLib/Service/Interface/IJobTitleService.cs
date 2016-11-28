@@ -30,5 +30,6 @@ namespace BlueHrLib.Service.Interface
         JobTitleInfoModel GetJobTitleInfo(JobTitleSearchModel searchModel);
 
         List<JobTitle> GetAll();
+        List<JobTitle> GetAllTableName();
     }
 }

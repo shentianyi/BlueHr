@@ -74,5 +74,10 @@ namespace BlueHrLib.Service.Implement
             DataContext dc = new DataContext(this.DbString);
             return dc.Context.GetTable<Shift>().FirstOrDefault(s => s.code.Equals(code));
         }
+
+        public List<Shift> GetAllTableName()
+        {
+            return rep.GetAllTableName();
+        }
     }
 }

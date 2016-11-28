@@ -92,6 +92,18 @@ namespace BlueHrLib.Data.Repository.Implement
             return this.context.GetTable<Department>().Where(m => m.companyId.Equals(companyId) && m.parentId.Equals(parentId)).FirstOrDefault(c => c.name.Equals(departmentName.Trim()));
         }
 
+        public List<Department> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<Department>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public IQueryable<Department> Search(DepartmentSearchModel searchModel)
         {
             IQueryable<Department> departments = this.context.Department;

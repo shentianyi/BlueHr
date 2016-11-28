@@ -61,6 +61,6 @@ namespace BlueHrLib.Service.Interface
         AttendanceRecordDetail FindById(int id);
 
         bool DeleteById(int id);
-
+        List<AttendanceRecordDetail> GetAllTableName();
     }
 }

@@ -26,5 +26,6 @@ namespace BlueHrLib.Service.Interface
         List<AbsenceType> GetAll();
 
         List<AbsenceType> GetSystemTypes();
+        List<AbsenceType> GetAllTableName();
     }
 }

@@ -36,5 +36,6 @@ namespace BlueHrLib.Service.Interface
         bool ChangePwd(int id, string pwd);
 
         List<User> FindByRoleId(int sysRoleId);
+        List<User> GetAllTableName();
     }
 }

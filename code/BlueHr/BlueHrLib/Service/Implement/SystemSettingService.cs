@@ -28,6 +28,18 @@ namespace BlueHrLib.Service.Implement
             return setting;
         }
 
+        public List<SystemSetting> GetAllTableName()
+        {
+            try
+            {
+                return (this.Context.Context.GetTable<SystemSetting>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public bool Update(SystemSetting setting)
         {
             DataContext dc = new DataContext(this.DbString);

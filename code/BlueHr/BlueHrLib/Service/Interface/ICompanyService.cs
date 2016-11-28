@@ -32,5 +32,6 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         string FindByIds(List<string> ids);
+        List<Company> GetAllTableName();
     }
 }

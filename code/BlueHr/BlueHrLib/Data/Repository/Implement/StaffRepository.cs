@@ -387,7 +387,8 @@ namespace BlueHrLib.Data.Repository.Implement
                 //    strWhere = "Select * from Staff Where " + AllTableName + " Contains '" + SearchValueFirst + "' as Staff";
                 //}
 
-                strWhere = "Select * from Staff Where Contains(nr, '2015')";
+                //strWhere = "Select * from Staff Where Contains(nr, '2015')";
+                strWhere = "Select * from Staff as s";
 
                 return this.context.CreateQuery<Staff>(strWhere);
             }

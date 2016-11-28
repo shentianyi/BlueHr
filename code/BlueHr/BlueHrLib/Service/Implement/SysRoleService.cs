@@ -70,5 +70,10 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.GetAll();
         }
+
+        public List<SysRole> GetAllTableName()
+        {
+            return rep.GetAllTableName();
+        }
     }
 }

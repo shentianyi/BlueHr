@@ -75,6 +75,18 @@ namespace BlueHrLib.Data.Repository.Implement
             return cp;
         }
 
+        public List<Company> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<Company>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public IQueryable<Company> Search(CompanySearchModel searchModel)
         {
             IQueryable<Company> companies = this.context.Company;

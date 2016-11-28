@@ -90,5 +90,17 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<DegreeType>().FirstOrDefault(c => c.name.Equals(name.Trim()));
         }
+
+        public List<DegreeType> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<DegreeType>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 } 

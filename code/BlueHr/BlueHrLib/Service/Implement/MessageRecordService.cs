@@ -249,5 +249,17 @@ namespace BlueHrLib.Service.Implement
                 throw new DataNotFoundException();
             }
         }
+
+        public List<MessageRecord> GetAllTableName()
+        {
+            try
+            {
+                return (this.Context.Context.GetTable<MessageRecord>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

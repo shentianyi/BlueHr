@@ -84,5 +84,17 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<InsureType>().FirstOrDefault(c => c.name.Equals(name.Trim()));
         }
+
+        public List<InsureType> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<InsureType>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

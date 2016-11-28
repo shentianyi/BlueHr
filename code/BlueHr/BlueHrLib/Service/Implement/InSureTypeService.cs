@@ -66,5 +66,10 @@ namespace BlueHrLib.Service.Implement
         {
             return inSureTypeRep.FindByName(name);
         }
+
+        public List<InsureType> GetAllTableName()
+        {
+            return inSureTypeRep.GetAllTableName();
+        }
     }
 }

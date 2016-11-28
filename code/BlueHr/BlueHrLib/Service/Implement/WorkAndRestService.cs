@@ -44,6 +44,11 @@ namespace BlueHrLib.Service.Implement
             return workAndRestRep.FindById(id);
         }
 
+        public List<WorkAndRest> GetAllTableName()
+        {
+            return workAndRestRep.GetAllTableName();
+        }
+
         public List<WorkAndRest> GetByDateSpan(DateTime startDate, DateTime endDate)
         {
             return new DataContext(this.DbString).Context.GetTable<WorkAndRest>().Where(s => s.dateAt >= startDate && s.dateAt <= endDate).ToList();
