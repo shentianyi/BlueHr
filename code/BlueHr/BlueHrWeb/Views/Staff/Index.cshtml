@@ -7,12 +7,6 @@
     ViewBag.Title = "Index";
 }
 
-<style type="text/css">
-    body{
-        overflow:hidden;
-    }
-</style>
-
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>员工管理</li>
@@ -95,7 +89,9 @@
                 <div class="marco-igroup-primary">
                     <span>值2</span>
                     <input type="text" name="searchValueSecond" value="" />
-                    <button type="submit" class="marco-btn-primary" style="margin:0;">确定</button>
+                    <span>
+                        <button type="submit" class="marco-btn-primary" style="margin:0;">确定</button>
+                    </span>
                 </div>
             </div>
         </div>
@@ -132,9 +128,11 @@
             <li role="presentation"><a href="#off_staff" role="tab" data-toggle="tab">离职人员</a></li>
             <li role="presentation"><a href="#all_staff" role="tab" data-toggle="tab">全部人员</a></li>
         </ul>
+
         <div class="tab-content">
+
             <div role="tabpanel" class="tab-pane active" id="on_staff">
-                <div id="on_staff_grid_table" style="margin:auto;"></div>
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="on_staff_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -229,7 +227,7 @@
             </div>
 
             <div role="tabpanel" class="tab-pane" id="off_staff">
-                <div id="off_staff_grid_table" style="margin:auto;"></div>
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="off_staff_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -324,7 +322,7 @@
             </div>
 
             <div role="tabpanel" class="tab-pane" id="all_staff">
-                <div id="all_staff_grid_table" style="margin:auto;"></div>
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_staff_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -414,6 +412,7 @@
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
 </div> 
@@ -466,37 +465,25 @@
 <script type="text/javascript">
     Layout.init();
 
-    TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
-    //TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
-    //TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_staff", "离职员工列表", "20", "all_staff_grid_table");
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_staff", "离职员工列表", "20", "all_staff_grid_table");
+    })
 
-    $('a[href="#off_staff"]').click(function () {
-        TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
-    });
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
+  
 
-    $('a[href="#all_staff"]').click(function () {
-        TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_staff", "离职员工列表", "20", "all_staff_grid_table");
-    });
+        $('#off_staff').addClass("active");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
+        $('#off_staff').removeClass("active");
 
-    function TransferTableToGrid(width, height, editable, divID, title, rPP, gridID) {
-        var tb = $("#" + divID + ">table");
-        var obj = $.paramquery.tableToArray(tb);
+    
+        TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
+        $('#all_staff').addClass("active");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_staff", "离职员工列表", "20", "all_staff_grid_table");
+        $('#all_staff').removeClass("active");
 
-        var newObj = {
-            width: width,
-            height: height,
-            title: title,
-            scrollModel: { pace: 'fast', autoFit: true, theme: true },
-            editable: editable
-        };
-
-        newObj.dataModel = { data: obj.data };
-        newObj.colModel = obj.colModel;
-
-        newObj.pageModel = { rPP: rPP, type: "local" };
-
-        $("#" + gridID).pqGrid(newObj);
-    }
 
     Layout.CompanyAndDepartment('#companyId', '#departmentId');
     Layout.rangedatepicker('#CompanyEmployAtFrom', '#CompanyEmployAtTo');
@@ -524,7 +511,6 @@
             }
         });
     });
-
 
     $("#btnEdit3").click(function () {
 

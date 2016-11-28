@@ -124,6 +124,22 @@ Layout.init = function () {
         case "SystemSetting":
             $('.nav-system-setting').addClass('active');
             break;
+        case "InterApply":
+            $('.nav-inter-apply').addClass('active');
+            PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            break;
+        case "Rehire":
+            $('.nav-rehire').addClass('active');
+            PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            break;
+        case "ExtraWorkRecord":
+            $('.nav-summary-report').addClass('active');
+            PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            break;
+        case "SysOpera":
+            $('.nav-system-opera').addClass('active');
+            PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            break;
         default:
             break;
     }
@@ -283,4 +299,29 @@ function FutureDate(day) {
     var now = new Date();
     var FutureDate = new Date(now.getTime() - day * 24 * 60 * 60 * 1000).Format("yyyy-MM-dd hh:mm");
     return FutureDate;
+}
+
+
+Layout.TransferTableToGrid = function (width, height, editable, divID, title, rPP, gridID) {
+
+    var tb = $("#" + divID + ">table");
+    var obj = $.paramquery.tableToArray(tb);
+
+    var newObj = {
+        width: width,
+        height: height,
+        title: title,
+        scrollModel: { pace: 'fast', autoFit: true, theme: true },
+        editable: editable
+    };
+
+    newObj.dataModel = { data: obj.data };
+    newObj.colModel = obj.colModel;
+
+    newObj.pageModel = { rPP: rPP, type: "local" };
+
+    $("#" + gridID).pqGrid(newObj);
+
+    console.log(gridID);
+    console.log($("#" + gridID));
 }

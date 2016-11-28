@@ -3,7 +3,7 @@
 @model IPagedList<BlueHrLib.Data.StaffType>
 
 @{
-    ViewBag.Title = "人员类型管理";
+    ViewBag.Title = "人员类型";
 }
 
 @*@Styles.Render("~/Content/degreetype")*@
@@ -11,7 +11,7 @@
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>基础信息</li>
-    <li>人员类型管理</li>
+    <li>人员类型</li>
 </ol>
 
 <hr class="hr-grey" />
@@ -33,77 +33,43 @@
     </form>
 </div>
 
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="usual-table">
-        <div class="table-heading">
-            人员类型列表
-            <div class="pull-right" style="margin-top:-12px;">
-                <a href="/StaffType/Create">
-                    <button class="marco-btn-primary">
-                        <i class="glyphicon glyphicon-plus-sign"></i>
-                        <span>创建</span>
-                    </button>
-                </a>
-            </div>
-        </div>
-        <div class="table-body content_3">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>人员类型名称</th>
-                        <th>备注</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model)
-                        {
-                            <tr>
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.remark)
-                                </td>
-                                <td>
-                                    <a href="/StaffType/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-
-                                    <a href="/StaffType/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
-        <div class="clearfix pagination">
-            <div class="pagination-inner">
-                @if (Model != null)
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_staff_type">
+    <div id="all_staff_type_grid_table"></div>
+    <table class="table table-bordered" style="display:none;">
+        <thead>
+            <tr>
+                <th>人员类型名称</th>
+                <th>备注</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
                 {
-                    if (ViewBag.Query != null)
-                    {
+                    <tr>
 
-                        var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                            .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
-                        @html
-                    }
-                    else
-                    {
-                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                    }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.remark)
+                        </td>
+                        <td>
+                            <a href="/StaffType/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                <i class="fa fa-eye"></i>
+                            </a>
+
+                            <a href="/StaffType/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
                 }
-            </div>
-        </div>
-    </div>
+            }
+        </tbody>
+    </table>
 </div>
 
 
@@ -111,4 +77,6 @@
 
 <script type="text/javascript">
     Layout.init();
+
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 200, false, "all_staff_type", "人员类型", "20", "all_staff_type_grid_table");
 </script>

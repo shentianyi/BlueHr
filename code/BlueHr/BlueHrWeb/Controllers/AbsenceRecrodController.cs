@@ -502,4 +502,3 @@ namespace BlueHrWeb.Controllers
         }
     }
 }
-

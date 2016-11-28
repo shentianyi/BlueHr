@@ -1,0 +1,262 @@
+﻿@using MvcPaging
+
+@model IPagedList<BlueHrLib.Data.SysRole>
+
+@{
+    ViewBag.Title = "角色管理";
+}
+
+<style type="text/css">
+    .ztree li a.curSelectedNode {
+	    color: white;
+        font-weight:normal;
+        border-radius: 5px;
+    }
+    body{
+        overflow:hidden;
+    }
+
+</style>
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>权限管理</li>
+    <li>角色管理</li>
+</ol>
+
+<hr class="hr-grey" />
+
+<div class="row" style="margin: 0;">
+    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12">
+        <span>角色</span>
+        <div class="pull-right" style="margin-top: -8px;">
+            <a href="/SysRole/TableShow">
+                <button class="marco-btn-primary">
+                    角色列表展示
+                </button>
+            </a>
+        </div> 
+                
+        <div id="SysRole" class="ztree" style="overflow:auto;"></div>
+    </div>
+
+    <div class="col-lg-5 col-md-5 col-xs-6 col-sm-12" style="border-left: 1px dashed #ddd ;">
+        <div class="pull-right" style="margin-right:5px;">
+            <a href="/SysRoleAuthorization/Index">
+                <button class="marco-btn-primary">
+                    角色权限列表展示
+                </button>
+            </a>
+        </div> 
+
+        <div id="sysRoleDetail">
+            <p>
+                角色名称：<br />备注：
+            </p>   
+        </div>
+
+        <hr class="hr-grey" />
+
+        <span class="marco-badge">角色权限</span>
+
+        <button id="assign-auth" class="marco-btn-success pull-right" style="margin-top: -5px; display:none;">
+            <i class="fa fa-check"></i>   
+            <span>分配权限</span>    
+        </button>
+
+        <div class="marco-igroup-primary pull-right" style="margin-top: -5px; height:30px; margin-right:5px; display:none;">
+            <select id="treeTypeSelect" style="padding:0; height:28px;">
+                <option value="1">按动作显示</option>
+                <option value="0">按模块显示</option>
+            </select>
+        </div>
+
+        <div id="SysRoleAuthorization" class="ztree" style="overflow:auto; width: 100%;"></div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12" style="border-left: 1px dashed #ddd ;">
+        <span>用户</span>
+
+        <div class="pull-right" style="margin-top: -5px;">
+            <a href="/User/Index">
+                <button class="marco-btn-primary">
+                    用户列表展示
+                </button>
+            </a>
+        </div> 
+
+        <div id="Users" class="ztree" style="overflow:auto;"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    Layout.init();
+
+    $(".ztree").css("height", $(window).height() - 200 + 'px');
+
+    $.ajax({
+            url: '/SysRole/SysRoleTree',
+            type: 'get',
+            success: function (data) {
+                function zTreeSysRoleOnClick(event, treeId, treeNode) {
+                    $("#assign-auth").css("display", "block");
+                    $("#treeTypeSelect").parent().css("display", "block");
+
+                    var SysRoleNode = $.fn.zTree.getZTreeObj("SysRole").getSelectedNodes()[0];
+                    $.fn.zTree.getZTreeObj("SysRole").checkNode(SysRoleNode, true, true);
+
+                    $("#sysRoleDetail").empty();
+                    $("#SysRoleAuthorization").empty();
+                    $("#Users").empty();
+
+                    var Html = "<p> 角色名称： <span style='color: red; font-weight: bold;'>" + SysRoleNode.name + "</span>  <br />备注： " + SysRoleNode.remark + " </p>";
+
+                    $(Html).appendTo('#sysRoleDetail');
+
+                    ShowTree();
+
+                    $("#treeTypeSelect").change(function () {
+                        console.log("VVVVVVVVVVVVVV");
+                        ShowTree();
+                    })
+
+                    function ShowTree() {
+                      $.ajax({
+                        url: '/SysRoleAuthorization/SysAuthorizationTree',
+                        type: 'get',
+                        data: {
+                            sysRoleId: SysRoleNode.id,
+                            showType: $("#treeTypeSelect").val()
+                        },
+                        success: function (data) {
+                            //进行数据整合
+                            var sysRoleAuthzNodes = data["SysRoleAuths"];
+
+                            var UsersNodes = data["Users"];
+
+                            var sysRoleAuthSetting = {
+                                check: {
+                                    enable: true,
+                                    chkboxType: { "Y": "ps", "N": "ps" }
+                                },
+                                data: {
+                                    simpleData: {
+                                        enable: true
+                                    }
+                                },
+                                callback: {
+                                    //onClick: zTreeSysRoleAuthOnClick
+                                },
+                                view: {
+                                    selectedMulti: false
+                                }
+                            };
+
+                            var usersSetting = {
+                                check: {
+                                    enable: false,
+                                    chkboxType: { "Y": "", "N": "" }
+                                },
+                                data: {
+                                    simpleData: {
+                                        enable: true
+                                    }
+                                },
+                                callback: {
+                                    //点击用户可以做什么
+                                    //onClick: zTreeSysRoleOnClick
+                                },
+                                view: {
+                                    selectedMulti: false
+                                }
+                            };
+
+                            $.fn.zTree.init($("#SysRoleAuthorization"), sysRoleAuthSetting, sysRoleAuthzNodes);
+                            $.fn.zTree.init($("#Users"), usersSetting, UsersNodes);
+
+                            $("#assign-auth").click(function () {
+                                var ZTree = $.fn.zTree.getZTreeObj("SysRoleAuthorization");
+
+                                var CheckedArray = new Array();
+                                CheckedArray = ZTree.getCheckedNodes(true);
+
+                                var nodes = $.fn.zTree.getZTreeObj("SysRole").getSelectedNodes();
+
+                                if (nodes.length > 1 && confirm("确定要给多个角色分配相同权限？")) {
+                                    for (var node in nodes) {
+                                        $.ajax({
+                                            url: "/SysRoleAuthorization/AssignAuthsToRole",
+                                            type: 'post',
+                                            data: {
+                                                sysRoleId: nodes[node].id,
+                                                roleAuthArray: CheckedArray
+                                            },
+                                            success: function (data) {
+                                                if (data) {
+                                                    Layout.popMsg("popMsg-success", "分配成功");
+                                                } else {
+                                                    Layout.popMsg("popMsg-danger", "分配失败");
+                                                }
+                                            },
+                                            error: function () {
+                                                Layout.popMsg("popMsg-danger", "设置权限API失败");
+                                            }
+                                        })
+                                    }
+                                } else if (nodes.length == 1) {
+                                    $.ajax({
+                                        url: "/SysRoleAuthorization/AssignAuthsToRole",
+                                        type: 'post',
+                                        data: {
+                                            sysRoleId: nodes[0].id,
+                                            roleAuthArray: CheckedArray
+                                        },
+                                        success: function (data) {
+                                            if (data) {
+                                                Layout.popMsg("popMsg-success", "分配成功");
+                                            } else {
+                                                Layout.popMsg("popMsg-danger", "分配失败");
+                                            }
+                                        },
+                                        error: function () {
+                                            Layout.popMsg("popMsg-danger", "设置权限API失败");
+                                        }
+                                    })
+                                } else {
+                                    Layout.popMsg("popMsg-danger", "请先选择角色，再进行权限分配");
+                                }
+                            });
+                        },
+                        error: function () {
+                            console.log("DDDDDDDDDd");
+                        }
+                    });
+                    }
+                }
+                var sysRolezNodes = data;
+
+                var setting = {
+                    check: {
+                        enable: false,
+                        chkboxType: { "Y": "", "N": "" }
+                    },
+                    data: {
+                        simpleData: {
+                            enable: true
+                        }
+                    },
+                    callback: {
+                        onClick: zTreeSysRoleOnClick
+                    },
+                    view: {
+                        selectedMulti: false
+                    }
+                };
+
+                $.fn.zTree.init($("#SysRole"), setting, sysRolezNodes);
+            },
+            error: function () {
+                console.log("DDDDDDDDDD");
+            }
+        });
+</script>
