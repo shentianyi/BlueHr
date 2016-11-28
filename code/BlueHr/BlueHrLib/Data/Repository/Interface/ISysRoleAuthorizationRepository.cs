@@ -24,5 +24,9 @@ namespace BlueHrLib.Data.Repository.Interface
         List<SysRoleAuthorization> GetAll();
 
         List<SysRoleAuthorization> GetSysRoleAuthListByRoleName(string roleName);
+
+        List<SysRoleAuthorization> FindByRoleId(int roleId);
+
+        bool DeleteByRoleId(int roleId);
     }
 }

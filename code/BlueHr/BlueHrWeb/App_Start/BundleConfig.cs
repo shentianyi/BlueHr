@@ -42,7 +42,10 @@ namespace BlueHrWeb
                       "~/Scripts/respond.js",
                       "~/Scripts/jquery.slimscroll.js",
                       "~/Scripts/AdminLTE.js",
-                      "~/Scripts/jquery.combo.select.js"
+                      "~/Scripts/jquery.combo.select.js",
+                      "~/Scripts/bootstrap.addtabs.js",
+                      "~/Scripts/jquery.ztree.all-3.5.js",
+                      "~/Scripts/pqgrid.dev.js"
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/layout").Include(
@@ -82,7 +85,10 @@ namespace BlueHrWeb
                      "~/Content/jquery-ui.css",
                      "~/Content/AdminLTE.css",
                      "~/Content/AdminLTEBlue.css",
-                     "~/Content/combo.select.css"
+                     "~/Content/combo.select.css",
+                     "~/Content/bootstrap.addtabs.css",
+                     "~/Content/jquery-tree.css",
+                     "~/Content/pqgrid.dev.css"
                      ));
 
             bundles.Add(new StyleBundle("~/Content/layout").Include(

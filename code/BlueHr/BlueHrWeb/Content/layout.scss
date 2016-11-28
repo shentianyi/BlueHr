@@ -651,6 +651,110 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
     @include card-box($alizarin, $clouds);
 }
 
+@mixin marco-tabs($marco-bg: $brlize-hole, $marco-font: $peter-river, $marco-active-bg: $brlize-hole, $marco-active-font: $light-grey){
+    ul{
+        /*border-color:$peter-river;*/
+        border:none;
+        li{
+            margin-left:-3px;
+            a{
+                border-radius:0;
+                padding: 5px;
+                color: $marco-font;
+                background-color: $marco-bg;
+                text-align:center;
+                &:hover, &:link, &:active{
+                    cursor:pointer;
+                    background: transparent;
+                    border-color:$marco-bg;
+                    border-bottom:$brlize-hole;
+                }
+            }
+            .badge{
+                border-radius:0;
+                background: transparent;
+                color:$marco-font;
+            }
+
+            &:first-child{
+                margin-left:0;
+                a{
+                    border-top-left-radius:5px;
+                }
+            }
+
+            &:last-child{
+                a{
+                    border-top-right-radius:5px;
+                }
+            }
+        }
+        .active{
+                a{
+                    padding: 5px;
+                    border:none;
+                    background-color: $marco-active-bg;
+                    &:hover, &:link, &:active{
+                        border:none;
+                        border-top: 1px solid $marco-active-bg;
+                        cursor:default;
+                        background: $marco-active-bg;
+                        color:$marco-active-font;
+                         &:first-child{
+                             border-left:1px solid $marco-active-bg;
+                        }
+                    }
+                }
+                .badge{
+                    padding:5px 8px;
+                    border-radius:0;
+                    background: transparent;
+                }
+        }
+    }
+
+    .tab-content{
+        min-height: 200px;
+        border: 1px solid $marco-active-bg;
+        padding: 5px;
+        font-size: 12px;
+        border-radius: 5px;
+        border-top-left-radius: 0;
+        ul{
+            list-style:none;
+            padding-left:0;
+            overflow:auto;
+            li{
+                padding: 5px 8px;
+                height: 50px !important;
+                line-height:20px !important;
+                border-bottom:1px dashed $light-grey;
+                cursor:pointer;
+
+                &:first-child{
+                    margin-top:0;
+                }
+
+                &:last-child{
+                    border:none
+                }
+            }
+        }
+    }
+}
+
+.marco-tabs-default{
+    @include marco-tabs;
+}
+
+.marco-tabs-dark{
+    @include marco-tabs($marco-active-bg: $brlize-hole, $marco-active-font: $silver);
+}
+
+.marco-tabs-normal{
+    @include marco-tabs($marco-active-bg: $silver, $marco-active-font: $brlize-hole);
+}
+
 @mixin popMsg($marco-bg: $peter-river, $marco-color: white){
     position:fixed;
     top: 52px;

@@ -30,5 +30,11 @@ namespace BlueHrLib.Data.Repository.Interface
         bool IsStaffExist(string nr);
         List<Staff> SearchPermanentStaff(StaffSearchModel searchModel);
         //List<Staff> getStaffUserIDCard();
+
+        List<Staff> FindByCompanyAndDepartment(int companyId, int departmentId);
+
+        List<Staff> GetAllTableName();
+
+        IQueryable<Staff> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst, string SearchValueSecond);
     }
 }

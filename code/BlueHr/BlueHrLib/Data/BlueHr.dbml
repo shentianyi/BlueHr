@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHr" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=MB-PC;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString10" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHrV2" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=SFZ-PC\SQLEXPRESS;Initial Catalog=BlueHrV2;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrV2ConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.WorkAndRest" Member="WorkAndRest">
     <Type Name="WorkAndRest">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -758,6 +758,24 @@
       <Column Name="IsRevoked" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="JobTitle_JobCertificate" Member="JobCertificate" ThisKey="id" OtherKey="jobTitleId" Type="JobCertificate" />
       <Association Name="JobTitle_Staff" Member="Staff" ThisKey="id" OtherKey="jobTitleId" Type="Staff" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SysRoleAuthView" Member="SysRoleAuthView">
+    <Type Name="SysRoleAuthView">
+      <Column Name="SysAuthId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SysAuthName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="controlName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="actionName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SysAuthParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="funCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="isDelete" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SysAuthRemarks" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SysRoleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SysRoleRemarks" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="roleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="authId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SysRoleAuthRemarks" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

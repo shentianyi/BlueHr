@@ -286,7 +286,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\UserIDCardViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -297,6 +296,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AdminLTE.css" />
+    <Content Include="Content\bootstrap.addtabs.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\combo.select.css" />
@@ -309,6 +309,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\input-style.css" />
     <Content Include="Content\jquery-popModal.css" />
+    <Content Include="Content\jquery-tree.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\jquery.mCustomScrollbar.css" />
@@ -320,25 +321,56 @@
     </Content>
     <Content Include="Content\pagination.css" />
     <Content Include="Content\AdminLTEBlue.css" />
+    <Content Include="Content\pqgrid.dev.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\font-awesome\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\back.png" />
+    <Content Include="Images\jquery-ui\ui-icons_444444_256x240.png" />
+    <Content Include="Images\jquery-ui\ui-icons_555555_256x240.png" />
+    <Content Include="Images\jquery-ui\ui-icons_777620_256x240.png" />
+    <Content Include="Images\jquery-ui\ui-icons_777777_256x240.png" />
+    <Content Include="Images\jquery-ui\ui-icons_cc0000_256x240.png" />
+    <Content Include="Images\jquery-ui\ui-icons_ffffff_256x240.png" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\mCSB_buttons.png" />
     <Content Include="Images\NoAuth.png" />
+    <Content Include="Images\pqgrid\horiz-bg.png" />
+    <Content Include="Images\pqgrid\horiz-slider-bg.png" />
+    <Content Include="Images\pqgrid\loading.gif" />
+    <Content Include="Images\pqgrid\sprite.png" />
+    <Content Include="Images\pqgrid\square_dirty.gif" />
+    <Content Include="Images\pqgrid\vert-bg.png" />
+    <Content Include="Images\pqgrid\vert-slider-bg.png" />
+    <Content Include="Images\treeIcon\diy\arrow-close.png" />
+    <Content Include="Images\treeIcon\diy\arrow-open.png" />
+    <Content Include="Images\treeIcon\diy\bank.png" />
+    <Content Include="Images\treeIcon\diy\checkbox-part.png" />
+    <Content Include="Images\treeIcon\diy\checkbox.png" />
+    <Content Include="Images\treeIcon\diy\checked.png" />
+    <Content Include="Images\treeIcon\diy\shop.png" />
+    <Content Include="Images\treeIcon\diy\sysRoleAuth.png" />
+    <Content Include="Images\treeIcon\diy\sysRoleAuthParent.png" />
+    <Content Include="Images\treeIcon\diy\user.png" />
+    <Content Include="Images\treeIcon\diy\users.png" />
+    <Content Include="Images\treeIcon\line_conn.png" />
+    <Content Include="Images\treeIcon\loading.gif" />
+    <Content Include="Images\treeIcon\metro.gif" />
+    <Content Include="Images\treeIcon\metro.png" />
     <Content Include="README.txt" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\AdminLTE.js" />
     <Content Include="Scripts\bootstrap-treeview-1.2.0\bootstrap-treeview.css" />
     <Content Include="Scripts\bootstrap-treeview-1.2.0\bootstrap-treeview.js" />
+    <Content Include="Scripts\bootstrap.addtabs.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\layout.scss" />
     <Content Include="fonts\font-awesome\fontawesome-webfont.eot" />
@@ -389,11 +421,13 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery.ztree.all-3.5.js" />
     <Content Include="Scripts\layout.js" />
     <Content Include="Scripts\magnific-popup\jquery.magnific-popup.js" />
     <Content Include="Scripts\magnific-popup\jquery.magnific-popup.min.js" />
     <Content Include="Content\magnific-popup.css" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\pqgrid.dev.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\staff.js" />
@@ -404,6 +438,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TmpFile\keep.txt" />
+    <Content Include="UploadCertificate\.gitignore" />
+    <Content Include="UploadCertificate\A001\20160912183930_photo.jpg" />
+    <Content Include="UploadCertificate\A001\20160912184058_photo.jpg" />
+    <Content Include="UploadCertificate\A001\20160912184100_1435643954_ZJFrtEQM.jpg" />
+    <Content Include="UploadCertificate\A001\20160912184106_CycleTime Detail.png" />
+    <Content Include="UploadCertificate\keep.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -413,10 +453,11 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -585,11 +626,20 @@
     <Content Include="Views\Home\NoAuthPage.cshtml" />
     <Content Include="Views\SysAuthorization\Edit.cshtml" />
     <Content Include="Views\StaffType\User\ChangePwd.cshtml" />
-    <Content Include="Views\Staff\Idcard.cshtml" />
+    <Content Include="Views\User\ChangePwd.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\_PartialUser.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Company\TreeShow.cshtml" />
+    <Content Include="Views\SysRole\TableShow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="UploadImage\" />
+    <Folder Include="Views\SystemOperating\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

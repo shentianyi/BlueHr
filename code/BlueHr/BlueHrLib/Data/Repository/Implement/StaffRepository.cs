@@ -8,6 +8,7 @@ using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Interface;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Data.Model;
+using ALinq.Dynamic;
 
 namespace BlueHrLib.Data.Repository.Implement
 {
@@ -339,19 +340,63 @@ namespace BlueHrLib.Data.Repository.Implement
             }
         }
 
+        public List<Staff> FindByCompanyAndDepartment(int companyId, int departmentId)
+        {
+            try
+            {
+                var Staff = this.context.GetTable<Staff>().Where(c=>c.companyId.Equals(companyId)).Where(c=>c.departmentId.Equals(departmentId));
+                if (Staff != null)
+                {
+                    return Staff.ToList();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
 
+        public List<Staff> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<Staff>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
 
-        //public List<Staff> getStaffUserIDCard()
-        //{
-        //    var staffs = context.GetTable<Staff>().Select(s => new { nr = s.nr, id = s.id, residenceAddress = s.residenceAddress }).ToList();
-        //    List<Staff> staff = staffs.Select(s => new Staff { nr = s.nr, id = s.id, residenceAddress = s.residenceAddress }).ToList();
-        //    return staff;
-        //    //var movies = from m in db.Movies
-        //    //             where m.ReleaseDate > new DateTime(1984, 6, 1)
-        //    //             select new { ID = m.ID, Title = m.Title, Price = m.Price };
+        public IQueryable<Staff> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst, string SearchValueSecond)
+        {
+            string strWhere = string.Empty;
 
-        //    //List<Movie> movie = movies.ToList()
-        //    //                        .Select(m => new Movie { ID = m.ID, Title = m.Title, Price = m.Price }).ToList();
-        //}
+            try
+            {
+                //if (SearchValueSecond != null)
+                //{
+                //    strWhere = "Select * from Staff where " + AllTableName + " Contains " + SearchValueFirst;
+                //}
+                //else
+                //{
+                //    strWhere = "Select * from Staff Where " + AllTableName + " Contains '" + SearchValueFirst + "' as Staff";
+                //}
+
+                strWhere = "Select * from Staff Where Contains(nr, '2015')";
+
+                return this.context.CreateQuery<Staff>(strWhere);
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+                Console.Write(e);
+                return null;
+            }
+        }
     }
 }

@@ -34,6 +34,13 @@ namespace BlueHrWeb.Controllers
             return View(companies);
         }
 
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult TreeShow()
+        {
+            return View();
+        }
+
         [RoleAndDataAuthorizationAttribute]
 
         public ActionResult Search([Bind(Include = "Name")] CompanySearchModel q)
@@ -50,7 +57,6 @@ namespace BlueHrWeb.Controllers
 
             return View("Index", companies);
         }
-
 
         // GET: Company/Details/5
         [RoleAndDataAuthorizationAttribute]
@@ -147,5 +153,30 @@ namespace BlueHrWeb.Controllers
                 return View(company);
             }
         }
+
+        [HttpGet]
+        public JsonResult CompanyTree()
+        {
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+
+            CompanySearchModel q = new CompanySearchModel();
+            ICompanyService ss = new CompanyService(Settings.Default.db);
+            List<Company> companies = ss.Search(q).ToList();
+
+            foreach(var company in companies)
+            {
+                Dictionary<string, string> cp = new Dictionary<string, string>();
+                cp.Add("id", company.id.ToString());
+                cp.Add("name", company.name);
+                cp.Add("address", company.address);
+                cp.Add("remark", company.remark);
+                cp.Add("open", "true");
+                cp.Add("iconSkin", "shopIcon");
+
+                Result.Add(cp);
+            }
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

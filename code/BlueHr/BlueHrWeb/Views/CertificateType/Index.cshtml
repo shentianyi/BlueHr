@@ -11,7 +11,7 @@
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>基础信息</li>
-    <li>证照管理</li>
+    <li>证照类型</li>
 </ol>
 
 <hr class="hr-grey" />
@@ -90,18 +90,17 @@
         <div class="clearfix pagination">
             <div class="pagination-inner">
                 @if (Model != null)
-            {
-                if (ViewBag.Query != null)
                 {
-
-                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                        .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
-                        @html
-                    }
-                    else
-                    {
-                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                    }
+                    if (ViewBag.Query != null)
+                        {
+                            var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                                .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
+                                @html
+                        }
+                        else
+                        {
+                            @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        }
                 }
             </div>
         </div>
