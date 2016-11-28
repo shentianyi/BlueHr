@@ -10,13 +10,13 @@ div.pq-grid{
     overflow:hidden;
     position:relative;
 }
-div.pq-grid *{
+/*div.pq-grid *{
     font-family: Arial;
     font-size:12px;	
     margin: 0px;
     padding: 0px;
     line-height:normal;	
-}
+}*/
 div.pq-grid *:focus{
     outline:1px dotted gray;
 }
@@ -91,11 +91,11 @@ div.pq-toolbar .pq-separator
     margin:1px auto 1px;
     padding:1px 4px;        
 }
-.pq-grid-dialog *
+/*.pq-grid-dialog *
 {
     font-family:Tahoma;
     font-size:11px;	
-}
+}*/
 .pq-grid-dialog form
 {
     margin-top:20px;
@@ -223,6 +223,8 @@ table.pq-grid-header-table{
 table.pq-grid-header-table div.pq-td-div{
     padding:5px;
     position:relative;
+    text-align:center;
+    font-weight:bold;
 }			
 table.pq-grid-header-table td{
 }
@@ -293,6 +295,7 @@ table.pq-wrap > tbody > tr > td.pq-grid-col
 {
     word-wrap:break-word;
     white-space: normal;
+    text-align:center;
 }
 table.pq-no-wrap > tbody > tr > td.pq-grid-cell,
 table.pq-no-wrap > tbody > tr > td.pq-grid-col

@@ -769,7 +769,8 @@
     border: 2px solid #3498db;
     line-height: 20px;
     vertical-align: middle;
-    color: #3498db; }
+    color: #3498db;
+    padding-left: 2px; }
     .option-icon-primary i:hover {
       background: #3498db;
       color: #ecf0f1; }
@@ -788,7 +789,8 @@
     border: 2px solid #2ecc71;
     line-height: 20px;
     vertical-align: middle;
-    color: #2ecc71; }
+    color: #2ecc71;
+    padding-left: 2px; }
     .option-icon-success i:hover {
       background: #2ecc71;
       color: #ecf0f1; }
@@ -807,7 +809,8 @@
     border: 2px solid #E67E22;
     line-height: 20px;
     vertical-align: middle;
-    color: #E67E22; }
+    color: #E67E22;
+    padding-left: 2px; }
     .option-icon-warning i:hover {
       background: #E67E22;
       color: #ecf0f1; }
@@ -826,7 +829,8 @@
     border: 2px solid #c0392b;
     line-height: 20px;
     vertical-align: middle;
-    color: #c0392b; }
+    color: #c0392b;
+    padding-left: 2px; }
     .option-icon-danger i:hover {
       background: #c0392b;
       color: #ecf0f1; }

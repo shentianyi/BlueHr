@@ -8,6 +8,7 @@ using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Interface;
 using BlueHrLib.Service.Implement;
 using ALinq.Dynamic;
+using BlueHrLib.Helper;
 
 namespace BlueHrLib.Data.Repository.Implement
 {
@@ -379,40 +380,17 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 if (SearchValueSecond != string.Empty)
                 {
-                    switch (SearchConditions)
-                    {
-                        case "1": strWhere = "Select s from Staff as s where s." + AllTableName + ">" + SearchValueFirst; break;
-                        case "2": strWhere = "Select s from Staff as s where s." + AllTableName + "<" + SearchValueFirst; break;
-                        case "3": strWhere = "Select s from Staff as s where s." + AllTableName + "=" + SearchValueFirst; break;
-                        case "4": strWhere = "Select s from Staff as s where s." + AllTableName + ">=" + SearchValueFirst; break;
-                        case "5": strWhere = "Select s from Staff as s where s." + AllTableName + "<=" + SearchValueFirst; break;
-                        case "6": strWhere = "Select s from Staff as s where Contains(s." + AllTableName + ", '" + SearchValueFirst + "')"; break;
-                        case "7": strWhere = "Select s from Staff as s where Contains(s." + AllTableName + ", '" + SearchValueFirst + "')"; break;
-                        case "8": strWhere = "Select s from Staff as s where s." + AllTableName + " like /" + SearchValueFirst + "/"; break;
-                        case "9": strWhere = "Select s from Staff as s where s." + AllTableName + " like " + SearchValueFirst + "/"; break;
-                        case "10": strWhere = "Select s from Staff as s where s." + AllTableName + " like %" + SearchValueFirst + ""; break;
-                    }
+                    strWhere += SearchConditionsHelper.GetStrWhere("Staff", AllTableName, SearchConditions, SearchValueFirst);
+                    strWhere += SearchConditionsHelper.GetStrWhere("Staff", AllTableName, SearchConditions, SearchValueSecond);
                 }
                 else
                 {
-                    switch (SearchConditions)
-                    {
-                        case "1": strWhere = "Select s from Staff as s where s." + AllTableName + ">" + SearchValueFirst; break;
-                        case "2": strWhere = "Select s from Staff as s where s." + AllTableName + "<" + SearchValueFirst; break;
-                        case "3": strWhere = "Select s from Staff as s where s." + AllTableName + "=" + SearchValueFirst; break;
-                        case "4": strWhere = "Select s from Staff as s where s." + AllTableName + ">=" + SearchValueFirst; break;
-                        case "5": strWhere = "Select s from Staff as s where s." + AllTableName + "<=" + SearchValueFirst; break;
-                        case "6": strWhere = "Select s from Staff as s where Contains(s." + AllTableName + ", '" + SearchValueFirst + "')"; break;
-                        case "7": strWhere = "Select s from Staff as s where Contains(s." + AllTableName + ", '" + SearchValueFirst + "')"; break;
-                        case "8": strWhere = "Select s from Staff as s where s." + AllTableName + " like '%" + SearchValueFirst + "%' "; break;
-                        case "9": strWhere = "Select s from Staff as s where StartWith(s." + AllTableName + ", '" + SearchValueFirst + "')"; break;
-                        case "10": strWhere = "Select s from Staff as s where EndWith(s." + AllTableName + ", '" + SearchValueFirst + "')"; break;
-                    }
+                    strWhere = SearchConditionsHelper.GetStrWhere("Staff", AllTableName, SearchConditions, SearchValueFirst);
                 }
                 var q = this.context.CreateQuery<Staff>(strWhere);
                 return q;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
