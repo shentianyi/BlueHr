@@ -71,8 +71,8 @@
                         {
                             foreach (var item in Model)
                             {
-                                //if (item.IsRevoked.Value)
-                                //{
+                                if (!item.IsRevoked.Value)
+                                {
                                 <tr>
 
                                     <td>
@@ -96,7 +96,7 @@
                                 </tr>
                                 }
                             }
-                        @*}*@
+                        }
 
                     </tbody>
                 </table>
@@ -104,7 +104,7 @@
 
 
 
-            <div role="tabpanel" class="tab-pane active" id="off_job">
+            <div role="tabpanel" class="tab-pane" id="off_job">
                 <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="off_job_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
@@ -120,7 +120,9 @@
                         {
                             foreach (var item in Model)
                             {
-                                
+                                if (item.IsRevoked.Value)
+                                {
+
                                 <tr>
 
                                     <td>
@@ -144,13 +146,14 @@
                                 </tr>
                                 }
                             }
-                       
+                        }
+
                     </tbody>
                 </table>
             </div>
 
 
-            <div role="tabpanel" class="tab-pane active" id="all_job">
+            <div role="tabpanel" class="tab-pane" id="all_job">
                 <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_job_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
@@ -217,10 +220,9 @@
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, true, "off_job", "历史职位列表", "20", "off_job_grid_table");
     $('#off_job').removeClass("active");
 
-
-    TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_job", "所有职位列表", "20", "all_job_grid_table");
     $('#all_job').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_job", "历史职位列表", "20", "all_job_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_job", "所有职位列表", "20", "all_job_grid_table");
+    //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_job", "历史职位列表", "20", "all_job_grid_table");
     $('#all_job').removeClass("active");
 
 </script>

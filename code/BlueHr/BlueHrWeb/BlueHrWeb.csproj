@@ -279,7 +279,6 @@
     </Compile>
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="CustomAttributes\AdminAuthorizeAttribute.cs" />
-    <Compile Include="Helpers\View\SetSearchConditionsHelper.cs" />
     <Compile Include="Helpers\View\MenuAuthHelper.cs" />
     <Compile Include="Models\MessageCategory.cs" />
     <Compile Include="Helpers\PagingHelper.cs" />
@@ -636,7 +635,38 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Company\TreeShow.cshtml" />
     <Content Include="Views\SysRole\TableShow.cshtml" />
-    <Content Include="Views\ManageInternation\application.cshtml" />
+    <Content Include="Views\InterApply\_PartialCertificate.cshtml" />
+    <Content Include="Views\InterApply\Create.cshtml" />
+    <Content Include="Views\InterApply\Delete.cshtml" />
+    <Content Include="Views\InterApply\Edit.cshtml" />
+    <Content Include="Views\InterApply\Index.cshtml" />
+    <Content Include="Views\InterView\_PartialCertificate.cshtml" />
+    <Content Include="Views\InterView\Create.cshtml" />
+    <Content Include="Views\InterView\Delete.cshtml" />
+    <Content Include="Views\InterView\Edit.cshtml" />
+    <Content Include="Views\InterView\Index.cshtml" />
+    <Content Include="Views\InterReview\_PartialCertificate.cshtml" />
+    <Content Include="Views\InterReview\Create.cshtml" />
+    <Content Include="Views\InterReview\Delete.cshtml" />
+    <Content Include="Views\InterReview\Edit.cshtml" />
+    <Content Include="Views\InterReview\Index.cshtml" />
+    <Content Include="Views\InterSettle\_PartialCertificate.cshtml" />
+    <Content Include="Views\InterSettle\Create.cshtml" />
+    <Content Include="Views\InterSettle\Delete.cshtml" />
+    <Content Include="Views\InterSettle\Edit.cshtml" />
+    <Content Include="Views\InterSettle\Index.cshtml" />
+    <Content Include="Views\Rehire\_PartialCompany.cshtml" />
+    <Content Include="Views\Rehire\Create.cshtml" />
+    <Content Include="Views\Rehire\Delete.cshtml" />
+    <Content Include="Views\Rehire\Edit.cshtml" />
+    <Content Include="Views\Rehire\Index.cshtml" />
+    <Content Include="Views\Rehire\IndexReview.cshtml" />
+    <Content Include="Views\SysOpera\_PartialSysRole.cshtml" />
+    <Content Include="Views\SysOpera\Create.cshtml" />
+    <Content Include="Views\SysOpera\Delete.cshtml" />
+    <Content Include="Views\SysOpera\Edit.cshtml" />
+    <Content Include="Views\SysOpera\Index.cshtml" />
+    <Content Include="Views\SysOpera\DailyRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
