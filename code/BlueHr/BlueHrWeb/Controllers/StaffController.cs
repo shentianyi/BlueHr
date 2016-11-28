@@ -125,9 +125,6 @@ namespace BlueHrWeb.Controllers
             string SearchValueFirst = null;
             string SearchValueSecond =null;
 
-            Console.Write(Request.Form.Get("allTableName"));
-            Console.Write(Request.Form.Get("searchConditions"));
-            Console.Write(Request.Form.Get("searchValueFirst"));
 
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
@@ -135,7 +132,7 @@ namespace BlueHrWeb.Controllers
 
                 if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
                 {
-                    SearchConditions = Request.Form.Get("searchConditions").ToString();
+                    SearchConditions = Request.Form.Get("searchConditions");
 
                     if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
                     {

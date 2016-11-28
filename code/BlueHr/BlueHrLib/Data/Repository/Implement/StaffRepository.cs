@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Service.Interface;
 using BlueHrLib.Service.Implement;
-using BlueHrLib.Data.Model;
-using ALinq.Dynamic;
+using System.Linq.Dynamic;
 
 namespace BlueHrLib.Data.Repository.Implement
 {
@@ -387,9 +386,40 @@ namespace BlueHrLib.Data.Repository.Implement
                 //    strWhere = "Select * from Staff Where " + AllTableName + " Contains '" + SearchValueFirst + "' as Staff";
                 //}
 
-                strWhere = "Select * from Staff Where Contains(nr, '2015')";
+                //strWhere = @"Select * from Staff Where Contains(" + this.context+ ".name, '宋') as Staff";
 
-                return this.context.CreateQuery<Staff>(strWhere);
+                //strWhere = "Select name from Staff Where " + AllTableName + " Contains '" + SearchValueFirst + "' as name";
+
+                //IQueryable<Staff> staffs = this.context.Staffs;
+
+                //ParameterExpression param = Expression.Parameter(typeof(Staff), AllTableName);
+
+                //Expression selector = Expression.Property(param, typeof(Staff).GetProperty("name"));
+
+                //Expression pred = Expression.Lambda(selector, param);
+
+                //Expression expr = Expression.Call(typeof(Queryable), "Select",
+                //    new Type[] { typeof(Staff), typeof(string) },
+                //    Expression.Constant(staffs), pred);
+
+                //IQueryable<string> query = this.context.Staffs.AsQueryable()
+                //    .Provider.CreateQuery<string>(expr);
+
+                //System.Data.Common.DbCommand cmd = this.context.GetCommand(query);
+
+
+                //strWhere = "Select name from Staff Where name=='宋福祯' as name";
+
+                //var q = this.context.CreateQuery<Staff>(strWhere);
+
+                //foreach(var item in q)
+                //{
+                //    var e = item as dynamic;
+                //    Console.WriteLine("{0} {1}", e.nr, e.name);
+                //    Console.WriteLine("{0} {1}", e.FirstName, e.LastName);
+                //}
+
+                return null;
             }
             catch (Exception e)
             {
