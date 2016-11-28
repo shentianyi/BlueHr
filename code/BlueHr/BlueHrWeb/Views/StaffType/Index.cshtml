@@ -16,61 +16,84 @@
 
 <hr class="hr-grey" />
 
-<div class="row" style="margin:0;">
+<div class="search">
     <form action="/StaffType/Search" method="get">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>人员类型名称</span>
-                <input type="text" name="Name" id="Name" placeholder="人员类型名称" value="@ViewBag.Query.Name" />
+        <div class="row" style="margin:0;">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>人员类型名称</span>
+                    <input type="text" name="Name" id="Name" placeholder="人员类型名称" value="@ViewBag.Query.Name" />
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
+                <button type="submit" class="marco-btn-success">
+                    <i class="glyphicon glyphicon-search"></i>
+                    搜索
+                </button>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
-            <button type="submit" class="marco-btn-success">
-                <i class="glyphicon glyphicon-search"></i>
-                搜索
-            </button>
-        </div>
-    </form>
+</form>
 </div>
+<hr class="hr-primary" />
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
 
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_staff_type">
-    <div id="all_staff_type_grid_table"></div>
-    <table class="table table-bordered" style="display:none;">
-        <thead>
-            <tr>
-                <th>人员类型名称</th>
-                <th>备注</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model != null)
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+
+            <li role="presentation" class="active"><a href="#all_StaffType" role="tab" data-toggle="tab">所有人员类型</a></li>
+
+
+        </ul>
+        <div class="tab-content">
+
+
+            <div role="tabpanel" class="tab-pane  active" id="all_StaffType">
+                <div id="all_StaffType_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>人员类型名称</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
             {
                 foreach (var item in Model)
                 {
-                    <tr>
+                                <tr>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.remark)
-                        </td>
-                        <td>
-                            <a href="/StaffType/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
-                                <i class="fa fa-eye"></i>
-                            </a>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.remark)
+                                    </td>
+                                    <td>
+                                        <a href="/StaffType/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
 
-                            <a href="/StaffType/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
-                                <i class="fa fa-pencil"></i>
-                            </a>
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
+                                        <a href="/StaffType/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+    </div>
 </div>
+
+
+
 
 
 @*@Scripts.Render("~/bundles/degreetype")*@
@@ -78,5 +101,19 @@
 <script type="text/javascript">
     Layout.init();
 
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 200, false, "all_staff_type", "人员类型", "20", "all_staff_type_grid_table");
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_StaffType", "所有人员类型列表", "20", "all_StaffType_grid_table");
+
+    })
+
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_StaffType", "所有人员类型列表", "20", "all_StaffType_grid_table");
+
+
+
+
+
+
+    Layout.advancedfilter();
+
+    
 </script>

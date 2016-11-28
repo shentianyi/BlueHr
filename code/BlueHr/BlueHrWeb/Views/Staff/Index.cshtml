@@ -7,8 +7,6 @@
     ViewBag.Title = "Index";
 }
 
-
-
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>员工管理</li>
@@ -91,8 +89,9 @@
                 <div class="marco-igroup-primary">
                     <span>值2</span>
                     <input type="text" name="searchValueSecond" value="" />
+
                     <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
-                    
+
                 </div>
             </div>
         </div>
@@ -129,9 +128,10 @@
             <li role="presentation"><a href="#off_staff" role="tab" data-toggle="tab">离职人员</a></li>
             <li role="presentation"><a href="#all_staff" role="tab" data-toggle="tab">全部人员</a></li>
         </ul>
+
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="on_staff">
-                <div id="on_staff_grid_table" style="margin:auto;"></div>
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="on_staff_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -226,7 +226,7 @@
             </div>
 
             <div role="tabpanel" class="tab-pane" id="off_staff">
-                <div id="off_staff_grid_table" style="margin:auto;"></div>
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="off_staff_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -321,7 +321,7 @@
             </div>
 
             <div role="tabpanel" class="tab-pane" id="all_staff">
-                <div id="all_staff_grid_table" style="margin:auto;"></div>
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_staff_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -464,17 +464,26 @@
 <script type="text/javascript">
     Layout.init();
 
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_staff", "离职员工列表", "20", "all_staff_grid_table");
+    })
+
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
-    //TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
-    //TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_staff", "离职员工列表", "20", "all_staff_grid_table");
+  
+    $('a[href="#off_staff"]').click(function () {
+        $('#off_staff').addClass("active");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
+        $('#off_staff').removeClass("active");
+    });
 
-    
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
-    
+    $('a[href="#all_staff"]').click(function () {
+        $('#all_staff').addClass("active");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_staff", "离职员工列表", "20", "all_staff_grid_table");
+        $('#all_staff').removeClass("active");
+    });
 
-   
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
-   
 
     Layout.CompanyAndDepartment('#companyId', '#departmentId');
     Layout.rangedatepicker('#CompanyEmployAtFrom', '#CompanyEmployAtTo');
@@ -494,7 +503,6 @@
             }
         });
     });
-
 
     $("#btnEdit3").click(function () {
 

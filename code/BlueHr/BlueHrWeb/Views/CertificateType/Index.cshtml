@@ -16,100 +16,103 @@
 
 <hr class="hr-grey" />
 
-<div class="row" style="margin:0;">
+<div class="search">
     <form action="/CertificateType/Search" method="get">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>证照名称</span>
-                <input type="text" name="Name" id="Name" placeholder="证照名称" value="@ViewBag.Query.Name" />
+        <div class="row" style="margin:0;">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>证照名称</span>
+                    <input type="text" name="Name" id="Name" placeholder="证照名称" value="@ViewBag.Query.Name" />
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
+                <button type="submit" class="marco-btn-success">
+                    <i class="glyphicon glyphicon-search"></i>
+                    搜索
+                </button>
             </div>
         </div>
+</form>
+</div>
 
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
-            <button type="submit" class="marco-btn-success">
-                <i class="glyphicon glyphicon-search"></i>
-                搜索
+<hr class="hr-primary" />
+
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+
+
+        <a href="/CertificateType/Create" class="pull-right" style="margin-top: -10px; margin-right:15px;">
+            <button class="marco-btn-primary">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>创建</span>
             </button>
-        </div>
-    </form>
-</div>
+        </a>
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
 
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="usual-table">
-        <div class="table-heading">
-            证照列表
-            <div class="pull-right" style="margin-top:-12px;">
-                <a href="/CertificateType/Create">
-                    <button class="marco-btn-primary">
-                        <i class="glyphicon glyphicon-plus-sign"></i>
-                        <span>创建</span>
-                    </button>
-                </a>
+            <li role="presentation" class="active"><a href="#all_CertificateType" role="tab" data-toggle="tab">所有证照</a></li>
+
+
+        </ul>
+        <div class="tab-content">
+
+
+            <div role="tabpanel" class="tab-pane  active" id="all_CertificateType">
+                <div id="all_CertificateType_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>证照名称</th>
+                            @*<th>证照备注</th>*@
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.remark)
+                                    </td>
+                                    <td>
+                                        <a href="/CertificateType/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+
+                                        <a href="/CertificateType/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
             </div>
-        </div>
-        <div class="table-body content_3">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>证照名称</th>
-                        @*<th>证照备注</th>*@
-                        <th>备注</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model)
-                        {
-                            <tr>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.remark)
-                                </td>
-                                <td>
-                                    <a href="/CertificateType/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
+        </div>
 
-                                    <a href="/CertificateType/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
+
     </div>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
-        <div class="clearfix pagination">
-            <div class="pagination-inner">
-                @if (Model != null)
-                {
-                    if (ViewBag.Query != null)
-                        {
-                            var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                                .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
-                                @html
-                        }
-                        else
-                        {
-                            @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                        }
-                }
-            </div>
-        </div>
-    </div>
-</div>
+</div> 
+
+
 
 
 @*@Scripts.Render("~/bundles/company")*@
 
 <script type="text/javascript">
     Layout.init();
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_CertificateType", "所有证照列表", "20", "all_CertificateType_grid_table");
+    })
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_CertificateType", "所有证照列表", "20", "all_CertificateType_grid_table");
+    Layout.advancedfilter();
 </script>
