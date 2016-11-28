@@ -107,7 +107,7 @@
     <div class="minitor-show marco-tabs-default">
         @if (canImport)
         {
-            <button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -5px; margin-right:15px;">
+            <button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -10px; margin-right:15px;">
                 <i class="fa fa-cloud-upload"></i>
                 <span>上传</span>
             </button>
@@ -478,9 +478,8 @@
         $('#off_staff').removeClass("active");
 
     
-        TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
         $('#all_staff').addClass("active");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_staff", "离职员工列表", "20", "all_staff_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
         $('#all_staff').removeClass("active");
 
 
