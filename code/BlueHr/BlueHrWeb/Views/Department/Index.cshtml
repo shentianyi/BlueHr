@@ -22,126 +22,120 @@
 
     bool canImport = MenuAuthHelper.CanShow("Department", "Import");
 }
-<div class="row" style="margin:0;">
-    <form action="/Department/Search" method="get">
-        <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
-            <div class="marco-igroup-primary">
-                <span>公司名称</span>
-                @Html.DropDownList("CompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>部门名称</span>
-                <input type="text" name="Name" id="Name" placeholder="部门名称" value="@ViewBag.Query.Name" />
-                @*@Html.DropDownList("DepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)*@
-            </div>
-        </div>
 
-        <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6" style="margin-top:5px;">
-            <button type="submit" class="marco-btn-success">
-                <i class="glyphicon glyphicon-search"></i>
-                搜索
-            </button>
-            @if (canImport)
+<div class="search">
+    <form action="/Department/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6">
+                <div class="marco-igroup-primary">
+                    <span>公司名称</span>
+                    @Html.DropDownList("CompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>部门名称</span>
+                    <input type="text" name="Name" id="Name" placeholder="部门名称" value="@ViewBag.Query.Name" />
+                    @*@Html.DropDownList("DepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)*@
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-6" style="margin-top:5px;">
+                <button type="submit" class="marco-btn-success">
+                    <i class="glyphicon glyphicon-search"></i>
+                    搜索
+                </button>
+                @if (canImport)
             {
-            <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
-                导入部门
-            </button>
-            }
+                    <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
+                        导入部门
+                    </button>
+                }
+            </div>
         </div>
     </form>
 </div>
+<hr class="hr-primary" />
+
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+
+        <a href="/Department/Create" class="pull-right" style="margin-top: -10px; margin-right:15px;">
+            <button class="marco-btn-primary">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>创建</span>
+            </button>
+        </a>
+
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+
+            <li role="presentation" class="active"><a href="#all_Department" role="tab" data-toggle="tab">所有部门</a></li>
 
 
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="usual-table">
-        <div class="table-heading">
-            部门列表
-            <div class="pull-right" style="margin-top:-12px;">
-                @if (canCreate)
-                {
-                <a href="/Department/Create">
-                    <button class="marco-btn-primary">
-                        <i class="glyphicon glyphicon-plus-sign"></i>
-                        <span>创建</span>
-                    </button>
-                </a>
-                }
-            </div>
-        </div>
-        <div class="table-body content_3">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>所属公司</th>
-                        <th>部门名称</th>
-                        <th>上级部门名称</th>
-                        <th>备注</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model)
-                        {
+        </ul>
+        <div class="tab-content">
+
+
+            <div role="tabpanel" class="tab-pane  active" id="all_Department">
+                <div id="all_Department_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <table class="table table-bordered">
+                        <thead>
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Company.name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ParentDepartment.name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.remark)
-                                </td>
-                                <td>
-                                    @if (canDelete)
-                                    {
-                                    <a href="/Department/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                    }
-                                    @if (canEdit)
-                                    {
-                                    <a href="/Department/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    }
-                                </td>
+                                <th>部门名称</th>
+                                <th>所属公司</th>                    
+                                <th>上级部门名称</th>
+                                <th>备注</th>
+                                <th>操作</th>
                             </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
-        <div class="clearfix pagination">
-            <div class="pagination-inner">
-                @if (Model != null)
-                {
-                    if (ViewBag.Query != null)
-                    {
-                        var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                            .Options(o => o.AddRouteValue("CompanyId", ViewBag.Query.CompanyId))
-                            .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
-                        @html
-                    }
-                    else
-                    {
-                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                    }
-                }
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                       
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Company.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ParentDepartment.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.remark)
+                                        </td>
+                                        <td>
+                                            @if (canDelete)
+                                            {
+                                                <a href="/Department/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            @if (canEdit)
+                                            {
+                                                <a href="/Department/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
             </div>
+
         </div>
+
+
     </div>
 </div>
+
+
 
 <!--导入数据-->
 <div id="dialog_content" class="import_content" style="display:none;">
@@ -160,7 +154,12 @@
 </div>
 <script type="text/javascript">
     Layout.init();
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Department", "所有部门列表", "20", "all_Department_grid_table");
 
+    })
+
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Department", "所有部门列表", "20", "all_Department_grid_table");
     
 
     $('.import-button-dialog').click(function () {

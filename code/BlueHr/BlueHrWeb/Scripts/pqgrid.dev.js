@@ -1656,7 +1656,7 @@
 		} else {
 			CP.animating = true;
 			ele.animate({
-				height: "23px"
+				height: "42px"
 			}, function() {
 				postCollapse()
 			})
