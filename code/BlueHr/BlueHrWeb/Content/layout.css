@@ -1135,6 +1135,201 @@
       cursor: help;
       margin-top: 10px; }
 
+.marco-tabs-default ul {
+  /*border-color:$peter-river;*/
+  border: none; }
+  .marco-tabs-default ul li {
+    margin-left: -3px; }
+    .marco-tabs-default ul li a {
+      border-radius: 0;
+      padding: 5px;
+      color: #3498db;
+      background-color: #2980b9;
+      text-align: center; }
+      .marco-tabs-default ul li a:hover, .marco-tabs-default ul li a:link, .marco-tabs-default ul li a:active {
+        cursor: pointer;
+        background: transparent;
+        border-color: #2980b9;
+        border-bottom: #2980b9; }
+    .marco-tabs-default ul li .badge {
+      border-radius: 0;
+      background: transparent;
+      color: #3498db; }
+    .marco-tabs-default ul li:first-child {
+      margin-left: 0; }
+      .marco-tabs-default ul li:first-child a {
+        border-top-left-radius: 5px; }
+    .marco-tabs-default ul li:last-child a {
+      border-top-right-radius: 5px; }
+  .marco-tabs-default ul .active a {
+    padding: 5px;
+    border: none;
+    background-color: #2980b9; }
+    .marco-tabs-default ul .active a:hover, .marco-tabs-default ul .active a:link, .marco-tabs-default ul .active a:active {
+      border: none;
+      border-top: 1px solid #2980b9;
+      cursor: default;
+      background: #2980b9;
+      color: #ddd; }
+      .marco-tabs-default ul .active a:hover:first-child, .marco-tabs-default ul .active a:link:first-child, .marco-tabs-default ul .active a:active:first-child {
+        border-left: 1px solid #2980b9; }
+  .marco-tabs-default ul .active .badge {
+    padding: 5px 8px;
+    border-radius: 0;
+    background: transparent; }
+
+.marco-tabs-default .tab-content {
+  min-height: 200px;
+  border: 1px solid #2980b9;
+  padding: 5px;
+  font-size: 12px;
+  border-radius: 5px;
+  border-top-left-radius: 0; }
+  .marco-tabs-default .tab-content ul {
+    list-style: none;
+    padding-left: 0;
+    overflow: auto; }
+    .marco-tabs-default .tab-content ul li {
+      padding: 5px 8px;
+      height: 50px !important;
+      line-height: 20px !important;
+      border-bottom: 1px dashed #ddd;
+      cursor: pointer; }
+      .marco-tabs-default .tab-content ul li:first-child {
+        margin-top: 0; }
+      .marco-tabs-default .tab-content ul li:last-child {
+        border: none; }
+
+.marco-tabs-dark ul {
+  /*border-color:$peter-river;*/
+  border: none; }
+  .marco-tabs-dark ul li {
+    margin-left: -3px; }
+    .marco-tabs-dark ul li a {
+      border-radius: 0;
+      padding: 5px;
+      color: #3498db;
+      background-color: #2980b9;
+      text-align: center; }
+      .marco-tabs-dark ul li a:hover, .marco-tabs-dark ul li a:link, .marco-tabs-dark ul li a:active {
+        cursor: pointer;
+        background: transparent;
+        border-color: #2980b9;
+        border-bottom: #2980b9; }
+    .marco-tabs-dark ul li .badge {
+      border-radius: 0;
+      background: transparent;
+      color: #3498db; }
+    .marco-tabs-dark ul li:first-child {
+      margin-left: 0; }
+      .marco-tabs-dark ul li:first-child a {
+        border-top-left-radius: 5px; }
+    .marco-tabs-dark ul li:last-child a {
+      border-top-right-radius: 5px; }
+  .marco-tabs-dark ul .active a {
+    padding: 5px;
+    border: none;
+    background-color: #2980b9; }
+    .marco-tabs-dark ul .active a:hover, .marco-tabs-dark ul .active a:link, .marco-tabs-dark ul .active a:active {
+      border: none;
+      border-top: 1px solid #2980b9;
+      cursor: default;
+      background: #2980b9;
+      color: #bdc3c7; }
+      .marco-tabs-dark ul .active a:hover:first-child, .marco-tabs-dark ul .active a:link:first-child, .marco-tabs-dark ul .active a:active:first-child {
+        border-left: 1px solid #2980b9; }
+  .marco-tabs-dark ul .active .badge {
+    padding: 5px 8px;
+    border-radius: 0;
+    background: transparent; }
+
+.marco-tabs-dark .tab-content {
+  min-height: 200px;
+  border: 1px solid #2980b9;
+  padding: 5px;
+  font-size: 12px;
+  border-radius: 5px;
+  border-top-left-radius: 0; }
+  .marco-tabs-dark .tab-content ul {
+    list-style: none;
+    padding-left: 0;
+    overflow: auto; }
+    .marco-tabs-dark .tab-content ul li {
+      padding: 5px 8px;
+      height: 50px !important;
+      line-height: 20px !important;
+      border-bottom: 1px dashed #ddd;
+      cursor: pointer; }
+      .marco-tabs-dark .tab-content ul li:first-child {
+        margin-top: 0; }
+      .marco-tabs-dark .tab-content ul li:last-child {
+        border: none; }
+
+.marco-tabs-normal ul {
+  /*border-color:$peter-river;*/
+  border: none; }
+  .marco-tabs-normal ul li {
+    margin-left: -3px; }
+    .marco-tabs-normal ul li a {
+      border-radius: 0;
+      padding: 5px;
+      color: #3498db;
+      background-color: #2980b9;
+      text-align: center; }
+      .marco-tabs-normal ul li a:hover, .marco-tabs-normal ul li a:link, .marco-tabs-normal ul li a:active {
+        cursor: pointer;
+        background: transparent;
+        border-color: #2980b9;
+        border-bottom: #2980b9; }
+    .marco-tabs-normal ul li .badge {
+      border-radius: 0;
+      background: transparent;
+      color: #3498db; }
+    .marco-tabs-normal ul li:first-child {
+      margin-left: 0; }
+      .marco-tabs-normal ul li:first-child a {
+        border-top-left-radius: 5px; }
+    .marco-tabs-normal ul li:last-child a {
+      border-top-right-radius: 5px; }
+  .marco-tabs-normal ul .active a {
+    padding: 5px;
+    border: none;
+    background-color: #bdc3c7; }
+    .marco-tabs-normal ul .active a:hover, .marco-tabs-normal ul .active a:link, .marco-tabs-normal ul .active a:active {
+      border: none;
+      border-top: 1px solid #bdc3c7;
+      cursor: default;
+      background: #bdc3c7;
+      color: #2980b9; }
+      .marco-tabs-normal ul .active a:hover:first-child, .marco-tabs-normal ul .active a:link:first-child, .marco-tabs-normal ul .active a:active:first-child {
+        border-left: 1px solid #bdc3c7; }
+  .marco-tabs-normal ul .active .badge {
+    padding: 5px 8px;
+    border-radius: 0;
+    background: transparent; }
+
+.marco-tabs-normal .tab-content {
+  min-height: 200px;
+  border: 1px solid #bdc3c7;
+  padding: 5px;
+  font-size: 12px;
+  border-radius: 5px;
+  border-top-left-radius: 0; }
+  .marco-tabs-normal .tab-content ul {
+    list-style: none;
+    padding-left: 0;
+    overflow: auto; }
+    .marco-tabs-normal .tab-content ul li {
+      padding: 5px 8px;
+      height: 50px !important;
+      line-height: 20px !important;
+      border-bottom: 1px dashed #ddd;
+      cursor: pointer; }
+      .marco-tabs-normal .tab-content ul li:first-child {
+        margin-top: 0; }
+      .marco-tabs-normal .tab-content ul li:last-child {
+        border: none; }
+
 .popMsg-default {
   position: fixed;
   top: 52px;

@@ -94,5 +94,15 @@ on sra.authId equals sa.id
             r = q.FirstOrDefault() != null;
             return r;
         }
+
+        public List<SysRoleAuthorization> FindByRoleId(int roleId)
+        {
+            return rep.FindByRoleId(roleId);
+        }
+
+        public bool DeleteByRoleId(int roleId)
+        {
+            return rep.DeleteByRoleId(roleId);
+        }
     }
 }

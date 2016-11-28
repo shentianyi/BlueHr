@@ -34,5 +34,7 @@ namespace BlueHrLib.Service.Interface
         bool LockUnLock(int id);
 
         bool ChangePwd(int id, string pwd);
+
+        List<User> FindByRoleId(int sysRoleId);
     }
 }

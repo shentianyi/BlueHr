@@ -64,22 +64,17 @@
         <aside class="main-sidebar">
             <section class="sidebar">
                 <ul class="sidebar-menu">
-
-
                     <li class="nav-myIndex">
-                        <a href="#">
+                        <a href="/Home/Index">
                             <i class="fa fa-home"></i>
                             <span>我的主页</span>
-
                         </a>
                     </li>
-
-
                     @if (canSysRole || canSysAuthorization || canSysRoleAuthorization)
                     {
                         <li class="nav-sysRole">
                             <a href="#">
-                                <i class="fa fa-inbox"></i>
+                                <i class="fa fa-unlock-alt"></i>
                                 <span>权限管理</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -126,47 +121,6 @@
                         </li>
                     }
 
-                    <li class="nav-sysRole">
-                        <a href="#">
-                            <i class="fa fa-inbox"></i>
-                            <span>系统操作</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-
-                        <ul class="treeview-menu">
-
-                            <li class="nav-users">
-                                <a href="/User/Index">
-                                    <i class="fa fa-user-secret"></i>
-                                    友情提醒
-                                </a>
-                            </li>
-
-
-                            <li>
-                                <a href="/SysRole/Index">
-                                    <i class="fa fa-briefcase"></i>
-                                    登录日志
-                                </a>
-                            </li>
-
-
-                        </ul>
-                    </li>
-
-
-
-                    @*@if (MenuAuthHelper.CanShow("User", "Index"))
-            {
-                            <li class="nav-users">
-                                <a href="/User/Index">
-                                    <i class="fa fa-user-secret"></i>
-                                    <span>用户管理</span>
-                                </a>
-                            </li>
-                        }*@
                     @{
                         bool canJobTitle = MenuAuthHelper.CanShow("JobTitle", "Index");
 
@@ -279,7 +233,7 @@
                     @if (MenuAuthHelper.CanShow("Company", "Index"))
                     {
                         <li class="nav-company">
-                            <a href="/Company/Index">
+                            <a href="#">
                                 <i class="fa fa-sitemap"></i>
                                 <span>公司管理</span>
                                 <span class="pull-right-container">
@@ -288,21 +242,15 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="/ExtraWorkType/Index">
+                                    <a href="/Company/Index">
                                         <i class="fa fa-hourglass-1"></i>
                                         公司列表
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/ExtraWorkType/Index">
+                                    <a href="/Company/TreeShow">
                                         <i class="fa fa-hourglass-1"></i>
                                         公司组织架构
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/ExtraWorkType/Index">
-                                        <i class="fa fa-hourglass-1"></i>
-                                        部门组织架构
                                     </a>
                                 </li>
                             </ul>
@@ -312,7 +260,7 @@
                     @if (MenuAuthHelper.CanShow("Department", "Index"))
                     {
                         <li class="nav-department">
-                            <a href="/Department/Index">
+                            <a href="#">
                                 <i class="fa fa-cubes"></i>
                                 <span>部门管理</span>
                                 <span class="pull-right-container">
@@ -321,13 +269,13 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="/ExtraWorkType/Index">
+                                    <a href="/Department/Index">
                                         <i class="fa fa-hourglass-1"></i>
                                         列表显示
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/ExtraWorkType/Index">
+                                    <a href="/Department/TreeShow">
                                         <i class="fa fa-hourglass-1"></i>
                                         树状显示
                                     </a>

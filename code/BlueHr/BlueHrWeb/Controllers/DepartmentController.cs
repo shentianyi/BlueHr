@@ -199,6 +199,39 @@ namespace BlueHrWeb.Controllers
             return Json(msg, "text/html");
         }
 
+
+        [HttpGet]
+        public JsonResult DepartmentTree(int companyId)
+        {
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+
+            IDepartmentService ds = new DepartmentService(Settings.Default.db);
+            List<Department> departments = ds.FindByCompanyId(companyId).ToList();
+
+            foreach (var department in departments)
+            {
+                Dictionary<string, string> dp = new Dictionary<string, string>();
+                dp.Add("id", department.id.ToString());
+                dp.Add("name", department.name);
+                dp.Add("pId", department.parentId.ToString());
+                dp.Add("remark", department.remark);
+                dp.Add("open", "false");
+                //父节点和子节点图标不同
+                if (department.parentId.HasValue)
+                {
+                    dp.Add("iconSkin", "bankIcon");
+                }
+                else
+                {
+                    dp.Add("iconSkin", "parentBankIcon");
+                }
+
+                Result.Add(dp);
+            }
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
+
+
         private void SetCompanyList(int? type, bool allowBlank = true)
         {
             ICompanyService cs = new CompanyService(Settings.Default.db);

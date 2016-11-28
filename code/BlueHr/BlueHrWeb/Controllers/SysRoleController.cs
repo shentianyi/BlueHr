@@ -21,7 +21,14 @@ namespace BlueHrWeb.Controllers
         [UserAuthorize]
         [RoleAndDataAuthorizationAttribute]
         // GET: SysRole
-        public ActionResult Index(int? page)
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult TableShow(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
 
@@ -29,14 +36,14 @@ namespace BlueHrWeb.Controllers
 
             ISysRoleService ss = new SysRoleService(Settings.Default.db);
 
-            IPagedList<SysRole> jobTitles = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<SysRole> sysRoles = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
             SysRoleInfoModel info = ss.GetSysRoleInfo(q);
             ViewBag.Info = info;
 
-            return View(jobTitles);
+            return View(sysRoles);
         }
 
         [RoleAndDataAuthorizationAttribute]
@@ -247,5 +254,29 @@ namespace BlueHrWeb.Controllers
 
             return new ResultMessage() { Success = true, Content = "" };
         }
+
+        [HttpGet]
+        public JsonResult SysRoleTree()
+        {
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+
+            SysRoleSearchModel q = new SysRoleSearchModel();
+            ISysRoleService srs = new SysRoleService(Settings.Default.db);
+            List<SysRole> sysRoles = srs.Search(q).ToList();
+
+            foreach (var sysRole in sysRoles)
+            {
+                Dictionary<string, string> sr = new Dictionary<string, string>();
+                sr.Add("id", sysRole.id.ToString());
+                sr.Add("name", sysRole.name);
+                sr.Add("remark", sysRole.remarks);
+                sr.Add("open", "true");
+                sr.Add("iconSkin", "sysRoleIcon");
+
+                Result.Add(sr);
+            }
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

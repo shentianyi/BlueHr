@@ -298,6 +298,21 @@ namespace BlueHrLib.Service.Implement
             return staffRep.SearchPermanentStaff(searchModel);
         }
 
+        public List<Staff> FindByCompanyAndDepartment(int companyId, int departmentId)
+        {
+            return staffRep.FindByCompanyAndDepartment(companyId, departmentId);
+        }
+
+        public List<Staff> GetAllTableName()
+        {
+            return staffRep.GetAllTableName();
+        }
+
+        public IQueryable<Staff> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst, string SearchValueSecond)
+        {
+            return staffRep.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond);
+        }
+
         //public List<Staff> getStaffUserIDCard()
         //{
         //    return staffRep.getStaffUserIDCard();
