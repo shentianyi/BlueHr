@@ -141,17 +141,11 @@ namespace BlueHrWeb.Controllers
                     {
                         SearchValueFirst = Request.Form.Get("searchValueFirst").ToString();
 
-                        if (!string.IsNullOrEmpty(Request.Form.Get("searchValueSecond")))
-                        {
-                            SearchValueSecond = Request.Form.Get("searchValueSecond").ToString();
+                       
+                        SearchValueSecond = Request.Form.Get("searchValueSecond").ToString();
                             //有两个值， 需要进行两个值的查询
-                            staffs = ss.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
-                        }
-                        else
-                        {
-                            //有一个值， 进行查询
-                            staffs = ss.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
-                        }
+                        staffs = ss.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
+                       
                     }
                     else
                     {

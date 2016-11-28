@@ -337,4 +337,3 @@ Layout.TransferTableToGrid = function (width, height, editable, divID, title, rP
 
     $("#" + gridID).pqGrid(newObj);
 }
-
