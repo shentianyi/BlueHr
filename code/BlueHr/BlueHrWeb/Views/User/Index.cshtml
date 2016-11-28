@@ -72,123 +72,290 @@
                 <div class="marco-igroup-primary">
                     <span>值2</span>
                     <input type="text" name="searchValueSecond" value="" />
-                    <button type="submit" class="marco-btn-primary" style="margin:0;">确定</button>
+                    <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
                 </div>
             </div>
         </div>
     </form>
 </div>
-
-
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="usual-table">
-        <div class="table-heading">
-            用户列表
-            <div class="pull-right" style="margin-top:-12px;">
-                <a href="/User/Create">
-                    <button class="marco-btn-primary">
-                        <i class="glyphicon glyphicon-plus-sign"></i>
-                        <span>创建</span>
-                    </button>
-                </a>
-            </div>
-        </div>
-        <div class="table-body content_3">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>姓名</th>
-                        <th>邮箱地址</th>
-                        <th>角色</th>
-                        <th>锁定状态</th>
-                        <th>权限公司</th>
-                        <th>权限部门</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        int i = 0;
-                        foreach (var item in Model)
+<hr class="hr-primary" />
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+        
+       
+        <a href="/User/Create" class="pull-right"  style="margin-top: -5px; margin-right:15px;">
+            <button class="marco-btn-primary">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>创建</span>
+            </button>
+        </a>
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            <li role="presentation" class="active"><a href="#on_staff" role="tab" data-toggle="tab">所有用户</a></li>
+            <li role="presentation"><a href="#off_staff" role="tab" data-toggle="tab">已锁定用户</a></li>
+            <li role="presentation"><a href="#all_staff" role="tab" data-toggle="tab">未锁定用户</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="all_staff_type">
+                <div id="all_staff_type_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>姓名</th>
+                            <th>邮箱地址</th>
+                            <th>角色</th>
+                            <th>锁定状态</th>
+                            <th>权限公司</th>
+                            <th>权限部门</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
                         {
-                            <tr>
-                                <td>
-                                    @(i += 1)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.email)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.roleStr)
-                                </td>
-                                <td>
-                                    @if (item.isLocked.Value)
-                                    {
-                                        <i class="fa fa-lock"></i>
-                                    }
-                                    else
-                                    {
-                                        <i class="fa fa-unlock"></i>
-                                    }
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.AuthCompany)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.AuthDepartment)
-                                </td>
-                                <td>
-                                    <a href="/User/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a href="/User/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a href="/User/changepwd?id=@item.id" target="_blank" class="option-icon-danger" title="修改密码">
-                                        <i class="fa fa-paste"></i>
-                                    </a>
-                                    @if (item.isLocked.Value)
-                                    {
-                                        <a href="#" class="option-icon-danger" title="解锁" onclick="lock(@item.id)">
-                                            <i class="fa fa-unlock"></i>
-                                        </a>
-                                    }
-                                    else
-                                    {
-
-                                        <a href="#" class="option-icon-danger" title="锁定" onclick="lock(@item.id)">
+                            int i = 0;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @(i += 1)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.roleStr)
+                                    </td>
+                                    <td>
+                                        @if (item.isLocked.Value)
+                                        {
                                             <i class="fa fa-lock"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-unlock"></i>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AuthCompany)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AuthDepartment)
+                                    </td>
+                                    <td>
+                                        <a href="/User/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                            <i class="fa fa-eye"></i>
                                         </a>
-                                    }
-                                </td>
-                            </tr>
+                                        <a href="/User/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a href="/User/changepwd?id=@item.id" target="_blank" class="option-icon-danger" title="修改密码">
+                                            <i class="fa fa-paste"></i>
+                                        </a>
+                                        @if (item.isLocked.Value)
+                                        {
+                                            <a href="#" class="option-icon-danger" title="解锁" onclick="lock(@item.id)">
+                                                <i class="fa fa-unlock"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+
+                                            <a href="#" class="option-icon-danger" title="锁定" onclick="lock(@item.id)">
+                                                <i class="fa fa-lock"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
-        <div class="clearfix pagination">
-            <div class="pagination-inner">
-                @if (Model != null)
-                {
-                    @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                }
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="locked_staff_type">
+                <div id="all_staff_type_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>姓名</th>
+                            <th>邮箱地址</th>
+                            <th>角色</th>
+                            <th>锁定状态</th>
+                            <th>权限公司</th>
+                            <th>权限部门</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            int i = 0;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @(i += 1)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.roleStr)
+                                    </td>
+                                    <td>
+                                        @if (item.isLocked.Value)
+                                        {
+                                            <i class="fa fa-lock"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-unlock"></i>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AuthCompany)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AuthDepartment)
+                                    </td>
+                                    <td>
+                                        <a href="/User/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a href="/User/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a href="/User/changepwd?id=@item.id" target="_blank" class="option-icon-danger" title="修改密码">
+                                            <i class="fa fa-paste"></i>
+                                        </a>
+                                        @if (item.isLocked.Value)
+                                        {
+                                            <a href="#" class="option-icon-danger" title="解锁" onclick="lock(@item.id)">
+                                                <i class="fa fa-unlock"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+
+                                            <a href="#" class="option-icon-danger" title="锁定" onclick="lock(@item.id)">
+                                                <i class="fa fa-lock"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="unlocked_staff_type">
+                <div id="all_staff_type_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>姓名</th>
+                            <th>邮箱地址</th>
+                            <th>角色</th>
+                            <th>锁定状态</th>
+                            <th>权限公司</th>
+                            <th>权限部门</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            int i = 0;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @(i += 1)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.roleStr)
+                                    </td>
+                                    <td>
+                                        @if (item.isLocked.Value)
+                                        {
+                                            <i class="fa fa-lock"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-unlock"></i>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AuthCompany)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AuthDepartment)
+                                    </td>
+                                    <td>
+                                        <a href="/User/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a href="/User/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a href="/User/changepwd?id=@item.id" target="_blank" class="option-icon-danger" title="修改密码">
+                                            <i class="fa fa-paste"></i>
+                                        </a>
+                                        @if (item.isLocked.Value)
+                                        {
+                                            <a href="#" class="option-icon-danger" title="解锁" onclick="lock(@item.id)">
+                                                <i class="fa fa-unlock"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+
+                                            <a href="#" class="option-icon-danger" title="锁定" onclick="lock(@item.id)">
+                                                <i class="fa fa-lock"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
+        
+
     </div>
-</div>
+</div> 
+
 
 @*@Scripts.Render("~/bundles/degreetype")*@
 <script type="text/javascript">
     Layout.init();
 
+
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_staff_type", "所有员工列表", "20", "all_staff_type_grid_table");
+    //TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
+    //TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_staff", "离职员工列表", "20", "all_staff_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "locked_staff_type", "所有员工列表", "20", "locked_staff_type_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unlocked_staff_type", "所有员工列表", "20", "unlocked_staff_type_grid_table");
+
+
+   
+    Layout.advancedfilter();
     function lock(id){
         if(confirm('确定操作？')){
             $.post('/User/LockUnLock',{id: id},function(data){

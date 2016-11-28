@@ -286,6 +286,7 @@ function FutureDate(day) {
 }
 
 
+
 Layout.advancedfilter = function () {
     $('.advanced-filter-btn').click(function () {
         var Display = $('.advanced-filter').css('display');
@@ -297,5 +298,27 @@ Layout.advancedfilter = function () {
         }
     });
 
+}
+
+
+Layout.TransferTableToGrid = function (width, height, editable, divID, title, rPP, gridID) {
+
+    var tb = $("#" + divID + ">table");
+    var obj = $.paramquery.tableToArray(tb);
+
+    var newObj = {
+        width: width,
+        height: height,
+        title: title,
+        scrollModel: { pace: 'fast', autoFit: true, theme: true },
+        editable: editable
+    };
+
+    newObj.dataModel = { data: obj.data };
+    newObj.colModel = obj.colModel;
+
+    newObj.pageModel = { rPP: rPP, type: "local" };
+
+    $("#" + gridID).pqGrid(newObj);
 }
 
