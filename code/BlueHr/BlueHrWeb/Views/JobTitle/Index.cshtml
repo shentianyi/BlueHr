@@ -3,7 +3,7 @@
 @model IPagedList<BlueHrLib.Data.JobTitle>
 
 @{
-    ViewBag.Title = "职位信息";
+    ViewBag.Title = "职位管理";
 }
 
 @*@Styles.Render("~/Content/degreetype")*@
@@ -45,7 +45,7 @@
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>基础信息</li>
-    <li>职位信息</li>
+    <li>职位管理</li>
 </ol>
 
 <hr class="hr-grey" />
@@ -80,13 +80,6 @@
                 </a>
             </div>
         </div>
-        <div class="tabs">
-            <ul class="navs">
-                <li class="actived li">当前职位</li>
-                <li class="li" >历史职位</li>
-                <li class="li" >所有职位</li>
-            </ul>
-            <div class="actived">
                 <div class="table-body content_3">
                     <table class="table table-bordered">
                         <thead>
@@ -127,26 +120,21 @@
                             }
                         </tbody>
                     </table>
-                </div>
-
             </div>
-                    
-                <div>222</div>
-                <div>333</div>
-            </ul>
+                                
         </div>
         
         
-    @*<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
         <div class="clearfix pagination">
             <div class="pagination-inner">
                 @if (Model != null)
+            {
+                if (ViewBag.Query != null)
                 {
-                    if (ViewBag.Query != null)
-                    {
 
-                        var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                            .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
+                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
                         @html
                     }
                     else
@@ -156,17 +144,11 @@
                 }
             </div>
         </div>
-    </div>*@
-
+    </div>
+ </div>
 
 @*@Scripts.Render("~/bundles/degreetype")*@
 
 <script type="text/javascript">
-    Layout.init();
-            var $UL_li = $(".tabs .navs li");
-            $UL_li.click(function(){
-                $(this).addClass('actived').siblings().removeClass('actived');
-                var index = $(this).index();
-                $(".tabs .tabs-content li").eq(index).addClass('actived').siblings().removeClass('actived');
-            });
+    Layout.init();       
 </script>

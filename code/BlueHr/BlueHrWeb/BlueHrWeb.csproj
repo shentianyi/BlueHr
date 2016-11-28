@@ -603,7 +603,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="UploadImage\" />
-    <Folder Include="Views\SystemOperating\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
