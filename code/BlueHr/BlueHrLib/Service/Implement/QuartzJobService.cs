@@ -37,6 +37,18 @@ namespace BlueHrLib.Service.Implement
             return true;
         }
 
+        public List<QuartzJob> GetAllTableName()
+        {
+            try
+            {
+                return (this.Context.Context.GetTable<QuartzJob>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public List<QuartzJob> GetByType(CronJobType type)
         {
             DataContext dc = new DataContext(this.DbString);

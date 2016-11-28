@@ -45,5 +45,6 @@ namespace BlueHrLib.Service.Interface
         bool HasDateAtExist(DateTime? datetime);
 
         List<WorkAndRest> GetByDateSpan(DateTime startDate, DateTime endDate);
+        List<WorkAndRest> GetAllTableName();
     }
 }

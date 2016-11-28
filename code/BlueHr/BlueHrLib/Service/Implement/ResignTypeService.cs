@@ -67,5 +67,10 @@ namespace BlueHrLib.Service.Implement
         {
             return resignTypeRep.IsResignTypeExit(resignType);
         }
+
+        public List<ResignType> GetAllTableName()
+        {
+            return resignTypeRep.GetAllTableName();
+        }
     }
 }

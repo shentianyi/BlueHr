@@ -21,5 +21,6 @@ namespace BlueHrLib.Data.Repository.Interface
         //List<SysRole> FindByAbsenceType(int id);
 
         List<SysRole> GetAll();
+        List<SysRole> GetAllTableName();
     }
 }

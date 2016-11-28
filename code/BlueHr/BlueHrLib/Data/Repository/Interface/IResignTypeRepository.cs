@@ -21,6 +21,6 @@ namespace BlueHrLib.Data.Repository.Interface
         List<ResignType> GetAll();
 
         ResignType IsResignTypeExit(string resignType);
-
+        List<ResignType> GetAllTableName();
     }
 }

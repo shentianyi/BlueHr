@@ -89,5 +89,10 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.SearchDetail(searchModel);
         }
+
+        public List<AbsenceRecrod> GetAllTableName()
+        {
+            return rep.GetAllTableName();
+        }
     }
 }

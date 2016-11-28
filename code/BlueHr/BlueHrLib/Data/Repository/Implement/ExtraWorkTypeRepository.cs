@@ -20,5 +20,17 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<ExtraWorkType>().ToList();
         }
+
+        public List<ExtraWorkType> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<ExtraWorkType>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

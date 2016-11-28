@@ -129,5 +129,17 @@ namespace BlueHrLib.Data.Repository.Implement
                 }
             }
         }
+
+        public List<ResignType> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<ResignType>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

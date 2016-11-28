@@ -4,8 +4,14 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    @*360默认是极速模式*@
+    <meta name="renderer" content="webkit">
+    @*IE默认设置为最高版本*@
+    <meta name="renderer" content="ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+
     <title>@ViewBag.Title - HR</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/layout")
@@ -95,7 +101,7 @@
                                     <li>
                                         <a href="/SysRole/Index">
                                             <i class="fa fa-briefcase"></i>
-                                            角色列表
+                                            角色管理
                                         </a>
                                     </li>
                                 }
@@ -112,7 +118,7 @@
                                 {
                                     <li>
                                         <a href="/SysRoleAuthorization/Index">
-                                            <i class="fa fa-group"></i>
+                                            <i class="fa fa-folder-open"></i>
                                             角色权限列表
                                         </a>
                                     </li>
@@ -243,13 +249,13 @@
                             <ul class="treeview-menu">
                                 <li>
                                     <a href="/Company/Index">
-                                        <i class="fa fa-hourglass-1"></i>
+                                        <i class="fa fa-bars"></i>
                                         公司列表
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/Company/TreeShow">
-                                        <i class="fa fa-hourglass-1"></i>
+                                        <i class="fa fa-anchor"></i>
                                         公司组织架构
                                     </a>
                                 </li>
@@ -270,13 +276,13 @@
                             <ul class="treeview-menu">
                                 <li>
                                     <a href="/Department/Index">
-                                        <i class="fa fa-hourglass-1"></i>
+                                        <i class="fa fa-bars"></i>
                                         列表显示
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/Department/TreeShow">
-                                        <i class="fa fa-hourglass-1"></i>
+                                        <i class="fa fa-anchor"></i>
                                         树状显示
                                     </a>
                                 </li>
@@ -305,7 +311,7 @@
                                 </li>
                                 <li>
                                     <a href="/Staff/Tree">
-                                        <i class="fa fa-list-ol"></i>
+                                        <i class="fa fa-anchor"></i>
                                         树状显示
                                     </a>
                                 </li>
@@ -317,13 +323,13 @@
                                 </li>
                                 <li>
                                     <a href="/Staff/Tree">
-                                        <i class="fa fa-list-ol"></i>
+                                        <i class="fa fa-user-times"></i>
                                         员工兼职
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/Staff/Tree">
-                                        <i class="fa fa-list-ol"></i>
+                                        <i class="fa fa-cogs"></i>
                                         直接主管配置
                                     </a>
                                 </li>
@@ -458,9 +464,9 @@
                                 </li>
                             }*@
 
-                        <li class="treeview nav-attendance-record">
+                        <li class="treeview nav-inter-apply">
                             <a href="#">
-                                <i class="fa fa-calendar-check-o"></i>
+                                <i class="fa fa-random"></i>
                                 <span>离退管理</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -469,7 +475,7 @@
                             <ul class="treeview-menu">
 
                                 <li>
-                                    <a href="/AttendanceRecordDetail/Index">
+                                    <a href="/InterApply/Index">
                                         <i class="fa fa-list-ol"></i>
                                         离退申请
                                     </a>
@@ -477,7 +483,7 @@
 
 
                                 <li>
-                                    <a href="/AttendanceRecordCal/Index">
+                                    <a href="/InterView/Index">
                                         <i class="fa fa-table"></i>
                                         离退面谈
                                     </a>
@@ -485,14 +491,14 @@
 
 
                                 <li>
-                                    <a href="/AttendanceRecordCal/ExceptionList">
+                                    <a href="/InterReview/Index">
                                         <i class="fa fa-exclamation-triangle"></i>
                                         离退审核
                                     </a>
                                 </li>
 
                                 <li class="nav-absencerecrod">
-                                    <a href="/AbsenceRecrod/Index">
+                                    <a href="/InterSettle/Index">
                                         <i class="fa fa-adjust"></i>
                                         <span>离退结清</span>
                                     </a>
@@ -501,9 +507,9 @@
                             </ul>
                         </li>
 
-                        <li class="treeview nav-attendance-record">
+                        <li class="treeview nav-rehire">
                             <a href="#">
-                                <i class="fa fa-calendar-check-o"></i>
+                                <i class="fa fa-recycle"></i>
                                 <span>回聘管理</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -512,14 +518,14 @@
                             <ul class="treeview-menu">
 
                                 <li>
-                                    <a href="/AttendanceRecordDetail/Index">
+                                    <a href="/Rehire/Index">
                                         <i class="fa fa-list-ol"></i>
                                         回聘申请
                                     </a>
 
 
                                 <li>
-                                    <a href="/AttendanceRecordCal/Index">
+                                    <a href="/Rehire/IndexReview">
                                         <i class="fa fa-table"></i>
                                         回聘审核
                                     </a>
@@ -527,7 +533,7 @@
                             </ul>
                         </li>
 
-                        <li class="treeview nav-attendance-record">
+                        <li class="treeview nav-summary-report">
                             <a href="#">
                                 <i class="fa fa-calendar-check-o"></i>
                                 <span>报表汇总</span>
@@ -553,7 +559,7 @@
                         {
                             <li class="treeview nav-system-setting">
                                 <a href="#">
-                                    <i class="fa fa-cogs"></i>
+                                    <i class="fa fa-cog"></i>
                                     <span>系统设置</span>
                                     <span class="pull-right-container">
                                         <i class="fa fa-angle-left pull-right"></i>
@@ -582,7 +588,7 @@
                             </li>
                         }
 
-                        <li class="treeview nav-system-tip">
+                        <li class="treeview nav-system-opera">
                             <a href="#">
                                 <i class="fa fa-cogs"></i>
                                 <span>系统操作</span>
@@ -593,14 +599,14 @@
                             <ul class="treeview-menu">
 
                                 <li>
-                                    <a href="/QuartzJob/Index">
-                                        <i class="fa fa-rocket"></i>
+                                    <a href="/SysOpera/Index">
+                                        <i class="fa fa-bell"></i>
                                         友情提醒
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/QuartzJob/Index">
-                                        <i class="fa fa-cog"></i>
+                                    <a href="/SysOpera/dailyRecord">
+                                        <i class="fa fa-folder"></i>
                                         日志功能
                                     </a>
                                 </li>

@@ -25,5 +25,6 @@ namespace BlueHrLib.Data.Repository.Interface
         bool Update(Shift parModel);
 
         bool DeleteById(int id);
+        List<Shift> GetAllTableName();
     }
 }

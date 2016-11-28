@@ -625,12 +625,12 @@
             return false;
         }
 
-        if (Layout.IsStringNull($('#companyId').val())) {
+        if (Layout.IsStringNull($('#companyName').val())) {
             Layout.popMsg('popMsg-danger', "请选择公司");
             return false;
         }
 
-        if (Layout.IsStringNull($('#departmentId').val())) {
+        if (Layout.IsStringNull($('#departmentName').val())) {
             Layout.popMsg('popMsg-danger', "请选择部门");
             return false;
         }
@@ -649,9 +649,6 @@
             Layout.popMsg('popMsg-danger', "签订合同次数不能为负");
             return false;
         }
-
-
-
     });
 
     var cmpList = [];

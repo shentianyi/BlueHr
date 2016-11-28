@@ -28,6 +28,7 @@ namespace BlueHrLib.Service.Interface
         List<SysAuthorization> GetAll();
 
         List<SysAuthorization> GetSysAuthByRoleId(string roleId);
+        List<SysAuthorization> GetAllTableName();
     }
 }
 

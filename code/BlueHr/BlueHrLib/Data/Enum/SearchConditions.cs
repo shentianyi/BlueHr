@@ -37,7 +37,7 @@ namespace BlueHrLib.Data.Enum
         LeftLike = 9,
 
         [Description("右匹配")]
-        RightLike = 9,
+        RightLike = 10,
 
     }
 }

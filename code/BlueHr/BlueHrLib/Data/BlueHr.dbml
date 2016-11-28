@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHrV2" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=SFZ-PC\SQLEXPRESS;Initial Catalog=BlueHrV2;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrV2ConnectionString1" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHr" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=MB-PC;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString10" Provider="System.Data.SqlClient" />
   <Table Name="dbo.WorkAndRest" Member="WorkAndRest">
     <Type Name="WorkAndRest">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -750,16 +750,6 @@
       <Association Name="User_SysUserDataAuth" Member="SysUserDataAuth" ThisKey="id" OtherKey="userId" Type="SysUserDataAuth" />
     </Type>
   </Table>
-  <Table Name="dbo.JobTitle" Member="JobTitle">
-    <Type Name="JobTitle">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="IsRevoked" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="JobTitle_JobCertificate" Member="JobCertificate" ThisKey="id" OtherKey="jobTitleId" Type="JobCertificate" />
-      <Association Name="JobTitle_Staff" Member="Staff" ThisKey="id" OtherKey="jobTitleId" Type="Staff" />
-    </Type>
-  </Table>
   <Table Name="dbo.SysRoleAuthView" Member="SysRoleAuthView">
     <Type Name="SysRoleAuthView">
       <Column Name="SysAuthId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -776,6 +766,16 @@
       <Column Name="roleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="authId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SysRoleAuthRemarks" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.JobTitle" Member="JobTitle">
+    <Type Name="JobTitle">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="remark" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="IsRevoked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="JobTitle_JobCertificate" Member="JobCertificate" ThisKey="id" OtherKey="jobTitleId" Type="JobCertificate" />
+      <Association Name="JobTitle_Staff" Member="Staff" ThisKey="id" OtherKey="jobTitleId" Type="Staff" />
     </Type>
   </Table>
 </Database>

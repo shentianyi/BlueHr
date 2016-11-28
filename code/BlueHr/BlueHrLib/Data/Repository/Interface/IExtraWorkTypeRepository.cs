@@ -9,5 +9,6 @@ namespace BlueHrLib.Data.Repository.Interface
     interface IExtraWorkTypeRepository
     {
         List<ExtraWorkType> All();
+        List<ExtraWorkType> GetAllTableName();
     }
 }

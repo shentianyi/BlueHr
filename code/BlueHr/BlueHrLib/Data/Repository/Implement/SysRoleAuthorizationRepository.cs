@@ -130,5 +130,17 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             }
         }
+
+        public List<SysRoleAuthorization> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<SysRoleAuthorization>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

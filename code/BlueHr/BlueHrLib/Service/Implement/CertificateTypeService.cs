@@ -69,5 +69,11 @@ namespace BlueHrLib.Service.Implement
             return certfRep.GetAll();
         }
 
+        public List<CertificateType> GetAllTableName()
+        {
+            DataContext dc = new DataContext(this.DbString);
+            ICertificateTypeRepository certfRep = new CertificateTypeRepository(dc);
+            return certfRep.GetAllTableName();
+        }
     }
 }

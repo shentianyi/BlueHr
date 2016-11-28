@@ -28,5 +28,6 @@ namespace BlueHrLib.Data.Repository.Interface
         List<SysRoleAuthorization> FindByRoleId(int roleId);
 
         bool DeleteByRoleId(int roleId);
+        List<SysRoleAuthorization> GetAllTableName();
     }
 }

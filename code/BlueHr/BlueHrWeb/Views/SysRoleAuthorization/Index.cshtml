@@ -11,123 +11,171 @@
 <hr class="hr-grey" />
 
 
-<div class="row" style="margin:0;">
+<div class="search">
     <form action="/SysRoleAuthorization/Search" method="get">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>角色名称</span>
-                @Html.DropDownList("RoleName", ViewData["SysRoleList"] as IEnumerable<SelectListItem>)
+        <div class="row" style="margin:0;">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>角色名称</span>
+                    @Html.DropDownList("RoleName", ViewData["SysRoleList"] as IEnumerable<SelectListItem>)
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>权限模块</span>
+                    <input type="text" name="AuthName" id="AuthName" placeholder="权限模块" value="@ViewBag.Query.AuthName" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 5px;">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <button type="submit" class="marco-btn-success pull-left">
+                        <i class="fa fa-search"></i>
+                        <span>搜索</span>
+                    </button>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <button type="button" class="marco-btn-primary advanced-filter-btn" title="自定义搜索">
+                        <i class="fa fa-filter"></i>
+                        <span>自定义搜索</span>
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>权限模块</span>
-                <input type="text" name="AuthName" id="AuthName" placeholder="权限模块" value="@ViewBag.Query.AuthName" />
+    </form>
+
+    <form action="/SysRoleAuthorization/AdvancedSearch" method="post">
+        <div class="advanced-filter row" style="margin:0;display:none;">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>字段</span>
+                    @*@Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)*@
+                </div>
             </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
-            <button type="submit" class="marco-btn-success">
-                <i class="glyphicon glyphicon-search"></i>
-                搜索
-            </button>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>条件</span>
+                    @*@Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)*@
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值1</span>
+                    <input type="text" name="searchValueFirst" value="" />
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值2</span>
+                    <input type="text" name="searchValueSecond" value="" />
+                    <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
+                </div>
+            </div>
         </div>
     </form>
 </div>
+<hr class="hr-primary" />
 
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="usual-table">
-        <div class="table-heading">
-            权限列表
-            <div class="pull-right" style="margin-top:-12px;">
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
 
-                <button class="marco-btn-primary" id="btnSaveAuth">
-                    <i class="glyphicon glyphicon-plus-sign"></i>
-                    <span>保存权限</span>
-                </button>
 
-            </div>
-        </div>
-        <div class="table-body content_3">
-            <table class="table table-bordered" id="theTableList">
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" id="ckbox_all" onclick="checkboxOnAllclick(this)" /></th>
-                        <th>模块</th>
-                        <th>控制器</th>
-                        <th>动作</th>
-                        <th>名称</th>
-                        <th>备注</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model)
+        <a href="/SysRoleAuthorization/Create" class="pull-right" style="margin-top: -10px; margin-right:15px;">
+            <button class="marco-btn-primary" id="btnSaveAuth">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>保存权限</span>
+            </button>
+        </a>
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+
+            <li role="presentation" class="active"><a href="#all_SysRoleAuthorization" role="tab" data-toggle="tab">所有角色权限</a></li>
+           
+
+        </ul>
+        <div class="tab-content">
+
+            
+            <div role="tabpanel" class="tab-pane  active" id="all_SysRoleAuthorization">
+                <div id="all_SysRoleAuthorization_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="ckbox_all" onclick="checkboxOnAllclick(this)" /></th>
+                            <th>模块</th>
+                            <th>控制器</th>
+                            <th>动作</th>
+                            <th>名称</th>
+                            <th>备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
                         {
-                            <tr>
-                                <td>
-                                    @{
-                                        bool isExist = ViewBag.TheAuthList.Contains(item.id.ToString());
-                                        if (isExist)
-                                        {
-                                            <input type="checkbox" id="ckbox_@item.id" onclick="checkboxOnclick(this,@item.id)" value="@item.id" checked="checked" />
-                                        }
-                                        else
-                                        {
-                                            <input type="checkbox" id="ckbox_@item.id" onclick="checkboxOnclick(this,@item.id)" value="@item.id" />
-                                        }
-                                    }
-
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.funCode)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.controlName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.actionName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.remarks)
-                                </td>
-                            </tr>
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @{
+                                            bool isExist = ViewBag.TheAuthList.Contains(item.id.ToString());
+                                            if (isExist)
+                                            {
+                                                <input type="checkbox" id="ckbox_@item.id" onclick="checkboxOnclick(this,@item.id)" value="@item.id" checked="checked" />
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" id="ckbox_@item.id" onclick="checkboxOnclick(this,@item.id)" value="@item.id" />
                                             }
                                         }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
-        <div class="clearfix pagination">
-            <div class="pagination-inner">
-                @if (Model != null)
-                {
-                    if (ViewBag.Query != null)
-                    {
-                        var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                       .Options(o => o.AddRouteValue("AuthName", ViewBag.Query.AuthName))
-                       .Options(o => o.AddRouteValue("RoleName", ViewBag.Query.RoleName));
-                        @html
-                    }
-                    else
-                    {
-                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                    }
-                }
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.funCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.controlName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.actionName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.remarks)
+                                    </td>
+                                </tr>
+                                                }
+                                            }
+                    </tbody>
+                </table>
             </div>
+            
         </div>
+
+
     </div>
-    <div hidden="hidden">
-        <input id="theAuthList" value="@ViewBag.TheRoleAuthList" />
-    </div>
-</div>
+</div> 
+
+
 
 <script type="text/javascript">
     Layout.init();
+
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_SysRoleAuthorization", "所有角色权限列表", "20", "all_SysRoleAuthorization_grid_table");
+       
+    })
+
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_SysRoleAuthorization", "所有角色权限列表", "20", "all_SysRoleAuthorization_grid_table");
+
+   
+
+   
+
+
+    Layout.advancedfilter();
 
     function checkboxOnclick(checkbox, id) {
 

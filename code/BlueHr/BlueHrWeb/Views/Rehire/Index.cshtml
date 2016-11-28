@@ -1,0 +1,139 @@
+﻿@using MvcPaging
+@using BlueHrWeb.Helpers.View
+
+
+@model IPagedList<BlueHrLib.Data.Company>
+
+@{
+    ViewBag.Title = "公司管理";
+}
+
+@Styles.Render("~/Content/company")
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>公司管理</li>
+    <li>公司列表</li>
+</ol>
+
+<hr class="hr-grey" />
+@{
+    bool canDelete = MenuAuthHelper.CanShow("Company", "Delete");
+    bool canEdit = MenuAuthHelper.CanShow("Company", "Edit");
+    bool canCreate = MenuAuthHelper.CanShow("Company", "Create");
+
+}
+<form action="/Company/Search" method="get">
+    <div class="row" style="margin:0;">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>公司名称</span>
+                <input type="text" name="Name" id="Name" placeholder="公司名称" value="@ViewBag.Query.Name" />
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="margin-top:5px;">
+            <button type="submit" class="marco-btn-success">
+                <i class="glyphicon glyphicon-search"></i>
+                搜索
+            </button>
+        </div>
+    </div>
+</form>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="usual-table">
+        <div class="table-heading">
+            公司列表
+            <div class="pull-right" style="margin-top:-12px;">
+                @if (canCreate)
+                {
+                <a href="/Company/Create">
+                    <button class="marco-btn-primary">
+                        <i class="glyphicon glyphicon-plus-sign"></i>
+                        <span>创建</span>
+                    </button>
+                </a>
+                }
+            </div>
+        </div>
+        <div class="table-body content_3">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>公司名称</th>
+                        <th>公司地址</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                    <span class="badge pull-right marco-badge" title="公司部门">
+                                        <a href="@Url.Action("Search", "Department", new { CompanyId = item.id})">
+                                            @*@ViewBag.Info.departmentCount*@
+                                            @item.departmentCound 部门
+                                        </a>
+                                    </span>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.remark)
+                                </td>
+                                <td>
+                                    @if (canDelete)
+                                    {
+                                    <a href="/Company/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    }
+                                    @if (canEdit)
+                                    {
+                                    <a href="/Company/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+        <div class="clearfix pagination">
+            <div class="pagination-inner">
+                @if (Model != null)
+            {
+                if (ViewBag.Query != null)
+                {
+
+                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
+                        @html
+                    }
+                    else
+                    {
+                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Scripts.Render("~/bundles/company")
+
+<script type="text/javascript">
+    Layout.init();
+    //Layout.TbodyHeight('.table-body', 310);
+</script>

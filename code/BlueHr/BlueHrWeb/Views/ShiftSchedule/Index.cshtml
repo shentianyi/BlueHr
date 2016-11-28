@@ -21,179 +21,157 @@
 
     bool canImport = MenuAuthHelper.CanShow("ShiftSchedule", "Import");
 }
-<form action="/ShiftSchedule/Search" method="get">
-    <div class="row" style="margin:0;">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>字段名称</span>
-                <select name="Name" id="Name">
-                    <option value=""></option>
-                    <option value="1">员工号</option>
-                    <option value="2">排班日期</option>
-                    <option value="3">班次</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
-            <button type="submit" class="marco-btn-success">
-                <i class="glyphicon glyphicon-search"></i>
-                查找
-            </button>
-        </div>
-    </div>
-    <div class="row" style="margin:0;">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>条件</span>
-                <input type="text" name="requirements" id="requirements" value="" />
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>值1</span>
-                <input type="text" name="value1" id="value1" value="" />
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>值2</span>
-                <input type="text" name="value2" id="value2" value="" />
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>逻辑关系</span>
-                <input type="text" name=" relationship" id=" relationship" value="" />
-            </div>
-        </div>
-    </div>
-</form>
-@*<form action="/ShiftSchedule/Search" method="get">
-    <div class="row" style="margin:0;">
-        <div class="col-lg-3 col-md-3 col-sm-5 col-xs-5">
-            <div class="marco-igroup-primary">
-                <span>员工号(模糊)</span>
-                <input type="text" name="staffNr" id="StaffNr" placeholder="员工号" value="@ViewBag.Query.StaffNr" />
-            </div>
-        </div>
 
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-5">
-            <div class="marco-igroup-primary">
-                <span>员工号(精确)</span>
-                <input type="text" name="StaffNrAct" id="StaffNrAct" placeholder="员工号" value="@ViewBag.Query.StaffNrAct" />
+<div class="search">
+    @* 简单搜索 *@
+    <form action="/ShiftSchedule/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-3 col-md-3 col-sm-5 col-xs-5">
+                <div class="marco-igroup-primary">
+                    <span>员工号(模糊)</span>
+                    <input type="text" name="staffNr" id="StaffNr" placeholder="员工号" value="@ViewBag.Query.StaffNr" />
+                </div>
             </div>
-        </div>
 
-        <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
-            <div class="marco-igroup-primary">
-                <span>排班日期</span>
-                <input type="text" name="ScheduleAtFrom" id="ScheduleAtFrom" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.ScheduleAtFrom" />
-
-                <span style="margin-left: 5px;"> ~ </span>
-                <input type="text" name="ScheduleAtEnd" id="ScheduleAtEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.ScheduleAtEnd" />
-
-                <span class="marco-label-success" style="padding:0;">
-                    <button type="submit" class="marco-btn-success" style="padding:10px; margin:0;">
-                        <i class="fa fa-search"></i>
-                        搜索
-                    </button>
-                    @if (canImport)
-                    {
-                    <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
-                        导入排班记录
-                    </button>
-                    }
-                </span>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-5">
+                <div class="marco-igroup-primary">
+                    <span>员工号(精确)</span>
+                    <input type="text" name="StaffNrAct" id="StaffNrAct" placeholder="员工号" value="@ViewBag.Query.StaffNrAct" />
+                </div>
             </div>
-        </div>
-    </div>
-</form>*@
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="usual-table">
-        <div class="table-heading">
-            排班列表
-            <div class="pull-right" style="margin-top:-12px;">
-                @if (canCreate)
-                {
-                <a href="/ShiftSchedule/Create" target="_blank">
-                    <button class="marco-btn-primary">
-                        <i class="glyphicon glyphicon-plus-sign"></i>
-                        <span>创建</span>
-                    </button>
-                </a>
-                }
-            </div>
-        </div>
-        <div class="table-body content_3">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>员工</th>
-                        <th>日期</th>
-                        <th>班次</th> 
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model)
+
+            <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
+                <div class="marco-igroup-primary">
+                    <span>排班日期</span>
+                    <input type="text" name="ScheduleAtFrom" id="ScheduleAtFrom" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.ScheduleAtFrom" />
+
+                    <span style="margin-left: 5px;"> ~ </span>
+                    <input type="text" name="ScheduleAtEnd" id="ScheduleAtEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.ScheduleAtEnd" />
+
+                    <span class="marco-label-success" style="padding:0;">
+                        <button type="submit" class="marco-btn-success" style="padding:10px; margin:0;">
+                            <i class="fa fa-search"></i>
+                            搜索
+                        </button>
+                        @if (canImport)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.staffNr)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.scheduleAtStr)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Shift.code)
-                                </td> 
-                                <td>
-                                    @if (canDelete)
-                                    {
-                                    <a href="/ShiftSchedule/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                    }
-                                    @if (canEdit)
-                                    {
-                                    <a href="/ShiftSchedule/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    }
-                                </td>
-                            </tr>
+                            <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
+                                导入排班记录
+                            </button>
                         }
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
-        <div class="clearfix pagination">
-            <div class="pagination-inner">
-                @if (Model != null)
-                {
-                    if (ViewBag.Query != null)
-                    {
-
-                        var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                            .Options(o => o.AddRouteValue("StaffNr", ViewBag.Query.StaffNr))
-                              .Options(o => o.AddRouteValue("StaffNrAct", ViewBag.Query.StaffNrAct))
-                             .Options(o => o.AddRouteValue("ScheduleAtFrom", ViewBag.Query.ScheduleAtFrom))
-                              .Options(o => o.AddRouteValue("ScheduleAtEnd", ViewBag.Query.ScheduleAtEnd));
-                        @html
-                    }
-                    else
-                    {
-                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                    }
-                }
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
+
+    @* 自定义搜索 *@
+    <form action="/ShiftSchedule/AdvancedSearch" method="post">
+        <div class="advanced-filter row" style="margin:0;display:none;">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>字段</span>
+                    @*@Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)*@
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>条件</span>
+                    @*@Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)*@
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值1</span>
+                    <input type="text" name="searchValueFirst" value="" />
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值2</span>
+                    <input type="text" name="searchValueSecond" value="" />
+                    <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
+<hr class="hr-primary" />
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+
+
+        <a href="/ShiftSchedule/Create" class="pull-right" style="margin-top: -10px; margin-right:15px;">
+            <button class="marco-btn-primary">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>创建</span>
+            </button>
+        </a>
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+
+            <li role="presentation" class="active"><a href="#all_ShiftSchedule" role="tab" data-toggle="tab">所有排班管理</a></li>
+
+
+        </ul>
+        <div class="tab-content">
+
+
+            <div role="tabpanel" class="tab-pane  active" id="all_ShiftSchedule">
+                <div id="all_ShiftSchedule_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>员工</th>
+                            <th>日期</th>
+                            <th>班次</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.staffNr)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.scheduleAtStr)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Shift.code)
+                                    </td>
+                                    <td>
+                                        @if (canDelete)
+                                        {
+                                            <a href="/ShiftSchedule/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
+                                        @if (canEdit)
+                                        {
+                                            <a href="/ShiftSchedule/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+    </div>
+</div> 
+
 
 <!--导入数据-->
 <div id="dialog_content" class="import_content" style="display:none;">
@@ -213,6 +191,15 @@
 
 <script type="text/javascript">
     Layout.init();
+
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_ShiftSchedule", "所有排班管理列表", "20", "all_ShiftSchedule_grid_table");
+
+    })
+
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_ShiftSchedule", "所有排班管理列表", "20", "all_ShiftSchedule_grid_table");
+    Layout.advancedfilter();
+
     $('.datetimepicker').datetimepicker({
         format: 'Y-m-d',
         timepicker:false

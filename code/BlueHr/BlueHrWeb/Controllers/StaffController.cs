@@ -125,30 +125,30 @@ namespace BlueHrWeb.Controllers
             string SearchValueFirst = null;
             string SearchValueSecond =null;
 
-
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
                 AllTableName = Request.Form["allTableName"].ToString();
+
+                SetAllTableName(AllTableName);
 
                 if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
                 {
                     SearchConditions = Request.Form.Get("searchConditions");
 
+                    SetSearchConditions(Convert.ToInt32(SearchConditions));
+
                     if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
                     {
                         SearchValueFirst = Request.Form.Get("searchValueFirst").ToString();
 
-                        if (!string.IsNullOrEmpty(Request.Form.Get("searchValueSecond")))
-                        {
-                            SearchValueSecond = Request.Form.Get("searchValueSecond").ToString();
-                            //有两个值， 需要进行两个值的查询
-                            staffs = ss.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
-                        }
-                        else
-                        {
-                            //有一个值， 进行查询
-                            staffs = ss.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
-                        }
+                        ViewBag.searchValueFirst = SearchValueFirst;
+
+                        SearchValueSecond = Request.Form.Get("searchValueSecond").ToString();
+                        ViewBag.searchValueSecond = SearchValueSecond;
+
+                        //有两个值， 需要进行两个值的查询
+                        staffs = ss.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
+                       
                     }
                     else
                     {
@@ -157,7 +157,6 @@ namespace BlueHrWeb.Controllers
                 }
             }
 
-            SetDropDownList(null);
 
             return View("Index", staffs);
         }
@@ -627,7 +626,7 @@ namespace BlueHrWeb.Controllers
                 SetIsPayCPFList(staff.isPayCPF);
                 SetResidenceTypeList(staff.residenceType);
                 SetWorkStatusList(staff.workStatus);
-                SetAllTableName();
+                SetAllTableName(null);
                 SetSearchConditions(null);
             }
             else
@@ -643,12 +642,12 @@ namespace BlueHrWeb.Controllers
                 SetIsPayCPFList(false);
                 SetResidenceTypeList(0);
                 SetWorkStatusList(100);
-                SetAllTableName();
+                SetAllTableName(null);
                 SetSearchConditions(null);
             }
         }
 
-        private void SetAllTableName(bool allowBlank = false)
+        private void SetAllTableName(string type, bool allowBlank = false)
         {
             List<SelectListItem> select = new List<SelectListItem>();
 
@@ -661,14 +660,22 @@ namespace BlueHrWeb.Controllers
                 //获取当前记录的属性
                 foreach (var property in Staffs[0].GetType().GetProperties())
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name });
+                    if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
+                    {
+                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
+                    }
+                    else
+                    {
+                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                    }
+
                 }
             }
 
             ViewData["getAllTableNameList"] = select;
         }
 
-        private void SetSearchConditions(bool? type, bool allowBlank = false)
+        private void SetSearchConditions(int? type, bool allowBlank = false)
         {
             var item = EnumHelper.GetList(typeof(SearchConditions));
 

@@ -17,173 +17,171 @@
     bool canEdit = MenuAuthHelper.CanShow("Shift", "Edit");
     bool canCreate = MenuAuthHelper.CanShow("Shift", "Create");
 }
-<form action="/Shift/Search" method="get">
-    <div class="row" style="margin:0;">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>字段名称</span>
-                <select name="Name" id="Name">
-                    <option value=""></option>
-                    <option value="1">名称</option>
-                    <option value="2">代码</option>
-                    <option value="3">开始时间</option>
-                    <option value="4">班次类型</option>
-                    <option value="5">截止时间</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
-            <button type="submit" class="marco-btn-success">
-                <i class="glyphicon glyphicon-search"></i>
-                查找
-            </button>
-        </div>
-    </div>
-    <div class="row" style="margin:0;">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>条件</span>
-                <input type="text" name="requirements" id="requirements" value="" />
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>值1</span>
-                <input type="text" name="value1" id="value1" value="" />
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>值2</span>
-                <input type="text" name="value2" id="value2" value="" />
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>逻辑关系</span>
-                <input type="text" name=" relationship" id=" relationship" value="" />
-            </div>
-        </div>
-    </div>
-</form>
-@*<div class="row" style="margin:0;">
+<div class="search">
+    @* 简单搜索 *@
     <form action="/Shift/Search" method="get">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>班次名称</span>
-                <input type="text" name="Name" id="Name" placeholder="班次名称" value="@ViewBag.Query.Name" />
+        <div class="row" style="margin:0;">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>班次名称</span>
+                    <input type="text" name="Name" id="Name" placeholder="班次名称" value="@ViewBag.Query.Name" />
+                </div>
             </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
-            <button type="submit" class="marco-btn-success">
-                <i class="glyphicon glyphicon-search"></i>
-                搜索
-            </button>
+            
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 5px;">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <button type="submit" class="marco-btn-success pull-left">
+                        <i class="fa fa-search"></i>
+                        <span>搜索</span>
+                    </button>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <button type="button" class="marco-btn-primary advanced-filter-btn" title="自定义搜索">
+                        <i class="fa fa-filter"></i>
+                        <span>自定义搜索</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </form>
-</div>*@
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="usual-table">
-        <div class="table-heading">
-            班次列表
-            <div class="pull-right" style="margin-top:-12px;">
-                @if (canCreate)
-                {
-                <a href="/Shift/Create">
-                    <button class="marco-btn-primary">
-                        <i class="glyphicon glyphicon-plus-sign"></i>
-                        <span>创建</span>
-                    </button>
-                </a>
-                }
+
+    @* 自定义搜索 *@
+    <form action="/Shift/AdvancedSearch" method="post">
+        <div class="advanced-filter row" style="margin:0;display:none;">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>字段</span>
+                    @*@Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)*@
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>条件</span>
+                    @*@Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)*@
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值1</span>
+                    <input type="text" name="searchValueFirst" value="" />
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值2</span>
+                    <input type="text" name="searchValueSecond" value="" />
+                    <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
+                </div>
             </div>
         </div>
-        <div class="table-body content_3">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>代码</th>
-                        <th>开始时间</th>
-                        <th>班次类型</th>
-                        <th>截止时间</th>
-                        <th>备注</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.code)
-                                </td>
-                                <td>
-                                    @{
-                                        string startAtStr = string.Format("{0:hh\\:mm}", item.startAt);
-                                    }
-                                    @Html.DisplayFor(modelItem => startAtStr)
-
-                                </td><td>
-    @Html.DisplayFor(modelItem => item.shiftTypeStr)
-</td>
-                                <td>
-                                    @{
-                                        string endAtStr = string.Format("{0:hh\\:mm}", item.endAt);
-                                    }
-                                    @Html.DisplayFor(modelItem => endAtStr)
-                                </td>
-                               
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.remark)
-                                </td>
-                                <td>
-                                    @if (canDelete)
-                                    {
-                                    <a href="/Shift/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
-                                        <i class="fa fa-eye"></i>
-                                    </a>}
-                                    @if (canEdit)
-                                    {
-                                    <a href="/Shift/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    }
-                                </td>
-                            </tr>
-                                            }
-                                        }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
-        <div class="clearfix pagination">
-            <div class="pagination-inner">
-                @if (Model != null)
-                {
-                    if (ViewBag.Query != null)
-                    {
-
-                        var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                            .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name));
-                        @html
-                    }
-                    else
-                    {
-                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                    }
-                }
-            </div>
-        </div>
-    </div>
+    </form>
 </div>
+<hr class="hr-primary" />
+
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+
+
+        <a href="/Shift/Create" class="pull-right" style="margin-top: -10px; margin-right:15px;">
+            <button class="marco-btn-primary">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>创建</span>
+            </button>
+        </a>
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+
+            <li role="presentation" class="active"><a href="#all_shift" role="tab" data-toggle="tab">所有班次管理</a></li>
+            
+
+        </ul>
+        <div class="tab-content">
+
+            
+            <div role="tabpanel" class="tab-pane  active" id="all_shift">
+                <div id="all_shift_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>代码</th>
+                            <th>开始时间</th>
+                            <th>班次类型</th>
+                            <th>截止时间</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.code)
+                                    </td>
+                                    <td>
+                                        @{
+                                            string startAtStr = string.Format("{0:hh\\:mm}", item.startAt);
+                                        }
+                                        @Html.DisplayFor(modelItem => startAtStr)
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.shiftTypeStr)
+                                    </td>
+                                    <td>
+                                        @{
+                                            string endAtStr = string.Format("{0:hh\\:mm}", item.endAt);
+                                        }
+                                        @Html.DisplayFor(modelItem => endAtStr)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.remark)
+                                    </td>
+                                    <td>
+                                        @if (canDelete)
+                                        {
+                                            <a href="/Shift/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>}
+                                        @if (canEdit)
+                                        {
+                                            <a href="/Shift/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                                                }
+                                            }
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+
+
+    </div>
+</div> 
+
 
 <script type="text/javascript">
     Layout.init();
+
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_shift", "所有班次管理列表", "20", "all_shift_grid_table");
+
+    })
+
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_shift", "所有班次管理列表", "20", "all_shift_grid_table");
+    Layout.advancedfilter();
 </script>
