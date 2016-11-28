@@ -21,5 +21,6 @@ namespace BlueHrLib.Data.Repository.Interface
         bool DeleteById(int id);
 
         List<DegreeType> GetAll();
+        List<DegreeType> GetAllTableName();
     }
 }

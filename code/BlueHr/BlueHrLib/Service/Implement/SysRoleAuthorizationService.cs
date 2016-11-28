@@ -104,5 +104,10 @@ on sra.authId equals sa.id
         {
             return rep.DeleteByRoleId(roleId);
         }
+
+        public List<SysRoleAuthorization> GetAllTableName()
+        {
+            return rep.GetAllTableName();
+        }
     }
 }

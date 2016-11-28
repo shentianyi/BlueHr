@@ -24,5 +24,6 @@ namespace BlueHrLib.Data.Repository.Interface
         bool DeleteById(int id);
 
         string FindByIds(List<string> ids);
+        List<Department> GetAllTableName();
     }
 }

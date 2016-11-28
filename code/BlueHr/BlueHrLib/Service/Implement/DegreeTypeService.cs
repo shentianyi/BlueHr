@@ -64,5 +64,10 @@ namespace BlueHrLib.Service.Implement
         {
             return degreeTypeRep.FindByName(name);
         }
+
+        public List<DegreeType> GetAllTableName()
+        {
+            return degreeTypeRep.GetAllTableName();
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace BlueHrLib.Service.Interface
    public interface IExtraWorkTypeService
     {
         List<ExtraWorkType> All();
+        List<ExtraWorkType> GetAllTableName();
     }
 }

@@ -165,6 +165,11 @@ namespace BlueHrLib.Service.Implement
         {
             return attendanceRecordCalRepo.DeleteById(id);
         }
+
+        public List<AttendanceRecordCal> GetAllTableName()
+        {
+            return attendanceRecordCalRepo.GetAllTableName();
+        }
     }
 }
 

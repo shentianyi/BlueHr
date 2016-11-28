@@ -113,5 +113,17 @@ namespace BlueHrLib.Data.Repository.Implement
             //获取查询到的第一个Name的职位
             return this.context.GetTable<JobTitle>().FirstOrDefault(c => c.name.Equals(name.Trim()));
         }
+
+        public List<JobTitle> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<JobTitle>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

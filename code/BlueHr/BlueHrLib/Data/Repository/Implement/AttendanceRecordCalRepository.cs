@@ -64,5 +64,17 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<AttendanceRecordCal>().FirstOrDefault(s => s.id.Equals(id));
         }
+
+        public List<AttendanceRecordCal> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<AttendanceRecordCal>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

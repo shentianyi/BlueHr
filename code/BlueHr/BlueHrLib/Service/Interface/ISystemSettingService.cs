@@ -15,5 +15,6 @@ namespace BlueHrLib.Service.Interface
         SystemSetting Find();
 
         bool Update(SystemSetting setting);
+        List<SystemSetting> GetAllTableName();
     }
 }

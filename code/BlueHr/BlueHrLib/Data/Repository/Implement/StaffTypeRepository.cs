@@ -90,5 +90,17 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<StaffType>().FirstOrDefault(c => c.name.Equals(name.Trim()));
         }
+
+        public List<StaffType> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<StaffType>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

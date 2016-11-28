@@ -56,5 +56,6 @@ namespace BlueHrLib.Service.Interface
         StaffTypeInfoModel GetStaffTypeInfo(StaffTypeSearchModel searchModel);
 
         List<StaffType> GetAll();
+        List<StaffType> GetAllTableName();
     }
 }

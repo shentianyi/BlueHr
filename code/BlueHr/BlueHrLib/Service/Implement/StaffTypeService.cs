@@ -75,5 +75,10 @@ namespace BlueHrLib.Service.Implement
         {
             return staffTypeRep.FindByName(name);
         }
+
+        public List<StaffType> GetAllTableName()
+        {
+            return staffTypeRep.GetAllTableName();
+        }
     }
 }

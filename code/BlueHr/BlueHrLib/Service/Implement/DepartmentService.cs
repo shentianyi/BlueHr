@@ -66,5 +66,10 @@ namespace BlueHrLib.Service.Implement
         {
             return this.Context.Context.GetTable<Department>().Where(s => s.parentId == id);
         }
+
+        public List<Department> GetAllTableName()
+        {
+            return depRep.GetAllTableName();
+        }
     }
 }

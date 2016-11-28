@@ -22,7 +22,7 @@ namespace BlueHrLib.Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BlueHrV2")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BlueHr")]
 	public partial class BlueHrDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -141,7 +141,7 @@ namespace BlueHrLib.Data
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.BlueHrV2ConnectionString1, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString10, mappingSource)
 		{
 			OnCreated();
 		}
@@ -514,19 +514,19 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<JobTitle> JobTitle
-		{
-			get
-			{
-				return this.GetTable<JobTitle>();
-			}
-		}
-		
 		public System.Data.Linq.Table<SysRoleAuthView> SysRoleAuthView
 		{
 			get
 			{
 				return this.GetTable<SysRoleAuthView>();
+			}
+		}
+		
+		public System.Data.Linq.Table<JobTitle> JobTitle
+		{
+			get
+			{
+				return this.GetTable<JobTitle>();
 			}
 		}
 	}
@@ -14904,196 +14904,6 @@ namespace BlueHrLib.Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.JobTitle")]
-	public partial class JobTitle : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _name;
-		
-		private string _remark;
-		
-		private System.Nullable<int> _IsRevoked;
-		
-		private EntitySet<JobCertificate> _JobCertificate;
-		
-		private EntitySet<Staff> _Staff;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OnremarkChanging(string value);
-    partial void OnremarkChanged();
-    partial void OnIsRevokedChanging(System.Nullable<int> value);
-    partial void OnIsRevokedChanged();
-    #endregion
-		
-		public JobTitle()
-		{
-			this._JobCertificate = new EntitySet<JobCertificate>(new Action<JobCertificate>(this.attach_JobCertificate), new Action<JobCertificate>(this.detach_JobCertificate));
-			this._Staff = new EntitySet<Staff>(new Action<Staff>(this.attach_Staff), new Action<Staff>(this.detach_Staff));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="VarChar(255)")]
-		public string remark
-		{
-			get
-			{
-				return this._remark;
-			}
-			set
-			{
-				if ((this._remark != value))
-				{
-					this.OnremarkChanging(value);
-					this.SendPropertyChanging();
-					this._remark = value;
-					this.SendPropertyChanged("remark");
-					this.OnremarkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsRevoked", DbType="Int")]
-		public System.Nullable<int> IsRevoked
-		{
-			get
-			{
-				return this._IsRevoked;
-			}
-			set
-			{
-				if ((this._IsRevoked != value))
-				{
-					this.OnIsRevokedChanging(value);
-					this.SendPropertyChanging();
-					this._IsRevoked = value;
-					this.SendPropertyChanged("IsRevoked");
-					this.OnIsRevokedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_JobCertificate", Storage="_JobCertificate", ThisKey="id", OtherKey="jobTitleId")]
-		public EntitySet<JobCertificate> JobCertificate
-		{
-			get
-			{
-				return this._JobCertificate;
-			}
-			set
-			{
-				this._JobCertificate.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_Staff", Storage="_Staff", ThisKey="id", OtherKey="jobTitleId")]
-		public EntitySet<Staff> Staff
-		{
-			get
-			{
-				return this._Staff;
-			}
-			set
-			{
-				this._Staff.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_JobCertificate(JobCertificate entity)
-		{
-			this.SendPropertyChanging();
-			entity.JobTitle = this;
-		}
-		
-		private void detach_JobCertificate(JobCertificate entity)
-		{
-			this.SendPropertyChanging();
-			entity.JobTitle = null;
-		}
-		
-		private void attach_Staff(Staff entity)
-		{
-			this.SendPropertyChanging();
-			entity.JobTitle = this;
-		}
-		
-		private void detach_Staff(Staff entity)
-		{
-			this.SendPropertyChanging();
-			entity.JobTitle = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SysRoleAuthView")]
 	public partial class SysRoleAuthView
 	{
@@ -15352,6 +15162,196 @@ namespace BlueHrLib.Data
 					this._SysRoleAuthRemarks = value;
 				}
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.JobTitle")]
+	public partial class JobTitle : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _name;
+		
+		private string _remark;
+		
+		private System.Nullable<bool> _IsRevoked;
+		
+		private EntitySet<JobCertificate> _JobCertificate;
+		
+		private EntitySet<Staff> _Staff;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnremarkChanging(string value);
+    partial void OnremarkChanged();
+    partial void OnIsRevokedChanging(System.Nullable<bool> value);
+    partial void OnIsRevokedChanged();
+    #endregion
+		
+		public JobTitle()
+		{
+			this._JobCertificate = new EntitySet<JobCertificate>(new Action<JobCertificate>(this.attach_JobCertificate), new Action<JobCertificate>(this.detach_JobCertificate));
+			this._Staff = new EntitySet<Staff>(new Action<Staff>(this.attach_Staff), new Action<Staff>(this.detach_Staff));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="VarChar(255)")]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this.OnremarkChanging(value);
+					this.SendPropertyChanging();
+					this._remark = value;
+					this.SendPropertyChanged("remark");
+					this.OnremarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsRevoked", DbType="Bit")]
+		public System.Nullable<bool> IsRevoked
+		{
+			get
+			{
+				return this._IsRevoked;
+			}
+			set
+			{
+				if ((this._IsRevoked != value))
+				{
+					this.OnIsRevokedChanging(value);
+					this.SendPropertyChanging();
+					this._IsRevoked = value;
+					this.SendPropertyChanged("IsRevoked");
+					this.OnIsRevokedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_JobCertificate", Storage="_JobCertificate", ThisKey="id", OtherKey="jobTitleId")]
+		public EntitySet<JobCertificate> JobCertificate
+		{
+			get
+			{
+				return this._JobCertificate;
+			}
+			set
+			{
+				this._JobCertificate.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_Staff", Storage="_Staff", ThisKey="id", OtherKey="jobTitleId")]
+		public EntitySet<Staff> Staff
+		{
+			get
+			{
+				return this._Staff;
+			}
+			set
+			{
+				this._Staff.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_JobCertificate(JobCertificate entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle = this;
+		}
+		
+		private void detach_JobCertificate(JobCertificate entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle = null;
+		}
+		
+		private void attach_Staff(Staff entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle = this;
+		}
+		
+		private void detach_Staff(Staff entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle = null;
 		}
 	}
 }

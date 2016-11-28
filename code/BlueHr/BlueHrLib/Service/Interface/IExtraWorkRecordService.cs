@@ -29,5 +29,6 @@ namespace BlueHrLib.Service.Interface
         ExtraWorkRecord FindByStaffNrAndDete(string staffNr, DateTime date);
 
         bool ApprovalTheRecord(ExtraWorkRecordApproval extralApproval);
+        List<ExtraWorkRecord> GetAllTableName();
     }
 }
