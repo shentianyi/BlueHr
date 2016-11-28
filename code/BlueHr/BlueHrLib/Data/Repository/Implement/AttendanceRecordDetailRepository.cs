@@ -178,5 +178,17 @@ namespace BlueHrLib.Data.Repository.Implement
                 return false;
             }
         }
+
+        public List<AttendanceRecordDetail> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<AttendanceRecordDetail>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

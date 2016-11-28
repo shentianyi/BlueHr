@@ -23,5 +23,11 @@ namespace BlueHrLib.Service.Implement
             IExtraWorkTypeRepository rep = new ExtraWorkTypeRepository(new DataContext(this.DbString));
             return rep.All();
         }
+
+        public List<ExtraWorkType> GetAllTableName()
+        {
+            IExtraWorkTypeRepository rep = new ExtraWorkTypeRepository(new DataContext(this.DbString));
+            return rep.GetAllTableName();
+        }
     }
 }

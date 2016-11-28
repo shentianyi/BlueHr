@@ -87,5 +87,17 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<CertificateType>().ToList();
         }
+
+        public List<CertificateType> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<CertificateType>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

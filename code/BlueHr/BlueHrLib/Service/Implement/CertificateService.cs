@@ -61,5 +61,10 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.FindByCertificateType(id);
         }
+
+        public List<Certificate> GetAllTableName()
+        {
+            return rep.GetAllTableName();
+        }
     }
 }

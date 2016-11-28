@@ -23,5 +23,6 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         List<CertificateType> GetAll();
+        List<CertificateType> GetAllTableName();
     }
 }

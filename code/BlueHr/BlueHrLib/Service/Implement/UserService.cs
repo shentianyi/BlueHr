@@ -58,6 +58,18 @@ namespace BlueHrLib.Service.Implement
             return new UserRepository(new DataContext(this.DbString)).FindByRoleId(sysRoleId);
         }
 
+        public List<User> GetAllTableName()
+        {
+            try
+            {
+                return (this.Context.Context.GetTable<User>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public bool LockUnLock(int id)
         {
             DataContext dc = new DataContext(this.DbString);

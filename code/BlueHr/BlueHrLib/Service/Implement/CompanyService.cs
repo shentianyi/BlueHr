@@ -53,5 +53,10 @@ namespace BlueHrLib.Service.Implement
         {
             return companyRep.FindByIds(ids);
         }
+
+        public List<Company> GetAllTableName()
+        {
+            return companyRep.GetAllTableName();
+        }
     }
 }

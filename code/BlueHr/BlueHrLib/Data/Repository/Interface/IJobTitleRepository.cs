@@ -22,5 +22,6 @@ namespace BlueHrLib.Data.Repository.Interface
 
         //或取所有JOBTITLE
         List<JobTitle> GetAll();
+        List<JobTitle> GetAllTableName();
     }
 }

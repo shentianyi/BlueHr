@@ -84,6 +84,6 @@ namespace BlueHrLib.Service.Interface
         /// <param name="id"> 统计考勤 ID</param>
         /// <returns></returns>
         bool DeleteById(int id);
-
+        List<AttendanceRecordCal> GetAllTableName();
     }
 }

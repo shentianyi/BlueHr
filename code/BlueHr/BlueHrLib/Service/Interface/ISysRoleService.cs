@@ -27,6 +27,6 @@ namespace BlueHrLib.Service.Interface
         bool Creates(List<SysRole> records);
 
         List<SysRole> GetAll();
-
+        List<SysRole> GetAllTableName();
     }
 }

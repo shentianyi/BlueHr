@@ -131,5 +131,17 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<Certificate>().Where(p => p.certificateTypeId.Equals(id)).ToList();
         }
+
+        public List<Certificate> GetAllTableName()
+        {
+            try
+            {
+                return (this.context.GetTable<Certificate>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

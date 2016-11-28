@@ -1,7 +1,9 @@
 ﻿using BlueHrLib.Data;
+using BlueHrLib.Data.Enum;
 using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
+using BlueHrLib.Helper;
 using BlueHrLib.Service.Implement;
 using BlueHrLib.Service.Interface;
 using BlueHrWeb.CustomAttributes;
@@ -278,5 +280,49 @@ namespace BlueHrWeb.Controllers
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
 
+        private void SetAllTableName(bool allowBlank = false)
+        {
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            ISysRoleService at = new SysRoleService(Settings.Default.db);
+
+            var SysRole = at.GetAllTableName();
+
+            if (SysRole != null)
+            {
+                //获取当前记录的属性
+                foreach (var property in SysRole[0].GetType().GetProperties())
+                {
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name });
+                }
+            }
+
+            ViewData["getAllTableNameList"] = select;
+        }
+
+        private void SetSearchConditions(bool? type, bool allowBlank = false)
+        {
+            var item = EnumHelper.GetList(typeof(SearchConditions));
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in item)
+            {
+                if (type.HasValue && type.ToString().Equals(it.Value))
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                }
+            }
+            ViewData["searchConditionsList"] = select;
+        }
     }
 }

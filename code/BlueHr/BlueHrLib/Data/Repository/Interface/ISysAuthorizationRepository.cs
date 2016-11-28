@@ -17,5 +17,6 @@ namespace BlueHrLib.Data.Repository.Interface
 
         //根据roleid 获取所有权限列表
         List<SysAuthorization> GetSysAuthByRoleId(string roleId);
+        List<SysAuthorization> GetAllTableName();
     }
 }

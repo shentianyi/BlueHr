@@ -32,5 +32,6 @@ namespace BlueHrLib.Service.Interface
         Shift FindByCode(string code);
 
         ShiftInfoModel GetShiftInfo(ShiftSearchModel searchModel);
+        List<Shift> GetAllTableName();
     }
 }

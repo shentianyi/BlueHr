@@ -64,5 +64,10 @@ namespace BlueHrLib.Service.Implement
         {
             return jobTitleRep.FindByName(name);
         }
+
+        public List<JobTitle> GetAllTableName()
+        {
+            return jobTitleRep.GetAllTableName();
+        }
     }
 }

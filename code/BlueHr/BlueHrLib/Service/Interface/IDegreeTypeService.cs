@@ -26,5 +26,6 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         List<DegreeType> GetAll();
+        List<DegreeType> GetAllTableName();
     }
 }
