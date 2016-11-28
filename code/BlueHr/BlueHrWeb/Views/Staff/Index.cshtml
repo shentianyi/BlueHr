@@ -52,7 +52,7 @@
                     </button>
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                    <button type="button" class="marco-btn-primary advanced-filter-btn" title="高级搜索">
+                    <button type="button" class="marco-btn-primary advanced-filter-btn" title="自定义搜索">
                         <i class="fa fa-filter"></i>
                         <span>自定义搜索</span>
                     </button>
@@ -73,7 +73,7 @@
 
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
-                    <span>关系条件</span>
+                    <span>条件</span>
                     @Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
@@ -89,9 +89,9 @@
                 <div class="marco-igroup-primary">
                     <span>值2</span>
                     <input type="text" name="searchValueSecond" value="" />
-                    <span>
-                        <button type="submit" class="marco-btn-primary" style="margin:0;">确定</button>
-                    </span>
+
+                    <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
+
                 </div>
             </div>
         </div>
@@ -107,7 +107,7 @@
     <div class="minitor-show marco-tabs-default">
         @if (canImport)
         {
-            <button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -5px; margin-right:15px;">
+            <button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -10px; margin-right:15px;">
                 <i class="fa fa-cloud-upload"></i>
                 <span>上传</span>
             </button>
@@ -130,7 +130,6 @@
         </ul>
 
         <div class="tab-content">
-
             <div role="tabpanel" class="tab-pane active" id="on_staff">
                 <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="on_staff_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
@@ -466,9 +465,9 @@
     Layout.init();
 
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_staff", "离职员工列表", "20", "all_staff_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_staff", "离职员工列表", "20", "all_staff_grid_table");
     })
 
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
@@ -484,18 +483,11 @@
 
 
 
+
     Layout.CompanyAndDepartment('#companyId', '#departmentId');
     Layout.rangedatepicker('#CompanyEmployAtFrom', '#CompanyEmployAtTo');
 
-    $('.advanced-filter-btn').click(function () {
-        var Display = $('.advanced-filter').css('display');
-
-        if (Display === "none") {
-            $('.advanced-filter').slideDown();
-        } else {
-            $('.advanced-filter').slideUp();
-        }
-    });
+    Layout.advancedfilter();
 
     $('.import-dialog-btn').click(function () {
         $('#dialog_content').dialogModal({
