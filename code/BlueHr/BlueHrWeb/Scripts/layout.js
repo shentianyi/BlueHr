@@ -300,3 +300,28 @@ function FutureDate(day) {
     var FutureDate = new Date(now.getTime() - day * 24 * 60 * 60 * 1000).Format("yyyy-MM-dd hh:mm");
     return FutureDate;
 }
+
+
+Layout.TransferTableToGrid = function (width, height, editable, divID, title, rPP, gridID) {
+
+    var tb = $("#" + divID + ">table");
+    var obj = $.paramquery.tableToArray(tb);
+
+    var newObj = {
+        width: width,
+        height: height,
+        title: title,
+        scrollModel: { pace: 'fast', autoFit: true, theme: true },
+        editable: editable
+    };
+
+    newObj.dataModel = { data: obj.data };
+    newObj.colModel = obj.colModel;
+
+    newObj.pageModel = { rPP: rPP, type: "local" };
+
+    $("#" + gridID).pqGrid(newObj);
+
+    console.log(gridID);
+    console.log($("#" + gridID));
+}
