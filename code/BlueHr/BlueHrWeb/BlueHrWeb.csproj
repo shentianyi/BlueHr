@@ -336,6 +336,7 @@
     <Content Include="Images\jquery-ui\ui-icons_ffffff_256x240.png" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\mCSB_buttons.png" />
+    <Content Include="Images\No.png" />
     <Content Include="Images\NoAuth.png" />
     <Content Include="Images\pqgrid\horiz-bg.png" />
     <Content Include="Images\pqgrid\horiz-slider-bg.png" />
@@ -667,6 +668,7 @@
     <Content Include="Views\SysOpera\Edit.cshtml" />
     <Content Include="Views\SysOpera\Index.cshtml" />
     <Content Include="Views\SysOpera\DailyRecord.cshtml" />
+    <Content Include="Views\Staff\Idcard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

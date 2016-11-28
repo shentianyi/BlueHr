@@ -302,6 +302,21 @@ function FutureDate(day) {
 }
 
 
+
+Layout.advancedfilter = function () {
+    $('.advanced-filter-btn').click(function () {
+        var Display = $('.advanced-filter').css('display');
+
+        if (Display === "none") {
+            $('.advanced-filter').slideDown();
+        } else {
+            $('.advanced-filter').slideUp();
+        }
+    });
+
+}
+
+
 Layout.TransferTableToGrid = function (width, height, editable, divID, title, rPP, gridID) {
 
     var tb = $("#" + divID + ">table");
@@ -321,7 +336,5 @@ Layout.TransferTableToGrid = function (width, height, editable, divID, title, rP
     newObj.pageModel = { rPP: rPP, type: "local" };
 
     $("#" + gridID).pqGrid(newObj);
-
-    console.log(gridID);
-    console.log($("#" + gridID));
 }
+

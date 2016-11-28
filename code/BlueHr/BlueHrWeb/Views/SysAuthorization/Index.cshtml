@@ -10,130 +10,163 @@
     <li>权限列表</li>
 </ol>
 <hr class="hr-grey" />
-<div class="row" style="margin:0;">
+<div class="search">
     <form action="/SysAuthorization/Search" method="get">
-        <div class="col-lg-6 col-md-6 col-sm-6 ol-xs-12">
-            <div class="marco-igroup-primary">
-                <span>模块</span>
-                <input type="text" name="funCode" id="funCode" placeholder="模块" value="@ViewBag.Query.funCode" />
+        <div class="row" style="margin:0;">
+            <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>模块</span>
+                    <input type="text" name="funCode" id="funCode" placeholder="模块" value="@ViewBag.Query.funCode" />
+                </div>
             </div>
-        </div> 
-        <div class="col-lg-6 col-md-6 col-sm-6 ol-xs-12">
-            <div class="marco-igroup-primary">
-                <span>控制器</span>
-                <input type="text" name="controlName" id="controlName" placeholder="控制器" value="@ViewBag.Query.controlName" />
+            <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>控制器</span>
+                    <input type="text" name="controlName" id="controlName" placeholder="控制器" value="@ViewBag.Query.controlName" />
+                </div>
             </div>
-        </div> 
-        <div class="col-lg-6 col-md-6 col-sm-6 ol-xs-12">
-            <div class="marco-igroup-primary">
-                <span>动作</span>
-                <input type="text" name="actionName" id="actionName" placeholder="动作" value="@ViewBag.Query.actionName" />
+            <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>动作</span>
+                    <input type="text" name="actionName" id="actionName" placeholder="动作" value="@ViewBag.Query.actionName" />
+                </div>
             </div>
-        </div> 
-        <div class="col-lg-6 col-md-6 col-sm-6 ol-xs-12">
-            <div class="marco-igroup-primary">
-                <span>权限名称</span>
-                <input type="text" name="Name" id="Name" placeholder="权限名称" value="@ViewBag.Query.Name" />
-
-                <span>
-                    <button type="submit" class="marco-btn-primary" style="margin:0;">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 5px;">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <button type="submit" class="marco-btn-success pull-left">
                         <i class="fa fa-search"></i>
-                        搜索
+                        <span>搜索</span>
                     </button>
-                </span>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <button type="button" class="marco-btn-primary advanced-filter-btn" title="自定义搜索">
+                        <i class="fa fa-filter"></i>
+                        <span>自定义搜索</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+</form>
+
+    <form action="/SysAuthorization/AdvancedSearch" method="post">
+        <div class="advanced-filter row" style="margin:0;display:none;">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>字段</span>
+                    @*@Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)*@
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>条件</span>
+                    @*@Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)*@
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值1</span>
+                    <input type="text" name="searchValueFirst" value="" />
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值2</span>
+                    <input type="text" name="searchValueSecond" value="" />
+                    <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
+                </div>
             </div>
         </div>
     </form>
 </div>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="usual-table">
-        <div class="table-heading">
-            权限列表
-            <div class="pull-right" style="margin-top:-12px;">
-                <a href="/SysAuthorization/Create">
-                    <button class="marco-btn-primary">
-                        <i class="glyphicon glyphicon-plus-sign"></i>
-                        <span>创建</span>
-                    </button>
-                </a>
-            </div>
-        </div>
-        <div class="table-body content_3">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>模块</th>
-                        <th>控制器</th>
-                        <th>动作</th>
-                        <th>名称</th> 
-                        <th>备注</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model)
+
+<hr class="hr-primary" />
+
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+
+        <a href="/User/Create" class="pull-right" style="margin-top: -10px; margin-right:15px;">
+            <button class="marco-btn-primary">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>创建</span>
+            </button>
+        </a>
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+
+            <li role="presentation" class="active"><a href="#all_SysAuthorization" role="tab" data-toggle="tab">所有权限</a></li>
+           
+
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane  active" id="all_SysAuthorization">
+                <div id="all_SysAuthorization_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>模块</th>
+                            <th>控制器</th>
+                            <th>动作</th>
+                            <th>名称</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.funCode)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.controlName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.actionName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.name)
-                                </td> 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.remarks)
-                                </td>  
-                                <td>
-                                    <a href="/SysAuthorization/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a href="/SysAuthorization/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                 
-                                </td>
-                            </tr>
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.funCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.controlName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.actionName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.remarks)
+                                    </td>
+                                    <td>
+                                        <a href="/SysAuthorization/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a href="/SysAuthorization/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
-        <div class="clearfix pagination">
-            <div class="pagination-inner">
-                @if (Model != null)
-                {
-                    if (ViewBag.Query != null)
-                    {
-                        
-                        var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                       .Options(o => o.AddRouteValue("Name", ViewBag.Query.Name))
-                       .Options(o => o.AddRouteValue("funCode", ViewBag.Query.funCode))
-                       .Options(o => o.AddRouteValue("controlName", ViewBag.Query.controlName))
-                       .Options(o => o.AddRouteValue("actionName", ViewBag.Query.actionName));
-                        @html
-                    }
-                    else
-                    {
-                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                    }
-                }
+                    </tbody>
+                </table>
             </div>
+            
         </div>
     </div>
 </div>
+
  
 
 <script type="text/javascript">
     Layout.init();
+
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_SysAuthorization", "所有权限列表", "20", "all_SysAuthorization_grid_table");
+        
+    })
+
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_SysAuthorization", "所有权限列表", "20", "all_SysAuthorization_grid_table");
+
+   
+    Layout.advancedfilter();
  
 </script>
