@@ -1,4 +1,4 @@
-USE [BlueHrV2]
+USE [BlueHr]
 GO
 
 /****** Object:  View [dbo].[SysRoleAuthView]    Script Date: 11/28/2016 10:03:03 ******/

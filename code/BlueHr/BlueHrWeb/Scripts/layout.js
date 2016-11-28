@@ -284,3 +284,18 @@ function FutureDate(day) {
     var FutureDate = new Date(now.getTime() - day * 24 * 60 * 60 * 1000).Format("yyyy-MM-dd hh:mm");
     return FutureDate;
 }
+
+
+Layout.advancedfilter = function () {
+    $('.advanced-filter-btn').click(function () {
+        var Display = $('.advanced-filter').css('display');
+
+        if (Display === "none") {
+            $('.advanced-filter').slideDown();
+        } else {
+            $('.advanced-filter').slideUp();
+        }
+    });
+
+}
+

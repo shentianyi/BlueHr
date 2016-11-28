@@ -58,7 +58,7 @@
                     </button>
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                    <button type="button" class="marco-btn-primary advanced-filter-btn" title="高级搜索">
+                    <button type="button" class="marco-btn-primary advanced-filter-btn" title="自定义搜索">
                         <i class="fa fa-filter"></i>
                         <span>自定义搜索</span>
                     </button>
@@ -133,6 +133,7 @@
             <li role="presentation"><a href="#all_staff" role="tab" data-toggle="tab">全部人员</a></li>
         </ul>
         <div class="tab-content">
+            
             <div role="tabpanel" class="tab-pane active" id="on_staff">
                 <div id="on_staff_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
@@ -501,15 +502,7 @@
     Layout.CompanyAndDepartment('#companyId', '#departmentId');
     Layout.rangedatepicker('#CompanyEmployAtFrom', '#CompanyEmployAtTo');
 
-    $('.advanced-filter-btn').click(function () {
-        var Display = $('.advanced-filter').css('display');
-
-        if (Display === "none") {
-            $('.advanced-filter').slideDown();
-        } else {
-            $('.advanced-filter').slideUp();
-        }
-    });
+    Layout.advancedfilter();
 
     $('.import-dialog-btn').click(function () {
         $('#dialog_content').dialogModal({
