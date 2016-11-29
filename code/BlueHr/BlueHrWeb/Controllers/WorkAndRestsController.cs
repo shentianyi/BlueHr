@@ -36,6 +36,8 @@ namespace BlueHrWeb.Controllers
             ViewBag.Query = q;
 
             SetWorkAndRestTypeList(null);
+            SetAllTableName(null);
+            SetSearchConditions(null);
 
             return View(workAndRests);
         }
@@ -55,7 +57,8 @@ namespace BlueHrWeb.Controllers
             ViewBag.Query = q;
 
             SetWorkAndRestTypeList(q.DateType);
-
+            SetAllTableName(null);
+            SetSearchConditions(null);
             return View("Index", workAndRests);
         }
 
@@ -103,14 +106,17 @@ namespace BlueHrWeb.Controllers
                     {
                         msg.Success = false;
                         msg.Content = "日期已存在，不可重复添加， 请进行编辑";
+                        return Json(msg, JsonRequestBehavior.AllowGet);
                     }
+                    else
+                    {
+                        bool isSucceed = wrs.Create(workAndRest);
 
-                    bool isSucceed = wrs.Create(workAndRest);
+                        msg.Success = isSucceed;
+                        msg.Content = isSucceed ? "" : "添加失败";
 
-                    msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "添加失败";
-
-                    return Json(msg, JsonRequestBehavior.AllowGet);
+                        return Json(msg, JsonRequestBehavior.AllowGet);
+                    }
                 }
             }
             catch (Exception ex)
@@ -252,27 +258,35 @@ namespace BlueHrWeb.Controllers
             return new ResultMessage() { Success = true, Content = "" };
         }
 
-        private void SetAllTableName(bool allowBlank = false)
+        private void SetAllTableName(string type, bool allowBlank = false)
         {
             List<SelectListItem> select = new List<SelectListItem>();
 
-            IWorkAndRestService at = new WorkAndRestService(Settings.Default.db);
+            IWorkAndRestService wars = new WorkAndRestService(Settings.Default.db);
 
-            var WorkAndRest = at.GetAllTableName();
+            var WorkAndRest = wars.GetAllTableName();
 
             if (WorkAndRest != null)
             {
                 //获取当前记录的属性
                 foreach (var property in WorkAndRest[0].GetType().GetProperties())
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name });
+                    if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
+                    {
+                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
+                    }
+                    else
+                    {
+                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                    }
+
                 }
             }
 
             ViewData["getAllTableNameList"] = select;
         }
 
-        private void SetSearchConditions(bool? type, bool allowBlank = false)
+        private void SetSearchConditions(int? type, bool allowBlank = false)
         {
             var item = EnumHelper.GetList(typeof(SearchConditions));
 
@@ -295,6 +309,61 @@ namespace BlueHrWeb.Controllers
                 }
             }
             ViewData["searchConditionsList"] = select;
+        }
+
+
+        public ActionResult AdvancedSearch(WorkAndRestSearchModel q)
+        {
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.loginUser = user;
+            ViewBag.Query = q;
+
+            IWorkAndRestService wars = new WorkAndRestService(Settings.Default.db);
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            IPagedList<WorkAndRest> workAndRests = null;
+
+            string AllTableName = null;
+            string SearchConditions = null;
+            string SearchValueFirst = null;
+            string SearchValueSecond = null;
+
+            if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
+            {
+                AllTableName = Request.Form["allTableName"].ToString();
+
+                SetAllTableName(AllTableName);
+
+                if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
+                {
+                    SearchConditions = Request.Form.Get("searchConditions");
+
+                    SetSearchConditions(Convert.ToInt32(SearchConditions));
+
+                    if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
+                    {
+                        SearchValueFirst = Request.Form.Get("searchValueFirst").ToString();
+
+                        ViewBag.searchValueFirst = SearchValueFirst;
+
+                        SearchValueSecond = Request.Form.Get("searchValueSecond").ToString();
+                        ViewBag.searchValueSecond = SearchValueSecond;
+
+                        //有两个值， 需要进行两个值的查询
+                        workAndRests = wars.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
+
+                    }
+                    else
+                    {
+                        //不能进行查询
+                    }
+                }
+            }
+
+            SetWorkAndRestTypeList(null);
+            return View("Index", workAndRests);
         }
     }
 }

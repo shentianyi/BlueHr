@@ -29,6 +29,7 @@ namespace BlueHrLib.Service.Interface
 
         List<SysAuthorization> GetSysAuthByRoleId(string roleId);
         List<SysAuthorization> GetAllTableName();
+        IQueryable<SysAuthorization> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst, string searchValueSecond);
     }
 }
 

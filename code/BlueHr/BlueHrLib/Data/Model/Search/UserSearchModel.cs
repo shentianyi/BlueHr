@@ -7,5 +7,6 @@ namespace BlueHrLib.Data.Model.Search
 {
     public class UserSearchModel
     {
+        public User loginUser { get; set; }
     }
 }

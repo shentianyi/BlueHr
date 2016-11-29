@@ -1,5 +1,7 @@
-﻿using BlueHrLib.Data.Model.Search;
+﻿using ALinq.Dynamic;
+using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Interface;
+using BlueHrLib.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -136,6 +138,30 @@ namespace BlueHrLib.Data.Repository.Implement
             try
             {
                 return (this.context.GetTable<SysRoleAuthorization>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public IQueryable<SysRoleAuthorization> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst, string SearchValueSecond)
+        {
+            string strWhere = string.Empty;
+
+            try
+            {
+                if (SearchValueSecond != string.Empty)
+                {
+                    strWhere += SearchConditionsHelper.GetStrWhere("SysRoleAuthorization", AllTableName, SearchConditions, SearchValueFirst);
+                    strWhere += SearchConditionsHelper.GetStrWhere("SysRoleAuthorization", AllTableName, SearchConditions, SearchValueSecond);
+                }
+                else
+                {
+                    strWhere = SearchConditionsHelper.GetStrWhere("SysRoleAuthorization", AllTableName, SearchConditions, SearchValueFirst);
+                }
+                var q = this.context.CreateQuery<SysRoleAuthorization>(strWhere);
+                return q;
             }
             catch (Exception)
             {

@@ -14,6 +14,12 @@ namespace BlueHrLib.Service.Implement
     {
         public UserService(string dbString) : base(dbString) { }
 
+        private IUserRepository userRep;
+        public IQueryable<User> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst, string searchValueSecond)
+        {
+            return userRep.AdvancedSearch(allTableName, searchConditions, searchValueFirst, searchValueSecond);
+        }
+
         public bool ChangePwd(int id, string pwd)
         {
             DataContext dc = new DataContext(this.DbString);
