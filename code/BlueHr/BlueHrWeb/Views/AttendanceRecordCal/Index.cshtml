@@ -21,7 +21,7 @@
     }
 
         .ui-widget-header a {
-            color: red;
+            color: #000000;
         }
 
     .ui-widget.ui-widget-content {
@@ -42,6 +42,12 @@
         border-color: transparent !important;
         color: darkred;
     }
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget .btn-open {  
+        background-color:#ffffff;
+        color:#808080;
+        border:1px solid #808080;
+    }
+
 </style>
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
@@ -224,9 +230,11 @@
             </div>
         </div>
         <hr class="hr-grey" />
-        <button type="submit" class="btn btn-primary ff" style="width:200px;" onclick="exportReport(100)">导出汇总报表</button>
-        <button type="submit" class="btn btn-info ff" style="width:200px;" onclick="exportReport(200)">导出考勤详细记录</button>
-        <button type="button" class="pull-right marco-btn-warning" style="width:200px;" onclick="closeDialog()">取消</button>
+        <button type="submit" class="btn btn-primary ff btn-open" style="width:200px;" onclick="exportReport(100)">导出汇总报表</button>
+        <button type="submit" class="btn btn-info ff btn-open" style="width:200px;" onclick="exportReport(200)">导出考勤详细记录</button>
+        <button type="button" class="pull-right marco-btn-warning" style="width:100px;" onclick="closeDialog()">取消</button>
+        <button type="button" class="pull-right marco-btn-warning" style="width:100px;" onclick="closeDialog()">确定</button>
+        
 
     </div>
 
@@ -270,8 +278,6 @@
                 }, "json");
         }
 
-
-
         var dialog;
 
         dialog = $(".cal_att_content").dialog({
@@ -286,13 +292,8 @@
                 dialog.dialog("open");
         });
 
-
-
         function closeDialog() {
             if (dialog != null)
                 dialog.dialog("close");
         }
-
-
-
     </script>
