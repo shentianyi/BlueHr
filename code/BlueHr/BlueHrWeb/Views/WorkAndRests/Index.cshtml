@@ -102,6 +102,7 @@
             <li role="presentation" class="active"><a href="#all_WorkAndRests" role="tab" data-toggle="tab">所有作息表</a></li>
             <li role="presentation"><a href="#workday_WorkAndRests" role="tab" data-toggle="tab">工作日作息表</a></li>
             <li role="presentation"><a href="#unworkday_WorkAndRests" role="tab" data-toggle="tab">双休日作息表</a></li>
+            <li role="presentation"><a href="#holiday_WorkAndRests" role="tab" data-toggle="tab">节假日作息表</a></li>
 
         </ul>
         <div class="tab-content">
@@ -248,6 +249,54 @@
                     </tbody>
                 </table>
             </div>
+            <div role="tabpanel" class="tab-pane" id="holiday_WorkAndRests">
+                <div id="holiday_WorkAndRests_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+
+                            <th>日期</th>
+                            <th>类型</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            int i = 0;
+
+                            foreach (var item in Model)
+                            {
+                                if (item.dateType == 300)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.dateAt)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.dateTypeDisplay)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.remark)
+                                        </td>
+                                        <td>
+                                            <a href="/WorkAndRests/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+
+                                            <a href="/WorkAndRests/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
 
         </div>
 
@@ -276,6 +325,7 @@
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_WorkAndRests", "所有作息表列表", "20", "all_WorkAndRests_grid_table");
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "workday_WorkAndRests", "工作日作息表列表", "20", "workday_WorkAndRests_grid_table");
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unworkday_WorkAndRests", "双休日作息表列表", "20", "unworkday_WorkAndRests_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "holiday_WorkAndRests", "节假日作息表列表", "20", "holiday_WorkAndRests_grid_table");
     })
 
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_WorkAndRests", "所有作息表列表", "20", "all_WorkAndRests_grid_table");
@@ -290,6 +340,10 @@
     $('#unworkday_WorkAndRests').addClass("active");
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unworkday_WorkAndRests", "双休日作息表列表", "20", "unworkday_WorkAndRests_grid_table");
     $('#unworkday_WorkAndRests').removeClass("active");
+
+    $('#holiday_WorkAndRests').addClass("active");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "holiday_WorkAndRests", "双休日作息表列表", "20", "holiday_WorkAndRests_grid_table");
+    $('#holiday_WorkAndRests').removeClass("active");
     //});
     Layout.advancedfilter();
 
