@@ -26,5 +26,6 @@ namespace BlueHrLib.Data.Repository.Interface
 
         bool DeleteById(int id);
         List<Shift> GetAllTableName();
+        IQueryable<Shift> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst, string searchValueSecond);
     }
 }

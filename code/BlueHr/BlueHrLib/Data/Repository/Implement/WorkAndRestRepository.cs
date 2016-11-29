@@ -3,6 +3,8 @@ using System.Linq;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Interface;
 using System.Collections.Generic;
+using BlueHrLib.Helper;
+using ALinq.Dynamic;
 
 namespace BlueHrLib.Data.Repository.Implement
 {
@@ -142,6 +144,30 @@ namespace BlueHrLib.Data.Repository.Implement
                 return (this.context.GetTable<WorkAndRest>()).ToList();
             }
             catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public IQueryable<WorkAndRest> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst, string SearchValueSecond)
+        {
+            string strWhere = string.Empty;
+
+            try
+            {
+                if (SearchValueSecond != string.Empty)
+                {
+                    strWhere += SearchConditionsHelper.GetStrWhere("WorkAndRest", AllTableName, SearchConditions, SearchValueFirst);
+                    strWhere += SearchConditionsHelper.GetStrWhere("WorkAndRest", AllTableName, SearchConditions, SearchValueSecond);
+                }
+                else
+                {
+                    strWhere = SearchConditionsHelper.GetStrWhere("WorkAndRest", AllTableName, SearchConditions, SearchValueFirst);
+                }
+                var q = this.context.CreateQuery<WorkAndRest>(strWhere);
+                return q;
+            }
+            catch (Exception e)
             {
                 return null;
             }
