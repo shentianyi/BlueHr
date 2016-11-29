@@ -46,9 +46,9 @@
                     </button>
                     @if (canImport)
                     {
-                    <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
-                        导入加班记录
-                    </button>
+                        <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
+                            导入加班记录
+                        </button>
                     }
                 </span>
             </div>
@@ -61,297 +61,279 @@
         批量审批
     </button>
 </div>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="usual-table">
-        <div class="table-heading">
-            加班列表
-            <div class="pull-right" style="margin-top:-12px;">
-                @if (canCreate)
-                {
-                <a href="/ExtraWorkRecord/Create">
-                    <button class="marco-btn-primary">
-                        <i class="glyphicon glyphicon-plus-sign"></i>
-                        <span>创建</span>
-                    </button>
-                </a>
-                }
-            </div>
-        </div>
-        <div class="table-body content_3">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>日期</th>
-                        <th>员工号</th>
-                        <th>姓名</th>
-                        <th>公司</th>
-                        <th>部门</th>
-                        <th>起讫</th>
-                        <th>加班时长(小时)</th>
-                        <th>加班类别</th>
-                        <th>加班原因</th>
-                        <th>审批状态</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model)
+
+
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+        <a href="/ExtraWorkRecord/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
+            <button class="marco-btn-primary">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>创建</span>
+            </button>
+        </a>
+
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">加班列表</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_extra_type">
+                <div id="all_extra_type_grid_table"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>员工号</th>
+                            <th>姓名</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>起讫</th>
+                            <th>加班时长(小时)</th>
+                            <th>加班类别</th>
+                            <th>加班原因</th>
+                            <th>审批状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
                         {
-                            bool approved = item.ExtraWorkRecordApprovals.OrderByDescending(p => p.id).Count() > 0;
+                            foreach (var item in Model)
+                            {
+                                bool approved = item.ExtraWorkRecordApprovals.OrderByDescending(p => p.id).Count() > 0;
 
-                            <tr>
-                                <td>
-                                    <input type="checkbox" id="@item.id" name="record-approve" class="record-approve"/>
-                                </td>
-                                <td>
-    @Html.DisplayFor(modelItem => item.otTimeStr)
-</td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.staffNr)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Staff.name)
-                                </td>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.otTimeStr)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.staffNr)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Staff.name)
+                                    </td>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Staff.companyName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Staff.departmentFullName)
-                                </td>
-                                
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.startEndHourStr)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.duration)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ExtraWorkType.name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.otReason)
-                                </td>
-                                @if (approved)
-                                {
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.ExtraWorkRecordApprovals.OrderByDescending(p => p.id).FirstOrDefault().approvalStatus)
+                                        @Html.DisplayFor(modelItem => item.Staff.companyName)
                                     </td>
-                                }
-                                else
-                                {
                                     <td>
-                                        未审批
+                                        @Html.DisplayFor(modelItem => item.Staff.departmentFullName)
                                     </td>
-                                }
-                                <td>
-                                    @if (canDelete)
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.startEndHourStr)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.duration)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ExtraWorkType.name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.otReason)
+                                    </td>
+                                    @if (approved)
                                     {
-                                    <a href="/ExtraWorkRecord/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ExtraWorkRecordApprovals.OrderByDescending(p => p.id).FirstOrDefault().approvalStatus)
+                                        </td>
                                     }
-                                    @if (canEdit)
+                                    else
                                     {
-                                    <a href="/ExtraWorkRecord/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
+                                        <td>
+                                            未审批
+                                        </td>
                                     }
-                                    @if (canApp)
-                                    {
-                                    <a class="option-icon-warning" title="审核" id="shAbsenceRecord" onclick="shAbsenceRecord(@item.id)">
-                                        <i class="fa fa-calculator"></i>
-                                    </a>
-                                    }
-                                </td>
-                            </tr>
+                                    <td>
+                                        @if (canDelete)
+                                        {
+                                            <a href="/ExtraWorkRecord/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
+                                        @if (canEdit)
+                                        {
+                                            <a href="/ExtraWorkRecord/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        }
+                                        @if (canApp)
+                                        {
+                                            <a class="option-icon-warning" title="审核" id="shAbsenceRecord" onclick="shAbsenceRecord(@item.id)">
+                                                <i class="fa fa-calculator"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
-        <div class="clearfix pagination">
-            <div class="pagination-inner">
-                @if (Model != null)
-                {
-                    if (ViewBag.Query != null)
-                    {
-
-                        var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                            .Options(o => o.AddRouteValue("staffNr", ViewBag.Query.staffNr))
-                            .Options(o => o.AddRouteValue("extraWorkTypeId", ViewBag.Query.extraWorkTypeId))
-                            .Options(o => o.AddRouteValue("durStart", ViewBag.Query.durStart))
-                            .Options(o => o.AddRouteValue("durEnd", ViewBag.Query.durEnd));
-                        @html
-                    }
-                    else
-                    {
-                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                    }
-                }
+                    </tbody>
+                </table>
             </div>
         </div>
+        
     </div>
-</div>
-<!--导入数据-->
-<div id="dialog_content" class="import_content" style="display:none;">
-    <div class="dialogModal_header" style="background:steelblue;color:white;">
-        导入加班记录
-    </div>
-    <div class="dialogModal_content">
-        <strong>选择数据文件:</strong>
-        <hr />
-        <input class="item-data-uploader" type="file" name="files[]" data-url="/ExtraWorkRecord/Import" />
-        <div class="item-data-uploader-preview" style="display:none;"></div>
-        <hr />
-        <a href="~/Template/加班记录导入文件模板.xlsx" target="_blank">下载文件模板</a>
-    </div>
-</div>
-
-<div id="approval_content" class="import_content" style="display:none;">
-    <div class="dialogModal_header" style="background:steelblue;color:white;">
-        缺勤审批
+    <!--导入数据-->
+    <div id="dialog_content" class="import_content" style="display:none;">
+        <div class="dialogModal_header" style="background:steelblue;color:white;">
+            导入加班记录
+        </div>
+        <div class="dialogModal_content">
+            <strong>选择数据文件:</strong>
+            <hr />
+            <input class="item-data-uploader" type="file" name="files[]" data-url="/ExtraWorkRecord/Import" />
+            <div class="item-data-uploader-preview" style="display:none;"></div>
+            <hr />
+            <a href="~/Template/加班记录导入文件模板.xlsx" target="_blank">下载文件模板</a>
+        </div>
     </div>
 
-    <div class="dialogModal_content">
-        <div class="marco-nbody row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>审批状态</span>
-                    <select id="aplStatus" name="aplStatus" onchange="selAplStatus(this.options[this.options.selectedIndex].value)">
-                        <option value="未审批">未审批</option>
-                        <option value="通过审批">通过审批</option>
-                        <option value="未通过审批">未通过审批</option>
-                    </select>
+    <div id="approval_content" class="import_content" style="display:none;">
+        <div class="dialogModal_header" style="background:steelblue;color:white;">
+            缺勤审批
+        </div>
+
+        <div class="dialogModal_content">
+            <div class="marco-nbody row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>审批状态</span>
+                        <select id="aplStatus" name="aplStatus" onchange="selAplStatus(this.options[this.options.selectedIndex].value)">
+                            <option value="未审批">未审批</option>
+                            <option value="通过审批">通过审批</option>
+                            <option value="未通过审批">未通过审批</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>审批备注</span>
+                        <textarea id="apvRemarks" name="apvRemarks" onchange="checkField(this.value)"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <input id="thePkId" hidden="hidden" />
+                    <input id="theAplStatus" hidden="hidden" />
+                    <input id="theApvRemarks" hidden="hidden" />
+                    <button class="marco-btn-primary " title="确定" type="button" id="apprvalConfirm" onclick="theApprvalConfirm()">
+                        确定
+                    </button>
                 </div>
             </div>
-
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>审批备注</span>
-                    <textarea id="apvRemarks" name="apvRemarks" onchange="checkField(this.value)"></textarea>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <input id="thePkId" hidden="hidden" />
-                <input id="theAplStatus" hidden="hidden" />
-                <input id="theApvRemarks" hidden="hidden" />
-                <button class="marco-btn-primary " title="确定" type="button" id="apprvalConfirm" onclick="theApprvalConfirm()">
-                    确定
-                </button>
-            </div>
         </div>
     </div>
-</div>
 
-<script type="text/javascript">
-    Layout.init();
+    <script type="text/javascript">
+        Layout.init();
 
-    $('.datetimepicker').datetimepicker({
-        format: 'Y-m-d',
-        timepicker: false
-    });
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_extra_type", "加班列表", "20", "all_extra_type_grid_table");
 
-    $('.import-button-dialog').click(function () {
-        $('#dialog_content').dialogModal({
-            onOkBut: function () {
-            },
-            onCancelBut: function () { },
-            onLoad: function () {
-                data_upload(".item-data-uploader");
-            },
-            onClose: function () {
-                window.location.reload();
-            }
+
+        $('.datetimepicker').datetimepicker({
+            format: 'Y-m-d',
+            timepicker: false
         });
-    });
 
-    //审核
-    function shAbsenceRecord(id) {
-        $("#thePkId").val(id);
-
-        $('#approval_content').dialogModal({
-            onOkBut: function () {
-            },
-            onCancelBut: function () { },
-            onLoad: function () {
-
-            },
-            onClose: function () {
-                //window.location.reload();
-            }
-        });
-    }
-
-    //批量审核
-    function shBatchAbsenceRecord() {
-        var items = get_items();
-        if (items.length == 0) {
-            alert("请选择需要审批项");
-            return;
-        }
-        $("#thePkId").val(items);
-
-        $('#approval_content').dialogModal({
-            onOkBut: function () {
-            },
-            onCancelBut: function () { },
-            onLoad: function () {
-
-            },
-            onClose: function () {
-                //window.location.reload();
-            }
-        });
-    }
-
-    function selAplStatus(s) {
-        $("#theAplStatus").val(s);
-    }
-
-    function checkField(s) {
-        $("#theApvRemarks").val(s);
-    }
-
-    var theApprvalConfirm = function () {
-
-        var approvalStatus = $("#theAplStatus").val();
-        var approvalRemarks = $("#theApvRemarks").val();
-
-        if (approvalStatus == null || approvalStatus == "") {
-            Layout.popMsg('popMsg-danger', "请选择审批状态！");
-            return;
-        }
-        else {
-            $.post("/ExtraWorkRecord/ApprovalExtraWorkRecord", { extralRecordId: $("#thePkId").val(), approvalStatus: approvalStatus, approvalRemarks: approvalRemarks }, function (data) {
-
-                if (!data.Success) {
-                    $('#approval_content').dialogModal("hide");
-                    Layout.popMsg('popMsg-danger', data.Content);
-                    return false;
-                }
-                else {
-                    $('#approval_content').dialogModal("hide");
-                    Layout.popMsg('popMsg-danger', data.Content);
+        $('.import-button-dialog').click(function () {
+            $('#dialog_content').dialogModal({
+                onOkBut: function () {
+                },
+                onCancelBut: function () { },
+                onLoad: function () {
+                    data_upload(".item-data-uploader");
+                },
+                onClose: function () {
                     window.location.reload();
                 }
             });
-        }
-    }
-
-
-    function get_items() {
-        var items = [];
-        $.each($('.record-approve:checked'), function (i, item) {
-            console.log($(item).attr('id'));
-            items.push($(item).attr('id'));
         });
-        return items;
-    }
 
-</script>
+        //审核
+        function shAbsenceRecord(id) {
+            $("#thePkId").val(id);
+
+            $('#approval_content').dialogModal({
+                onOkBut: function () {
+                },
+                onCancelBut: function () { },
+                onLoad: function () {
+
+                },
+                onClose: function () {
+                    //window.location.reload();
+                }
+            });
+        }
+
+        //批量审核
+        function shBatchAbsenceRecord() {
+            var items = get_items();
+            if (items.length == 0) {
+                alert("请选择需要审批项");
+                return;
+            }
+            $("#thePkId").val(items);
+
+            $('#approval_content').dialogModal({
+                onOkBut: function () {
+                },
+                onCancelBut: function () { },
+                onLoad: function () {
+
+                },
+                onClose: function () {
+                    //window.location.reload();
+                }
+            });
+        }
+
+        function selAplStatus(s) {
+            $("#theAplStatus").val(s);
+        }
+
+        function checkField(s) {
+            $("#theApvRemarks").val(s);
+        }
+
+        var theApprvalConfirm = function () {
+
+            var approvalStatus = $("#theAplStatus").val();
+            var approvalRemarks = $("#theApvRemarks").val();
+
+            if (approvalStatus == null || approvalStatus == "") {
+                Layout.popMsg('popMsg-danger', "请选择审批状态！");
+                return;
+            }
+            else {
+                $.post("/ExtraWorkRecord/ApprovalExtraWorkRecord", { extralRecordId: $("#thePkId").val(), approvalStatus: approvalStatus, approvalRemarks: approvalRemarks }, function (data) {
+
+                    if (!data.Success) {
+                        $('#approval_content').dialogModal("hide");
+                        Layout.popMsg('popMsg-danger', data.Content);
+                        return false;
+                    }
+                    else {
+                        $('#approval_content').dialogModal("hide");
+                        Layout.popMsg('popMsg-danger', data.Content);
+                        window.location.reload();
+                    }
+                });
+            }
+        }
+
+
+        function get_items() {
+            var items = [];
+            $.each($('.record-approve:checked'), function (i, item) {
+                console.log($(item).attr('id'));
+                items.push($(item).attr('id'));
+            });
+            return items;
+        }
+
+    </script>

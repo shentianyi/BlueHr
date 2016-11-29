@@ -9,31 +9,42 @@
     您的位置：
     <li>身份证管理</li>
 </ol>
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="usual-table">
-        <div class="table-heading">
-            身份证列表    
-        </div>
-        <div class="table-body content_3">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>身份证号</th>
-                        <th>所属区域</th>
-                        <th>工号</th>
-                       
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                   
-                @foreach (var item in Model)
-                {
+
+
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+        <a href="/Staff/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
+            <button class="marco-btn-primary">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>创建</span>
+            </button>
+        </a>
+
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            <li role="presentation"><a href="#" role="tab" data-toggle="tab">身份证列表</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_card_type">
+                <div id="all_card_type_grid_table"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>身份证号</th>
+                            <th>所属区域</th>
+                            <th>工号</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.id)
                                 </td>
-                                
+
                                 <td>
                                     @Html.DisplayFor(modelItem => item.residenceAddress)
                                 </td>
@@ -42,15 +53,15 @@
                                 </td>
                             </tr>
                         }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
-        <div class="clearfix pagination">
-            <div class="pagination-inner">
-                @if (Model != null)
+        @*<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+            <div class="clearfix pagination">
+                <div class="pagination-inner">
+                    @if (Model != null)
             {
                 if (ViewBag.Query != null)
                 {
@@ -70,14 +81,20 @@
                         .Options(o => o.AddRouteValue("CompanyEmployAtFrom", ViewBag.Query.CompanyEmployAtFrom))
                         .Options(o => o.AddRouteValue("CompanyEmployAtTo", ViewBag.Query.CompanyEmployAtTo))
                         .Options(o => o.AddRouteValue("IsOnTrial", ViewBag.Query.IsOnTrial));
-                        @html
+                            @html
+                        }
+                        else
+                        {
+                            @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
+                        }
                     }
-                    else
-                    {
-                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                    }
-                }
+                </div>
             </div>
-        </div>
+        </div>*@
     </div>
-</div>
+    <script type="text/javascript">
+        Layout.init();
+
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 200, false, "all_card_type", "身份证列表", "20", "all_card_type_grid_table");
+
+    </script>

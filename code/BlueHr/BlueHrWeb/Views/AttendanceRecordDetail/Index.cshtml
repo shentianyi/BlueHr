@@ -16,7 +16,6 @@
 }
 <style type="text/css">
     .ui-widget-header {
-        background: #34495e;
         border: none;
         border-radius: 0;
     }
@@ -47,7 +46,7 @@
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>考勤管理</li>
-    <li>考勤详细数据</li>
+    <li>详细记录管理</li>
 </ol>
 
 <hr class="hr-grey" />
@@ -93,222 +92,201 @@
         </div>
     </form>
 </div>
+                <div style="margin:10px;">
+                    <div class="minitor-show marco-tabs-default">
+                        <a href="/AttendanceRecordDetail/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
+                            <button class="marco-btn-primary">
+                                <i class="glyphicon glyphicon-plus-sign"></i>
+                                <span>创建</span>
+                            </button>
+                        </a>
 
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="usual-table">
-        <div class="table-heading">
-            考勤详细数据列表
-            <div class="pull-right" style="margin-top:-10px;">
-                <a href="/AttendanceRecordDetail/Create">
-                    <button class="marco-btn-primary">
-                        <i class="fa fa-plus-circle"></i>
-                        <span>创建</span>
-                    </button>
-                </a>
-            </div>
-        </div>
-        <div class="table-body content_3">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th>机构名称</th>
-                        <th>人员编号</th>
-                        <th>姓名</th>
-                        <th>刷卡日期</th>
-                        <th>刷卡时间</th>
-                        <th>设备编号</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        int i = 0;
-                        foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@(i += 1)</td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.departmentName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.staffNr)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.recordAtDateStr)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.recordAtTimeStr)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.device)
-                                </td>
-                                <td>
-                                    @if (canDelete)
-                                    {
-                                    <a href="/AttendanceRecordDetail/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
+                        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+                            <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">详细记录管理</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_detail_type">
+                                <div id="all_detail_type_grid_table"></div>
+                                <table class="table table-bordered" style="display:none;">
+                                    <thead>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                            <th>机构名称</th>
+                                            <th>人员编号</th>
+                                            <th>姓名</th>
+                                            <th>刷卡日期</th>
+                                            <th>刷卡时间</th>
+                                            <th>设备编号</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model != null)
+                                        {
+                                            int i = 0;
+                                            foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@(i += 1)</td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.departmentName)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.staffNr)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.name)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.recordAtDateStr)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.recordAtTimeStr)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.device)
+                                                    </td>
+                                                    <td>
+                                                        @if (canDelete)
+                                                        {
+                                                            <a href="/AttendanceRecordDetail/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        }
+                                                        @if (canEdit)
+                                                        {
+                                                            <a href="/AttendanceRecordDetail/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!--导入数据-->
+                        <div id="dialog_content" class="import_content" style="display:none;">
+                            <div class="dialogModal_header" style="background:steelblue;color:white;">
+                                导入考勤打卡记录
+                            </div>
+                            <div class="dialogModal_content">
+                                <strong>选择数据文件:</strong>
+                                <hr />
+                                <input class="item-data-uploader" type="file" name="files[]" data-url="/AttendanceRecordDetail/Import" />
+                                <div class="item-data-uploader-preview" style="display:none;"></div>
+                                <hr />
+                                <a href="~/Template/考勤记录导入文件模板.xlsx" target="_blank">下载文件模板</a>
+                            </div>
+                            @*<div class="dialogModal_footer">
+                    <button type="submit" class="btn btn-primary ff" style="width:200px;"  >OK</button>
+                </div>*@
+                        </div>
+
+
+                        <!--计算任务-->
+                        <div id="dialog_cal_att_content" class="cal_att_content" style="display:none;">
+                            <blockquote class="marco-blockquote-primary">
+                                新建考勤计算任务
+                            </blockquote>
+
+                            <div class="marco-igroup-primary">
+                                <span>选择时间(必选):</span>
+                                <input type="text" name="CalDate" id="CalDate" class="current-datetimepicker" placeholder="考勤时间" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                            </div>
+
+                            @*<div class="marco-igroup-primary">
+                    <span>选择班次(可选):</span>
+                    @Html.DropDownList("ShiftCode", ViewData["shiftList"] as IEnumerable<SelectListItem>)
+                </div>*@
+
+                            <hr class="hr-grey" />
+
+                            <button type="button" class="pull-left marco-btn-primary" style="width:200px;" onclick="calculateAttendance()">确定</button>
+
+                            <button type="button" class="pull-right marco-btn-warning" style="width:200px;" onclick="cancelCalculateAttendance()">取消</button>
+                        </div>
+
+                        <script type="text/javascript">
+                            Layout.init();
+
+                            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_detail_type", "详细记录管理", "20", "all_detail_type_grid_table");
+
+                            $('.datetimepicker').datetimepicker({
+                                format: 'Y-m-d H:i',
+                                defaultTime: '00:00'
+                            });
+
+                            $('.current-datetimepicker').datetimepicker({
+                                format: 'Y-m-d'
+                            });
+
+                            $('.import-button-dialog').click(function () {
+                                $('#dialog_content').dialogModal({
+                                    onOkBut: function () {
+                                    },
+                                    onCancelBut: function () { },
+                                    onLoad: function () {
+                                        data_upload(".item-data-uploader");
+                                    },
+                                    onClose: function () {
+
+                                    },
+                                });
+                            });
+
+                            var dialog;
+
+                            dialog = $(".cal_att_content").dialog({
+                                autoOpen: false,
+                                height: 280,
+                                width: 550,
+                                modal: true
+                            });
+
+                            $('.cal-att-button-dialog').click(function () {
+                                if (dialog != null)
+                                    dialog.dialog("open");
+                            });
+
+                            function calculateAttendance() {
+                                var dateTime = $("#CalDate").val();
+                                var shiftCode = $("#ShiftCode").val();
+
+                                if (dateTime.length == 0) {
+                                    alert("请选择时间");
+                                    return false;
+                                }
+
+                                $.ajax({
+                                    type: 'POST',
+                                    datatype: 'JSON',
+                                    url: '/AttendanceRecordDetail/Calculate',
+                                    data: {
+                                        DateTime: dateTime,
+                                        ShiftCode: shiftCode
+                                    },
+                                    success: function (data) {
+                                        if (data.Success) {
+                                            alert(data.Content);
+                                            if (dialog != null)
+                                                dialog.dialog("close");
+                                        } else {
+                                            alert(data.Content);
+                                        }
+                                    },
+                                    error: function (data) {
+                                        alert("无法请求到服务，请检查确认之后再运行。");
                                     }
-                                    @if (canEdit)
-                                    {
-                                    <a href="/AttendanceRecordDetail/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
-        <div class="clearfix pagination">
-            <div class="pagination-inner">
-                @if (Model != null)
-            {
-                if (ViewBag.Query != null)
-                {
+                                });
+                            }
+                            function cancelCalculateAttendance() {
+                                if (dialog != null)
+                                    dialog.dialog("close");
+                            }
 
-                    var html = Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                        .Options(o => o.AddRouteValue("CompanyId", ViewBag.Query.companyId))
-                        .Options(o => o.AddRouteValue("DepartmentId", ViewBag.Query.departmentId))
-                        .Options(o => o.AddRouteValue("StaffNr", ViewBag.Query.StaffNr))
-                        .Options(o => o.AddRouteValue("RecordAtFrom", ViewBag.Query.RecordAtFrom))
-                        .Options(o => o.AddRouteValue("RecordAtEnd", ViewBag.Query.RecordAtEnd));
-                        @html
-                    }
-                    else
-                    {
-                        @Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalItemCount)
-                    }
-                }
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--导入数据-->
-<div id="dialog_content" class="import_content" style="display:none;">
-    <div class="dialogModal_header" style="background:steelblue;color:white;">
-        导入考勤打卡记录
-    </div>
-    <div class="dialogModal_content">
-        <strong>选择数据文件:</strong>
-        <hr />
-        <input class="item-data-uploader" type="file" name="files[]" data-url="/AttendanceRecordDetail/Import" />
-        <div class="item-data-uploader-preview" style="display:none;"></div>
-        <hr />
-        <a href="~/Template/考勤记录导入文件模板.xlsx" target="_blank">下载文件模板</a>
-    </div>
-    @*<div class="dialogModal_footer">
-            <button type="submit" class="btn btn-primary ff" style="width:200px;"  >OK</button>
-        </div>*@
-</div>
-
-
-<!--计算任务-->
-<div id="dialog_cal_att_content" class="cal_att_content" style="display:none;">
-    <blockquote class="marco-blockquote-primary">
-        新建考勤计算任务
-    </blockquote>
-
-    <div class="marco-igroup-primary">
-        <span>选择时间(必选):</span>
-        <input type="text" name="CalDate" id="CalDate" class="current-datetimepicker" placeholder="考勤时间" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
-    </div>
-
-    @*<div class="marco-igroup-primary">
-            <span>选择班次(可选):</span>
-            @Html.DropDownList("ShiftCode", ViewData["shiftList"] as IEnumerable<SelectListItem>)
-        </div>*@
-
-    <hr class="hr-grey" />
-
-    <button type="button" class="pull-left marco-btn-primary" style="width:200px;" onclick="calculateAttendance()">确定</button>
-
-    <button type="button" class="pull-right marco-btn-warning" style="width:200px;" onclick="cancelCalculateAttendance()">取消</button>
-</div>
-
-<script type="text/javascript">
-    Layout.init();
-    $('.datetimepicker').datetimepicker({
-        format: 'Y-m-d H:i',
-        defaultTime: '00:00'
-    });
-
-    $('.current-datetimepicker').datetimepicker({
-        format: 'Y-m-d'
-    });
-
-    $('.import-button-dialog').click(function () {
-        $('#dialog_content').dialogModal({
-            onOkBut: function () {
-            },
-            onCancelBut: function () { },
-            onLoad: function () {
-                data_upload(".item-data-uploader");
-            },
-            onClose: function () {
-
-            },
-        });
-    });
-
-    var dialog;
-
-    dialog = $(".cal_att_content").dialog({
-        autoOpen: false,
-        height: 280,
-        width: 550,
-        modal: true
-    });
-
-    $('.cal-att-button-dialog').click(function () {
-        if (dialog != null)
-            dialog.dialog("open");
-    });
-
-    function calculateAttendance() {
-        var dateTime = $("#CalDate").val();
-        var shiftCode = $("#ShiftCode").val();
-
-        if (dateTime.length == 0) {
-            alert("请选择时间");
-            return false;
-        }
-
-        $.ajax({
-            type: 'POST',
-            datatype: 'JSON',
-            url: '/AttendanceRecordDetail/Calculate',
-            data: {
-                DateTime: dateTime,
-                ShiftCode: shiftCode
-            },
-            success: function (data) {
-                if (data.Success) {
-                    alert(data.Content);
-                    if (dialog != null)
-                        dialog.dialog("close");
-                } else {
-                    alert(data.Content);
-                }
-            },
-            error: function (data) {
-                alert("无法请求到服务，请检查确认之后再运行。");
-            }
-        });
-    }
-    function cancelCalculateAttendance() {
-        if (dialog != null)
-            dialog.dialog("close");
-    }
-
-</script>
+                        </script>
