@@ -237,11 +237,11 @@
     Layout.init();
 
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Ontrail", "在职员工列表", "20", "all_Ontrail_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Ontrail", "所有试用期员工列表", "20", "all_Ontrail_grid_table");
 
     })
 
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_Ontrail", "在职员工列表", "20", "all_Ontrail_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_Ontrail", "所有试用期员工列表", "20", "all_Ontrail_grid_table");
     Layout.advancedfilter();
     $('.import-dialog-btn').click(function () {
         $('#dialog_content').dialogModal({

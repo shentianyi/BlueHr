@@ -94,5 +94,22 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.GetAllTableName();
         }
+
+        public int countStaffAbsence(DateTime d1, DateTime d2)
+        {
+            return rep.countStaffAbsence(d1,d2);
+        }
+
+        public int countStaffLate(DateTime d1, DateTime d2)
+        {
+            return rep.countStaffLate(d1, d2);
+
+        }
+
+        public int countStaffLeave(DateTime d1, DateTime d2)
+        {
+            return rep.countStaffLeave(d1, d2);
+
+        }
     }
 }
