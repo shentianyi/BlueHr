@@ -1,0 +1,246 @@
+﻿@using MvcPaging
+
+@model IPagedList<BlueHrLib.Data.Staff>
+@using BlueHrWeb.Helpers.View
+@{
+    ViewBag.Title = "试用期员工";
+}
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>员工管理</li>
+    <li>试用期员工</li>
+</ol>
+@{
+    bool canImport = MenuAuthHelper.CanShow("Staff", "Import");
+    bool canCreate = MenuAuthHelper.CanShow("Staff", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("Staff", "Edit");
+    bool canShow = MenuAuthHelper.CanShow("Staff", "Show");
+}
+<hr class="hr-grey" />
+
+<div class="search">
+    @* 简单搜索 *@
+    <form action="/Ontrail/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>身份证</span>
+                    <input type="text" name="Id" id="Id" value="@ViewBag.Query.Id" placeholder="身份证号码" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>员工号</span>
+                    <input type="text" name="Nr" id="Nr" value="@ViewBag.Query.Nr" placeholder="员工号" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>姓名</span>
+                    <input type="text" name="Name" id="Name" value="@ViewBag.Query.Name" placeholder="姓名" />
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 5px;">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <button type="submit" class="marco-btn-success pull-left">
+                        <i class="fa fa-search"></i>
+                        <span>搜索</span>
+                    </button>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <button type="button" class="marco-btn-primary advanced-filter-btn" title="自定义搜索">
+                        <i class="fa fa-filter"></i>
+                        <span>自定义搜索</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="/Ontrail/AdvancedSearch" method="post">
+        <div class="advanced-filter row" style="margin:0;display:none;">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>字段</span>
+                    @Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>条件</span>
+                    @Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值1</span>
+                    <input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值2</span>
+                    <input type="text" name="searchValueSecond" value="@ViewBag.searchValueSecond" />
+
+                    <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<hr class="hr-primary" />
+
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+        @if (canImport)
+        {
+            <button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -5px; margin-right:15px;">
+                <i class="fa fa-cloud-upload"></i>
+                <span>上传</span>
+            </button>
+        }
+
+        @if (canCreate)
+        {
+            <a href="/Staff/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
+
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            <li role="presentation" class="active"><a href="#all_Ontrail" role="tab" data-toggle="tab">所有试用期员工</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="all_Ontrail">
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_Ontrail_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>身份证</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>是否备齐证照</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                if (item.workStatus == 100)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.nr)
+                                        </td>
+                                        <td>
+                                            <span style="display:inline;">
+                                                @Html.DisplayFor(modelItem => item.id)
+                                            </span>
+
+                                            @if (item.isIdChecked)
+                                            {
+                                                <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">
+                                                    已验证
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="pull-right marco-label-danger" title="身份证还未验证, 请使用客户端进行验证" style="cursor:help;">
+                                                    未验证
+                                                </span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.sexDisplay)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Company.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.departmentFullName)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.JobTitle.name)
+                                        </td>
+
+                                        <td>
+                                            @if (item.IsHasAllCertificate)
+                                            {
+                                                <span class="marco-label-success" title="证照信息已经备齐" style="cursor:help;">已备齐</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="marco-label-danger" title="证照信息尚未备齐" style="cursor:help;">尚未备齐</span>
+                                            }
+                                        </td>
+
+                                        <td>
+                                            @if (canShow)
+                                            {
+                                                <a href="/Staff/Delete/@item.nr" target="_blank" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            @if (canEdit)
+                                            {
+                                                <a href="/Staff/Edit/@item.nr" target="_blank" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>}
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div> 
+<script>
+
+    Layout.init();
+
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
+    })
+
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
+    Layout.advancedfilter();
+    $('.import-dialog-btn').click(function () {
+        $('#dialog_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+                data_upload(".item-data-uploader");
+            },
+            onClose: function () {
+                window.location.reload();
+            }
+        });
+    });
+</script>
