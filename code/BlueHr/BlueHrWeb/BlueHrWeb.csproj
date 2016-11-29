@@ -307,6 +307,9 @@
       <DependentUpon>company.css</DependentUpon>
     </Content>
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Scripts\Go\DataInspector.js" />
+    <Content Include="Scripts\Go\go-icons.js" />
+    <Content Include="Scripts\Go\go.js" />
     <Content Include="Content\input-style.css" />
     <Content Include="Content\jquery-popModal.css" />
     <Content Include="Content\jquery-tree.css" />
@@ -567,11 +570,6 @@
     <Content Include="Views\ShiftSchedule\Edit.cshtml" />
     <Content Include="Views\ShiftSchedule\Delete.cshtml" />
     <Content Include="Views\ShiftSchedule\_PartialShiftSchedule.cshtml" />
-    <Content Include="Views\StaffType\User\Index.cshtml" />
-    <Content Include="Views\StaffType\User\Create.cshtml" />
-    <Content Include="Views\StaffType\User\_PartialUser.cshtml" />
-    <Content Include="Views\StaffType\User\Delete.cshtml" />
-    <Content Include="Views\StaffType\User\Edit.cshtml" />
     <Content Include="Views\SystemSetting\Index.cshtml" />
     <Content Include="Views\QuartzJob\Index.cshtml" />
     <Content Include="Views\QuartzJob\Create.cshtml" />
@@ -625,7 +623,6 @@
     <Content Include="Views\SysRoleAuthorization\_PartialSysRoleAuthorization.cshtml" />
     <Content Include="Views\Home\NoAuthPage.cshtml" />
     <Content Include="Views\SysAuthorization\Edit.cshtml" />
-    <Content Include="Views\StaffType\User\ChangePwd.cshtml" />
     <Content Include="Views\User\ChangePwd.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />

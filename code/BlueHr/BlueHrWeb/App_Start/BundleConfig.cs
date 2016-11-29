@@ -26,7 +26,9 @@ namespace BlueHrWeb
                    "~/Scripts/jquery.file.upload/jquery.iframe-transport.js",
                    "~/Scripts/jquery.file.upload/upload.file.data.js",
                    "~/Scripts/jquery.cookie.js",
-                   "~/Scripts/jquery.unobtrusive-ajax.js"
+                   "~/Scripts/Go/go.js",
+                   "~/Scripts/Go/DataInspector.js",
+                   "~/Scripts/Go/go-icons.js"
                    ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
