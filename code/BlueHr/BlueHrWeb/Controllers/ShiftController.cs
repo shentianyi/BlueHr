@@ -37,7 +37,8 @@ namespace BlueHrWeb.Controllers
 
             ShiftInfoModel info = ss.GetShiftInfo(q);
             ViewBag.Info = info;
-
+            SetAllTableName(null);
+            SetSearchConditions(null);
             return View(models);
         }
 
@@ -53,7 +54,8 @@ namespace BlueHrWeb.Controllers
             IPagedList<Shift> models = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
-
+            SetAllTableName(null);
+            SetSearchConditions(null);
             return View("Index", models);
         }
 
@@ -316,27 +318,35 @@ namespace BlueHrWeb.Controllers
             ViewData["shiftTypeList"] = select;
         }
 
-        private void SetAllTableName(bool allowBlank = false)
+        private void SetAllTableName(string type, bool allowBlank = false)
         {
             List<SelectListItem> select = new List<SelectListItem>();
 
-            IShiftService at = new ShiftService(Settings.Default.db);
+            IShiftService ss = new ShiftService(Settings.Default.db);
 
-            var Shift = at.GetAllTableName();
+            var Shifts = ss.GetAllTableName();
 
-            if (Shift != null)
+            if (Shifts != null)
             {
                 //获取当前记录的属性
-                foreach (var property in Shift[0].GetType().GetProperties())
+                foreach (var property in Shifts[0].GetType().GetProperties())
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name });
+                    if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
+                    {
+                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
+                    }
+                    else
+                    {
+                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                    }
+
                 }
             }
 
             ViewData["getAllTableNameList"] = select;
         }
 
-        private void SetSearchConditions(bool? type, bool allowBlank = false)
+        private void SetSearchConditions(int? type, bool allowBlank = false)
         {
             var item = EnumHelper.GetList(typeof(SearchConditions));
 
@@ -359,6 +369,59 @@ namespace BlueHrWeb.Controllers
                 }
             }
             ViewData["searchConditionsList"] = select;
+        }
+        public ActionResult AdvancedSearch(ShiftSearchModel q)
+        {
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.loginUser = user;
+            ViewBag.Query = q;
+
+            IShiftService ss = new ShiftService(Settings.Default.db);
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            IPagedList<Shift> shifts = null;
+
+            string AllTableName = null;
+            string SearchConditions = null;
+            string SearchValueFirst = null;
+            string SearchValueSecond = null;
+
+            if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
+            {
+                AllTableName = Request.Form["allTableName"].ToString();
+
+                SetAllTableName(AllTableName);
+
+                if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
+                {
+                    SearchConditions = Request.Form.Get("searchConditions");
+
+                    SetSearchConditions(Convert.ToInt32(SearchConditions));
+
+                    if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
+                    {
+                        SearchValueFirst = Request.Form.Get("searchValueFirst").ToString();
+
+                        ViewBag.searchValueFirst = SearchValueFirst;
+
+                        SearchValueSecond = Request.Form.Get("searchValueSecond").ToString();
+                        ViewBag.searchValueSecond = SearchValueSecond;
+
+                        //有两个值， 需要进行两个值的查询
+                        shifts = ss.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
+
+                    }
+                    else
+                    {
+                        //不能进行查询
+                    }
+                }
+            }
+
+
+            return View("Index", shifts);
         }
     }
 }

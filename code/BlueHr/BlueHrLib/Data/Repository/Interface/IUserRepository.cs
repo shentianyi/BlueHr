@@ -19,5 +19,6 @@ namespace BlueHrLib.Data.Repository.Interface
         bool DeleteById(int id);
 
         List<User> FindByRoleId(int sysRoleId);
+        IQueryable<User> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst, string searchValueSecond);
     }
 }

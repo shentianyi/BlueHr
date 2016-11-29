@@ -80,5 +80,10 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.GetAllTableName();
         }
+
+        public IQueryable<SysAuthorization> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst, string searchValueSecond)
+        {
+            return rep.AdvancedSearch(allTableName, searchConditions, searchValueFirst, searchValueSecond);
+        }
     }
 }

@@ -62,7 +62,8 @@ namespace BlueHrWeb.Controllers
 
             ViewBag.TheRoleAuthList = thRoleAuthList;
             ViewBag.TheAuthList = AuthList;
-
+            SetAllTableName(null);
+            SetSearchConditions(null);
             return View(jobTitles);
         }
 
@@ -94,7 +95,8 @@ namespace BlueHrWeb.Controllers
 
             ViewBag.TheRoleAuthList = thRoleAuthList;
             ViewBag.TheAuthList = AuthList;
-
+            SetAllTableName(null);
+            SetSearchConditions(null);
             return View("Index", jobTitles);
         }
 
@@ -512,27 +514,35 @@ namespace BlueHrWeb.Controllers
                 return Json(result, JsonRequestBehavior.DenyGet);
             }
         }
-        private void SetAllTableName(bool allowBlank = false)
+        private void SetAllTableName(string type, bool allowBlank = false)
         {
             List<SelectListItem> select = new List<SelectListItem>();
 
-            ISysRoleAuthorizationService at = new SysRoleAuthorizationService(Settings.Default.db);
+            ISysRoleAuthorizationService sras = new SysRoleAuthorizationService(Settings.Default.db);
 
-            var SysRoleAuthorization = at.GetAllTableName();
+            var SysRoleAuthorization = sras.GetAllTableName();
 
             if (SysRoleAuthorization != null)
             {
                 //获取当前记录的属性
                 foreach (var property in SysRoleAuthorization[0].GetType().GetProperties())
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name });
+                    if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
+                    {
+                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
+                    }
+                    else
+                    {
+                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                    }
+
                 }
             }
 
             ViewData["getAllTableNameList"] = select;
         }
 
-        private void SetSearchConditions(bool? type, bool allowBlank = false)
+        private void SetSearchConditions(int? type, bool allowBlank = false)
         {
             var item = EnumHelper.GetList(typeof(SearchConditions));
 
@@ -555,6 +565,61 @@ namespace BlueHrWeb.Controllers
                 }
             }
             ViewData["searchConditionsList"] = select;
+        }
+
+
+        public ActionResult AdvancedSearch(SysRoleAuthorizationSearchModel q)
+        {
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.loginUser = user;
+            ViewBag.Query = q;
+
+            ISysRoleAuthorizationService sras = new SysRoleAuthorizationService(Settings.Default.db);
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            IPagedList<SysRoleAuthorization> sysRoleAuthorizations = null;
+
+            string AllTableName = null;
+            string SearchConditions = null;
+            string SearchValueFirst = null;
+            string SearchValueSecond = null;
+
+            if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
+            {
+                AllTableName = Request.Form["allTableName"].ToString();
+
+                SetAllTableName(AllTableName);
+
+                if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
+                {
+                    SearchConditions = Request.Form.Get("searchConditions");
+
+                    SetSearchConditions(Convert.ToInt32(SearchConditions));
+
+                    if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
+                    {
+                        SearchValueFirst = Request.Form.Get("searchValueFirst").ToString();
+
+                        ViewBag.searchValueFirst = SearchValueFirst;
+
+                        SearchValueSecond = Request.Form.Get("searchValueSecond").ToString();
+                        ViewBag.searchValueSecond = SearchValueSecond;
+
+                        //有两个值， 需要进行两个值的查询
+                        sysRoleAuthorizations = sras.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
+
+                    }
+                    else
+                    {
+                        //不能进行查询
+                    }
+                }
+            }
+
+
+            return View("Index", sysRoleAuthorizations);
         }
     }
 }
