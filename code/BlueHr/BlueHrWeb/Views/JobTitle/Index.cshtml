@@ -40,7 +40,7 @@
             <span>上传</span>
         </button>
 
-        <a href="/Staff/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
+        <a href="/JobTitle/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
             <button class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
@@ -196,6 +196,22 @@
     </div>
 </div>
 
+
+<!--导入数据-->
+<div id="dialog_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        导入员工信息
+    </div>
+    <div class="dialogModal_content">
+        <strong>选择数据文件:</strong>
+        <hr />
+        <input class="item-data-uploader" type="file" name="files[]" data-url="/Staff/Import" />
+        <div class="item-data-uploader-preview" style="display:none;"></div>
+        <hr />
+        <a href="~/Template/员工信息导入文件模板.xlsx" target="_blank">下载文件模板</a>
+    </div>
+</div>
+
 @*@Scripts.Render("~/bundles/degreetype")*@
 
 <script type="text/javascript">
@@ -218,5 +234,19 @@
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_job", "所有职位列表", "20", "all_job_grid_table");
     //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_job", "历史职位列表", "20", "all_job_grid_table");
     $('#all_job').removeClass("active");
+
+    $('.import-dialog-btn').click(function () {
+        $('#dialog_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+                data_upload(".item-data-uploader");
+            },
+            onClose: function () {
+                window.location.reload();
+            }
+        });
+    });
 
 </script>

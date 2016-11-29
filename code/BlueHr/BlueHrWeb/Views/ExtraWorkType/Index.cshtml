@@ -10,26 +10,28 @@
 </ol>
 <hr class="hr-grey" />
 
-@*<div class="row" style="margin:0;">
-    <form action="/ResignType/Search" method="get">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>加班类型名称</span>
-                <input type="text" name="Name" id="Name" placeholder="加班类型名称" value="@ViewBag.Query.Name" />
+<div class="search">
+    <form action="/ExtraWorkType/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>加班类型名称</span>
+                    <input type="text" name="Name" id="Name" placeholder="加班类型名称"/>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
+                <button type="submit" class="marco-btn-success">
+                    <i class="glyphicon glyphicon-search"></i>
+                    搜索
+                </button>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
-            <button type="submit" class="marco-btn-success">
-                <i class="glyphicon glyphicon-search"></i>
-                搜索
-            </button>
-        </div>
     </form>
-</div>*@
+</div>
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        <button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -5px; margin-right:15px;">
+        @*<button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -5px; margin-right:15px;">
             <i class="fa fa-cloud-upload"></i>
             <span>上传</span>
         </button>
@@ -39,7 +41,7 @@
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
             </button>
-        </a>
+        </a>*@
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">加班类型列表</a></li>

@@ -9,6 +9,7 @@
     您的位置：
     <li>身份证管理</li>
 </ol>
+
 <hr class="hr-grey" />
 
 <div class="search">
@@ -42,20 +43,24 @@
     </form>
 </div>
 <hr class="hr-primary" />
+
+
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
+        <a href="/Staff/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
+            <button class="marco-btn-primary">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>创建</span>
+            </button>
+        </a>
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-
-            <li role="presentation" class="active"><a href="#all_Idcard" role="tab" data-toggle="tab">所有身份证</a></li>
-
-
+            <li role="presentation"><a href="#" role="tab" data-toggle="tab">身份证列表</a></li>
         </ul>
+
         <div class="tab-content">
-
-
-            <div role="tabpanel" class="tab-pane  active" id="all_Idcard">
-                <div id="all_Idcard_grid_table" style="margin:auto;"></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_Idcard">
+                <div id="all_Idcard_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -64,9 +69,6 @@
                             <th>姓名</th>
                             <th>电话</th>
                             <th>地址</th>
-                            
-
-
                         </tr>
                     </thead>
                     <tbody>
@@ -96,6 +98,7 @@
                         }
                     </tbody>
                 </table>
+
             </div>
 
         </div>
