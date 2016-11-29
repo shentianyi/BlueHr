@@ -23,7 +23,7 @@ Layout.init = function () {
 
     switch (pathname[1]) {
         case "User":
-            $('.nav-users').addClass('active');
+            $('.nav-sysRole ').addClass('active');
             PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
             break;
         case "Company":

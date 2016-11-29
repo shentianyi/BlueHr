@@ -411,5 +411,23 @@ namespace BlueHrLib.Data.Repository.Implement
             //}
             return staffs;
         }
+
+        public int countStaffOntrail()
+        {
+            int q = this.context.Staffs.Where(s => s.isOnTrial == true).Count();
+            return q;
+        }
+
+        public int countStaffOff()
+        {
+            int q = this.context.Staffs.Where(s => s.workStatus == 100).Count();
+            return q;
+        }
+
+        public int countStaffOn()
+        {
+            int q = this.context.Staffs.Where(s => s.workStatus == 200).Count();
+            return q;
+        }
     }
 }

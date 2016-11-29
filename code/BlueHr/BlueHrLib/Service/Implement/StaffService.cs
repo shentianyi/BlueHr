@@ -323,6 +323,23 @@ namespace BlueHrLib.Service.Implement
             return staffRep.SearchOnTrialStaff(q);
         }
 
+        public int countStaffOntrail()
+        {
+            return staffRep.countStaffOntrail();
+        }
+
+        public int countStaffOff()
+        {
+            return staffRep.countStaffOff();
+
+        }
+
+        public int countStaffOn()
+        {
+            return staffRep.countStaffOn();
+
+        }
+
         //public List<Staff> getStaffUserIDCard()
         //{
         //    return staffRep.getStaffUserIDCard();

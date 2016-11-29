@@ -35,7 +35,8 @@
                     }
                 </div>
                 <div class="marco-igroup-primary">
-                    <span>上级</span>
+                    <label for="remark">上级*</label>
+                    @*<span>上级</span>*@
                     @if (ViewData["departmentList"] != null)
                     {
                         @Html.DropDownList("parentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
@@ -53,7 +54,7 @@
                     }
                 </div>
                 <div class="marco-textarea">
-                    <label for="remark" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">部门备注</label>
+                    <label for="remark" style="padding:3px 10px; height: 35px; margin-bottom: -2px;">部门备注*</label>
                     @if (Model != null)
                     {
                         @Html.TextAreaFor(model => model.remark)
