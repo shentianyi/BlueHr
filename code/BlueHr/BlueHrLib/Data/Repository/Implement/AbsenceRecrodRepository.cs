@@ -270,5 +270,26 @@ namespace BlueHrLib.Data.Repository.Implement
                 return null;
             }
         }
+
+        public int countStaffAbsence(DateTime d1, DateTime d2)
+        {
+            int q = 1;
+            //int q = this.context.AbsenceRecrods.Where(s => s.duration == 100).Count();
+            return q;
+        }
+
+        public int countStaffLate(DateTime d1, DateTime d2)
+        {
+            int q = 1;
+            //int q = this.context.AbsenceRecrods.Where(s => s.duration == 100).Count();
+            return q;
+        }
+
+        public int countStaffLeave(DateTime d1, DateTime d2)
+        {
+            int q = 1;
+            //int q = this.context.AbsenceRecrods.Where(s => s.duration == 100).Count();
+            return q;
+        }
     }
 }
