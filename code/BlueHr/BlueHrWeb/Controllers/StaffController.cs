@@ -1211,7 +1211,7 @@ namespace BlueHrWeb.Controllers
         }
         [UserAuthorize]
         [RoleAndDataAuthorizationAttribute]
-        public ActionResult OnTrialStaff(int? page)
+        public ActionResult Ontrail(int? page)
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
             StaffSearchModel q = new StaffSearchModel();

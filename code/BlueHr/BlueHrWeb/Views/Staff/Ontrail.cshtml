@@ -218,17 +218,30 @@
         </div>
     </div>
 </div> 
+<div id="dialog_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        导入员工信息
+    </div>
+    <div class="dialogModal_content">
+        <strong>选择数据文件:</strong>
+        <hr />
+        <input class="item-data-uploader" type="file" name="files[]" data-url="/Staff/Import" />
+        <div class="item-data-uploader-preview" style="display:none;"></div>
+        <hr />
+        <a href="~/Template/员工信息导入文件模板.xlsx" target="_blank">下载文件模板</a>
+    </div>
+</div>
+
 <script>
 
     Layout.init();
 
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Ontrail", "在职员工列表", "20", "all_Ontrail_grid_table");
+
     })
 
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_Ontrail", "在职员工列表", "20", "all_Ontrail_grid_table");
     Layout.advancedfilter();
     $('.import-dialog-btn').click(function () {
         $('#dialog_content').dialogModal({
