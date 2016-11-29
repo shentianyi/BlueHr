@@ -10,200 +10,151 @@
 
 <hr class="hr-grey" />
 
-<div class="row" style="margin:0;">
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="overflow:auto;">
-        @*<div class="pull-right" style="z-index: 99;" title="全部展开">
-            <a href="javascript: $.fn.zTree.getZTreeObj('companyTreeShow').expandAll(true);">
-                <i class="fa fa-chevron-down" style='margin-left: 5px; padding-left: 3px; border-radius:100%;'></i>
-            </a>
+<div class="row" style="margin: 0 10px; 0 10px">
+    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-6">
+        <button id="zoomToFit" class="marco-btn-primary">显示全部</button>
+        <button id="centerRoot" class="marco-btn-primary">根节点</button>
+    </div>
+    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-6">
+        <div class="marco-igroup-primary" style="width: 200px;">
+            <span>公司</span>
+            @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
         </div>
-
-        <div class="pull-right" style="z-index: 99;" title="全部折叠">
-            <a href="javascript: $.fn.zTree.getZTreeObj('companyTreeShow').expandAll(false);">
-                <i class="fa fa-chevron-up" style='margin-left: 5px;padding-left: 3px; border-radius:100%;'></i>
-            </a>
-        </div>*@
-
-        <span>公司信息展示</span>    
-        <div id="companyTreeShow" class="ztree"></div>
-    </div>
-
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="overflow:auto; border-left: 1px dashed #ddd ;">
-        <span>部门信息展示</span>
-        <div id="departmentTreeShow" class="ztree "></div>
-    </div>
-
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="overflow:auto; border-left: 1px dashed #ddd ;">
-        <div class="staffDetail"></div>
-        <span>员工信息展示</span>
-        <div id="staffTreeShow" class="ztree"></div>
     </div>
 </div>
+
+<div class="OrganizationShow" style="margin：0 10px 0 10px;"></div>
 
 <script type="text/javascript">
     Layout.init();
 
-    function zTreeCompanyOnClick(event, treeId, treeNode) {
-        $('.companyDetail').empty();
-        $('.staffDetail').empty();
+    LoadOrganization();
+    
+    $("#companyId").change(function(){
+        LoadOrganization();
+    })
 
-        $('.companyDetail').css({ display: "block" });
-        $('.companyDetail').addClass('animated fadeIn');
-
-        var CompanyNode = $.fn.zTree.getZTreeObj("companyTreeShow").getSelectedNodes()[0];
-
-        var Html = "<p style='font-family:黑体;'> 名称：" + CompanyNode.name + "<br /> 地址：" + CompanyNode.address +
-            "<br />备注： " + CompanyNode.remark + "<hr class='hr-grey' style='margin:2px;'/></p>";
-
-        $(Html).appendTo('.companyDetail');
-
-        $("#departmentTreeShow").empty();
-        $("#staffTreeShow").empty();
-
-        var CompanyID = treeNode.id;
-
-        $.ajax({
-            url: '/Department/DepartmentTree',
+    function  LoadOrganization(){
+    $.ajax({
+            url: '/Company/CompanyOrganization',
             type: 'get',
             data: {
-                companyId: CompanyID
+                companyId: $("#companyId").val()
             },
             success: function (data) {
-                function zTreeDepartmentOnClick(event, treeId, treeNode) {
-                    $('.staffDetail').empty();
-                    $('.staffDetail').css({ display: "block" });
-                    $('.staffDetail').addClass('animated fadeIn');
-
-                    var DepartmentNode = $.fn.zTree.getZTreeObj("departmentTreeShow").getSelectedNodes()[0];
-
-                    var Html = "<p style='font-family:黑体;'>名称：" + DepartmentNode.name + "<br />备注：" + DepartmentNode.remark + "<hr class='hr-grey' style='margin:2px;' /></p>";
-
-                    $(Html).appendTo('.staffDetail');
-                
-                    $.ajax({
-                        url: '/Staff/StaffTree',
-                        type: 'get',
-                        data: {
-                            companyId: CompanyID,
-                            departmentId: treeNode.id
-                        },
-                        success: function (data) {
-                            function zTreeStaffOnClick(event, treeId, treeNode) {
-                                //弹出员工基本信息 或者跳转
-                                //console.log(treeNode);
-                            }
-
-                            //function zTreeStaffOnClick(event, treeId, treeNode) {
-                            //    if (treeNode.parentNode && treeNode.parentNode.id != 2) return;
-                            //    var aObj = $("#" + treeNode.tId + IDMark_A);
-                            //    if (treeNode.id == 21) {
-                            //        var editStr = "<span class='demoIcon' id='diyBtn_" + treeNode.id + "' title='" + treeNode.name + "' onfocus='this.blur();'><span class='button icon01'></span></span>";
-                            //        aObj.append(editStr);
-                            //        var btn = $("#diyBtn_" + treeNode.id);
-                            //        if (btn) btn.bind("click", function () { alert("diy Button for " + treeNode.name); });
-                            //    } else if (treeNode.id == 22) {
-                            //        var editStr = "<span class='demoIcon' id='diyBtn_" + treeNode.id + "' title='" + treeNode.name + "' onfocus='this.blur();'><span class='button icon02'></span></span>";
-                            //        aObj.after(editStr);
-                            //        var btn = $("#diyBtn_" + treeNode.id);
-                            //        if (btn) btn.bind("click", function () { alert("diy Button for " + treeNode.name); });
-                            //    } else if (treeNode.id == 23) {
-                            //        var editStr = "<select class='selDemo' id='diyBtn_" + treeNode.id + "'><option value=1>1</option><option value=2>2</option><option value=3>3</option></select>";
-                            //        aObj.after(editStr);
-                            //        var btn = $("#diyBtn_" + treeNode.id);
-                            //        if (btn) btn.bind("change", function () { alert("diy Select value=" + btn.attr("value") + " for " + treeNode.name); });
-                            //    } else if (treeNode.id == 24) {
-                            //        var editStr = "<span id='diyBtn_" + treeNode.id + "'>Text Demo...</span>";
-                            //        aObj.after(editStr);
-                            //    } else if (treeNode.id == 25) {
-                            //        var editStr = "<a id='diyBtn1_" + treeNode.id + "' onclick='alert(1);return false;'>链接1</a>" +
-                            //            "<a id='diyBtn2_" + treeNode.id + "' onclick='alert(2);return false;'>链接2</a>";
-                            //        aObj.after(editStr);
-                            //    }
-                            //}
-
-                            //$(document).ready(function () {
-                            //    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-                            //});
-
-
-
-
-                            var StaffzNodes = data;
-
-                            var setting = {
-                                check: {
-                                    enable: false,
-                                    chkboxType: { "Y": "", "N": "" }
-                                },
-                                data: {
-                                    simpleData: {
-                                        enable: true
-                                    }
-                                },
-                                callback: {
-                                    onClick: zTreeStaffOnClick
-                                }
-                            };
-
-                            $.fn.zTree.init($("#staffTreeShow"), setting, StaffzNodes);
-                        },
-                        error: function () {
-                            console.log("DDDDDDDDDD");
-                        }
-                    })
-                }
-
-                var DepartmentzNodes = data;
-
-                var setting = {
-                    check: {
-                        enable: false,
-                        chkboxType: { "Y": "", "N": "" }
-                    },
-                    data: {
-                        simpleData: {
-                            enable: true
-                        }
-                    },
-                    callback: {
-                        onClick: zTreeDepartmentOnClick
-                    }
-                };
-
-                $.fn.zTree.init($("#departmentTreeShow"), setting, DepartmentzNodes);
+                init(data);
             },
             error: function () {
-                console.log("DDDDDDDDDD");
+                console.log("CCCCCCCCCCCVEroor")
             }
         })
-    };
+    }
 
-    $.ajax({
-        url: '/Company/CompanyTree',
-        type: 'get',
-        success: function (data) {
-            var zNodes = data;
+    function init(data) {
+        $("#myOverviewDiv").remove();
+        $("#myDiagramDiv").remove();
 
-            var setting = {
-                check: {
-                    enable: false,
-                    chkboxType: { "Y": "", "N": "" }
-                },
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                callback: {
-                    onClick: zTreeCompanyOnClick
-                }
-            };
+        var Html = "<span style='font-size: 14px; font-family: 黑体; position:absolute; top: 120px; right: 40px;'>缩略图</span>" +
+        "<div id='myOverviewDiv' style='font-size: 20px; height: 100px;'></div>"+
+        "<div id='myDiagramDiv' style='background-color: white; border-radius: 10px; width: 100%;'></div>"; 
+        $(Html).appendTo($(".OrganizationShow"));
+        
+        $("#myDiagramDiv").css("height", $(window).height()-300+'px');
+        
+        var Go_Comany = go.GraphObject.make;  // for conciseness in defining templates
 
-            $.fn.zTree.init($("#companyTreeShow"), setting, zNodes);
+        myDiagram =
+          Go_Comany(go.Diagram, "myDiagramDiv",  // must be the ID or reference to div
+            {
+                initialDocumentSpot: go.Spot.TopCenter,
+                initialViewportSpot: go.Spot.TopCenter,
+                "toolManager.hoverDelay": 100,  // 100 milliseconds instead of the default 850
+                allowCopy: false,
+                allowMove:false,
+                // nodeSelectionAdornmentTemplate:
+                // Go_Comany(go.Adornment, "Auto",
+                //     { layerName: "Grid" },  // the predefined layer that is behind everything else
+                //     Go_Comany(go.Shape, "Circle", { fill: "yellow", stroke: null }),
+                //     Go_Comany(go.Placeholder)
+                // ),
+                layout:
+                  Go_Comany(go.TreeLayout,
+                    {
+                        angle: 90, nodeSpacing: 10, layerSpacing: 40
+                        //layerStyle: go.TreeLayout.LayerUniform
+                    })
+            });
 
-        },
-        error: function () {
-            console.log("DDDDDD");
+        var bluegrad = '#90CAF9';
+        var pinkgrad = '#F48FB1';
+
+        function tooltipTextConverter(department) {
+            var str = "";
+            str += "名称: " + department.name;
+            if (department.remark !== undefined) str += "\n 备注: " + department.remark;
+            return str;
         }
-    })
+
+        var tooltiptemplate =
+          Go_Comany(go.Adornment, "Auto",
+            Go_Comany(go.Shape, "RoundedRectangle",
+              { fill: "whitesmoke", stroke: "black" }),
+            Go_Comany(go.TextBlock,
+              {
+                  font: "bold 12px Helvetica, bold Arial, sans-serif",
+                  wrap: go.TextBlock.WrapFit,
+                  margin: 5
+              },
+              new go.Binding("text", "", tooltipTextConverter))
+          );
+
+        myDiagram.nodeTemplate =
+          Go_Comany(go.Node, "Auto",
+            { deletable: false, toolTip: tooltiptemplate },
+            new go.Binding("text", "name"),
+            Go_Comany(go.Shape, "RoundedRectangle",
+              {
+                //   fill: "#3498db",
+                //   stroke: null, strokeWidth: 0,
+                  fill: null, stroke: "#3498db", strokeWidth: 2,
+                  stretch: go.GraphObject.Fill,
+                  alignment: go.Spot.Center
+              }
+            ),
+            Go_Comany(go.TextBlock,
+              {
+                  font: "14px 黑体, Droid Serif, sans-serif",
+                  textAlign: "center",
+                  margin: new go.Margin(20, 8, 2, 8), maxSize: new go.Size(80, NaN)
+              },
+              new go.Binding("text", "name")),
+            Go_Comany(go.Panel, { height: 40 },
+            Go_Comany("TreeExpanderButton")
+          )
+        );
+
+        // define the Link template
+        myDiagram.linkTemplate =
+          Go_Comany(go.Link,  // the whole link panel
+            { routing: go.Link.Orthogonal, corner: 5, selectable: false },
+            Go_Comany(go.Shape, { strokeWidth: 3, stroke: '#424242' }));  // the gray link shape
+
+        var nodeDataArray = data;
+
+        // create the model for the family tree
+        myDiagram.model = new go.TreeModel(nodeDataArray);
+        myOverview =
+        Go_Comany(go.Overview, "myOverviewDiv",  // the HTML DIV element for the Overview
+            { observed: myDiagram, contentAlignment: go.Spot.Center });   // tell it which Diagram to show and pan
+
+        document.getElementById('zoomToFit').addEventListener('click', function () {
+            myDiagram.zoomToFit();
+        });
+
+        document.getElementById('centerRoot').addEventListener('click', function () {
+            myDiagram.scale = 1;
+            myDiagram.scrollToRect(myDiagram.findNodeForKey(0).actualBounds);
+        });
+    }
+
 </script>

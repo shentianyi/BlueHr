@@ -40,6 +40,7 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult TreeShow()
         {
+            SetCompanyList(null);
             return View();
         }
 
@@ -179,6 +180,85 @@ namespace BlueHrWeb.Controllers
             }
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult CompanyOrganization(int companyId)
+        {
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+            ICompanyService ss = new CompanyService(Settings.Default.db);
+            Company companie = ss.FindById(companyId);
+          
+            Dictionary<string, string> Company = new Dictionary<string, string>();
+            Company.Add("key", "Company" + companie.id);
+            Company.Add("name", companie.name);
+            Company.Add("address", companie.address);
+            Company.Add("remark", companie.remark);
+
+            Result.Add(Company);
+
+            //通过公司获取到相应的部门
+            IDepartmentService cs = new DepartmentService(Settings.Default.db);
+            DepartmentSearchModel dq = new DepartmentSearchModel();
+            List<Department> departments = cs.FindByCompanyId(companie.id).ToList();
+            //获取到所有的部门
+            foreach (var department in departments)
+            {
+                Dictionary<string, string> cp = new Dictionary<string, string>();
+
+                if (department.parentId.HasValue)
+                {
+                    cp.Add("key", department.id.ToString());
+                    cp.Add("name", department.name);
+                    cp.Add("parent", department.parentId.ToString());
+                    cp.Add("companyId", department.companyId.ToString());
+                    cp.Add("remark", department.remark);
+                }
+                else
+                {
+                    cp.Add("key", department.id.ToString());
+                    cp.Add("name", department.name);
+                    cp.Add("parent", "Company" + companie.id);
+                    cp.Add("companyId", department.companyId.ToString());
+                    cp.Add("remark", department.remark);
+                }
+
+                Result.Add(cp);
+
+                //通过部门 获取到所属员工, 暂时不考虑
+            }
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
+        
+        private void SetCompanyList(int? type, bool allowBlank = false)
+        {
+            ICompanyService cs = new CompanyService(Settings.Default.db);
+
+            CompanySearchModel csm = new CompanySearchModel();
+
+            List<Company> companies = cs.Search(csm).ToList();
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var company in companies)
+            {
+                if (type.HasValue && type.Value == company.id)
+                {
+                    select.Add(new SelectListItem { Text = company.name, Value = company.id.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = company.name, Value = company.id.ToString(), Selected = false });
+                }
+            }
+            ViewData["companyList"] = select;
+        }
+
+
         private void SetAllTableName(bool allowBlank = false)
         {
             List<SelectListItem> select = new List<SelectListItem>();
