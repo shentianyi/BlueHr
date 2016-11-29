@@ -182,7 +182,7 @@
 		var that = this,
 			options = this.options;
 		this.element.addClass("pq-pager");
-		this.first = $("<button type='button' title='" + options.strFirstPage + "'></button>", {}).appendTo(this.element).button({
+		this.first = $("<button type='button' title='" + options.strFirstPage + "'>首页</button>", {}).appendTo(this.element).button({
 			icons: {
 				primary: "ui-icon-seek-first"
 			},
@@ -198,7 +198,7 @@
 				}
 			}
 		});
-		this.prev = $("<button type='button' title='" + options.strPrevPage + "'></button>").appendTo(this.element).button({
+		this.prev = $("<button type='button' title='" + options.strPrevPage + "'>上一页</button>").appendTo(this.element).button({
 			icons: {
 				primary: "ui-icon-seek-prev"
 			},
@@ -218,7 +218,7 @@
 		$("<span class='pq-separator'></span>").appendTo(this.element);
 		this.pageHolder = $("<span class='pq-page-placeholder'></span>").appendTo(this.element);
 		$("<span class='pq-separator'></span>").appendTo(this.element);
-		this.next = $("<button type='button' title='" + this.options.strNextPage + "'></button>").appendTo(this.element).button({
+		this.next = $("<button type='button' title='" + this.options.strNextPage + "'>下一页</button>").appendTo(this.element).button({
 			icons: {
 				primary: "ui-icon-seek-next"
 			},
@@ -233,7 +233,7 @@
 				})
 			}
 		});
-		this.last = $("<button type='button' title='" + this.options.strLastPage + "'></button>").appendTo(this.element).button({
+		this.last = $("<button type='button' title='" + this.options.strLastPage + "'>末页</button>").appendTo(this.element).button({
 			icons: {
 				primary: "ui-icon-seek-end"
 			},

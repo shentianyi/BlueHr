@@ -1209,6 +1209,30 @@ namespace BlueHrWeb.Controllers
             SetDropDownList(null);
             return View(staffs);
         }
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult Ontrail(int? page)
+        {
+            int pageIndex = PagingHelper.GetPageIndex(page);
+            StaffSearchModel q = new StaffSearchModel();
+            q.IsOnTrial = true;
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.loginUser = user;
+            IStaffService ss = new StaffService(Settings.Default.db);
+            IPagedList<Staff> staffs = ss.SearchOnTrialStaff(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            ViewBag.Query = q;
+            SetDropDownList(null);
+            return View(staffs);
+        }
+
+        [HttpGet]
+        public JsonResult CountStaff(int workStatus)
+        {
+            IStaffService rts = new StaffService(Settings.Default.db);
+            int Result;
+            Result = rts.CountStaff(workStatus);
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
         //    private void SetResignTypeList(int? type, bool allowBlank = true)
         //    {
         //        IResignTypeService cs = new ResignTypeService(Settings.Default.db);

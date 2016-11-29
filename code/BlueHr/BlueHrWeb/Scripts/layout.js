@@ -126,19 +126,19 @@ Layout.init = function () {
             break;
         case "InterApply":
             $('.nav-inter-apply').addClass('active');
-            PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            PageAction('#user', '新建离退申请', '编辑离退申请', '离退申请详情', '创建', '更新', '删除');
             break;
         case "Rehire":
             $('.nav-rehire').addClass('active');
-            PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            PageAction('#user', '新建回聘申请', '编辑回聘申请', '回聘申请详情', '创建', '更新', '删除');
             break;
         case "ExtraWorkRecord":
             $('.nav-summary-report').addClass('active');
-            PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            PageAction('#user', '新建加班管理', '编辑加班管理', '加班管理详情', '创建', '更新', '删除');
             break;
         case "SysOpera":
             $('.nav-system-opera').addClass('active');
-            PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            PageAction('#user', '新建系统操作', '编辑系统操作', '系统操作详情', '创建', '更新', '删除');
             break;
         default:
             break;

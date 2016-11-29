@@ -7,6 +7,8 @@ namespace BlueHrLib.Data.Model.Search
 {
     public class SysRoleAuthorizationSearchModel
     {
+        public User loginUser { get; set; }
+
         //角色名称
         public string RoleName { get; set; }
 

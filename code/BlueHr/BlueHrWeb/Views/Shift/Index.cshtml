@@ -52,28 +52,28 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>字段</span>
-                    @*@Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)*@
+                    @Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>条件</span>
-                    @*@Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)*@
+                    @Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>值1</span>
-                    <input type="text" name="searchValueFirst" value="" />
+                    <input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>值2</span>
-                    <input type="text" name="searchValueSecond" value="" />
+                    <input type="text" name="searchValueSecond" value="@ViewBag.searchValueSecond" />
                     <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
                 </div>
             </div>
@@ -84,8 +84,6 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-
-
         <a href="/Shift/Create" class="pull-right" style="margin-top: -10px; margin-right:15px;">
             <button class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
@@ -94,13 +92,11 @@
         </a>
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
 
-            <li role="presentation" class="active"><a href="#all_shift" role="tab" data-toggle="tab">所有班次管理</a></li>
-            
+            <li role="presentation" class="active"><a href="#all_shift" role="tab" data-toggle="tab">所有班次管理</a></li>           
 
         </ul>
         <div class="tab-content">
-
-            
+           
             <div role="tabpanel" class="tab-pane  active" id="all_shift">
                 <div id="all_shift_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
@@ -168,8 +164,6 @@
             </div>
             
         </div>
-
-
     </div>
 </div> 
 

@@ -395,5 +395,21 @@ namespace BlueHrLib.Data.Repository.Implement
                 return null;
             }
         }
+
+        public int CountStaff(int workStatus)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Staff> SearchOnTrialStaff(StaffSearchModel q)
+        {
+            List<Staff> staffs = this.context.Staffs.Where(s => s.isOnTrial == true).ToList(); ;
+            //IQueryable<MessageRecord> messages = this.context.MessageRecord.Where(m => m.messageType == 201);
+            //foreach (var a in messages.ToList())
+            //{
+            //    staffs.Add(FindByNr(a.staffNr));
+            //}
+            return staffs;
+        }
     }
 }

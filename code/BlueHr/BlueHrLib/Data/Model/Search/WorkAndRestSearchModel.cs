@@ -10,5 +10,7 @@ namespace BlueHrLib.Data.Model.Search
         public DateTime? DateAtFrom { get; set; }
         public DateTime? DateAtTo { get; set; }
         public int? DateType { get; set; }
+        public User loginUser { get; set; }
+
     }
 }

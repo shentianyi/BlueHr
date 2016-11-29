@@ -313,6 +313,16 @@ namespace BlueHrLib.Service.Implement
             return staffRep.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond);
         }
 
+        public int CountStaff(int workStatus)
+        {
+            return staffRep.CountStaff(workStatus);
+        }
+
+        public List<Staff> SearchOnTrialStaff(StaffSearchModel q)
+        {
+            return staffRep.SearchOnTrialStaff(q);
+        }
+
         //public List<Staff> getStaffUserIDCard()
         //{
         //    return staffRep.getStaffUserIDCard();

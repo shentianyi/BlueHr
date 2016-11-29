@@ -636,6 +636,7 @@
     <Content Include="Views\Company\TreeShow.cshtml" />
     <Content Include="Views\SysRole\TableShow.cshtml" />
     <Content Include="Views\Staff\Idcard.cshtml" />
+    <Content Include="Views\Staff\Ontrail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -34,13 +34,13 @@ namespace BlueHrLib.Helper
                     strWhere = "Select s from " + Table + " as s where Contains(s." + AllTableName + ", '" + SearchValue + "')";
                     break;
                 case "8":
-                    strWhere = "Select s from " + Table + " as s where s." + AllTableName + " like /" + SearchValue + "/";
+                    strWhere = "Select s from " + Table + " as s where s." + AllTableName + " like '%" + SearchValue + "%'";
                     break;
                 case "9":
-                    strWhere = "Select s from " + Table + " as s where s." + AllTableName + " like " + SearchValue + "/";
+                    strWhere = "Select s from " + Table + " as s where s." + AllTableName + " like '%" + SearchValue + "'";
                     break;
                 case "10":
-                    strWhere = "Select s from " + Table + " as s where s." + AllTableName + " like %" + SearchValue + "";
+                    strWhere = "Select s from " + Table + " as s where s." + AllTableName + " like '" + SearchValue + "%'";
                     break;
                 default:
                     break;

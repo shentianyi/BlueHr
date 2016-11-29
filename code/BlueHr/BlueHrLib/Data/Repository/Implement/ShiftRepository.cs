@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BlueHrLib.Data.Model.Search;
+using BlueHrLib.Helper;
+using ALinq.Dynamic;
 
 namespace BlueHrLib.Data.Repository.Implement
 {
@@ -93,6 +95,30 @@ namespace BlueHrLib.Data.Repository.Implement
             try
             {
                 return (this.context.GetTable<Shift>()).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public IQueryable<Shift> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst, string SearchValueSecond)
+        {
+            string strWhere = string.Empty;
+
+            try
+            {
+                if (SearchValueSecond != string.Empty)
+                {
+                    strWhere += SearchConditionsHelper.GetStrWhere("Shift", AllTableName, SearchConditions, SearchValueFirst);
+                    strWhere += SearchConditionsHelper.GetStrWhere("Shift", AllTableName, SearchConditions, SearchValueSecond);
+                }
+                else
+                {
+                    strWhere = SearchConditionsHelper.GetStrWhere("Shift", AllTableName, SearchConditions, SearchValueFirst);
+                }
+                var q = this.context.CreateQuery<Shift>(strWhere);
+                return q;
             }
             catch (Exception)
             {

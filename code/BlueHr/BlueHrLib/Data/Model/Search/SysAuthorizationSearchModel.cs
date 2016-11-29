@@ -18,5 +18,7 @@ namespace BlueHrLib.Data.Model.Search
 
         //动作
         public string actionName { get; set; }
+
+        public User loginUser { get; set; }
     }
 }
