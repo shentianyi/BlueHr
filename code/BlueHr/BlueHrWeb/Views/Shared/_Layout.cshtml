@@ -89,7 +89,7 @@
 
                             <ul class="treeview-menu">
 
-                                <li class="nav-users">
+                                <li>
                                     <a href="/User/Index">
                                         <i class="fa fa-user-secret"></i>
                                         用户管理
@@ -293,7 +293,7 @@
 
                     @if (MenuAuthHelper.CanShow("Staff", "Index"))
                     {
-                        <li class="treeview nav-staff">
+                        <li class="nav-staff">
                             <a href="#">
                                 <i class="fa fa-users"></i>
                                 <span>员工管理</span>
@@ -303,7 +303,7 @@
                             </a>
 
                             <ul class="treeview-menu">
-                                <li class="nav-staff">
+                                <li>
                                     <a href="/Staff/Index">
                                         <i class="fa fa-users"></i>
                                         员工管理
@@ -355,7 +355,7 @@
                     }
                     @if (canShift || canShiftSc)
                     {
-                        <li class="treeview nav-shift">
+                        <li class="nav-shift">
                             <a href="#">
                                 <i class="fa fa-calculator"></i>
                                 <span>排班管理</span>
@@ -394,7 +394,7 @@
                     }
                     @if (canAttDetail || canAttCal || canAttException)
                     {
-                        <li class="treeview nav-attendance-record">
+                        <li class="nav-attendance-record">
                             <a href="#">
                                 <i class="fa fa-calendar-check-o"></i>
                                 <span>考勤管理</span>
@@ -464,7 +464,7 @@
                                 </li>
                             }*@
 
-                        <li class="treeview nav-inter-apply">
+                        <li class="nav-inter-apply">
                             <a href="#">
                                 <i class="fa fa-random"></i>
                                 <span>离退管理</span>
@@ -507,7 +507,7 @@
                             </ul>
                         </li>
 
-                        <li class="treeview nav-rehire">
+                        <li class="nav-rehire">
                             <a href="#">
                                 <i class="fa fa-recycle"></i>
                                 <span>回聘管理</span>
@@ -533,7 +533,7 @@
                             </ul>
                         </li>
 
-                        <li class="treeview nav-summary-report">
+                        <li class="nav-summary-report">
                             <a href="#">
                                 <i class="fa fa-calendar-check-o"></i>
                                 <span>报表汇总</span>
@@ -557,7 +557,7 @@
                         }
                         @if (canJob || canSystemSetting)
                         {
-                            <li class="treeview nav-system-setting">
+                            <li class="nav-system-setting">
                                 <a href="#">
                                     <i class="fa fa-cog"></i>
                                     <span>系统设置</span>
@@ -588,7 +588,7 @@
                             </li>
                         }
 
-                        <li class="treeview nav-system-opera">
+                        <li class="nav-system-opera">
                             <a href="#">
                                 <i class="fa fa-cogs"></i>
                                 <span>系统操作</span>

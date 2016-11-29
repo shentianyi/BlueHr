@@ -2,1025 +2,1052 @@
 
 @using BlueHrWeb.Helpers.View
 
-<div id="staff" style="margin:10px;">
-    <ol class="breadcrumb current-position">
-        您的位置：
-        <li>@Html.ActionLink("员工管理", "Index")</li>
-        <li>{{action}}</li>
-    </ol>
+<style>
+    .marco-npanel-normal{
+        border:1px solid #7f8c8d;
+        box-shadow: 1px 1px 1px #888888;
+    
+    }
+</style>
+<div id="staff">
+<ol class="breadcrumb current-position">
+    您的位置：
+    <li>@Html.ActionLink("员工管理", "Index")</li>
+    <li>{{action}}</li>
+</ol>
 
-    <hr class="hr-grey" />
+<hr class="hr-grey"/>
 
-    <blockquote class="marco-blockquote-success">
-        <span>基本信息</span>
-    </blockquote>
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="marco-npanel-normal">
-            <div class="marco-nheading">
-                <span>基础信息</span>
-            </div>
-
-            <div class="marco-nbody row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
-                        <span>&nbsp;&nbsp;&nbsp;工&nbsp;号 *&nbsp;</span>
-                        @Html.EditorFor(model => model.nr)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
-                        <span>&nbsp;&nbsp;&nbsp;姓&nbsp;名 *&nbsp;</span>
-                        @Html.EditorFor(model => model.name)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>&nbsp;&nbsp;&nbsp;性&nbsp;別&nbsp;&nbsp;&nbsp;</span>
-                        @Html.DropDownList("sex", ViewData["sexList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>&nbsp;&nbsp;&nbsp;民&nbsp;族&nbsp;&nbsp;&nbsp;</span>
-                        @Html.EditorFor(model => model.ethnic)
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
-                        <span>身份证号</span>
-                        @Html.EditorFor(model => model.id)
-
-                        @if (Model != null)
-                        {
-                            if (Model.isIdChecked)
-                            {
-                                <span class="marco-label-success">已验证</span>
-                            }
-                            else
-                            {
-                                <span class="marco-label-danger" title="请通过客户端进行身份证验证" style="cursor:help;">未验证</span>
-                            }
-                        }
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>出生日期</span>
-                        @Html.EditorFor(model => model.birthday, new { htmlAttributes = new { @class = "date-picker" } })
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>联系电话</span>
-                        @Html.EditorFor(model => model.phone)
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>户口地址</span>
-                        @Html.EditorFor(model => model.residenceAddress)
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>通讯地址</span>
-                        @Html.EditorFor(model => model.address)
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>&nbsp;&nbsp;&nbsp;户&nbsp;籍&nbsp;&nbsp;&nbsp;</span>
-                        @Html.EditorFor(model => model.domicile)
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>户口性质</span>
-
-                        @Html.DropDownList("residenceType", ViewData["residenceTypeList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>人员类别</span>
-                        @Html.DropDownList("StaffTypeId", ViewData["staffTypeList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>最高学历</span>
-                        @Html.DropDownList("DegreeTypeId", ViewData["degreeTypeList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>所学专业</span>
-                        @Html.EditorFor(model => model.speciality)
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="position">
-            <div class="marco-npanel-normal">
-                <div class="marco-nheading">
-                    <span>职位信息</span>
-                </div>
-
-                <div class="marco-nbody row">
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-danger">
-                            <span>状态 *</span>
-                            @Html.DropDownList("workStatus", ViewData["workStatusList"] as IEnumerable<SelectListItem>)
-                        </div>
-                    </div>
-
-                    @*@Html.Partial("Search/_CompanyAndDepartmentBar")*@
-                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-danger">
-                            <span>公司</span>
-
-                            @if (Model != null && Model.companyId != null)
-                            {
-                                <input type="text" name="companyName" id="companyName" placeholder="" readonly="readonly" value="@Model.Company.name" />
-                                <input type="hidden" name="companyId" id="companyId" value="@Model.companyId" />
-                            }
-                            else
-                            {
-                                <input type="text" name="companyName" id="companyName" placeholder="" readonly="readonly" />
-                                <input type="hidden" name="companyId" id="companyId" />
-                            }
-
-                            <span>部门</span>
-
-                            @if (Model != null && Model.departmentId != null)
-                            {
-                                <input type="text" name="departmentName" id="departmentName" placeholder="" readonly="readonly" value="@Model.Department.fullName" />
-                                <input type="hidden" name="departmentId" id="departmentId" value="@Model.departmentId" />
-                            }
-                            else
-                            {
-                                <input type="text" name="departmentName" id="departmentName" placeholder="" readonly="readonly" />
-                                <input type="hidden" name="departmentId" id="departmentId" />
-                            }
-
-                            <span>
-                                <button type="button" onclick="asignCmpDepConfirm(-1)" class="submit-btn marco-btn-primary"  style="margin: 0; background:transparent; border-color:transparent;">
-                                    选择公司和部门
-                                </button>
-                            </span>
-                            @* @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)*@
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>职位</span>
-                            @Html.DropDownList("jobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-
-        <div class="marco-npanel-normal">
-            <div class="marco-nheading">
-                <span>照片</span>
-            </div>
-
-            <div class="marco-nbody row">
-
-                <div class="photoleft">
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>选择照片上传</span>
-                            <input type="file" name="photoUpload" id="photoUpload" onchange="Staff.create_image_preview(this)" />
-
-                            @Html.EditorFor(model => model.photo, new { htmlAttributes = new { type = "hidden" } })
-                        </div>
-                        <div class="marco-igroup-warning" style="visibility:hidden;">
-                            <span id="photoName"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="photopreview">
-                    @if (Model != null)
-                    {
-                        <img src="@Model.photo" alt="员工照片" style="width: 200px; height: 150px;" />
-                    }
-                </div>
-            </div>
-        </div>
-
-        <div class="marco-npanel-normal">
-            <div class="marco-nheading">
-                <span>紧急联系人</span>
-            </div>
-
-            <div class="marco-nbody row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>姓名</span>
-                        @Html.EditorFor(model => model.contactName)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>电话</span>
-                        @Html.EditorFor(model => model.contactPhone)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>与员工关系</span>
-                        @Html.EditorFor(model => model.contactFamilyMemberType)
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="marco-npanel-normal">
-            <div class="marco-nheading">
-                <span>工作经历</span>
-            </div>
-
-            <div class="marco-nbody row">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>最初进厂日期</span>
-                        @Html.EditorFor(model => model.firstCompanyEmployAt )
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>进厂总工龄</span>
-                        @Html.EditorFor(model => model.firstCompanyEmployAtCalDisplay, new { htmlAttributes = new { @readonly=true } })
-                        @*<span class="marco-label-default">年</span>*@
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>进厂日期</span>
-                        @Html.EditorFor(model => model.companyEmployAt )
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>工龄</span>
-                        @Html.EditorFor(model => model.companyEmployAtCalDisplay, new { htmlAttributes = new { @readonly=true} })
-                        @*<span class="marco-label-default">年</span>*@
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>参加工作年限</span>
-                        @Html.EditorFor(model => model.workingYearsAt )
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>累计工龄</span>
-                        @Html.EditorFor(model => model.workingYearsAtCalDisplay, new { htmlAttributes = new { @readonly = true } })
-                        @*<span class="marco-label-default">年</span>*@
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="marco-npanel-normal">
-            <div class="marco-nheading">
-                <span>合同信息</span>
-            </div>
-
-            <div class="marco-nbody row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
-                        <span>&nbsp;&nbsp;是否在试用&nbsp;&nbsp;</span>
-                        @Html.DropDownList("isOnTrial", ViewData["isOnTrialList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>试用到期日期</span>
-                        @Html.EditorFor(model => model.trialOverAt, new { htmlAttributes = new { @class = "date-picker" } })
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>&nbsp;&nbsp;&nbsp;保险种类&nbsp;&nbsp;&nbsp;&nbsp;</span>
-
-                        @Html.DropDownList("insureTypeId", ViewData["inSureTypeList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-danger">
-                        <span>是否交公积金</span>
-
-                        @Html.DropDownList("isPayCPF", ViewData["isPayCPFList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>合同到期</span>
-                        @Html.EditorFor(model => model.contractExpireStr)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>合同签订次数</span>
-                        @Html.EditorFor(model => model.contractCount)
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <hr class="hr-grey" />
-
-        <blockquote class="marco-blockquote-success">
-            附加信息
-        </blockquote>
-
-        <div class="marco-npanel-normal">
-            <div class="marco-nheading">
-                <span>银行卡信息</span>
-                <span style="font-size:.9em;color:#2980b9;"> （<code>银行</code>和<code>卡号</code>必填） </span>
-            </div>
-
-            <div class="marco-nbody">
-                <div class="row">
-                    <div class="add-bankCard">
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <div class="marco-igroup-success">
-                                <span>银行 *</span>
-                                <input type="text" id="add_bank" />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div style="margin:10px;" >
+        <div class="minitor-show marco-tabs-default">
+            <ul class="nav nav-tabs" role="tablist" style="width: 1000px;">
+                <li role="presentation" class="active"><a href="#basic" role="tab" data-toggle="tab">基本信息</a></li>
+                <li role="presentation"><a href="#additional" role="tab" data-toggle="tab">附加信息</a></li>
+                <li role="presentation"><a href="#position" role="tab" data-toggle="tab">职位信息</a></li>
+                <li role="presentation"><a href="#experience" role="tab" data-toggle="tab">工作经历</a></li>
+                <li role="presentation"><a href="#contract" role="tab" data-toggle="tab">合同信息</a></li>
+                <li role="presentation"><a href="#bankcard" role="tab" data-toggle="tab">银行卡信息</a></li>
+                <li role="presentation"><a href="#children" role="tab" data-toggle="tab">子女信息</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="basic">
+                    <div class="marco-npanel-normal">
+                            <div class="marco-nheading">
+                                <span>基础信息</span>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <div class="marco-igroup-success">
-                                <span>卡号 *</span>
-                                <input type="text" id="add_bankCard" />
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <div class="marco-igroup-primary">
-                                <span>开户行地址</span>
-                                <input type="text" id="add_bankAddress" />
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <div class="marco-igroup-primary">
-                                <span>备注</span>
-                                <input type="text" id="add_bankRemark" />
 
-                                <span class="createBankCardBtn" style="cursor:pointer;">
-                                    <i class="fa fa-plus-circle"></i>
-                                    添加
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="hr-grey" />
-
-                <div class="row bank-show">
-                    @*Edit Delete 显示 信息 *@
-                    @if (Model != null)
-                    {
-                        foreach (var bankCard in Model.BankCards)
-                        {
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 card-box-primary">
-                                <div class="card-box">
-                                    <div class="card-heading">
-                                        <span>@bankCard.bank</span>
-                                        <i class="pull-right fa fa-close remove-card" id="@bankCard.id" style="color:#c0392b;"></i>
-                                        <input type="hidden" name="bank" value="@bankCard.bank" />
+                            <div class="marco-nbody row">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-danger">
+                                        <span>&nbsp;&nbsp;&nbsp;工&nbsp;号 *&nbsp;</span>
+                                        @Html.EditorFor(model => model.nr)
                                     </div>
-                                    <div class="card-body">
-                                        @bankCard.nr
-                                        <input type="hidden" name="bankCard" value="@bankCard.nr" />
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-danger">
+                                        <span>&nbsp;&nbsp;&nbsp;姓&nbsp;名 *&nbsp;</span>
+                                        @Html.EditorFor(model => model.name)
                                     </div>
-                                    <div class="card-footer">
-                                        @bankCard.bankAddress
-                                        <input type="hidden" name="bankAddress" value="@bankCard.bankAddress" />
-                                        <i class="pull-right fa fa-question-circle" title="备注信息： @bankCard.remark"></i>
-                                        <input type="hidden" name="bankRemark" value="@bankCard.remark" />
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>&nbsp;&nbsp;&nbsp;性&nbsp;別&nbsp;&nbsp;&nbsp;</span>
+                                        @Html.DropDownList("sex", ViewData["sexList"] as IEnumerable<SelectListItem>)
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>&nbsp;&nbsp;&nbsp;民&nbsp;族&nbsp;&nbsp;&nbsp;</span>
+                                        @Html.EditorFor(model => model.ethnic)
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-danger">
+                                        <span>身份证号</span>
+                                        @Html.EditorFor(model => model.id)
+
+                                        @if (Model != null)
+                                        {
+                                            if (Model.isIdChecked)
+                                            {
+                                                <span class="marco-label-success">已验证</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="marco-label-danger" title="请通过客户端进行身份证验证" style="cursor:help;">未验证</span>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>出生日期</span>
+                                        @Html.EditorFor(model => model.birthday, new { htmlAttributes = new { @class = "date-picker" } })
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>联系电话</span>
+                                        @Html.EditorFor(model => model.phone)
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>户口地址</span>
+                                        @Html.EditorFor(model => model.residenceAddress)
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>通讯地址</span>
+                                        @Html.EditorFor(model => model.address)
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>&nbsp;&nbsp;&nbsp;户&nbsp;籍&nbsp;&nbsp;&nbsp;</span>
+                                        @Html.EditorFor(model => model.domicile)
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>户口性质</span>
+
+                                        @Html.DropDownList("residenceType", ViewData["residenceTypeList"] as IEnumerable<SelectListItem>)
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>人员类别</span>
+                                        @Html.DropDownList("StaffTypeId", ViewData["staffTypeList"] as IEnumerable<SelectListItem>)
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>最高学历</span>
+                                        @Html.DropDownList("DegreeTypeId", ViewData["degreeTypeList"] as IEnumerable<SelectListItem>)
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>所学专业</span>
+                                        @Html.EditorFor(model => model.speciality)
                                     </div>
                                 </div>
                             </div>
-                        }
-                    }
+                        </div>
+                    <div class="marco-npanel-normal">
+                        <div class="marco-nheading">
+                            <span>紧急联系人</span>
+                        </div>
+
+                        <div class="marco-nbody row">
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="marco-igroup-primary">
+                                    <span>姓名</span>
+                                    @Html.EditorFor(model => model.contactName)
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="marco-igroup-primary">
+                                    <span>电话</span>
+                                    @Html.EditorFor(model => model.contactPhone)
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="marco-igroup-primary">
+                                    <span>与员工关系</span>
+                                    @Html.EditorFor(model => model.contactFamilyMemberType)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div role="tabpanel" class="tab-pane" id="additional">
+                    <div class="position">
+                        <div class="marco-npanel-normal">
+                            <div class="marco-nheading">
+                                <span>照片</span>
+                            </div>
+
+                            <div class="marco-nbody row">
+
+                                <div class="photoleft">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-primary">
+                                            <span>选择照片上传</span>
+                                            <input type="file" name="photoUpload" id="photoUpload" onchange="Staff.create_image_preview(this)" />
+
+                                            @Html.EditorFor(model => model.photo, new { htmlAttributes = new { type = "hidden" } })
+                                        </div>
+                                        <div class="marco-igroup-warning" style="visibility:hidden;">
+                                            <span id="photoName"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="photopreview">
+                                    @if (Model != null)
+                                    {
+                                        <img src="@Model.photo" alt="员工照片" style="width: 200px; height: 150px;" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="marco-npanel-normal">
+                            <div class="marco-nheading">
+                                <span>备注信息</span>
+                            </div>
+
+                            <div class="marco-nbody">
+                                <div class="marco-textarea" style="margin-top:5px;">
+                                    @Html.TextAreaFor(model => model.remark)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="position">
+                    <div class="position">
+                        <div class="marco-npanel-normal">
+                            <div class="marco-nheading">
+                                <span>职位信息</span>
+                            </div>
+
+                            <div class="marco-nbody row">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-danger">
+                                        <span>状态 *</span>
+                                        @Html.DropDownList("workStatus", ViewData["workStatusList"] as IEnumerable<SelectListItem>)
+                                    </div>
+                                </div>
+
+                                @*@Html.Partial("Search/_CompanyAndDepartmentBar")*@
+                                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-danger">
+                                        <span>公司</span>
+
+                                        @if (Model != null && Model.companyId != null)
+                                        {
+                                            <input type="text" name="companyName" id="companyName" placeholder="" readonly="readonly" value="@Model.Company.name" />
+                                            <input type="hidden" name="companyId" id="companyId" value="@Model.companyId" />
+                                        }
+                                        else
+                                        {
+                                            <input type="text" name="companyName" id="companyName" placeholder="" readonly="readonly" />
+                                            <input type="hidden" name="companyId" id="companyId" />
+                                        }
+
+                                        <span>部门</span>
+
+                                        @if (Model != null && Model.departmentId != null)
+                                        {
+                                            <input type="text" name="departmentName" id="departmentName" placeholder="" readonly="readonly" value="@Model.Department.fullName" />
+                                            <input type="hidden" name="departmentId" id="departmentId" value="@Model.departmentId" />
+                                        }
+                                        else
+                                        {
+                                            <input type="text" name="departmentName" id="departmentName" placeholder="" readonly="readonly" />
+                                            <input type="hidden" name="departmentId" id="departmentId" />
+                                        }
+
+                                        <span>
+                                            <button type="button" onclick="asignCmpDepConfirm(-1)" class="submit-btn marco-btn-primary" style="margin: 0; background:transparent; border-color:transparent;">
+                                                选择公司和部门
+                                            </button>
+                                        </span>
+                                        @* @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)*@
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>职位</span>
+                                        @Html.DropDownList("jobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>                                     
+                </div>
+                <div role="tabpanel" class="tab-pane" id="experience">
+                    <div class="marco-npanel-normal">
+                        <div class="marco-nheading">
+                            <span>工作经历</span>
+                        </div>
+
+                        <div class="marco-nbody row">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="marco-igroup-primary">
+                                    <span>最初进厂日期</span>
+                                    @Html.EditorFor(model => model.firstCompanyEmployAt)
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="marco-igroup-primary">
+                                    <span>进厂总工龄</span>
+                                    @Html.EditorFor(model => model.firstCompanyEmployAtCalDisplay, new { htmlAttributes = new { @readonly = true } })
+                                    @*<span class="marco-label-default">年</span>*@
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="marco-igroup-primary">
+                                    <span>进厂日期</span>
+                                    @Html.EditorFor(model => model.companyEmployAt)
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="marco-igroup-primary">
+                                    <span>工龄</span>
+                                    @Html.EditorFor(model => model.companyEmployAtCalDisplay, new { htmlAttributes = new { @readonly = true } })
+                                    @*<span class="marco-label-default">年</span>*@
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="marco-igroup-primary">
+                                    <span>参加工作年限</span>
+                                    @Html.EditorFor(model => model.workingYearsAt)
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="marco-igroup-primary">
+                                    <span>累计工龄</span>
+                                    @Html.EditorFor(model => model.workingYearsAtCalDisplay, new { htmlAttributes = new { @readonly = true } })
+                                    @*<span class="marco-label-default">年</span>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="contract">
+                    <div class="marco-npanel-normal">
+                            <div class="marco-nheading">
+                                <span>合同信息</span>
+                            </div>
+
+                            <div class="marco-nbody row">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-danger">
+                                        <span>&nbsp;&nbsp;是否在试用&nbsp;&nbsp;</span>
+                                        @Html.DropDownList("isOnTrial", ViewData["isOnTrialList"] as IEnumerable<SelectListItem>)
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>试用到期日期</span>
+                                        @Html.EditorFor(model => model.trialOverAt, new { htmlAttributes = new { @class = "date-picker" } })
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>&nbsp;&nbsp;&nbsp;保险种类&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                                        @Html.DropDownList("insureTypeId", ViewData["inSureTypeList"] as IEnumerable<SelectListItem>)
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-danger">
+                                        <span>是否交公积金</span>
+
+                                        @Html.DropDownList("isPayCPF", ViewData["isPayCPFList"] as IEnumerable<SelectListItem>)
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>合同到期</span>
+                                        @Html.EditorFor(model => model.contractExpireStr)
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>合同签订次数</span>
+                                        @Html.EditorFor(model => model.contractCount)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="bankcard">
+                    <div class="marco-npanel-normal">
+                        <div class="marco-nheading">
+                            <span>银行卡信息</span>
+                            <span style="font-size:.9em;color:#2980b9;"> （<code>银行</code>和<code>卡号</code>必填） </span>
+                        </div>
+
+                        <div class="marco-nbody">
+                            <div class="row">
+                                <div class="add-bankCard">
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-success">
+                                            <span>银行 *</span>
+                                            <input type="text" id="add_bank" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-success">
+                                            <span>卡号 *</span>
+                                            <input type="text" id="add_bankCard" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-primary">
+                                            <span>开户行地址</span>
+                                            <input type="text" id="add_bankAddress" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-primary">
+                                            <span>备注</span>
+                                            <input type="text" id="add_bankRemark" />
+
+                                            <span class="createBankCardBtn" style="cursor:pointer;">
+                                                <i class="fa fa-plus-circle"></i>
+                                                添加
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="hr-grey" />
+
+                            <div class="row bank-show">
+                                @*Edit Delete 显示 信息 *@
+                                @if (Model != null)
+                                {
+                                    foreach (var bankCard in Model.BankCards)
+                                    {
+                                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 card-box-primary">
+                                            <div class="card-box">
+                                                <div class="card-heading">
+                                                    <span>@bankCard.bank</span>
+                                                    <i class="pull-right fa fa-close remove-card" id="@bankCard.id" style="color:#c0392b;"></i>
+                                                    <input type="hidden" name="bank" value="@bankCard.bank" />
+                                                </div>
+                                                <div class="card-body">
+                                                    @bankCard.nr
+                                                    <input type="hidden" name="bankCard" value="@bankCard.nr" />
+                                                </div>
+                                                <div class="card-footer">
+                                                    @bankCard.bankAddress
+                                                    <input type="hidden" name="bankAddress" value="@bankCard.bankAddress" />
+                                                    <i class="pull-right fa fa-question-circle" title="备注信息： @bankCard.remark"></i>
+                                                    <input type="hidden" name="bankRemark" value="@bankCard.remark" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="children">
+                    <div class="marco-npanel-normal">
+                        <div class="marco-nheading">
+                            <span>子女信息</span>
+                        </div>
+
+                        <div class="marco-nbody">
+
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-success">
+                                        <span>姓名 *</span>
+                                        <input type="text" id="add_familyName" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-success">
+                                        <span>关系 *</span>
+                                        <input type="text" id="add_familyType" placeholder="女儿/儿子" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-success">
+                                        <span>出生日期 *</span>
+                                        <input type="text" id="add_familyBirthday" class="date-picker" />
+                                        <span class="createFamilyBtn" style="cursor:pointer;">
+                                            <i class="fa fa-plus-circle"></i>
+                                            添加
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="hr-grey" />
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>姓名</th>
+                                        <th>关系</th>
+                                        <th>出生日期</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody-family">
+                                    @*Edit Delete 显示 信息 *@
+                                    @if (Model != null)
+                                    {
+                                        foreach (var family in Model.FamilyMemebers)
+                                        {
+                                            <tr>
+                                                <td><input type="text" class="marco-input-primary" name="familyName" value="@family.memberName" /></td>
+                                                <td><input type="text" class="marco-input-primary" name="familyType" value="@family.familyMemberType" /></td>
+                                                <td><input type="text" class="marco-input-primary date-picker" name="familyBirthday" value="@family.birthday" /></td>
+                                                <td class="option-icon-danger"><i class='fa fa-close remove-family' id="@family.id" style='margin-top:3px;'></i></td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="marco-npanel-normal">
-            <div class="marco-nheading">
-                <span>子女信息</span>
-            </div>
-
-            <div class="marco-nbody">
-
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-success">
-                            <span>姓名 *</span>
-                            <input type="text" id="add_familyName" />
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-success">
-                            <span>关系 *</span>
-                            <input type="text" id="add_familyType" placeholder="女儿/儿子" />
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-success">
-                            <span>出生日期 *</span>
-                            <input type="text" id="add_familyBirthday" class="date-picker" />
-                            <span class="createFamilyBtn" style="cursor:pointer;">
-                                <i class="fa fa-plus-circle"></i>
-                                添加
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="hr-grey" />
-
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>姓名</th>
-                            <th>关系</th>
-                            <th>出生日期</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody class="tbody-family">
-                        @*Edit Delete 显示 信息 *@
-                        @if (Model != null)
-                        {
-                            foreach (var family in Model.FamilyMemebers)
-                            {
-                                <tr>
-                                    <td><input type="text" class="marco-input-primary" name="familyName" value="@family.memberName" /></td>
-                                    <td><input type="text" class="marco-input-primary" name="familyType" value="@family.familyMemberType" /></td>
-                                    <td><input type="text" class="marco-input-primary date-picker" name="familyBirthday" value="@family.birthday" /></td>
-                                    <td class="option-icon-danger"><i class='fa fa-close remove-family' id="@family.id" style='margin-top:3px;'></i></td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="marco-npanel-normal">
-            <div class="marco-nheading">
-                <span>备注信息</span>
-            </div>
-
-            <div class="marco-nbody">
-                <div class="marco-textarea" style="margin-top:5px;">
-                    @Html.TextAreaFor(model => model.remark)
-                </div>
-            </div>
-        </div>
-
         <button class="submit-btn marco-btn-primary" type="submit" style="position:fixed; bottom:0; right:20px;">
             <span>{{actionBtn}}</span>
         </button>
-    }
-</div>
+    </div>
+}
+
+
+          
+
+                
+           
+
 
 <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <p class="modal-title">选择员工公司和部门（*公司和部门只能选择一个，必须取消已选中的才能选其他的*）</p>
-                <button id="btnEdit3" class="btn btn-primary" style="border-radius:3px;">确认</button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col col-lg-4">
-                        <div id="cmpTree"></div>
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <p class="modal-title">选择员工公司和部门（*公司和部门只能选择一个，必须取消已选中的才能选其他的*）</p>
+                        <button id="btnEdit3" class="btn btn-primary" style="border-radius:3px;">确认</button>
                     </div>
-                    <div class="col col-lg-8">
-                        <div id="depTree"></div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col col-lg-4">
+                                <div id="cmpTree"></div>
+                            </div>
+                            <div class="col col-lg-8">
+                                <div id="depTree"></div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
-
         </div>
-    </div>
-</div>
 <div hidden="hidden">
-    @*<input type="text" id="selCompanys" name="selCompanys" value="@ViewBag.TheCmpIds" />
-        <input type="text" id="selDeparts" name="selDeparts" value="@ViewBag.TheDepIds" />*@
-    <input type="text" id="selCmpDepIds" name="selCmpDepIds" />
-    <input type="text" id="selCmpDepNames" name="selCmpDepNames" />
-    <input type="hidden" id="DefaultTrailMonth" name="DefaultTrailMonth" value="@MenuAuthHelper.DefaultTrailMonth()"/>
+            @*<input type="text" id="selCompanys" name="selCompanys" value="@ViewBag.TheCmpIds" />
+                <input type="text" id="selDeparts" name="selDeparts" value="@ViewBag.TheDepIds" />*@
+            <input type="text" id="selCmpDepIds" name="selCmpDepIds" />
+            <input type="text" id="selCmpDepNames" name="selCmpDepNames" />
+            <input type="hidden" id="DefaultTrailMonth" name="DefaultTrailMonth" value="@MenuAuthHelper.DefaultTrailMonth()" />
+</div>
 </div>
 @Scripts.Render("~/bundles/staff")
 
 <script type="text/javascript">
     Layout.init();
-    //Layout.rangedatepicker('.date-start-picker', '.date-end-picker');
-    //Layout.datepicker('.date-picker');
-    var datepicks = ["firstCompanyEmployAt", "companyEmployAt", "workingYearsAt"];
-    for (var i = 0; i < datepicks.length; i++) {
-      
-        $("#" + datepicks[i]).datetimepicker({
-            format: 'Y-m-d',
-            id: datepicks[i],
-            onChangeDateTime: function (dt) {
-                console.log(dt);
-                var did = $(this).attr("id") + "CalDisplay";
-                console.log($(this).attr("id")); console.log(did);
-                var year = (new Date()).getFullYear() - dt.getFullYear();
-                var month = (new Date()).getMonth() - dt.getMonth();
-                $("#" + did).val(year + "年" + month + "月");
-            },
-            scrollInput: false,
-            timepicker: false
-        });
-    }
 
-    $("#isOnTrial").change(function () {
-        console.log($(this).val());
-        var s = $(this).val();
-        if (s == "true") {
+            //Layout.rangedatepicker('.date-start-picker', '.date-end-picker');
+            //Layout.datepicker('.date-picker');
+            var datepicks = ["firstCompanyEmployAt", "companyEmployAt", "workingYearsAt"];
+            for (var i = 0; i < datepicks.length; i++) {
 
-            var month = $("#DefaultTrailMonth").val();
-            var startTime = $("#companyEmployAt").val();
-            console.log(month);
-            console.log(startTime);
-            if (startTime != "") {
-                var stime = new Date(startTime);
-                console.log(stime); console.log(stime.getFullYear());
-                var date = new Date(stime.getFullYear(), (stime.getMonth()) +parseInt( month), stime.getDate()); // new Date(stime.setMonth(stime.getMonth() + month));
-                console.log(date);
-                var dates = date.getFullYear() + "-" + (date.getMonth() + 1)+"-" + date.getDate();
-                $("#trialOverAt").val(dates);
-            }
-        } else {
-            $("#trialOverAt").val("");
-        }
-    });
-
-    Staff.image_upload('#photoUpload');
-
-    $('.submit-btn').click(function () {
-        if (Layout.IsStringNull($('#nr').val())) {
-            Layout.popMsg('popMsg-danger', "员工号不能为空");
-            return false;
-        }
-
-        if (Layout.IsStringNull($('#name').val())) {
-            Layout.popMsg('popMsg-danger', "姓名不能为空");
-            return false;
-        }
-
-        //身份证验证
-        if (!Staff.CheckIdValid($('#id').val())) {
-            return false;
-        }
-
-        var now = new Date().getTime();
-        var birthday = new Date($('#birthday').val()).getTime();
-
-        if (birthday > now) {
-            Layout.popMsg('popMsg-danger', "出生日期不能大于当前日期");
-            return false;
-        }
-
-        if (Layout.IsStringNull($('#workStatus').val())) {
-            Layout.popMsg('popMsg-danger', "职位状态不能为空");
-            return false;
-        }
-
-        if (Layout.IsStringNull($('#companyName').val())) {
-            Layout.popMsg('popMsg-danger', "请选择公司");
-            return false;
-        }
-
-        if (Layout.IsStringNull($('#departmentName').val())) {
-            Layout.popMsg('popMsg-danger', "请选择部门");
-            return false;
-        }
-
-        if (Layout.IsStringNull($('#isOnTrial').val())) {
-            Layout.popMsg('popMsg-danger', "试用状态不能为空");
-            return false;
-        }
-
-        if (Layout.IsStringNull($('#isPayCPF').val())) {
-            Layout.popMsg('popMsg-danger', "公积金不能为空");
-            return false;
-        }
-
-        if ($('#contractCount').val() < 0) {
-            Layout.popMsg('popMsg-danger', "签订合同次数不能为负");
-            return false;
-        }
-    });
-
-    var cmpList = [];
-
-    $("#btnEdit3").click(function () {
-
-        var theIds = "";
-        var theCmpNames = "";//所有公司列表
-        var theDepNameList = "";//所有部门列表
-
-        for (var i = 0; i < cmpList.length; i++) {
-
-            theCmpNames += cmpList[i].cmpName + ",";
-
-            var tmp = "";
-            var depTmpIds = "";
-
-            var deps = cmpList[i].deps;
-
-            for (var k = 0; k < deps.length; k++) {
-                depTmpIds += deps[k].depId + ",";
-                theDepNameList += deps[k].depName + ",";
+                $("#" + datepicks[i]).datetimepicker({
+                    format: 'Y-m-d',
+                    id: datepicks[i],
+                    onChangeDateTime: function (dt) {
+                        console.log(dt);
+                        var did = $(this).attr("id") + "CalDisplay";
+                        console.log($(this).attr("id")); console.log(did);
+                        var year = (new Date()).getFullYear() - dt.getFullYear();
+                        var month = (new Date()).getMonth() - dt.getMonth();
+                        $("#" + did).val(year + "年" + month + "月");
+                    },
+                    scrollInput: false,
+                    timepicker: false
+                });
             }
 
-            tmp += cmpList[i].cmpId + "|";
-            tmp += depTmpIds;
-            theIds += tmp + ";";//数据库传入参数
-        }
+            $("#isOnTrial").change(function () {
+                console.log($(this).val());
+                var s = $(this).val();
+                if (s == "true") {
 
-        $("#authCompany").val(theCmpNames);//页面显示
-        $("#authDep").val(theDepNameList);//页面显示
-        $("#selCmpDepIds").val(theIds);//数据库传入参数
+                    var month = $("#DefaultTrailMonth").val();
+                    var startTime = $("#companyEmployAt").val();
+                    console.log(month);
+                    console.log(startTime);
+                    if (startTime != "") {
+                        var stime = new Date(startTime);
+                        console.log(stime); console.log(stime.getFullYear());
+                        var date = new Date(stime.getFullYear(), (stime.getMonth()) + parseInt(month), stime.getDate()); // new Date(stime.setMonth(stime.getMonth() + month));
+                        console.log(date);
+                        var dates = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+                        $("#trialOverAt").val(dates);
+                    }
+                } else {
+                    $("#trialOverAt").val("");
+                }
+            });
 
-        //公司ID|部门ID,;
-        //1|2,1,4,;3|7,;4|5,;5|6,8,;
-        //console.log(theIds);
-        $('#myModal6').modal('hide');
-    });
+            Staff.image_upload('#photoUpload');
 
-    bindCompany();
+            $('.submit-btn').click(function () {
+                if (Layout.IsStringNull($('#nr').val())) {
+                    Layout.popMsg('popMsg-danger', "员工号不能为空");
+                    return false;
+                }
 
-    //公司和部门
-    function asignCmpDepConfirm(id) {
-        $('#myModal6').modal('show');
-    }
+                if (Layout.IsStringNull($('#name').val())) {
+                    Layout.popMsg('popMsg-danger', "姓名不能为空");
+                    return false;
+                }
 
-    //公司是否存在列表
-    function ifCmpSelected(id) {
-        var k = 0;
-        for (var i = 0; i < cmpList.length; i++) {
-            if (cmpList[i].cmpId == id) {
-                k++;
+                //身份证验证
+                if (!Staff.CheckIdValid($('#id').val())) {
+                    return false;
+                }
+
+                var now = new Date().getTime();
+                var birthday = new Date($('#birthday').val()).getTime();
+
+                if (birthday > now) {
+                    Layout.popMsg('popMsg-danger', "出生日期不能大于当前日期");
+                    return false;
+                }
+
+                if (Layout.IsStringNull($('#workStatus').val())) {
+                    Layout.popMsg('popMsg-danger', "职位状态不能为空");
+                    return false;
+                }
+
+                if (Layout.IsStringNull($('#companyName').val())) {
+                    Layout.popMsg('popMsg-danger', "请选择公司");
+                    return false;
+                }
+
+                if (Layout.IsStringNull($('#departmentName').val())) {
+                    Layout.popMsg('popMsg-danger', "请选择部门");
+                    return false;
+                }
+
+                if (Layout.IsStringNull($('#isOnTrial').val())) {
+                    Layout.popMsg('popMsg-danger', "试用状态不能为空");
+                    return false;
+                }
+
+                if (Layout.IsStringNull($('#isPayCPF').val())) {
+                    Layout.popMsg('popMsg-danger', "公积金不能为空");
+                    return false;
+                }
+
+                if ($('#contractCount').val() < 0) {
+                    Layout.popMsg('popMsg-danger', "签订合同次数不能为负");
+                    return false;
+                }
+            });
+
+            var cmpList = [];
+
+            $("#btnEdit3").click(function () {
+
+                var theIds = "";
+                var theCmpNames = "";//所有公司列表
+                var theDepNameList = "";//所有部门列表
+
+                for (var i = 0; i < cmpList.length; i++) {
+
+                    theCmpNames += cmpList[i].cmpName + ",";
+
+                    var tmp = "";
+                    var depTmpIds = "";
+
+                    var deps = cmpList[i].deps;
+
+                    for (var k = 0; k < deps.length; k++) {
+                        depTmpIds += deps[k].depId + ",";
+                        theDepNameList += deps[k].depName + ",";
+                    }
+
+                    tmp += cmpList[i].cmpId + "|";
+                    tmp += depTmpIds;
+                    theIds += tmp + ";";//数据库传入参数
+                }
+
+                $("#authCompany").val(theCmpNames);//页面显示
+                $("#authDep").val(theDepNameList);//页面显示
+                $("#selCmpDepIds").val(theIds);//数据库传入参数
+
+                //公司ID|部门ID,;
+                //1|2,1,4,;3|7,;4|5,;5|6,8,;
+                //console.log(theIds);
+                $('#myModal6').modal('hide');
+            });
+
+            bindCompany();
+
+            //公司和部门
+            function asignCmpDepConfirm(id) {
+                $('#myModal6').modal('show');
             }
-        }
 
-        return k > 0;
-    }
-
-    //部门是否存在列表
-    function ifDepSelected(cmpId, id) {
-        var k = 0;
-        for (var i = 0; i < cmpList.length; i++) {
-            if (cmpList[i].cmpId == cmpId) {
-
-                var depsTmp = cmpList[i].deps;
-
-                for (var m = 0; m < depsTmp.length; m++) {
-                    if (depsTmp[m].depId == id) {
+            //公司是否存在列表
+            function ifCmpSelected(id) {
+                var k = 0;
+                for (var i = 0; i < cmpList.length; i++) {
+                    if (cmpList[i].cmpId == id) {
                         k++;
                     }
                 }
 
+                return k > 0;
             }
-        }
 
-        return k > 0;
-    }
+            //部门是否存在列表
+            function ifDepSelected(cmpId, id) {
+                var k = 0;
+                for (var i = 0; i < cmpList.length; i++) {
+                    if (cmpList[i].cmpId == cmpId) {
 
-    //添加部门
-    function pushDeps(cmpId, selNode) {
-        for (var i = 0; i < cmpList.length; i++) {
-            if (cmpList[i].cmpId == cmpId) {
+                        var depsTmp = cmpList[i].deps;
 
-                var depsTmp = cmpList[i].deps;
-                var isSel = ifDepSelected(cmpId, selNode.depId);
-
-                if (!isSel) {
-                    cmpList[i].deps.push(selNode);
-                }
-            }
-        }
-    }
-
-    function RinTheValues() {
-        if (cmpList.length <= 0) {
-            cmpList = [];
-            var theBindComDep = $("#selCmpDepNames").val();
-
-            theBindComDep.split(';').forEach(function (item, index) {
-
-                var singleCmp = item.split('|');
-
-                if (singleCmp.length > 0 || singleCmp.length > 1) {
-
-                    if (singleCmp[0] != "" && singleCmp[0] != null) {
-
-                        var ab = singleCmp[0].split('&');
-
-                        if (ab[0] != null && ab[0] != "") {
-                            var cmpSelNode = {};
-                            cmpSelNode.cmpId = ab[0];
-                            cmpSelNode.cmpName = ab[1];
-                            cmpSelNode.deps = [];
-
-                            if (singleCmp.length > 1) {
-                                singleCmp[1].split(",").forEach(function (item1, index1) {
-
-                                    if (item1 != "" && item1 != null) {
-
-                                        var txkf = item1.split('&');
-
-                                        if (txkf[0] != "" && txkf[0] != null) {
-
-                                            var depSelNode = {};
-                                            depSelNode.depId = txkf[0];
-                                            depSelNode.depName = txkf[1];
-
-                                            cmpSelNode.deps.push(depSelNode);
-                                        }
-                                    }
-                                });
+                        for (var m = 0; m < depsTmp.length; m++) {
+                            if (depsTmp[m].depId == id) {
+                                k++;
                             }
-
-                            cmpList.push(cmpSelNode);
                         }
+
                     }
                 }
 
-
-                //1|1,2,4,
-                //console.log("the bind value");
-                //console.log(theBindComDep);
-
-                //console.log(cmpList);
-            });
-        }
-    }
-
-    function reBindCompany() {
-        var allNodes = $('#cmpTree').treeview('getUnselected');
-
-        for (var tm = 0; tm < allNodes.length; tm++) {
-            for (var i = 0; i < cmpList.length; i++) {
-                if (cmpList[i].cmpId == allNodes[tm].id) {
-                    $('#cmpTree').treeview('checkNode', [allNodes[tm].nodeId, { silent: true }]);
-                }
+                return k > 0;
             }
-        }
 
-        //bind default deptree
-        var allSelNodes = $('#cmpTree').treeview('getChecked');
+            //添加部门
+            function pushDeps(cmpId, selNode) {
+                for (var i = 0; i < cmpList.length; i++) {
+                    if (cmpList[i].cmpId == cmpId) {
 
-        if (allSelNodes.length > 0) {
-            bindDepTree(allSelNodes[0].id);
-        }
-    }
-
-    function reBindDepartment(cmpId) {
-        for (var i = 0; i < cmpList.length; i++) {
-
-            if (cmpList[i].cmpId == cmpId) {
-
-                var deps = cmpList[i].deps;
-
-                var allDepNodes = $('#depTree').treeview('getUnselected');
-
-                for (var m = 0; m < allDepNodes.length; m++) {
-                    for (var kk = 0; kk < deps.length; kk++) {
-
-                        if (deps[kk].depId == allDepNodes[m].id) {
-
-                            $('#depTree').treeview('checkNode', [allDepNodes[m].nodeId, { silent: true }]);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    function bindCompany() {
-
-        RinTheValues();
-
-        $.post("/User/GetCompanys", {}, function (response) {
-
-            if (response == "empty_result") {
-                $('#cmpDep_content').dialogModal("hide");
-                Layout.popMsg('popMsg-danger', "公司初始化错误！");
-                return false;
-            }
-            else {
-                $('#cmpTree').treeview({
-                    data: response,         // 数据源
-                    showCheckbox: true,   //是否显示复选框
-                    highlightSelected: true,    //是否高亮选中
-                    //nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
-                    //nodeIcon: 'glyphicon glyphicon-globe',
-                    emptyIcon: '',    //没有子节点的节点图标
-                    multiSelect: false,      //多选
-                    onNodeUnselected: function (event, data) {
-                        var node = $("#cmpTree").treeview('getNode', data.nodeId);
-                        $("#cmpTree").treeview('selectNode', [node, { silent: true }]);
-                    },
-                    onNodeChecked: function (event, data) {
-                        bindDepTree(data.id);
-
-                        var selectedNodes = $("#cmpTree").treeview('getSelected');
-                        $(selectedNodes).each(function (index, element) {
-                            if (element.nodeId !== data.nodeId) {
-                                $("#cmpTree").treeview('unselectNode', [element, { silent: true }]);
-                            }
-                        });
-
-
-                        var checkedNodes = $("#cmpTree").treeview('getChecked');
-                        $(checkedNodes).each(function (index, element) {
-                            if (element.nodeId != data.nodeId) {
-                                $('#cmpTree').treeview('toggleNodeChecked', [data.nodeId, { silent: true }]);
-
-                                //  $("#cmpTree").treeview('unselectNode', [element, { silent: true }]);
-                            }
-                        });
-
-                        //check if selected
-                        var isSel = ifCmpSelected(data.id);
+                        var depsTmp = cmpList[i].deps;
+                        var isSel = ifDepSelected(cmpId, selNode.depId);
 
                         if (!isSel) {
-                            var cmpSelNode = {};
-                            cmpSelNode.cmpId = data.id;
-                            cmpSelNode.cmpName = data.text;
-                            cmpSelNode.deps = [];
-                            cmpList.push(cmpSelNode);
-                            $("#companyName").val(data.text);
-                            $("#companyId").val(data.id);
+                            cmpList[i].deps.push(selNode);
                         }
-                    },
-
-                    //未选中
-                    onNodeUnchecked: function (event, data) {
-                        var delKey = data.id;
-                        for (var i = 0; i < cmpList.length; i++) {
-                            var keyTemp = cmpList[i].cmpId;
-                            if (keyTemp === delKey) {
-                                cmpList.splice(i, 1);
-                            }
-                        }
-                    },
-
-                    onNodeSelected: function (event, data) {
-                        bindDepTree(data.id);
                     }
-                });
-
-                reBindCompany();
+                }
             }
-        });
-    }
 
-    function bindDepTree(cmpId) {
-        $.post("/User/GetDepartmentsByCompany", { companyId: cmpId }, function (response) {
+            function RinTheValues() {
+                if (cmpList.length <= 0) {
+                    cmpList = [];
+                    var theBindComDep = $("#selCmpDepNames").val();
 
-            if (response == "empty_result") {
-                $('#cmpDep_content').dialogModal("hide");
-                Layout.popMsg('popMsg-danger', "部门初始化错误！");
-                return false;
-            }
-            else {
-                $('#depTree').treeview({
-                    data: response,         // 数据源
-                    showCheckbox: true,   //是否显示复选框
-                    highlightSelected: true,    //是否高亮选中
-                    //nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
-                    //nodeIcon: 'glyphicon glyphicon-globe',
-                    emptyIcon: '',    //没有子节点的节点图标
-                    multiSelect: true,    //多选
-                    onNodeChecked: function (event, data) {
-                        var checkedNodes = $("#depTree").treeview('getChecked');
-                        $(checkedNodes).each(function (index, element) {
-                            if (element.nodeId != data.nodeId) {
-                                $('#depTree').treeview('toggleNodeChecked', [data.nodeId, { silent: true }]);
+                    theBindComDep.split(';').forEach(function (item, index) {
 
-                                //  $("#cmpTree").treeview('unselectNode', [element, { silent: true }]);
-                            }
-                        });
-                        console.log(data);
+                        var singleCmp = item.split('|');
 
-                        var isSel = ifDepSelected(cmpId, data.id);
+                        if (singleCmp.length > 0 || singleCmp.length > 1) {
 
-                        if (!isSel) {
-                            var depSelNode = {};
-                            depSelNode.depId = data.id;
-                            depSelNode.depName = data.text;
-                            pushDeps(cmpId, depSelNode);
+                            if (singleCmp[0] != "" && singleCmp[0] != null) {
 
+                                var ab = singleCmp[0].split('&');
 
-                            $("#departmentName").val(data.text);
-                            $("#departmentId").val(data.id);
-                        }
+                                if (ab[0] != null && ab[0] != "") {
+                                    var cmpSelNode = {};
+                                    cmpSelNode.cmpId = ab[0];
+                                    cmpSelNode.cmpName = ab[1];
+                                    cmpSelNode.deps = [];
 
-                        //选中所有子节点
-                        //if (data.nodes != null && data.nodes.length > 0) {
-                        //    for (var xxk = 0; xxk < data.nodes.length; xxk++) {
+                                    if (singleCmp.length > 1) {
+                                        singleCmp[1].split(",").forEach(function (item1, index1) {
 
-                        //        $('#depTree').treeview('checkNode', [data.nodes[xxk].nodeId, { silent: true }]);
+                                            if (item1 != "" && item1 != null) {
 
-                        //        var isSel = ifDepSelected(cmpId, data.nodes[xxk].id);
+                                                var txkf = item1.split('&');
 
-                        //        if (!isSel) {
-                        //            var depSelNode = {};
-                        //            depSelNode.depId = data.nodes[xxk].id;
-                        //            depSelNode.depName = data.nodes[xxk].text;
-                        //            pushDeps(cmpId, depSelNode);
-                        //        }
-                        //    }
-                        //}
-                    },
+                                                if (txkf[0] != "" && txkf[0] != null) {
 
-                    onNodeSelected: function (event, data) { },
+                                                    var depSelNode = {};
+                                                    depSelNode.depId = txkf[0];
+                                                    depSelNode.depName = txkf[1];
 
-                    //未选中
-                    onNodeUnchecked: function (event, data) {
-
-                        var delKey = data.id;
-                        for (var i = 0; i < cmpList.length; i++) {
-
-                            if (cmpList[i].cmpId == cmpId) {
-                                var depsTmp = cmpList[i].deps;
-
-                                for (var mm = 0; mm < depsTmp.length; mm++) {
-                                    if (depsTmp[mm].depId == data.id) {
-                                        cmpList[i].deps.splice(mm, 1);
+                                                    cmpSelNode.deps.push(depSelNode);
+                                                }
+                                            }
+                                        });
                                     }
+
+                                    cmpList.push(cmpSelNode);
                                 }
                             }
                         }
 
-                        //取消所有子节点
-                        if (data.nodes != null && data.nodes.length > 0) {
-                            for (var xxk = 0; xxk < data.nodes.length; xxk++) {
 
-                                $('#depTree').treeview('uncheckNode', [data.nodes[xxk].nodeId, { silent: true }]);
+                        //1|1,2,4,
+                        //console.log("the bind value");
+                        //console.log(theBindComDep);
 
-                                var delKey = data.nodes[xxk].id;
+                        //console.log(cmpList);
+                    });
+                }
+            }
+
+            function reBindCompany() {
+                var allNodes = $('#cmpTree').treeview('getUnselected');
+
+                for (var tm = 0; tm < allNodes.length; tm++) {
+                    for (var i = 0; i < cmpList.length; i++) {
+                        if (cmpList[i].cmpId == allNodes[tm].id) {
+                            $('#cmpTree').treeview('checkNode', [allNodes[tm].nodeId, { silent: true }]);
+                        }
+                    }
+                }
+
+                //bind default deptree
+                var allSelNodes = $('#cmpTree').treeview('getChecked');
+
+                if (allSelNodes.length > 0) {
+                    bindDepTree(allSelNodes[0].id);
+                }
+            }
+
+            function reBindDepartment(cmpId) {
+                for (var i = 0; i < cmpList.length; i++) {
+
+                    if (cmpList[i].cmpId == cmpId) {
+
+                        var deps = cmpList[i].deps;
+
+                        var allDepNodes = $('#depTree').treeview('getUnselected');
+
+                        for (var m = 0; m < allDepNodes.length; m++) {
+                            for (var kk = 0; kk < deps.length; kk++) {
+
+                                if (deps[kk].depId == allDepNodes[m].id) {
+
+                                    $('#depTree').treeview('checkNode', [allDepNodes[m].nodeId, { silent: true }]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            function bindCompany() {
+
+                RinTheValues();
+
+                $.post("/User/GetCompanys", {}, function (response) {
+
+                    if (response == "empty_result") {
+                        $('#cmpDep_content').dialogModal("hide");
+                        Layout.popMsg('popMsg-danger', "公司初始化错误！");
+                        return false;
+                    }
+                    else {
+                        $('#cmpTree').treeview({
+                            data: response,         // 数据源
+                            showCheckbox: true,   //是否显示复选框
+                            highlightSelected: true,    //是否高亮选中
+                            //nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
+                            //nodeIcon: 'glyphicon glyphicon-globe',
+                            emptyIcon: '',    //没有子节点的节点图标
+                            multiSelect: false,      //多选
+                            onNodeUnselected: function (event, data) {
+                                var node = $("#cmpTree").treeview('getNode', data.nodeId);
+                                $("#cmpTree").treeview('selectNode', [node, { silent: true }]);
+                            },
+                            onNodeChecked: function (event, data) {
+                                bindDepTree(data.id);
+
+                                var selectedNodes = $("#cmpTree").treeview('getSelected');
+                                $(selectedNodes).each(function (index, element) {
+                                    if (element.nodeId !== data.nodeId) {
+                                        $("#cmpTree").treeview('unselectNode', [element, { silent: true }]);
+                                    }
+                                });
+
+
+                                var checkedNodes = $("#cmpTree").treeview('getChecked');
+                                $(checkedNodes).each(function (index, element) {
+                                    if (element.nodeId != data.nodeId) {
+                                        $('#cmpTree').treeview('toggleNodeChecked', [data.nodeId, { silent: true }]);
+
+                                        //  $("#cmpTree").treeview('unselectNode', [element, { silent: true }]);
+                                    }
+                                });
+
+                                //check if selected
+                                var isSel = ifCmpSelected(data.id);
+
+                                if (!isSel) {
+                                    var cmpSelNode = {};
+                                    cmpSelNode.cmpId = data.id;
+                                    cmpSelNode.cmpName = data.text;
+                                    cmpSelNode.deps = [];
+                                    cmpList.push(cmpSelNode);
+                                    $("#companyName").val(data.text);
+                                    $("#companyId").val(data.id);
+                                }
+                            },
+
+                            //未选中
+                            onNodeUnchecked: function (event, data) {
+                                var delKey = data.id;
+                                for (var i = 0; i < cmpList.length; i++) {
+                                    var keyTemp = cmpList[i].cmpId;
+                                    if (keyTemp === delKey) {
+                                        cmpList.splice(i, 1);
+                                    }
+                                }
+                            },
+
+                            onNodeSelected: function (event, data) {
+                                bindDepTree(data.id);
+                            }
+                        });
+
+                        reBindCompany();
+                    }
+                });
+            }
+
+            function bindDepTree(cmpId) {
+                $.post("/User/GetDepartmentsByCompany", { companyId: cmpId }, function (response) {
+
+                    if (response == "empty_result") {
+                        $('#cmpDep_content').dialogModal("hide");
+                        Layout.popMsg('popMsg-danger', "部门初始化错误！");
+                        return false;
+                    }
+                    else {
+                        $('#depTree').treeview({
+                            data: response,         // 数据源
+                            showCheckbox: true,   //是否显示复选框
+                            highlightSelected: true,    //是否高亮选中
+                            //nodeIcon: 'glyphicon glyphicon-user',    //节点上的图标
+                            //nodeIcon: 'glyphicon glyphicon-globe',
+                            emptyIcon: '',    //没有子节点的节点图标
+                            multiSelect: true,    //多选
+                            onNodeChecked: function (event, data) {
+                                var checkedNodes = $("#depTree").treeview('getChecked');
+                                $(checkedNodes).each(function (index, element) {
+                                    if (element.nodeId != data.nodeId) {
+                                        $('#depTree').treeview('toggleNodeChecked', [data.nodeId, { silent: true }]);
+
+                                        //  $("#cmpTree").treeview('unselectNode', [element, { silent: true }]);
+                                    }
+                                });
+                                console.log(data);
+
+                                var isSel = ifDepSelected(cmpId, data.id);
+
+                                if (!isSel) {
+                                    var depSelNode = {};
+                                    depSelNode.depId = data.id;
+                                    depSelNode.depName = data.text;
+                                    pushDeps(cmpId, depSelNode);
+
+
+                                    $("#departmentName").val(data.text);
+                                    $("#departmentId").val(data.id);
+                                }
+
+                                //选中所有子节点
+                                //if (data.nodes != null && data.nodes.length > 0) {
+                                //    for (var xxk = 0; xxk < data.nodes.length; xxk++) {
+
+                                //        $('#depTree').treeview('checkNode', [data.nodes[xxk].nodeId, { silent: true }]);
+
+                                //        var isSel = ifDepSelected(cmpId, data.nodes[xxk].id);
+
+                                //        if (!isSel) {
+                                //            var depSelNode = {};
+                                //            depSelNode.depId = data.nodes[xxk].id;
+                                //            depSelNode.depName = data.nodes[xxk].text;
+                                //            pushDeps(cmpId, depSelNode);
+                                //        }
+                                //    }
+                                //}
+                            },
+
+                            onNodeSelected: function (event, data) { },
+
+                            //未选中
+                            onNodeUnchecked: function (event, data) {
+
+                                var delKey = data.id;
                                 for (var i = 0; i < cmpList.length; i++) {
 
                                     if (cmpList[i].cmpId == cmpId) {
                                         var depsTmp = cmpList[i].deps;
 
                                         for (var mm = 0; mm < depsTmp.length; mm++) {
-                                            if (depsTmp[mm].depId == data.nodes[xxk].id) {
+                                            if (depsTmp[mm].depId == data.id) {
                                                 cmpList[i].deps.splice(mm, 1);
                                             }
                                         }
                                     }
                                 }
+
+                                //取消所有子节点
+                                if (data.nodes != null && data.nodes.length > 0) {
+                                    for (var xxk = 0; xxk < data.nodes.length; xxk++) {
+
+                                        $('#depTree').treeview('uncheckNode', [data.nodes[xxk].nodeId, { silent: true }]);
+
+                                        var delKey = data.nodes[xxk].id;
+                                        for (var i = 0; i < cmpList.length; i++) {
+
+                                            if (cmpList[i].cmpId == cmpId) {
+                                                var depsTmp = cmpList[i].deps;
+
+                                                for (var mm = 0; mm < depsTmp.length; mm++) {
+                                                    if (depsTmp[mm].depId == data.nodes[xxk].id) {
+                                                        cmpList[i].deps.splice(mm, 1);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                        }
+                        });
+
+                        reBindDepartment(cmpId);
                     }
                 });
-
-                reBindDepartment(cmpId);
             }
-        });
-    }
-</script>
+        </script>
