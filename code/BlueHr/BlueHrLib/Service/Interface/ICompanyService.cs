@@ -33,5 +33,8 @@ namespace BlueHrLib.Service.Interface
 
         string FindByIds(List<string> ids);
         List<Company> GetAllTableName();
+        int countDepartment(int companyId);
+        List<Company> GetAll();
+
     }
 }

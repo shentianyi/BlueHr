@@ -271,21 +271,21 @@ namespace BlueHrLib.Data.Repository.Implement
             }
         }
 
-        public int countStaffAbsence(DateTime d1, DateTime d2)
+        public int countStaffAbsence(DateTime StartTime, DateTime EndTime)
         {
             int q = 1;
             //int q = this.context.AbsenceRecrods.Where(s => s.duration == 100).Count();
             return q;
         }
 
-        public int countStaffLate(DateTime d1, DateTime d2)
+        public int countStaffLate(DateTime StartTime, DateTime EndTime)
         {
             int q = 1;
             //int q = this.context.AbsenceRecrods.Where(s => s.duration == 100).Count();
             return q;
         }
 
-        public int countStaffLeave(DateTime d1, DateTime d2)
+        public int countStaffLeave(DateTime StartTime, DateTime EndTime)
         {
             int q = 1;
             //int q = this.context.AbsenceRecrods.Where(s => s.duration == 100).Count();
