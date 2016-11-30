@@ -99,7 +99,7 @@ namespace BlueHrLib.Service.Interface
         List<Staff> FindByInsureType(int id);
         List<Staff> SearchPermanentStaff(StaffSearchModel searchModel);
 
-        List<Staff> FindByCompanyAndDepartment(int companyId, int departmentId);
+        List<Staff> FindByCompanyAndDepartment(int companyId, int? departmentId);
 
         List<Staff> GetAllTableName();
 

@@ -349,14 +349,22 @@ namespace BlueHrLib.Data.Repository.Implement
             }
         }
 
-        public List<Staff> FindByCompanyAndDepartment(int companyId, int departmentId)
+        public List<Staff> FindByCompanyAndDepartment(int companyId, int? departmentId)
         {
             try
             {
-                var Staff = this.context.GetTable<Staff>().Where(c=>c.companyId.Equals(companyId)).Where(c=>c.departmentId.Equals(departmentId));
-                if (Staff != null)
+                IQueryable<Staff> staff;
+
+                staff = this.context.GetTable<Staff>().Where(c => c.companyId.Equals(companyId));
+
+                if (departmentId.HasValue)
                 {
-                    return Staff.ToList();
+                    staff = staff.Where(c => c.departmentId.Equals(departmentId));
+                }
+
+                if (staff != null)
+                {
+                    return staff.ToList();
                 }
                 else
                 {

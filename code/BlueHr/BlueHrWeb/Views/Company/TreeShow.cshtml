@@ -25,38 +25,45 @@
     </div>
 </div>
 
-<div class="OrganizationShow" style="margin：0 10px 0 10px;"></div>
+<div class="OrganizationShow" style="margin: 0 10px 0 10px;"></div>
+
+@Html.Partial("_HandlingMsgDialog")
 
 <script type="text/javascript">
     Layout.init();
 
     LoadOrganization();
     
+    Layout.popMsg("popMsg-success", "双击可以跳转到员工详情界面");
+
     $("#companyId").change(function(){
         LoadOrganization();
     })
 
-    function  LoadOrganization(){
-    $.ajax({
-            url: '/Company/CompanyOrganization',
-            type: 'get',
-            data: {
-                companyId: $("#companyId").val()
-            },
-            success: function (data) {
-                init(data);
-            },
-            error: function () {
-                console.log("CCCCCCCCCCCVEroor")
+    function LoadOrganization() {
+        show_handle_dialog();
+        $.ajax({
+                url: '/Company/CompanyOrganization',
+                type: 'get',
+                data: {
+                    companyId: $("#companyId").val()
+                },
+                success: function (data) {
+                    init(data);
+                    hide_handle_dialog();
+                },
+                error: function () {
+                    console.log("NNMVNMNDMNDM");
+                }
             }
-        })
+        )
     }
 
     function init(data) {
         $("#myOverviewDiv").remove();
         $("#myDiagramDiv").remove();
 
-        var Html = "<span style='font-size: 14px; font-family: 黑体; position:absolute; top: 120px; right: 40px;'>缩略图</span>" +
+        var Html = "<span style='font-size: 14px; font-family: 黑体; position:absolute; top: 120px; right: 40px; color: #3498db;'>Tips: 双击部门， 可以跳转到对应的员工界面</span>" +
         "<div id='myOverviewDiv' style='font-size: 20px; height: 100px;'></div>"+
         "<div id='myDiagramDiv' style='background-color: white; border-radius: 10px; width: 100%;'></div>"; 
         $(Html).appendTo($(".OrganizationShow"));
@@ -73,12 +80,12 @@
                 "toolManager.hoverDelay": 100,  // 100 milliseconds instead of the default 850
                 allowCopy: false,
                 allowMove:false,
-                // nodeSelectionAdornmentTemplate:
-                // Go_Comany(go.Adornment, "Auto",
-                //     { layerName: "Grid" },  // the predefined layer that is behind everything else
-                //     Go_Comany(go.Shape, "Circle", { fill: "yellow", stroke: null }),
-                //     Go_Comany(go.Placeholder)
-                // ),
+                nodeSelectionAdornmentTemplate:
+                 Go_Comany(go.Adornment, "Auto",
+                     { layerName: "Grid" },
+                     Go_Comany(go.Shape, "RoundedRectangle", { fill: "yellow", stroke: null }),
+                     Go_Comany(go.Placeholder)
+                 ),
                 layout:
                   Go_Comany(go.TreeLayout,
                     {
@@ -93,6 +100,7 @@
         function tooltipTextConverter(department) {
             var str = "";
             str += "名称: " + department.name;
+            if (department.peopleCount !== undefined) str += "\n 人数: " + department.peopleCount;
             if (department.remark !== undefined) str += "\n 备注: " + department.remark;
             return str;
         }
@@ -112,7 +120,18 @@
 
         myDiagram.nodeTemplate =
           Go_Comany(go.Node, "Auto",
-            { deletable: false, toolTip: tooltiptemplate },
+            {
+                deletable: false,
+                toolTip: tooltiptemplate,
+                click: function (e, obj) {
+                    //console.log(obj.data);
+                },
+                doubleClick: function (e, obj) {
+                    var CompanyId = $("#companyId").val();
+                    var DepartmentId = obj.data.key;
+                    window.location.href = "/Staff/Search?DepartmentID=" + DepartmentId + "&CompanyID=" + CompanyId;
+                }
+            },
             new go.Binding("text", "name"),
             Go_Comany(go.Shape, "RoundedRectangle",
               {
@@ -123,31 +142,43 @@
                   alignment: go.Spot.Center
               }
             ),
+            Go_Comany(go.Panel, "Horizontal",
+                Go_Comany("TreeExpanderButton"),
+                Go_Comany(go.Picture,
+                  {
+                      name: 'Picture',
+                      desiredSize: new go.Size(24, 24),
+                      margin: new go.Margin(5, 10, 5, 4)
+                  },
+                  new go.Binding("source", "Source")),
+                Go_Comany(go.TextBlock,
+                  {
+                      font: "14px 黑体, Droid Serif, sans-serif",
+                      textAlign: "center",
+                      margin: new go.Margin(-10, 8, 2, 0), maxSize: new go.Size(120, NaN)
+                  },
+                  new go.Binding("text", "name"))
+            ),
             Go_Comany(go.TextBlock,
-              {
-                  font: "14px 黑体, Droid Serif, sans-serif",
-                  textAlign: "center",
-                  margin: new go.Margin(20, 8, 2, 8), maxSize: new go.Size(80, NaN)
-              },
-              new go.Binding("text", "name")),
-            Go_Comany(go.Panel, { height: 40 },
-            Go_Comany("TreeExpanderButton")
-          )
+                {
+                    font: "14px 黑体, Droid Serif, sans-serif",
+                    textAlign: "center",
+                    margin: new go.Margin(35, 8, 2, 35), maxSize: new go.Size(120, NaN)
+                },
+                new go.Binding("text", "peopleCount"))
         );
 
-        // define the Link template
         myDiagram.linkTemplate =
-          Go_Comany(go.Link,  // the whole link panel
+          Go_Comany(go.Link,
             { routing: go.Link.Orthogonal, corner: 5, selectable: false },
-            Go_Comany(go.Shape, { strokeWidth: 3, stroke: '#424242' }));  // the gray link shape
+            Go_Comany(go.Shape, { strokeWidth: 3, stroke: '#424242' }));
 
         var nodeDataArray = data;
 
-        // create the model for the family tree
         myDiagram.model = new go.TreeModel(nodeDataArray);
         myOverview =
-        Go_Comany(go.Overview, "myOverviewDiv",  // the HTML DIV element for the Overview
-            { observed: myDiagram, contentAlignment: go.Spot.Center });   // tell it which Diagram to show and pan
+        Go_Comany(go.Overview, "myOverviewDiv",
+            { observed: myDiagram, contentAlignment: go.Spot.Center });
 
         document.getElementById('zoomToFit').addEventListener('click', function () {
             myDiagram.zoomToFit();
@@ -158,5 +189,4 @@
             myDiagram.scrollToRect(myDiagram.findNodeForKey(0).actualBounds);
         });
     }
-
 </script>

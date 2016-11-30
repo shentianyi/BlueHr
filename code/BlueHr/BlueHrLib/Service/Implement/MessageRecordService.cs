@@ -17,8 +17,12 @@ namespace BlueHrLib.Service.Implement
 {
     public class MessageRecordService : ServiceBase, IMessageRecordService
     {
-        public MessageRecordService(string dbString) : base(dbString) { }
-        private IMessageRecordRepository rep;
+        private IMessageRecordRepository messageReocrdRep;
+
+        public MessageRecordService(string dbString) : base(dbString) {
+            messageReocrdRep = new MessageRecordRepository(this.Context);
+        }
+
         /// <summary>
         /// 创建信息
         /// </summary>
@@ -113,7 +117,6 @@ namespace BlueHrLib.Service.Implement
                 Create(r.staffNr, null, MessageRecordType.StaffAttAlert, MessageRecordTypeHelper.FormatAttExceptionMsg(r), attendanceDate.ToString("yyyy-MM-dd"));
             }
         }
-
 
         /// <summary>
         /// 创建员工转正消息
@@ -264,7 +267,7 @@ namespace BlueHrLib.Service.Implement
 
         public int CountToEmployees()
         {
-            return rep.CountToEmployees();
+            return messageReocrdRep.CountToEmployees();
         }
     }
 }

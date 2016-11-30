@@ -307,6 +307,11 @@
       <DependentUpon>company.css</DependentUpon>
     </Content>
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\highcharts.css" />
+    <Content Include="Images\treeIcon\diy\company.png" />
+    <Content Include="Scripts\Go\DataInspector.js" />
+    <Content Include="Scripts\Go\go-icons.js" />
+    <Content Include="Scripts\Go\go.js" />
     <Content Include="Content\input-style.css" />
     <Content Include="Content\jquery-popModal.css" />
     <Content Include="Content\jquery-tree.css" />
@@ -397,6 +402,54 @@
     <Content Include="Scripts\certificate.js" />
     <Content Include="Scripts\company.js" />
     <Content Include="Scripts\go.js" />
+    <Content Include="Scripts\highcharts\highcharts-3d.js" />
+    <Content Include="Scripts\highcharts\highcharts-3d.src.js" />
+    <Content Include="Scripts\highcharts\highcharts-more.js" />
+    <Content Include="Scripts\highcharts\highcharts-more.src.js" />
+    <Content Include="Scripts\highcharts\highcharts.js" />
+    <Content Include="Scripts\highcharts\highstock.src.js" />
+    <Content Include="Scripts\highcharts\modules\accessibility.js" />
+    <Content Include="Scripts\highcharts\modules\accessibility.src.js" />
+    <Content Include="Scripts\highcharts\modules\annotations.js" />
+    <Content Include="Scripts\highcharts\modules\annotations.src.js" />
+    <Content Include="Scripts\highcharts\modules\boost.js" />
+    <Content Include="Scripts\highcharts\modules\boost.src.js" />
+    <Content Include="Scripts\highcharts\modules\data.js" />
+    <Content Include="Scripts\highcharts\modules\data.src.js" />
+    <Content Include="Scripts\highcharts\modules\drilldown.js" />
+    <Content Include="Scripts\highcharts\modules\drilldown.src.js" />
+    <Content Include="Scripts\highcharts\modules\exporting.js" />
+    <Content Include="Scripts\highcharts\modules\exporting.src.js" />
+    <Content Include="Scripts\highcharts\modules\funnel.js" />
+    <Content Include="Scripts\highcharts\modules\funnel.src.js" />
+    <Content Include="Scripts\highcharts\modules\gantt.js" />
+    <Content Include="Scripts\highcharts\modules\gantt.src.js" />
+    <Content Include="Scripts\highcharts\modules\grid-axis.js" />
+    <Content Include="Scripts\highcharts\modules\grid-axis.src.js" />
+    <Content Include="Scripts\highcharts\modules\heatmap.js" />
+    <Content Include="Scripts\highcharts\modules\heatmap.src.js" />
+    <Content Include="Scripts\highcharts\modules\no-data-to-display.js" />
+    <Content Include="Scripts\highcharts\modules\no-data-to-display.src.js" />
+    <Content Include="Scripts\highcharts\modules\offline-exporting.js" />
+    <Content Include="Scripts\highcharts\modules\offline-exporting.src.js" />
+    <Content Include="Scripts\highcharts\modules\overlapping-datalabels.js" />
+    <Content Include="Scripts\highcharts\modules\overlapping-datalabels.src.js" />
+    <Content Include="Scripts\highcharts\modules\series-label.js" />
+    <Content Include="Scripts\highcharts\modules\series-label.src.js" />
+    <Content Include="Scripts\highcharts\modules\solid-gauge.js" />
+    <Content Include="Scripts\highcharts\modules\solid-gauge.src.js" />
+    <Content Include="Scripts\highcharts\modules\treemap.js" />
+    <Content Include="Scripts\highcharts\modules\treemap.src.js" />
+    <Content Include="Scripts\highcharts\modules\xrange-series.js" />
+    <Content Include="Scripts\highcharts\modules\xrange-series.src.js" />
+    <Content Include="Scripts\highcharts\themes\dark-blue.js" />
+    <Content Include="Scripts\highcharts\themes\dark-green.js" />
+    <Content Include="Scripts\highcharts\themes\dark-unica.js" />
+    <Content Include="Scripts\highcharts\themes\gray.js" />
+    <Content Include="Scripts\highcharts\themes\grid-light.js" />
+    <Content Include="Scripts\highcharts\themes\grid.js" />
+    <Content Include="Scripts\highcharts\themes\sand-signika.js" />
+    <Content Include="Scripts\highcharts\themes\skies.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -445,6 +498,7 @@
     <Content Include="UploadCertificate\A001\20160912184100_1435643954_ZJFrtEQM.jpg" />
     <Content Include="UploadCertificate\A001\20160912184106_CycleTime Detail.png" />
     <Content Include="UploadCertificate\keep.txt" />
+    <Content Include="Views\Company\user.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -568,11 +622,6 @@
     <Content Include="Views\ShiftSchedule\Edit.cshtml" />
     <Content Include="Views\ShiftSchedule\Delete.cshtml" />
     <Content Include="Views\ShiftSchedule\_PartialShiftSchedule.cshtml" />
-    <Content Include="Views\StaffType\User\Index.cshtml" />
-    <Content Include="Views\StaffType\User\Create.cshtml" />
-    <Content Include="Views\StaffType\User\_PartialUser.cshtml" />
-    <Content Include="Views\StaffType\User\Delete.cshtml" />
-    <Content Include="Views\StaffType\User\Edit.cshtml" />
     <Content Include="Views\SystemSetting\Index.cshtml" />
     <Content Include="Views\QuartzJob\Index.cshtml" />
     <Content Include="Views\QuartzJob\Create.cshtml" />
@@ -626,7 +675,6 @@
     <Content Include="Views\SysRoleAuthorization\_PartialSysRoleAuthorization.cshtml" />
     <Content Include="Views\Home\NoAuthPage.cshtml" />
     <Content Include="Views\SysAuthorization\Edit.cshtml" />
-    <Content Include="Views\StaffType\User\ChangePwd.cshtml" />
     <Content Include="Views\User\ChangePwd.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
@@ -634,7 +682,6 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\_PartialUser.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Company\TreeShow.cshtml" />
     <Content Include="Views\SysRole\TableShow.cshtml" />
     <Content Include="Views\Staff\Idcard.cshtml" />
     <Content Include="Views\Staff\Ontrail.cshtml" />
@@ -671,6 +718,10 @@
     <Content Include="Views\SysOpera\Index.cshtml" />
     <Content Include="Views\SysOpera\_PartialSysRole.cshtml" />
     <Content Include="Views\Company\TreeShow - 复制.cshtml" />
+    <Content Include="Views\Company\TreeShow.cshtml" />
+    <Content Include="Views\Company\TreeShow - 复制%282%29.cshtml" />
+    <Content Include="Views\ShiftSchedule\EasyCreate.cshtml" />
+    <Content Include="Views\MessageRecord\ToEmployees.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
