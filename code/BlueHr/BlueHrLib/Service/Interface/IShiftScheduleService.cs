@@ -71,5 +71,6 @@ namespace BlueHrLib.Service.Interface
         /// <param name="startDate"></param>
         /// <returns></returns>
         List<ShiftScheduleView> GetShiftsByStaffAndDateSpan(string staffNr, DateTime startDate,DateTime endDate);
+        bool EasyCreate(ShiftSchedule title, DateTime startTime, DateTime endTime);
     }
 }

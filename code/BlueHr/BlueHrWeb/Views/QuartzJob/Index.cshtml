@@ -1,4 +1,4 @@
-﻿ 
+﻿
 @model IEnumerable<BlueHrLib.Data.QuartzJob>
 
 @{
@@ -12,70 +12,75 @@
 </ol>
 <hr class="hr-grey" />
 
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="usual-table">
-        <div class="table-heading">
-            任务列表
-            <div class="pull-right" style="margin-top:-12px;">
-                <a href="/QuartzJob/Create">
-                    <button class="marco-btn-primary">
-                        <i class="glyphicon glyphicon-plus-sign"></i>
-                        <span>创建</span>
-                    </button>
-                </a>
-            </div>
-        </div>
-        <div class="table-body content_3">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>执行时间</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        int i = 0;
-                        foreach (var item in Model)
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+
+        <a href="/QuartzJob/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
+            <button class="marco-btn-primary">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>创建</span>
+            </button>
+        </a>
+
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">任务列表</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_job_type">
+                <div id="all_job_type_grid_table"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>执行时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
                         {
-                            <tr>
-                                <td>@(i += 1)</td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.cronSchedule)
-                                </td>
-                                @*<td>
-                                    @Html.DisplayFor(modelItem => item.paramsStr)
-                                </td>*@
-                                 
-                                <td> 
+                            int i = 0;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@(i += 1)</td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.cronSchedule)
+                                    </td>
+                                    @*<td>
+                                            @Html.DisplayFor(modelItem => item.paramsStr)
+                                        </td>*@
+
+                                    <td>
                                         <a href="#" id="msg-@item.id" class="option-icon-warning" onclick="deletejob(@item.id)" title="删除">
                                             <i class="fa fa-remove"></i>
                                         </a>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </div>
-      
-</div>
 
-<script type="text/javascript">
-    Layout.init();
+    <script type="text/javascript">
+        Layout.init();
 
-    function deletejob(id){
-        if(confirm("确认删除？")){
-            $.post("/QuartzJob/Delete?id="+id,{id:id},function(data){
-                if(data.Success){
-                    window.location.reload();
-                }else{
-                    alert(data.Content);
-                }
-            },'json');
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 180, false, "all_job_type", "任务列表", "20", "all_job_type_grid_table");
+
+        function deletejob(id){
+            if(confirm("确认删除？")){
+                $.post("/QuartzJob/Delete?id="+id,{id:id},function(data){
+                    if(data.Success){
+                        window.location.reload();
+                    }else{
+                        alert(data.Content);
+                    }
+                },'json');
+            }
         }
-    }
-</script>
+    </script>

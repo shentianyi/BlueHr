@@ -216,7 +216,7 @@ namespace BlueHrLib.Service.Implement
             IQueryable<MessageRecordView> q = dc.Context.GetTable<MessageRecordView>();
             // q = q.Where(s => s.messageCategory==(int)catetory);
 
-            q = q.Where(s => s.messageType == 201);
+            q = q.Where(s => s.messageType == 303);
             if (searchModel != null)
             {
                 if (!string.IsNullOrEmpty(searchModel.StaffNr))
