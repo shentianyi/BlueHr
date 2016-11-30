@@ -1,4 +1,5 @@
-﻿using BlueHrLib.Data.Model.Search;
+﻿using ALinq.Dynamic;
+using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Interface;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             this.context = dc.Context as BlueHrDataContext;
         }
+
+       
 
         public bool Create(Company company)
         {
@@ -75,6 +78,21 @@ namespace BlueHrLib.Data.Repository.Implement
             return cp;
         }
 
+        public List<Company> GetAll()
+        {
+            List<Company> companys = this.context.GetTable<Company>().ToList();
+            //List<string> companyNames=new List<string>();
+            //foreach (var it in companys)
+            //{
+            //    companyNames.Add(it.name);
+            //}
+            return companys;
+        }
+        public int countDepartment(int companyId)
+        {
+            int q = this.context.Department.Where(d => d.companyId == companyId).Count();
+            return q;
+        }
         public List<Company> GetAllTableName()
         {
             try

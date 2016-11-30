@@ -123,6 +123,24 @@ namespace BlueHrWeb.Controllers
             //}
         }
 
+        //[RoleAndDataAuthorizationAttribute]
+        //public ActionResult EasyCreate(DateTime startTime, DateTime endTime,string staffNr,int shiftId)
+        //{
+        //    ResultMessage msg = new ResultMessage();
+        //    try
+        //    {
+        //        if (string.IsNullOrWhiteSpace(Convert.IsDBNull(startTime)))
+        //        {
+        //            ViewBag.msg = "Vin 不能为空";
+        //            return View();
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+        //}
         // GET: ShiftShedule/Edit/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
