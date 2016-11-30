@@ -34,8 +34,8 @@ namespace BlueHrLib.Service.Interface
         bool ApprovalTheRecord(AbsenceRecordApproval absRecordApproval);
 
         List<AbsenceRecrod> GetAllTableName();
-        int countStaffAbsence(DateTime d1, DateTime d2);
-        int countStaffLate(DateTime d1, DateTime d2);
-        int countStaffLeave(DateTime d1, DateTime d2);
+        int countStaffAbsence(DateTime StartTime, DateTime EndTime);
+        int countStaffLate(DateTime StartTime, DateTime EndTime);
+        int countStaffLeave(DateTime StartTime, DateTime EndTime);
     }
 }

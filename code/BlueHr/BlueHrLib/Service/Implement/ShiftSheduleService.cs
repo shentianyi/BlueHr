@@ -146,5 +146,10 @@ namespace BlueHrLib.Service.Implement
 
 
         }
+
+        public bool EasyCreate(ShiftSchedule title, DateTime startTime, DateTime endTime)
+        {
+            return rep.EasyCreate(title, startTime, endTime);
+        }
     }
 }

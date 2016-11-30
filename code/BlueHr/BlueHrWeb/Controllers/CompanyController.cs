@@ -180,6 +180,23 @@ namespace BlueHrWeb.Controllers
             }
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
+        
+        [HttpGet]
+        public JsonResult CountDepartment()
+        {
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+            ICompanyService cs = new CompanyService(Settings.Default.db);
+            List<Company> CompanyName = new List<Company>();
+            CompanyName = cs.GetAll();
+            foreach (var it in CompanyName)
+            {
+                Dictionary<string, string> cp = new Dictionary<string, string>();
+                cp.Add("CompanyName",it.name);
+                cp.Add("DepartmentCount",cs.countDepartment(it.id).ToString()); 
+                Result.Add(cp);
+            }
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpGet]
         public JsonResult CompanyOrganization(int companyId)

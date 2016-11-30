@@ -428,13 +428,13 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public int countStaffOff()
         {
-            int q = this.context.Staffs.Where(s => s.workStatus == 100).Count();
+            int q = this.context.Staffs.Where(s => s.workStatus == 200).Count();
             return q;
         }
 
         public int countStaffOn()
         {
-            int q = this.context.Staffs.Where(s => s.workStatus == 200).Count();
+            int q = this.context.Staffs.Where(s => s.workStatus == 100).Where(s => s.isOnTrial == false).Count();
             return q;
         }
     }

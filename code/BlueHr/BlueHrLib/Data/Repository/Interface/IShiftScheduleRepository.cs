@@ -21,5 +21,6 @@ namespace BlueHrLib.Data.Repository.Interface
 
         //根据班次或取排班信息
         ShiftSchedule FindShiftScheduleByShiftId(int id);
+        bool EasyCreate(ShiftSchedule title, DateTime startTime, DateTime endTime);
     }
 }

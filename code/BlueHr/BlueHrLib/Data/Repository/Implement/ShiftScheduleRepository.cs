@@ -156,5 +156,24 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<ShiftSchedule>().FirstOrDefault(c => c.shiftId.Equals(id));
         }
+
+        public bool EasyCreate(ShiftSchedule parModel, DateTime startTime, DateTime endTime)
+        {
+            try
+            {
+                for (int i = startTime.Day; i <= endTime.Day; i++)
+                {
+                    parModel.scheduleAt = startTime;
+                    this.context.GetTable<ShiftSchedule>().InsertOnSubmit(parModel);
+                    this.context.SubmitChanges();
+                    startTime.AddDays(1);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

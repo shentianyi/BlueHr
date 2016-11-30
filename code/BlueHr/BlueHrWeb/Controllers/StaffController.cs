@@ -1228,7 +1228,6 @@ namespace BlueHrWeb.Controllers
         [HttpGet]
         public JsonResult CountStaff()
         {
-            IStaffService rts = new StaffService(Settings.Default.db);
             Dictionary<string,int> Result=new Dictionary<string, int>();
             IStaffService ss= new StaffService(Settings.Default.db);
             Result.Add("试用期",ss.countStaffOntrail());
@@ -1239,14 +1238,14 @@ namespace BlueHrWeb.Controllers
 
         // GET: Staff/CountStatusStaff
         [HttpGet]
-        public JsonResult CountStatusStaff(DateTime d1, DateTime d2)
+        public JsonResult CountStatusStaff(DateTime StartTime, DateTime EndTime)
         {
             IAbsenceRecordService ars = new AbsenceRecordService(Settings.Default.db);
             Dictionary<string, int> Result = new Dictionary<string, int>();
             IStaffService ss = new StaffService(Settings.Default.db);
-            Result.Add("缺勤", ars.countStaffAbsence(d1,d2));
-            Result.Add("迟到", ars.countStaffLate(d1,d2));
-            Result.Add("请假", ars.countStaffLeave(d1,d2));
+            Result.Add("缺勤", ars.countStaffAbsence(StartTime, EndTime));
+            Result.Add("迟到", ars.countStaffLate(StartTime, EndTime));
+            Result.Add("请假", ars.countStaffLeave(StartTime, EndTime));
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
         //    private void SetResignTypeList(int? type, bool allowBlank = true)

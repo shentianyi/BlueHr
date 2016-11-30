@@ -720,6 +720,7 @@
     <Content Include="Views\Company\TreeShow - 复制.cshtml" />
     <Content Include="Views\Company\TreeShow.cshtml" />
     <Content Include="Views\Company\TreeShow - 复制%282%29.cshtml" />
+    <Content Include="Views\ShiftSchedule\EasyCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
