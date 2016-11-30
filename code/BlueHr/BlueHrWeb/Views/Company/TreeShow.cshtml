@@ -10,366 +10,181 @@
 
 <hr class="hr-grey" />
 
-<div class="row" style="margin:0;">
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="overflow:auto;">
-        @*<div class="pull-right" style="z-index: 99;" title="全部展开">
-            <a href="javascript: $.fn.zTree.getZTreeObj('companyTreeShow').expandAll(true);">
-                <i class="fa fa-chevron-down" style='margin-left: 5px; padding-left: 3px; border-radius:100%;'></i>
-            </a>
+<div class="row" style="margin: 0 10px; 0 10px">
+    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-6">
+        <button id="zoomToFit" class="marco-btn-primary">显示全部</button>
+        <button id="centerRoot" class="marco-btn-primary">根节点</button>
+    </div>
+    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-6">
+        <div class="marco-igroup-primary" style="width: 200px;">
+            <span>公司</span>
+            @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
         </div>
-
-        <div class="pull-right" style="z-index: 99;" title="全部折叠">
-            <a href="javascript: $.fn.zTree.getZTreeObj('companyTreeShow').expandAll(false);">
-                <i class="fa fa-chevron-up" style='margin-left: 5px;padding-left: 3px; border-radius:100%;'></i>
-            </a>
-        </div>*@
-
-        <span>公司信息展示</span>    
-        <div id="companyTreeShow" class="ztree"></div>
-    </div>
-
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="overflow:auto; border-left: 1px dashed #ddd ;">
-        <span>部门信息展示</span>
-        <div id="departmentTreeShow" class="ztree "></div>
-    </div>
-
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="overflow:auto; border-left: 1px dashed #ddd ;">
-        <div class="staffDetail"></div>
-        <span>员工信息展示</span>
-        <div id="staffTreeShow" class="ztree"></div>
     </div>
 </div>
 
-@*<div class="row">
-    <div id="CompanyTreeShow" style="margin-left: 10px; background-color: white; border: solid 1px black; width: 90%; height: 700px"></div>
-    <div id="myOverviewDiv"></div>
-</div>*@
+<div class="OrganizationShow" style="margin: 0 10px 0 10px;"></div>
+
+@Html.Partial("_HandlingMsgDialog")
 
 <script type="text/javascript">
     Layout.init();
 
-    function zTreeCompanyOnClick(event, treeId, treeNode) {
-        $('.companyDetail').empty();
-        $('.staffDetail').empty();
+    LoadOrganization();
+    
+    Layout.popMsg("popMsg-success", "双击可以跳转到员工详情界面");
 
-        $('.companyDetail').css({ display: "block" });
-        $('.companyDetail').addClass('animated fadeIn');
-
-        var CompanyNode = $.fn.zTree.getZTreeObj("companyTreeShow").getSelectedNodes()[0];
-
-        var Html = "<p style='font-family:黑体;'> 名称：" + CompanyNode.name + "<br /> 地址：" + CompanyNode.address +
-            "<br />备注： " + CompanyNode.remark + "<hr class='hr-grey' style='margin:2px;'/></p>";
-
-        $(Html).appendTo('.companyDetail');
-
-        $("#departmentTreeShow").empty();
-        $("#staffTreeShow").empty();
-
-        var CompanyID = treeNode.id;
-
-        $.ajax({
-            url: '/Department/DepartmentTree',
-            type: 'get',
-            data: {
-                companyId: CompanyID
-            },
-            success: function (data) {
-                function zTreeDepartmentOnClick(event, treeId, treeNode) {
-                    $('.staffDetail').empty();
-                    $('.staffDetail').css({ display: "block" });
-                    $('.staffDetail').addClass('animated fadeIn');
-
-                    var DepartmentNode = $.fn.zTree.getZTreeObj("departmentTreeShow").getSelectedNodes()[0];
-
-                    var Html = "<p style='font-family:黑体;'>名称：" + DepartmentNode.name + "<br />备注：" + DepartmentNode.remark + "<hr class='hr-grey' style='margin:2px;' /></p>";
-
-                    $(Html).appendTo('.staffDetail');
-                
-                    $.ajax({
-                        url: '/Staff/StaffTree',
-                        type: 'get',
-                        data: {
-                            companyId: CompanyID,
-                            departmentId: treeNode.id
-                        },
-                        success: function (data) {
-                            function zTreeStaffOnClick(event, treeId, treeNode) {
-                                //弹出员工基本信息 或者跳转
-                                //console.log(treeNode);
-                            }
-
-                            //function zTreeStaffOnClick(event, treeId, treeNode) {
-                            //    if (treeNode.parentNode && treeNode.parentNode.id != 2) return;
-                            //    var aObj = $("#" + treeNode.tId + IDMark_A);
-                            //    if (treeNode.id == 21) {
-                            //        var editStr = "<span class='demoIcon' id='diyBtn_" + treeNode.id + "' title='" + treeNode.name + "' onfocus='this.blur();'><span class='button icon01'></span></span>";
-                            //        aObj.append(editStr);
-                            //        var btn = $("#diyBtn_" + treeNode.id);
-                            //        if (btn) btn.bind("click", function () { alert("diy Button for " + treeNode.name); });
-                            //    } else if (treeNode.id == 22) {
-                            //        var editStr = "<span class='demoIcon' id='diyBtn_" + treeNode.id + "' title='" + treeNode.name + "' onfocus='this.blur();'><span class='button icon02'></span></span>";
-                            //        aObj.after(editStr);
-                            //        var btn = $("#diyBtn_" + treeNode.id);
-                            //        if (btn) btn.bind("click", function () { alert("diy Button for " + treeNode.name); });
-                            //    } else if (treeNode.id == 23) {
-                            //        var editStr = "<select class='selDemo' id='diyBtn_" + treeNode.id + "'><option value=1>1</option><option value=2>2</option><option value=3>3</option></select>";
-                            //        aObj.after(editStr);
-                            //        var btn = $("#diyBtn_" + treeNode.id);
-                            //        if (btn) btn.bind("change", function () { alert("diy Select value=" + btn.attr("value") + " for " + treeNode.name); });
-                            //    } else if (treeNode.id == 24) {
-                            //        var editStr = "<span id='diyBtn_" + treeNode.id + "'>Text Demo...</span>";
-                            //        aObj.after(editStr);
-                            //    } else if (treeNode.id == 25) {
-                            //        var editStr = "<a id='diyBtn1_" + treeNode.id + "' onclick='alert(1);return false;'>链接1</a>" +
-                            //            "<a id='diyBtn2_" + treeNode.id + "' onclick='alert(2);return false;'>链接2</a>";
-                            //        aObj.after(editStr);
-                            //    }
-                            //}
-
-                            //$(document).ready(function () {
-                            //    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-                            //});
-
-
-
-
-                            var StaffzNodes = data;
-
-                            var setting = {
-                                check: {
-                                    enable: false,
-                                    chkboxType: { "Y": "", "N": "" }
-                                },
-                                data: {
-                                    simpleData: {
-                                        enable: true
-                                    }
-                                },
-                                callback: {
-                                    onClick: zTreeStaffOnClick
-                                }
-                            };
-
-                            $.fn.zTree.init($("#staffTreeShow"), setting, StaffzNodes);
-                        },
-                        error: function () {
-                            console.log("DDDDDDDDDD");
-                        }
-                    })
-                }
-
-                var DepartmentzNodes = data;
-
-                var setting = {
-                    check: {
-                        enable: false,
-                        chkboxType: { "Y": "", "N": "" }
-                    },
-                    data: {
-                        simpleData: {
-                            enable: true
-                        }
-                    },
-                    callback: {
-                        onClick: zTreeDepartmentOnClick
-                    }
-                };
-
-                $.fn.zTree.init($("#departmentTreeShow"), setting, DepartmentzNodes);
-            },
-            error: function () {
-                console.log("DDDDDDDDDD");
-            }
-        })
-    };
-
-    $.ajax({
-        url: '/Company/CompanyTree',
-        type: 'get',
-        success: function (data) {
-            var zNodes = data;
-
-            var setting = {
-                check: {
-                    enable: false,
-                    chkboxType: { "Y": "", "N": "" }
-                },
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                callback: {
-                    onClick: zTreeCompanyOnClick
-                }
-            };
-
-            $.fn.zTree.init($("#companyTreeShow"), setting, zNodes);
-
-        },
-        error: function () {
-            console.log("DDDDDD");
-        }
+    $("#companyId").change(function(){
+        LoadOrganization();
     })
 
+    function LoadOrganization() {
+        show_handle_dialog();
+        $.ajax({
+                url: '/Company/CompanyOrganization',
+                type: 'get',
+                data: {
+                    companyId: $("#companyId").val()
+                },
+                success: function (data) {
+                    init(data);
+                    hide_handle_dialog();
+                },
+                error: function () {
+                    console.log("NNMVNMNDMNDM");
+                }
+            }
+        )
+    }
 
-    //init();
+    function init(data) {
+        $("#myOverviewDiv").remove();
+        $("#myDiagramDiv").remove();
 
-    function init() {
-        var Go_Company = go.GraphObject.make;  // for conciseness in defining templates
+        var Html = "<span style='font-size: 14px; font-family: 黑体; position:absolute; top: 120px; right: 40px; color: #3498db;'>Tips: 双击部门， 可以跳转到对应的员工界面</span>" +
+        "<div id='myOverviewDiv' style='font-size: 20px; height: 100px;'></div>"+
+        "<div id='myDiagramDiv' style='background-color: white; border-radius: 10px; width: 100%;'></div>"; 
+        $(Html).appendTo($(".OrganizationShow"));
+        
+        $("#myDiagramDiv").css("height", $(window).height()-300+'px');
+        
+        var Go_Comany = go.GraphObject.make;  // for conciseness in defining templates
 
         myDiagram =
-          Go_Company(go.Diagram, "CompanyTreeShow",  // the DIV HTML element
+          Go_Comany(go.Diagram, "myDiagramDiv",  // must be the ID or reference to div
             {
-                // Put the diagram contents at the top center of the viewport
                 initialDocumentSpot: go.Spot.TopCenter,
                 initialViewportSpot: go.Spot.TopCenter,
-                // OR: Scroll to show a particular node, once the layout has determined where that node is
-                //"InitialLayoutCompleted": function(e) {
-                //  var node = e.diagram.findNodeForKey(28);
-                //  if (node !== null) e.diagram.commandHandler.scrollToPart(node);
-                //},
-                layout:Go_Company(go.TreeLayout,  // use a TreeLayout to position all of the nodes
+                "toolManager.hoverDelay": 100,  // 100 milliseconds instead of the default 850
+                allowCopy: false,
+                allowMove:false,
+                nodeSelectionAdornmentTemplate:
+                 Go_Comany(go.Adornment, "Auto",
+                     { layerName: "Grid" },
+                     Go_Comany(go.Shape, "RoundedRectangle", { fill: "yellow", stroke: null }),
+                     Go_Comany(go.Placeholder)
+                 ),
+                layout:
+                  Go_Comany(go.TreeLayout,
                     {
-                        treeStyle: go.TreeLayout.StyleLastParents,
-                        // properties for most of the tree:
-                        angle: 90,
-                        layerSpacing: 80,
-                        // properties for the "last parents":
-                        alternateAngle: 0,
-                        alternateAlignment: go.TreeLayout.AlignmentStart,
-                        alternateNodeIndent: 20,
-                        alternateNodeIndentPastParent: 1,
-                        alternateNodeSpacing: 20,
-                        alternateLayerSpacing: 40,
-                        alternateLayerSpacingParentOverlap: 1,
-                        alternatePortSpot: new go.Spot(0.001, 1, 20, 0),
-                        alternateChildPortSpot: go.Spot.Left
+                        angle: 90, nodeSpacing: 10, layerSpacing: 40
+                        //layerStyle: go.TreeLayout.LayerUniform
                     })
             });
 
-        // define Converters to be used for Bindings
-        function theNationFlagConverter(nation) {
-            return "../Images/treeIcon/diy/shop.png";
-        }
+        var bluegrad = '#90CAF9';
+        var pinkgrad = '#F48FB1';
 
-        function theInfoTextConverter(info) {
+        function tooltipTextConverter(department) {
             var str = "";
-            if (info.title) str += "Title: " + info.title;
-            if (info.headOf) str += "\n\nHead of: " + info.headOf;
-            if (typeof info.boss === "number") {
-                var bossinfo = myDiagram.model.findNodeDataForKey(info.boss);
-                if (bossinfo !== null) {
-                    str += "\n\nReporting to: " + bossinfo.name;
-                }
-            }
+            str += "名称: " + department.name;
+            if (department.peopleCount !== undefined) str += "\n 人数: " + department.peopleCount;
+            if (department.remark !== undefined) str += "\n 备注: " + department.remark;
             return str;
         }
 
-        // define the Node template
+        var tooltiptemplate =
+          Go_Comany(go.Adornment, "Auto",
+            Go_Comany(go.Shape, "RoundedRectangle",
+              { fill: "whitesmoke", stroke: "black" }),
+            Go_Comany(go.TextBlock,
+              {
+                  font: "bold 12px Helvetica, bold Arial, sans-serif",
+                  wrap: go.TextBlock.WrapFit,
+                  margin: 5
+              },
+              new go.Binding("text", "", tooltipTextConverter))
+          );
+
         myDiagram.nodeTemplate =
-          Go_Company(go.Node, "Auto",
-            // the outer shape for the node, surrounding the Table
-            Go_Company(go.Shape, "Rectangle",
-              { stroke: null, strokeWidth: 0 },
-                                                      /* reddish if highlighted, blue otherwise */
-              new go.Binding("fill", "isHighlighted", function (h) { return h ? "#F44336" : "#A7E7FC"; }).ofObject()),
-            // a table to contain the different parts of the node
-            Go_Company(go.Panel, "Table",
-              { margin: 6, maxSize: new go.Size(200, NaN) },
-              // the two TextBlocks in column 0 both stretch in width
-              // but align on the left side
-              Go_Company(go.RowColumnDefinition,
-                {
-                    column: 0,
-                    stretch: go.GraphObject.Horizontal,
-                    alignment: go.Spot.Left
-                }),
-              // the name
-              Go_Company(go.TextBlock,
-                {
-                    row: 0, column: 0,
-                    maxSize: new go.Size(160, NaN), margin: 2,
-                    font: '500 16px Roboto, sans-serif',
-                    alignment: go.Spot.Top
-                },
-                new go.Binding("text", "name")),
-              // the country flag
-              Go_Company(go.Picture,
-                {
-                    row: 0, column: 1, margin: 2,
-                    imageStretch: go.GraphObject.Uniform,
-                    alignment: go.Spot.TopRight
-                },
-                // only set a desired size if a flag is also present:
-                new go.Binding("desiredSize", "nation", function () { return new go.Size(34, 26) }),
-                new go.Binding("source", "nation", theNationFlagConverter)),
-              // the additional textual information
-              Go_Company(go.TextBlock,
-                {
-                    row: 1, column: 0, columnSpan: 2,
-                    font: "12px Roboto, sans-serif"
-                },
-                new go.Binding("text", "", theInfoTextConverter))
-            )  // end Table Panel
-          );  // end Node
-
-        // define the Link template, a simple orthogonal line
-        myDiagram.linkTemplate =
-          Go_Company(go.Link, go.Link.Orthogonal,
-            { corner: 5, selectable: false },
-            Go_Company(go.Shape, { strokeWidth: 3, stroke: "#424242" }));  // dark gray, rounded corner links
-
-
-        // set up the nodeDataArray, describing each person/position
-        var nodeDataArray = [
-          { key: 0, name: "Ban Ki-moon 반기문", nation: "South Korea", title: "Secretary-General of the United Nations", headOf: "Secretariat" },
-            { key: 1, boss: 0, name: "Patricia O'Brien", nation: "Ireland", title: "Under-Secretary-General for Legal Affairs and United Nations Legal Counsel", headOf: "Office of Legal Affairs" },
-              { key: 3, boss: 1, name: "Peter Taksøe-Jensen", nation: "Denmark", title: "Assistant Secretary-General for Legal Affairs" },
-                { key: 9, boss: 3, name: "Other Employees" },
-              { key: 4, boss: 1, name: "Maria R. Vicien - Milburn", nation: "Argentina", title: "General Legal Division Director", headOf: "General Legal Division" },
-                { key: 10, boss: 4, name: "Other Employees" },
-              { key: 5, boss: 1, name: "Václav Mikulka", nation: "Czech Republic", title: "Codification Division Director", headOf: "Codification Division" },
-                { key: 11, boss: 5, name: "Other Employees" },
-              { key: 6, boss: 1, name: "Sergei Tarassenko", nation: "Russia", title: "Division for Ocean Affairs and the Law of the Sea Director", headOf: "Division for Ocean Affairs and the Law of the Sea" },
-                { key: 12, boss: 6, name: "Alexandre Tagore Medeiros de Albuquerque", nation: "Brazil", title: "Chairman of the Commission on the Limits of the Continental Shelf", headOf: "The Commission on the Limits of the Continental Shelf" },
-                  { key: 17, boss: 12, name: "Peter F. Croker", nation: "Ireland", title: "Chairman of the Committee on Confidentiality", headOf: "The Committee on Confidentiality" },
-                    { key: 31, boss: 17, name: "Michael Anselme Marc Rosette", nation: "Seychelles", title: "Vice Chairman of the Committee on Confidentiality" },
-                    { key: 32, boss: 17, name: "Kensaku Tamaki", nation: "Japan", title: "Vice Chairman of the Committee on Confidentiality" },
-                    { key: 33, boss: 17, name: "Osvaldo Pedro Astiz", nation: "Argentina", title: "Member of the Committee on Confidentiality" },
-                    { key: 34, boss: 17, name: "Yuri Borisovitch Kazmin", nation: "Russia", title: "Member of the Committee on Confidentiality" },
-                  { key: 18, boss: 12, name: "Philip Alexander Symonds", nation: "Australia", title: "Chairman of the Committee on provision of scientific and technical advice to coastal States", headOf: "Committee on provision of scientific and technical advice to coastal States" },
-                    { key: 35, boss: 18, name: "Emmanuel Kalngui", nation: "Cameroon", title: "Vice Chairman of the Committee on provision of scientific and technical advice to coastal States" },
-                    { key: 36, boss: 18, name: "Sivaramakrishnan Rajan", nation: "India", title: "Vice Chairman of the Committee on provision of scientific and technical advice to coastal States" },
-                    { key: 37, boss: 18, name: "Francis L. Charles", nation: "Trinidad and Tobago", title: "Member of the Committee on provision of scientific and technical advice to costal States" },
-                    { key: 38, boss: 18, name: "Mihai Silviu German", nation: "Romania", title: "Member of the Committee on provision of scientific and technical advice to costal States" },
-                  { key: 19, boss: 12, name: "Lawrence Folajimi Awosika", nation: "Nigeria", title: "Vice Chairman of the Commission on the Limits of the Continental Shelf" },
-                  { key: 20, boss: 12, name: "Harald Brekke", nation: "Norway", title: "Vice Chairman of the Commission on the Limits of the Continental Shelf" },
-                  { key: 21, boss: 12, name: "Yong-Ahn Park", nation: "South Korea", title: "Vice Chairman of the Commission on the Limits of the Continental Shelf" },
-                  { key: 22, boss: 12, name: "Abu Bakar Jaafar", nation: "Malaysia", title: "Chairman of the Editorial Committee", headOf: "Editorial Committee" },
-                  { key: 23, boss: 12, name: "Galo Carrera Hurtado", nation: "Mexico", title: "Chairman of the Training Committee", headOf: "Training Committee" },
-                  { key: 24, boss: 12, name: "Indurlall Fagoonee", nation: "Mauritius", title: "Member of the Commission on the Limits of the Continental Shelf" },
-                  { key: 25, boss: 12, name: "George Jaoshvili", nation: "Georgia", title: "Member of the Commission on the Limits of the Continental Shelf" },
-                  { key: 26, boss: 12, name: "Wenzhang Lu", nation: "China", title: "Member of the Commission on the Limits of the Continental Shelf" },
-                  { key: 27, boss: 12, name: "Isaac Owusu Orudo", nation: "Ghana", title: "Member of the Commission on the Limits of the Continental Shelf" },
-                  { key: 28, boss: 12, name: "Fernando Manuel Maia Pimentel", nation: "Portugal", title: "Member of the Commission on the Limits of the Continental Shelf" },
-              { key: 7, boss: 1, name: "Renaud Sorieul", nation: "France", title: "International Trade Law Division Director", headOf: "International Trade Law Division" },
-                { key: 13, boss: 7, name: "Other Employees" },
-              { key: 8, boss: 1, name: "Annebeth Rosenboom", nation: "Netherlands", title: "Treaty Section Chief", headOf: "Treaty Section" },
-                { key: 14, boss: 8, name: "Bradford Smith", nation: "United States", title: "Substantive Legal Issues Head", headOf: "Substantive Legal Issues" },
-                  { key: 29, boss: 14, name: "Other Employees" },
-                { key: 15, boss: 8, name: "Andrei Kolomoets", nation: "Russia", title: "Technical/Legal Issues Head", headOf: "Technical/Legal Issues" },
-                  { key: 30, boss: 15, name: "Other Employees" },
-                { key: 16, boss: 8, name: "Other Employees" },
-            { key: 2, boss: 0, name: "Heads of Other Offices/Departments" }
-        ];
-
-        // create the Model with data for the tree, and assign to the Diagram
-        myDiagram.model =
-          Go_Company(go.TreeModel,
+          Go_Comany(go.Node, "Auto",
             {
-                nodeParentKeyProperty: "boss",  // this property refers to the parent node data
-                nodeDataArray: nodeDataArray
-            });
+                deletable: false,
+                toolTip: tooltiptemplate,
+                click: function (e, obj) {
+                    //console.log(obj.data);
+                },
+                doubleClick: function (e, obj) {
+                    var CompanyId = $("#companyId").val();
+                    var DepartmentId = obj.data.key;
+                    window.location.href = "/Staff/Search?DepartmentID=" + DepartmentId + "&CompanyID=" + CompanyId;
+                }
+            },
+            new go.Binding("text", "name"),
+            Go_Comany(go.Shape, "RoundedRectangle",
+              {
+                //   fill: "#3498db",
+                //   stroke: null, strokeWidth: 0,
+                  fill: null, stroke: "#3498db", strokeWidth: 2,
+                  stretch: go.GraphObject.Fill,
+                  alignment: go.Spot.Center
+              }
+            ),
+            Go_Comany(go.Panel, "Horizontal",
+                Go_Comany("TreeExpanderButton"),
+                Go_Comany(go.Picture,
+                  {
+                      name: 'Picture',
+                      desiredSize: new go.Size(24, 24),
+                      margin: new go.Margin(5, 10, 5, 4)
+                  },
+                  new go.Binding("source", "Source")),
+                Go_Comany(go.TextBlock,
+                  {
+                      font: "14px 黑体, Droid Serif, sans-serif",
+                      textAlign: "center",
+                      margin: new go.Margin(-10, 8, 2, 0), maxSize: new go.Size(120, NaN)
+                  },
+                  new go.Binding("text", "name"))
+            ),
+            Go_Comany(go.TextBlock,
+                {
+                    font: "14px 黑体, Droid Serif, sans-serif",
+                    textAlign: "center",
+                    margin: new go.Margin(35, 8, 2, 35), maxSize: new go.Size(120, NaN)
+                },
+                new go.Binding("text", "peopleCount"))
+        );
+
+        myDiagram.linkTemplate =
+          Go_Comany(go.Link,
+            { routing: go.Link.Orthogonal, corner: 5, selectable: false },
+            Go_Comany(go.Shape, { strokeWidth: 3, stroke: '#424242' }));
+
+        var nodeDataArray = data;
+
+        myDiagram.model = new go.TreeModel(nodeDataArray);
+        myOverview =
+        Go_Comany(go.Overview, "myOverviewDiv",
+            { observed: myDiagram, contentAlignment: go.Spot.Center });
+
+        document.getElementById('zoomToFit').addEventListener('click', function () {
+            myDiagram.zoomToFit();
+        });
+
+        document.getElementById('centerRoot').addEventListener('click', function () {
+            myDiagram.scale = 1;
+            myDiagram.scrollToRect(myDiagram.findNodeForKey(0).actualBounds);
+        });
     }
 </script>

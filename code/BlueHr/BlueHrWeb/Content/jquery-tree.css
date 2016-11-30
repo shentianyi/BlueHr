@@ -367,12 +367,12 @@ ul.ztree.zTreeDragUL {
 .ztree li span.roots_close, .ztree li span.center_close, .ztree li span.button.bottom_close{margin-right:5px; background: url(../Images/treeIcon/diy/arrow-close.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle;}
 
 /*bank*/
-.ztree li span.button.bankIcon_ico_open{margin-right:5px; background: url(../Images/treeIcon/diy/bank.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle;}
-.ztree li span.parentBankIcon_ico_open{margin-right:5px; background: url(../Images/treeIcon/diy/bank.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle;}
-.ztree li span.parentBankIcon_ico_close{margin-right:5px; background: url(../Images/treeIcon/diy/bank.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle;}
-.ztree li span.bankIcon_ico_close{margin-right:5px; background: url(../Images/treeIcon/diy/bank.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle;}
-.ztree li span.parentBankIcon_ico_docu{margin-right:5px; background: url(../Images/treeIcon/diy/bank.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle;}
-.ztree li span.bankIcon_ico_docu{margin-right:5px; background: url(../Images/treeIcon/diy/bank.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle;}
+.ztree li span.button.bankIcon_ico_open{margin-right:5px; background: url(../Images/treeIcon/diy/company.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle;}
+.ztree li span.parentBankIcon_ico_open{margin-right:5px; background: url(../Images/treeIcon/diy/company.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle;}
+.ztree li span.parentBankIcon_ico_close{margin-right:5px; background: url(../Images/treeIcon/diy/company.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle;}
+.ztree li span.bankIcon_ico_close{margin-right:5px; background: url(../Images/treeIcon/diy/company.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle;}
+.ztree li span.parentBankIcon_ico_docu{margin-right:5px; background: url(../Images/treeIcon/diy/company.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle;}
+.ztree li span.bankIcon_ico_docu{margin-right:5px; background: url(../Images/treeIcon/diy/company.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle;}
 
 /*check*/
 .ztree li span.button.checkbox_true_full_focus{margin-right:1px; background: url(../Images/treeIcon/diy/checked.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle}
