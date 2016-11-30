@@ -16,6 +16,12 @@ namespace BlueHrLib.Data.Repository.Implement
             this.context = dataContextFactory.Context as BlueHrDataContext;
         }
 
+        public int CountToEmployees()
+        {
+            int q = this.context.MessageRecord.Where(s => s.messageType == 303).Count();
+            return q;
+        }
+
         public int CountUnRead()
         {
             return this.context.GetTable<MessageRecord>().Count(s => s.isRead == false);

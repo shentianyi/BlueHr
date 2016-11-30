@@ -298,7 +298,7 @@ namespace BlueHrLib.Service.Implement
             return staffRep.SearchPermanentStaff(searchModel);
         }
 
-        public List<Staff> FindByCompanyAndDepartment(int companyId, int departmentId)
+        public List<Staff> FindByCompanyAndDepartment(int companyId, int? departmentId)
         {
             return staffRep.FindByCompanyAndDepartment(companyId, departmentId);
         }
@@ -338,6 +338,11 @@ namespace BlueHrLib.Service.Implement
         {
             return staffRep.countStaffOn();
 
+        }
+
+        public int CountStaffBirthday()
+        {
+            return staffRep.CountStaffBirthday();
         }
 
         //public List<Staff> getStaffUserIDCard()

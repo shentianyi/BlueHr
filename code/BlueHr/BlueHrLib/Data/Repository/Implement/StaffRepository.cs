@@ -130,6 +130,15 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 staffs = staffs.Where(c => c.companyEmployAt < searchModel.CompanyEmployAtTo);
             }
+            if (searchModel.BirthdayFrom.HasValue)
+            {
+                staffs = staffs.Where(c => c.birthday > searchModel.BirthdayFrom);
+            }
+
+            if (searchModel.BirthdayTo.HasValue)
+            {
+                staffs = staffs.Where(c => c.birthday < searchModel.BirthdayTo);
+            }
 
             if (searchModel.IsOnTrial.HasValue)
             {
@@ -340,14 +349,22 @@ namespace BlueHrLib.Data.Repository.Implement
             }
         }
 
-        public List<Staff> FindByCompanyAndDepartment(int companyId, int departmentId)
+        public List<Staff> FindByCompanyAndDepartment(int companyId, int? departmentId)
         {
             try
             {
-                var Staff = this.context.GetTable<Staff>().Where(c=>c.companyId.Equals(companyId)).Where(c=>c.departmentId.Equals(departmentId));
-                if (Staff != null)
+                IQueryable<Staff> staff;
+
+                staff = this.context.GetTable<Staff>().Where(c => c.companyId.Equals(companyId));
+
+                if (departmentId.HasValue)
                 {
-                    return Staff.ToList();
+                    staff = staff.Where(c => c.departmentId.Equals(departmentId));
+                }
+
+                if (staff != null)
+                {
+                    return staff.ToList();
                 }
                 else
                 {
@@ -427,6 +444,13 @@ namespace BlueHrLib.Data.Repository.Implement
         public int countStaffOn()
         {
             int q = this.context.Staffs.Where(s => s.workStatus == 100).Where(s => s.isOnTrial == false).Count();
+            return q;
+        }
+
+        public int CountStaffBirthday()
+        {
+            string a = System.DateTime.Today.ToString("MM-dd");
+            int q = this.context.Staffs.Where(s => s.birthday.ToString().Contains(a)).Count();
             return q;
         }
     }

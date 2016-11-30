@@ -1,4 +1,4 @@
-﻿using BlueHrLib.Data.Model.Search;
+using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Interface;
 using System;
 using System.Collections.Generic;

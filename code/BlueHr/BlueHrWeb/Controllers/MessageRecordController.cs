@@ -57,6 +57,14 @@ namespace BlueHrWeb.Controllers
 
             return View(records);
         }
+        [HttpGet]
+        public JsonResult CountToEmployees()
+        {
+            Dictionary<string, int> Result = new Dictionary<string, int>();
+            IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+            Result.Add("即将转正", mrs.CountToEmployees());
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult Search([Bind(Include = "StaffNr,StaffNrAct")] MessageRecordSearchModel q)
         {

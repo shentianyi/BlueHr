@@ -3,141 +3,342 @@
 @{
     ViewBag.Title = "首页";
 }
+
 <style>
  .dashboard-box {
-          text-align: center;
-          height: 90px;
-          background: #e74c3c;
-          opacity: 0.8;
-          max-width: 240px; 
-          font-family:SimHei;
-          font-weight:200;
-            
+        text-align: center;
+        height: 90px;
+        background: #e74c3c;
+        opacity: 0.8;
+        max-width: 240px; 
+        font-family:SimHei;
+        font-weight:200;
+        border-radius: 4px;
     }
 .dashboard-box a:hover {
-          text-decoration: none; }
+        text-decoration: none; 
+}
  .dashboard-icon {
-            width: 15%;
-            float: left;
-            margin-top: 15px;
-            margin-left:15px;
+    width: 15%;
+    float: left;
+    margin-top: 15px;
+    margin-left:15px;
  }
  .dashboard-icon i {
-      
-      padding:5px;
-      border-radius: 100%;
-      font-size: 1.5em;
-      color: white;
+    padding:5px;
+    border-radius: 100%;
+    font-size: 2.5em;
+    color: white;
+    margin-top: 7px;
 }
  .dashboard-box .dashboard-content {
     width: 196px;
     padding: 10px 0;
-    text-indent:-20px;
-    margin-left: 20%; }
+    margin-left: 30px;
+ }
 
-  .dashboard-content p {
-      margin-top: -5px;
-      font-size: 1.3em;
-      width:196px;
-      text-align: center;
-      margin-top:5px;
-      margin-right:10px;
-      color: white;
-    }
-    .dashboard-content .show {
-        font-size:1.1em;
-        color:white;
-    }
-
-
-
+.dashboard-content p {
+    font-size: 1.3em;
+    width:196px;
+    text-align: center;
+    margin-top:5px;
+    margin-right:10px;
+    color: white;
+}
+.dashboard-content .show {
+    font-size:1.1em;
+    color:white;
+}
 
 .dashboard-box-primary .dashboard-box {
     background:#0094ff;
-    }
+}
 
 .dashboard-box-warning .dashboard-box {
-
   background: #E67E22;
  }
- 
-
 
 .dashboard-box-success .dashboard-box {
-
   background: #1abc9c;
  }
- 
 
+ .quick_enter{
+    padding:10px;
+    text-align:center;
+    height: 90px;
+ }
 
-
-
-
+ .quick_enter i{
+    font-size: 2em;
+    width: 20px;
+    height: 20px;
+    text-align:center;
+    margin-top:10px;
+ }
 </style>
-<div class="container">
+
+<div style="margin: 10px;">
     <div class="row" style="margin-top:20px;">
         <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-default">
-            <div class="dashboard-box" title="点击查看用户">
-                <a href="/User">
+            <div class="dashboard-box" title="点击查看员工列表">
+                <a href="/Staff/Index">
                     <div class="dashboard-icon">
                         <i class="fa fa-users"></i>
                     </div>
 
                     <div class="dashboard-content">
-                        <p>试用期/全部员工</p>
-                        <div class="show"><span id="ontrailnum">试用期</span>/<span id="sum">总人数</span></div>
-
+                        <p>试用期 / 总人数</p>
+                        <div class="show"><span id="onTrailNum">无</span> / <span id="StaffNum">无</span></div>
                     </div>
                    
                 </a>
             </div>
         </div>
+
         <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-primary">
-            <div class="dashboard-box" title="点击查看设备信息">
-                <a href="/Device">
-                    <div class="dashboard-icon">
-                        <i class="fa fa-server "></i>
-                    </div>
-
-                    <div class="dashboard-content">
-                        <p>试用期/全部员工</p>
-                        <div class="show"><span id="ontrailnum">试用期</span>/<span id="sum">总人数</span></div>
-
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-warning">
-            <div class="dashboard-box" title="点击查看银行">
-                <a href="/Bank">
+            <div class="dashboard-box" title="公司部门">
+                <a href="/Company/TreeShow">
                     <div class="dashboard-icon">
                         <i class="fa fa-bank"></i>
                     </div>
 
                     <div class="dashboard-content">
-                        <p>试用期/全部员工</p>
-                        <div class="show"><span id="ontrailnum">试用期</span>/<span id="sum">总人数</span></div>
-
+                        <p id="companyName"> </p>
+                        <div class="show">
+                            <span id="departmentNum">  </span>
+                        </div>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-success">
-            <div class="dashboard-box" title="点击查看4S店">
-                <a href="/Shop">
+
+         <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-warning">
+            <div class="dashboard-box" title="友情提醒">
+                <a href="/Staff/Search?isOnTrail=1">
                     <div class="dashboard-icon">
-                        <i class="fa fa-car"></i>
+                        <i class="fa fa-user"></i>
                     </div>
 
                     <div class="dashboard-content">
-                        <p>试用期/全部员工</p>
-                        <div class="show"><span id="ontrailnum">试用期</span>/<span id="sum">总人数</span></div>
+                        <p>将转正 / 待转正</p>
+                        <div class="show"><span id="willNum"> </span>/<span id="waitNum">  </span></div>
+                    </div>
+                </a>
+            </div>
+        </div>
 
+        <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-success">
+            <div class="dashboard-box" title="点击查看生日员工">
+                <a href="/Staff/Index">
+                    <div class="dashboard-icon">
+                        <i class="fa fa-birthday-cake"></i>
+                    </div>
+
+                    <div class="dashboard-content">
+                        <p>今天生日</p>
+                        <div class="show"><span id="birthDayNum">开发中</span></div>
                     </div>
                 </a>
             </div>
         </div>
     </div>
 
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div id="staffChart"></div>
+        </div>
 
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div id="companyChart"></div>
+        </div>
+    </div>
+
+    <div class="row">
+       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="marco-npanel-default">
+                <div class="marco-nheading">
+                    <i class="fa fa-external-link" style="color: white;"></i>
+                    快速入口
+                </div>
+                <div class="marco-nbody">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 quick_enter">
+                            <a href = "/Staff/Index">
+                                <i class="fa fa-user"></i>
+                                <br />
+                                <span>员工信息</span>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6  quick_enter">
+                            <a href = "/Staff/Create">
+                                <i class="fa fa-user-plus"></i>
+                                <br />
+                                <span>新人入职</span>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6  quick_enter">
+                            <a href = "/AttendanceRecordDetail/Index">
+                                <i class="fa fa-calendar-check-o"></i>
+                                <br />
+                                <span>考勤记录</span>
+                            </a>
+                        </div>
+                    </div>
+
+                     <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6  quick_enter">
+                            <a href = "/Company/TreeShow">
+                                <i class="fa fa-sitemap"></i>
+                                <br />
+                                <span>公司组织架构</span>
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+             <div class="marco-npanel-primary">
+                <div class="marco-nheading">
+                    <i class="fa fa-list" style="color: white;"></i>
+                    待办事项
+                </div>
+                <div class="marco-nbody">
+                    <span style="font-family:黑体; font-size:14px; color:lightseagreen;">员工转正提醒</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script type="text/javascript">
+    $.ajax({
+        url:'/MessageRecord/CountToEmployees',
+        type:'get',
+        success:function(data){
+            $("#willNum").html(data.即将转正 + "人");
+        },
+        error:function(){
+            console.log("CCCCCCCC");
+        }
+    });
+
+    $.ajax({
+        url:'/Staff/CountStaff',
+        type:'get',
+        success:function(data){
+            $("#onTrailNum").html(data.试用期+"人" );
+            $("#StaffNum").html(data.在职+data.离职+data.试用期+"人");
+            $("#waitNum").html(data.试用期+"人" );
+
+            var Series = [{name: "员工分布", data: [data.在职, data.离职, data.试用期] }]
+
+            $('#staffChart').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    credits:{
+                        enabled: false
+                    },
+                    title: {
+                        text: '公司员工分布'
+                    },
+                    xAxis: {
+                           categories: ["在职", "离职", "试用期"]
+                    },
+                    yAxis: {
+                        allowDecimals: false,
+                        title: {
+                            text: '人'
+                        }
+                    },
+                    tooltip: {
+                        formatter: function () {
+                            return '<b>' + this.x + '</b><br/> 共' + this.point.y +"人";
+                        }
+                    },
+                    series: Series
+                });
+        },
+        error:function(){
+            console.log("CCCCCCCC");
+        }
+    });
+
+    $.ajax({
+        url:'/Company/CountDepartment',
+        type:'get',
+        success:function(data){
+            var CompanyAndDepartment = data;
+            if(data.length>0){
+                $("#companyName").html(CompanyAndDepartment[0].CompanyName);
+                $("#departmentNum").html("共"+CompanyAndDepartment[0].DepartmentCount+"个部门");
+
+                var XAxis = new Array();
+                var SeriesData = new Array();
+                for(var i =0; i < data.length; i++){
+                    XAxis.push(data[i].CompanyName);
+                    SeriesData.push(parseInt(data[i].DepartmentCount));
+                }    
+
+                console.log(SeriesData);
+
+                $('#companyChart').highcharts({
+                        chart: {
+                            type: 'column'
+                        },
+                        credits:{
+                            enabled: false
+                        }
+                        ,
+                        title: {
+                            text: '公司部门展示'
+                        },
+                        xAxis: {
+                            categories: XAxis
+                        },
+                        yAxis: {
+                            allowDecimals: false,
+                            title: {
+                                text: '个'
+                            }
+                        },
+                        tooltip: {
+                            formatter: function () {
+                                return '<b>' + this.x + '</b><br/> 共' + this.point.y +"个部门";
+                            }
+                        },
+
+                        series: [{
+                            name:"公司部门分布",
+                            data:SeriesData
+                        }]
+                });
+
+                var i = 0;
+                setInterval(function(){
+                    if(i < CompanyAndDepartment.length){
+                        $("#companyName").html(CompanyAndDepartment[i].CompanyName);
+                        $("#departmentNum").html("共"+CompanyAndDepartment[i].DepartmentCount+"个部门");
+                        i++;
+                    }else{
+                        i = 0;
+                    }
+                }, 10000);
+
+            }
+
+        },
+        error:function(){
+            console.log("DDDDD");
+        }
+    })
+
+
+
+</script>

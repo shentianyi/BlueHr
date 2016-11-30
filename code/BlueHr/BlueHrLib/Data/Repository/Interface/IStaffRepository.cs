@@ -31,7 +31,7 @@ namespace BlueHrLib.Data.Repository.Interface
         List<Staff> SearchPermanentStaff(StaffSearchModel searchModel);
         //List<Staff> getStaffUserIDCard();
 
-        List<Staff> FindByCompanyAndDepartment(int companyId, int departmentId);
+        List<Staff> FindByCompanyAndDepartment(int companyId, int? departmentId);
 
         List<Staff> GetAllTableName();
 
@@ -41,5 +41,6 @@ namespace BlueHrLib.Data.Repository.Interface
         int countStaffOntrail();
         int countStaffOff();
         int countStaffOn();
+        int CountStaffBirthday();
     }
 }
