@@ -3,11 +3,141 @@
 @{
     ViewBag.Title = "首页";
 }
+<style>
+ .dashboard-box {
+          text-align: center;
+          height: 90px;
+          background: #e74c3c;
+          opacity: 0.8;
+          max-width: 240px; 
+          font-family:SimHei;
+          font-weight:200;
+            
+    }
+.dashboard-box a:hover {
+          text-decoration: none; }
+ .dashboard-icon {
+            width: 15%;
+            float: left;
+            margin-top: 15px;
+            margin-left:15px;
+ }
+ .dashboard-icon i {
+      
+      padding:5px;
+      border-radius: 100%;
+      font-size: 1.5em;
+      color: white;
+}
+ .dashboard-box .dashboard-content {
+    width: 196px;
+    padding: 10px 0;
+    text-indent:-20px;
+    margin-left: 20%; }
 
+  .dashboard-content p {
+      margin-top: -5px;
+      font-size: 1.3em;
+      width:196px;
+      text-align: center;
+      margin-top:5px;
+      margin-right:10px;
+      color: white;
+    }
+    .dashboard-content .show {
+        font-size:1.1em;
+        color:white;
+    }
+
+
+
+
+.dashboard-box-primary .dashboard-box {
+    background:#0094ff;
+    }
+
+.dashboard-box-warning .dashboard-box {
+
+  background: #E67E22;
+ }
+ 
+
+
+.dashboard-box-success .dashboard-box {
+
+  background: #1abc9c;
+ }
+ 
+
+
+
+
+
+</style>
 <div class="container">
-    <div class="home">
-        <i class="fa fa-bell-o"></i>
-        <span>@((Session["user"] as User).name)</span>
-        <span>，欢迎使用德晋HR系统</span>
+    <div class="row" style="margin-top:20px;">
+        <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-default">
+            <div class="dashboard-box" title="点击查看用户">
+                <a href="/User">
+                    <div class="dashboard-icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+
+                    <div class="dashboard-content">
+                        <p>试用期/全部员工</p>
+                        <div class="show"><span id="ontrailnum">试用期</span>/<span id="sum">总人数</span></div>
+
+                    </div>
+                   
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-primary">
+            <div class="dashboard-box" title="点击查看设备信息">
+                <a href="/Device">
+                    <div class="dashboard-icon">
+                        <i class="fa fa-server "></i>
+                    </div>
+
+                    <div class="dashboard-content">
+                        <p>试用期/全部员工</p>
+                        <div class="show"><span id="ontrailnum">试用期</span>/<span id="sum">总人数</span></div>
+
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-warning">
+            <div class="dashboard-box" title="点击查看银行">
+                <a href="/Bank">
+                    <div class="dashboard-icon">
+                        <i class="fa fa-bank"></i>
+                    </div>
+
+                    <div class="dashboard-content">
+                        <p>试用期/全部员工</p>
+                        <div class="show"><span id="ontrailnum">试用期</span>/<span id="sum">总人数</span></div>
+
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-success">
+            <div class="dashboard-box" title="点击查看4S店">
+                <a href="/Shop">
+                    <div class="dashboard-icon">
+                        <i class="fa fa-car"></i>
+                    </div>
+
+                    <div class="dashboard-content">
+                        <p>试用期/全部员工</p>
+                        <div class="show"><span id="ontrailnum">试用期</span>/<span id="sum">总人数</span></div>
+
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
+
+
 </div>
