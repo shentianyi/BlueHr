@@ -9,5 +9,6 @@ namespace BlueHrLib.Data.Repository.Interface
     interface IMessageRecordRepository
     {
         int CountUnRead();
+        int CountToEmployees();
     }
 }

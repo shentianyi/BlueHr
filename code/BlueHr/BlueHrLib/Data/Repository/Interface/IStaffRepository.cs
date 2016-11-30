@@ -41,5 +41,6 @@ namespace BlueHrLib.Data.Repository.Interface
         int countStaffOntrail();
         int countStaffOff();
         int countStaffOn();
+        int CountStaffBirthday();
     }
 }

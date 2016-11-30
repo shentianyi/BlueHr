@@ -18,7 +18,7 @@ namespace BlueHrLib.Service.Implement
     public class MessageRecordService : ServiceBase, IMessageRecordService
     {
         public MessageRecordService(string dbString) : base(dbString) { }
-
+        private IMessageRecordRepository rep;
         /// <summary>
         /// 创建信息
         /// </summary>
@@ -216,7 +216,7 @@ namespace BlueHrLib.Service.Implement
             IQueryable<MessageRecordView> q = dc.Context.GetTable<MessageRecordView>();
             // q = q.Where(s => s.messageCategory==(int)catetory);
 
-            q = q.Where(s => s.messageType == 201);
+            q = q.Where(s => s.messageType == 303);
             if (searchModel != null)
             {
                 if (!string.IsNullOrEmpty(searchModel.StaffNr))
@@ -260,6 +260,11 @@ namespace BlueHrLib.Service.Implement
             {
                 return null;
             }
+        }
+
+        public int CountToEmployees()
+        {
+            return rep.CountToEmployees();
         }
     }
 }

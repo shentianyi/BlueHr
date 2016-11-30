@@ -123,24 +123,35 @@ namespace BlueHrWeb.Controllers
             //}
         }
 
-        //[RoleAndDataAuthorizationAttribute]
-        //public ActionResult EasyCreate(DateTime startTime, DateTime endTime,string staffNr,int shiftId)
-        //{
-        //    ResultMessage msg = new ResultMessage();
-        //    try
-        //    {
-        //        if (string.IsNullOrWhiteSpace(Convert.IsDBNull(startTime)))
-        //        {
-        //            ViewBag.msg = "Vin 不能为空";
-        //            return View();
-        //        }
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult EasyCreate([Bind(Include = "shiftId,staffNr,scheduleAt")] ShiftSchedule model, DateTime startTime, DateTime endTime)
+        {
+            ResultMessage msg = new ResultMessage();
+            try
+            {
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //    }
-        //}
+                if (Convert.IsDBNull(startTime))
+                {
+                    ViewBag.msg = "起始日期 不能为空";
+                    return View();
+                }
+                if (Convert.IsDBNull(endTime))
+                {
+                    ViewBag.msg = "截止日期 不能为空";
+                    return View();
+                }
+                IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+                bool isSucceed = cs.EasyCreate(model, startTime, endTime);
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "" : "添加失败";
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.msg = "添加失败,失败原因："+ ex;
+                return View();
+            }
+        }
         // GET: ShiftShedule/Edit/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
