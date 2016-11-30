@@ -34,8 +34,7 @@
  .dashboard-box .dashboard-content {
     width: 196px;
     padding: 10px 0;
-    text-indent:-20px;
-    margin-left: 20%; 
+    margin-left: 30px;
  }
 
 .dashboard-content p {
@@ -64,15 +63,9 @@
  }
 
  .quick_enter{
-    //border: 1px solid #2980b9;
-    //border-radius: 100%;
     padding:10px;
-    //margin-left: 10px;
-    //margin-right: 10px;
     text-align:center;
-    //max-width: 90px;
     height: 90px;
-
  }
 
  .quick_enter i{
@@ -103,25 +96,27 @@
         </div>
 
         <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-primary">
-            <div class="dashboard-box" title="点击查看公司列表">
-                <a href="/Company/Index">
+            <div class="dashboard-box" title="公司部门">
+                <a href="/Company/TreeShow">
                     <div class="dashboard-icon">
-                        <i class="fa fa-bank "></i>
+                        <i class="fa fa-bank"></i>
                     </div>
 
                     <div class="dashboard-content">
-                        <p id="companyName"></p>
-                        <div class="show"><span id="departmentNum"></span></div>
+                        <p id="companyName"> </p>
+                        <div class="show">
+                            <span id="departmentNum">  </span>
+                        </div>
                     </div>
                 </a>
             </div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-warning">
+         <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-warning">
             <div class="dashboard-box" title="友情提醒">
-                <a href="/Bank">
+                <a href="/Staff/Search?isOnTrail=1">
                     <div class="dashboard-icon">
-                        <i class="fa fa-bank"></i>
+                        <i class="fa fa-user"></i>
                     </div>
 
                     <div class="dashboard-content">
@@ -131,11 +126,12 @@
                 </a>
             </div>
         </div>
+
         <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-success">
             <div class="dashboard-box" title="点击查看生日员工">
-                <a href="/Shop">
+                <a href="/Staff/Index">
                     <div class="dashboard-icon">
-                        <i class="fa fa-user"></i>
+                        <i class="fa fa-birthday-cake"></i>
                     </div>
 
                     <div class="dashboard-content">
