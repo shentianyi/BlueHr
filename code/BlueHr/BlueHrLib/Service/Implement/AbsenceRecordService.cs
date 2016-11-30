@@ -95,20 +95,20 @@ namespace BlueHrLib.Service.Implement
             return rep.GetAllTableName();
         }
 
-        public int countStaffAbsence(DateTime d1, DateTime d2)
+        public int countStaffAbsence(DateTime StartTime, DateTime EndTime)
         {
-            return rep.countStaffAbsence(d1,d2);
+            return rep.countStaffAbsence(StartTime, EndTime);
         }
 
-        public int countStaffLate(DateTime d1, DateTime d2)
+        public int countStaffLate(DateTime StartTime, DateTime EndTime)
         {
-            return rep.countStaffLate(d1, d2);
+            return rep.countStaffLate(StartTime, EndTime);
 
         }
 
-        public int countStaffLeave(DateTime d1, DateTime d2)
+        public int countStaffLeave(DateTime StartTime, DateTime EndTime)
         {
-            return rep.countStaffLeave(d1, d2);
+            return rep.countStaffLeave(StartTime, EndTime);
 
         }
     }

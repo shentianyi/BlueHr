@@ -58,5 +58,15 @@ namespace BlueHrLib.Service.Implement
         {
             return companyRep.GetAllTableName();
         }
+
+        public int countDepartment(int companyId)
+        {
+            return companyRep.countDepartment(companyId);
+        }
+
+        public List<Company> GetAll()
+        {
+            return companyRep.GetAll();
+        }
     }
 }
