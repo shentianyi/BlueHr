@@ -28,7 +28,8 @@ namespace BlueHrLib.Data.Model.Search
 
         public DateTime? CompanyEmployAtFrom { get; set; }
         public DateTime? CompanyEmployAtTo { get; set; }
-
+        public DateTime? BirthdayFrom { get; set; }
+        public DateTime? BirthdayTo { get; set; }
         public bool? IsOnTrial { get; set; }
 
         public int? WorkStatus { get; set; }

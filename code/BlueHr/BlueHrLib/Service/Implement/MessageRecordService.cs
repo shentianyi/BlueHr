@@ -18,7 +18,7 @@ namespace BlueHrLib.Service.Implement
     public class MessageRecordService : ServiceBase, IMessageRecordService
     {
         public MessageRecordService(string dbString) : base(dbString) { }
-
+        private IMessageRecordRepository rep;
         /// <summary>
         /// 创建信息
         /// </summary>
@@ -260,6 +260,11 @@ namespace BlueHrLib.Service.Implement
             {
                 return null;
             }
+        }
+
+        public int CountToEmployees()
+        {
+            return rep.CountToEmployees();
         }
     }
 }

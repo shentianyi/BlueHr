@@ -671,7 +671,6 @@
     <Content Include="Views\SysOpera\Index.cshtml" />
     <Content Include="Views\SysOpera\_PartialSysRole.cshtml" />
     <Content Include="Views\Company\TreeShow - 复制.cshtml" />
-    <Content Include="Views\ShiftSchedule\EasyCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
