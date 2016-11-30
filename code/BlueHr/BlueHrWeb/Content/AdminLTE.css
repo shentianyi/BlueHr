@@ -2419,7 +2419,7 @@ a:focus {
 .nav > li > a:hover,
 .nav > li > a:active,
 .nav > li > a:focus {
-  color: #444;
+  color: #00acd6;
   background: #f7f7f7;
 }
 /* NAV PILLS */

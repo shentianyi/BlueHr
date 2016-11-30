@@ -1,9 +1,10 @@
 ﻿.login {
-  margin-top: 60px;
+  margin-top: 100px;
   text-align: center;
-  border: 2px solid #3498db;
+  border: 2px solid #0026ff;
   border-radius: 30px;
-  min-width: 500px;
+ box-shadow: 2px 2px 10px #3c8dbc;
+  min-width: 400px;
   padding: 20px; }
   .login .login-heading {
     margin-top: 30px; }
@@ -153,12 +154,12 @@
       text-decoration: none; }
 
 .marco-btn-success {
-  min-width: 60px;
+  min-width: 100px;
   padding: 4px 9px;
   margin: 5px 0;
-  background: #16a085;
+  background: #2980b9;
   color: #f5f5f5;
-  border: 1px solid #16a085; }
+  border: 1px solid #2980b9; }
   .marco-btn-success:hover, .marco-btn-success:link {
     outline: none; }
   .marco-btn-success:active {
@@ -418,7 +419,7 @@
       color: #3498db; }
 
 .marco-igroup-success {
-  border: 1px solid #16a085;
+  border: 1px solid #2980b9;
   display: table;
   margin: 5px 0;
   height: 40px; }
@@ -427,7 +428,7 @@
     min-width: 60px;
     padding: 4px 10px;
     display: table-cell;
-    background: #16a085;
+    background: #2980b9;
     color: #f2f2f2;
     font-weight: bold;
     text-align: center;
@@ -558,35 +559,53 @@
     line-height: 30px;
     padding: 5px;
     font-size: 1.3em;
-    background: #ecf0f1;
-    color: #34495e; }
+    background: #2980b9;
+    color: #fff;
+
+  }
     .marco-npanel-normal .marco-nheading i {
       cursor: pointer;
-      color: #e74c3c; }
+      color: #e74c3c; 
+
+    }
       .marco-npanel-normal .marco-nheading i:hover {
-        color: #34495e; }
+        color: #34495e;
+
+      }
   .marco-npanel-normal .marco-nbody {
     padding: 5px;
-    min-height: 40px; }
+    min-height: 40px; 
+
+  }
 
 .marco-npanel-default {
   margin-top: 10px;
-  border: 2px solid #2c3e50; }
+  border: 2px solid #2c3e50; 
+
+}
   .marco-npanel-default .marco-nheading {
     height: 40px;
     line-height: 30px;
     padding: 5px;
     font-size: 1.3em;
     background: #34495e;
-    color: #f2f2f2; }
+    color: #f2f2f2; 
+
+  }
     .marco-npanel-default .marco-nheading i {
       cursor: pointer;
-      color: #e74c3c; }
+      color: #e74c3c; 
+
+    }
       .marco-npanel-default .marco-nheading i:hover {
-        color: #f2f2f2; }
+        color: #f2f2f2;
+
+      }
   .marco-npanel-default .marco-nbody {
     padding: 5px;
-    min-height: 40px; }
+    min-height: 40px; 
+
+  }
 
 .marco-npanel-primary {
   margin-top: 10px;
@@ -806,13 +825,13 @@
     width: 24px;
     height: 24px;
     border-radius: 4px;
-    border: 2px solid #E67E22;
+    border: 2px solid #2980b9;
     line-height: 20px;
     vertical-align: middle;
-    color: #E67E22;
+    color: #2980b9;
     padding-left: 2px; }
     .option-icon-warning i:hover {
-      background: #E67E22;
+      background: #2980b9;
       color: #ecf0f1; }
     .option-icon-warning i[disabled] {
       border-color: #bdc3c7;
@@ -1152,6 +1171,8 @@
       text-align: center; }
       .marco-tabs-default ul li a:hover, .marco-tabs-default ul li a:link, .marco-tabs-default ul li a:active {
         cursor: pointer;
+        font-weight:500;
+        /*color:#000;*/
         background: transparent;
         border-color: #2980b9;
         border-bottom: #2980b9; }
@@ -1168,13 +1189,17 @@
   .marco-tabs-default ul .active a {
     padding: 5px;
     border: none;
-    background-color: #2980b9; }
+    background-color: #2980b9; 
+    color:#fff;
+  }
     .marco-tabs-default ul .active a:hover, .marco-tabs-default ul .active a:link, .marco-tabs-default ul .active a:active {
       border: none;
       border-top: 1px solid #2980b9;
       cursor: default;
       background: #2980b9;
-      color: #ddd; }
+      color:#fff; 
+
+    }
       .marco-tabs-default ul .active a:hover:first-child, .marco-tabs-default ul .active a:link:first-child, .marco-tabs-default ul .active a:active:first-child {
         border-left: 1px solid #2980b9; }
   .marco-tabs-default ul .active .badge {

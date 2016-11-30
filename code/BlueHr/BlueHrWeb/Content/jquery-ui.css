@@ -899,10 +899,10 @@ body .ui-tooltip {
     border-color: transparent;
 }
 .ui-widget.ui-widget-content {
-	border: 1px solid #c5c5c5;
+	border: 1px solid #000;
 }
 .ui-widget-content {
-	border: 1px solid #dddddd;
+	border: 1px solid #000;
 	background: #ffffff;
 	color: #333333;
 }
@@ -910,9 +910,9 @@ body .ui-tooltip {
 	color: #333333;
 }
 .ui-widget-header {
-	border: 1px solid #dddddd;
-	background: #aaaaaa;
-	color: #333333;
+	border: 1px solid #000;
+	background: #3c8dbc;
+	color: #000;
 	font-weight: bold;
 }
 .ui-widget-header a {
