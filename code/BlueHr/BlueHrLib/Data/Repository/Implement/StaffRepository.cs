@@ -130,6 +130,15 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 staffs = staffs.Where(c => c.companyEmployAt < searchModel.CompanyEmployAtTo);
             }
+            if (searchModel.BirthdayFrom.HasValue)
+            {
+                staffs = staffs.Where(c => c.birthday > searchModel.BirthdayFrom);
+            }
+
+            if (searchModel.BirthdayTo.HasValue)
+            {
+                staffs = staffs.Where(c => c.birthday < searchModel.BirthdayTo);
+            }
 
             if (searchModel.IsOnTrial.HasValue)
             {
@@ -435,6 +444,13 @@ namespace BlueHrLib.Data.Repository.Implement
         public int countStaffOn()
         {
             int q = this.context.Staffs.Where(s => s.workStatus == 100).Where(s => s.isOnTrial == false).Count();
+            return q;
+        }
+
+        public int CountStaffBirthday()
+        {
+            string a = System.DateTime.Today.ToString("MM-dd");
+            int q = this.context.Staffs.Where(s => s.birthday.ToString().Contains(a)).Count();
             return q;
         }
     }

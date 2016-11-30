@@ -340,6 +340,11 @@ namespace BlueHrLib.Service.Implement
 
         }
 
+        public int CountStaffBirthday()
+        {
+            return staffRep.CountStaffBirthday();
+        }
+
         //public List<Staff> getStaffUserIDCard()
         //{
         //    return staffRep.getStaffUserIDCard();

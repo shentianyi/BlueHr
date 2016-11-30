@@ -109,5 +109,6 @@ namespace BlueHrLib.Service.Interface
         int countStaffOntrail();
         int countStaffOff();
         int countStaffOn();
+        int CountStaffBirthday();
     }
 }

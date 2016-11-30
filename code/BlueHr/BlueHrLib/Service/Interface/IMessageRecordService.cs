@@ -66,6 +66,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="staffNr"></param>
         /// <param name="operatorId"></param>
         void CreateStaffShiftJobMessage(string staffNr, int operatorId, string oldJobStr, string newJobStr);
+        int CountToEmployees();
 
 
         /// <summary>

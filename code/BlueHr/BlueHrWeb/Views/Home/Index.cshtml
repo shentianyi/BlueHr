@@ -125,8 +125,8 @@
                     </div>
 
                     <div class="dashboard-content">
-                        <p>将转正 /  待转正</p>
-                        <div class="show"><span id="ontrailnum">试用期</span>/<span id="waitNum">总人数</span></div>
+                        <p>将转正 / 待转正</p>
+                        <div class="show"><span id="willNum"> </span>/<span id="waitNum">  </span></div>
                     </div>
                 </a>
             </div>
@@ -140,7 +140,7 @@
 
                     <div class="dashboard-content">
                         <p>今天生日</p>
-                        <div class="show"><span id="birthDayNum"></span></div>
+                        <div class="show"><span id="birthDayNum">开发中</span></div>
                     </div>
                 </a>
             </div>
@@ -221,6 +221,17 @@
 </div>
 
 <script type="text/javascript">
+    $.ajax({
+        url:'/MessageRecord/CountToEmployees',
+        type:'get',
+        success:function(data){
+            $("#willNum").html(data.即将转正 + "人");
+        },
+        error:function(){
+            console.log("CCCCCCCC");
+        }
+    });
+
     $.ajax({
         url:'/Staff/CountStaff',
         type:'get',
