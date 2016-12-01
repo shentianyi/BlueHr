@@ -43,7 +43,8 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 .login{
     margin-top: 60px;
     text-align:center;
-    border: 2px solid $peter-river;
+    border: 2px solid #0044ff;
+     box-shadow:2px 2px 14px #0044ff;
     border-radius: 30px;
     min-width: 500px;
     padding: 20px;

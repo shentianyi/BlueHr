@@ -3,11 +3,10 @@
   margin-top: 60px;
   text-align: center;
   border: 2px solid #0044ff;
-  box-shadow:2px 2px 14px #0044ff;
+  box-shadow: 2px 2px 14px #0044ff;
   border-radius: 30px;
   min-width: 500px;
-  padding: 20px;
-  }
+  padding: 20px; }
   .login .login-heading {
     margin-top: 30px; }
     .login .login-heading i {
@@ -159,18 +158,18 @@
   min-width: 60px;
   padding: 4px 9px;
   margin: 5px 0;
-  background: #3c8dbc;
+  background: #16a085;
   color: #f5f5f5;
-  border: 1px solid #3c8dbc; }
+  border: 1px solid #16a085; }
   .marco-btn-success:hover, .marco-btn-success:link {
     outline: none; }
   .marco-btn-success:active {
-    border: 1px solid #3498db;
+    border: 1px solid #16a085;
     background: #f5f5f5;
-    color: #3498db;
+    color: #16a085;
     outline: none; }
     .marco-btn-success:active a {
-      color: #3498db; }
+      color: #16a085; }
   .marco-btn-success[disabled] {
     cursor: not-allowed;
     background: #999;
@@ -421,7 +420,7 @@
       color: #3498db; }
 
 .marco-igroup-success {
-  border: 1px solid #3c8dbc;
+  border: 1px solid #16a085;
   display: table;
   margin: 5px 0;
   height: 40px; }
@@ -430,7 +429,7 @@
     min-width: 60px;
     padding: 4px 10px;
     display: table-cell;
-    background: #3c8dbc;
+    background: #16a085;
     color: #f2f2f2;
     font-weight: bold;
     text-align: center;
