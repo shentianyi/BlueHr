@@ -1,18 +1,18 @@
 ﻿@using BlueHrWeb.Models
-@model LoginViewModel
+@*@model LoginViewModel
 @{
     ViewBag.Title = "德晋HR系统";
 }
 
-<div class="container">
+@*<div class="container">
     <section id="loginForm">
         @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
-        {
-            @Html.AntiForgeryToken()
+        {*@
+            @*@Html.AntiForgeryToken()
 
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
 
-            <div class="login">
+            @*<div class="login">
                 <div style="color:#2980b9;font-family:'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:30px;font-weight:800;">欢迎登录</div>
                 <div class="login-heading">
                     <i class="fa fa-key fa-5x fa-spin"></i>
@@ -22,8 +22,7 @@
 
                 <div class="login-body row">
                     <div class="col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4 col-offset-3 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-success">
-                            @*@Html.LabelFor(m => m.Email)*@
+                        <div class="marco-igroup-success">                            
                             <span>邮箱</span>
                             @Html.EditorFor(m => m.Email)
                         </div>
@@ -45,10 +44,10 @@
                         登录
                     </button>
                 </div>
-            </div>
-        }
+            </div>*@
+        @*}
     </section>
-</div>
+</div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

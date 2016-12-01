@@ -925,13 +925,12 @@ a:focus {
 .dropdown-menu > li > a > .ion {
   margin-right: 10px;
 }
-.dropdown-menu > li > a:hover {
-  background-color: #e1e3e9;
+/*.dropdown-menu > li > a:hover {
   color: #333;
-}
-.dropdown-menu > .divider {
+}*/
+/*.dropdown-menu > .divider {
   background-color: #eee;
-}
+}*/
 .navbar-nav > .notifications-menu > .dropdown-menu,
 .navbar-nav > .messages-menu > .dropdown-menu,
 .navbar-nav > .tasks-menu > .dropdown-menu {

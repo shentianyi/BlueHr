@@ -45,13 +45,10 @@ body{
 
 .login{
     margin-top: 60px;
-    text-align:center;
-    border: 2px solid #0044ff;
-     box-shadow:2px 2px 14px #0044ff;
-    border-radius: 30px;
+    text-align:center;   
     min-width: 500px;
     padding: 20px;
-    .login-heading{
+.login-heading{
         margin-top: 30px;
         i{
             border:2px solid $peter-river;
@@ -67,25 +64,23 @@ body{
             color: $brlize-hole;
         }
     }
-
-    .login-body{
-        margin-top: 20px;
-        div{
-            margin-top: 10px;
+.login-body{
+    margin-top: 20px;
+    div{
+        margin-top: 10px;
+    }
+}
+.login-footer{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    button{
+        width: 100px;
+        height: 40px;
+        i{
+            margin-right:10px;
         }
     }
-
-    .login-footer{
-        margin-top: 20px;
-        margin-bottom: 40px;
-        button{
-            width: 100px;
-            height: 40px;
-            i{
-                margin-right:10px;
-            }
-        }
-    }
+}
 }
 
 .home{
