@@ -4,12 +4,15 @@
 @using BlueHrWeb.Helpers.View
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "员工信息";
 }
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>员工管理</li>
+    <li>
+        <strong>员工信息</strong>
+    </li>
 </ol>
 
 <hr class="hr-grey" />
@@ -468,14 +471,14 @@
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
     })
 
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
   
     $('#off_staff').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
     $('#off_staff').removeClass("active");
 
     $('#all_staff').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
     $('#all_staff').removeClass("active");
 
     Layout.CompanyAndDepartment('#companyId', '#departmentId');

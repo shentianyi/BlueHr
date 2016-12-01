@@ -36,38 +36,30 @@
         width:300px;     
     }     
     .wrap {
-        margin:130px auto;
+        margin:100px auto;
     }
 </style>
 
-
+@*修改密码界面*@
 <div class="container">
-
-    <div style="width:800px;height:400px;border:2px solid #0044ff; border-radius:14px; box-shadow: 2px 2px 14px #0026ff;" class="wrap">
+    <div style="width:800px;height:400px;border:1px solid #808080; border-radius:2px 80px 2px 80px; box-shadow: 0px 0px 24px #000;" class="wrap">
         <h4 style="color:red">@ViewBag.error</h4>
         <form action="/user/changepwd/" method="post">
-
             <div class="marco-igroup-primary1 marco-igroup-primary">
                 <span>密码</span>
-                <input type="text" value="" name="pwd" id="pwd" placeholder="请输入新密码"/>
+                <input type="password" value="" name="pwd" id="pwd" placeholder="请输入新密码"/>
             </div>
             <div class="marco-igroup-primary2 marco-igroup-primary">
                 <span>密码确认</span>
-                <input type="text" value="" name="pwdcompare" id="pwdcompare" placeholder="请再次输入新密码"/>
+                <input type="password" value="" name="pwdcompare" id="pwdcompare" placeholder="请再次输入新密码"/>
             </div>
-            <input type="hidden" value="@ViewBag.id" name="id" id="id" />
-
-            @*<span>密&nbsp;&nbsp;&nbsp;码：  <input type="text" value="" name="pwd" id="pwd" /></span>
-            <span>密码确认： <input type="text" value="" name="pwdcompare" id="pwdcompare" /></span>
-            <input type="hidden" value="@ViewBag.id" name="id" id="id" />*@
+            <input type="hidden" value="@ViewBag.id" name="id" id="id" />     
             <div style="text-align:center;">
-                    
-                <input type="submit" class="marco-btn-primary" value="确 认" />
+                <input type="submit" class="marco-btn-primary" value="确 认" style="width:60px;border-radius:4px;"/>
                 <a href="/User/Index/">
-                    <input type="button" class="marco-btn-primary" value="返 回" />
+                    <input type="button" class="marco-btn-primary" value="返 回" style="width:60px;border-radius:4px;margin-left:10px;"/>
                 </a>
             </div>
         </form>
     </div>
-    
 </div>

@@ -308,6 +308,7 @@
     </Content>
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\highcharts.css" />
+    <Content Include="Images\background.jpg" />
     <Content Include="Images\treeIcon\diy\company.png" />
     <Content Include="Scripts\Go\DataInspector.js" />
     <Content Include="Scripts\Go\go-icons.js" />

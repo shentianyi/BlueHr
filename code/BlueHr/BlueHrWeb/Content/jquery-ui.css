@@ -911,12 +911,12 @@ body .ui-tooltip {
 }
 .ui-widget-header {
 	border: 1px solid #000;
-	background: #3c8dbc;
-	color: #000;
+	background: #367fa9;
+	color: #fff;
 	font-weight: bold;
 }
 .ui-widget-header a {
-	color: #333333;
+	color: #fff;
 }
 
 /* Interaction states
@@ -1300,6 +1300,7 @@ a.ui-button:active,
 .ui-corner-right,
 .ui-corner-br {
 	border-bottom-right-radius: 3px;
+    color:#fff;
 }
 
 /* Overlays */
