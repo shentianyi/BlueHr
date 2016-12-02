@@ -1,0 +1,118 @@
+﻿@model BlueHrLib.Data.RewardsAndPenalties
+
+<div id="rewardsandpenalties" style="margin:10px;">
+    <ol class="breadcrumb current-position">
+        您的位置：  
+        <li>@Html.ActionLink("奖惩管理", "Index")</li>
+        <li>{{action}}</li>
+    </ol>
+
+    <hr class="hr-grey" />
+
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        if (Model != null)
+        {
+            @Html.HiddenFor(model => model.id)
+        }
+
+        <div class="marco-npanel-primary">
+            <div class="marco-nheading">
+                {{action}}
+
+                <div class="pull-right">
+                    <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;">
+                        <i class="fa fa-check-circle-o"></i>
+                        <span>{{actionBtn}}</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>工号</span>
+                        @Html.EditorFor(model => model.funCode)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>姓名</span>
+                        @Html.EditorFor(model => model.funCode)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>性别</span>
+                        @Html.EditorFor(model => model.funCode)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>所属部门</span>
+                        @Html.EditorFor(model => model.funCode)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>奖惩类型</span>
+                        @Html.EditorFor(model => model.funCode)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>奖惩项目</span>
+                        @Html.EditorFor(model => model.funCode)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>奖惩描述</span>
+                        @Html.EditorFor(model => model.funCode)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>奖惩日期</span>
+                        <input type="text" name="rewardsandpenaltiesAt" placeholder="日期" class="date-picker" value="@Model.scheduleAtStr" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>审批人</span>
+                        @Html.EditorFor(model => model.funCode)
+                    </div>
+                </div>             
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    Layout.init();
+
+    //控制textarea高度
+    $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+    $(window).resize(function () {
+        $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+    });
+
+    //Layout.datepicker('.datetimepicker');
+    Layout.datepicker('.date-picker');
+
+    //回调函数
+    function post_return_action(data) {
+
+        if (!data.Success) {
+            Layout.popMsg('popMsg-danger', data.Content);
+            return false;
+        }
+        else {
+
+            location.href = '/RewardsAndPenalties/Index';
+        }
+    }
+</script>

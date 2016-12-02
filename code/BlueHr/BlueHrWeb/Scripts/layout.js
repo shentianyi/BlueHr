@@ -78,7 +78,7 @@ Layout.init = function () {
             $('.nav-basic').addClass('active');
             PageAction('#degreetype', '新建学历', '编辑学历', '学历详情', '创建', '更新', '删除');
             break;
-        case "StaffType":period
+        case "StaffType":
             $('.nav-basic').addClass('active');
             PageAction('#stafftype', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
             break;

@@ -724,10 +724,21 @@
     <Content Include="Views\Company\TreeShow.cshtml" />
     <Content Include="Views\Company\TreeShow - 复制%282%29.cshtml" />
     <Content Include="Views\MessageRecord\ToEmployees.cshtml" />
+    <Content Include="Views\RewardsAndPenalties\Index.cshtml" />
+    <Content Include="Views\RewardsAndPenalties\Edit.cshtml" />
+    <Content Include="Views\RewardsAndPenalties\Delete.cshtml" />
+    <Content Include="Views\RewardsAndPenalties\Create.cshtml" />
+    <Content Include="Views\RewardsAndPenalties\_PartialRewardsAndPenalties.cshtml" />
+    <Content Include="Views\Recruit\Index.cshtml" />
+    <Content Include="Views\Recruit\Edit.cshtml" />
+    <Content Include="Views\Recruit\Delete.cshtml" />
+    <Content Include="Views\Recruit\Create.cshtml" />
+    <Content Include="Views\Recruit\_PartialRecruit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="UploadImage\" />
+    <Folder Include="Views\StaffType\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
