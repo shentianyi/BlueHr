@@ -697,6 +697,7 @@ body{
 
             &:first-child{
                 margin-left:0;
+
             }
         }
         .active{
@@ -723,9 +724,8 @@ body{
         min-height: 100px;
         border: 1px solid $marco-active-bg;
         padding: 5px;
-        /*font-size: 12px;*/
-        /*border-radius: 5px;*/
-        /*border-top-left-radius: 0;*/
+
+
         .tab-pane{
             &>span{
                 color:$marco-active-font;
@@ -734,6 +734,7 @@ body{
                 margin-top:5px;
             }
         }
+
         ul{
             list-style:none;
             padding-left:0;

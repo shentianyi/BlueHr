@@ -1196,10 +1196,7 @@ body {
 .marco-tabs-default .tab-content {
   min-height: 100px;
   border: 1px solid #2980b9;
-  padding: 5px;
-  /*font-size: 12px;*/
-  /*border-radius: 5px;*/
-  /*border-top-left-radius: 0;*/ }
+  padding: 5px; }
   .marco-tabs-default .tab-content .tab-pane > span {
     color: #ddd; }
   .marco-tabs-default .tab-content .tab-pane > table {
@@ -1259,10 +1256,7 @@ body {
 .marco-tabs-dark .tab-content {
   min-height: 100px;
   border: 1px solid #2980b9;
-  padding: 5px;
-  /*font-size: 12px;*/
-  /*border-radius: 5px;*/
-  /*border-top-left-radius: 0;*/ }
+  padding: 5px; }
   .marco-tabs-dark .tab-content .tab-pane > span {
     color: #bdc3c7; }
   .marco-tabs-dark .tab-content .tab-pane > table {
@@ -1322,10 +1316,7 @@ body {
 .marco-tabs-success .tab-content {
   min-height: 100px;
   border: 1px solid #1abc9c;
-  padding: 5px;
-  /*font-size: 12px;*/
-  /*border-radius: 5px;*/
-  /*border-top-left-radius: 0;*/ }
+  padding: 5px; }
   .marco-tabs-success .tab-content .tab-pane > span {
     color: #1abc9c; }
   .marco-tabs-success .tab-content .tab-pane > table {
@@ -1385,10 +1376,7 @@ body {
 .marco-tabs-normal .tab-content {
   min-height: 100px;
   border: 1px solid #2980b9;
-  padding: 5px;
-  /*font-size: 12px;*/
-  /*border-radius: 5px;*/
-  /*border-top-left-radius: 0;*/ }
+  padding: 5px; }
   .marco-tabs-normal .tab-content .tab-pane > span {
     color: #2980b9; }
   .marco-tabs-normal .tab-content .tab-pane > table {
