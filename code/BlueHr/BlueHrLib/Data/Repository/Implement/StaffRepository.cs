@@ -429,18 +429,18 @@ namespace BlueHrLib.Data.Repository.Implement
             return staffs;
         }
 
-        public int CountStaffBirthday()
+        public List<Staff> StaffBirthday()
         {
             string a = System.DateTime.Today.ToString("M/d");
+            List<Staff> result = new List<Staff>();
             //var q = this.context.Staffs.Where(s => s.birthday.ToString().Contains(a)).Count();
             var q = this.context.Staffs.ToList();
-            int count = 0;
             foreach (var i in q)
             {
                 string show = i.birthday.ToString();
-                if (show.Contains(a)) count++;
+                if (show.Contains(a)) result.Add(i);
             }
-            return count;
+            return result;
         }
 
         public Dictionary<string, string> StaffCount()
@@ -554,6 +554,11 @@ namespace BlueHrLib.Data.Repository.Implement
             {
             return null;
             }
+        }
+
+        public List<Staff> ToEmployeesDetail(int v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

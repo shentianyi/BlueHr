@@ -18,7 +18,7 @@ using BlueHrWeb.CustomAttributes;
 
 namespace BlueHrWeb.Controllers
 {
-    public class RewardsAndPenaltiesController : Controller
+    public class RewardsAndPenaltyController : Controller
     {
         [UserAuthorize]
         [RoleAndDataAuthorizationAttribute]
@@ -26,30 +26,30 @@ namespace BlueHrWeb.Controllers
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
 
-            RewardsAndPenaltiesSearchModel q = new RewardsAndPenaltiesSearchModel();
+            RewardsAndPenaltySearchModel q = new RewardsAndPenaltySearchModel();
 
-            IRewardsAndPenaltiesService raps = new RewardsAndPenaltiesService(Settings.Default.db);
+            IRewardsAndPenaltyService raps = new RewardsAndPenaltyService(Settings.Default.db);
 
-            IPagedList<RewardsAndPenalties> rewardsAndPenalties = raps.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<RewardsAndPenalty> rewardsAndPenalties = raps.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
-            RewardsAndPenaltiesInfoModel info = raps.GetRewardsAndPenaltiesInfo(q);
+            RewardsAndPenaltyInfoModel info = raps.GetRewardsAndPenaltyInfo(q);
             ViewBag.Info = info;
 
             return View(rewardsAndPenalties);
         }
 
         [RoleAndDataAuthorizationAttribute]
-        public ActionResult Search([Bind(Include = "Name")] RewardsAndPenaltiesSearchModel q)
+        public ActionResult Search([Bind(Include = "Name")] RewardsAndPenaltySearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
-            IRewardsAndPenaltiesService raps = new RewardsAndPenaltiesService(Settings.Default.db);
+            IRewardsAndPenaltyService raps = new RewardsAndPenaltyService(Settings.Default.db);
 
-            IPagedList<RewardsAndPenalties> rewardsAndPenalties = raps.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<RewardsAndPenalty> rewardsAndPenalties = raps.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
@@ -57,14 +57,14 @@ namespace BlueHrWeb.Controllers
         }
 
 
-        // GET: RewardsAndPenalties/Details/5
+        // GET: RewardsAndPenalty/Details/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: RewardsAndPenalties/Create
+        // GET: RewardsAndPenalty/Create
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
@@ -72,10 +72,10 @@ namespace BlueHrWeb.Controllers
             return View();
         }
 
-        // POST: RewardsAndPenalties/Create
+        // POST: RewardsAndPenalty/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Create([Bind(Include = "nr,name,sex,companyId,departmentId,type,project,description,datetime,approver")] RewardsAndPenalties rewardsAndPenalties)
+        public JsonResult Create([Bind(Include = "staffNr,staffName,staffSex,companyId,departmentId,type,project,description,createAt,userId")] RewardsAndPenalty rewardsAndPenalties)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -89,7 +89,7 @@ namespace BlueHrWeb.Controllers
                 }
                 else
                 {
-                    IRewardsAndPenaltiesService raps = new RewardsAndPenaltiesService(Settings.Default.db);
+                    IRewardsAndPenaltyService raps = new RewardsAndPenaltyService(Settings.Default.db);
                     bool isSucceed = raps.Create(rewardsAndPenalties);
                     msg.Success = isSucceed;
                     msg.Content = isSucceed ? "" : "添加失败";
@@ -103,23 +103,23 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        // GET: RewardsAndPenalties/Edit/5
+        // GET: RewardsAndPenalty/Edit/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
-            IRewardsAndPenaltiesService cs = new RewardsAndPenaltiesService(Settings.Default.db);
+            IRewardsAndPenaltyService cs = new RewardsAndPenaltyService(Settings.Default.db);
 
-            RewardsAndPenalties rewardsAndPenalties = cs.FindById(id);
+            RewardsAndPenalty rewardsAndPenalties = cs.FindById(id);
 
             SetDropDownList(rewardsAndPenalties);
 
             return View(rewardsAndPenalties);
         }
 
-        // POST: RewardsAndPenalties/Edit/5
+        // POST: RewardsAndPenalty/Edit/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Edit([Bind(Include = "nr,name,sex,companyId,departmentId,type,project,description,datetime,approver")] RewardsAndPenalties rewardsAndPenalties)
+        public JsonResult Edit([Bind(Include = "nr,name,sex,companyId,departmentId,type,project,description,datetime,approver")] RewardsAndPenalty rewardsAndPenalties)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -133,7 +133,7 @@ namespace BlueHrWeb.Controllers
                 }
                 else
                 {
-                    IRewardsAndPenaltiesService raps = new RewardsAndPenaltiesService(Settings.Default.db);
+                    IRewardsAndPenaltyService raps = new RewardsAndPenaltyService(Settings.Default.db);
                     bool isSucceed = raps.Update(rewardsAndPenalties);
 
                     msg.Success = isSucceed;
@@ -148,18 +148,18 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        // GET: RewardsAndPenalties/Delete/5
+        // GET: RewardsAndPenalty/Delete/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
-            IRewardsAndPenaltiesService raps = new RewardsAndPenaltiesService(Settings.Default.db);
+            IRewardsAndPenaltyService raps = new RewardsAndPenaltyService(Settings.Default.db);
 
-            RewardsAndPenalties rewardsAndPenalties = raps.FindById(id);
+            RewardsAndPenalty rewardsAndPenalties = raps.FindById(id);
             SetDropDownList(rewardsAndPenalties);
             return View(rewardsAndPenalties);
         }
 
-        // POST: RewardsAndPenalties/Delete/5
+        // POST: RewardsAndPenalty/Delete/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Delete(int id, FormCollection collection)
@@ -167,7 +167,7 @@ namespace BlueHrWeb.Controllers
             ResultMessage msg = new ResultMessage();
             try
             {
-                IRewardsAndPenaltiesService raps = new RewardsAndPenaltiesService(Settings.Default.db);
+                IRewardsAndPenaltyService raps = new RewardsAndPenaltyService(Settings.Default.db);
                 bool isSucceed = raps.DeleteById(id);
                 msg.Success = isSucceed;
                 msg.Content = isSucceed ? "" : "删除失败";
@@ -179,11 +179,11 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        private void SetDropDownList(RewardsAndPenalties rewardsAndPenalties)
+        private void SetDropDownList(RewardsAndPenalty rewardsAndPenalties)
         {
             if (rewardsAndPenalties != null)
             {
-                SetSexList(rewardsAndPenalties.sex);
+                SetSexList(rewardsAndPenalties.staffSex);
                 SetCompanyList(rewardsAndPenalties.companyId);
                 SetDepartmentList(rewardsAndPenalties.companyId, rewardsAndPenalties.departmentId);
                 SetTypeList(rewardsAndPenalties.type);
@@ -222,7 +222,7 @@ namespace BlueHrWeb.Controllers
         }
         private void SetTypeList(int? type, bool allowBlank = true)
         {
-            List<EnumItem> item = EnumHelper.GetList(typeof(RewardsAndPenaltiesType));
+            List<EnumItem> item = EnumHelper.GetList(typeof(RewardsAndPenaltyType));
 
             List<SelectListItem> select = new List<SelectListItem>();
 
@@ -306,23 +306,23 @@ namespace BlueHrWeb.Controllers
         }
         [HttpPost]
 
-        public ResultMessage DoValidation(RewardsAndPenalties model)
+        public ResultMessage DoValidation(RewardsAndPenalty model)
         {
             ResultMessage msg = new ResultMessage();
 
-            if (string.IsNullOrEmpty(model.nr))
+            if (string.IsNullOrEmpty(model.staffNr))
             {
                 msg.Success = false;
                 msg.Content = "员工号不能为空";
                 return msg;
             }
-            if (string.IsNullOrEmpty(model.name))
-            {
+            if (string.IsNullOrEmpty(model.staffName))
+            { 
                 msg.Success = false;
                 msg.Content = "员工姓名不能为空";
                 return msg;
             }
-            if (model.sex==null)
+            if (model.staffSex==null)
             {
                 msg.Success = false;
                 msg.Content = "员工性别不能为空";

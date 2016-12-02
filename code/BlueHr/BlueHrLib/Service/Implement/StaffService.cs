@@ -323,9 +323,9 @@ namespace BlueHrLib.Service.Implement
             return staffRep.SearchOnTrialStaff(q);
         }
 
-        public int CountStaffBirthday()
+        public List<Staff> StaffBirthday()
         {
-            return staffRep.CountStaffBirthday();
+            return staffRep.StaffBirthday();
         }
 
         public Dictionary<string, string> StaffCount()
@@ -336,6 +336,11 @@ namespace BlueHrLib.Service.Implement
         public List<Staff> ContractExpiredDetail(int v)
         {
             return staffRep.ContractExpiredDetail(v);
+        }
+
+        public List<Staff> ToEmployeesDetail(int v)
+        {
+            return staffRep.ToEmployeesDetail(v);
         }
 
         //public List<Staff> getStaffUserIDCard()
