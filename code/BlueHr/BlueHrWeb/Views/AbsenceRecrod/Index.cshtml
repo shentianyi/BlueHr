@@ -53,29 +53,15 @@
         </div>
     </form>
 </div>
-<div class="row" style="margin-left:15px;">
-    @if (canImport)
-    {
-        <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
-            导入缺勤记录
-        </button>
-    }
-
-    <button type="button" class="marco-btn-success" onclick="shBatchAbsenceRecord()">
-        <i class="fa fa-pencil"></i>
-        批量审批
-    </button>
-</div>
-
-
 <div style="margin:10px;">
-    <div class="minitor-show marco-tabs-default">
-        <a href="/AbsenceRecrod/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
+    <div class="minitor-show marco-tabs-default">       
+        <a href="/AbsenceRecrod/Create" class="pull-right" style="margin-right:5px;">
             <button class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
             </button>
         </a>
+       
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">缺勤列表</a></li>
