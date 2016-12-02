@@ -254,6 +254,8 @@
     <Compile Include="Controllers\ExtraWorkRecordController.cs" />
     <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
+    <Compile Include="Controllers\RecruitController.cs" />
+    <Compile Include="Controllers\RewardsAndPenaltiesController.cs" />
     <Compile Include="Controllers\SysRoleAuthorizationController.cs" />
     <Compile Include="Controllers\SysRoleController.cs" />
     <Compile Include="Controllers\SysAuthorizationController.cs" />
@@ -308,7 +310,18 @@
     </Content>
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\highcharts.css" />
+    <Content Include="Content\layout.css">
+      <DependentUpon>layout.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\layout.min.css">
+      <DependentUpon>layout.css</DependentUpon>
+    </Content>
+    <Content Include="Images\back1.jpg" />
+    <Content Include="Images\back2.jpg" />
     <Content Include="Images\background.jpg" />
+    <Content Include="Images\change.jpg" />
+    <Content Include="Images\changepwd.jpg" />
+    <Content Include="Images\No.png" />
     <Content Include="Images\treeIcon\diy\company.png" />
     <Content Include="Content\input-style.css" />
     <Content Include="Content\jquery-popModal.css" />
@@ -316,12 +329,6 @@
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\jquery.mCustomScrollbar.css" />
-    <Content Include="Content\layout.css">
-      <DependentUpon>layout.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\layout.min.css">
-      <DependentUpon>layout.css</DependentUpon>
-    </Content>
     <Content Include="Content\pagination.css" />
     <Content Include="Content\AdminLTEBlue.css" />
     <Content Include="Content\pqgrid.dev.css" />

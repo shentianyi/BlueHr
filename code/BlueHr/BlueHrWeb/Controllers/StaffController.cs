@@ -631,7 +631,7 @@ namespace BlueHrWeb.Controllers
             }
             else
             {
-                SetIsOnTrialList(false);
+                SetIsOnTrialList(null);
                 SetSexList(null);
                 SetJobTitleList(null);
                 SetCompanyList(null);
@@ -1226,13 +1226,16 @@ namespace BlueHrWeb.Controllers
         }
         // GET: Staff/CountStaff
         [HttpGet]
-        public JsonResult CountStaff()
+        public JsonResult StaffCount()
         {
-            Dictionary<string,int> Result=new Dictionary<string, int>();
+            Dictionary<string,string> Result=new Dictionary<string, string>();
             IStaffService ss= new StaffService(Settings.Default.db);
-            Result.Add("试用期",ss.countStaffOntrail());
-            Result.Add("离职",ss.countStaffOff());
-            Result.Add("在职",ss.countStaffOn());
+
+            Result = ss.StaffCount();
+
+            //Result.Add("试用期",ss.countStaffOntrail());
+            //Result.Add("离职",ss.countStaffOff());
+            //Result.Add("在职",ss.countStaffOn());
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
@@ -1253,6 +1256,52 @@ namespace BlueHrWeb.Controllers
             Result.Add("缺勤", ars.countStaffAbsence(StartTime, EndTime));
             Result.Add("迟到", ars.countStaffLate(StartTime, EndTime));
             Result.Add("请假", ars.countStaffLeave(StartTime, EndTime));
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
+        // GET: Staff/CountStatusStaff
+        [HttpGet]
+        public JsonResult ContractExpiredDetail()
+        {
+            IStaffService ss = new StaffService(Settings.Default.db);
+            List<Dictionary<string, string>> eachDetail = new List<Dictionary<string, string>>();
+
+            Dictionary<string, List<Dictionary<string, string>>> Result = new Dictionary<string, List<Dictionary<string, string>>>();
+            foreach(var i in ss.ContractExpiredDetail(0))
+            {
+                Dictionary<string, string> detail = new Dictionary<string, string>();
+
+                detail.Add("姓名", i.name);
+                detail.Add("员工号", i.nr);
+                detail.Add("合同到期", i.contractExpireStr);
+                detail.Add("合同签订次数", i.contractCount.ToString());
+                eachDetail.Add(detail);
+            }
+            Result.Add("本月", eachDetail);
+            //eachDetail.Clear();
+
+            //foreach (var i in ss.ContractExpiredDetail(1))
+            //{
+            //    Dictionary<string, string> detail = new Dictionary<string, string>();
+
+            //    detail.Add("姓名", i.name);
+            //    detail.Add("员工号", i.nr);
+            //    detail.Add("合同到期", i.contractExpireStr);
+            //    detail.Add("合同签订次数", i.contractCount.ToString());
+            //    eachDetail.Add(detail);
+            //}
+            //Result.Add("下月", eachDetail);
+            //eachDetail.Clear();
+            //foreach (var i in ss.ContractExpiredDetail(2))
+            //{
+            //    Dictionary<string, string> detail = new Dictionary<string, string>();
+
+            //    detail.Add("姓名", i.name);
+            //    detail.Add("员工号", i.nr);
+            //    detail.Add("合同到期", i.contractExpireStr);
+            //    detail.Add("合同签订次数", i.contractCount.ToString());
+            //    eachDetail.Add(detail);
+            //}
+            //Result.Add("过期", eachDetail);
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
         //    private void SetResignTypeList(int? type, bool allowBlank = true)

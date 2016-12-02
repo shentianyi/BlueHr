@@ -65,7 +65,6 @@
 
     @if (Session["user"] != null)
     {
-
         bool canSysRole = MenuAuthHelper.CanShow("SysRole", "Index");
         bool canSysAuthorization = MenuAuthHelper.CanShow("SysAuthorization", "Index");
         bool canSysRoleAuthorization = MenuAuthHelper.CanShow("SysRoleAuthorization", "Index");
@@ -549,10 +548,10 @@
                             <ul class="treeview-menu">
 
                                 <li>
-                                    <sa href="/MessageRecord/ToEmployees">
+                                    <a href="/MessageRecord/ToEmployees">
                                         <i class="fa fa-bell"></i>
                                         友情提醒
-                                    </sa>
+                                    </a>
                                 </li>
                                 <li>
                                     <a href="/SysOpera/dailyRecord">

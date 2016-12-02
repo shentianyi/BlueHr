@@ -104,11 +104,17 @@ namespace BlueHrLib.Service.Interface
         List<Staff> GetAllTableName();
 
         IQueryable<Staff> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst, string SearchValueSecond);
+        
         int CountStaff(int workStatus);
+
         List<Staff> SearchOnTrialStaff(StaffSearchModel q);
-        int countStaffOntrail();
-        int countStaffOff();
-        int countStaffOn();
+
+        Dictionary<string, string> StaffCount();
+
+        //int countStaffOntrail();
+        //int countStaffOff();
+        //int countStaffOn();
         int CountStaffBirthday();
+        List<Staff> ContractExpiredDetail(int v);
     }
 }

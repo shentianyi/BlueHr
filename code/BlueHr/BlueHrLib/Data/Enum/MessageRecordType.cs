@@ -85,10 +85,16 @@ namespace BlueHrLib.Data.Enum
         /// 员工转正提醒
         /// </summary>
         [Description("员工转正提醒")]
-        StaffToFullMemberAlert =303
+        StaffToFullMemberAlert =303,
 
+        ///
+        /// ---------------------------------------基础操作---------------------------------------
+        ///
+        /// <summary>
+        /// 登录
+        /// </summary>
+        [Description("用户登录日志")]
+        UserLogin = 401
 
-
-            
     }
 }
