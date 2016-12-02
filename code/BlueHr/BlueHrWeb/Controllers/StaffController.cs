@@ -1263,7 +1263,7 @@ namespace BlueHrWeb.Controllers
         public JsonResult ContractExpiredDetail()
         {
             IStaffService ss = new StaffService(Settings.Default.db);
-            List<Dictionary<string, string>> eachDetail = new List<Dictionary<string, string>>();
+            List<Dictionary<string, string>> eachDetail1 = new List<Dictionary<string, string>>();
 
             Dictionary<string, List<Dictionary<string, string>>> Result = new Dictionary<string, List<Dictionary<string, string>>>();
             foreach(var i in ss.ContractExpiredDetail(0))
@@ -1274,34 +1274,35 @@ namespace BlueHrWeb.Controllers
                 detail.Add("员工号", i.nr);
                 detail.Add("合同到期", i.contractExpireStr);
                 detail.Add("合同签订次数", i.contractCount.ToString());
-                eachDetail.Add(detail);
+                eachDetail1.Add(detail);
             }
-            Result.Add("本月", eachDetail);
-            //eachDetail.Clear();
+            Result.Add("本月", eachDetail1);
 
-            //foreach (var i in ss.ContractExpiredDetail(1))
-            //{
-            //    Dictionary<string, string> detail = new Dictionary<string, string>();
+            List<Dictionary<string, string>> eachDetail2 = new List<Dictionary<string, string>>();
+            foreach (var i in ss.ContractExpiredDetail(1))
+            {
+                Dictionary<string, string> detail = new Dictionary<string, string>();
 
-            //    detail.Add("姓名", i.name);
-            //    detail.Add("员工号", i.nr);
-            //    detail.Add("合同到期", i.contractExpireStr);
-            //    detail.Add("合同签订次数", i.contractCount.ToString());
-            //    eachDetail.Add(detail);
-            //}
-            //Result.Add("下月", eachDetail);
-            //eachDetail.Clear();
-            //foreach (var i in ss.ContractExpiredDetail(2))
-            //{
-            //    Dictionary<string, string> detail = new Dictionary<string, string>();
+                detail.Add("姓名", i.name);
+                detail.Add("员工号", i.nr);
+                detail.Add("合同到期", i.contractExpireStr);
+                detail.Add("合同签订次数", i.contractCount.ToString());
+                eachDetail2.Add(detail);
+            }
+            Result.Add("下月", eachDetail2);
 
-            //    detail.Add("姓名", i.name);
-            //    detail.Add("员工号", i.nr);
-            //    detail.Add("合同到期", i.contractExpireStr);
-            //    detail.Add("合同签订次数", i.contractCount.ToString());
-            //    eachDetail.Add(detail);
-            //}
-            //Result.Add("过期", eachDetail);
+            List<Dictionary<string, string>> eachDetail3 = new List<Dictionary<string, string>>();
+            foreach (var i in ss.ContractExpiredDetail(-1))
+            {
+                Dictionary<string, string> detail = new Dictionary<string, string>();
+
+                detail.Add("姓名", i.name);
+                detail.Add("员工号", i.nr);
+                detail.Add("合同到期", i.contractExpireStr);
+                detail.Add("合同签订次数", i.contractCount.ToString());
+                eachDetail3.Add(detail);
+            }
+            Result.Add("过期", eachDetail3);
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
         //    private void SetResignTypeList(int? type, bool allowBlank = true)

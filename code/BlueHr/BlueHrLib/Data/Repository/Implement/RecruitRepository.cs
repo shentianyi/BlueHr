@@ -59,6 +59,18 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 certf = certf.Where(c => c.requirement.Contains(searchModel.requirement.Trim()));
             }
+            if (searchModel.companyId.HasValue)
+            {
+                certf = certf.Where(c => c.companyId==searchModel.companyId);
+            }
+            if (searchModel.departmentId.HasValue)
+            {
+                certf = certf.Where(c => c.departmentId == searchModel.departmentId);
+            }
+            if (searchModel.amount.HasValue)
+            {
+                certf = certf.Where(c => c.amount == searchModel.amount);
+            }
             return certf;
         }
 
