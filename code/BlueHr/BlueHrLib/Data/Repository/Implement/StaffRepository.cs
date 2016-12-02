@@ -449,9 +449,16 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public int CountStaffBirthday()
         {
-            string a = System.DateTime.Today.ToString("MM-dd");
-            int q = this.context.Staffs.Where(s => s.birthday.ToString().Contains(a)).Count();
-            return q;
+            string a = System.DateTime.Today.ToString("M/d");
+            //var q = this.context.Staffs.Where(s => s.birthday.ToString().Contains(a)).Count();
+            var q = this.context.Staffs.ToList();
+            int count = 0;
+            foreach (var i in q)
+            {
+                string show = i.birthday.ToString();
+                if (show.Contains(a)) count++;
+            }
+            return count;
         }
     }
 }
