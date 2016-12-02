@@ -41,7 +41,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [RoleAndDataAuthorizationAttribute]
-        public ActionResult Search([Bind(Include = "requirement")] RecruitSearchModel q)
+        public ActionResult Search([Bind(Include = "requirement,companyId,departmentId,amount")] RecruitSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);

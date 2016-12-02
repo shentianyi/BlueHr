@@ -315,6 +315,7 @@
       <DependentUpon>layout.css</DependentUpon>
     </Content>
     <Content Include="Images\back1.jpg" />
+    <Content Include="Images\back2.jpg" />
     <Content Include="Images\back3.png" />
     <Content Include="Images\background.jpg" />
     <Content Include="Images\change.jpg" />

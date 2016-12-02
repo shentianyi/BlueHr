@@ -222,7 +222,7 @@ namespace BlueHrWeb.Controllers
         }
         private void SetTypeList(int? type, bool allowBlank = true)
         {
-            List<EnumItem> item = EnumHelper.GetList(typeof(RewardsAndPenalties));
+            List<EnumItem> item = EnumHelper.GetList(typeof(RewardsAndPenaltiesType));
 
             List<SelectListItem> select = new List<SelectListItem>();
 
