@@ -53,7 +53,7 @@
         </a>
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#degree" role="tab" data-toggle="tab">学历管理</a></li>            
+            <li role="presentation" class="active"><a href="#degree" role="tab" data-toggle="tab">所有学历</a></li>            
         </ul>
 
         <div class="tab-content">
@@ -118,7 +118,7 @@
 
 <script type="text/javascript">
     Layout.init();
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_degree_type", "学历管理", "20", "all_degree_type_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_degree_type", "所有学历列表", "20", "all_degree_type_grid_table");
     $('.import-dialog-btn').click(function () {
         $('#dialog_content').dialogModal({
             onOkBut: function () {
