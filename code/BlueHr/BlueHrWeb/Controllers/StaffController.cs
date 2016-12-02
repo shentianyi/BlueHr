@@ -1258,7 +1258,7 @@ namespace BlueHrWeb.Controllers
             Result.Add("请假", ars.countStaffLeave(StartTime, EndTime));
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
-        // GET: Staff/CountStatusStaff
+        // GET: Staff/ContractExpiredDetail
         [HttpGet]
         public JsonResult ContractExpiredDetail()
         {
@@ -1324,7 +1324,7 @@ namespace BlueHrWeb.Controllers
                 detail.Add("剩余", i.contractExpireStr);
                 eachDetailThisWeek.Add(detail);
             }
-            Result.Add("本周", eachDetailThisWeek);
+            Result.Add("本月", eachDetailThisWeek);
 
             List<Dictionary<string, string>> eachDetailThisMonth = new List<Dictionary<string, string>>();
             foreach (var i in ss.ToEmployeesDetail(1))
@@ -1338,10 +1338,10 @@ namespace BlueHrWeb.Controllers
                 detail.Add("剩余", i.contractExpireStr);
                 eachDetailThisMonth.Add(detail);
             }
-            Result.Add("本月", eachDetailThisMonth);
+            Result.Add("下月", eachDetailThisMonth);
 
             List<Dictionary<string, string>> eachDetailExpired = new List<Dictionary<string, string>>();
-            foreach (var i in ss.ToEmployeesDetail(-1))
+            foreach (var i in ss.ToEmployeesDetail(2))
             {
                 Dictionary<string, string> detail = new Dictionary<string, string>();
 
@@ -1367,7 +1367,12 @@ namespace BlueHrWeb.Controllers
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sexDisplay);
                 detail.Add("出生日期", i.birthday.ToString());
-                detail.Add("年龄", i.contractCount.ToString());
+                int age;
+                try
+                {
+                    age = System.DateTime.Now.Year - Convert.ToInt32(i.birthday.ToString().Substring(0, 4));
+                } catch { age = 0; }
+                detail.Add("年龄", age.ToString());
                 Result.Add(detail);
             }
             return Json(Result, JsonRequestBehavior.AllowGet);

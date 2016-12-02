@@ -558,7 +558,43 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public List<Staff> ToEmployeesDetail(int v)
         {
-            throw new NotImplementedException();
+            var q = this.context.Staffs.ToList();
+            List<Staff> count = new List<Staff>().Where(s => s.isOnTrial == true).ToList();
+            switch (v)
+            {
+                case 0:
+                    {
+                        string a = System.DateTime.Today.ToString("yyyyMM");
+                        foreach (var i in q)
+                        {
+                            if (i.trialOverAt == null ? false : i.trialOverAt.ToString().Length >= 6)
+                            {
+                                string show = i.contractExpireStr.Substring(0, 6);
+                                if (show == a) count.Add(i);
+                            }
+                        }
+                        return count;
+                    }
+                case 1:
+                    {
+                        string a = System.DateTime.Today.AddMonths(1).ToString("yyyyMM");
+                        foreach (var i in q)
+                        {
+                            if (i.trialOverAt == null ? false : i.trialOverAt.ToString().Length >= 6)
+                            {
+                                string show = i.contractExpireStr.Substring(0, 6);
+                                if (show == a) count.Add(i);
+                            }
+                        }
+                        return count;
+                    }
+                case 2:
+                    {
+                        List<Staff> count1 = new List<Staff>().Where(s => s.isOnTrial == true).Where(s => s.workStatus == 100).ToList();
+                        return count1;
+                    }
+            }
+            return null;
         }
     }
 }
