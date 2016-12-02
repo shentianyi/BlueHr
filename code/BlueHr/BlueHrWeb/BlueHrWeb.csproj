@@ -308,23 +308,25 @@
     </Content>
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\highcharts.css" />
-    <Content Include="Images\background.jpg" />
-    <Content Include="Images\treeIcon\diy\company.png" />
-    <Content Include="Scripts\Go\DataInspector.js" />
-    <Content Include="Scripts\Go\go-icons.js" />
-    <Content Include="Scripts\Go\go.js" />
-    <Content Include="Content\input-style.css" />
-    <Content Include="Content\jquery-popModal.css" />
-    <Content Include="Content\jquery-tree.css" />
-    <Content Include="Content\jquery-ui.css" />
-    <Content Include="Content\jquery.datetimepicker.css" />
-    <Content Include="Content\jquery.mCustomScrollbar.css" />
     <Content Include="Content\layout.css">
       <DependentUpon>layout.scss</DependentUpon>
     </Content>
     <Content Include="Content\layout.min.css">
       <DependentUpon>layout.css</DependentUpon>
     </Content>
+    <Content Include="Images\back1.jpg" />
+    <Content Include="Images\back2.jpg" />
+    <Content Include="Images\background.jpg" />
+    <Content Include="Images\change.jpg" />
+    <Content Include="Images\changepwd.jpg" />
+    <Content Include="Images\No.png" />
+    <Content Include="Images\treeIcon\diy\company.png" />
+    <Content Include="Content\input-style.css" />
+    <Content Include="Content\jquery-popModal.css" />
+    <Content Include="Content\jquery-tree.css" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery.datetimepicker.css" />
+    <Content Include="Content\jquery.mCustomScrollbar.css" />
     <Content Include="Content\pagination.css" />
     <Content Include="Content\AdminLTEBlue.css" />
     <Content Include="Content\pqgrid.dev.css" />
@@ -721,7 +723,6 @@
     <Content Include="Views\Company\TreeShow - 复制.cshtml" />
     <Content Include="Views\Company\TreeShow.cshtml" />
     <Content Include="Views\Company\TreeShow - 复制%282%29.cshtml" />
-    <Content Include="Views\ShiftSchedule\EasyCreate.cshtml" />
     <Content Include="Views\MessageRecord\ToEmployees.cshtml" />
   </ItemGroup>
   <ItemGroup>
