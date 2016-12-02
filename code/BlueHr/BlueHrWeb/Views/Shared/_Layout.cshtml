@@ -30,39 +30,42 @@
 
 <body class="skin-blue fixed sidebar-mini">
     <div class="wrapper">
-        <header class="main-header">
-            <!-- Logo -->
-            <a href="/" class="logo">
-                <span class="logo-mini"><b>HR</b></span>
-                <span class="logo-lg">德晋<b>HR</b>系统</span>
-            </a>
-            <nav class="navbar navbar-static-top">
-                <!-- Sidebar toggle button-->
-                
-@if (Session["user"] != null)
-{
-    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Toggle navigation</span>
-    </a>
+        @if (Session["user"] != null) {
+            <header class="main-header">
+                <!-- Logo -->
+                <a href="/" class="logo">
+                    <span class="logo-mini"><b>HR</b></span>
+                    <span class="logo-lg">德晋<b>HR</b>系统</span>
+                </a>
+                <nav class="navbar navbar-static-top">
+
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
                     <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            @if (MenuAuthHelper.CanShow("MessageRecord", "Index"))
-                            {
-                            <a href="/MessageRecord/Index" title="消息">
-                                <i class="fa fa-bell-o"></i>
-                                <span class="label label-primary" id="unread-count"></span>
-                            </a>}
-                        </li> 
-                        @Html.Partial("_LoginPartial")
-                    </ul>
-                </div>
-}
-              </nav>
-        </header>
+                        <ul class="nav navbar-nav">
+                            <li>
+                                @if (MenuAuthHelper.CanShow("MessageRecord", "Index"))
+                                {
+                                    <a href="/MessageRecord/Index" title="消息">
+                                        <i class="fa fa-bell-o"></i>
+                                        <span class="label label-primary" id="unread-count"></span>
+                                    </a>}
+                            </li>
+                            @Html.Partial("_LoginPartial")
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+        }
+        else
+        {
+        @Html.Partial("_LoginPartial")
+        }
 
     @if (Session["user"] != null)
     {
+
         bool canSysRole = MenuAuthHelper.CanShow("SysRole", "Index");
         bool canSysAuthorization = MenuAuthHelper.CanShow("SysAuthorization", "Index");
         bool canSysRoleAuthorization = MenuAuthHelper.CanShow("SysRoleAuthorization", "Index");
@@ -149,16 +152,7 @@
                                 </span>
                             </a>
 
-                            <ul class="treeview-menu">
-                                @if (canJobTitle)
-                                {
-                                    <li>
-                                        <a href="/JobTitle/Index">
-                                            <i class="fa fa-briefcase"></i>
-                                            职位管理
-                                        </a>
-                                    </li>
-                                }
+                            <ul class="treeview-menu">                              
                                 @if (canStaffType)
                                 {
                                     <li>
@@ -195,42 +189,7 @@
                                         </a>
                                     </li>
                                 }
-                                @if (canResignType)
-                                {
-                                    <li>
-                                        <a href="/ResignType/Index">
-                                            <i class="fa fa-sign-out"></i>
-                                            离职类型
-                                        </a>
-                                    </li>
-                                }
-                                @if (canAbsenceType)
-                                {
-                                    <li>
-                                        <a href="/AbsenceType/Index">
-                                            <i class="fa fa-street-view"></i>
-                                            缺勤类型
-                                        </a>
-                                    </li>
-                                }
-                                @if (canExtraWorkType)
-                                {
-                                    <li>
-                                        <a href="/ExtraWorkType/Index">
-                                            <i class="fa fa-hourglass-1"></i>
-                                            加班类型
-                                        </a>
-                                    </li>
-                                }
-                                @if (canWorkAndRests)
-                                {
-                                    <li>
-                                        <a href="/WorkAndRests/Index">
-                                            <i class="fa fa-calendar-minus-o"></i>
-                                            作息表
-                                        </a>
-                                    </li>
-                                }
+                               
                             </ul>
                         </li>
                     }
@@ -262,33 +221,53 @@
                         </li>
                     }
 
-                    @if (MenuAuthHelper.CanShow("Department", "Index"))
-                    {
-                        <li class="nav-department">
-                            <a href="#">
-                                <i class="fa fa-cubes"></i>
-                                <span>部门管理</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li>
-                                    <a href="/Department/Index">
-                                        <i class="fa fa-bars"></i>
-                                        列表显示
-                                    </a>
-                                </li>
-                                @*<li>
-                                    <a href="/Department/TreeShow">
-                                        <i class="fa fa-anchor"></i>
-                                        树状显示
-                                    </a>
-                                </li>*@
+                    <li class="nav-period">
+                        <a href="#">
+                            <i class="fa fa-bars"></i>
+                            <span>试用期管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="/Staff/Ontrail">
+                                    <i class="fa fa-list-ol"></i>
+                                    试用期员工
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Staff/Index">
+                                    <i class="fa fa-anchor"></i>
+                                    转正管理
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
-                            </ul>
-                        </li>
-                    }
+                    <li class="nav-organ">
+                        <a href="#">
+                            <i class="fa fa-cubes"></i>
+                            <span>组织机构</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="/Department/Index">
+                                    <i class="fa fa-bars"></i>
+                                    部门管理
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/JobTitle/Index">
+                                    <i class="fa fa-briefcase"></i>
+                                    职位管理
+                                </a>
+                            </li>                         
+                        </ul>
+                    </li>
 
                     @if (MenuAuthHelper.CanShow("Staff", "Index"))
                     {
@@ -305,25 +284,13 @@
                                 <li>
                                     <a href="/Staff/Index">
                                         <i class="fa fa-users"></i>
-                                        员工管理
+                                        员工信息
                                     </a>
                                 </li>
-                                @*<li>
+                                <li>
                                     <a href="/Staff/Tree">
                                         <i class="fa fa-anchor"></i>
-                                        树状显示
-                                    </a>
-                                </li>*@
-                                <li>
-                                    <a href="/Staff/Ontrail">
-                                        <i class="fa fa-list-ol"></i>
-                                        试用期员工
-                                    </a>
-                                </li>
-                                @*<li>
-                                    <a href="/Staff/Tree">
-                                        <i class="fa fa-user-times"></i>
-                                        员工兼职
+                                        树状浏览
                                     </a>
                                 </li>
                                 <li>
@@ -331,7 +298,14 @@
                                         <i class="fa fa-cogs"></i>
                                         直接主管配置
                                     </a>
-                                </li>*@
+                                </li>
+                                <li>
+                                    <a href="/Staff/Tree">
+                                        <i class="fa fa-user-times"></i>
+                                        员工兼职
+                                    </a>
+                                </li>                                                             
+                                
                                 <li>
                                     <a href="/Staff/Idcard">
                                         <i class="fa fa-vk"></i>
@@ -341,12 +315,7 @@
                             </ul>
                         </li>
                     }
-                    @*<li class="nav-certificate">
-                <a href="/Certificate/Index">
-                    <i class="fa fa-folder"></i>
-                    <span>证照管理</span>
-                </a>
-            </li>*@
+                   
                     @{
                         bool canShift = MenuAuthHelper.CanShow("Shift", "Index");
 
@@ -368,7 +337,7 @@
                                     <li>
                                         <a href="/Shift/Index">
                                             <i class="fa fa-list-ol"></i>
-                                            班次管理
+                                            班次设置
                                         </a>
                                     </li>
                                 }
@@ -377,7 +346,13 @@
                                     <li>
                                         <a href="/ShiftSchedule/Index">
                                             <i class="fa fa-table"></i>
-                                            排班管理
+                                            排班查询
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/WorkAndRests/Index">
+                                            <i class="fa fa-calendar-minus-o"></i>
+                                            作息时间
                                         </a>
                                     </li>
                                 }
@@ -407,16 +382,22 @@
                                     <li>
                                         <a href="/AttendanceRecordDetail/Index">
                                             <i class="fa fa-list-ol"></i>
-                                            详细记录管理
+                                            考勤记录
                                         </a>
                                     </li>
                                 }
+                                <li>
+                                    <a href="/QuartzJob/Index">
+                                        <i class="fa fa-rocket"></i>
+                                        考勤计算设置
+                                    </a>
+                                </li>
                                 @if (canAttCal)
                                 {
                                     <li>
                                         <a href="/AttendanceRecordCal/Index">
                                             <i class="fa fa-table"></i>
-                                            统计记录管理
+                                            统计记录
                                         </a>
                                     </li>
                                 }
@@ -425,14 +406,28 @@
                                     <li>
                                         <a href="/AttendanceRecordCal/ExceptionList">
                                             <i class="fa fa-exclamation-triangle"></i>
-                                            异常统计管理
+                                            异常统计
                                         </a>
                                     </li>
                                 }
+
+                                <li>
+                                    <a href="/AbsenceType/Index">
+                                        <i class="fa fa-street-view"></i>
+                                        缺勤类型
+                                    </a>
+                                </li>
                                 <li class="nav-absencerecrod">
                                     <a href="/AbsenceRecrod/Index">
                                         <i class="fa fa-adjust"></i>
                                         缺勤管理
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/ExtraWorkType/Index">
+                                        <i class="fa fa-hourglass-1"></i>
+                                        加班类型
                                     </a>
                                 </li>
                                 <li class="nav-extrawordrecord">
@@ -441,29 +436,11 @@
                                         加班管理
                                     </a>
                                 </li>
+
                             </ul>
                         </li>
                     }
-                    @*@if (MenuAuthHelper.CanShow("AbsenceRecrod", "Index"))
-            {
-                <li class="nav-absencerecrod">
-                    <a href="/AbsenceRecrod/Index">
-                        <i class="fa fa-adjust"></i>
-                        <span>缺勤管理</span>
-                    </a>
-                </li>
-            }*@
-                        @*@if (MenuAuthHelper.CanShow("ExtraWorkRecord", "Index"))
-                {
-                                <li class="nav-extrawordrecord">
-                                    <a href="/ExtraWorkRecord/Index">
-                                        <i class="fa fa-tachometer"></i>
-                                        <span>加班管理</span>
-                                    </a>
-                                </li>
-                            }*@
-
-                        @*<li class="nav-inter-apply">
+                        <li class="nav-inter-apply">
                             <a href="#">
                                 <i class="fa fa-random"></i>
                                 <span>离退管理</span>
@@ -472,9 +449,14 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-
                                 <li>
-                                    <a href="/InterApply/Index">
+                                    <a href="/ResignType/Index">
+                                        <i class="fa fa-sign-out"></i>
+                                        离职类型
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Staff/Resign?nr=200043">
                                         <i class="fa fa-list-ol"></i>
                                         离退申请
                                     </a>
@@ -530,15 +512,15 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>*@
+                        </li>
 
-                        @*<li class="nav-summary-report">
+                        <li class="nav-summary-report">
                             <a href="#">
                                 <i class="fa fa-calendar-check-o"></i>
                                 <span>报表汇总</span>
 
                             </a>
-                        </li>*@
+                        </li>
 
 
                         @if (MenuAuthHelper.CanShow("TaskRound", "Index"))
@@ -554,38 +536,7 @@
                             bool canJob = MenuAuthHelper.CanShow("QuartzJob", "Index");
                             bool canSystemSetting = MenuAuthHelper.CanShow("SystemSetting", "Index");
                         }
-                        @if (canJob || canSystemSetting)
-                        {
-                            <li class="nav-system-setting">
-                                <a href="#">
-                                    <i class="fa fa-cog"></i>
-                                    <span>系统设置</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    @if (canJob)
-                                    {
-                                        <li>
-                                            <a href="/QuartzJob/Index">
-                                                <i class="fa fa-rocket"></i>
-                                                考勤计算设置
-                                            </a>
-                                        </li>
-                                    }
-                                    @if (canSystemSetting)
-                                    {
-                                        @*<li>
-                                            <a href="/ /Index">
-                                                <i class="fa fa-cog"></i>
-                                                系统信息设置
-                                            </a>
-                                        </li>*@ 
-                                    }
-                                </ul>
-                            </li>
-                        }
+                        
 
                         <li class="nav-system-opera">
                             <a href="#">
@@ -598,10 +549,10 @@
                             <ul class="treeview-menu">
 
                                 <li>
-                                    <a href="/MessageRecord/ToEmployees">
+                                    <sa href="/MessageRecord/ToEmployees">
                                         <i class="fa fa-bell"></i>
                                         友情提醒
-                                    </a>
+                                    </sa>
                                 </li>
                                 <li>
                                     <a href="/SysOpera/dailyRecord">

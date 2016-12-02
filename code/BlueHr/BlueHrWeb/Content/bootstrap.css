@@ -3247,10 +3247,9 @@ input[type="button"].btn-block {
   list-style: none;
   background-color: #ffffff;
   border: 1px solid #cccccc;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 6px 16px rgba(0, 0, 0, 0.175);
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
 }
 
@@ -4354,6 +4353,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   border:1px solid rgba(0, 0, 0, 0.075);
+  background:#428bca;
+  color:#fff;  
 }
 
 .navbar-fixed-bottom .navbar-nav > li > .dropdown-menu {

@@ -42,12 +42,10 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 
 .login{
     margin-top: 60px;
-    text-align:center;
-    border: 2px solid $peter-river;
-    border-radius: 30px;
+    text-align:center;   
     min-width: 500px;
     padding: 20px;
-    .login-heading{
+.login-heading{
         margin-top: 30px;
         i{
             border:2px solid $peter-river;
@@ -63,25 +61,23 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
             color: $brlize-hole;
         }
     }
-
-    .login-body{
-        margin-top: 20px;
-        div{
-            margin-top: 10px;
+.login-body{
+    margin-top: 20px;
+    div{
+        margin-top: 10px;
+    }
+}
+.login-footer{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    button{
+        width: 100px;
+        height: 40px;
+        i{
+            margin-right:10px;
         }
     }
-
-    .login-footer{
-        margin-top: 20px;
-        margin-bottom: 40px;
-        button{
-            width: 100px;
-            height: 40px;
-            i{
-                margin-right:10px;
-            }
-        }
-    }
+}
 }
 
 .home{

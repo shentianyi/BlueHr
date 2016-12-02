@@ -128,7 +128,8 @@ div.pq-grid-bottom{
 div.pq-grid-footer{
     padding:3px 5px 3px;
     overflow:hidden;	
-    position:relative; 
+    position:relative;
+    color:#fff; 
 }	
 div.pq-grid-inner{
     position:relative;
@@ -455,7 +456,10 @@ tr.pq-group-row td span{
     padding:2px 5px 13px;
     overflow:hidden;
     vertical-align:middle;
-}	
+}
+    .pq-pager button {
+        color:#fff;
+    }	
 .pq-pager *{
     vertical-align:middle;
 }	
@@ -479,6 +483,7 @@ div.pq-pager span,div.pq-pager select{
 .pq-pager .pq-page-placeholder{
     vertical-align:top;
     margin-right:0px;
+    color:#fff;
 }
 .pq-grid button.ui-button-icon-only{
     width:22px;

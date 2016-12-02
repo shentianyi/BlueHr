@@ -35,8 +35,24 @@ Layout.init = function () {
             PageAction('#department', '新建部门', '编辑部门', '部门详情', '创建', '更新', '删除');
             break;
         case "Staff":
-            $('.nav-staff').addClass('active');
+            $('.nav-period').addClass('active');
             PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+            break;
+	case "ResignType":
+            $('.nav-inter-apply').addClass('active');
+            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+            break;
+	case "Staff":
+            $('.nav-person').addClass('active');
+            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+            break;
+	case "Staff":
+            $('.nav-inter-apply').addClass('active');
+            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+            break;
+	case "Period":
+            $('.nav-person').addClass('active');
+            PageAction('#period', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
             break;
         case "AttendanceRecordDetail":
             $('.nav-attendance-record').addClass('active');
@@ -46,40 +62,48 @@ Layout.init = function () {
             $('.nav-attendance-record').addClass('active');
             PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');
             break;
+	case "AbsenceRecrod":
+            $('.nav-attendance-record').addClass('active');
+            PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');
+            break;
         case "CertificateType":
             $('.nav-basic').addClass('active');
             PageAction('#certificatetype', '新建证照类型', '编辑证照类型', '证照类型详情', '创建', '更新', '删除');
             break;
         case "JobTitle":
-            $('.nav-basic').addClass('active');
+            $('.nav-organ').addClass('active');
             PageAction('#jobtitle', '新建职位', '编辑职位', '职位详情', '创建', '更新', '删除');
             break;
         case "DegreeType":
             $('.nav-basic').addClass('active');
             PageAction('#degreetype', '新建学历', '编辑学历', '学历详情', '创建', '更新', '删除');
             break;
-        case "StaffType":
+        case "StaffType":period
             $('.nav-basic').addClass('active');
             PageAction('#stafftype', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
+            break;
+	case "Period":
+            $('.nav-person').addClass('active');
+            PageAction('#period', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
             break;
         case "InSureType":
             $('.nav-basic').addClass('active');
             PageAction('#insuretype', '新建保险类别', '编辑保险类别', '保险类别详情', '创建', '更新', '删除');
             break;
         case "ResignType":
-            $('.nav-basic').addClass('active');
+            $('.nav-inter-apply').addClass('active');
             PageAction('#resigntype', '新建离职类型', '编辑离职类型', '离职类型详情', '创建', '更新', '删除');
             break;
         case "AbsenceType":
-            $('.nav-basic').addClass('active');
+            $('.nav-attendance-record').addClass('active');
             PageAction('#absencetype', '新建缺勤类型', '编辑缺勤类型', '缺勤类型详情', '创建', '更新', '删除');
             break;
         case "ExtraWorkType":
-            $('.nav-basic').addClass('active');
+            $('.nav-attendance-record').addClass('active');
             PageAction('#extraworktype', '新建加班类型', '编辑加班类型', '加班类型详情', '创建', '更新', '删除');
             break;
         case "WorkAndRests":
-            $('.nav-basic').addClass('active');
+            $('.nav-shift').addClass('active');
             PageAction('#workandrests', '新建作息表', '编辑作息表', '作息表详情', '创建', '更新', '删除');
             break;
         case "Certificate":
@@ -91,7 +115,7 @@ Layout.init = function () {
             PageAction('#absencerecord', '新建缺勤', '编辑缺勤', '缺勤详情', '创建', '更新', '删除');
             break;
         case "ExtraWorkRecord":
-            $('.nav-extrawordrecord').addClass('active');
+            $('.nav-attendance-record').addClass('active');
             PageAction('#extrawordrecord', '新建加班', '编辑加班', '加班详情', '创建', '更新', '删除');
             break;
         case "Shift":
@@ -103,7 +127,7 @@ Layout.init = function () {
             PageAction('#shiftschedule', '新建排班', '编辑排班', '排班详情', '创建', '更新', '删除');
             break;
         case "QuartzJob":
-            $('.nav-system-setting').addClass('active');
+            $('.nav-attendance-record').addClass('active');
             PageAction('#quartzjob', '新建考勤计算设置', '编辑考勤计算设置', '考勤计算设置详情', '创建', '更新', '删除');
             break;
         case "SysRole":
@@ -139,7 +163,8 @@ Layout.init = function () {
         case "SysOpera":
             $('.nav-system-opera').addClass('active');
             PageAction('#user', '新建系统操作', '编辑系统操作', '系统操作详情', '创建', '更新', '删除');
-            break;
+            break;	
+           
         default:
             break;
     }
