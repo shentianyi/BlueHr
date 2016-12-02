@@ -1,8 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
 @using BlueHrLib.Data
 
-
-<<<<<<< HEAD
 <style>
     .header1 {
         margin-top: 30px;
@@ -65,8 +63,6 @@
     }
 </style>
 
-=======
->>>>>>> 6df89a5b4457d7cfea39e88c8117f13f22135944
 @if (Session["user"] != null)
 {
     <li class="dropdown">
@@ -120,95 +116,12 @@
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
     }
-    else
-    {
-        //登录界面
-        <div style="background-image:url('/Images/back2.jpg'); background-repeat:no-repeat; position:absolute; top:0; left:0; right:0; bottom:0; opacity:0.8;"></div>
-        using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
-        {
-       @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="login_div">
-                <div class="header1">德晋HR系统</div>
-                <div class="div_input1">
-                    <label>邮箱</label>
-                    <input type="text" name="Email" id="Email" value="" style="width:300px; height:40px; border:1px solid #2980b9;" placeholder="请输入邮箱" />
-                </div>
-                <div class="div_input2">
-                    <label>密码</label>
-                    <input type="password" name="Password" value="" placeholder="请输入密码" />
-                </div>
-
-                <div>
-                    <button type="submit" class="btn">
-                        <i class="fa fa-unlock"></i>
-                        登录
-                    </button>
-                </div>
-=======
-    </div>
-}
+   
 else
 {
-    <style>
-        body {
-            overflow: hidden;
-        }
-
-        .header1 {
-            margin-top: 30px;
-            width: 100%;
-            height: 24px;
-            text-align: center;
-            line-height: 30px;
-            color: #2980b9;
-            font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 30px;
-            font-weight: 800;
-        }
-
-        .div_input1 {
-            position: relative;
-            left: 150px;
-            top: 80px;
-        }
-
-        .div_input2 {
-            position: relative;
-            left: 150px;
-            top: 100px;
-        }
-
-        label {
-            color: #2980b9;
-            font-size: 18px;
-        }
-
-        input {
-            width: 300px;
-            height: 40px;
-            border: 1px solid #2980b9;
-            padding-left: 5px;
-        }
-
-        .btn {
-            position: relative;
-            left: 280px;
-            top: 150px;
-            width: 100px;
-            height: 50px;
-            line-height: 20px;
-            text-align: center;
-            color: #fff;
-            font-size: 18px;
-            background: #2980b9;
-        }
-    </style>
-
     //登录界面
-    <div style="background-image:url('/Images/back1.jpg'); background-repeat:no-repeat; position:absolute; top:0; left:0px;right:0;bottom:0;opacity:0.8;"></div>
+   <div style="background-image:url('/Images/back1.jpg'); background-repeat:no-repeat; position:absolute; top:0; left:0px;right:0;bottom:0;opacity:0.8;"></div>
     using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
     {
 
@@ -230,7 +143,7 @@ else
                     <i class="fa fa-unlock"></i>
                     登录
                 </button>
->>>>>>> 6df89a5b4457d7cfea39e88c8117f13f22135944
+            </div>
             </div>
         }
     }
