@@ -35,55 +35,61 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>工号</span>
-                        @Html.EditorFor(model => model.funCode)
+                        @Html.EditorFor(model => model.nr)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>姓名</span>
-                        @Html.EditorFor(model => model.funCode)
+                        @Html.EditorFor(model => model.name)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>性别</span>
-                        @Html.EditorFor(model => model.funCode)
+                        @Html.EditorFor(model => model.sex)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>所属公司</span>
+                        @Html.EditorFor(model => model.companyId)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>所属部门</span>
-                        @Html.EditorFor(model => model.funCode)
+                        @Html.EditorFor(model => model.departmentId)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>奖惩类型</span>
-                        @Html.EditorFor(model => model.funCode)
+                        @Html.EditorFor(model => model.type)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>奖惩项目</span>
-                        @Html.EditorFor(model => model.funCode)
+                        @Html.EditorFor(model => model.project)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>奖惩描述</span>
-                        @Html.EditorFor(model => model.funCode)
+                        @Html.EditorFor(model => model.description)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>奖惩日期</span>
-                        <input type="text" name="rewardsandpenaltiesAt" placeholder="日期" class="date-picker" value="@Model.scheduleAtStr" />
+                        <input type="text" name="rewardsandpenaltiesAt" placeholder="日期" class="date-picker" value="@Model.datetime" />
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>审批人</span>
-                        @Html.EditorFor(model => model.funCode)
+                        @Html.EditorFor(model => model.approver)
                     </div>
                 </div>             
             </div>

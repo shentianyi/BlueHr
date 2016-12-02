@@ -1,14 +1,14 @@
 ﻿@using MvcPaging
 @model IPagedList<BlueHrLib.Data.RewardsAndPenalties>
 @{
-    ViewBag.Title = "奖惩记录";
+    ViewBag.Title = "奖惩管理";
 }
 @*@Styles.Render("~/Content/degreetype")*@
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>员工管理</li>
     <li>
-        <strong>奖惩记录</strong> 
+        <strong>奖惩管理</strong> 
     </li>
 </ol>
 <hr class="hr-grey" />
@@ -18,19 +18,19 @@
             <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
                 <div class="marco-igroup-primary">
                     <span>工号</span>
-                    <input type="text" name="Nr" id="Nr" placeholder="工号" value="@ViewBag.Query.funCode" />
+                    <input type="text" name="Nr" id="Nr" placeholder="工号" value="@ViewBag.Query.Nr" />
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
                 <div class="marco-igroup-primary">
                     <span>姓名</span>
-                    <input type="text" name="Name" id="Name" placeholder="姓名" value="@ViewBag.Query.controlName" />
+                    <input type="text" name="Name" id="Name" placeholder="姓名" value="@ViewBag.Query.Name" />
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
                 <div class="marco-igroup-primary">
                     <span>所属部门</span>
-                    <input type="text" name="Department" id="Department" placeholder="所属部门" value="@ViewBag.Query.actionName" />
+                    <input type="text" name="Department" id="Department" placeholder="所属部门" value="@ViewBag.Query.departmentId" />
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 5px;">
@@ -55,28 +55,28 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>字段</span>
-                    @Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)
+                    @*@Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)*@
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>条件</span>
-                    @Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)
+                    @*@Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)*@
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>值1</span>
-                    <input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />
+                    @*<input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />*@
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>值2</span>
-                    <input type="text" name="searchValueSecond" value="@ViewBag.searchValueSecond" />
+                    @*<input type="text" name="searchValueSecond" value="@ViewBag.searchValueSecond" />*@
                     <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
                 </div>
             </div>
@@ -111,10 +111,13 @@
                             <th>工号</th>
                             <th>姓名</th>
                             <th>性别</th>
+                            <th>所属公司</th>
                             <th>所属部门</th>
                             <th>奖惩类型</th>
+                            <th>奖惩项目</th>
                             <th>奖惩描述</th>
                             <th>奖惩日期</th>
+                            <th>审批人</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -125,19 +128,34 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.funCode)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.controlName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.actionName)
+                                        @Html.DisplayFor(modelItem => item.nr)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.remarks)
+                                        @Html.DisplayFor(modelItem => item.sex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.companyId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.departmentId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.type)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.project)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.datetime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approver)
                                     </td>
                                     <td>
                                         <a href="/RewardsAndPenalties/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
@@ -158,11 +176,16 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
-                            <th>模块</th>
-                            <th>控制器</th>
-                            <th>动作</th>
-                            <th>名称</th>
-                            <th>备注</th>
+                            <th>工号</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>所属公司</th>
+                            <th>所属部门</th>
+                            <th>奖惩类型</th>
+                            <th>奖惩项目</th>
+                            <th>奖惩描述</th>
+                            <th>奖惩日期</th>
+                            <th>审批人</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -173,28 +196,42 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.funCode)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.controlName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.actionName)
+                                        @Html.DisplayFor(modelItem => item.nr)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.remarks)
+                                        @Html.DisplayFor(modelItem => item.sex)
                                     </td>
                                     <td>
-                                        <a href="/SysAuthorization/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                        @Html.DisplayFor(modelItem => item.companyId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.departmentId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.type)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.project)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.datetime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approver)
+                                    </td>
+                                    <td>
+                                        <a href="/RewardsAndPenalties/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                        <a href="/SysAuthorization/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                        <a href="/RewardsAndPenalties/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-
                                     </td>
                                 </tr>
                             }
@@ -207,11 +244,16 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
-                            <th>模块</th>
-                            <th>控制器</th>
-                            <th>动作</th>
-                            <th>名称</th>
-                            <th>备注</th>
+                            <th>工号</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>所属公司</th>
+                            <th>所属部门</th>
+                            <th>奖惩类型</th>
+                            <th>奖惩项目</th>
+                            <th>奖惩描述</th>
+                            <th>奖惩日期</th>
+                            <th>审批人</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -222,28 +264,42 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.funCode)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.controlName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.actionName)
+                                        @Html.DisplayFor(modelItem => item.nr)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.remarks)
+                                        @Html.DisplayFor(modelItem => item.sex)
                                     </td>
                                     <td>
-                                        <a href="/SysAuthorization/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                        @Html.DisplayFor(modelItem => item.companyId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.departmentId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.type)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.project)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.datetime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approver)
+                                    </td>
+                                    <td>
+                                        <a href="/RewardsAndPenalties/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                        <a href="/SysAuthorization/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                        <a href="/RewardsAndPenalties/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-
                                     </td>
                                 </tr>
                             }
@@ -263,13 +319,21 @@
     Layout.init();
 
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_SysAuthorization", "所有权限列表", "20", "all_SysAuthorization_grid_table");
-        
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Rewards", "奖励记录列表", "20", "all_Rewards_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Penalties", "离职员工列表", "20", "all_Penalties_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_RewardsAndPenalties", "全部员工列表", "20", "all_RewardsAndPenalties_grid_table");
     })
 
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_SysAuthorization", "所有权限列表", "20", "all_SysAuthorization_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_Rewards", "奖励记录列表", "20", "all_Rewards_grid_table");
 
-   
+    $('#all_Penalties').addClass("active");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_Penalties", "惩罚记录列表", "20", "all_Penalties_grid_table");
+    $('#all_Penalties').removeClass("active");
+
+    $('#all_RewardsAndPenalties').addClass("active");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_RewardsAndPenalties", "所有记录列表", "20", "all_RewardsAndPenalties_grid_table");
+    $('#all_RewardsAndPenalties').removeClass("active");
+
     Layout.advancedfilter();
  
 </script>
