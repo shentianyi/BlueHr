@@ -529,6 +529,22 @@ namespace BlueHrLib.Data
 				return this.GetTable<JobTitle>();
 			}
 		}
+		
+		public System.Data.Linq.Table<RewardsAndPenalties> RewardsAndPenalties
+		{
+			get
+			{
+				return this.GetTable<RewardsAndPenalties>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Recruit> Recruit
+		{
+			get
+			{
+				return this.GetTable<Recruit>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.WorkAndRest")]
@@ -15352,6 +15368,420 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.JobTitle = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RewardsAndPenalties")]
+	public partial class RewardsAndPenalties
+	{
+		
+		private int _id;
+		
+		private string _nr;
+		
+		private string _name;
+		
+		private System.Nullable<int> _sex;
+		
+		private System.Nullable<int> _companyId;
+		
+		private System.Nullable<int> _departmentId;
+		
+		private System.Nullable<int> _type;
+		
+		private string _project;
+		
+		private string _description;
+		
+		private System.Nullable<System.DateTime> _datetime;
+		
+		private string _approver;
+		
+		public RewardsAndPenalties()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string nr
+		{
+			get
+			{
+				return this._nr;
+			}
+			set
+			{
+				if ((this._nr != value))
+				{
+					this._nr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50)")]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this._name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sex", DbType="Int")]
+		public System.Nullable<int> sex
+		{
+			get
+			{
+				return this._sex;
+			}
+			set
+			{
+				if ((this._sex != value))
+				{
+					this._sex = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyId", DbType="Int")]
+		public System.Nullable<int> companyId
+		{
+			get
+			{
+				return this._companyId;
+			}
+			set
+			{
+				if ((this._companyId != value))
+				{
+					this._companyId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departmentId", DbType="Int")]
+		public System.Nullable<int> departmentId
+		{
+			get
+			{
+				return this._departmentId;
+			}
+			set
+			{
+				if ((this._departmentId != value))
+				{
+					this._departmentId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type", DbType="Int")]
+		public System.Nullable<int> type
+		{
+			get
+			{
+				return this._type;
+			}
+			set
+			{
+				if ((this._type != value))
+				{
+					this._type = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_project", DbType="VarChar(50)")]
+		public string project
+		{
+			get
+			{
+				return this._project;
+			}
+			set
+			{
+				if ((this._project != value))
+				{
+					this._project = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="VarChar(200)")]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this._description = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_datetime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> datetime
+		{
+			get
+			{
+				return this._datetime;
+			}
+			set
+			{
+				if ((this._datetime != value))
+				{
+					this._datetime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approver", DbType="VarChar(50)")]
+		public string approver
+		{
+			get
+			{
+				return this._approver;
+			}
+			set
+			{
+				if ((this._approver != value))
+				{
+					this._approver = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recruit")]
+	public partial class Recruit
+	{
+		
+		private int _id;
+		
+		private string _requirement;
+		
+		private System.Nullable<int> _companyId;
+		
+		private System.Nullable<int> _departmentId;
+		
+		private System.Nullable<int> _amount;
+		
+		private System.Nullable<System.DateTime> _createAt;
+		
+		private System.Nullable<System.DateTime> _requirementAt;
+		
+		private string _requirementMan;
+		
+		private string _status;
+		
+		private string _auditRecord;
+		
+		private string _auditView;
+		
+		public Recruit()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_requirement", DbType="VarChar(200)")]
+		public string requirement
+		{
+			get
+			{
+				return this._requirement;
+			}
+			set
+			{
+				if ((this._requirement != value))
+				{
+					this._requirement = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyId", DbType="Int")]
+		public System.Nullable<int> companyId
+		{
+			get
+			{
+				return this._companyId;
+			}
+			set
+			{
+				if ((this._companyId != value))
+				{
+					this._companyId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departmentId", DbType="Int")]
+		public System.Nullable<int> departmentId
+		{
+			get
+			{
+				return this._departmentId;
+			}
+			set
+			{
+				if ((this._departmentId != value))
+				{
+					this._departmentId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_amount", DbType="Int")]
+		public System.Nullable<int> amount
+		{
+			get
+			{
+				return this._amount;
+			}
+			set
+			{
+				if ((this._amount != value))
+				{
+					this._amount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> createAt
+		{
+			get
+			{
+				return this._createAt;
+			}
+			set
+			{
+				if ((this._createAt != value))
+				{
+					this._createAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_requirementAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> requirementAt
+		{
+			get
+			{
+				return this._requirementAt;
+			}
+			set
+			{
+				if ((this._requirementAt != value))
+				{
+					this._requirementAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_requirementMan", DbType="VarChar(50)")]
+		public string requirementMan
+		{
+			get
+			{
+				return this._requirementMan;
+			}
+			set
+			{
+				if ((this._requirementMan != value))
+				{
+					this._requirementMan = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="VarChar(200)")]
+		public string status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this._status = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_auditRecord", DbType="VarChar(200)")]
+		public string auditRecord
+		{
+			get
+			{
+				return this._auditRecord;
+			}
+			set
+			{
+				if ((this._auditRecord != value))
+				{
+					this._auditRecord = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_auditView", DbType="VarChar(200)")]
+		public string auditView
+		{
+			get
+			{
+				return this._auditView;
+			}
+			set
+			{
+				if ((this._auditView != value))
+				{
+					this._auditView = value;
+				}
+			}
 		}
 	}
 }

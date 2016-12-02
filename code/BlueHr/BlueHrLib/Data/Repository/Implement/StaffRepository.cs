@@ -431,9 +431,16 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public int CountStaffBirthday()
         {
-            string a = System.DateTime.Today.ToString("MM-dd");
-            int q = this.context.Staffs.Where(s => s.birthday.ToString().Contains(a)).Count();
-            return q;
+            string a = System.DateTime.Today.ToString("M/d");
+            //var q = this.context.Staffs.Where(s => s.birthday.ToString().Contains(a)).Count();
+            var q = this.context.Staffs.ToList();
+            int count = 0;
+            foreach (var i in q)
+            {
+                string show = i.birthday.ToString();
+                if (show.Contains(a)) count++;
+            }
+            return count;
         }
 
         public Dictionary<string, string> StaffCount()
@@ -465,5 +472,54 @@ namespace BlueHrLib.Data.Repository.Implement
             return q;
         }
 
+        public List<Staff> ContractExpiredDetail(int v)
+        {
+            //var q = this.context.Staffs.Where(s => s.birthday.ToString().Contains(a)).Count();
+            var q = this.context.Staffs.ToList();
+            List<Staff> count = new List<Staff>();
+            switch (v)
+            {
+                case 0:
+                    {
+                        string a = System.DateTime.Today.ToString("yyyyMM");
+                        foreach (var i in q)
+                        {
+                            if (i.contractExpireStr==null? false :i.contractExpireStr.Length>=6)
+                            {
+                                string show = i.contractExpireStr.Substring(0, 6);
+                                if (show == a) count.Add(i);
+                            }
+                        }
+                        return count;
+                    }
+                case 1:
+                    {
+                        string a = System.DateTime.Today.AddMonths(1).ToString("yyyyMM");
+                        foreach (var i in q)
+                        {
+                            if (i.contractExpireStr == null ? false : i.contractExpireStr.Length >= 6)
+                            {
+                                string show = i.contractExpireStr.Substring(0, 6);
+                                if (show == a) count.Add(i);
+                            }
+                        }
+                        return count;
+                    }
+                case 2:
+                    {
+                        string a = System.DateTime.Today.ToString("yyyyMM");
+                        foreach (var i in q)
+                        {
+                            if (i.contractExpireStr == null ? false : i.contractExpireStr.Length >= 6)
+                            {
+                                string show = i.contractExpireStr.Substring(4, 1);
+                                if (show == a) count.Add(i);
+                            }
+                        }
+                        return count;
+                    }
+            }
+            return null;
+        }
     }
 }
