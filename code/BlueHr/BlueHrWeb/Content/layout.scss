@@ -39,6 +39,9 @@ $light-grey: #ddd !global; // 浅灰色
 $concrete: #95a5a6 !global; //  浅灰色   混凝土
 $asbestos: #7f8c8d !global; // 深灰色  石棉
 
+body{
+    font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", Heiti, "黑体", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", sans-serif !important;
+}
 
 .login{
     margin-top: 60px;
@@ -78,6 +81,23 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
         }
     }
 }
+}
+
+.marco-footer{
+    position:fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    margin-top: -25px;
+    /*background:rgba(26,188,156, 0.8);*/
+    /*background:rgba(89,168,222, 0.8);*/
+    background:rgba(231,147,73, 0.9);
+    /*background:rgba(53,124,165, 0.9);*/
+    padding: 2px;
+    span{
+        color:$dark-white;
+    }
 }
 
 .home{
@@ -300,7 +320,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
   color: $marco-color;
   i{
       cursor:pointer;
-      color: $alizarin;
+      color: $dark-white;
       &:hover{
           color:$marco-color;
       }
@@ -309,7 +329,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 
 @mixin marco-npanel($marco-border: $silver, $marco-bg: $concrete, $marco-color: #f2f2f2) {
   margin-top: 10px;
-  border: 2px solid $marco-border;
+  border: 1px solid $marco-border;
   .marco-nheading {
     @include marco-panel-head($marco-bg, $marco-color);
   }
@@ -341,7 +361,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 }
 
 .marco-npanel-warning {
-  @include marco-npanel($shallow-yellow, $light-yellow, $high-yellow);
+  @include marco-npanel($flat-yellow, $orange, $dark-white);
 }
 
 .marco-npanel-danger {
@@ -655,6 +675,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
         border:none;
         li{
             margin-left:-3px;
+            min-width:60px;
             a{
                 border-radius:0;
                 padding: 5px;
@@ -676,15 +697,7 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 
             &:first-child{
                 margin-left:0;
-                a{
-                    border-top-left-radius:2px;
-                }
-            }
 
-            &:last-child{
-                a{
-                    border-top-right-radius:2px;
-                }
             }
         }
         .active{
@@ -694,13 +707,9 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
                     background-color: $marco-active-bg;
                     &:hover, &:link, &:active{
                         border:none;
-                        border-top: 1px solid $marco-active-bg;
                         cursor:default;
                         background: $marco-active-bg;
-                        color:$marco-active-font;
-                         &:first-child{
-                             border-left:1px solid $marco-active-bg;
-                        }
+                        color:$dark-white;
                     }
                 }
                 .badge{
@@ -715,9 +724,17 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
         min-height: 100px;
         border: 1px solid $marco-active-bg;
         padding: 5px;
-        font-size: 12px;
-        border-radius: 2px;
-        border-top-left-radius: 0;
+
+
+        .tab-pane{
+            &>span{
+                color:$marco-active-font;
+            }
+            &>table{
+                margin-top:5px;
+            }
+        }
+
         ul{
             list-style:none;
             padding-left:0;
@@ -749,8 +766,12 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
     @include marco-tabs($marco-active-bg: $brlize-hole, $marco-active-font: $silver);
 }
 
+.marco-tabs-success{
+    @include marco-tabs($marco-bg: $green-sea, $marco-font: $green-sea, $marco-active-bg: $turquoise, $marco-active-font: $turquoise);
+}
+
 .marco-tabs-normal{
-    @include marco-tabs($marco-active-bg: $silver, $marco-active-font: $brlize-hole);
+    @include marco-tabs($marco-active-bg: $brlize-hole, $marco-active-font: $brlize-hole);
 }
 
 @mixin popMsg($marco-bg: $peter-river, $marco-color: white){
@@ -798,4 +819,117 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }
+}
+
+@mixin circle-btn($marco-bg: $peter-river, $marco-color: $dark-white){
+    margin-top: 10px;
+    padding: 10px;
+    text-align: center;
+    height: 80px;
+    width: 80px;
+    border:2px solid $marco-bg;
+    border-radius: 100%;
+    margin: 10px 15% 10px 15%;
+    &:hover{
+        background:$marco-bg;
+        color: $marco-color;
+        i{
+            color: $marco-color;
+        }
+    }
+
+    i{
+        font-size: 2em;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        color: $marco-bg;
+    }
+    span{
+        font-size: 14px;
+        font-family: 黑体;
+    }
+}
+
+.marco-circle-btn{
+    @include circle-btn();
+}
+
+.marco-circle-btn-success{
+    @include circle-btn($marco-bg: $green-sea);
+}
+
+.marco-circle-btn-primary{
+    @include circle-btn($marco-bg: $brlize-hole);
+}
+
+.marco-circle-btn-warning{
+    @include circle-btn($marco-bg: $flat-yellow);
+}
+
+.marco-circle-btn-danger{
+    @include circle-btn($marco-bg: $alizarin);
+}
+
+
+@mixin dashboard-box($marco-bg: $alizarin, $marco-color:white){
+    .dashboard-box{
+        a:hover{
+            text-decoration:none;
+        }
+        text-align:center;
+        height: 90px;
+        background:$marco-bg;
+        opacity:0.8;
+        border-radius:2px;
+        max-width: 260px;
+        .dashboard-icon{
+            width: 20%;
+            float:left;
+            margin:15px 15px 15px 25px;
+            i{
+                padding:10px 5px;
+                width: 60px;
+                height:60px;
+                border-radius:100%;
+                font-size:2.2em;
+                color: $marco-color;
+                border:5px solid;
+               
+            }
+        }
+    
+        .dashboard-content{
+            width: 80%;
+            padding-top:10px;
+            margin-left:10%;
+            p{
+                margin-top:5px;
+                font-size:16px;
+                color:$marco-color;
+            }
+            .show{
+                color:$dark-white;
+                span{
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+.dashboard-box-default{
+    @include dashboard-box;
+}
+
+.dashboard-box-primary{
+    @include dashboard-box($marco-bg:$peter-river);
+}
+
+.dashboard-box-warning{
+    @include dashboard-box($marco-bg:$flat-yellow);
+}
+
+.dashboard-box-success{
+    @include dashboard-box($marco-bg:$turquoise);
 }
