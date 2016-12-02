@@ -1163,9 +1163,9 @@
     .marco-tabs-default ul li:first-child {
       margin-left: 0; }
       .marco-tabs-default ul li:first-child a {
-        border-top-left-radius: 5px; }
+        border-top-left-radius: 2px; }
     .marco-tabs-default ul li:last-child a {
-      border-top-right-radius: 5px; }
+      border-top-right-radius: 2px; }
   .marco-tabs-default ul .active a {
     padding: 5px;
     border: none;
@@ -1188,7 +1188,7 @@
   border: 1px solid #2980b9;
   padding: 5px;
   font-size: 12px;
-  border-radius: 5px;
+  border-radius: 2px;
   border-top-left-radius: 0; }
   .marco-tabs-default .tab-content ul {
     list-style: none;
@@ -1228,9 +1228,9 @@
     .marco-tabs-dark ul li:first-child {
       margin-left: 0; }
       .marco-tabs-dark ul li:first-child a {
-        border-top-left-radius: 5px; }
+        border-top-left-radius: 2px; }
     .marco-tabs-dark ul li:last-child a {
-      border-top-right-radius: 5px; }
+      border-top-right-radius: 2px; }
   .marco-tabs-dark ul .active a {
     padding: 5px;
     border: none;
@@ -1253,7 +1253,7 @@
   border: 1px solid #2980b9;
   padding: 5px;
   font-size: 12px;
-  border-radius: 5px;
+  border-radius: 2px;
   border-top-left-radius: 0; }
   .marco-tabs-dark .tab-content ul {
     list-style: none;
@@ -1293,9 +1293,9 @@
     .marco-tabs-normal ul li:first-child {
       margin-left: 0; }
       .marco-tabs-normal ul li:first-child a {
-        border-top-left-radius: 5px; }
+        border-top-left-radius: 2px; }
     .marco-tabs-normal ul li:last-child a {
-      border-top-right-radius: 5px; }
+      border-top-right-radius: 2px; }
   .marco-tabs-normal ul .active a {
     padding: 5px;
     border: none;
@@ -1318,7 +1318,7 @@
   border: 1px solid #bdc3c7;
   padding: 5px;
   font-size: 12px;
-  border-radius: 5px;
+  border-radius: 2px;
   border-top-left-radius: 0; }
   .marco-tabs-normal .tab-content ul {
     list-style: none;
