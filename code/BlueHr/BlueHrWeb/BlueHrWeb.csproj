@@ -254,8 +254,6 @@
     <Compile Include="Controllers\ExtraWorkRecordController.cs" />
     <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
-    <Compile Include="Controllers\RecruitController.cs" />
-    <Compile Include="Controllers\RewardsAndPenaltiesController.cs" />
     <Compile Include="Controllers\SysRoleAuthorizationController.cs" />
     <Compile Include="Controllers\SysRoleController.cs" />
     <Compile Include="Controllers\SysAuthorizationController.cs" />
@@ -310,7 +308,6 @@
     </Content>
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\highcharts.css" />
-
     <Content Include="Content\layout.css">
       <DependentUpon>layout.scss</DependentUpon>
     </Content>
@@ -318,7 +315,7 @@
       <DependentUpon>layout.css</DependentUpon>
     </Content>
     <Content Include="Images\back1.jpg" />
-    <Content Include="Images\back2.jpg" />
+    <Content Include="Images\back3.png" />
     <Content Include="Images\background.jpg" />
     <Content Include="Images\change.jpg" />
     <Content Include="Images\changepwd.jpg" />
