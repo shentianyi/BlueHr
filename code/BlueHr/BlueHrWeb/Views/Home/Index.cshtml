@@ -471,7 +471,7 @@
 
             if(data.length>0){
             	for(var i =0; i< data.length; i++){
-            		var Html = "<tr><td > "+data[i].姓名+" </td><td > "+data[i].性别+" </td><td > "+data[i].出生日期+" </td><td > "+data[0].年龄+" </td></tr>";
+            		var Html = "<tr><td > "+data[i].姓名+" </td><td > "+data[i].性别+" </td><td > "+data[i].出生日期+" </td><td > "+data[i].年龄+" </td></tr>";
             		$(Html).appendTo($("#staffBirthday"));
             	}
             }else{
@@ -487,19 +487,28 @@
      $.ajax({
         url: '/Staff/ToEmployeesDetail',
         type: 'get',
-        success: function (data) {
-        	console.log(data);
+        success: function (data) {       	
         	$("#ToEmployees").empty();
-
             if(data.length>0){
             	for(var i =0; i< data.length; i++){
-            		var Html = "<tr><td > "+data[i].姓名+" </td><td > "+data[i].性别+" </td><td > "+data[i].出生日期+" </td><td > "+data[0].年龄+" </td></tr>";
-            		$(Html).appendTo($("#staffBirthday"));
+            		var Html = "<tr><td > "+data[i].姓名+" </td><td > "+data[i].性别+" </td><td > "+data[i].入职日期+" </td><td > "+data[i].转正日期+" </td><td > "+data[i].剩余+" </td></tr>";
+            		$(Html).appendTo($("#ToEmployees"));
             	}
             }else{
 
             }
+        },
+        error: function () {
+            console.log("CCCCCCCC");
+        }
+    });
 
+    $.ajax({
+        url: '/Staff/CountStaffBirthday',
+        type: 'get',
+        success: function (data) {  
+            console.log(data); 	
+        	$("#birthDayNum").html(data.生日 + "人")         
         },
         error: function () {
             console.log("CCCCCCCC");
