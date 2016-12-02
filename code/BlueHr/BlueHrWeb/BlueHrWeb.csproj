@@ -308,17 +308,7 @@
     </Content>
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\highcharts.css" />
-<<<<<<< HEAD
-    <Content Include="Images\back2.jpg" />
-    <Content Include="Images\back1.jpg" />
-    <Content Include="Images\background.jpg" />
-    <Content Include="Images\changepwd.jpg" />
-    <Content Include="Images\treeIcon\diy\company.png" />
-    <Content Include="Images\change.jpg" />
-    <Content Include="Scripts\Go\DataInspector.js" />
-    <Content Include="Scripts\Go\go-icons.js" />
-    <Content Include="Scripts\Go\go.js" />
-=======
+
     <Content Include="Content\layout.css">
       <DependentUpon>layout.scss</DependentUpon>
     </Content>
@@ -332,7 +322,6 @@
     <Content Include="Images\changepwd.jpg" />
     <Content Include="Images\No.png" />
     <Content Include="Images\treeIcon\diy\company.png" />
->>>>>>> 822d0cf3d700efea089bf5d7236bd3a2dd6f4d23
     <Content Include="Content\input-style.css" />
     <Content Include="Content\jquery-popModal.css" />
     <Content Include="Content\jquery-tree.css" />
