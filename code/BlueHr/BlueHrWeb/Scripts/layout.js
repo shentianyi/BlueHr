@@ -31,7 +31,7 @@ Layout.init = function () {
             PageAction('#company', '新建公司', '编辑公司', '公司详情', '创建', '更新', '删除');
             break;
         case "Department":
-            $('.nav-department').addClass('active');
+            $('.nav-organ').addClass('active');
             PageAction('#department', '新建部门', '编辑部门', '部门详情', '创建', '更新', '删除');
             break;
         case "Staff":
@@ -44,6 +44,10 @@ Layout.init = function () {
             break;
 	case "Staff":
             $('.nav-person').addClass('active');
+            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+            break;
+	case "Staff":
+            $('.nav-staff').addClass('active');
             PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
             break;
 	case "Staff":
@@ -74,6 +78,7 @@ Layout.init = function () {
             $('.nav-organ').addClass('active');
             PageAction('#jobtitle', '新建职位', '编辑职位', '职位详情', '创建', '更新', '删除');
             break;
+		         
         case "DegreeType":
             $('.nav-basic').addClass('active');
             PageAction('#degreetype', '新建学历', '编辑学历', '学历详情', '创建', '更新', '删除');
@@ -164,7 +169,7 @@ Layout.init = function () {
             $('.nav-system-opera').addClass('active');
             PageAction('#user', '新建系统操作', '编辑系统操作', '系统操作详情', '创建', '更新', '删除');
             break;	
-           
+        
         default:
             break;
     }
