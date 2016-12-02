@@ -310,6 +310,7 @@
     </Content>
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\highcharts.css" />
+
     <Content Include="Content\layout.css">
       <DependentUpon>layout.scss</DependentUpon>
     </Content>

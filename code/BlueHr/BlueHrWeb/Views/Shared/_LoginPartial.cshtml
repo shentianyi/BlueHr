@@ -106,7 +106,7 @@
 else
 {
     //登录界面
-    <div style="background-image:url('../../Images/back2.jpg'); background-repeat:no-repeat; position:absolute; top:0; left:0px;right:0;bottom:0;opacity:0.8; "></div>
+    <div style="background-image:url('/Images/back1.jpg'); background-repeat:no-repeat; position:absolute; top:0; left:0px;right:0;bottom:0;opacity:0.8;"></div>
     using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
     {
 
@@ -116,11 +116,11 @@ else
             <div class="header1">德晋HR系统</div>
             <div class="div_input1">
                 <label>邮箱</label>
-                <input type="text" name="Email" id="Email" value="" style="width:300px; height:40px; border:1px solid #2980b9;"placeholder="请输入邮箱" />
+                <input type="text" name="Email" id="Email" value="" style="width:300px; height:40px; border:1px solid #2980b9;" placeholder="请输入邮箱" />
             </div>
             <div class="div_input2">
                 <label>密码</label>
-                <input type="password" name="Password" value=""placeholder="请输入密码" />
+                <input type="password" name="Password" value="" placeholder="请输入密码" />
             </div>
 
             <div>
