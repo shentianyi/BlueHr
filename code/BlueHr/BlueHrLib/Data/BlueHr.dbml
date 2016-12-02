@@ -778,4 +778,34 @@
       <Association Name="JobTitle_Staff" Member="Staff" ThisKey="id" OtherKey="jobTitleId" Type="Staff" />
     </Type>
   </Table>
+  <Table Name="dbo.RewardsAndPenalties" Member="RewardsAndPenalties">
+    <Type Name="RewardsAndPenalties">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="sex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="departmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="project" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="datetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="approver" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Recruit" Member="Recruit">
+    <Type Name="Recruit">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="requirement" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="departmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="amount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="createAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="requirementAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="requirementMan" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="auditRecord" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="auditView" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

@@ -44,5 +44,6 @@ namespace BlueHrLib.Data.Repository.Interface
         Dictionary<string, string> StaffCount();
 
         int CountStaffBirthday();
+        List<Staff> ContractExpiredDetail(int v);
     }
 }

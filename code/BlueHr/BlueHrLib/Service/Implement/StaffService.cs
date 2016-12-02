@@ -333,6 +333,11 @@ namespace BlueHrLib.Service.Implement
             return staffRep.StaffCount();
         }
 
+        public List<Staff> ContractExpiredDetail(int v)
+        {
+            return staffRep.ContractExpiredDetail(v);
+        }
+
         //public List<Staff> getStaffUserIDCard()
         //{
         //    return staffRep.getStaffUserIDCard();
