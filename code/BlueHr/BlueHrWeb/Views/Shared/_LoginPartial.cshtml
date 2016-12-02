@@ -1,6 +1,67 @@
 ﻿@using Microsoft.AspNet.Identity
 @using BlueHrLib.Data
 
+<style>
+    .header1 {
+        margin-top: 30px;
+        width: 100%;
+        height: 24px;
+        text-align: center;
+        line-height: 30px;
+        color: #2980b9;
+        font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 30px;
+        font-weight: 800;
+    }
+
+    .div_input1 {
+        position: relative;
+        left: 150px;
+        top: 80px;
+    }
+
+    .div_input2 {
+        position: relative;
+        left: 150px;
+        top: 100px;
+    }
+
+    label {
+        color: #2980b9;
+        font-size: 18px;
+    }
+
+    input {
+        width: 300px;
+        height: 40px;
+        border: 1px solid #2980b9;
+        padding-left: 20px;
+    }
+
+    .btn {
+        position: relative;
+        left: 280px;
+        top: 150px;
+        width: 100px;
+        height: 50px;
+        line-height: 20px;
+        text-align: center;
+        color: #fff;
+        font-size: 18px;
+        background: #2980b9;
+    }
+    .login_div {
+        width:600px; 
+        height:400px;
+        background:#f7f5f6; 
+        position:absolute;
+        left:500px;
+        top:200px; 
+        border-radius:4px 120px 4px 120px; 
+        border:1px solid #808080;
+        box-shadow:2px 2px 30px #ebe4e3;
+    }
+</style>
 
 @if (Session["user"] != null)
 {
@@ -8,18 +69,21 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span class="hidden-xs">
                 <i class="fa fa-user"></i>
+
                 @*当前用户*@
+
                 @((Session["user"] as User).name)
                 <i class="fa fa-sort-down"></i>
             </span>
         </a>
         <ul class="dropdown-menu" style="height:70px;">
-            @*设置登出样式*@
+
+            @*设置注销样式*@
 
             <li style="margin:5px 0 0 20px">
                 <a href="/user/changepwd?id=@((Session["user"] as User).id)" style="color:#fff">
                     <i class="fa fa-paste"></i>
-                    <span style="color:#fff;font-weight:500;"> 修改密码 </span>
+                    <span style="color:#fff; font-weight:500;"> 修改密码 </span>
                 </a>
             </li>
 
@@ -30,7 +94,7 @@
 
                     <a href="javascript:document.getElementById('logoutForm').submit()" style="color:#fff;">
                         <i class="fa fa-power-off"></i>
-                        <span style="margin-left:10px;font-weight:500;"> 注销 </span>
+                        <span style="margin-left:10px; font-weight:500;"> 注销 </span>
                     </a>
                 }
             </li>
@@ -38,79 +102,26 @@
     </li>
     <div class="marco-footer">
         <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                @*获用户取当前登录*@
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">                
                 <span>当前用户: @((Session["user"] as User).name)</span>
             </div>
-
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                <span>登陆时间: </span> <span id="loginTime">13:55</span>    
-            </div>
-
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                <span>在线时长: </span> <span id="OnlineTime">0</span> <span>分钟</span>
+                @*获取当前登录时间*@
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                    <span>登陆时间: </span> <span id="loginTime">13:55</span>
+                </div>
+                @*获取在线时长*@
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                    <span>在线时长: </span> <span id="OnlineTime">00</span> <span>分钟</span>
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
+   
 else
 {
-    <style>
-        body {
-            overflow: hidden;
-        }
-
-        .header1 {
-            margin-top: 30px;
-            width: 100%;
-            height: 24px;
-            text-align: center;
-            line-height: 30px;
-            color: #2980b9;
-            font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 30px;
-            font-weight: 800;
-        }
-
-        .div_input1 {
-            position: relative;
-            left: 150px;
-            top: 80px;
-        }
-
-        .div_input2 {
-            position: relative;
-            left: 150px;
-            top: 100px;
-        }
-
-        label {
-            color: #2980b9;
-            font-size: 18px;
-        }
-
-        input {
-            width: 300px;
-            height: 40px;
-            border: 1px solid #2980b9;
-            padding-left: 5px;
-        }
-
-        .btn {
-            position: relative;
-            left: 280px;
-            top: 150px;
-            width: 100px;
-            height: 50px;
-            line-height: 20px;
-            text-align: center;
-            color: #fff;
-            font-size: 18px;
-            background: #2980b9;
-        }
-    </style>
-
     //登录界面
-    <div style="background-image:url('/Images/back1.jpg'); background-repeat:no-repeat; position:absolute; top:0; left:0px;right:0;bottom:0;opacity:0.8;"></div>
+   <div style="background-image:url('/Images/back1.jpg'); background-repeat:no-repeat; position:absolute; top:0; left:0px;right:0;bottom:0;opacity:0.8;"></div>
     using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
     {
 
@@ -133,24 +144,24 @@ else
                     登录
                 </button>
             </div>
-        </div>
-    }
-}
-
-<script type="text/javascript">
-    $("#loginTime").html(SetTime(new Date().getHours())+ ":" + SetTime(new Date().getMinutes()));
-
-    function SetTime(time){
-        if(time<10){
-            return "0"+time;
-        }else{
-            return time;
+            </div>
         }
     }
 
-    var i =0;
-    setInterval(function(){
-        $("#OnlineTime").html(i);
-        i++;
-    }, 60000);
-</script>
+    <script type="text/javascript">
+        $("#loginTime").html(SetTime(new Date().getHours())+ ":" + SetTime(new Date().getMinutes()));
+
+        function SetTime(time){
+            if(time<10){
+                return "0"+time;
+            }else{
+                return time;
+            }
+        }
+
+        var i = 0;
+        setInterval(function(){
+            $("#OnlineTime").html(i);
+            i++;
+        }, 60000);
+    </script>

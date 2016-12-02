@@ -115,7 +115,7 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
-                            <th>NO</th>
+                            @*<th>NO</th>*@
                             <th>日期</th>
                             <th>类型</th>
                             <th>备注</th>
@@ -130,7 +130,7 @@
                             foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@(i += 1)</td>
+                                    @*<td>@(i += 1)</td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.dateAt)
                                     </td>

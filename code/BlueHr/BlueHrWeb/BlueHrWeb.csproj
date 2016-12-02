@@ -318,6 +318,7 @@
     </Content>
     <Content Include="Images\back1.jpg" />
     <Content Include="Images\back2.jpg" />
+    <Content Include="Images\back3.png" />
     <Content Include="Images\background.jpg" />
     <Content Include="Images\change.jpg" />
     <Content Include="Images\changepwd.jpg" />
@@ -734,13 +735,21 @@
     <Content Include="Views\Recruit\Index.cshtml" />
     <Content Include="Views\Recruit\Edit.cshtml" />
     <Content Include="Views\Recruit\Delete.cshtml" />
+
     <Content Include="Views\Recruit\Create.cshtml" />
+    <Content Include="Views\Recruit\Delete.cshtml" />
+    <Content Include="Views\Recruit\Edit.cshtml" />
+    <Content Include="Views\Recruit\Index.cshtml" />
     <Content Include="Views\Recruit\_PartialRecruit.cshtml" />
+    <Content Include="Views\RewardsAndPenalties\Create.cshtml" />
+    <Content Include="Views\RewardsAndPenalties\Delete.cshtml" />
+    <Content Include="Views\RewardsAndPenalties\Edit.cshtml" />
+    <Content Include="Views\RewardsAndPenalties\Index.cshtml" />
+    <Content Include="Views\RewardsAndPenalties\_PartialRewardsAndPenalties.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="UploadImage\" />
-    <Folder Include="Views\StaffType\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
