@@ -28,6 +28,8 @@ body {
   min-height: 100%;
   position: relative;
   overflow: hidden;
+  margin-bottom: 30px;
+  background:url(../Images/back.png);
 }
 .wrapper:before,
 .wrapper:after {

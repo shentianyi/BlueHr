@@ -1,8 +1,61 @@
 ﻿@using Microsoft.AspNet.Identity
 @using BlueHrLib.Data
 
+
+<style>
+    .header1 {
+        margin-top: 30px;
+        width: 100%;
+        height: 24px;
+        text-align: center;
+        line-height: 30px;
+        color: #2980b9;
+        font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 30px;
+        font-weight: 800;
+    }
+
+    .div_input1 {
+        position: relative;
+        left: 150px;
+        top: 80px;
+    }
+
+    .div_input2 {
+        position: relative;
+        left: 150px;
+        top: 100px;
+    }
+
+    label {
+        color: #2980b9;
+        font-size: 18px;
+    }
+
+    input {
+        width: 300px;
+        height: 40px;
+        border: 1px solid #2980b9;
+        padding-left: 20px;
+    }
+
+    .btn {
+        position: relative;
+        left: 280px;
+        top: 150px;
+        width: 100px;
+        height: 50px;
+        line-height: 20px;
+        text-align: center;
+        color: #fff;
+        font-size: 18px;
+        background: #2980b9;
+    }
+</style>
+
 @if (Session["user"] != null)
 {
+<<<<<<< HEAD
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <span class="hidden-xs">
@@ -34,6 +87,55 @@
                 </li>
            </ul>
         </li>
+=======
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-xs">
+                <i class="fa fa-user"></i>
+                @*当前用户*@
+                @((Session["user"] as User).name)
+                <i class="fa fa-sort-down"></i>
+            </span>
+        </a>
+        <ul class="dropdown-menu" style="height:70px;">
+            @*设置登出样式*@
+
+            <li style="margin:5px 0 0 20px">
+                <a href="/user/changepwd?id=@((Session["user"] as User).id)" style="color:#fff">
+                    <i class="fa fa-paste"></i>
+                    <span style="color:#fff;font-weight:500;"> 修改密码 </span>
+                </a>
+            </li>
+
+            <li style="margin: 10px 0 20px 42px;position:relative;top:-10px; ">
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <a href="javascript:document.getElementById('logoutForm').submit()" style="color:#fff;">
+                        <i class="fa fa-power-off"></i>
+                        <span style="margin-left:10px;font-weight:500;"> 注销 </span>
+                    </a>
+                }
+            </li>
+        </ul>
+    </li>
+    <div class="marco-footer">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                <span>当前用户: @((Session["user"] as User).name)</span>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                <span>登陆时间: </span> <span id="loginTime">13:55</span>    
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                <span>在线时长: </span> <span id="OnlineTime">0</span> <span>分钟</span>
+            </div>
+        </div>
+    </div>
+>>>>>>> 822d0cf3d700efea089bf5d7236bd3a2dd6f4d23
 }
 else
 {
@@ -64,48 +166,21 @@ else
         </div>
     }
 }
-<style>
-    .header1 {
-        margin-top:30px;
-        width:100%;
-        height:24px;        
-        text-align:center;
-        line-height:30px;
-        color:#2980b9;
-        font-family:'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        font-size:30px;
-        font-weight:800;
+
+<script type="text/javascript">
+    $("#loginTime").html(SetTime(new Date().getHours())+ ":" + SetTime(new Date().getMinutes()));
+
+    function SetTime(time){
+        if(time<10){
+            return "0"+time;
+        }else{
+            return time;
+        }
     }
-    .div_input1 {
-        position:relative;
-        left:150px;
-        top:80px;
-    }
-     .div_input2 {
-        position:relative;
-        left:150px;
-        top:100px;
-    }
-    label {
-        color:#2980b9;
-        font-size:18px;
-    }
-    input {
-        width:300px;
-        height:40px;
-       border:1px solid #2980b9;
-       padding-left:20px;
-    }
-    .btn{
-        position:relative;
-        left:280px;
-        top:150px;
-        width:100px;
-        height:50px;
-        line-height:20px;
-        text-align:center;
-        color:#fff;
-        font-size:18px;
-        background:#2980b9;
-    }
-</style>
+
+    var i =0;
+    setInterval(function(){
+        $("#OnlineTime").html(i);
+        i++;
+    }, 60000);
+</script>

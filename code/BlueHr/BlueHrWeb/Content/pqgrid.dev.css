@@ -22,7 +22,7 @@ div.pq-grid *:focus{
 }
 div.pq-grid-top{
     border-width:0px;
-    background: url("../Images/back.png");
+    /*background: url("../Images/back.png");*/
 }
 .pq-grid .pq-slider-icon{	
     position:absolute;
@@ -269,13 +269,22 @@ tr.pq-row-hidden{
 }
 div.pq-grid tr{
 }			
+
+
 td.pq-grid-cell{
     overflow:hidden;
     padding:0px;
     padding: 4px 5px;
     vertical-align:middle;
     word-wrap:break-word;
+    color: #2c3e50;
 }	
+
+td.pq-grid-cell>input[type="checkbox"]{
+    width: 15px;
+    height:15px;
+}
+
 .pq-grid td.pq-cell-dirty
 {    
     background-image:url("../Images/pqgrid/square_dirty.gif");
@@ -285,6 +294,12 @@ td.pq-grid-cell{
 td div.pq-td-div{
     padding: 0px;
 }
+
+td div.pq-td-div>input[type="checkbox"]{
+    width: 15px;
+    height:15px;
+}
+
 table.pq-td-border-right > tbody > tr > td.pq-grid-cell{	    
     border-right:1px solid #d0d0d0;    
 }

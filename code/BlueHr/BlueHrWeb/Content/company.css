@@ -1,1 +1,8 @@
-.marco-badge{cursor:pointer;background:#ddd4d8;border-radius:0;}.marco-badge a{color:#3c3437;text-decoration:none;}
+﻿.marco-badge {
+  cursor: pointer;
+  background: #3498db;
+  border-radius: 0; }
+  .marco-badge a {
+    color: #ecf0f1;
+    text-decoration: none; }
+
