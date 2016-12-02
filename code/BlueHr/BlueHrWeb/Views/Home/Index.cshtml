@@ -204,7 +204,7 @@
                                             <td>剩余</td>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="ToEmployees">
                                         <tr>
                                             <td>A</td>
                                             <td>劳动合同</td>
@@ -343,19 +343,7 @@
                                             <td>年龄</td>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>A</td>
-                                            <td>M</td>
-                                            <td>2017-1-11</td>
-                                            <td>42</td>
-                                        </tr>
-                                        <tr>
-                                            <td>B</td>
-                                            <td>F</td>
-                                            <td>2018-12-20</td>
-                                            <td>20</td>
-                                        </tr>
+                                    <tbody id="staffBirthday">
                                     </tbody>
                                 </table>
                             </div>
@@ -475,6 +463,49 @@
 </div>
 
 <script type="text/javascript">
+    $.ajax({
+        url: '/Staff/BirthdayDetail',
+        type: 'get',
+        success: function (data) {
+        	$("#staffBirthday").empty();
+
+            if(data.length>0){
+            	for(var i =0; i< data.length; i++){
+            		var Html = "<tr><td > "+data[i].姓名+" </td><td > "+data[i].性别+" </td><td > "+data[i].出生日期+" </td><td > "+data[0].年龄+" </td></tr>";
+            		$(Html).appendTo($("#staffBirthday"));
+            	}
+            }else{
+
+            }
+
+        },
+        error: function () {
+            console.log("CCCCCCCC");
+        }
+    });
+
+     $.ajax({
+        url: '/Staff/ToEmployeesDetail',
+        type: 'get',
+        success: function (data) {
+        	console.log(data);
+        	$("#ToEmployees").empty();
+
+            if(data.length>0){
+            	for(var i =0; i< data.length; i++){
+            		var Html = "<tr><td > "+data[i].姓名+" </td><td > "+data[i].性别+" </td><td > "+data[i].出生日期+" </td><td > "+data[0].年龄+" </td></tr>";
+            		$(Html).appendTo($("#staffBirthday"));
+            	}
+            }else{
+
+            }
+
+        },
+        error: function () {
+            console.log("CCCCCCCC");
+        }
+    });
+
     $.ajax({
         url: '/MessageRecord/CountToEmployees',
         type: 'get',

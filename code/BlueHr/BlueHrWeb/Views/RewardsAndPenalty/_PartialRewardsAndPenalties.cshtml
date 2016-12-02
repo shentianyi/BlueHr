@@ -1,4 +1,4 @@
-﻿@model BlueHrLib.Data.RewardsAndPenalties
+﻿@model BlueHrLib.Data.RewardsAndPenalty
 
 <div id="rewardsandpenalties" style="margin:10px;">
     <ol class="breadcrumb current-position">
@@ -35,19 +35,19 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>工号</span>
-                        @Html.EditorFor(model => model.nr)
+                        @Html.EditorFor(model => model.staffNr)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>姓名</span>
-                        @Html.EditorFor(model => model.name)
+                        @Html.EditorFor(model => model.staffName)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>性别</span>
-                        @Html.EditorFor(model => model.sex)
+                        @Html.EditorFor(model => model.staffSex)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -77,19 +77,19 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>奖惩描述</span>
-                        @Html.EditorFor(model => model.description)
+                        @*@Html.EditorFor(model => model.description)*@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>奖惩日期</span>
-                        <input type="text" name="rewardsandpenaltiesAt" placeholder="日期" class="date-picker" value="@Model.datetime" />
+                        <input type="text" name="rewardsandpenaltiesAt" placeholder="日期" class="date-picker" value="@Model.createAt" />
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>审批人</span>
-                        @Html.EditorFor(model => model.approver)
+                        @Html.EditorFor(model => model.userId)
                     </div>
                 </div>             
             </div>

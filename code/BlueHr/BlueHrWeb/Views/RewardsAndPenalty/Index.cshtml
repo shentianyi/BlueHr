@@ -1,5 +1,5 @@
 ﻿@using MvcPaging
-@model IPagedList<BlueHrLib.Data.RewardsAndPenalties>
+@model IPagedList<BlueHrLib.Data.RewardsAndPenalty>
 @{
     ViewBag.Title = "奖惩管理";
 }
@@ -18,13 +18,13 @@
             <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
                 <div class="marco-igroup-primary">
                     <span>工号</span>
-                    <input type="text" name="Nr" id="Nr" placeholder="工号" value="@ViewBag.Query.Nr" />
+                    <input type="text" name="Nr" id="Nr" placeholder="工号" value="@ViewBag.Query.StaffNr" />
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
                 <div class="marco-igroup-primary">
                     <span>姓名</span>
-                    <input type="text" name="Name" id="Name" placeholder="姓名" value="@ViewBag.Query.Name" />
+                    <input type="text" name="Name" id="Name" placeholder="姓名" value="@ViewBag.Query.StaffName" />
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
@@ -128,13 +128,13 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.nr)
+                                        @Html.DisplayFor(modelItem => item.staffNr)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.name)
+                                        @Html.DisplayFor(modelItem => item.staffName)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.sex)
+                                        @Html.DisplayFor(modelItem => item.staffSex)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.companyId)
@@ -152,10 +152,10 @@
                                         @Html.DisplayFor(modelItem => item.description)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.datetime)
+                                        @Html.DisplayFor(modelItem => item.createAt)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.approver)
+                                        @Html.DisplayFor(modelItem => item.userId)
                                     </td>
                                     <td>
                                         <a href="/RewardsAndPenalties/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
@@ -196,13 +196,13 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.nr)
+                                        @Html.DisplayFor(modelItem => item.staffNr)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.name)
+                                        @Html.DisplayFor(modelItem => item.staffName)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.sex)
+                                        @Html.DisplayFor(modelItem => item.staffSex)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.companyId)
@@ -220,10 +220,10 @@
                                         @Html.DisplayFor(modelItem => item.description)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.datetime)
+                                        @Html.DisplayFor(modelItem => item.createAt)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.approver)
+                                        @Html.DisplayFor(modelItem => item.userId)
                                     </td>
                                     <td>
                                         <a href="/RewardsAndPenalties/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
@@ -264,13 +264,13 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.nr)
+                                        @Html.DisplayFor(modelItem => item.staffNr)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.name)
+                                        @Html.DisplayFor(modelItem => item.staffName)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.sex)
+                                        @Html.DisplayFor(modelItem => item.staffSex)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.companyId)
@@ -288,10 +288,10 @@
                                         @Html.DisplayFor(modelItem => item.description)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.datetime)
+                                        @Html.DisplayFor(modelItem => item.createAt)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.approver)
+                                        @Html.DisplayFor(modelItem => item.userId)
                                     </td>
                                     <td>
                                         <a href="/RewardsAndPenalties/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
