@@ -92,8 +92,8 @@
 .dialogModal .dialogModal_container .dialogNext:after {border-right:0;border-left-color:#aaa}
 .dialogModal .dialogModal_container .dialogPrev:hover,
 .dialogModal .dialogModal_container .dialogNext:hover {background:rgba(0,0,0,0.2)}
-.dialogModal .dialogModal_container .close {line-height:12px;font-size:25px;font-weight:bold;font-family:serif;position:absolute;right:12px;top:12px;color:#000;opacity:0.2;padding:0;cursor:pointer;background:transparent;border:0;outline:0}
-.dialogModal .dialogModal_container .close:hover {opacity:1}
+.dialogModal .dialogModal_container .close {opacity:1; line-height:12px;font-size:25px;font-weight:bold;font-family:serif;position:absolute;right:12px;top:12px;color:#fff;padding:0;cursor:pointer;background:transparent;border:0;outline:0}
+/*.dialogModal .dialogModal_container .close:hover {opacity:1}*/
 .dialogModal .dialogModal_body {}
 .dialogModal .dialogModal_header {padding:10px 20px;background:#eaeaea;line-height:20px}
 .dialogModal .dialogModal_content {padding:25px 20px}
