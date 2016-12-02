@@ -474,52 +474,86 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public List<Staff> ContractExpiredDetail(int v)
         {
-            //var q = this.context.Staffs.Where(s => s.birthday.ToString().Contains(a)).Count();
-            var q = this.context.Staffs.ToList();
-            List<Staff> count = new List<Staff>();
-            switch (v)
+            try
             {
-                case 0:
+                //var q = this.context.Staffs.Where(s => s.birthday.ToString().Contains(a)).Count();
+                if (v != -1)
+                {
+                    string a = System.DateTime.Today.AddMonths(v).ToString("yyyyMM");
+                    var q = this.context.Staffs.ToList();
+                    List<Staff> count = new List<Staff>();
+                    foreach (var i in q)
                     {
-                        string a = System.DateTime.Today.ToString("yyyyMM");
-                        foreach (var i in q)
+                        if (i.contractExpireStr == null ? false : i.contractExpireStr.Length >= 6)
                         {
-                            if (i.contractExpireStr==null? false :i.contractExpireStr.Length>=6)
-                            {
-                                string show = i.contractExpireStr.Substring(0, 6);
-                                if (show == a) count.Add(i);
-                            }
+                            string show = i.contractExpireStr.Substring(0, 6);
+                            if (show == a) count.Add(i);
                         }
-                        return count;
                     }
-                case 1:
+                    return count;
+                }
+                else
+                {
+                    string a = System.DateTime.Today.AddMonths(v).ToString("yyyyMM");
+                    var q = this.context.Staffs.Where(s => s.workStatus == 100).ToList();
+                    List<Staff> count = new List<Staff>();
+                    foreach (var i in q)
                     {
-                        string a = System.DateTime.Today.AddMonths(1).ToString("yyyyMM");
-                        foreach (var i in q)
+                        if (i.contractExpireStr == null ? false : i.contractExpireStr.Length >= 6)
                         {
-                            if (i.contractExpireStr == null ? false : i.contractExpireStr.Length >= 6)
-                            {
-                                string show = i.contractExpireStr.Substring(0, 6);
-                                if (show == a) count.Add(i);
-                            }
+                            string show = i.contractExpireStr.Substring(0, 6);
+                            if (show == a) count.Add(i);
                         }
-                        return count;
                     }
-                case 2:
-                    {
-                        string a = System.DateTime.Today.ToString("yyyyMM");
-                        foreach (var i in q)
-                        {
-                            if (i.contractExpireStr == null ? false : i.contractExpireStr.Length >= 6)
-                            {
-                                string show = i.contractExpireStr.Substring(4, 1);
-                                if (show == a) count.Add(i);
-                            }
-                        }
-                        return count;
-                    }
+                    return count;
+                }
+                //switch (v)
+                //{
+                //    case 0:
+                //        {
+                //            string a = System.DateTime.Today.ToString("yyyyMM");
+                //            foreach (var i in q)
+                //            {
+                //                if (i.contractExpireStr==null? false :i.contractExpireStr.Length>=6)
+                //                {
+                //                    string show = i.contractExpireStr.Substring(0, 6);
+                //                    if (show == a) count.Add(i);
+                //                }
+                //            }
+                //            return count;
+                //        }
+                //    case 1:
+                //        {
+                //            string a = System.DateTime.Today.AddMonths(1).ToString("yyyyMM");
+                //            foreach (var i in q)
+                //            {
+                //                if (i.contractExpireStr == null ? false : i.contractExpireStr.Length >= 6)
+                //                {
+                //                    string show = i.contractExpireStr.Substring(0, 6);
+                //                    if (show == a) count.Add(i);
+                //                }
+                //            }
+                //            return count;
+                //        }
+                //    case 2:
+                //        {
+                //            string a = System.DateTime.Today.ToString("yyyyMM");
+                //            foreach (var i in q)
+                //            {
+                //                if (i.contractExpireStr == null ? false : i.contractExpireStr.Length >= 6)
+                //                {
+                //                    string show = i.contractExpireStr.Substring(4, 1);
+                //                    if (show == a) count.Add(i);
+                //                }
+                //            }
+                //            return count;
+                //        }
+                //}
             }
+            catch
+            {
             return null;
+            }
         }
     }
 }
