@@ -10,7 +10,7 @@ namespace BlueHrLib.Data.Enum
     /// <summary>
     /// 班次类型
     /// </summary>
-    public enum RewardsAndPenaltiesType
+    public enum RewardsAndPenaltyType
     {
         [Description("奖励")]
         Reward = 1,

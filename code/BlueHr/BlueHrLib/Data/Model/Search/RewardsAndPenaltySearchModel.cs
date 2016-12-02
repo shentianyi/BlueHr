@@ -5,11 +5,11 @@ using System.Text;
 
 namespace BlueHrLib.Data.Model.Search
 {
-    public class RewardsAndPenaltiesSearchModel
+    public class RewardsAndPenaltySearchModel
     {
-        public string Nr { get; set; }
-        public string Name { get; set; }
-        public int? Sex { get; set; }
+        public string StaffNr{ get; set; }
+        public string StaffName { get; set; }
+        public int? StaffSex { get; set; }
         public int? departmentId { get; set; }
         public int? type { get; set; }
     }

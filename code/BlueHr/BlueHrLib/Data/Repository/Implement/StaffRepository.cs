@@ -429,18 +429,18 @@ namespace BlueHrLib.Data.Repository.Implement
             return staffs;
         }
 
-        public int CountStaffBirthday()
+        public List<Staff> StaffBirthday()
         {
             string a = System.DateTime.Today.ToString("M/d");
+            List<Staff> result = new List<Staff>();
             //var q = this.context.Staffs.Where(s => s.birthday.ToString().Contains(a)).Count();
             var q = this.context.Staffs.ToList();
-            int count = 0;
             foreach (var i in q)
             {
                 string show = i.birthday.ToString();
-                if (show.Contains(a)) count++;
+                if (show.Contains(a)) result.Add(i);
             }
-            return count;
+            return result;
         }
 
         public Dictionary<string, string> StaffCount()
@@ -554,6 +554,47 @@ namespace BlueHrLib.Data.Repository.Implement
             {
             return null;
             }
+        }
+
+        public List<Staff> ToEmployeesDetail(int v)
+        {
+            var q = this.context.Staffs.ToList();
+            List<Staff> count = new List<Staff>().Where(s => s.isOnTrial == true).ToList();
+            switch (v)
+            {
+                case 0:
+                    {
+                        string a = System.DateTime.Today.ToString("yyyyMM");
+                        foreach (var i in q)
+                        {
+                            if (i.trialOverAt == null ? false : i.trialOverAt.ToString().Length >= 6)
+                            {
+                                string show = i.contractExpireStr.Substring(0, 6);
+                                if (show == a) count.Add(i);
+                            }
+                        }
+                        return count;
+                    }
+                case 1:
+                    {
+                        string a = System.DateTime.Today.AddMonths(1).ToString("yyyyMM");
+                        foreach (var i in q)
+                        {
+                            if (i.trialOverAt == null ? false : i.trialOverAt.ToString().Length >= 6)
+                            {
+                                string show = i.contractExpireStr.Substring(0, 6);
+                                if (show == a) count.Add(i);
+                            }
+                        }
+                        return count;
+                    }
+                case 2:
+                    {
+                        List<Staff> count1 = new List<Staff>().Where(s => s.isOnTrial == true).Where(s => s.workStatus == 100).ToList();
+                        return count1;
+                    }
+            }
+            return null;
         }
     }
 }

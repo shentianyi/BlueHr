@@ -127,14 +127,14 @@
     <Compile Include="Data\Model\PageViewModel\SysRoleInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\SysUserDataAuthInfoModel.cs" />
     <Compile Include="Data\Model\Search\RecruitSearchModel.cs" />
-    <Compile Include="Data\Model\Search\RewardsAndPenaltiesSearchModel.cs" />
+    <Compile Include="Data\Model\Search\RewardsAndPenaltySearchModel.cs" />
     <Compile Include="Data\Model\Search\SysAuthorizationSearchModel.cs" />
     <Compile Include="Data\Model\Search\SysRoleAuthorizationSearchModel.cs" />
     <Compile Include="Data\Model\Search\SysRoleSearchModel.cs" />
     <Compile Include="Data\Model\Search\SysUserDataAuthSearchModel.cs" />
     <Compile Include="Data\Model\Search\WorkAndRestSearchModel.cs" />
     <Compile Include="Data\Repository\Implement\RecruitRepository.cs" />
-    <Compile Include="Data\Repository\Implement\RewardsAndPenaltiesRepository.cs" />
+    <Compile Include="Data\Repository\Implement\RewardsAndPenaltyRepository.cs" />
     <Compile Include="Data\Repository\Implement\SysAuthorizationRepository.cs" />
     <Compile Include="Data\Repository\Implement\SysRoleAuthorizationRepository.cs" />
     <Compile Include="Data\Repository\Implement\SysRoleAuthViewRepository.cs" />
@@ -142,7 +142,7 @@
     <Compile Include="Data\Repository\Implement\SysUserDataAuthRepository.cs" />
     <Compile Include="Data\Repository\Implement\WorkAndRestRepository.cs" />
     <Compile Include="Data\Repository\Interface\IRecruitRepository.cs" />
-    <Compile Include="Data\Repository\Interface\IRewardsAndPenaltiesRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IRewardsAndPenaltyRepository.cs" />
     <Compile Include="Data\Repository\Interface\ISysAuthorizationRepository.cs" />
     <Compile Include="Data\Repository\Interface\ISysRoleAuthorizationRepository.cs" />
     <Compile Include="Data\Repository\Interface\ISysRoleAuthRepository.cs" />
@@ -314,7 +314,7 @@
     <Compile Include="Service\Implement\RecruitService.cs" />
     <Compile Include="Service\Implement\ResignRecordService.cs" />
     <Compile Include="Service\Implement\ResignTypeService.cs" />
-    <Compile Include="Service\Implement\RewardsAndPenaltiesService.cs" />
+    <Compile Include="Service\Implement\RewardsAndPenaltyService.cs" />
     <Compile Include="Service\Implement\ShiftService.cs" />
     <Compile Include="Service\Implement\ShiftSheduleService.cs" />
     <Compile Include="Service\Implement\SysAuthorizationService.cs" />
@@ -352,7 +352,7 @@
     <Compile Include="Service\Interface\IRecruitService.cs" />
     <Compile Include="Service\Interface\IResignRecordService.cs" />
     <Compile Include="Service\Interface\IResignTypeService.cs" />
-    <Compile Include="Service\Interface\IRewardsAndPenaltiesService.cs" />
+    <Compile Include="Service\Interface\IRewardsAndPenaltyService.cs" />
     <Compile Include="Service\Interface\IShiftScheduleService.cs" />
     <Compile Include="Service\Interface\IShiftService.cs" />
     <Compile Include="Service\Interface\ISysAuthorizationService.cs" />

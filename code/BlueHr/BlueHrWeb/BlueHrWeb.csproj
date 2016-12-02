@@ -255,7 +255,7 @@
     <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
     <Compile Include="Controllers\RecruitController.cs" />
-    <Compile Include="Controllers\RewardsAndPenaltiesController.cs" />
+    <Compile Include="Controllers\RewardsAndPenaltyController.cs" />
     <Compile Include="Controllers\SysRoleAuthorizationController.cs" />
     <Compile Include="Controllers\SysRoleController.cs" />
     <Compile Include="Controllers\SysAuthorizationController.cs" />
@@ -727,6 +727,15 @@
     <Content Include="Views\Company\TreeShow.cshtml" />
     <Content Include="Views\Company\TreeShow - 复制%282%29.cshtml" />
     <Content Include="Views\MessageRecord\ToEmployees.cshtml" />
+    <Content Include="Views\RewardsAndPenalty\Index.cshtml" />
+    <Content Include="Views\RewardsAndPenalty\Edit.cshtml" />
+    <Content Include="Views\RewardsAndPenalty\Delete.cshtml" />
+    <Content Include="Views\RewardsAndPenalty\Create.cshtml" />
+    <Content Include="Views\RewardsAndPenalty\_PartialRewardsAndPenalties.cshtml" />
+    <Content Include="Views\Recruit\Index.cshtml" />
+    <Content Include="Views\Recruit\Edit.cshtml" />
+    <Content Include="Views\Recruit\Delete.cshtml" />
+
     <Content Include="Views\Recruit\Create.cshtml" />
     <Content Include="Views\Recruit\Delete.cshtml" />
     <Content Include="Views\Recruit\Edit.cshtml" />

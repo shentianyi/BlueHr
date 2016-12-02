@@ -5,8 +5,8 @@ using System.Text;
 
 namespace BlueHrLib.Data.Model.PageViewModel
 {
-    public class RewardsAndPenaltiesInfoModel
+    public class RewardsAndPenaltyInfoModel
     {
-        public int? rewardsAndPenaltiesCount { get; set; }
+        public int? RewardsAndPenaltyCount { get; set; }
     }
 }
