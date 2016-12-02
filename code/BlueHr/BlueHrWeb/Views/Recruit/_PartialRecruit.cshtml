@@ -35,55 +35,61 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>招聘需求</span>
-                        @Html.EditorFor(model => model.funCode)
+                        @Html.EditorFor(model => model.requirement)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>所属公司</span>
+                        @Html.EditorFor(model => model.companyId)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>所属部门</span>
-                        @Html.EditorFor(model => model.funCode)
+                        @Html.EditorFor(model => model.departmentId)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>需求人数</span>
-                        @Html.EditorFor(model => model.funCode)
+                        @Html.EditorFor(model => model.amount)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>申请日期</span>
-                        <input type="text" name=" applyAt" placeholder="日期" class="date-picker" value="@Model.scheduleAtStr" />
+                        <input type="text" name=" applyAt" placeholder="日期" class="date-picker" value="@Model.createAt" />
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>用工日期</span>
-                        <input type="text" name="useAt" placeholder="日期" class="date-picker" value="@Model.scheduleAtStr" />
+                        <input type="text" name="useAt" placeholder="日期" class="date-picker" value="@Model.requirementAt" />
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>申请人</span>
-                        @Html.EditorFor(model => model.funCode)
+                        @Html.EditorFor(model => model.requirementMan)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>流程状态</span>
-                        @Html.EditorFor(model => model.funCode)
+                        @Html.EditorFor(model => model.status)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>审核记录</span>
-                        <input type="text" name="rewardsandpenaltiesAt" placeholder="日期" class="date-picker" value="@Model.scheduleAtStr" />
+                        <input type="text" name="rewardsandpenaltiesAt" placeholder="日期" class="date-picker" value="@Model.auditRecord" />
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>流程查看</span>
-                        @Html.EditorFor(model => model.funCode)
+                        @Html.EditorFor(model => model.auditView)
                     </div>
                 </div>             
             </div>
