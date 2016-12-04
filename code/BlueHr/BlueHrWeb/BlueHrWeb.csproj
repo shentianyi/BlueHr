@@ -254,6 +254,7 @@
     <Compile Include="Controllers\ExtraWorkRecordController.cs" />
     <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
+    <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\RecruitController.cs" />
     <Compile Include="Controllers\RewardsAndPenaltyController.cs" />
     <Compile Include="Controllers\SysRoleAuthorizationController.cs" />
@@ -735,7 +736,6 @@
     <Content Include="Views\Recruit\Index.cshtml" />
     <Content Include="Views\Recruit\Edit.cshtml" />
     <Content Include="Views\Recruit\Delete.cshtml" />
-
     <Content Include="Views\Recruit\Create.cshtml" />
     <Content Include="Views\Recruit\Delete.cshtml" />
     <Content Include="Views\Recruit\Edit.cshtml" />
@@ -746,6 +746,10 @@
     <Content Include="Views\RewardsAndPenalties\Edit.cshtml" />
     <Content Include="Views\RewardsAndPenalties\Index.cshtml" />
     <Content Include="Views\RewardsAndPenalties\_PartialRewardsAndPenalties.cshtml" />
+    <Content Include="Views\Personal\Schedule.cshtml" />
+    <Content Include="Views\Personal\Approval.cshtml" />
+    <Content Include="Views\Personal\Application.cshtml" />
+    <Content Include="Views\Personal\Note.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -782,7 +786,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>15675</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -395,9 +395,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Data\BlueHr.dbml.layout">
+    <None Include="Data\BlueHr.dbml.layout">
       <DependentUpon>BlueHr.dbml</DependentUpon>
-    </EmbeddedResource>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "我的申请";
+}
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>个人事项</li>
+    <li>我的申请</li>
+</ol>
+
+<hr class="hr-grey" />
+
+<div class="row marco-tabs-default" style="margin:10px;">
+    @* 分两个Tab， 一个是新建申请； 一个是 已有申请 *@
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#my_application" role="tab" data-toggle="tab">已有申请</a></li>
+        <li role="presentation"><a href="#new_application" role="tab" data-toggle="tab">新建申请</a></li>
+    </ul>
+
+    @* 请假申请、 加班申请、 调休申请、 转正申请、 离职申请、 培训申请、 出差申请 *@
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="my_application">
+            @* 可以进行自定义搜索 *@
+            @* 列表展示 *@
+
+        </div>
+        <div role="tabpanel" class="tab-pane active" id="new_application">
+            @* 分门别类进行新建 *@
+        </div>
+    </div>
+</div>

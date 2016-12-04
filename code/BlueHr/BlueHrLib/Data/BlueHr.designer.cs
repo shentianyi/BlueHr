@@ -22,7 +22,7 @@ namespace BlueHrLib.Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BlueHr")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BlueHrV2")]
 	public partial class BlueHrDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -54,9 +54,6 @@ namespace BlueHrLib.Data
     partial void InsertDepartment(Department instance);
     partial void UpdateDepartment(Department instance);
     partial void DeleteDepartment(Department instance);
-    partial void InsertExtraWorkRecord(ExtraWorkRecord instance);
-    partial void UpdateExtraWorkRecord(ExtraWorkRecord instance);
-    partial void DeleteExtraWorkRecord(ExtraWorkRecord instance);
     partial void InsertExtraWorkType(ExtraWorkType instance);
     partial void UpdateExtraWorkType(ExtraWorkType instance);
     partial void DeleteExtraWorkType(ExtraWorkType instance);
@@ -138,10 +135,13 @@ namespace BlueHrLib.Data
     partial void InsertJobTitle(JobTitle instance);
     partial void UpdateJobTitle(JobTitle instance);
     partial void DeleteJobTitle(JobTitle instance);
+    partial void InsertExtraWorkRecord(ExtraWorkRecord instance);
+    partial void UpdateExtraWorkRecord(ExtraWorkRecord instance);
+    partial void DeleteExtraWorkRecord(ExtraWorkRecord instance);
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString10, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.BlueHrV2ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -231,14 +231,6 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<Department>();
-			}
-		}
-		
-		public System.Data.Linq.Table<ExtraWorkRecord> ExtraWorkRecord
-		{
-			get
-			{
-				return this.GetTable<ExtraWorkRecord>();
 			}
 		}
 		
@@ -543,6 +535,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<RewardsAndPenalty>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ExtraWorkRecord> ExtraWorkRecord
+		{
+			get
+			{
+				return this.GetTable<ExtraWorkRecord>();
 			}
 		}
 	}
@@ -2458,370 +2458,6 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.Department = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ExtraWorkRecord")]
-	public partial class ExtraWorkRecord : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _extraWorkTypeId;
-		
-		private string _staffNr;
-		
-		private double _duration;
-		
-		private int _durationType;
-		
-		private string _otReason;
-		
-		private System.Nullable<System.DateTime> _otTime;
-		
-		private System.Nullable<System.TimeSpan> _startHour;
-		
-		private System.Nullable<System.TimeSpan> _endHour;
-		
-		private EntitySet<ExtraWorkRecordApproval> _ExtraWorkRecordApprovals;
-		
-		private EntityRef<ExtraWorkType> _ExtraWorkType;
-		
-		private EntityRef<Staff> _Staff;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnextraWorkTypeIdChanging(int value);
-    partial void OnextraWorkTypeIdChanged();
-    partial void OnstaffNrChanging(string value);
-    partial void OnstaffNrChanged();
-    partial void OndurationChanging(double value);
-    partial void OndurationChanged();
-    partial void OndurationTypeChanging(int value);
-    partial void OndurationTypeChanged();
-    partial void OnotReasonChanging(string value);
-    partial void OnotReasonChanged();
-    partial void OnotTimeChanging(System.Nullable<System.DateTime> value);
-    partial void OnotTimeChanged();
-    partial void OnstartHourChanging(System.Nullable<System.TimeSpan> value);
-    partial void OnstartHourChanged();
-    partial void OnendHourChanging(System.Nullable<System.TimeSpan> value);
-    partial void OnendHourChanged();
-    #endregion
-		
-		public ExtraWorkRecord()
-		{
-			this._ExtraWorkRecordApprovals = new EntitySet<ExtraWorkRecordApproval>(new Action<ExtraWorkRecordApproval>(this.attach_ExtraWorkRecordApprovals), new Action<ExtraWorkRecordApproval>(this.detach_ExtraWorkRecordApprovals));
-			this._ExtraWorkType = default(EntityRef<ExtraWorkType>);
-			this._Staff = default(EntityRef<Staff>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_extraWorkTypeId", DbType="Int NOT NULL")]
-		public int extraWorkTypeId
-		{
-			get
-			{
-				return this._extraWorkTypeId;
-			}
-			set
-			{
-				if ((this._extraWorkTypeId != value))
-				{
-					if (this._ExtraWorkType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnextraWorkTypeIdChanging(value);
-					this.SendPropertyChanging();
-					this._extraWorkTypeId = value;
-					this.SendPropertyChanged("extraWorkTypeId");
-					this.OnextraWorkTypeIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string staffNr
-		{
-			get
-			{
-				return this._staffNr;
-			}
-			set
-			{
-				if ((this._staffNr != value))
-				{
-					if (this._Staff.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnstaffNrChanging(value);
-					this.SendPropertyChanging();
-					this._staffNr = value;
-					this.SendPropertyChanged("staffNr");
-					this.OnstaffNrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_duration", DbType="Float NOT NULL")]
-		public double duration
-		{
-			get
-			{
-				return this._duration;
-			}
-			set
-			{
-				if ((this._duration != value))
-				{
-					this.OndurationChanging(value);
-					this.SendPropertyChanging();
-					this._duration = value;
-					this.SendPropertyChanged("duration");
-					this.OndurationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_durationType", DbType="Int NOT NULL")]
-		public int durationType
-		{
-			get
-			{
-				return this._durationType;
-			}
-			set
-			{
-				if ((this._durationType != value))
-				{
-					this.OndurationTypeChanging(value);
-					this.SendPropertyChanging();
-					this._durationType = value;
-					this.SendPropertyChanged("durationType");
-					this.OndurationTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_otReason", DbType="VarChar(255)")]
-		public string otReason
-		{
-			get
-			{
-				return this._otReason;
-			}
-			set
-			{
-				if ((this._otReason != value))
-				{
-					this.OnotReasonChanging(value);
-					this.SendPropertyChanging();
-					this._otReason = value;
-					this.SendPropertyChanged("otReason");
-					this.OnotReasonChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_otTime", DbType="DateTime")]
-		public System.Nullable<System.DateTime> otTime
-		{
-			get
-			{
-				return this._otTime;
-			}
-			set
-			{
-				if ((this._otTime != value))
-				{
-					this.OnotTimeChanging(value);
-					this.SendPropertyChanging();
-					this._otTime = value;
-					this.SendPropertyChanged("otTime");
-					this.OnotTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startHour", DbType="Time")]
-		public System.Nullable<System.TimeSpan> startHour
-		{
-			get
-			{
-				return this._startHour;
-			}
-			set
-			{
-				if ((this._startHour != value))
-				{
-					this.OnstartHourChanging(value);
-					this.SendPropertyChanging();
-					this._startHour = value;
-					this.SendPropertyChanged("startHour");
-					this.OnstartHourChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endHour", DbType="Time")]
-		public System.Nullable<System.TimeSpan> endHour
-		{
-			get
-			{
-				return this._endHour;
-			}
-			set
-			{
-				if ((this._endHour != value))
-				{
-					this.OnendHourChanging(value);
-					this.SendPropertyChanging();
-					this._endHour = value;
-					this.SendPropertyChanged("endHour");
-					this.OnendHourChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ExtraWorkRecord_ExtraWorkRecordApproval", Storage="_ExtraWorkRecordApprovals", ThisKey="id", OtherKey="extraWorkId")]
-		public EntitySet<ExtraWorkRecordApproval> ExtraWorkRecordApprovals
-		{
-			get
-			{
-				return this._ExtraWorkRecordApprovals;
-			}
-			set
-			{
-				this._ExtraWorkRecordApprovals.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ExtraWorkType_ExtraWorkRecord", Storage="_ExtraWorkType", ThisKey="extraWorkTypeId", OtherKey="id", IsForeignKey=true)]
-		public ExtraWorkType ExtraWorkType
-		{
-			get
-			{
-				return this._ExtraWorkType.Entity;
-			}
-			set
-			{
-				ExtraWorkType previousValue = this._ExtraWorkType.Entity;
-				if (((previousValue != value) 
-							|| (this._ExtraWorkType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ExtraWorkType.Entity = null;
-						previousValue.ExtraWorkRecord.Remove(this);
-					}
-					this._ExtraWorkType.Entity = value;
-					if ((value != null))
-					{
-						value.ExtraWorkRecord.Add(this);
-						this._extraWorkTypeId = value.id;
-					}
-					else
-					{
-						this._extraWorkTypeId = default(int);
-					}
-					this.SendPropertyChanged("ExtraWorkType");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_ExtraWorkRecord", Storage="_Staff", ThisKey="staffNr", OtherKey="nr", IsForeignKey=true)]
-		public Staff Staff
-		{
-			get
-			{
-				return this._Staff.Entity;
-			}
-			set
-			{
-				Staff previousValue = this._Staff.Entity;
-				if (((previousValue != value) 
-							|| (this._Staff.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Staff.Entity = null;
-						previousValue.ExtraWorkRecords.Remove(this);
-					}
-					this._Staff.Entity = value;
-					if ((value != null))
-					{
-						value.ExtraWorkRecords.Add(this);
-						this._staffNr = value.nr;
-					}
-					else
-					{
-						this._staffNr = default(string);
-					}
-					this.SendPropertyChanged("Staff");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ExtraWorkRecordApprovals(ExtraWorkRecordApproval entity)
-		{
-			this.SendPropertyChanging();
-			entity.ExtraWorkRecord = this;
-		}
-		
-		private void detach_ExtraWorkRecordApprovals(ExtraWorkRecordApproval entity)
-		{
-			this.SendPropertyChanging();
-			entity.ExtraWorkRecord = null;
 		}
 	}
 	
@@ -10708,8 +10344,6 @@ namespace BlueHrLib.Data
 		
 		private EntitySet<BankCard> _BankCards;
 		
-		private EntitySet<ExtraWorkRecord> _ExtraWorkRecords;
-		
 		private EntitySet<FamilyMemeber> _FamilyMemebers;
 		
 		private EntitySet<FullMemberRecord> _FullMemberRecords;
@@ -10719,6 +10353,8 @@ namespace BlueHrLib.Data
 		private EntitySet<Certificate> _Certificates;
 		
 		private EntitySet<AbsenceRecrod> _AbsenceRecrods;
+		
+		private EntitySet<ExtraWorkRecord> _ExtraWorkRecord;
 		
 		private EntityRef<Company> _Company;
 		
@@ -10821,12 +10457,12 @@ namespace BlueHrLib.Data
 			this._AttendanceRecordCals = new EntitySet<AttendanceRecordCal>(new Action<AttendanceRecordCal>(this.attach_AttendanceRecordCals), new Action<AttendanceRecordCal>(this.detach_AttendanceRecordCals));
 			this._AttendanceRecordDetails = new EntitySet<AttendanceRecordDetail>(new Action<AttendanceRecordDetail>(this.attach_AttendanceRecordDetails), new Action<AttendanceRecordDetail>(this.detach_AttendanceRecordDetails));
 			this._BankCards = new EntitySet<BankCard>(new Action<BankCard>(this.attach_BankCards), new Action<BankCard>(this.detach_BankCards));
-			this._ExtraWorkRecords = new EntitySet<ExtraWorkRecord>(new Action<ExtraWorkRecord>(this.attach_ExtraWorkRecords), new Action<ExtraWorkRecord>(this.detach_ExtraWorkRecords));
 			this._FamilyMemebers = new EntitySet<FamilyMemeber>(new Action<FamilyMemeber>(this.attach_FamilyMemebers), new Action<FamilyMemeber>(this.detach_FamilyMemebers));
 			this._FullMemberRecords = new EntitySet<FullMemberRecord>(new Action<FullMemberRecord>(this.attach_FullMemberRecords), new Action<FullMemberRecord>(this.detach_FullMemberRecords));
 			this._ShiftSchedules = new EntitySet<ShiftSchedule>(new Action<ShiftSchedule>(this.attach_ShiftSchedules), new Action<ShiftSchedule>(this.detach_ShiftSchedules));
 			this._Certificates = new EntitySet<Certificate>(new Action<Certificate>(this.attach_Certificates), new Action<Certificate>(this.detach_Certificates));
 			this._AbsenceRecrods = new EntitySet<AbsenceRecrod>(new Action<AbsenceRecrod>(this.attach_AbsenceRecrods), new Action<AbsenceRecrod>(this.detach_AbsenceRecrods));
+			this._ExtraWorkRecord = new EntitySet<ExtraWorkRecord>(new Action<ExtraWorkRecord>(this.attach_ExtraWorkRecord), new Action<ExtraWorkRecord>(this.detach_ExtraWorkRecord));
 			this._Company = default(EntityRef<Company>);
 			this._DegreeType = default(EntityRef<DegreeType>);
 			this._Department = default(EntityRef<Department>);
@@ -11679,19 +11315,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_ExtraWorkRecord", Storage="_ExtraWorkRecords", ThisKey="nr", OtherKey="staffNr")]
-		public EntitySet<ExtraWorkRecord> ExtraWorkRecords
-		{
-			get
-			{
-				return this._ExtraWorkRecords;
-			}
-			set
-			{
-				this._ExtraWorkRecords.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_FamilyMemeber", Storage="_FamilyMemebers", ThisKey="nr", OtherKey="staffNr")]
 		public EntitySet<FamilyMemeber> FamilyMemebers
 		{
@@ -11754,6 +11377,19 @@ namespace BlueHrLib.Data
 			set
 			{
 				this._AbsenceRecrods.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_ExtraWorkRecord", Storage="_ExtraWorkRecord", ThisKey="nr", OtherKey="staffNr")]
+		public EntitySet<ExtraWorkRecord> ExtraWorkRecord
+		{
+			get
+			{
+				return this._ExtraWorkRecord;
+			}
+			set
+			{
+				this._ExtraWorkRecord.Assign(value);
 			}
 		}
 		
@@ -12017,18 +11653,6 @@ namespace BlueHrLib.Data
 			entity.Staff = null;
 		}
 		
-		private void attach_ExtraWorkRecords(ExtraWorkRecord entity)
-		{
-			this.SendPropertyChanging();
-			entity.Staff = this;
-		}
-		
-		private void detach_ExtraWorkRecords(ExtraWorkRecord entity)
-		{
-			this.SendPropertyChanging();
-			entity.Staff = null;
-		}
-		
 		private void attach_FamilyMemebers(FamilyMemeber entity)
 		{
 			this.SendPropertyChanging();
@@ -12084,6 +11708,18 @@ namespace BlueHrLib.Data
 		}
 		
 		private void detach_AbsenceRecrods(AbsenceRecrod entity)
+		{
+			this.SendPropertyChanging();
+			entity.Staff = null;
+		}
+		
+		private void attach_ExtraWorkRecord(ExtraWorkRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Staff = this;
+		}
+		
+		private void detach_ExtraWorkRecord(ExtraWorkRecord entity)
 		{
 			this.SendPropertyChanging();
 			entity.Staff = null;
@@ -13573,9 +13209,9 @@ namespace BlueHrLib.Data
 		
 		private string _remarks;
 		
-		private EntityRef<ExtraWorkRecord> _ExtraWorkRecord;
-		
 		private EntityRef<User> _User;
+		
+		private EntityRef<ExtraWorkRecord> _ExtraWorkRecord;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -13597,8 +13233,8 @@ namespace BlueHrLib.Data
 		
 		public ExtraWorkRecordApproval()
 		{
-			this._ExtraWorkRecord = default(EntityRef<ExtraWorkRecord>);
 			this._User = default(EntityRef<User>);
+			this._ExtraWorkRecord = default(EntityRef<ExtraWorkRecord>);
 			OnCreated();
 		}
 		
@@ -13730,40 +13366,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ExtraWorkRecord_ExtraWorkRecordApproval", Storage="_ExtraWorkRecord", ThisKey="extraWorkId", OtherKey="id", IsForeignKey=true)]
-		public ExtraWorkRecord ExtraWorkRecord
-		{
-			get
-			{
-				return this._ExtraWorkRecord.Entity;
-			}
-			set
-			{
-				ExtraWorkRecord previousValue = this._ExtraWorkRecord.Entity;
-				if (((previousValue != value) 
-							|| (this._ExtraWorkRecord.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ExtraWorkRecord.Entity = null;
-						previousValue.ExtraWorkRecordApprovals.Remove(this);
-					}
-					this._ExtraWorkRecord.Entity = value;
-					if ((value != null))
-					{
-						value.ExtraWorkRecordApprovals.Add(this);
-						this._extraWorkId = value.id;
-					}
-					else
-					{
-						this._extraWorkId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("ExtraWorkRecord");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ExtraWorkRecordApproval", Storage="_User", ThisKey="userId", OtherKey="id", IsForeignKey=true)]
 		public User User
 		{
@@ -13794,6 +13396,40 @@ namespace BlueHrLib.Data
 						this._userId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ExtraWorkRecord_ExtraWorkRecordApproval", Storage="_ExtraWorkRecord", ThisKey="extraWorkId", OtherKey="id", IsForeignKey=true)]
+		public ExtraWorkRecord ExtraWorkRecord
+		{
+			get
+			{
+				return this._ExtraWorkRecord.Entity;
+			}
+			set
+			{
+				ExtraWorkRecord previousValue = this._ExtraWorkRecord.Entity;
+				if (((previousValue != value) 
+							|| (this._ExtraWorkRecord.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ExtraWorkRecord.Entity = null;
+						previousValue.ExtraWorkRecordApproval.Remove(this);
+					}
+					this._ExtraWorkRecord.Entity = value;
+					if ((value != null))
+					{
+						value.ExtraWorkRecordApproval.Add(this);
+						this._extraWorkId = value.id;
+					}
+					else
+					{
+						this._extraWorkId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("ExtraWorkRecord");
 				}
 			}
 		}
@@ -15782,6 +15418,394 @@ namespace BlueHrLib.Data
 					this._userId = value;
 				}
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ExtraWorkRecord")]
+	public partial class ExtraWorkRecord : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _extraWorkTypeId;
+		
+		private string _staffNr;
+		
+		private double _duration;
+		
+		private int _durationType;
+		
+		private string _otReason;
+		
+		private System.Nullable<System.DateTime> _otTime;
+		
+		private System.Nullable<System.TimeSpan> _startHour;
+		
+		private System.Nullable<System.TimeSpan> _endHour;
+		
+		private int _userId;
+		
+		private EntitySet<ExtraWorkRecordApproval> _ExtraWorkRecordApproval;
+		
+		private EntityRef<ExtraWorkType> _ExtraWorkType;
+		
+		private EntityRef<Staff> _Staff;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnextraWorkTypeIdChanging(int value);
+    partial void OnextraWorkTypeIdChanged();
+    partial void OnstaffNrChanging(string value);
+    partial void OnstaffNrChanged();
+    partial void OndurationChanging(double value);
+    partial void OndurationChanged();
+    partial void OndurationTypeChanging(int value);
+    partial void OndurationTypeChanged();
+    partial void OnotReasonChanging(string value);
+    partial void OnotReasonChanged();
+    partial void OnotTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnotTimeChanged();
+    partial void OnstartHourChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnstartHourChanged();
+    partial void OnendHourChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnendHourChanged();
+    partial void OnuserIdChanging(int value);
+    partial void OnuserIdChanged();
+    #endregion
+		
+		public ExtraWorkRecord()
+		{
+			this._ExtraWorkRecordApproval = new EntitySet<ExtraWorkRecordApproval>(new Action<ExtraWorkRecordApproval>(this.attach_ExtraWorkRecordApproval), new Action<ExtraWorkRecordApproval>(this.detach_ExtraWorkRecordApproval));
+			this._ExtraWorkType = default(EntityRef<ExtraWorkType>);
+			this._Staff = default(EntityRef<Staff>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_extraWorkTypeId", DbType="Int NOT NULL")]
+		public int extraWorkTypeId
+		{
+			get
+			{
+				return this._extraWorkTypeId;
+			}
+			set
+			{
+				if ((this._extraWorkTypeId != value))
+				{
+					if (this._ExtraWorkType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnextraWorkTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._extraWorkTypeId = value;
+					this.SendPropertyChanged("extraWorkTypeId");
+					this.OnextraWorkTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string staffNr
+		{
+			get
+			{
+				return this._staffNr;
+			}
+			set
+			{
+				if ((this._staffNr != value))
+				{
+					if (this._Staff.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnstaffNrChanging(value);
+					this.SendPropertyChanging();
+					this._staffNr = value;
+					this.SendPropertyChanged("staffNr");
+					this.OnstaffNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_duration", DbType="Float NOT NULL")]
+		public double duration
+		{
+			get
+			{
+				return this._duration;
+			}
+			set
+			{
+				if ((this._duration != value))
+				{
+					this.OndurationChanging(value);
+					this.SendPropertyChanging();
+					this._duration = value;
+					this.SendPropertyChanged("duration");
+					this.OndurationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_durationType", DbType="Int NOT NULL")]
+		public int durationType
+		{
+			get
+			{
+				return this._durationType;
+			}
+			set
+			{
+				if ((this._durationType != value))
+				{
+					this.OndurationTypeChanging(value);
+					this.SendPropertyChanging();
+					this._durationType = value;
+					this.SendPropertyChanged("durationType");
+					this.OndurationTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_otReason", DbType="VarChar(255)")]
+		public string otReason
+		{
+			get
+			{
+				return this._otReason;
+			}
+			set
+			{
+				if ((this._otReason != value))
+				{
+					this.OnotReasonChanging(value);
+					this.SendPropertyChanging();
+					this._otReason = value;
+					this.SendPropertyChanged("otReason");
+					this.OnotReasonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_otTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> otTime
+		{
+			get
+			{
+				return this._otTime;
+			}
+			set
+			{
+				if ((this._otTime != value))
+				{
+					this.OnotTimeChanging(value);
+					this.SendPropertyChanging();
+					this._otTime = value;
+					this.SendPropertyChanged("otTime");
+					this.OnotTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startHour", DbType="Time")]
+		public System.Nullable<System.TimeSpan> startHour
+		{
+			get
+			{
+				return this._startHour;
+			}
+			set
+			{
+				if ((this._startHour != value))
+				{
+					this.OnstartHourChanging(value);
+					this.SendPropertyChanging();
+					this._startHour = value;
+					this.SendPropertyChanged("startHour");
+					this.OnstartHourChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endHour", DbType="Time")]
+		public System.Nullable<System.TimeSpan> endHour
+		{
+			get
+			{
+				return this._endHour;
+			}
+			set
+			{
+				if ((this._endHour != value))
+				{
+					this.OnendHourChanging(value);
+					this.SendPropertyChanging();
+					this._endHour = value;
+					this.SendPropertyChanged("endHour");
+					this.OnendHourChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userId", DbType="Int NOT NULL")]
+		public int userId
+		{
+			get
+			{
+				return this._userId;
+			}
+			set
+			{
+				if ((this._userId != value))
+				{
+					this.OnuserIdChanging(value);
+					this.SendPropertyChanging();
+					this._userId = value;
+					this.SendPropertyChanged("userId");
+					this.OnuserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ExtraWorkRecord_ExtraWorkRecordApproval", Storage="_ExtraWorkRecordApproval", ThisKey="id", OtherKey="extraWorkId")]
+		public EntitySet<ExtraWorkRecordApproval> ExtraWorkRecordApproval
+		{
+			get
+			{
+				return this._ExtraWorkRecordApproval;
+			}
+			set
+			{
+				this._ExtraWorkRecordApproval.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ExtraWorkType_ExtraWorkRecord", Storage="_ExtraWorkType", ThisKey="extraWorkTypeId", OtherKey="id", IsForeignKey=true)]
+		public ExtraWorkType ExtraWorkType
+		{
+			get
+			{
+				return this._ExtraWorkType.Entity;
+			}
+			set
+			{
+				ExtraWorkType previousValue = this._ExtraWorkType.Entity;
+				if (((previousValue != value) 
+							|| (this._ExtraWorkType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ExtraWorkType.Entity = null;
+						previousValue.ExtraWorkRecord.Remove(this);
+					}
+					this._ExtraWorkType.Entity = value;
+					if ((value != null))
+					{
+						value.ExtraWorkRecord.Add(this);
+						this._extraWorkTypeId = value.id;
+					}
+					else
+					{
+						this._extraWorkTypeId = default(int);
+					}
+					this.SendPropertyChanged("ExtraWorkType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_ExtraWorkRecord", Storage="_Staff", ThisKey="staffNr", OtherKey="nr", IsForeignKey=true)]
+		public Staff Staff
+		{
+			get
+			{
+				return this._Staff.Entity;
+			}
+			set
+			{
+				Staff previousValue = this._Staff.Entity;
+				if (((previousValue != value) 
+							|| (this._Staff.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Staff.Entity = null;
+						previousValue.ExtraWorkRecord.Remove(this);
+					}
+					this._Staff.Entity = value;
+					if ((value != null))
+					{
+						value.ExtraWorkRecord.Add(this);
+						this._staffNr = value.nr;
+					}
+					else
+					{
+						this._staffNr = default(string);
+					}
+					this.SendPropertyChanged("Staff");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ExtraWorkRecordApproval(ExtraWorkRecordApproval entity)
+		{
+			this.SendPropertyChanging();
+			entity.ExtraWorkRecord = this;
+		}
+		
+		private void detach_ExtraWorkRecordApproval(ExtraWorkRecordApproval entity)
+		{
+			this.SendPropertyChanging();
+			entity.ExtraWorkRecord = null;
 		}
 	}
 }

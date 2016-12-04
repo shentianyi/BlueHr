@@ -88,7 +88,7 @@ namespace BlueHrWeb.Controllers
         // POST: ExtraWorkRecord/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public ActionResult Create([Bind(Include = "extraWorkTypeId,staffNr,otTime,startHour,endHour,duration,durationType,otReason")] ExtraWorkRecord model)
+        public ActionResult Create([Bind(Include = "extraWorkTypeId,staffNr,otTime,startHour,endHour,duration,durationType,otReason, userId")] ExtraWorkRecord model)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -188,7 +188,7 @@ namespace BlueHrWeb.Controllers
                 IExtraWorkRecordService shfSi = new ExtraWorkRecordService(Settings.Default.db);
                 ExtraWorkRecord shf = shfSi.FindById(id);
 
-                if (null != shf && shf.ExtraWorkRecordApprovals.Count() > 0)
+                if (null != shf && shf.ExtraWorkRecordApproval.Count() > 0)
                 {
                     msg.Success = false;
                     msg.Content = "加班审批后不可删除!";
