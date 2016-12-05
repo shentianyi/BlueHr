@@ -66,6 +66,20 @@ namespace BlueHrWeb.Controllers
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult FindBystaffNrShiftJob(string staffNr)
+        {
+            IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+            foreach (var i in mrs.FindBystaffNrShiftJob(staffNr))
+            {
+                Dictionary<string, string> detail = new Dictionary<string, string>();
+                detail.Add("调岗日期", i.createdAt.ToString());
+                detail.Add("调岗描述", i.text);
+                Result.Add(detail);
+            }
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Search([Bind(Include = "StaffNr,StaffNrAct")] MessageRecordSearchModel q)
         {
             string allOrUnread = Request.QueryString["allOrUnread"];
@@ -116,7 +130,15 @@ namespace BlueHrWeb.Controllers
             foreach (var i in mrs.LoginDetail())
             {
                 Dictionary<string, string> detail = new Dictionary<string, string>();
-                detail.Add("用户邮箱", i.staffNr);
+                IUserService us = new UserService(Settings.Default.db);
+                try
+                {
+                    detail.Add("用户名", us.FindById(Convert.ToInt32(i.staffNr)).name);
+                }
+                catch
+                {
+                    detail.Add("用户名", i.staffNr);
+                }
                 detail.Add("登录时间", i.createdAt.ToString());
                 Result.Add(detail);
             }

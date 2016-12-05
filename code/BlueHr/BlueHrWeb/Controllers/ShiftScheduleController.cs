@@ -122,34 +122,34 @@ namespace BlueHrWeb.Controllers
             //    return View();
             //}
         }
-
+        // POST: ShiftSchedule/EasyCreate
+        [HttpPost]
         [RoleAndDataAuthorizationAttribute]
         public ActionResult EasyCreate([Bind(Include = "shiftId,staffNr,scheduleAt")] ShiftSchedule model, DateTime startTime, DateTime endTime)
         {
             ResultMessage msg = new ResultMessage();
             try
             {
-
                 if (Convert.IsDBNull(startTime))
                 {
-                    ViewBag.msg = "起始日期 不能为空";
-                    return View();
+                    msg.Content = "起始日期 不能为空";
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 if (Convert.IsDBNull(endTime))
                 {
-                    ViewBag.msg = "截止日期 不能为空";
-                    return View();
+                    msg.Content = "截止日期 不能为空";
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
                 bool isSucceed = cs.EasyCreate(model, startTime, endTime);
                 msg.Success = isSucceed;
-                msg.Content = isSucceed ? "" : "添加失败";
-                return View();
+                msg.Content = isSucceed ? "添加成功" : "添加失败";
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                ViewBag.msg = "添加失败,失败原因："+ ex;
-                return View();
+                msg.Content = "添加失败,失败原因：" + ex;
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
         }
         // GET: ShiftShedule/Edit/5

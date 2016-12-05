@@ -13,8 +13,8 @@
                     </div>
 
                     <div class="dashboard-content">
-                        <p>试用期 / 总人数</p>
-                        <div class="show"><span id="onTrailNum">无</span> / <span id="StaffNum">无</span></div>
+                        <p>离职 / 在职</p>
+                        <div class="show"><span id="OutWork">无</span> / <span id="InWork">无</span></div>
                     </div>
                 </a>
             </div>
@@ -46,7 +46,7 @@
 
                     <div class="dashboard-content">
                         <p>将转正 / 待转正</p>
-                        <div class="show"><span id="willNum"> </span> / <span id="waitNum">  </span></div>
+                        <div class="show"><span id="willNum">无</span> / <span id="waitNum">无</span></div>
                     </div>
                 </a>
             </div>
@@ -54,14 +54,14 @@
 
         <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-success">
             <div class="dashboard-box" title="点击查看生日员工">
-                <a href="/Staff/Index">
+                <a href="#birthday">
                     <div class="dashboard-icon">
                         <i class="fa fa-birthday-cake"></i>
                     </div>
 
                     <div class="dashboard-content">
                         <p>今天生日</p>
-                        <div class="show"><span id="birthDayNum">开发中</span></div>
+                        <div class="show"><span id="birthDayNum">无</span></div>
                     </div>
                 </a>
             </div>
@@ -88,58 +88,36 @@
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="contractThisMonth">
-                                <span>本月合同即将到期员工</span>
+                                <span>本月合同到期员工</span>
 
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <td>姓名</td>
-                                            <td>合同名称</td>
-                                            <td>合同类型</td>
-                                            <td>合同到期</td>
+                                           	<td>姓名</td>
+                                            <td>员工号</td>
+                                            <td>合同签订次数</td>
+                                            <td>合同到期时间</td>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>A</td>
-                                            <td>劳动合同</td>
-                                            <td>劳动合同</td>
-                                            <td>2017-1-11</td>
-                                        </tr>
-                                        <tr>
-                                            <td>B</td>
-                                            <td>试用期合同</td>
-                                            <td>试用期合同</td>
-                                            <td>2018-12-20</td>
-                                        </tr>
+                                    <tbody id="ExpiredCurrentMonth">
+                                       
                                     </tbody>
                                 </table>
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="contractNextMonth">
-                                <span>下月合同将到期员工</span>
+                                <span>下月合同到期员工</span>
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <td>姓名</td>
-                                            <td>合同名称</td>
-                                            <td>合同类型</td>
-                                            <td>合同到期</td>
+                                            <td>员工号</td>
+                                            <td>合同签订次数</td>
+                                            <td>合同到期时间</td>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>A</td>
-                                            <td>劳动合同</td>
-                                            <td>劳动合同</td>
-                                            <td>2017-1-11</td>
-                                        </tr>
-                                        <tr>
-                                            <td>B</td>
-                                            <td>试用期合同</td>
-                                            <td>试用期合同</td>
-                                            <td>2018-12-20</td>
-                                        </tr>
+                                    <tbody id="ExpiredNextMonth">
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -150,24 +128,13 @@
                                     <thead>
                                         <tr>
                                             <td>姓名</td>
-                                            <td>合同名称</td>
-                                            <td>合同类型</td>
-                                            <td>合同到期</td>
+                                            <td>员工号</td>
+                                            <td>合同签订次数</td>
+                                            <td>合同到期时间</td>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>A</td>
-                                            <td>劳动合同</td>
-                                            <td>劳动合同</td>
-                                            <td>2017-1-11</td>
-                                        </tr>
-                                        <tr>
-                                            <td>B</td>
-                                            <td>试用期合同</td>
-                                            <td>试用期合同</td>
-                                            <td>2018-12-20</td>
-                                        </tr>
+                                    <tbody id="AlreadyExpired">
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -186,13 +153,13 @@
                 <div class="marco-nbody">
                     <div class="marco-tabs-success">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#onTrialThisMonth" role="tab" data-toggle="tab">本周</a></li>
-                            <li role="presentation"><a href="#onTrialNextMonth" role="tab" data-toggle="tab">本月</a></li>
+                            <li role="presentation" class="active"><a href="#onTrialThisMonth" role="tab" data-toggle="tab">本月</a></li>
+                            <li role="presentation"><a href="#onTrialNextMonth" role="tab" data-toggle="tab">下月</a></li>
                             <li role="presentation"><a href="#onTrialExpire" role="tab" data-toggle="tab">过期</a></li>
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="onTrialThisMonth">
-                                <span>本周到期员工</span>
+                                <span>本月转正员工</span>
 
                                 <table class="table table-bordered">
                                     <thead>
@@ -205,26 +172,13 @@
                                         </tr>
                                     </thead>
                                     <tbody id="ToEmployees">
-                                        <tr>
-                                            <td>A</td>
-                                            <td>劳动合同</td>
-                                            <td>2017-1-11</td>
-                                            <td>2017-1-11</td>
-                                            <td>212</td>
-                                        </tr>
-                                        <tr>
-                                            <td>B</td>
-                                            <td>试用期合同</td>
-                                            <td>2018-12-20</td>
-                                            <td>2018-12-20</td>
-                                            <td>20</td>
-                                        </tr>
+                                       
                                     </tbody>
                                 </table>
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="onTrialNextMonth">
-                                <span>本月到期员工</span>
+                                <span>下月转正员工</span>
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -234,25 +188,14 @@
                                             <td>合同到期</td>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>A</td>
-                                            <td>劳动合同</td>
-                                            <td>劳动合同</td>
-                                            <td>2017-1-11</td>
-                                        </tr>
-                                        <tr>
-                                            <td>B</td>
-                                            <td>试用期合同</td>
-                                            <td>试用期合同</td>
-                                            <td>2018-12-20</td>
-                                        </tr>
+                                    <tbody id="ToEmployeesMonth">
+                                       
                                     </tbody>
                                 </table>
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="onTrialExpire">
-                                <span>合同已过期员工</span>
+                                <span>转正过期员工</span>
 
                                 <table class="table table-bordered">
                                     <thead>
@@ -263,19 +206,8 @@
                                             <td>合同到期</td>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>A</td>
-                                            <td>劳动合同</td>
-                                            <td>劳动合同</td>
-                                            <td>2017-1-11</td>
-                                        </tr>
-                                        <tr>
-                                            <td>B</td>
-                                            <td>试用期合同</td>
-                                            <td>试用期合同</td>
-                                            <td>2018-12-20</td>
-                                        </tr>
+                                    <tbody id="AlreadyToEmployees">
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -287,8 +219,8 @@
     </div>
 
     @* 快速入口和员工生日 *@
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <div class="row" id="birthday">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" >
             <div class="marco-npanel-success">
                 <div class="marco-nheading">
                     <i class="fa fa-birthday-cake"></i>
@@ -298,13 +230,13 @@
                     @*<span style="font-family:黑体; font-size:14px; color:lightseagreen;">员工转正提醒</span>*@
                     <div class="marco-tabs-success">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#staffBirthdayThisWeekend" role="tab" data-toggle="tab">本周</a></li>
+                            <li role="presentation" class="active"><a href="#staffBirthdayThisWeekend" role="tab" data-toggle="tab">未来一周</a></li>
                             <li role="presentation"><a href="#staffBirthdayThisMonth" role="tab" data-toggle="tab">本月</a></li>
                             <li role="presentation"><a href="#staffBirthdayNextMonth" role="tab" data-toggle="tab">下月</a></li>
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="staffBirthdayThisWeekend">
-                                <span>本周过生日员工</span>
+                                <span>未来一周生日员工</span>
 
                                 <table class="table table-bordered">
                                     <thead>
@@ -315,19 +247,8 @@
                                             <td>年龄</td>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>A</td>
-                                            <td>M</td>
-                                            <td>2017-1-11</td>
-                                            <td>43</td>
-                                        </tr>
-                                        <tr>
-                                            <td>B</td>
-                                            <td>F</td>
-                                            <td>2018-12-20</td>
-                                            <td>30</td>
-                                        </tr>
+                                    <tbody id="birthweek">
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -343,7 +264,7 @@
                                             <td>年龄</td>
                                         </tr>
                                     </thead>
-                                    <tbody id="staffBirthday">
+                                    <tbody id="birthmonth">
                                     </tbody>
                                 </table>
                             </div>
@@ -360,19 +281,8 @@
                                             <td>年龄</td>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>A</td>
-                                            <td>M</td>
-                                            <td>2017-1-11</td>
-                                            <td>11</td>
-                                        </tr>
-                                        <tr>
-                                            <td>B</td>
-                                            <td>F</td>
-                                            <td>2018-12-20</td>
-                                            <td>20</td>
-                                        </tr>
+                                    <tbody id="birthnextmonth">
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -463,19 +373,67 @@
 </div>
 
 <script type="text/javascript">
+	//员工合同到期
+	$.ajax({
+		url:'/Staff/ContractExpiredDetail',
+		type:'get',
+		success:function(data){
+			
+			$("#ExpiredCurrentMonth").empty();
+			$("#ExpiredNextMonth").empty();
+			$("#AlreadyExpired").empty();				
+			var next=data.下月;
+			var current=data.本月;
+			var expired=data.过期;	
+			if(next.length>0){
+				for(var i =0; i< next.length; i++){
+					var html = "<tr><td > "+next[i].姓名+" </td><td > "+next[i].员工号+" </td><td > "+next[i].合同签订次数+" </td><td > "+next[i].合同到期+" </td></tr>";
+            		$(html).appendTo($("#ExpiredCurrentMonth"));
+				}
+			}
+			if(current.length>0){
+				for(var i =0; i< current.length; i++){
+					var html = "<tr><td > "+current[i].姓名+" </td><td > "+current[i].员工号+" </td><td > "+current[i].合同签订次数+" </td><td > "+current[i].合同到期+" </td></tr>";
+            		$(html).appendTo($("#ExpiredNextMonth"));
+				}
+			}
+			if(expired.length>0){
+				for(var i =0; i< expired.length; i++){
+					var html = "<tr><td > "+expired[i].姓名+" </td><td > "+expired[i].员工号+" </td><td > "+expired[i].合同签订次数+" </td><td > "+expired[i].合同到期+" </td></tr>";
+            		$(html).appendTo($("#AlreadyExpired"));
+				}
+			}
+
+			
+		}				
+	});
+
+
+	//员工生日
     $.ajax({
         url: '/Staff/BirthdayDetail',
         type: 'get',
         success: function (data) {
-        	$("#staffBirthday").empty();
-
-            if(data.length>0){
-            	for(var i =0; i< data.length; i++){
-            		var Html = "<tr><td > "+data[i].姓名+" </td><td > "+data[i].性别+" </td><td > "+data[i].出生日期+" </td><td > "+data[i].年龄+" </td></tr>";
-            		$(Html).appendTo($("#staffBirthday"));
+        	$("#birthweek").empty();
+        	$("#birthmonth").empty();
+        	$("#birthnextmonth").empty();
+            if(data.本周.length>0){
+            	for(var i =0; i< data.本周.length; i++){
+            		var Html = "<tr><td > "+data.本周[i].姓名+" </td><td > "+data.本周[i].性别+" </td><td > "+data.本周[i].出生日期+" </td><td > "+data.本周[i].年龄+" </td></tr>";
+            		$(Html).appendTo($("#birthweek"));
             	}
-            }else{
-
+            }
+            if(data.本月.length>0){
+            	for(var i =0; i< data.本月.length; i++){
+            		var Html = "<tr><td > "+data.本月[i].姓名+" </td><td > "+data.本月[i].性别+" </td><td > "+data.本月[i].出生日期+" </td><td > "+data.本月[i].年龄+" </td></tr>";
+            		$(Html).appendTo($("#birthmonth"));
+            	}
+            }
+            if(data.下月.length>0){
+            	for(var i =0; i< data.下月.length; i++){
+            		var Html = "<tr><td > "+data.下月[i].姓名+" </td><td > "+data.下月[i].性别+" </td><td > "+data.下月[i].出生日期+" </td><td > "+data.下月[i].年龄+" </td></tr>";
+            		$(Html).appendTo($("#birthnextmonth"));
+            	}
             }
 
         },
@@ -484,31 +442,63 @@
         }
     });
 
-     $.ajax({
+
+
+
+    //员工转正
+    $.ajax({
         url: '/Staff/ToEmployeesDetail',
         type: 'get',
         success: function (data) {       	
         	$("#ToEmployees").empty();
-            if(data.length>0){
-            	for(var i =0; i< data.length; i++){
-            		var Html = "<tr><td > "+data[i].姓名+" </td><td > "+data[i].性别+" </td><td > "+data[i].入职日期+" </td><td > "+data[i].转正日期+" </td><td > "+data[i].剩余+" </td></tr>";
+        	$("#ToEmployeesMonth").empty();
+        	$("#AlreadyToEmployees").empty();
+        	var next=data.下月;
+			var current=data.本月;
+			var expired=data.过期;
+            if(current.length>0){
+            	for(var i =0; i< current.length; i++){
+            		var Html = "<tr><td > "+current[i].姓名+" </td><td > "+current[i].性别+" </td><td > "+current[i].入职日期+" </td><td > "+current[i].转正日期+" </td><td > "+current[i].剩余+" </td></tr>";
             		$(Html).appendTo($("#ToEmployees"));
             	}
-            }else{
-
+            }
+            if(next.length>0){
+            	for(var i =0; i< next.length; i++){
+            		var Html = "<tr><td > "+next[i].姓名+" </td><td > "+next[i].性别+" </td><td > "+next[i].入职日期+" </td><td > "+next[i].转正日期+" </td><td > "+next[i].剩余+" </td></tr>";
+            		$(Html).appendTo($("#ToEmployeesMonth"));
+            	}
+            }
+            if(expired.length>0){
+            	for(var i =0; i< expired.length; i++){
+            		var Html = "<tr><td > "+expired[i].姓名+" </td><td > "+expired[i].性别+" </td><td > "+expired[i].入职日期+" </td><td > "+expired[i].转正日期+" </td><td > "+expired[i].剩余+" </td></tr>";
+            		$(Html).appendTo($("#AlreadyToEmployees"));
+            	}
             }
         },
         error: function () {
             console.log("CCCCCCCC");
         }
     });
-
-    $.ajax({
+ 	
+ 	 $.ajax({
         url: '/Staff/CountStaffBirthday',
         type: 'get',
-        success: function (data) {  
-            console.log(data); 	
+        success: function (data) {              
         	$("#birthDayNum").html(data.生日 + "人")         
+        },
+        error: function () {
+            console.log("CCCCCCCC");
+        }
+    });
+
+
+    $.ajax({
+        url: '/Staff/StaffCount',
+        type: 'get',
+        success: function (data) {            
+        	$("#InWork").html(data.在职员工 + "人");
+        	$("#OutWork").html(data.离职员工 + "人");
+
         },
         error: function () {
             console.log("CCCCCCCC");

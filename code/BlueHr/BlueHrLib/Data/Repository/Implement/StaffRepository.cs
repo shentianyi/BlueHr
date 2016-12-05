@@ -429,18 +429,71 @@ namespace BlueHrLib.Data.Repository.Implement
             return staffs;
         }
 
-        public List<Staff> StaffBirthday()
+        public List<Staff> StaffBirthday(int v)
         {
-            string a = System.DateTime.Today.ToString("M/d");
-            List<Staff> result = new List<Staff>();
-            //var q = this.context.Staffs.Where(s => s.birthday.ToString().Contains(a)).Count();
-            var q = this.context.Staffs.ToList();
-            foreach (var i in q)
+            if (v == 0)
             {
-                string show = i.birthday.ToString();
-                if (show.Contains(a)) result.Add(i);
+                string a = System.DateTime.Today.ToString("M/d");
+                List<Staff> result = new List<Staff>();
+                //var q = this.context.Staffs.Where(s => s.birthday.ToString().Contains(a)).Count();
+                var q = this.context.Staffs.ToList();
+                foreach (var i in q)
+                {
+                    string show = i.birthday.ToString();
+                    if (show.Contains(a)) result.Add(i);
+                }
+                return result;
             }
-            return result;
+            else
+            {
+                var q = this.context.Staffs.ToList();
+                List<Staff> result = new List<Staff>();
+                switch (v)
+                {
+                    case 1:
+                        {
+                            foreach (var i in q)
+                            {
+                                if (i.birthday != null)
+                                {
+                                    DateTime strdate = DateTime.Parse(i.birthday.ToString());
+                                    DateTime useToCount = DateTime.Parse(strdate.ToString("MM/dd"));
+                                    TimeSpan rest = (useToCount - System.DateTime.Today);
+                                    if (rest.TotalDays >= 0.0d && rest.TotalDays <= 7.0d) result.Add(i);
+                                }
+                            }
+                            return result;
+                        }
+                    case 2:
+                        {
+                            string now = System.DateTime.Today.ToString("MM");
+                            foreach (var i in q)
+                            {
+                                if (i.birthday != null)
+                                {
+                                    DateTime strdate = DateTime.Parse(i.birthday.ToString());
+                                    string currentDate = strdate.ToString("MM");
+                                    if (now == currentDate) result.Add(i);
+                                }
+                            }
+                            return result;
+                        }
+                    case 3:
+                        {
+                            string now = System.DateTime.Today.AddMonths(1).ToString("MM");
+                            foreach (var i in q)
+                            {
+                                if (i.birthday != null)
+                                {
+                                    DateTime strdate = DateTime.Parse(i.birthday.ToString());
+                                    string currentDate = strdate.ToString("MM");
+                                    if (now == currentDate) result.Add(i);
+                                }
+                            }
+                            return result;
+                        }
+                }return null;
+            }
         }
 
         public Dictionary<string, string> StaffCount()

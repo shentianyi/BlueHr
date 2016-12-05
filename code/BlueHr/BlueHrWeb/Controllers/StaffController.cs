@@ -1243,7 +1243,7 @@ namespace BlueHrWeb.Controllers
         {
             Dictionary<string, int> Result = new Dictionary<string, int>();
             IStaffService ss = new StaffService(Settings.Default.db);
-            Result.Add("生日", ss.StaffBirthday().Count);
+            Result.Add("生日", ss.StaffBirthday(0).Count);
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
         // GET: Staff/CountStatusStaff
@@ -1269,7 +1269,6 @@ namespace BlueHrWeb.Controllers
             foreach(var i in ss.ContractExpiredDetail(0))
             {
                 Dictionary<string, string> detail = new Dictionary<string, string>();
-
                 detail.Add("姓名", i.name);
                 detail.Add("员工号", i.nr);
                 detail.Add("合同到期", i.contractExpireStr);
@@ -1310,7 +1309,7 @@ namespace BlueHrWeb.Controllers
         public JsonResult ToEmployeesDetail()
         {
             IStaffService ss = new StaffService(Settings.Default.db);
-            List<Dictionary<string, string>> eachDetailThisWeek = new List<Dictionary<string, string>>();
+            List<Dictionary<string, string>> eachDetailThisMonth = new List<Dictionary<string, string>>();
             DateTime now = System.DateTime.Today;
             Dictionary<string, List<Dictionary<string, string>>> Result = new Dictionary<string, List<Dictionary<string, string>>>();
             foreach (var i in ss.ToEmployeesDetail(0))
@@ -1325,11 +1324,11 @@ namespace BlueHrWeb.Controllers
                 TimeSpan rest = (strdate - now);
                 double r = rest.TotalDays;
                 detail.Add("剩余", r.ToString());
-                eachDetailThisWeek.Add(detail);
+                eachDetailThisMonth.Add(detail);
             }
-            Result.Add("本月", eachDetailThisWeek);
+            Result.Add("本月", eachDetailThisMonth);
 
-            List<Dictionary<string, string>> eachDetailThisMonth = new List<Dictionary<string, string>>();
+            List<Dictionary<string, string>> eachDetailNextMonth = new List<Dictionary<string, string>>();
             foreach (var i in ss.ToEmployeesDetail(1))
             {
                 Dictionary<string, string> detail = new Dictionary<string, string>();
@@ -1342,9 +1341,9 @@ namespace BlueHrWeb.Controllers
                 TimeSpan rest = (strdate - now);
                 double r = rest.TotalDays;
                 detail.Add("剩余", r.ToString());
-                eachDetailThisMonth.Add(detail);
+                eachDetailNextMonth.Add(detail);
             }
-            Result.Add("下月", eachDetailThisMonth);
+            Result.Add("下月", eachDetailNextMonth);
 
             List<Dictionary<string, string>> eachDetailExpired = new List<Dictionary<string, string>>();
             foreach (var i in ss.ToEmployeesDetail(2))
@@ -1369,8 +1368,9 @@ namespace BlueHrWeb.Controllers
         public JsonResult BirthdayDetail()
         {
             IStaffService ss = new StaffService(Settings.Default.db);
-            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
-            foreach (var i in ss.StaffBirthday())
+            Dictionary<string, List<Dictionary<string, string>>> Result = new Dictionary<string, List<Dictionary<string, string>>>();
+            List<Dictionary<string, string>> eachDetailThisWeek = new List<Dictionary<string, string>>();
+            foreach (var i in ss.StaffBirthday(1))
             {
                 Dictionary<string, string> detail = new Dictionary<string, string>();
                 detail.Add("姓名", i.name);
@@ -1380,10 +1380,48 @@ namespace BlueHrWeb.Controllers
                 try
                 {
                     age = System.DateTime.Now.Year - Convert.ToInt32(i.birthday.ToString().Substring(0, 4));
-                } catch { age = 0; }
+                }
+                catch { age = 0; }
                 detail.Add("年龄", age.ToString());
-                Result.Add(detail);
+                eachDetailThisWeek.Add(detail);
             }
+            Result.Add("本周", eachDetailThisWeek);
+
+            List<Dictionary<string, string>> eachDetailThisMonth = new List<Dictionary<string, string>>();
+            foreach (var i in ss.StaffBirthday(2))
+            {
+                Dictionary<string, string> detail = new Dictionary<string, string>();
+                detail.Add("姓名", i.name);
+                detail.Add("性别", i.sexDisplay);
+                detail.Add("出生日期", i.birthday.ToString());
+                int age;
+                try
+                {
+                    age = System.DateTime.Now.Year - Convert.ToInt32(i.birthday.ToString().Substring(0, 4));
+                }
+                catch { age = 0; }
+                detail.Add("年龄", age.ToString());
+                eachDetailThisMonth.Add(detail);
+            }
+            Result.Add("本月", eachDetailThisMonth);
+
+            List<Dictionary<string, string>> eachDetailNextMonth = new List<Dictionary<string, string>>();
+            foreach (var i in ss.StaffBirthday(3))
+            {
+                Dictionary<string, string> detail = new Dictionary<string, string>();
+                detail.Add("姓名", i.name);
+                detail.Add("性别", i.sexDisplay);
+                detail.Add("出生日期", i.birthday.ToString());
+                int age;
+                try
+                {
+                    age = System.DateTime.Now.Year - Convert.ToInt32(i.birthday.ToString().Substring(0, 4));
+                }
+                catch { age = 0; }
+                detail.Add("年龄", age.ToString());
+                eachDetailNextMonth.Add(detail);
+            }
+            Result.Add("下月", eachDetailNextMonth);
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
         //    private void SetResignTypeList(int? type, bool allowBlank = true)

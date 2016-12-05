@@ -1,5 +1,4 @@
 ﻿@model BlueHrLib.Data.Staff
-
 @using BlueHrWeb.Helpers.View
 
 <style>
@@ -31,13 +30,10 @@
                 <li role="presentation"><a href="#experience" role="tab" data-toggle="tab">工作经历</a></li>
                 <li role="presentation"><a href="#contract" role="tab" data-toggle="tab">合同信息</a></li>
                 <li role="presentation"><a href="#bankcard" role="tab" data-toggle="tab">银行卡信息</a></li>
-
+                <li role="presentation"><a href="#children" role="tab" data-toggle="tab">子女信息</a></li>
                 <li role="presentation"><a href="#change" role="tab" data-toggle="tab">调动记录</a></li>
                 <li role="presentation"><a href="#idcard" role="tab" data-toggle="tab">证照信息</a></li>
-                <li role="presentation"><a href="#reword" role="tab" data-toggle="tab">奖惩记录</a></li>
-                <li role="presentation"><a href="#children" role="tab" data-toggle="tab">子女信息</a></li>
-               
-                
+                <li role="presentation"><a href="#reword" role="tab" data-toggle="tab">奖惩记录</a></li>               
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="basic">
@@ -49,7 +45,7 @@
                             <div class="marco-nbody row">
                                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                     <div class="marco-igroup-danger">
-                                        <span>&nbsp;&nbsp;&nbsp;工&nbsp;号 *&nbsp;</span>
+                                        <span id="staffnr">&nbsp;&nbsp;&nbsp;工&nbsp;号 *&nbsp;</span>
                                         @Html.EditorFor(model => model.nr)
                                     </div>
                                 </div>
@@ -471,7 +467,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div role="tabpanel" class="tab-pane" id="children">
                     <div class="marco-npanel-normal">
                         <div class="marco-nheading">
@@ -541,58 +536,17 @@
                             <span>调动记录</span>
                         </div>
 
-                        <div class="marco-nbody">
-
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="marco-igroup-success">
-                                        <span>申请人 *</span>
-                                        <input type="text" id="add_familyName" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="marco-igroup-success">
-                                        <span>审批人 *</span>
-                                        <input type="text" id="add_familyType"/>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="marco-igroup-success">
-                                        <span>申请日期 *</span>
-                                        <input type="text" id="add_familyBirthday" class="date-picker" />
-                                        <span class="createFamilyBtn" style="cursor:pointer;">
-                                            <i class="fa fa-plus-circle"></i>
-                                            添加
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr class="hr-grey" />
+                        <div class="marco-nbody">                           
 
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>申请人</th>
-                                        <th>审批人</th>
-                                        <th>申请日期</th>
-                                        <th>操作</th>
+                                        <th>调岗日期</th>
+                                        <th>调岗描述</th>                                    
                                     </tr>
                                 </thead>
-                                <tbody class="tbody-family">
-                                    @*Edit Delete 显示 信息 *@
-                                    @if (Model != null)
-                                    {
-                                        foreach (var family in Model.FamilyMemebers)
-                                        {
-                                            <tr>
-                                                <td><input type="text" class="marco-input-primary" name="familyName" value="@family.memberName" /></td>
-                                                <td><input type="text" class="marco-input-primary" name="familyType" value="@family.familyMemberType" /></td>
-                                                <td><input type="text" class="marco-input-primary date-picker" name="familyBirthday" value="@family.birthday" /></td>
-                                                <td class="option-icon-danger"><i class='fa fa-close remove-family' id="@family.id" style='margin-top:3px;'></i></td>
-                                            </tr>
-                                        }
-                                    }
+                                <tbody id="messagerecord">
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -671,62 +625,18 @@
 
                         <div class="marco-nbody">
 
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="marco-igroup-success">
-                                        <span>部门审批人 *</span>
-                                        <input type="text" id="add_familyName" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="marco-igroup-success">
-                                        <span>奖励记录 *</span>
-                                        <input type="text" id="add_familyType"  />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="marco-igroup-success">
-                                        <span>惩罚记录 *</span>
-                                        <input type="text" id="add_familyType"/>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="marco-igroup-success">
-                                        <span>审批日期 *</span>
-                                        <input type="text" id="add_familyBirthday" class="date-picker" />
-                                        <span class="createFamilyBtn" style="cursor:pointer;">
-                                            <i class="fa fa-plus-circle"></i>
-                                            添加
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr class="hr-grey" />
-
                             <table class="table table-bordered">
                                 <thead>
-                                    <tr>
-                                        <th>部门审批人</th>
-                                        <th>奖励记录</th>
-                                        <th>惩罚记录</th>
-                                        <th>审批日期</th>
+                                    <tr>                                     
+                                        <th>奖惩类型</th>
+                                        <th>奖惩项目</th>
+                                        <th>奖惩描述</th>
+                                        <th>奖惩日期</th>
+                                        <th>审批人</th>
                                     </tr>
                                 </thead>
-                                <tbody class="tbody-family">
-                                    @*Edit Delete 显示 信息 *@
-                                    @if (Model != null)
-                                    {
-                                        foreach (var family in Model.FamilyMemebers)
-                                        {
-                                            <tr>
-                                                <td><input type="text" class="marco-input-primary" name="familyName" value="@family.memberName" /></td>
-                                                <td><input type="text" class="marco-input-primary" name="familyType" value="@family.familyMemberType" /></td>
-                                                <td><input type="text" class="marco-input-primary date-picker" name="familyBirthday" value="@family.birthday" /></td>
-                                                <td class="option-icon-danger"><i class='fa fa-close remove-family' id="@family.id" style='margin-top:3px;'></i></td>
-                                            </tr>
-                                        }
-                                    }
+                                <tbody id="RAPMessages">
+                                   
                                 </tbody>
                             </table>
                         </div>
@@ -1255,4 +1165,40 @@
                     }
                 });
             }
-        </script>
+            //员工奖惩信息
+            $.ajax({
+		        url: '/RewardsAndPenalty/detail',
+		        type: 'get',
+		        data:{staffNr:$('#nr').val()},
+		        success: function (data) {
+		        	$("#RAPMessages").empty();
+	            	if(data.length>0){
+		            	for(var i =0; i< data.length; i++){
+		            		var Html = "<tr><td > "+data[i].奖惩类型+" </td><td > "+data[i].奖惩项目+" </td><td > "+data[i].奖惩描述+" </td><td > "+data[i].奖惩日期+" </td><td > "+data[i].审批人+" </td></tr>";
+		            		$(Html).appendTo($("#RAPMessages"));
+		            	}
+		          	}
+			    },
+		        error: function () {
+		            console.log("CCCCCCCC");
+		        }
+    		});
+    		//员工调度信息
+    		$.ajax({
+		        url: '/MessageRecord/FindBystaffNrShiftJob',
+		        type: 'get',
+		        data:{staffNr:$('#nr').val()},
+		        success: function (data) {
+		        	$("#messagerecord").empty();
+	            	if(data.length>0){
+		            	for(var i =0; i< data.length; i++){
+		            		var Html = "<tr><td > "+data[i].调岗日期+" </td><td > "+data[i].调岗描述+" </td><td > ";
+		            		$(Html).appendTo($("#messagerecord"));
+		            	}	            	
+			    	}
+			    },
+		        error: function () {
+		            console.log("CCCCCCCC");
+		        }
+    		});
+</script>

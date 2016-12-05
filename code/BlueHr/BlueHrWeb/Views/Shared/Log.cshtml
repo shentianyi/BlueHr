@@ -1,0 +1,159 @@
+﻿@using MvcPaging
+@model IPagedList<BlueHrLib.Data.User>
+@{
+    ViewBag.Title = "登陆日志";
+}
+@*@Styles.Render("~/Content/degreetype")*@
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>登陆日志</li>
+</ol>
+
+
+<hr class="hr-grey" />
+
+<div class="search">
+    @* 简单搜索 *@
+    <form action="/User/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>姓名</span>
+                    <input type="text" name="Id" id="Id" value="" placeholder="姓名" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>角色</span>
+                    <input type="text" name="Nr" id="Nr" value="" placeholder="角色" />
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 5px;">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <button type="submit" class="marco-btn-success pull-left">
+                        <i class="fa fa-search"></i>
+                        <span>搜索</span>
+                    </button>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <button type="button" class="marco-btn-primary advanced-filter-btn" title="自定义搜索">
+                        <i class="fa fa-filter"></i>
+                        <span>自定义搜索</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    @* 自定义搜索 *@
+    <form action="/User/AdvancedSearch" method="post">
+        <div class="advanced-filter row" style="margin:0;display:none;">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>字段</span>
+                    @Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>条件</span>
+                    @Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值1</span>
+                    <input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值2</span>
+                    <input type="text" name="searchValueSecond" value="@ViewBag.searchValueSecond" />
+                    <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<hr class="hr-primary" />
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            
+            <li role="presentation" class="active"><a href="#all_log" role="tab" data-toggle="tab">登陆日志</a></li>
+            
+        </ul>
+        <div class="tab-content">
+            
+            <div role="tabpanel" class="tab-pane" id="all_log">
+                <div id="all_log_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>登陆邮箱</th>
+                            <th>登陆时间</th>                           
+                        </tr>
+                    </thead>
+                    <tbody id="LogMessages">
+                        
+                    </tbody>
+                </table>
+            </div>
+           
+        </div>
+        
+
+    </div>
+</div> 
+
+
+@*@Scripts.Render("~/bundles/degreetype")*@
+<script type="text/javascript">
+    Layout.init();
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_log", "登陆日志列表", "20", "all_log_grid_table");
+    })
+
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_log", "登陆日志列表", "20", "all_log_grid_table");
+
+
+    Layout.advancedfilter();
+
+    $.ajax({
+        url: '/MessageRecord/LoginDetail',
+        type: 'get',
+        success: function (data) {
+            $("#LogMessages").empty();
+            if(data.length>0){
+                for(var i =0; i< data.length; i++){
+                    var Html = "<tr><td > "+data[i].用户邮箱+" </td><td > "+data[i].登录时间+" </td></tr>";
+                    $(Html).appendTo($("#LogMessages"));
+                }
+            }else{
+
+            }
+
+        },
+        error: function () {
+            console.log("CCCCCCCC");
+        }
+    });
+
+    function lock(id){
+        if(confirm('确定操作？')){
+            $.post('/User/LockUnLock',{id: id},function(data){
+                if(data.Success){
+                    alert('操作成功！');
+                    window.location.reload();
+                } else {
+                    alert('操作失败：'+data.Content);
+                }
+            },'json');
+        }
+    }
+</script>

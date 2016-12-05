@@ -1,0 +1,135 @@
+﻿@using MvcPaging
+@model IPagedList<BlueHrLib.Data.User>
+@{
+    ViewBag.Title = "个人信息";
+}
+@*@Styles.Render("~/Content/degreetype")*@
+
+<style>
+    .input_kuang {
+        border: 1px solid #999;
+        width: 70%;
+        background:#fff;
+    }
+</style>
+
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>个人信息</li>   
+</ol>
+
+<hr class="hr-grey" />
+
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            <li role="presentation" class="active"><a href="#user_msg" role="tab" data-toggle="tab">基本信息</a></li>
+            <li role="presentation"><a href="#user_detailmsg" role="tab" data-toggle="tab">详细信息</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="user_msg">
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="user_msg_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="width:100%;">
+                    <tbody>
+                        <tr style="width:15%;">
+                            <td>工号 : 0001</td>
+                            <td>电子邮箱 : admin@ci.com</td>
+                        </tr>
+                        <tr style="width:35%;">
+                            <td>姓名 : 周先生</td>
+                            <td>入职时间 ：12.24</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="user_detailmsg">
+            <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="user_detailmsg_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="width:100%; display:none;">
+                    <thead>
+                        <tr>
+                            <td style="width:15%;">性别 :</td>
+                            <td style="width:35%;">
+                                <select id="gender" name="gender" size="1" class="input_kuang">
+                                    <option value="0">--请选择--</option>
+                                    <option value="1">男</option>
+                                    <option value="2">女</option>
+                                </select>
+                            </td>
+
+                            <td>婚否 :</td>
+                            <td>
+                                <select id="maritalStatus" size="1" class="input_kuang">
+                                    <option value="0">--请选择--</option>
+                                    <option value="1">已婚</option>
+                                    <option value="2">未婚</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%;">出生日期 :</td>
+                            <td style="width:35%;">
+                                <input type="text" name="txtshow">
+                            </td>
+                            <td style="width:15%;">学历 :</td>
+                            <td style="width:35%;">
+                                <select id="education" size="1" name="stsoft" class="input_kuang">
+                                    <option value="请选择">--请选择--</option>
+                                    <option value="博士后">博士后</option>
+                                    <option value="博士研究生">博士研究生</option>
+                                    <option value="硕士研究生">硕士研究生</option>
+                                    <option value="大学本科">大学本科</option>
+                                    <option value="大专">大专</option>
+                                    <option value="高中">高中</option>
+                                    <option value="中专">中专</option>
+                                    <option value="初中">初中</option>
+                                    <option value="小学">小学</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%;">电话 :</td>
+                            <td style="width:35%;">
+                                <input type="text" name="txtshow">
+                            </td>
+                            <td style="width:15%;">移动电话 :</td>
+                            <td style="width:35%;">
+                                <input type="text" name="txtshow">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%;">身份证号码 :</td>
+                            <td style="width:35%;">
+                                <input type="text" name="txtshow">
+                            </td>
+                            <td style="width:15%;">籍贯 :</td>
+                            <td style="width:35%;">
+                                <input type="text" name="txtshow">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%;">详细住址 :</td>
+                            <td style="width:35%;">
+                                <input type="text" name="txtshow">
+                            </td>
+                            <td style="width:15%;">毕业院校 :</td>
+                            <td style="width:35%;">
+                                <input type="text" name="txtshow">
+                            </td>
+                        </tr>
+                    </thead>
+
+                </table>
+        </div>
+    </div>
+    </div>
+   
+@*@Scripts.Render("~/bundles/degreetype")*@
+<script type="text/javascript">
+    Layout.init();
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "user_msg", "基本信息", "20", "user_msg_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "user_detailmsg", "详细信息", "20", "user_detailmsg_grid_table");
+    })
+</script>

@@ -20,5 +20,6 @@ namespace BlueHrLib.Data.Repository.Interface
 
         List<RewardsAndPenalty> GetAll();
         List<RewardsAndPenalty> GetAllTableName();
+        List<RewardsAndPenalty> FindBystaffNr(string staffNr);
     }
 }
