@@ -43,7 +43,7 @@ namespace BlueHrLib.Data.Repository.Interface
         
         Dictionary<string, string> StaffCount();
 
-        List<Staff> StaffBirthday();
+        List<Staff> StaffBirthday(int v);
         List<Staff> ContractExpiredDetail(int v);
         List<Staff> ToEmployeesDetail(int v);
     }

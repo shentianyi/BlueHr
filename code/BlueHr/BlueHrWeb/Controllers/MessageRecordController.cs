@@ -116,7 +116,15 @@ namespace BlueHrWeb.Controllers
             foreach (var i in mrs.LoginDetail())
             {
                 Dictionary<string, string> detail = new Dictionary<string, string>();
-                detail.Add("用户邮箱", i.staffNr);
+                IUserService us = new UserService(Settings.Default.db);
+                try
+                {
+                    detail.Add("用户名", us.FindById(Convert.ToInt32(i.staffNr)).name);
+                }
+                catch
+                {
+                    detail.Add("用户名", i.staffNr);
+                }
                 detail.Add("登录时间", i.createdAt.ToString());
                 Result.Add(detail);
             }

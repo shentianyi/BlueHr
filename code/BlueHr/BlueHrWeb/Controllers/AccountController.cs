@@ -126,7 +126,7 @@ namespace BlueHrWeb.Controllers
                     {
                         IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
                         BlueHrLib.Data.Enum.MessageRecordType loginSuccess = BlueHrLib.Data.Enum.MessageRecordType.UserLogin;
-                        mrs.Create(model.Email,null, loginSuccess, "logined successfully at"+System.DateTime.Now.ToString());
+                        mrs.Create(user.id.ToString(),null, loginSuccess, "成功登陆"+System.DateTime.Now.ToString());
                         return RedirectToLocal(returnUrl);
                     }
                 case SignInStatus.LockedOut:
