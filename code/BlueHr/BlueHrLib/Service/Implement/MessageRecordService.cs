@@ -269,5 +269,10 @@ namespace BlueHrLib.Service.Implement
         {
             return messageReocrdRep.CountToEmployees();
         }
+
+        public List<MessageRecord> LoginDetail()
+        {
+            return messageReocrdRep.LoginDetail();
+        }
     }
 }

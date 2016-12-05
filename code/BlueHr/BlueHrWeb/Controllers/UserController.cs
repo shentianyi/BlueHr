@@ -55,8 +55,8 @@ namespace BlueHrWeb.Controllers
 
 
         [RoleAndDataAuthorizationAttribute]
-        // GET: User/Details/5
-        public ActionResult Details(int id)
+        // GET: User/UserMsg/
+        public ActionResult UserMsg()
         {
             return View();
         }
