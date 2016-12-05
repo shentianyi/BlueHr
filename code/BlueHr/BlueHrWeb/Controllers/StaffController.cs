@@ -1269,7 +1269,6 @@ namespace BlueHrWeb.Controllers
             foreach(var i in ss.ContractExpiredDetail(0))
             {
                 Dictionary<string, string> detail = new Dictionary<string, string>();
-
                 detail.Add("姓名", i.name);
                 detail.Add("员工号", i.nr);
                 detail.Add("合同到期", i.contractExpireStr);

@@ -115,7 +115,28 @@ namespace BlueHrWeb.Controllers
 
             return View(rewardsAndPenalties);
         }
-
+        [HttpGet]
+        public JsonResult detail(string staffNr)
+        {
+            IRewardsAndPenaltyService rps = new RewardsAndPenaltyService(Settings.Default.db);
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+            foreach (var i in rps.FindBystaffNr(staffNr))
+            {
+                Dictionary<string, string> detail = new Dictionary<string, string>();
+                detail.Add("奖惩类型", i.type == 1?"奖励":"惩罚");
+                detail.Add("奖惩项目", i.project);
+                detail.Add("奖惩描述", i.description);
+                detail.Add("奖惩日期", i.createAt.ToString());
+                IUserService us = new UserService(Settings.Default.db);
+                try
+                {
+                    detail.Add("审批人", us.FindById((int)i.userId).name);
+                }
+                catch { detail.Add("审批人", null); }
+                Result.Add(detail);
+            }
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
         // POST: RewardsAndPenalty/Edit/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]

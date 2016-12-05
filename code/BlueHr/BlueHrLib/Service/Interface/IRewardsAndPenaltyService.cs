@@ -23,5 +23,6 @@ namespace BlueHrLib.Service.Interface
         bool DeleteById(int id);
 
         List<RewardsAndPenalty> GetAll();
+        List<RewardsAndPenalty> FindBystaffNr(string staffNr);
     }
 }
