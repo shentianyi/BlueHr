@@ -1311,7 +1311,7 @@ namespace BlueHrWeb.Controllers
         {
             IStaffService ss = new StaffService(Settings.Default.db);
             List<Dictionary<string, string>> eachDetailThisWeek = new List<Dictionary<string, string>>();
-
+            DateTime now = System.DateTime.Today;
             Dictionary<string, List<Dictionary<string, string>>> Result = new Dictionary<string, List<Dictionary<string, string>>>();
             foreach (var i in ss.ToEmployeesDetail(0))
             {
@@ -1319,9 +1319,12 @@ namespace BlueHrWeb.Controllers
 
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sex);
-                detail.Add("入职日期", i.contractExpireStr);
-                detail.Add("转正日期", i.contractCount.ToString());
-                detail.Add("剩余", i.contractExpireStr);
+                detail.Add("入职日期", i.firstCompanyEmployAtDisplay);
+                detail.Add("转正日期", i.trialOverAt.ToString());
+                DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
+                TimeSpan rest = (strdate - now);
+                double r = rest.TotalDays;
+                detail.Add("剩余", r.ToString());
                 eachDetailThisWeek.Add(detail);
             }
             Result.Add("本月", eachDetailThisWeek);
@@ -1333,9 +1336,12 @@ namespace BlueHrWeb.Controllers
 
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.nr);
-                detail.Add("入职日期", i.contractExpireStr);
-                detail.Add("转正日期", i.contractCount.ToString());
-                detail.Add("剩余", i.contractExpireStr);
+                detail.Add("入职日期", i.firstCompanyEmployAtDisplay);
+                detail.Add("转正日期", i.trialOverAt.ToString());
+                DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
+                TimeSpan rest = (strdate - now);
+                double r = rest.TotalDays;
+                detail.Add("剩余", r.ToString());
                 eachDetailThisMonth.Add(detail);
             }
             Result.Add("下月", eachDetailThisMonth);
@@ -1347,9 +1353,12 @@ namespace BlueHrWeb.Controllers
 
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.nr);
-                detail.Add("入职日期", i.contractExpireStr);
-                detail.Add("转正日期", i.contractCount.ToString());
-                detail.Add("剩余", i.contractExpireStr);
+                detail.Add("入职日期", i.firstCompanyEmployAtDisplay);
+                detail.Add("转正日期", i.trialOverAt.ToString());
+                DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
+                TimeSpan rest = (strdate - now);
+                double r = rest.TotalDays;
+                detail.Add("剩余", r.ToString());
                 eachDetailExpired.Add(detail);
             }
             Result.Add("过期", eachDetailExpired);
