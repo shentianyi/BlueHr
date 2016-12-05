@@ -161,12 +161,24 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             try
             {
-                for (int i = startTime.Day; i <= endTime.Day; i++)
+                DateTime startTimeSet = startTime;
+                int i = startTime.Day;
+                for (; i <= endTime.Day; i++)
                 {
-                    parModel.scheduleAt = startTime;
-                    this.context.GetTable<ShiftSchedule>().InsertOnSubmit(parModel);
+                    ShiftSchedule current = new ShiftSchedule();
+                    int id = parModel.id;
+                    current.id = id;
+                    int shiftId = parModel.shiftId;
+                    current.shiftId = shiftId;
+                    string staffNr = parModel.staffNr;
+                    current.staffNr = staffNr;
+                    parModel.scheduleAt = startTimeSet;
+                    DateTime scheduleAt = parModel.scheduleAt;
+                    current.scheduleAt = scheduleAt;
+                    this.context.GetTable<ShiftSchedule>().InsertOnSubmit(current);
                     this.context.SubmitChanges();
-                    startTime.AddDays(1);
+                    startTimeSet=startTimeSet.AddDays(1);
+                    parModel.id= parModel.id+1;
                 }
                 return true;
             }
