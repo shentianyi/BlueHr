@@ -114,7 +114,7 @@ namespace BlueHrLib.Service.Interface
         //int countStaffOntrail();
         //int countStaffOff();
         //int countStaffOn();
-        List<Staff> StaffBirthday();
+        List<Staff> StaffBirthday(int v);
         List<Staff> ContractExpiredDetail(int v);
         List<Staff> ToEmployeesDetail(int v);
     }

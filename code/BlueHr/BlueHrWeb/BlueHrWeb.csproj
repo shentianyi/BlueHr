@@ -741,11 +741,6 @@
     <Content Include="Views\Recruit\Edit.cshtml" />
     <Content Include="Views\Recruit\Index.cshtml" />
     <Content Include="Views\Recruit\_PartialRecruit.cshtml" />
-    <Content Include="Views\RewardsAndPenalties\Create.cshtml" />
-    <Content Include="Views\RewardsAndPenalties\Delete.cshtml" />
-    <Content Include="Views\RewardsAndPenalties\Edit.cshtml" />
-    <Content Include="Views\RewardsAndPenalties\Index.cshtml" />
-    <Content Include="Views\RewardsAndPenalties\_PartialRewardsAndPenalties.cshtml" />
     <Content Include="Views\Personal\Schedule.cshtml" />
     <Content Include="Views\Personal\Approval.cshtml" />
     <Content Include="Views\Personal\Application.cshtml" />
