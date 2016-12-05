@@ -276,6 +276,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="staffBirthday">
+
                                     </tbody>
                                 </table>
                             </div>
@@ -429,7 +430,6 @@
 					}
 				}	
 			}				
-
 		},
 		error:function(){
 			console.log("CCCCCCCC");
@@ -444,16 +444,14 @@
         type: 'get',
         success: function (data) {
         	$("#staffBirthday").empty();
-
             if(data.length>0){
-            	for(var i =0; i< data.length; i++){
+            	for(var i =0; i < data.length; i++){
             		var Html = "<tr><td > "+data[i].姓名+" </td><td > "+data[i].性别+" </td><td > "+data[i].出生日期+" </td><td > "+data[i].年龄+" </td></tr>";
             		$(Html).appendTo($("#staffBirthday"));
             	}
             }else{
 
             }
-
         },
         error: function () {
             console.log("CCCCCCCC");

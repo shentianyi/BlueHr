@@ -13,6 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 
     <title>@ViewBag.Title - HR</title>
+
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/layout")
     @Styles.Render("~/Content/bootstrap-treeview")
@@ -23,6 +24,7 @@
     @Scripts.Render("~/bundles/layout")
     @Scripts.Render("~/bundles/vue")
     @Scripts.Render("~/bundles/bootstrap-treeview")
+
     @RenderSection("scripts", required: false)
 </head>
 
@@ -295,6 +297,18 @@
                                 <a href="/Staff/Index">
                                     <i class="fa fa-child"></i>
                                     员工管理
+                                </a>
+                            </li>
+                            <li class="nav-staff">
+                                <a href="/Staff/Idcard">
+                                    <i class="fa fa-child"></i>
+                                    身份证管理
+                                </a>
+                            </li>
+                            <li class="nav-staff">
+                                <a href="/Staff/Ontrail">
+                                    <i class="fa fa-child"></i>
+                                    试用期管理
                                 </a>
                             </li>
 
