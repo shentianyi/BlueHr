@@ -277,7 +277,7 @@ namespace BlueHrLib.Service.Implement
 
         public List<MessageRecord> FindBystaffNrShiftJob(string staffNr)
         {
-            return messageReocrdRep.LoginDetail(staffNr);
+            return messageReocrdRep.FindBystaffNrShiftJob(staffNr);
         }
     }
 }
