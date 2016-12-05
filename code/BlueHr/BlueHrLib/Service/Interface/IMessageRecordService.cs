@@ -75,6 +75,7 @@ namespace BlueHrLib.Service.Interface
         /// <param name="staffNr"></param>
         /// <param name="operatorId"></param>
         void CreateStaffUpdateAttHourMessage(string staffNr, int operatorId,string oldHour, string newHour,string oldActHour,string newActHour);
+        List<MessageRecord> FindBystaffNrShiftJob(string staffNr);
 
 
 

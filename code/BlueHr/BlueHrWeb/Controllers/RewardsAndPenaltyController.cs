@@ -115,6 +115,7 @@ namespace BlueHrWeb.Controllers
 
             return View(rewardsAndPenalties);
         }
+
         [HttpGet]
         public JsonResult detail(string staffNr)
         {
