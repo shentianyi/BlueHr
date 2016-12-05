@@ -1,3 +1,66 @@
 ﻿@{
     ViewBag.Title = "日程安排";
 }
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>个人事项</li>
+    <li>日程安排</li>
+</ol>
+
+<hr class="hr-grey" />
+
+<div id="person_calendar"></div>
+
+<script type="text/javascript">
+    var initialLocaleCode = 'zh-cn';
+
+    $('#person_calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay,listMonth'
+        },
+        defaultDate: '2016-09-12',
+        locale: initialLocaleCode,
+        navLinks: true, // can click day/week names to navigate views
+        selectable: true,
+        selectHelper: true,
+        select: function(start, end) {
+            var title = prompt('Event Title:');
+            var eventData;
+            if (title) {
+                eventData = {
+                    title: title,
+                    start: start,
+                    end: end
+                };
+                $('#person_calendar').fullCalendar('renderEvent', eventData, true);
+            }
+            $('#person_calendar').fullCalendar('unselect');
+        },
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events
+        events: [
+            {
+                title: 'Conference',
+                start: '2016-09-11',
+                end: '2016-09-13'
+            },
+            {
+                title: 'Meeting',
+                start: '2016-09-12T10:30:00',
+                end: '2016-09-12T12:30:00'
+            },
+            {
+                title: 'Birthday Party',
+                start: '2016-09-13T07:00:00'
+            },
+            {
+                title: 'Click for Google',
+                url: '#',
+                start: '2016-09-28'
+            }
+        ]
+    });
+</script>
