@@ -14,7 +14,7 @@
 
                     <div class="dashboard-content">
                         <p>离职 / 在职</p>
-                        <div class="show"><span id="InWork">无</span> / <span id="OutWork">无</span></div>
+                        <div class="show"><span id="OutWork">无</span> / <span id="InWork">无</span></div>
                     </div>
                 </a>
             </div>
@@ -444,7 +444,7 @@
         type: 'get',
         success: function (data) {
         	$("#staffBirthday").empty();
-        	console.log(data); 
+
             if(data.length>0){
             	for(var i =0; i< data.length; i++){
             		var Html = "<tr><td > "+data[i].姓名+" </td><td > "+data[i].性别+" </td><td > "+data[i].出生日期+" </td><td > "+data[i].年龄+" </td></tr>";
@@ -459,6 +459,8 @@
             console.log("CCCCCCCC");
         }
     });
+
+
 
 
     //员工转正
@@ -481,12 +483,26 @@
             console.log("CCCCCCCC");
         }
     });
-
-    $.ajax({
+ 	
+ 	 $.ajax({
         url: '/Staff/CountStaffBirthday',
         type: 'get',
         success: function (data) {              
         	$("#birthDayNum").html(data.生日 + "人")         
+        },
+        error: function () {
+            console.log("CCCCCCCC");
+        }
+    });
+
+
+    $.ajax({
+        url: '/Staff/StaffCount',
+        type: 'get',
+        success: function (data) {            
+        	$("#InWork").html(data.在职员工 + "人");
+        	$("#OutWork").html(data.离职员工 + "人");
+
         },
         error: function () {
             console.log("CCCCCCCC");

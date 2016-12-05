@@ -85,75 +85,22 @@
     <div class="minitor-show marco-tabs-default">
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             
-            <li role="presentation" class="active"><a href="#unlocked_user" role="tab" data-toggle="tab">登陆日志</a></li>
+            <li role="presentation" class="active"><a href="#all_log" role="tab" data-toggle="tab">登陆日志</a></li>
             
         </ul>
         <div class="tab-content">
             
-            <div role="tabpanel" class="tab-pane" id="locked_user">
-                <div id="locked_user_grid_table" style="margin:auto;"></div>
+            <div role="tabpanel" class="tab-pane" id="all_log">
+                <div id="all_log_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
-                            <th>姓名</th>
-                            <th>邮箱地址</th>
-                            <th>角色</th>
-                            <th>锁定状态</th>
-                            <th>权限公司</th>
-                            <th>权限部门</th>
-                            <th>操作</th>
+                            <th>登陆邮箱</th>
+                            <th>登陆时间</th>                           
                         </tr>
                     </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            int i = 0;
-                            foreach (var item in Model)
-                            {
-                                if (item.isLocked.Value)
-                                {
-                                <tr>
-                                    
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.email)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.roleStr)
-                                    </td>
-                                    <td>
-                                         <i class="fa fa-lock"></i>
-                                       
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.AuthCompany)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.AuthDepartment)
-                                    </td>
-                                    <td>
-                                        <a href="/User/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="/User/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a href="/User/changepwd?id=@item.id" target="_blank" class="option-icon-danger" title="修改密码">
-                                            <i class="fa fa-paste"></i>
-                                        </a>
-                                        
-                                            <a href="#" class="option-icon-danger" title="解锁" onclick="lock(@item.id)">
-                                                <i class="fa fa-unlock"></i>
-                                            </a>
-                                       
-                                        
-                                    </td>
-                                </tr>
-                                }
-                            }
-                        }
+                    <tbody id="LogMessages">
+                        
                     </tbody>
                 </table>
             </div>
@@ -169,14 +116,33 @@
 <script type="text/javascript">
     Layout.init();
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_user", "所有用户列表", "20", "all_user_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_log", "登陆日志列表", "20", "all_log_grid_table");
     })
 
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unlocked_user", "所有用户列表", "20", "unlocked_user_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_log", "登陆日志列表", "20", "all_log_grid_table");
 
 
     Layout.advancedfilter();
 
+    $.ajax({
+        url: '/MessageRecord/LoginDetail',
+        type: 'get',
+        success: function (data) {
+            $("#LogMessages").empty();
+            if(data.length>0){
+                for(var i =0; i< data.length; i++){
+                    var Html = "<tr><td > "+data[i].用户邮箱+" </td><td > "+data[i].登录时间+" </td></tr>";
+                    $(Html).appendTo($("#LogMessages"));
+                }
+            }else{
+
+            }
+
+        },
+        error: function () {
+            console.log("CCCCCCCC");
+        }
+    });
 
     function lock(id){
         if(confirm('确定操作？')){
