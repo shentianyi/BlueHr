@@ -23,6 +23,14 @@
             @* 可以进行自定义搜索 *@
             @* 列表展示 *@
 
+            @Html.Partial("../ExtraWorkRecord/Index")
+
+
+            @*@foreach(var extraWork in ViewData["ExtraWork"] as List<Dictionary<string, string>>)
+            {
+                <input type = "text" value = "@extraWork.Keys" />
+            }*@
+
         </div>
         <div role="tabpanel" class="tab-pane active" id="new_application">
             @* 分门别类进行新建 *@
