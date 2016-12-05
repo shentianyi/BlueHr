@@ -45,7 +45,7 @@
                             <div class="marco-nbody row">
                                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                     <div class="marco-igroup-danger">
-                                        <span>&nbsp;&nbsp;&nbsp;工&nbsp;号 *&nbsp;</span>
+                                        <span id="staffnr">&nbsp;&nbsp;&nbsp;工&nbsp;号 *&nbsp;</span>
                                         @Html.EditorFor(model => model.nr)
                                     </div>
                                 </div>
@@ -641,18 +641,12 @@
 
                             <table class="table table-bordered">
                                 <thead>
-                                    <tr>
-                                        <th>工号</th>
-                                        <th>姓名</th>
-                                        <th>性别</th>
-                                        <th>所属公司</th>
-                                        <th>所属部门</th>
+                                    <tr>                                     
                                         <th>奖惩类型</th>
                                         <th>奖惩项目</th>
                                         <th>奖惩描述</th>
                                         <th>奖惩日期</th>
                                         <th>审批人</th>
-                                        <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody id="RAPMessages">
@@ -1189,11 +1183,18 @@
             $.ajax({
 		        url: '/RewardsAndPenalty/detail',
 		        type: 'get',
-		        data:{staffNr:$("#staffNr").val()},
+		        data:{staffNr:$('#nr').val()},
 		        success: function (data) {
-		        	console.log(data);
-		            $("#willNum").html(data.即将转正 + "人");
-		        },
+		        	$("#RAPMessages").empty();
+	            	if(data.length>0){
+	            	for(var i =0; i< data.length; i++){
+	            		var Html = "<tr><td > "+data[i].奖惩类型+" </td><td > "+data[i].奖惩项目+" </td><td > "+data[i].奖惩描述+" </td><td > "+data[i].奖惩日期+" </td><td > "+data[i].审批人+" </td></tr>";
+	            		$(Html).appendTo($("#RAPMessages"));
+	            	}
+		            }else{
+
+		            }
+			    },
 		        error: function () {
 		            console.log("CCCCCCCC");
 		        }

@@ -230,13 +230,13 @@
                     @*<span style="font-family:黑体; font-size:14px; color:lightseagreen;">员工转正提醒</span>*@
                     <div class="marco-tabs-success">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#staffBirthdayThisWeekend" role="tab" data-toggle="tab">本周</a></li>
+                            <li role="presentation" class="active"><a href="#staffBirthdayThisWeekend" role="tab" data-toggle="tab">未来一周</a></li>
                             <li role="presentation"><a href="#staffBirthdayThisMonth" role="tab" data-toggle="tab">本月</a></li>
                             <li role="presentation"><a href="#staffBirthdayNextMonth" role="tab" data-toggle="tab">下月</a></li>
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="staffBirthdayThisWeekend">
-                                <span>本周过生日员工</span>
+                                <span>未来一周生日员工</span>
 
                                 <table class="table table-bordered">
                                     <thead>
@@ -247,19 +247,8 @@
                                             <td>年龄</td>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>A</td>
-                                            <td>M</td>
-                                            <td>2017-1-11</td>
-                                            <td>43</td>
-                                        </tr>
-                                        <tr>
-                                            <td>B</td>
-                                            <td>F</td>
-                                            <td>2018-12-20</td>
-                                            <td>30</td>
-                                        </tr>
+                                    <tbody id="birthweek">
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -275,7 +264,7 @@
                                             <td>年龄</td>
                                         </tr>
                                     </thead>
-                                    <tbody id="staffBirthday">
+                                    <tbody id="birthmonth">
                                     </tbody>
                                 </table>
                             </div>
@@ -292,19 +281,8 @@
                                             <td>年龄</td>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>A</td>
-                                            <td>M</td>
-                                            <td>2017-1-11</td>
-                                            <td>11</td>
-                                        </tr>
-                                        <tr>
-                                            <td>B</td>
-                                            <td>F</td>
-                                            <td>2018-12-20</td>
-                                            <td>20</td>
-                                        </tr>
+                                    <tbody id="birthnextmonth">
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -403,38 +381,31 @@
 			
 			$("#ExpiredCurrentMonth").empty();
 			$("#ExpiredNextMonth").empty();
-			$("#AlreadyExpired").empty();	
-			if(data.length>0){
-				var next=data.下月;
-				var current=data.本月;
-				var expired=data.过期;	
-				if(next.length>0){
-					for(var i =0; i< next.length; i++){
-						var Html1 = "<tr><td > "+next[i].姓名+" </td><td > "+next[i].员工号+" </td><td > "+next[i].合同签订次数+" </td><td > "+next[i].合同到期+" </td></tr>";
-	            		$(Html1).appendTo($("#ExpiredCurrentMonth"));
-					}
+			$("#AlreadyExpired").empty();				
+			var next=data.下月;
+			var current=data.本月;
+			var expired=data.过期;	
+			if(next.length>0){
+				for(var i =0; i< next.length; i++){
+					var html = "<tr><td > "+next[i].姓名+" </td><td > "+next[i].员工号+" </td><td > "+next[i].合同签订次数+" </td><td > "+next[i].合同到期+" </td></tr>";
+            		$(html).appendTo($("#ExpiredCurrentMonth"));
 				}
-
-				if(current.length>0){
-					for(var j =0; j< current.length; j++){
-						var Html2 = "<tr><td > "+current[j].姓名+" </td><td > "+current[j].员工号+" </td><td > "+current[j].合同签订次数+" </td><td > "+current[j].合同到期+" </td></tr>";
-	            		$(Html2).appendTo($("#ExpiredNextMonth"));
-					}
+			}
+			if(current.length>0){
+				for(var i =0; i< current.length; i++){
+					var html = "<tr><td > "+current[i].姓名+" </td><td > "+current[i].员工号+" </td><td > "+current[i].合同签订次数+" </td><td > "+current[i].合同到期+" </td></tr>";
+            		$(html).appendTo($("#ExpiredNextMonth"));
 				}
+			}
+			if(expired.length>0){
+				for(var i =0; i< expired.length; i++){
+					var html = "<tr><td > "+expired[i].姓名+" </td><td > "+expired[i].员工号+" </td><td > "+expired[i].合同签订次数+" </td><td > "+expired[i].合同到期+" </td></tr>";
+            		$(html).appendTo($("#AlreadyExpired"));
+				}
+			}
 
-				if(expired.length>0){
-					for(var k =0; k< expired.length; k++){
-						var Html3 = "<tr><td > "+expired[k].姓名+" </td><td > "+expired[k].员工号+" </td><td > "+expired[k].合同签订次数+" </td><td > "+expired[k].合同到期+" </td></tr>";
-	            		$(Html3).appendTo($("#AlreadyExpired"));
-					}
-				}	
-			}				
-
-		},
-		error:function(){
-			console.log("CCCCCCCC");
-		}
-
+			
+		}				
 	});
 
 
@@ -443,15 +414,26 @@
         url: '/Staff/BirthdayDetail',
         type: 'get',
         success: function (data) {
-        	$("#staffBirthday").empty();
-        	console.log(data);
-            if(data.length>0){
-            	for(var i =0; i< data.length; i++){
-            		var Html = "<tr><td > "+data[i].姓名+" </td><td > "+data[i].性别+" </td><td > "+data[i].出生日期+" </td><td > "+data[i].年龄+" </td></tr>";
-            		$(Html).appendTo($("#staffBirthday"));
+        	$("#birthweek").empty();
+        	$("#birthmonth").empty();
+        	$("#birthnextmonth").empty();
+            if(data.本周.length>0){
+            	for(var i =0; i< data.本周.length; i++){
+            		var Html = "<tr><td > "+data.本周[i].姓名+" </td><td > "+data.本周[i].性别+" </td><td > "+data.本周[i].出生日期+" </td><td > "+data.本周[i].年龄+" </td></tr>";
+            		$(Html).appendTo($("#birthweek"));
             	}
-            }else{
-
+            }
+            if(data.本月.length>0){
+            	for(var i =0; i< data.本月.length; i++){
+            		var Html = "<tr><td > "+data.本月[i].姓名+" </td><td > "+data.本月[i].性别+" </td><td > "+data.本月[i].出生日期+" </td><td > "+data.本月[i].年龄+" </td></tr>";
+            		$(Html).appendTo($("#birthmonth"));
+            	}
+            }
+            if(data.下月.length>0){
+            	for(var i =0; i< data.下月.length; i++){
+            		var Html = "<tr><td > "+data.下月[i].姓名+" </td><td > "+data.下月[i].性别+" </td><td > "+data.下月[i].出生日期+" </td><td > "+data.下月[i].年龄+" </td></tr>";
+            		$(Html).appendTo($("#birthnextmonth"));
+            	}
             }
 
         },
