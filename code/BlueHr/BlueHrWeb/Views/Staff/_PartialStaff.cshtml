@@ -1179,7 +1179,7 @@
                     }
                 });
             }
-
+            //员工奖惩信息
             $.ajax({
 		        url: '/RewardsAndPenalty/detail',
 		        type: 'get',
@@ -1198,5 +1198,19 @@
 		        error: function () {
 		            console.log("CCCCCCCC");
 		        }
+    		});
+    		//员工调度信息
+    		$.ajax({
+		        url: '/MessageRecord/FindBystaffNrShiftJob',
+		        type: 'get',
+		        data:{staffNr:$('#nr').val()},
+		        success: function (data) {
+
+		        	console.log(data);
+	            	
+			    },
+		        error: function () {
+		            console.log("CCCCCCCC");
+		        }
     });
-        </script>
+</script>
