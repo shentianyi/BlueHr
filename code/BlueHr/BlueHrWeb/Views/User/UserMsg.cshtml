@@ -1,0 +1,139 @@
+﻿@using MvcPaging
+@model IPagedList<BlueHrLib.Data.User>
+@{
+    ViewBag.Title = "个人信息";
+}
+@*@Styles.Render("~/Content/degreetype")*@
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>个人信息</li>   
+</ol>
+
+<hr class="hr-grey" />
+
+<hr class="hr-primary" />
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            <li role="presentation" class="active"><a href="#unlocked_user" role="tab" data-toggle="tab">基本信息</a></li>
+            <li role="presentation"><a href="#user_msg" role="tab" data-toggle="tab">详细信息</a></li>            
+        </ul>
+        <div class="tab-content">
+
+            <div role="tabpanel" class="tab-pane" id="user_msg">
+                <div id="user_msg_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>电子邮箱</th>
+                            <th>姓名</th>
+                            <th>入职时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            int i = 0;
+                            foreach (var item in Model)
+                            {
+                                if (item.isLocked.Value)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.roleStr)
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-lock"></i>
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AuthCompany)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AuthDepartment)
+                                        </td>
+                                      
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            <div role="tabpanel" class="tab-pane  active" id="user_detailmsg">
+                <div id="user_detailmsg_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>性别</th>
+                            <th>
+                                <select id="gender" name="gender" size="1" class="input_kuang">
+                                    <option value="0">--请选择--</option>
+                                    <option value="1">男</option>
+                                    <option value="2">女</option>
+                                </select>
+                            </th>
+                            <th>婚否</th>
+                            <th>
+                                <select id="maritalStatus" size="1" class="input_kuang">
+                                    <option value="0">--请选择--</option>
+                                    <option value="1">已婚</option>
+                                    <option value="2">未婚</option>
+                                </select>
+                            </th>
+                            <th>出生日期</th>
+                            <th>学历</th>
+                            <th>
+                                <select id="education" size="1" name="stsoft" class="input_kuang">
+                                    <option value="请选择">--请选择--</option>
+                                    <option value="博士后">博士后</option>
+                                    <option value="博士研究生">博士研究生</option>
+                                    <option value="硕士研究生">硕士研究生</option>
+                                    <option value="大学本科">大学本科</option>
+                                    <option value="大专">大专</option>
+                                    <option value="高中">高中</option>
+                                    <option value="中专">中专</option>
+                                    <option value="初中">初中</option>
+                                    <option value="小学">小学</option>
+                                </select>
+                            </th>
+                            <th>电话</th>
+                            <th>移动电话</th>
+                            <th>身份证号码</th>
+                            <th>籍贯</th>
+                            <th>详细住址</th>
+                            <th>毕业院校</th>
+                        </tr>
+                    </thead>
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+    <style>
+        .input_kuang {
+            background: #fff;
+            border: 1px solid #999;
+        }
+        .input_kuang {
+            width: 70%;
+        }
+    </style>
+
+@*@Scripts.Render("~/bundles/degreetype")*@
+<script type="text/javascript">
+    Layout.init();
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "user_msg", "基本信息", "20", "user_msg_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "user_detailmsg", "详细信息", "20", "user_detailmsg_grid_table");
+    })
+</script>
