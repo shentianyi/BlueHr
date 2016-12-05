@@ -449,6 +449,7 @@ namespace BlueHrLib.Data.Repository.Implement
 
             Result.Add("试用期员工", countStaffOntrail().ToString());
             Result.Add("正式员工", countStaffOn().ToString());
+            Result.Add("在职员工",countStaffIsOn().ToString());
             Result.Add("离职员工", countStaffOff().ToString());
 
             return Result;
@@ -459,7 +460,11 @@ namespace BlueHrLib.Data.Repository.Implement
             int q = this.context.Staffs.Where(s => s.isOnTrial).Count();
             return q;
         }
-
+        private int countStaffIsOn()
+        {
+            int q = this.context.Staffs.Where(s => s.workStatus == 100).Count();
+            return q;
+        }
         private int countStaffOff()
         {
             int q = this.context.Staffs.Where(s => s.workStatus == 200).Count();
@@ -564,34 +569,49 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 case 0:
                     {
-                        string a = System.DateTime.Today.ToString("yyyyMM");
+                        string now = System.DateTime.Today.ToString("yyyyMM");
                         foreach (var i in q)
                         {
-                            if (i.trialOverAt == null ? false : i.trialOverAt.ToString().Length >= 6)
+                            if (i.trialOverAt != null)
                             {
-                                string show = i.contractExpireStr.Substring(0, 6);
-                                if (show == a) count.Add(i);
+                                DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
+                                string currentDate = strdate.ToString("yyyyMM");
+                                if (now == currentDate) count.Add(i);
                             }
                         }
                         return count;
                     }
                 case 1:
                     {
-                        string a = System.DateTime.Today.AddMonths(1).ToString("yyyyMM");
+                        string now = System.DateTime.Today.AddMonths(1).ToString("yyyyMM");
                         foreach (var i in q)
                         {
-                            if (i.trialOverAt == null ? false : i.trialOverAt.ToString().Length >= 6)
+                            if (i.trialOverAt != null)
                             {
-                                string show = i.contractExpireStr.Substring(0, 6);
-                                if (show == a) count.Add(i);
+                                DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
+                                string currentDate = strdate.ToString("yyyyMM");
+                                if (now == currentDate) count.Add(i);
                             }
                         }
                         return count;
                     }
                 case 2:
                     {
-                        List<Staff> count1 = new List<Staff>().Where(s => s.isOnTrial == true).Where(s => s.workStatus == 100).ToList();
-                        return count1;
+                        try
+                        {
+                            int now = Convert.ToInt32(System.DateTime.Today.ToString("yyyyMM"));
+                            foreach (var i in q)
+                            {
+                                if (i.trialOverAt != null)
+                                {
+                                    DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
+                                    int currentDate = Convert.ToInt32(strdate.ToString("yyyyMM"));
+                                    if (now > currentDate) count.Add(i);
+                                }
+                            }
+                            return count;
+                        }
+                        catch { return null; }
                     }
             }
             return null;

@@ -450,7 +450,7 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<AbsenceRecordApproval> AbsenceRecordApprovals
+		public System.Data.Linq.Table<AbsenceRecordApproval> AbsenceRecordApproval
 		{
 			get
 			{
@@ -12813,7 +12813,7 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AbsenceRecrod_AbsenceRecordApproval", Storage="_AbsenceRecordApprovals", ThisKey="id", OtherKey="absRecordId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AbsenceRecrod_ExtraWorkRecordApprovals", Storage="_AbsenceRecordApprovals", ThisKey="id", OtherKey="absRecordId")]
 		public EntitySet<AbsenceRecordApproval> AbsenceRecordApprovals
 		{
 			get
@@ -13102,7 +13102,7 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AbsenceRecrod_AbsenceRecordApproval", Storage="_AbsenceRecrod", ThisKey="absRecordId", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AbsenceRecrod_ExtraWorkRecordApprovals", Storage="_AbsenceRecrod", ThisKey="absRecordId", OtherKey="id", IsForeignKey=true)]
 		public AbsenceRecrod AbsenceRecrod
 		{
 			get
@@ -13136,7 +13136,7 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_AbsenceRecordApproval", Storage="_User", ThisKey="userId", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ExtraWorkRecordApprovals", Storage="_User", ThisKey="userId", OtherKey="id", IsForeignKey=true)]
 		public User User
 		{
 			get
@@ -13417,12 +13417,12 @@ namespace BlueHrLib.Data
 					if ((previousValue != null))
 					{
 						this._ExtraWorkRecord.Entity = null;
-						previousValue.ExtraWorkRecordApproval.Remove(this);
+						previousValue.ExtraWorkRecordApprovals.Remove(this);
 					}
 					this._ExtraWorkRecord.Entity = value;
 					if ((value != null))
 					{
-						value.ExtraWorkRecordApproval.Add(this);
+						value.ExtraWorkRecordApprovals.Add(this);
 						this._extraWorkId = value.id;
 					}
 					else
@@ -14460,7 +14460,7 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_AbsenceRecordApproval", Storage="_AbsenceRecordApproval", ThisKey="id", OtherKey="userId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ExtraWorkRecordApprovals", Storage="_AbsenceRecordApproval", ThisKey="id", OtherKey="userId")]
 		public EntitySet<AbsenceRecordApproval> AbsenceRecordApproval
 		{
 			get
@@ -15696,7 +15696,7 @@ namespace BlueHrLib.Data
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ExtraWorkRecord_ExtraWorkRecordApproval", Storage="_ExtraWorkRecordApproval", ThisKey="id", OtherKey="extraWorkId")]
-		public EntitySet<ExtraWorkRecordApproval> ExtraWorkRecordApproval
+		public EntitySet<ExtraWorkRecordApproval> ExtraWorkRecordApprovals
 		{
 			get
 			{

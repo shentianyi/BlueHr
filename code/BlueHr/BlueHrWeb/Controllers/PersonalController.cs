@@ -31,9 +31,24 @@ namespace BlueHrWeb.Controllers
             IExtraWorkRecordService rwrs = new ExtraWorkRecordService(Settings.Default.db);
             ExtraWorkRecordSearchModel ewrsSearchModel = new ExtraWorkRecordSearchModel();
 
-            ViewData["ExtraWork"] = rwrs.Search(ewrsSearchModel).Where(c=>c.userId.Equals(user.id)).ToList();
+            List<ExtraWorkRecord> extraWorkRecord = rwrs.Search(ewrsSearchModel).Where(c=>c.userId.Equals(user.id)).ToList();
 
+            //Dictionary<string, string> extraWorks = new Dictionary<string, string>();
 
+            //foreach(var extraWork in extraWorkRecord)
+            //{
+            //    extraWorks.Add("ID", extraWork.id.ToString());
+            //    extraWorks.Add("ExtraWorkType", extraWork.extraWorkTypeId.ToString());
+            //    extraWorks.Add("ID", extraWork.id.ToString());
+            //    extraWorks.Add("ID", extraWork.id.ToString());
+            //    extraWorks.Add("ID", extraWork.id.ToString());
+            //    extraWorks.Add("ID", extraWork.id.ToString());
+            //    extraWorks.Add("ID", extraWork.id.ToString());
+            //    extraWorks.Add("ID", extraWork.id.ToString());
+            //    extraWorks.Add("ID", extraWork.id.ToString());
+            //}
+
+            ViewData["ExtraWork"] = extraWorkRecord;
 
             //IFull
             //ViewData["FullMember"] = 
