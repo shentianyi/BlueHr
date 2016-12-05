@@ -26,5 +26,11 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<MessageRecord>().Count(s => s.isRead == false);
         }
+
+        public List<MessageRecord> LoginDetail()
+        {
+            var q = this.context.MessageRecord.Where(s => s.messageType == 401).ToList();
+            return q;
+        }
     }
 }

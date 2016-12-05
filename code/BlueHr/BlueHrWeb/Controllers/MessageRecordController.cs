@@ -107,6 +107,21 @@ namespace BlueHrWeb.Controllers
             return Json(msg);
         }
 
+        // GET: MessageRecord/LoginDetail
+        [HttpGet]
+        public JsonResult LoginDetail()
+        {
+            IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+            foreach (var i in mrs.LoginDetail())
+            {
+                Dictionary<string, string> detail = new Dictionary<string, string>();
+                detail.Add("用户邮箱", i.staffNr);
+                detail.Add("登录时间", i.createdAt.ToString());
+                Result.Add(detail);
+            }
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
         private void SetAllTableName(bool allowBlank = false)
         {
             List<SelectListItem> select = new List<SelectListItem>();
