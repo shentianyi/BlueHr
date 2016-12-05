@@ -103,5 +103,11 @@ namespace BlueHrLib.Data.Repository.Implement
                 return null;
             }
         }
+
+        public List<RewardsAndPenalty> FindBystaffNr(string staffNr)
+        {
+            List<RewardsAndPenalty> rp = this.context.GetTable<RewardsAndPenalty>().Where(r => r.staffNr == staffNr).ToList();
+            return rp;
+        }
     }
 }

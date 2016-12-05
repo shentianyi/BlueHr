@@ -68,5 +68,12 @@ namespace BlueHrLib.Service.Implement
             IRewardsAndPenaltyRepository certfRep = new RewardsAndPenaltyRepository(dc);
             return certfRep.GetAll();
         }
+
+        public List<RewardsAndPenalty> FindBystaffNr(string staffNr)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            IRewardsAndPenaltyRepository certfRep = new RewardsAndPenaltyRepository(dc);
+            return certfRep.FindBystaffNr(staffNr);
+        }
     }
 }
