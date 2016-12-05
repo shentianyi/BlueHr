@@ -76,10 +76,16 @@
                 <i class="fa fa-sort-down"></i>
             </span>
         </a>
-        <ul class="dropdown-menu" style="height:105px;">
+        <ul class="dropdown-menu" style="height:114px;">
 
-            @*设置注销样式*@
-            <li style="margin:5px 0 0 20px">
+            <li style="margin:0 0 0 20px">
+                <a href="/User/UserMsg" style="color:#fff">
+                    <i class="fa fa-user"></i>
+                    <span style="color:#fff; font-weight:500;"> 个人信息 </span>
+                </a>
+            </li>
+
+            <li style="margin:0 0 0 20px">
                 <a href="/Shared/Log" style="color:#fff">
                     <i class="fa fa-file-text-o"></i>
                     <span style="color:#fff; font-weight:500;"> 登陆日志 </span>
@@ -87,13 +93,13 @@
             </li>
 
             <li style="margin:0 0 0 20px">
-                <a href="/user/changepwd?id=@((Session["user"] as User).id)" style="color:#fff">
+                <a href="/User/changepwd?id=@((Session["user"] as User).id)" style="color:#fff">
                     <i class="fa fa-paste"></i>
                     <span style="color:#fff; font-weight:500;"> 修改密码 </span>
                 </a>
             </li>
 
-            <li style="margin: 10px 0 20px 42px;position:relative;top:-10px; ">
+            <li style="margin: 10px 0 20px 40px;position:relative;top:-10px; ">
                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                 {
                     @Html.AntiForgeryToken()
@@ -150,9 +156,9 @@ else
                     登录
                 </button>
             </div>
-            </div>
-        }
+       </div>
     }
+ }
 
     <script type="text/javascript">
         $("#loginTime").html(SetTime(new Date().getHours())+ ":" + SetTime(new Date().getMinutes()));

@@ -746,6 +746,7 @@
     <Content Include="Views\Personal\Application.cshtml" />
     <Content Include="Views\Personal\Note.cshtml" />
     <Content Include="Views\Shared\Log.cshtml" />
+    <Content Include="Views\User\UserMsg.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
