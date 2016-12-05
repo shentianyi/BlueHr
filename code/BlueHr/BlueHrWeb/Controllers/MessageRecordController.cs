@@ -67,7 +67,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [HttpGet]
-        public JsonResult detail(string staffNr)
+        public JsonResult FindBystaffNrShiftJob(string staffNr)
         {
             IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
             List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
