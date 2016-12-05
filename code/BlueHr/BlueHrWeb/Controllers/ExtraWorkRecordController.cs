@@ -188,7 +188,7 @@ namespace BlueHrWeb.Controllers
                 IExtraWorkRecordService shfSi = new ExtraWorkRecordService(Settings.Default.db);
                 ExtraWorkRecord shf = shfSi.FindById(id);
 
-                if (null != shf && shf.ExtraWorkRecordApproval.Count() > 0)
+                if (null != shf && shf.ExtraWorkRecordApprovals.Count() > 0)
                 {
                     msg.Success = false;
                     msg.Content = "加班审批后不可删除!";
