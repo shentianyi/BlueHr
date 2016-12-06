@@ -308,9 +308,9 @@ namespace BlueHrLib.Service.Implement
             return staffRep.GetAllTableName();
         }
 
-        public IQueryable<Staff> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst, string SearchValueSecond)
+        public IQueryable<Staff> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst)
         {
-            return staffRep.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond);
+            return staffRep.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst);
         }
 
         public int CountStaff(int workStatus)
