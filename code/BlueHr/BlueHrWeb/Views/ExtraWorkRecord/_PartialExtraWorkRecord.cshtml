@@ -104,14 +104,17 @@
     Layout.timepicker('.time-picker');
     //回调函数
     function post_return_action(data) {
+        console.log(data);
 
         if (!data.Success) {
             Layout.popMsg('popMsg-danger', data.Content);
             return false;
         }
         else {
+        
+            window.close();
 
-            location.href = '/ExtraWorkRecord/Index';
+            //location.href = '/ExtraWorkRecord/Index';
         }
     }
 </script>

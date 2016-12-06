@@ -46,33 +46,34 @@
                         <i class="fa fa-search"></i>
                         搜索
                     </button>
-                    @if (canImport)
-                    {
-                        <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
-                            导入加班记录
-                        </button>
-                    }
+                   
                 </span>
             </div>
         </div>
     </form>
 </div>
-<div class="row" style="margin-left:15px;">
-    <button type="button" class="marco-btn-success" style="padding:10px; margin:0;" onclick="shBatchAbsenceRecord()">
-        <i class="fa fa-pencil"></i>
-        批量审批
-    </button>
-</div>
-
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        <a href="/ExtraWorkRecord/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
-            <button class="marco-btn-primary">
+        <a href="/ExtraWorkRecord/Create" class="pull-right" style="margin-top: -9px; margin-right:5px;">
+            <button type="button" class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
             </button>
         </a>
+
+        <button type="button" class="marco-btn-success pull-right" style="margin-top: -4px; margin-right:5px;" onclick="shBatchAbsenceRecord()">
+            <i class="fa fa-pencil"></i>
+            <span>批量审批</span>
+        </button>
+
+        @if (canImport)
+        {
+            <button class="marco-btn-primary import-button-dialog pull-right" title="Import" style="margin-top: -4px; margin-right:5px;" type="button">
+                <i class="fa fa-cloud-upload"></i>
+                <span>导入加班记录</span>
+            </button>
+        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">加班列表</a></li>
@@ -84,6 +85,7 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
+                            <th>  </th>
                             <th>日期</th>
                             <th>员工号</th>
                             <th>姓名</th>
@@ -152,20 +154,20 @@
                                     <td>
                                         @if (canDelete)
                                         {
-                                            <a href="/ExtraWorkRecord/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                            <a href="/ExtraWorkRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         }
                                         @if (canEdit)
                                         {
-                                            <a href="/ExtraWorkRecord/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                            <a href="/ExtraWorkRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                         }
                                         @if (canApp)
                                         {
-                                            <a class="option-icon-warning" title="审核" id="shAbsenceRecord" onclick="shAbsenceRecord(@item.id)">
-                                                <i class="fa fa-calculator"></i>
+                                            <a title="审核" id="shAbsenceRecord" onclick="shAbsenceRecord(@item.id)">
+                                                <i class="fa fa-calculator" style="width: 24px;height: 24px;border-radius: 4px;border: 2px solid #c0392b;line-height: 20px;vertical-align: middle;color: #c0392b;padding-left: 2px; cursor: pointer;"></i>
                                             </a>
                                         }
                                     </td>
@@ -332,7 +334,7 @@
         function get_items() {
             var items = [];
             $.each($('.record-approve:checked'), function (i, item) {
-                console.log($(item).attr('id'));
+                // console.log($(item).attr('id'));
                 items.push($(item).attr('id'));
             });
             return items;

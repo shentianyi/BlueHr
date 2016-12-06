@@ -121,11 +121,13 @@
     <Compile Include="Data\Model\Excel\WorkAndRestExcelModel.cs" />
     <Compile Include="Data\Model\Excel\WorkSumExcelModel.cs" />
     <Compile Include="Data\Model\PageViewModel\RecruitInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\FullMemberRecordInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\RewardsAndPenaltiesInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\SysAuthorizationInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\SysRoleAuthorizationInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\SysRoleInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\SysUserDataAuthInfoModel.cs" />
+    <Compile Include="Data\Model\Search\FullMemberRecordSearchModel.cs" />
     <Compile Include="Data\Model\Search\RecruitSearchModel.cs" />
     <Compile Include="Data\Model\Search\RewardsAndPenaltySearchModel.cs" />
     <Compile Include="Data\Model\Search\SysAuthorizationSearchModel.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="Data\Model\Search\SysUserDataAuthSearchModel.cs" />
     <Compile Include="Data\Model\Search\WorkAndRestSearchModel.cs" />
     <Compile Include="Data\Repository\Implement\RecruitRepository.cs" />
+    <Compile Include="Data\Repository\Implement\FullMemberRecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\RewardsAndPenaltyRepository.cs" />
     <Compile Include="Data\Repository\Implement\SysAuthorizationRepository.cs" />
     <Compile Include="Data\Repository\Implement\SysRoleAuthorizationRepository.cs" />
@@ -142,6 +145,7 @@
     <Compile Include="Data\Repository\Implement\SysUserDataAuthRepository.cs" />
     <Compile Include="Data\Repository\Implement\WorkAndRestRepository.cs" />
     <Compile Include="Data\Repository\Interface\IRecruitRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IFullMemberRecordRepository.cs" />
     <Compile Include="Data\Repository\Interface\IRewardsAndPenaltyRepository.cs" />
     <Compile Include="Data\Repository\Interface\ISysAuthorizationRepository.cs" />
     <Compile Include="Data\Repository\Interface\ISysRoleAuthorizationRepository.cs" />
@@ -314,6 +318,7 @@
     <Compile Include="Service\Implement\RecruitService.cs" />
     <Compile Include="Service\Implement\ResignRecordService.cs" />
     <Compile Include="Service\Implement\ResignTypeService.cs" />
+    <Compile Include="Service\Implement\FullMemberRecordService.cs" />
     <Compile Include="Service\Implement\RewardsAndPenaltyService.cs" />
     <Compile Include="Service\Implement\ShiftService.cs" />
     <Compile Include="Service\Implement\ShiftSheduleService.cs" />
@@ -344,6 +349,7 @@
     <Compile Include="Service\Interface\IFamilyMemberService.cs" />
     <Compile Include="Service\Interface\IDepartmentService.cs" />
     <Compile Include="Service\Interface\IDegreeTypeService.cs" />
+    <Compile Include="Service\Interface\IFullMemberRecordService.cs" />
     <Compile Include="Service\Interface\IInSureTypeService.cs" />
     <Compile Include="Service\Interface\IBankCardService.cs" />
     <Compile Include="Service\Interface\IMessageRecordService.cs" />
