@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHrV2" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=SFZ-PC\SQLEXPRESS;Initial Catalog=BlueHrV2;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrV2ConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=S2\SQLSERVER2008R2;Initial Catalog=BlueHrV2;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrV2ConnectionString3" Provider="System.Data.SqlClient" />
   <Table Name="dbo.WorkAndRest" Member="WorkAndRest">
     <Type Name="WorkAndRest">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -163,17 +163,6 @@
       <Column Name="cronSchedule" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="params" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="jobType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ResignRecord" Member="ResignRecord">
-    <Type Name="ResignRecord">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="resignTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="resignAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="resignChecker" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="ResignType_ResignRecord" Member="ResignType" ThisKey="resignTypeId" OtherKey="id" Type="ResignType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ResignType" Member="ResignType">
@@ -490,58 +479,6 @@
       <Column Name="resignAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.ExtraWorkRecordView" Member="ExtraWorkRecordView">
-    <Type Name="ExtraWorkRecordView">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="extraWorkTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="duration" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="otReason" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="otTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="startHour" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Column Name="endHour" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Column Name="systemCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="nr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="staffName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="sex" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ethnic" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="firstCompanyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="totalCompanySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="companyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="companySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="workStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="isOnTrial" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="trialOverAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="departmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="jobTitleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="photo" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="staffTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="degreeTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="speciality" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="residenceAddress" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="address" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="staffId" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="isIdChecked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="contactName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="contactPhone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="contactFamilyMemberType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="domicile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="residenceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="insureTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="isPayCPF" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="contractExpireAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="contractCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="totalSeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="workingYearsAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="contractExpireStr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="resignAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Staff" Member="Staffs">
     <Type Name="Staff">
       <Column Name="nr" Type="System.String" DbType="VarChar(200) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -650,7 +587,7 @@
       <Column Name="absenceDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="startHour" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
       <Column Name="endHour" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Association Name="AbsenceRecrod_ExtraWorkRecordApprovals" Member="AbsenceRecordApprovals" ThisKey="id" OtherKey="absRecordId" Type="AbsenceRecordApproval" />
+      <Association Name="AbsenceRecrod_AbsenceRecordApproval" Member="AbsenceRecordApprovals" ThisKey="id" OtherKey="absRecordId" Type="AbsenceRecordApproval" />
       <Association Name="AbsenceType_AbsenceRecrod" Member="AbsenceType" ThisKey="absenceTypeId" OtherKey="id" Type="AbsenceType" IsForeignKey="true" />
       <Association Name="Staff_AbsenceRecrod" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
     </Type>
@@ -663,8 +600,8 @@
       <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="approvalStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="remarks" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Association Name="AbsenceRecrod_ExtraWorkRecordApprovals" Member="AbsenceRecrod" ThisKey="absRecordId" OtherKey="id" Type="AbsenceRecrod" IsForeignKey="true" />
-      <Association Name="User_ExtraWorkRecordApprovals" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="AbsenceRecrod_AbsenceRecordApproval" Member="AbsenceRecrod" ThisKey="absRecordId" OtherKey="id" Type="AbsenceRecrod" IsForeignKey="true" />
+      <Association Name="User_AbsenceRecordApproval" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ExtraWorkRecordApproval" Member="ExtraWorkRecordApprovals">
@@ -729,7 +666,7 @@
       <Column Name="isLocked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="role" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="pwdSalt" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Association Name="User_ExtraWorkRecordApprovals" Member="AbsenceRecordApproval" ThisKey="id" OtherKey="userId" Type="AbsenceRecordApproval" />
+      <Association Name="User_AbsenceRecordApproval" Member="AbsenceRecordApproval" ThisKey="id" OtherKey="userId" Type="AbsenceRecordApproval" />
       <Association Name="User_ExtraWorkRecordApproval" Member="ExtraWorkRecordApproval" ThisKey="id" OtherKey="userId" Type="ExtraWorkRecordApproval" />
       <Association Name="User_SysUserDataAuth" Member="SysUserDataAuth" ThisKey="id" OtherKey="userId" Type="SysUserDataAuth" />
     </Type>
@@ -807,6 +744,83 @@
       <Association Name="ExtraWorkRecord_ExtraWorkRecordApproval" Member="ExtraWorkRecordApprovals" Storage="_ExtraWorkRecordApproval" ThisKey="id" OtherKey="extraWorkId" Type="ExtraWorkRecordApproval" />
       <Association Name="ExtraWorkType_ExtraWorkRecord" Member="ExtraWorkType" ThisKey="extraWorkTypeId" OtherKey="id" Type="ExtraWorkType" IsForeignKey="true" />
       <Association Name="Staff_ExtraWorkRecord" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ExtraWorkRecordView" Member="ExtraWorkRecordView">
+    <Type Name="ExtraWorkRecordView">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="extraWorkTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="duration" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="otReason" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="otTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="startHour" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="endHour" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="systemCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="nr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="staffName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="sex" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ethnic" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="firstCompanyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="totalCompanySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="companyEmployAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="companySeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="workStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="isOnTrial" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="trialOverAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="departmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="jobTitleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="photo" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="staffTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="degreeTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="speciality" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="residenceAddress" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="staffId" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="isIdChecked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="phone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactPhone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contactFamilyMemberType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="domicile" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="residenceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="insureTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isPayCPF" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="contractExpireAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="contractCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="totalSeniority" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="workingYearsAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="contractExpireStr" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="resignAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="userId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="extraWorkId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="approvalTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovalUserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="approvalStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="remarks" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ResignRecord" Member="ResignRecord">
+    <Type Name="ResignRecord">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="resignTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="resignAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="resignEffectiveAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="resignReason" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="resignCheckUserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="resignChecker" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="approvalAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="approvalStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="approvalRemark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ResignType_ResignRecord" Member="ResignType" ThisKey="resignTypeId" OtherKey="id" Type="ResignType" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

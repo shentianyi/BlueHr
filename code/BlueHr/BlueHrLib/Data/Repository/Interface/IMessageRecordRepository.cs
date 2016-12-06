@@ -10,7 +10,7 @@ namespace BlueHrLib.Data.Repository.Interface
     {
         int CountUnRead();
         int CountToEmployees();
-        List<MessageRecord> LoginDetail();
-        List<MessageRecord> LoginDetail(string staffNr);
+        List<MessageRecord> LoginDetail(); 
+        List<MessageRecord> FindBystaffNrShiftJob(string staffNr); 
     }
 }

@@ -85,5 +85,10 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.GetAllTableName();
         }
+
+        public IQueryable<ExtraWorkRecordView> ExtraWorkViewSearch(ExtraWorkRecordSearchModel searchModel)
+        {
+            return rep.ExtraWorkViewSearch(searchModel);
+        }
     }
 }

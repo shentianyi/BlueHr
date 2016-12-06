@@ -46,7 +46,10 @@ namespace BlueHrWeb
                       "~/Scripts/bootstrap.addtabs.js",
                       "~/Scripts/jquery.ztree.all-3.5.js",
                       "~/Scripts/pqgrid.dev.js",
-                      "~/Scripts/go.js"
+                      "~/Scripts/go.js",
+                      "~/Scripts/fullcalendar-moment.min.js",
+                      "~/Scripts/fullcalendar.js",
+                      "~/Scripts/fullcalendar-locale-all.js"
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/layout").Include(
@@ -90,7 +93,9 @@ namespace BlueHrWeb
                      "~/Content/bootstrap.addtabs.css",
                      "~/Content/jquery-tree.css",
                      "~/Content/pqgrid.dev.css",
-                     "~/Content/highcharts.css"
+                     "~/Content/highcharts.css",
+                     "~/Content/fullcalendar.css",
+                     "~/Content/fullcalendar.print.css"
                      ));
 
             bundles.Add(new StyleBundle("~/Content/layout").Include(

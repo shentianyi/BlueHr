@@ -195,7 +195,7 @@
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="onTrialExpire">
-                                <span>已转正员工</span>
+                                <span>转正过期员工</span>
 
                                 <table class="table table-bordered">
                                     <thead>
@@ -451,14 +451,28 @@
         type: 'get',
         success: function (data) {       	
         	$("#ToEmployees").empty();
-
-            if(data.length>0){
-            	for(var i =0; i< data.length; i++){
-            		var Html = "<tr><td > "+data[i].姓名+" </td><td > "+data[i].性别+" </td><td > "+data[i].入职日期+" </td><td > "+data[i].转正日期+" </td><td > "+data[i].剩余+" </td></tr>";
+        	$("#ToEmployeesMonth").empty();
+        	$("#AlreadyToEmployees").empty();
+        	var next=data.下月;
+			var current=data.本月;
+			var expired=data.过期;
+            if(current.length>0){
+            	for(var i =0; i< current.length; i++){
+            		var Html = "<tr><td > "+current[i].姓名+" </td><td > "+current[i].性别+" </td><td > "+current[i].入职日期+" </td><td > "+current[i].转正日期+" </td><td > "+current[i].剩余+" </td></tr>";
             		$(Html).appendTo($("#ToEmployees"));
             	}
-            }else{
-
+            }
+            if(next.length>0){
+            	for(var i =0; i< next.length; i++){
+            		var Html = "<tr><td > "+next[i].姓名+" </td><td > "+next[i].性别+" </td><td > "+next[i].入职日期+" </td><td > "+next[i].转正日期+" </td><td > "+next[i].剩余+" </td></tr>";
+            		$(Html).appendTo($("#ToEmployeesMonth"));
+            	}
+            }
+            if(expired.length>0){
+            	for(var i =0; i< expired.length; i++){
+            		var Html = "<tr><td > "+expired[i].姓名+" </td><td > "+expired[i].性别+" </td><td > "+expired[i].入职日期+" </td><td > "+expired[i].转正日期+" </td><td > "+expired[i].剩余+" </td></tr>";
+            		$(Html).appendTo($("#AlreadyToEmployees"));
+            	}
             }
         },
         error: function () {

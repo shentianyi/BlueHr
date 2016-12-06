@@ -33,7 +33,7 @@ namespace BlueHrLib.Data.Repository.Implement
             return q;
         }
 
-        public List<MessageRecord> LoginDetail(string staffNr)
+        public List<MessageRecord> FindBystaffNrShiftJob(string staffNr)
         {
             var q = this.context.MessageRecord.Where(s => s.messageType == 203).ToList();
             return q;

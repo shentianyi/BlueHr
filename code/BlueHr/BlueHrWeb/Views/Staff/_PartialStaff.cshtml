@@ -541,26 +541,12 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>申请人</th>
-                                        <th>审批人</th>
-                                        <th>申请日期</th>
-                                        <th>操作</th>
+                                        <th>调岗日期</th>
+                                        <th>调岗描述</th>                                    
                                     </tr>
                                 </thead>
-                                <tbody class="tbody-family">
-                                    @*Edit Delete 显示 信息 *@
-                                    @if (Model != null)
-                                    {
-                                        foreach (var family in Model.FamilyMemebers)
-                                        {
-                                            <tr>
-                                                <td><input type="text" class="marco-input-primary" name="familyName" value="@family.memberName" /></td>
-                                                <td><input type="text" class="marco-input-primary" name="familyType" value="@family.familyMemberType" /></td>
-                                                <td><input type="text" class="marco-input-primary date-picker" name="familyBirthday" value="@family.birthday" /></td>
-                                                <td class="option-icon-danger"><i class='fa fa-close remove-family' id="@family.id" style='margin-top:3px;'></i></td>
-                                            </tr>
-                                        }
-                                    }
+                                <tbody id="messagerecord">
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -1179,7 +1165,7 @@
                     }
                 });
             }
-
+            //员工奖惩信息
             $.ajax({
 		        url: '/RewardsAndPenalty/detail',
 		        type: 'get',
@@ -1187,16 +1173,32 @@
 		        success: function (data) {
 		        	$("#RAPMessages").empty();
 	            	if(data.length>0){
-	            	for(var i =0; i< data.length; i++){
-	            		var Html = "<tr><td > "+data[i].奖惩类型+" </td><td > "+data[i].奖惩项目+" </td><td > "+data[i].奖惩描述+" </td><td > "+data[i].奖惩日期+" </td><td > "+data[i].审批人+" </td></tr>";
-	            		$(Html).appendTo($("#RAPMessages"));
-	            	}
-		            }else{
-
-		            }
+		            	for(var i =0; i< data.length; i++){
+		            		var Html = "<tr><td > "+data[i].奖惩类型+" </td><td > "+data[i].奖惩项目+" </td><td > "+data[i].奖惩描述+" </td><td > "+data[i].奖惩日期+" </td><td > "+data[i].审批人+" </td></tr>";
+		            		$(Html).appendTo($("#RAPMessages"));
+		            	}
+		          	}
 			    },
 		        error: function () {
 		            console.log("CCCCCCCC");
 		        }
-    });
-        </script>
+    		});
+    		//员工调度信息
+    		$.ajax({
+		        url: '/MessageRecord/FindBystaffNrShiftJob',
+		        type: 'get',
+		        data:{staffNr:$('#nr').val()},
+		        success: function (data) {
+		        	$("#messagerecord").empty();
+	            	if(data.length>0){
+		            	for(var i =0; i< data.length; i++){
+		            		var Html = "<tr><td > "+data[i].调岗日期+" </td><td > "+data[i].调岗描述+" </td><td > ";
+		            		$(Html).appendTo($("#messagerecord"));
+		            	}	            	
+			    	}
+			    },
+		        error: function () {
+		            console.log("CCCCCCCC");
+		        }
+    		});
+</script>

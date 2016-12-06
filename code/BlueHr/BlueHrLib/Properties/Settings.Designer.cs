@@ -164,5 +164,25 @@ namespace BlueHrLib.Properties {
                 return ((string)(this["BlueHrV2ConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=S2\\SQLSERVER2008R2;Initial Catalog=BlueHrV2;User ID=sa")]
+        public string BlueHrV2ConnectionString2 {
+            get {
+                return ((string)(this["BlueHrV2ConnectionString2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=S2\\SQLSERVER2008R2;Initial Catalog=BlueHrV2;User ID=sa;Password=1")]
+        public string BlueHrV2ConnectionString3 {
+            get {
+                return ((string)(this["BlueHrV2ConnectionString3"]));
+            }
+        }
     }
 }
