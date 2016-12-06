@@ -40,6 +40,7 @@
                         @*<th>天/小时</th>*@
                         <th>原因</th>
                         <th>审批状态</th>
+                        <th>审批备注</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,9 +55,9 @@
                                 else if (extraWork.Key == "StaffNr")
                                 {
                                     <td title="查看员工详细信息">
-                                        <a href="/Staff/Delete/@extraWork.Value">
+                                        <a href="/Staff/Delete/@extraWork.Value" class="option-icon-primary">
                                             @extraWork.Value
-                                            <i class="fa fa-eye" style="color: lightseagreen;"></i>
+                                            <i class="fa fa-eye"></i>
                                         </a>
                                     </td>
                                 }
@@ -99,9 +100,9 @@
                                 else if (extraWork.Key == "StaffNr")
                                 {
                                     <td title="查看员工详细信息">
-                                        <a href="/Staff/Delete/@extraWork.Value">
+                                        <a href="/Staff/Delete/@extraWork.Value" class="option-icon-primary">
                                             @extraWork.Value
-                                            <i class="fa fa-eye" style="color: lightseagreen;"></i>
+                                            <i class="fa fa-eye"></i>
                                         </a>
                                     </td>
                                 }
@@ -123,9 +124,6 @@
 
         <div role="tabpanel" class="tab-pane" id="to_fullMember_application">
             @* 转正申请 *@
-
-
-
         </div>
 
         <div role="tabpanel" class="tab-pane" id="business_application">
@@ -133,7 +131,35 @@
         </div>
 
         <div role="tabpanel" class="tab-pane" id="new_application">
-            @* 分门别类进行新建 *@
+            @* 新建申请 *@
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="/ExtraWorkRecord/Create">
+                    <button type="button" class="marco-btn-primary" title="加班申请">
+                        <i class="fa fa-tachometer"></i>
+                        <span>加班申请</span>
+                    </button>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="/Staff/ResignPage">
+                    <button type="button" class="marco-btn-primary" title="离职申请">
+                        <i class="fa fa-user-times"></i>
+                        <span>离职申请</span>
+                    </button>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="/Staff/ToFullMember">
+                    <button type="button" class="marco-btn-primary" title="转正申请">
+                        <i class="fa fa-list-ol"></i>
+                        <span>转正申请</span>
+                    </button>
+                </a>
+            </div>
+
         </div>
     </div>
 </div>
