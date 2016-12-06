@@ -12,7 +12,7 @@
     <meta name="renderer" content="ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 
-    <title>@ViewBag.Title - HR</title>
+    <title>@ViewBag.Title - 德晋HR系统</title>
 
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/layout")
@@ -74,7 +74,7 @@
             <section class="sidebar">
                 <ul class="sidebar-menu">
 
-                    <li class="nav-sysRole">
+                    <li class="nav-myHome">
                         <a href="/Home/Index">
                             <i class="fa fa-home"></i>
                             <span>我的主页</span>
@@ -127,15 +127,15 @@
                         </a>
 
                         <ul class="treeview-menu">
-                            <li>
+                            <li class="nav-user">
                                 <a href="/User/Index">
                                     <i class="fa fa-user-secret"></i>
                                     用户管理
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="/SysAuthorization/Index">
+                            <li class="nav-sysRole">
+                                <a href="/SysRole/Index">
                                     <i class="fa fa-group"></i>
                                     权限管理
                                 </a>
@@ -143,8 +143,8 @@
                         </ul>
                     </li>
 
-                    <li class="nav-sysRole">
-                        <a href="/Basic/BasicInfo">
+                    <li class="nav-basic-info">
+                        <a href="#">
                             <i class="fa fa-comment"></i>
                             <span>基础信息管理</span>
                             <span class="pull-right-container">
@@ -153,35 +153,54 @@
                         </a>
 
                         <ul class="treeview-menu">
-                                <li>
+                                <li class="nav-staffType">
                                     <a href="/StaffType/Index">
                                         <i class="fa fa-user"></i>
                                         人员类型
                                     </a>
                                 </li>
-                                <li>
+                                <li class="nav-certificateType">
                                     <a href="/CertificateType/Index">
                                         <i class="fa fa-newspaper-o"></i>
                                         证照类型
                                     </a>
                                 </li>
                            
-                                <li>
+                                <li class="nav-degreeType">
                                     <a href="/DegreeType/Index">
                                         <i class="fa fa-graduation-cap"></i>
                                         学历管理
                                     </a>
                                 </li>
                             
-                                <li>
+                                <li class="nav-inSureType">
                                     <a href="/InSureType/Index">
                                         <i class="fa fa-flash"></i>
                                         保险管理
                                     </a>
                                 </li>
-                            
-                        </ul>
 
+                                <li class="nav-absenceType">
+                                    <a href="/AbsenceType/Index">
+                                        <i class="fa fa-street-view"></i>
+                                        缺勤类型
+                                    </a>
+                                </li>
+                            
+                                <li class="nav-extraWorkType">
+                                    <a href="/ExtraWorkType/Index">
+                                        <i class="fa fa-hourglass-1"></i>
+                                        加班类型
+                                    </a>
+                                </li>
+
+                                <li class="nav-resignType">
+                                    <a href="/ResignType/Index">
+                                        <i class="fa fa-sign-out"></i>
+                                        离职类型
+                                    </a>
+                                </li>
+                        </ul>
                     </li>
 
                     <li class="nav-organization">
@@ -194,18 +213,18 @@
                         </a>
 
                         <ul class="treeview-menu">
-                            <li>
+                            <li class="nav-company-list">
                                 <a href="/Company/Index">
-                                    <i class="fa fa-sitemap"></i>
-                                    组织架构管理
+                                    <i class="fa fa-list-ol"></i>
+                                    组织架构列表
                                 </a>
                             </li>
-                            @*<li class="nav-organizationTreeShow">
-                                <a href="/Comany/TreeShow">
-                                    <i class="fa fa-anchor"></i>
+                            <li class="nav-organizationTreeShow">
+                                <a href="/Company/TreeShow">
+                                    <i class="fa fa-sitemap"></i>
                                     组织架构视图
                                 </a>
-                            </li>*@
+                            </li>
                         </ul>
                     </li>
                
@@ -310,7 +329,7 @@
                                     请假管理
                                 </a>
                             </li>
-                            <li>
+                            <li class="nav-extraWorkRecord">
                                 <a href="/ExtraWorkRecord/Index">
                                     <i class="fa fa-tachometer"></i>
                                     加班管理
