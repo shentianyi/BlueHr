@@ -67,17 +67,19 @@ namespace BlueHrWeb.Controllers
         }
 
         [HttpGet]
-        public ActionResult UserDetail(int id)
+        public ActionResult UserDetail()
         {
             try
             {
+                User user = System.Web.HttpContext.Current.Session["user"] as User;
+
                 Dictionary<string, string> Result = new Dictionary<string, string>();
-                IUserService us = new UserService(Settings.Default.db);
-                User detail = us.FindById(id);
-                Result.Add("用户名", detail.name);
-                Result.Add("邮箱", detail.email);
-                Result.Add("是否锁定", detail.isLockedStr);
-                Result.Add("角色类型", detail.roleStr);
+                // IUserService us = new UserService(Settings.Default.db);
+                // User detail = us.FindById(id);
+                Result.Add("用户名", user.name);
+                Result.Add("邮箱", user.email);
+                Result.Add("是否锁定", user.isLockedStr);
+                Result.Add("角色类型", user.roleStr);
                 return Json(Result, JsonRequestBehavior.AllowGet);
             }catch { return null; }
         }

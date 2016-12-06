@@ -489,25 +489,7 @@
         }
     });
 
-    $.ajax({
-        url:'Staff/CountStaff',
-        type:'get',
-        success:function(data){
-            $('#test1').empty();
-            $('#test2').empty();
-            $('#test3').empty();
-            var current = data.本月，
-                next = data.下月，
-                expired = data.过期；
-            if(current.length > 0){
-                for(var i = 0; i< current.length; i++){
-                    var Html = "<tr><td>"+current[i].本月+"</td><td>"++
-                }
-            }
-
-        }
-    })
- 	
+    
 	$.ajax({
         url: '/Staff/CountStaffBirthday',
         type: 'get',

@@ -131,14 +131,11 @@ switch (pathname[1]) {
             $('.nav-manage').addClass('active');
             $('.nav-index').addClass('active');
         };
-
         if(pathname[2] == "Create"){
             $('.nav-laborRelations').addClass('active');
             $('.nav-create').addClass('active');
         };
-
         break;
-
     case "ExtraWorkType":
         $('.nav-attendance-record').addClass('active');
         PageAction('#extraworktype', '新建加班类型', '编辑加班类型', '加班类型详情', '创建', '更新', '删除');
@@ -147,23 +144,17 @@ switch (pathname[1]) {
         $('.nav-shift').addClass('active');
         PageAction('#workandrests', '新建作息表', '编辑作息表', '作息表详情', '创建', '更新', '删除');
         break;
-        
-    
-    
-    
     case "ExtraWorkRecord":
         $('.nav-summary-report').addClass('active');
         PageAction('#user', '新建加班管理', '编辑加班管理', '加班管理详情', '创建', '更新', '删除');
         break;
-    
     case "RewardsAndPenalty":
-        
         PageAction('#rewardsandpenalties', '新建奖惩记录', '编辑奖惩记录', '奖惩记录详情', '创建', '更新', '删除');
         break;
     case "Recruit":
+        $('.nav-manage').addClass('active');
         PageAction('#recruit', '新建招聘需求', '编辑招聘需求', '招聘需求详情', '创建', '更新', '删除');
         break;	
-        
 	case "Personal":
         $('.nav-myThing').addClass('active');
 
@@ -177,7 +168,6 @@ switch (pathname[1]) {
             $('.nav-day').addClass('active');
         };
         break;
-
     case "SysRoleAuthorization":
         $('.nav-sysRole').addClass('active');
         PageAction('#sysauthorization', '新建角色权限', '编辑角色权限', '角色权限详情', '创建', '更新', '删除');
