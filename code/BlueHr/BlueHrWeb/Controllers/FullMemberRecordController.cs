@@ -68,7 +68,7 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
-            SetDropDownList(null);
+            //SetDropDownList(null);
             return View();
         }
 
@@ -111,33 +111,33 @@ namespace BlueHrWeb.Controllers
 
             FullMemberRecord rewardsAndPenalties = cs.FindById(id);
 
-            SetDropDownList(rewardsAndPenalties);
+            //SetDropDownList(rewardsAndPenalties);
 
             return View(rewardsAndPenalties);
         }
 
-        [HttpGet]
-        public JsonResult detail(string staffNr)
-        {
-            IFullMemberRecordService rps = new FullMemberRecordService(Settings.Default.db);
-            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
-            foreach (var i in rps.FindBystaffNr(staffNr))
-            {
-                Dictionary<string, string> detail = new Dictionary<string, string>();
-                detail.Add("奖惩类型", i.type == 1 ? "奖励" : "惩罚");
-                detail.Add("奖惩项目", i.project);
-                detail.Add("奖惩描述", i.description);
-                detail.Add("奖惩日期", i.createAt.ToString());
-                IUserService us = new UserService(Settings.Default.db);
-                try
-                {
-                    detail.Add("审批人", us.FindById((int)i.userId).name);
-                }
-                catch { detail.Add("审批人", null); }
-                Result.Add(detail);
-            }
-            return Json(Result, JsonRequestBehavior.AllowGet);
-        }
+        //[HttpGet]
+        //public JsonResult detail(string staffNr)
+        //{
+        //    IFullMemberRecordService rps = new FullMemberRecordService(Settings.Default.db);
+        //    List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+        //    foreach (var i in rps.FindBystaffNr(staffNr))
+        //    {
+        //        Dictionary<string, string> detail = new Dictionary<string, string>();
+        //        detail.Add("奖惩类型", i.type == 1 ? "奖励" : "惩罚");
+        //        detail.Add("奖惩项目", i.project);
+        //        detail.Add("奖惩描述", i.description);
+        //        detail.Add("奖惩日期", i.createAt.ToString());
+        //        IUserService us = new UserService(Settings.Default.db);
+        //        try
+        //        {
+        //            detail.Add("审批人", us.FindById((int)i.userId).name);
+        //        }
+        //        catch { detail.Add("审批人", null); }
+        //        Result.Add(detail);
+        //    }
+        //    return Json(Result, JsonRequestBehavior.AllowGet);
+        //}
         // POST: FullMemberRecord/Edit/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
@@ -177,7 +177,7 @@ namespace BlueHrWeb.Controllers
             IFullMemberRecordService raps = new FullMemberRecordService(Settings.Default.db);
 
             FullMemberRecord rewardsAndPenalties = raps.FindById(id);
-            SetDropDownList(rewardsAndPenalties);
+            //SetDropDownList(rewardsAndPenalties);
             return View(rewardsAndPenalties);
         }
 
@@ -201,131 +201,131 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        private void SetDropDownList(FullMemberRecord fullMemberRecord)
-        {
-            if (fullMemberRecord != null)
-            {
-                SetSexList(fullMemberRecord.staffSex);
-                SetCompanyList(fullMemberRecord.companyId);
-                SetDepartmentList(fullMemberRecord.companyId, fullMemberRecord.departmentId);
-                SetTypeList(fullMemberRecord.type);
-            }
-            else
-            {
-                SetSexList(null);
-                SetCompanyList(null);
-                SetDepartmentList(null, null);
-                SetTypeList(null);
-            }
-        }
-        private void SetSexList(int? type, bool allowBlank = true)
-        {
-            List<EnumItem> item = EnumHelper.GetList(typeof(Sex));
+        //private void SetDropDownList(FullMemberRecord fullMemberRecord)
+        //{
+        //    if (fullMemberRecord != null)
+        //    {
+        //        SetSexList(fullMemberRecord.staffSex);
+        //        SetCompanyList(fullMemberRecord.companyId);
+        //        SetDepartmentList(fullMemberRecord.companyId, fullMemberRecord.departmentId);
+        //        SetTypeList(fullMemberRecord.type);
+        //    }
+        //    else
+        //    {
+        //        SetSexList(null);
+        //        SetCompanyList(null);
+        //        SetDepartmentList(null, null);
+        //        SetTypeList(null);
+        //    }
+        //}
+        //private void SetSexList(int? type, bool allowBlank = true)
+        //{
+        //    List<EnumItem> item = EnumHelper.GetList(typeof(Sex));
 
-            List<SelectListItem> select = new List<SelectListItem>();
+        //    List<SelectListItem> select = new List<SelectListItem>();
 
-            if (allowBlank)
-            {
-                select.Add(new SelectListItem { Text = "", Value = "" });
-            }
+        //    if (allowBlank)
+        //    {
+        //        select.Add(new SelectListItem { Text = "", Value = "" });
+        //    }
 
-            foreach (var it in item)
-            {
-                if (type.HasValue && type.ToString().Equals(it.Value))
-                {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
-                }
-                else
-                {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
-                }
-            }
-            ViewData["sexList"] = select;
-        }
-        private void SetTypeList(int? type, bool allowBlank = true)
-        {
-            List<EnumItem> item = EnumHelper.GetList(typeof(FullMemberRecordType));
+        //    foreach (var it in item)
+        //    {
+        //        if (type.HasValue && type.ToString().Equals(it.Value))
+        //        {
+        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+        //        }
+        //        else
+        //        {
+        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+        //        }
+        //    }
+        //    ViewData["sexList"] = select;
+        //}
+        //private void SetTypeList(int? type, bool allowBlank = true)
+        //{
+        //    List<EnumItem> item = EnumHelper.GetList(typeof(FullMemberRecordType));
 
-            List<SelectListItem> select = new List<SelectListItem>();
+        //    List<SelectListItem> select = new List<SelectListItem>();
 
-            if (allowBlank)
-            {
-                select.Add(new SelectListItem { Text = "", Value = "" });
-            }
+        //    if (allowBlank)
+        //    {
+        //        select.Add(new SelectListItem { Text = "", Value = "" });
+        //    }
 
-            foreach (var it in item)
-            {
-                if (type.HasValue && type.ToString().Equals(it.Value))
-                {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
-                }
-                else
-                {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
-                }
-            }
-            ViewData["rewardsAndPenaltiesTypeList"] = select;
-        }
-        private void SetDepartmentList(int? companyId, int? type, bool allowBlank = true)
-        {
-            IDepartmentService ds = new DepartmentService(Settings.Default.db);
+        //    foreach (var it in item)
+        //    {
+        //        if (type.HasValue && type.ToString().Equals(it.Value))
+        //        {
+        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+        //        }
+        //        else
+        //        {
+        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+        //        }
+        //    }
+        //    ViewData["rewardsAndPenaltiesTypeList"] = select;
+        //}
+        //private void SetDepartmentList(int? companyId, int? type, bool allowBlank = true)
+        //{
+        //    IDepartmentService ds = new DepartmentService(Settings.Default.db);
 
-            List<SelectListItem> select = new List<SelectListItem>();
+        //    List<SelectListItem> select = new List<SelectListItem>();
 
-            List<Department> departments = new List<Department>();
-            if (companyId.HasValue)
-            {
-                departments = ds.FindByCompanyId(companyId).ToList();
+        //    List<Department> departments = new List<Department>();
+        //    if (companyId.HasValue)
+        //    {
+        //        departments = ds.FindByCompanyId(companyId).ToList();
 
-                if (allowBlank)
-                {
-                    select.Add(new SelectListItem { Text = "", Value = "" });
-                }
+        //        if (allowBlank)
+        //        {
+        //            select.Add(new SelectListItem { Text = "", Value = "" });
+        //        }
 
-                foreach (var department in departments)
-                {
-                    if (type.HasValue && type.ToString().Equals(department.id))
-                    {
-                        select.Add(new SelectListItem { Text = department.fullName, Value = department.id.ToString(), Selected = true });
-                    }
-                    else
-                    {
-                        select.Add(new SelectListItem { Text = department.fullName, Value = department.id.ToString(), Selected = false });
-                    }
-                }
-            }
+        //        foreach (var department in departments)
+        //        {
+        //            if (type.HasValue && type.ToString().Equals(department.id))
+        //            {
+        //                select.Add(new SelectListItem { Text = department.fullName, Value = department.id.ToString(), Selected = true });
+        //            }
+        //            else
+        //            {
+        //                select.Add(new SelectListItem { Text = department.fullName, Value = department.id.ToString(), Selected = false });
+        //            }
+        //        }
+        //    }
 
-            ViewData["departmentList"] = select;
-        }
+        //    ViewData["departmentList"] = select;
+        //}
 
-        private void SetCompanyList(int? type, bool allowBlank = true)
-        {
-            ICompanyService cs = new CompanyService(Settings.Default.db);
+        //private void SetCompanyList(int? type, bool allowBlank = true)
+        //{
+        //    ICompanyService cs = new CompanyService(Settings.Default.db);
 
-            CompanySearchModel csm = new CompanySearchModel();
+        //    CompanySearchModel csm = new CompanySearchModel();
 
-            List<Company> companies = cs.Search(csm).ToList();
+        //    List<Company> companies = cs.Search(csm).ToList();
 
-            List<SelectListItem> select = new List<SelectListItem>();
+        //    List<SelectListItem> select = new List<SelectListItem>();
 
-            if (allowBlank)
-            {
-                select.Add(new SelectListItem { Text = "", Value = "" });
-            }
+        //    if (allowBlank)
+        //    {
+        //        select.Add(new SelectListItem { Text = "", Value = "" });
+        //    }
 
-            foreach (var company in companies)
-            {
-                if (type.HasValue && type.ToString().Equals(company.id))
-                {
-                    select.Add(new SelectListItem { Text = company.name, Value = company.id.ToString(), Selected = true });
-                }
-                else
-                {
-                    select.Add(new SelectListItem { Text = company.name, Value = company.id.ToString(), Selected = false });
-                }
-            }
-            ViewData["companyList"] = select;
-        }
+        //    foreach (var company in companies)
+        //    {
+        //        if (type.HasValue && type.ToString().Equals(company.id))
+        //        {
+        //            select.Add(new SelectListItem { Text = company.name, Value = company.id.ToString(), Selected = true });
+        //        }
+        //        else
+        //        {
+        //            select.Add(new SelectListItem { Text = company.name, Value = company.id.ToString(), Selected = false });
+        //        }
+        //    }
+        //    ViewData["companyList"] = select;
+        //}
         [HttpPost]
 
         public ResultMessage DoValidation(FullMemberRecord model)
@@ -338,24 +338,7 @@ namespace BlueHrWeb.Controllers
                 msg.Content = "员工号不能为空";
                 return msg;
             }
-            if (string.IsNullOrEmpty(model.staffName))
-            {
-                msg.Success = false;
-                msg.Content = "员工姓名不能为空";
-                return msg;
-            }
-            if (model.staffSex == null)
-            {
-                msg.Success = false;
-                msg.Content = "员工性别不能为空";
-                return msg;
-            }
-            if (model.type == null)
-            {
-                msg.Success = false;
-                msg.Content = "奖惩类别不能为空";
-                return msg;
-            }
+            
             return new ResultMessage() { Success = true, Content = "" };
         }
 
