@@ -48,8 +48,8 @@ namespace BlueHrWeb.Controllers
                 extraWorks.Add("EndHour", extraWork.endHour.ToString());
                 extraWorks.Add("Duration", extraWork.duration + " (小时)");
                 //extraWorks.Add("DurationType", extraWork.durationType==100?"天":"小时");
-                extraWorks.Add("ApprovalStatus", extraWork.approvalStatus == null ? "审核中" : extraWork.approvalStatus);
                 extraWorks.Add("Reason", extraWork.otReason);
+                extraWorks.Add("ApprovalStatus", extraWork.approvalStatus == null ? "审核中" : extraWork.approvalStatus);
 
                 AllExtraWork.Add(extraWorks);
             }
@@ -83,7 +83,6 @@ namespace BlueHrWeb.Controllers
             }
 
             ViewData["Resign"] = AllResignRecords;
-
 
             return View();
         }
