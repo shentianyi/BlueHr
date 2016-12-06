@@ -22,6 +22,16 @@ Layout.init = function () {
     var pathname = window.location.pathname.split('/');
 
     switch (pathname[1]) {
+	case "Personal":
+            $('.nav-myApplication ').addClass('active');
+            PageAction('#personal', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            break;
+
+	case "Personal":
+            $('.nav-myApproval ').addClass('active');
+            PageAction('#personal', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            break;
+
         case "User":
             $('.nav-sysRole ').addClass('active');
             PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
@@ -87,7 +97,7 @@ Layout.init = function () {
             $('.nav-basic').addClass('active');
             PageAction('#stafftype', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
             break;
-	case "Period":
+		case "Period":
             $('.nav-person').addClass('active');
             PageAction('#period', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
             break;
@@ -168,6 +178,14 @@ Layout.init = function () {
         case "SysOpera":
             $('.nav-system-opera').addClass('active');
             PageAction('#user', '新建系统操作', '编辑系统操作', '系统操作详情', '创建', '更新', '删除');
+            break;
+        case "RewardsAndPenalty":
+            
+            PageAction('#rewardsandpenalties', '新建奖惩记录', '编辑奖惩记录', '奖惩记录详情', '创建', '更新', '删除');
+            break;
+        case "Recruit":
+            
+            PageAction('#recruit', '新建招聘需求', '编辑招聘需求', '招聘需求详情', '创建', '更新', '删除');
             break;	
         
         default:
