@@ -11,9 +11,9 @@ namespace BlueHrLib.Data
     {
         public string roleStr
         {
-            //get { return EnumHelper.GetDescription((RoleType)this.role.Value); }
-            get;
-            set;
+            get { return EnumHelper.GetDescription((RoleType)this.role.Value); }
+            //get;
+            set { }
         }
 
         public string isLockedStr
