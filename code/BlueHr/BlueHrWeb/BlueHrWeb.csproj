@@ -737,7 +737,7 @@
     <Content Include="Views\RewardsAndPenalty\Edit.cshtml" />
     <Content Include="Views\RewardsAndPenalty\Delete.cshtml" />
     <Content Include="Views\RewardsAndPenalty\Create.cshtml" />
-    <Content Include="Views\RewardsAndPenalty\_PartialRewardsAndPenalties.cshtml" />
+    <Content Include="Views\RewardsAndPenalty\_PartialRewardsAndPenalty.cshtml" />
     <Content Include="Views\Recruit\Index.cshtml" />
     <Content Include="Views\Recruit\Edit.cshtml" />
     <Content Include="Views\Recruit\Delete.cshtml" />
