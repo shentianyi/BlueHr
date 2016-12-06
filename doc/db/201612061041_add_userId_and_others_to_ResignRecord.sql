@@ -1,11 +1,11 @@
-USE [BlueHrV2]
+USE [BlueHrV1]
 GO
 
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ResignRecord_ResignType]') AND parent_object_id = OBJECT_ID(N'[dbo].[ResignRecord]'))
 ALTER TABLE [dbo].[ResignRecord] DROP CONSTRAINT [FK_ResignRecord_ResignType]
 GO
 
-USE [BlueHrV2]
+USE [BlueHrV1]
 GO
 
 /****** Object:  Table [dbo].[ResignRecord]    Script Date: 12/06/2016 10:41:19 ******/
@@ -13,7 +13,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Resig
 DROP TABLE [dbo].[ResignRecord]
 GO
 
-USE [BlueHrV2]
+USE [BlueHrV1]
 GO
 
 /****** Object:  Table [dbo].[ResignRecord]    Script Date: 12/06/2016 10:41:19 ******/

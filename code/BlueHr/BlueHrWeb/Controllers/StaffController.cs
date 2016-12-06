@@ -128,23 +128,36 @@ namespace BlueHrWeb.Controllers
                         string AllTableName = Request.Form["allTableName"].ToString();
                         string[] AllTableNameArray = AllTableName.Split(',');
                         string SearchConditions = Request.Form["searchConditions"];
-                        string[] SearchConditionsArray = AllTableName.Split(',');
+                        string[] SearchConditionsArray = SearchConditions.Split(',');
                         string searchValueFirst = Request.Form["searchValueFirst"];
-                        string[] searchValueFirstArray = AllTableName.Split(',');
+                        string[] searchValueFirstArray = searchValueFirst.Split(',');
                         staffs= ss.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0]).ToPagedList(pageIndex, Settings.Default.pageSize);
+
                         for (var i = 0; i < AllTableNameArray.Length; i++)
                         {
                             IPagedList<Staff> staffstemp = null;
                             staffstemp = ss.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i]).ToPagedList(pageIndex, Settings.Default.pageSize);
                             foreach (var temp in staffstemp)
                             {
-                                if(staffs.FirstOrDefault(s => s.nr.Equals(temp.nr)) ==null)staffs.ToList().Remove(temp);
+                                if (staffs.FirstOrDefault(s => s.nr.Equals(temp.nr)) == null) staffs.ToList().Remove(temp);
                             }
-                        }
+                            //List<Integer> result = new ArrayList<Integer>();
+                            //for (Integer integer : list2)
+                            //{//遍历list1  
+                            //    if (list1.contains(integer))
+                            //    {//如果存在这个数  
+                            //        result.add(integer);//放进一个list里面，这个list就是交集  
+                            //    }
+                                //foreach (var temp2 in staffs)
+                                //{
+                                //    if(staffstemp.FirstOrDefault(s => s.nr.Equals(temp2.nr)) == null) staffs.ToList().Remove(temp2);
+                                //}
+                            }
                     }
                 }
             }
 
+            SetDropDownList(null);
 
             return View("Index", staffs);
         }
@@ -1014,6 +1027,8 @@ namespace BlueHrWeb.Controllers
             //SetResignTypeList(null);
             return View(staff);
         }
+
+
 
 
         [HttpGet]
