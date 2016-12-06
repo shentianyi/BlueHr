@@ -91,25 +91,25 @@
                         </a>
 
                         <ul class="treeview-menu">
-                            <li class="nav-myApplication">
+                            <li class="nav-apply">
                                 <a href="/Personal/Application">
                                     <i class="fa fa-pencil-square-o"></i>
                                     我的申请
                                 </a>
                             </li>
-                            <li class="nav-myApproval">
+                            <li class="nav-view">
                                 <a href="/Personal/Approval">
                                     <i class="fa fa-calendar-check-o"></i>
                                     我的审批
                                 </a>
                             </li>
-                            <li class="nav-mySchedule">
+                            <li class="nav-day">
                                 <a href="/Personal/Schedule">
                                     <i class="fa fa-briefcase"></i>
                                     日程安排
                                 </a>
                             </li>
-                            <li class="nav-myNote">
+                            <li>
                                 <a href="/Personal/Note">
                                     <i class="fa fa-sticky-note-o"></i>
                                     便笺本
@@ -127,14 +127,14 @@
                         </a>
 
                         <ul class="treeview-menu">
-                            <li class="nav-user">
+                            <li>
                                 <a href="/User/Index">
                                     <i class="fa fa-user-secret"></i>
                                     用户管理
                                 </a>
                             </li>
 
-                            <li class="nav-authorization">
+                            <li>
                                 <a href="/SysAuthorization/Index">
                                     <i class="fa fa-group"></i>
                                     权限管理
@@ -194,7 +194,7 @@
                         </a>
 
                         <ul class="treeview-menu">
-                            <li class="nav-organizationManager">
+                            <li>
                                 <a href="/Company/Index">
                                     <i class="fa fa-sitemap"></i>
                                     组织架构管理
@@ -226,28 +226,28 @@
                                 </a>
                             </li>*@
 
-                            <li class="nav-entry">
+                            <li>
                                 <a href="/Staff/Create">
                                     <i class="fa fa-user-plus"></i>
                                     入职管理
                                 </a>
                             </li>
 
-                            <li class="nav-employee">
+                            <li>
                                 <a href="/Staff/Index">
                                     <i class="fa fa-list-ol"></i>
                                     员工转正
                                 </a>
                             </li>
 
-                            <li class="nav-shiftJobs">
+                            <li>
                                 <a href="#">
                                     <i class="fa fa-share-square-o"></i>
                                     员工调岗
                                 </a>
                             </li>
 
-                            <li class="nav-resignation">
+                            <li>
                                 <a href="#">
                                     <i class="fa fa-user-times"></i>
                                     员工离职
@@ -268,7 +268,7 @@
                                 </a>
                             </li>*@
 
-                            <li class="nav-rewards_penalty ">
+                            <li>
                                 <a href="#">
                                     <i class="fa fa-calendar-minus-o"></i>
                                     奖惩管理
@@ -309,7 +309,7 @@
                                     请假管理
                                 </a>
                             </li>
-                            <li class="nav-extrawordrecord">
+                            <li>
                                 <a href="/ExtraWorkRecord/Index">
                                     <i class="fa fa-tachometer"></i>
                                     加班管理
@@ -383,34 +383,34 @@
                                     员工管理
                                 </a>
                             </li>
-                            <li class="nav-staff">
+                            <li>
                                 <a href="/Staff/Idcard">
                                     <i class="fa fa-newspaper-o"></i>
                                     身份证管理
                                 </a>
                             </li>
-                            <li class="nav-staff">
+                            <li>
                                 <a href="/Staff/Ontrail">
                                     <i class="fa fa-list-ol"></i>
                                     试用期管理
                                 </a>
                             </li>
 
-                            <li class="nav-leave">
+                            <li>
                                 <a href="#">
                                     <i class="fa fa-user-times"></i>
                                     招聘需求
                                 </a>
                             </li>
 
-                            <li class="nav-business">
+                            <li>
                                 <a href="#">
                                     <i class="fa fa-table"></i>
                                     简历管理
                                 </a>
                             </li>
 
-                            <li class="nav-business">
+                            <li>
                                 <a href="#">
                                     <i class="fa fa-anchor"></i>
                                     培训管理
@@ -456,9 +456,6 @@
 
 <script type="text/javascript">
     $('.option-icon-primary').click(function(){
-        <!--1920* 1200  1068 * 677 刚刚好-->
-
-        <!--pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook-->
         Layout.openNewWindow($(this).attr("href"), $(window).width()-200, $(window).height()-100, 100, 200, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
     });
 </script>
