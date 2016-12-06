@@ -22,6 +22,16 @@ Layout.init = function () {
     var pathname = window.location.pathname.split('/');
 
     switch (pathname[1]) {
+	case "Personal":
+            $('.nav-myApplication ').addClass('active');
+            PageAction('#personal', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            break;
+
+	case "Personal":
+            $('.nav-myApproval ').addClass('active');
+            PageAction('#personal', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            break;
+
         case "User":
             $('.nav-sysRole ').addClass('active');
             PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
