@@ -13,7 +13,7 @@
 </ol>
 <hr class="hr-grey" />
 <div class="search">
-    <form action="/RewardsAndPenalties/Search" method="get">
+    <form action="/RewardsAndPenalty/Search" method="get">
         <div class="row" style="margin:0;">
             <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
                 <div class="marco-igroup-primary">
@@ -50,7 +50,7 @@
         </div>
     </form>
 
-    <form action="/RewardsAndPenalties/AdvancedSearch" method="post">
+    <form action="/RewardsAndPenalty/AdvancedSearch" method="post">
         <div class="advanced-filter row" style="margin:0;display:none;">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
@@ -89,7 +89,7 @@
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
 
-        <a href="/RewardsAndPenalties/Create" class="pull-right" style="margin-top: -10px; margin-right:15px;">
+        <a href="/RewardsAndPenalty/Create" class="pull-right" style="margin-top: -10px; margin-right:15px;">
             <button class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
@@ -99,7 +99,7 @@
 
             <li role="presentation" class="active"><a href="#all_Rewards" role="tab" data-toggle="tab">奖励记录</a></li>
             <li role="presentation"><a href="#all_Penalties" role="tab" data-toggle="tab">惩罚记录</a></li>
-            <li role="presentation"><a href="#all_RewardsAndPenalties" role="tab" data-toggle="tab">所有记录</a></li>
+            <li role="presentation"><a href="#all_RewardsAndPenalty" role="tab" data-toggle="tab">所有记录</a></li>
 
         </ul>
         <div class="tab-content">
@@ -158,10 +158,10 @@
                                         @Html.DisplayFor(modelItem => item.userId)
                                     </td>
                                     <td>
-                                        <a href="/RewardsAndPenalties/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                        <a href="/RewardsAndPenalty/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
                                             <i class="fa fa-eye"></i>
                                         </a>    
-                                        <a href="/RewardsAndPenalties/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                        <a href="/RewardsAndPenalty/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
                                             <i class="fa fa-pencil"></i>
                                         </a>                                   
                                     </td>
@@ -226,10 +226,10 @@
                                         @Html.DisplayFor(modelItem => item.userId)
                                     </td>
                                     <td>
-                                        <a href="/RewardsAndPenalties/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                        <a href="/RewardsAndPenalty/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                        <a href="/RewardsAndPenalties/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                        <a href="/RewardsAndPenalty/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
                                             <i class="fa fa-pencil"></i>
                                         </a>
                                     </td>
@@ -239,8 +239,8 @@
                     </tbody>
                 </table>
             </div>
-            <div role="tabpanel" class="tab-pane" id="all_RewardsAndPenalties">
-                <div id="all_RewardsAndPenalties_grid_table" style="margin:auto;"></div>
+            <div role="tabpanel" class="tab-pane" id="all_RewardsAndPenalty">
+                <div id="all_RewardsAndPenalty_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -294,10 +294,10 @@
                                         @Html.DisplayFor(modelItem => item.userId)
                                     </td>
                                     <td>
-                                        <a href="/RewardsAndPenalties/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
+                                        <a href="/RewardsAndPenalty/Delete/@item.id" target="_blank" class="option-icon-primary" title="详情">
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                        <a href="/RewardsAndPenalties/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
+                                        <a href="/RewardsAndPenalty/Edit/@item.id" target="_blank" class="option-icon-warning" title="编辑">
                                             <i class="fa fa-pencil"></i>
                                         </a>
                                     </td>
@@ -321,7 +321,7 @@
     $(window).resize(function () {
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Rewards", "奖励记录列表", "20", "all_Rewards_grid_table");
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Penalties", "离职员工列表", "20", "all_Penalties_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_RewardsAndPenalties", "全部员工列表", "20", "all_RewardsAndPenalties_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_RewardsAndPenalty", "全部员工列表", "20", "all_RewardsAndPenalty_grid_table");
     })
 
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_Rewards", "奖励记录列表", "20", "all_Rewards_grid_table");
@@ -330,9 +330,9 @@
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_Penalties", "惩罚记录列表", "20", "all_Penalties_grid_table");
     $('#all_Penalties').removeClass("active");
 
-    $('#all_RewardsAndPenalties').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_RewardsAndPenalties", "所有记录列表", "20", "all_RewardsAndPenalties_grid_table");
-    $('#all_RewardsAndPenalties').removeClass("active");
+    $('#all_RewardsAndPenalty').addClass("active");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_RewardsAndPenalty", "所有记录列表", "20", "all_RewardsAndPenalty_grid_table");
+    $('#all_RewardsAndPenalty').removeClass("active");
 
     Layout.advancedfilter();
  

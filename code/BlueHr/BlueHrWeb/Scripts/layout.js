@@ -52,18 +52,18 @@ Layout.init = function () {
             $('.nav-inter-apply').addClass('active');
             PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
             break;
-	case "Staff":
-            $('.nav-person').addClass('active');
-            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
-            break;
-	case "Staff":
-            $('.nav-staff').addClass('active');
-            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
-            break;
-	case "Staff":
-            $('.nav-inter-apply').addClass('active');
-            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
-            break;
+	// case "Staff":
+ //            $('.nav-person').addClass('active');
+ //            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+ //            break;
+	// case "Staff":
+ //            $('.nav-staff').addClass('active');
+ //            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+ //            break;
+	// case "Staff":
+ //            $('.nav-inter-apply').addClass('active');
+ //            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+ //            break;
 	case "Period":
             $('.nav-person').addClass('active');
             PageAction('#period', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
@@ -97,7 +97,7 @@ Layout.init = function () {
             $('.nav-basic').addClass('active');
             PageAction('#stafftype', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
             break;
-	case "Period":
+		case "Period":
             $('.nav-person').addClass('active');
             PageAction('#period', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
             break;
@@ -178,6 +178,14 @@ Layout.init = function () {
         case "SysOpera":
             $('.nav-system-opera').addClass('active');
             PageAction('#user', '新建系统操作', '编辑系统操作', '系统操作详情', '创建', '更新', '删除');
+            break;
+        case "RewardsAndPenalty":
+            
+            PageAction('#rewardsandpenalties', '新建奖惩记录', '编辑奖惩记录', '奖惩记录详情', '创建', '更新', '删除');
+            break;
+        case "Recruit":
+            
+            PageAction('#recruit', '新建招聘需求', '编辑招聘需求', '招聘需求详情', '创建', '更新', '删除');
             break;	
         
         default:
@@ -193,7 +201,7 @@ Layout.init = function () {
             }
         });
 
-        if (pathname[pathname.length - 2] == "Edit") {
+ 		if (pathname[2] == "Edit") {
             $(".main-header").remove();
             $(".main-sidebar").remove();
 
@@ -205,7 +213,7 @@ Layout.init = function () {
 
             vueName.action = editAction;
             vueName.actionBtn = editBtn;
-        } else if (pathname[pathname.length - 2] == "Delete") {
+        } else if (pathname[2] == "Delete") {
             $(".main-header").remove();
             $(".main-sidebar").remove();
             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
@@ -215,6 +223,14 @@ Layout.init = function () {
             })
             vueName.action = deleteAction;
             vueName.actionBtn = deleteBtn;
+        }else if(pathname[2] == "Create"){
+        	$(".main-header").remove();
+            $(".main-sidebar").remove();
+            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+            $(window).resize(function(){
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            })
         }
     }
 }
