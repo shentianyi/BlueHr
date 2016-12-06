@@ -13,7 +13,7 @@ namespace BlueHrLib.Helper
             switch (SearchConditions)
             {
                 case "1":
-                    strWhere = "Select s from "+ Table + " as s where s." + AllTableName + ">" + SearchValue;
+                    strWhere = "Select s from " + Table + " as s where s." + AllTableName + ">" + SearchValue;
                     break;
                 case "2":
                     strWhere = "Select s from " + Table + " as s where s." + AllTableName + "<" + SearchValue;
