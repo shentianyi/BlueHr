@@ -138,10 +138,19 @@ namespace BlueHrLib.Data
     partial void InsertFullMemberRecord(FullMemberRecord instance);
     partial void UpdateFullMemberRecord(FullMemberRecord instance);
     partial void DeleteFullMemberRecord(FullMemberRecord instance);
+    partial void InsertRecruit(Recruit instance);
+    partial void UpdateRecruit(Recruit instance);
+    partial void DeleteRecruit(Recruit instance);
+    partial void InsertRewardsAndPenalty(RewardsAndPenalty instance);
+    partial void UpdateRewardsAndPenalty(RewardsAndPenalty instance);
+    partial void DeleteRewardsAndPenalty(RewardsAndPenalty instance);
+    partial void InsertPersonSchedule(PersonSchedule instance);
+    partial void UpdatePersonSchedule(PersonSchedule instance);
+    partial void DeletePersonSchedule(PersonSchedule instance);
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.BlueHrV2ConnectionString3, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.BlueHrV2ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -498,22 +507,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<Recruit> Recruit
-		{
-			get
-			{
-				return this.GetTable<Recruit>();
-			}
-		}
-		
-		public System.Data.Linq.Table<RewardsAndPenalty> RewardsAndPenalty
-		{
-			get
-			{
-				return this.GetTable<RewardsAndPenalty>();
-			}
-		}
-		
 		public System.Data.Linq.Table<ExtraWorkRecord> ExtraWorkRecord
 		{
 			get
@@ -543,6 +536,30 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<FullMemberRecord>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Recruit> Recruit
+		{
+			get
+			{
+				return this.GetTable<Recruit>();
+			}
+		}
+		
+		public System.Data.Linq.Table<RewardsAndPenalty> RewardsAndPenalty
+		{
+			get
+			{
+				return this.GetTable<RewardsAndPenalty>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PersonSchedule> PersonSchedule
+		{
+			get
+			{
+				return this.GetTable<PersonSchedule>();
 			}
 		}
 	}
@@ -13640,420 +13657,6 @@ namespace BlueHrLib.Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recruit")]
-	public partial class Recruit
-	{
-		
-		private int _id;
-		
-		private string _requirement;
-		
-		private System.Nullable<int> _companyId;
-		
-		private System.Nullable<int> _departmentId;
-		
-		private System.Nullable<int> _amount;
-		
-		private System.Nullable<System.DateTime> _createAt;
-		
-		private System.Nullable<System.DateTime> _requirementAt;
-		
-		private string _requirementMan;
-		
-		private string _status;
-		
-		private string _auditRecord;
-		
-		private string _auditView;
-		
-		public Recruit()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this._id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_requirement", DbType="VarChar(200)")]
-		public string requirement
-		{
-			get
-			{
-				return this._requirement;
-			}
-			set
-			{
-				if ((this._requirement != value))
-				{
-					this._requirement = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyId", DbType="Int")]
-		public System.Nullable<int> companyId
-		{
-			get
-			{
-				return this._companyId;
-			}
-			set
-			{
-				if ((this._companyId != value))
-				{
-					this._companyId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departmentId", DbType="Int")]
-		public System.Nullable<int> departmentId
-		{
-			get
-			{
-				return this._departmentId;
-			}
-			set
-			{
-				if ((this._departmentId != value))
-				{
-					this._departmentId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_amount", DbType="Int")]
-		public System.Nullable<int> amount
-		{
-			get
-			{
-				return this._amount;
-			}
-			set
-			{
-				if ((this._amount != value))
-				{
-					this._amount = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> createAt
-		{
-			get
-			{
-				return this._createAt;
-			}
-			set
-			{
-				if ((this._createAt != value))
-				{
-					this._createAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_requirementAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> requirementAt
-		{
-			get
-			{
-				return this._requirementAt;
-			}
-			set
-			{
-				if ((this._requirementAt != value))
-				{
-					this._requirementAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_requirementMan", DbType="VarChar(50)")]
-		public string requirementMan
-		{
-			get
-			{
-				return this._requirementMan;
-			}
-			set
-			{
-				if ((this._requirementMan != value))
-				{
-					this._requirementMan = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="VarChar(200)")]
-		public string status
-		{
-			get
-			{
-				return this._status;
-			}
-			set
-			{
-				if ((this._status != value))
-				{
-					this._status = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_auditRecord", DbType="VarChar(200)")]
-		public string auditRecord
-		{
-			get
-			{
-				return this._auditRecord;
-			}
-			set
-			{
-				if ((this._auditRecord != value))
-				{
-					this._auditRecord = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_auditView", DbType="VarChar(200)")]
-		public string auditView
-		{
-			get
-			{
-				return this._auditView;
-			}
-			set
-			{
-				if ((this._auditView != value))
-				{
-					this._auditView = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RewardsAndPenalty")]
-	public partial class RewardsAndPenalty
-	{
-		
-		private int _id;
-		
-		private string _staffNr;
-		
-		private string _staffName;
-		
-		private System.Nullable<int> _staffSex;
-		
-		private System.Nullable<int> _companyId;
-		
-		private System.Nullable<int> _departmentId;
-		
-		private System.Nullable<int> _type;
-		
-		private string _project;
-		
-		private string _description;
-		
-		private System.Nullable<System.DateTime> _createAt;
-		
-		private System.Nullable<int> _userId;
-		
-		public RewardsAndPenalty()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this._id = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string staffNr
-		{
-			get
-			{
-				return this._staffNr;
-			}
-			set
-			{
-				if ((this._staffNr != value))
-				{
-					this._staffNr = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffName", DbType="VarChar(50)")]
-		public string staffName
-		{
-			get
-			{
-				return this._staffName;
-			}
-			set
-			{
-				if ((this._staffName != value))
-				{
-					this._staffName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffSex", DbType="Int")]
-		public System.Nullable<int> staffSex
-		{
-			get
-			{
-				return this._staffSex;
-			}
-			set
-			{
-				if ((this._staffSex != value))
-				{
-					this._staffSex = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyId", DbType="Int")]
-		public System.Nullable<int> companyId
-		{
-			get
-			{
-				return this._companyId;
-			}
-			set
-			{
-				if ((this._companyId != value))
-				{
-					this._companyId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departmentId", DbType="Int")]
-		public System.Nullable<int> departmentId
-		{
-			get
-			{
-				return this._departmentId;
-			}
-			set
-			{
-				if ((this._departmentId != value))
-				{
-					this._departmentId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type", DbType="Int")]
-		public System.Nullable<int> type
-		{
-			get
-			{
-				return this._type;
-			}
-			set
-			{
-				if ((this._type != value))
-				{
-					this._type = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_project", DbType="VarChar(200)")]
-		public string project
-		{
-			get
-			{
-				return this._project;
-			}
-			set
-			{
-				if ((this._project != value))
-				{
-					this._project = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string description
-		{
-			get
-			{
-				return this._description;
-			}
-			set
-			{
-				if ((this._description != value))
-				{
-					this._description = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> createAt
-		{
-			get
-			{
-				return this._createAt;
-			}
-			set
-			{
-				if ((this._createAt != value))
-				{
-					this._createAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userId", DbType="Int")]
-		public System.Nullable<int> userId
-		{
-			get
-			{
-				return this._userId;
-			}
-			set
-			{
-				if ((this._userId != value))
-				{
-					this._userId = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ExtraWorkRecord")]
 	public partial class ExtraWorkRecord : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -16204,6 +15807,864 @@ namespace BlueHrLib.Data
 						this._staffNr = default(string);
 					}
 					this.SendPropertyChanged("Staff");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recruit")]
+	public partial class Recruit : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _requirement;
+		
+		private System.Nullable<int> _companyId;
+		
+		private System.Nullable<int> _departmentId;
+		
+		private System.Nullable<int> _amount;
+		
+		private System.Nullable<System.DateTime> _createAt;
+		
+		private System.Nullable<System.DateTime> _requirementAt;
+		
+		private string _requirementMan;
+		
+		private string _status;
+		
+		private string _auditRecord;
+		
+		private string _auditView;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnrequirementChanging(string value);
+    partial void OnrequirementChanged();
+    partial void OncompanyIdChanging(System.Nullable<int> value);
+    partial void OncompanyIdChanged();
+    partial void OndepartmentIdChanging(System.Nullable<int> value);
+    partial void OndepartmentIdChanged();
+    partial void OnamountChanging(System.Nullable<int> value);
+    partial void OnamountChanged();
+    partial void OncreateAtChanging(System.Nullable<System.DateTime> value);
+    partial void OncreateAtChanged();
+    partial void OnrequirementAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnrequirementAtChanged();
+    partial void OnrequirementManChanging(string value);
+    partial void OnrequirementManChanged();
+    partial void OnstatusChanging(string value);
+    partial void OnstatusChanged();
+    partial void OnauditRecordChanging(string value);
+    partial void OnauditRecordChanged();
+    partial void OnauditViewChanging(string value);
+    partial void OnauditViewChanged();
+    #endregion
+		
+		public Recruit()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_requirement", DbType="VarChar(200)")]
+		public string requirement
+		{
+			get
+			{
+				return this._requirement;
+			}
+			set
+			{
+				if ((this._requirement != value))
+				{
+					this.OnrequirementChanging(value);
+					this.SendPropertyChanging();
+					this._requirement = value;
+					this.SendPropertyChanged("requirement");
+					this.OnrequirementChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyId", DbType="Int")]
+		public System.Nullable<int> companyId
+		{
+			get
+			{
+				return this._companyId;
+			}
+			set
+			{
+				if ((this._companyId != value))
+				{
+					this.OncompanyIdChanging(value);
+					this.SendPropertyChanging();
+					this._companyId = value;
+					this.SendPropertyChanged("companyId");
+					this.OncompanyIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departmentId", DbType="Int")]
+		public System.Nullable<int> departmentId
+		{
+			get
+			{
+				return this._departmentId;
+			}
+			set
+			{
+				if ((this._departmentId != value))
+				{
+					this.OndepartmentIdChanging(value);
+					this.SendPropertyChanging();
+					this._departmentId = value;
+					this.SendPropertyChanged("departmentId");
+					this.OndepartmentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_amount", DbType="Int")]
+		public System.Nullable<int> amount
+		{
+			get
+			{
+				return this._amount;
+			}
+			set
+			{
+				if ((this._amount != value))
+				{
+					this.OnamountChanging(value);
+					this.SendPropertyChanging();
+					this._amount = value;
+					this.SendPropertyChanged("amount");
+					this.OnamountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> createAt
+		{
+			get
+			{
+				return this._createAt;
+			}
+			set
+			{
+				if ((this._createAt != value))
+				{
+					this.OncreateAtChanging(value);
+					this.SendPropertyChanging();
+					this._createAt = value;
+					this.SendPropertyChanged("createAt");
+					this.OncreateAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_requirementAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> requirementAt
+		{
+			get
+			{
+				return this._requirementAt;
+			}
+			set
+			{
+				if ((this._requirementAt != value))
+				{
+					this.OnrequirementAtChanging(value);
+					this.SendPropertyChanging();
+					this._requirementAt = value;
+					this.SendPropertyChanged("requirementAt");
+					this.OnrequirementAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_requirementMan", DbType="VarChar(50)")]
+		public string requirementMan
+		{
+			get
+			{
+				return this._requirementMan;
+			}
+			set
+			{
+				if ((this._requirementMan != value))
+				{
+					this.OnrequirementManChanging(value);
+					this.SendPropertyChanging();
+					this._requirementMan = value;
+					this.SendPropertyChanged("requirementMan");
+					this.OnrequirementManChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="VarChar(200)")]
+		public string status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this.OnstatusChanging(value);
+					this.SendPropertyChanging();
+					this._status = value;
+					this.SendPropertyChanged("status");
+					this.OnstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_auditRecord", DbType="VarChar(200)")]
+		public string auditRecord
+		{
+			get
+			{
+				return this._auditRecord;
+			}
+			set
+			{
+				if ((this._auditRecord != value))
+				{
+					this.OnauditRecordChanging(value);
+					this.SendPropertyChanging();
+					this._auditRecord = value;
+					this.SendPropertyChanged("auditRecord");
+					this.OnauditRecordChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_auditView", DbType="VarChar(200)")]
+		public string auditView
+		{
+			get
+			{
+				return this._auditView;
+			}
+			set
+			{
+				if ((this._auditView != value))
+				{
+					this.OnauditViewChanging(value);
+					this.SendPropertyChanging();
+					this._auditView = value;
+					this.SendPropertyChanged("auditView");
+					this.OnauditViewChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RewardsAndPenalty")]
+	public partial class RewardsAndPenalty : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _staffNr;
+		
+		private string _staffName;
+		
+		private System.Nullable<int> _staffSex;
+		
+		private System.Nullable<int> _companyId;
+		
+		private System.Nullable<int> _departmentId;
+		
+		private System.Nullable<int> _type;
+		
+		private string _project;
+		
+		private string _description;
+		
+		private System.Nullable<System.DateTime> _createAt;
+		
+		private System.Nullable<int> _userId;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnstaffNrChanging(string value);
+    partial void OnstaffNrChanged();
+    partial void OnstaffNameChanging(string value);
+    partial void OnstaffNameChanged();
+    partial void OnstaffSexChanging(System.Nullable<int> value);
+    partial void OnstaffSexChanged();
+    partial void OncompanyIdChanging(System.Nullable<int> value);
+    partial void OncompanyIdChanged();
+    partial void OndepartmentIdChanging(System.Nullable<int> value);
+    partial void OndepartmentIdChanged();
+    partial void OntypeChanging(System.Nullable<int> value);
+    partial void OntypeChanged();
+    partial void OnprojectChanging(string value);
+    partial void OnprojectChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OncreateAtChanging(System.Nullable<System.DateTime> value);
+    partial void OncreateAtChanged();
+    partial void OnuserIdChanging(System.Nullable<int> value);
+    partial void OnuserIdChanged();
+    #endregion
+		
+		public RewardsAndPenalty()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string staffNr
+		{
+			get
+			{
+				return this._staffNr;
+			}
+			set
+			{
+				if ((this._staffNr != value))
+				{
+					this.OnstaffNrChanging(value);
+					this.SendPropertyChanging();
+					this._staffNr = value;
+					this.SendPropertyChanged("staffNr");
+					this.OnstaffNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffName", DbType="VarChar(50)")]
+		public string staffName
+		{
+			get
+			{
+				return this._staffName;
+			}
+			set
+			{
+				if ((this._staffName != value))
+				{
+					this.OnstaffNameChanging(value);
+					this.SendPropertyChanging();
+					this._staffName = value;
+					this.SendPropertyChanged("staffName");
+					this.OnstaffNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffSex", DbType="Int")]
+		public System.Nullable<int> staffSex
+		{
+			get
+			{
+				return this._staffSex;
+			}
+			set
+			{
+				if ((this._staffSex != value))
+				{
+					this.OnstaffSexChanging(value);
+					this.SendPropertyChanging();
+					this._staffSex = value;
+					this.SendPropertyChanged("staffSex");
+					this.OnstaffSexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyId", DbType="Int")]
+		public System.Nullable<int> companyId
+		{
+			get
+			{
+				return this._companyId;
+			}
+			set
+			{
+				if ((this._companyId != value))
+				{
+					this.OncompanyIdChanging(value);
+					this.SendPropertyChanging();
+					this._companyId = value;
+					this.SendPropertyChanged("companyId");
+					this.OncompanyIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departmentId", DbType="Int")]
+		public System.Nullable<int> departmentId
+		{
+			get
+			{
+				return this._departmentId;
+			}
+			set
+			{
+				if ((this._departmentId != value))
+				{
+					this.OndepartmentIdChanging(value);
+					this.SendPropertyChanging();
+					this._departmentId = value;
+					this.SendPropertyChanged("departmentId");
+					this.OndepartmentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type", DbType="Int")]
+		public System.Nullable<int> type
+		{
+			get
+			{
+				return this._type;
+			}
+			set
+			{
+				if ((this._type != value))
+				{
+					this.OntypeChanging(value);
+					this.SendPropertyChanging();
+					this._type = value;
+					this.SendPropertyChanged("type");
+					this.OntypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_project", DbType="VarChar(200)")]
+		public string project
+		{
+			get
+			{
+				return this._project;
+			}
+			set
+			{
+				if ((this._project != value))
+				{
+					this.OnprojectChanging(value);
+					this.SendPropertyChanging();
+					this._project = value;
+					this.SendPropertyChanged("project");
+					this.OnprojectChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> createAt
+		{
+			get
+			{
+				return this._createAt;
+			}
+			set
+			{
+				if ((this._createAt != value))
+				{
+					this.OncreateAtChanging(value);
+					this.SendPropertyChanging();
+					this._createAt = value;
+					this.SendPropertyChanged("createAt");
+					this.OncreateAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userId", DbType="Int")]
+		public System.Nullable<int> userId
+		{
+			get
+			{
+				return this._userId;
+			}
+			set
+			{
+				if ((this._userId != value))
+				{
+					this.OnuserIdChanging(value);
+					this.SendPropertyChanging();
+					this._userId = value;
+					this.SendPropertyChanged("userId");
+					this.OnuserIdChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PersonSchedule")]
+	public partial class PersonSchedule : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private System.DateTime _startTime;
+		
+		private System.DateTime _endTime;
+		
+		private string _category;
+		
+		private string _subject;
+		
+		private string _significance;
+		
+		private string _context;
+		
+		private System.Nullable<System.DateTime> _createdAt;
+		
+		private System.Nullable<bool> _isDeleted;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnstartTimeChanging(System.DateTime value);
+    partial void OnstartTimeChanged();
+    partial void OnendTimeChanging(System.DateTime value);
+    partial void OnendTimeChanged();
+    partial void OncategoryChanging(string value);
+    partial void OncategoryChanged();
+    partial void OnsubjectChanging(string value);
+    partial void OnsubjectChanged();
+    partial void OnsignificanceChanging(string value);
+    partial void OnsignificanceChanged();
+    partial void OncontextChanging(string value);
+    partial void OncontextChanged();
+    partial void OncreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OncreatedAtChanged();
+    partial void OnisDeletedChanging(System.Nullable<bool> value);
+    partial void OnisDeletedChanged();
+    #endregion
+		
+		public PersonSchedule()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startTime", DbType="DateTime NOT NULL")]
+		public System.DateTime startTime
+		{
+			get
+			{
+				return this._startTime;
+			}
+			set
+			{
+				if ((this._startTime != value))
+				{
+					this.OnstartTimeChanging(value);
+					this.SendPropertyChanging();
+					this._startTime = value;
+					this.SendPropertyChanged("startTime");
+					this.OnstartTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endTime", DbType="DateTime NOT NULL")]
+		public System.DateTime endTime
+		{
+			get
+			{
+				return this._endTime;
+			}
+			set
+			{
+				if ((this._endTime != value))
+				{
+					this.OnendTimeChanging(value);
+					this.SendPropertyChanging();
+					this._endTime = value;
+					this.SendPropertyChanged("endTime");
+					this.OnendTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category", DbType="NVarChar(50)")]
+		public string category
+		{
+			get
+			{
+				return this._category;
+			}
+			set
+			{
+				if ((this._category != value))
+				{
+					this.OncategoryChanging(value);
+					this.SendPropertyChanging();
+					this._category = value;
+					this.SendPropertyChanged("category");
+					this.OncategoryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_subject", DbType="NVarChar(MAX)")]
+		public string subject
+		{
+			get
+			{
+				return this._subject;
+			}
+			set
+			{
+				if ((this._subject != value))
+				{
+					this.OnsubjectChanging(value);
+					this.SendPropertyChanging();
+					this._subject = value;
+					this.SendPropertyChanged("subject");
+					this.OnsubjectChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_significance", DbType="NVarChar(50)")]
+		public string significance
+		{
+			get
+			{
+				return this._significance;
+			}
+			set
+			{
+				if ((this._significance != value))
+				{
+					this.OnsignificanceChanging(value);
+					this.SendPropertyChanging();
+					this._significance = value;
+					this.SendPropertyChanged("significance");
+					this.OnsignificanceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_context", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string context
+		{
+			get
+			{
+				return this._context;
+			}
+			set
+			{
+				if ((this._context != value))
+				{
+					this.OncontextChanging(value);
+					this.SendPropertyChanging();
+					this._context = value;
+					this.SendPropertyChanged("context");
+					this.OncontextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> createdAt
+		{
+			get
+			{
+				return this._createdAt;
+			}
+			set
+			{
+				if ((this._createdAt != value))
+				{
+					this.OncreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._createdAt = value;
+					this.SendPropertyChanged("createdAt");
+					this.OncreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isDeleted", DbType="Bit")]
+		public System.Nullable<bool> isDeleted
+		{
+			get
+			{
+				return this._isDeleted;
+			}
+			set
+			{
+				if ((this._isDeleted != value))
+				{
+					this.OnisDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._isDeleted = value;
+					this.SendPropertyChanged("isDeleted");
+					this.OnisDeletedChanged();
 				}
 			}
 		}
