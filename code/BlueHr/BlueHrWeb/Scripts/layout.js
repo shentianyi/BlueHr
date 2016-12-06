@@ -21,6 +21,7 @@ Layout.init = function () {
     $('.sidebar-menu li').removeClass('active');
     var pathname = window.location.pathname.split('/');
 
+<<<<<<< HEAD
 switch (pathname[1]) {
     case "Home":
         $('.nav-userMsg ').addClass('active');
@@ -39,6 +40,51 @@ switch (pathname[1]) {
         $('.nav-attendance').addClass('active');
         PageAction('#extraworkrecord', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
         break;
+=======
+    switch (pathname[1]) {
+	case "Personal":
+            $('.nav-myApplication ').addClass('active');
+            PageAction('#personal', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            break;
+
+	case "Personal":
+            $('.nav-myApproval ').addClass('active');
+            PageAction('#personal', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            break;
+
+        case "User":
+            $('.nav-sysRole ').addClass('active');
+            PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+            break;
+        case "Company":
+            $('.nav-company').addClass('active');
+            PageAction('#company', '新建公司', '编辑公司', '公司详情', '创建', '更新', '删除');
+            break;
+        case "Department":
+            $('.nav-organ').addClass('active');
+            PageAction('#department', '新建部门', '编辑部门', '部门详情', '创建', '更新', '删除');
+            break;
+        case "Staff":
+            $('.nav-period').addClass('active');
+            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+            break;
+	case "ResignType":
+            $('.nav-inter-apply').addClass('active');
+            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+            break;
+	// case "Staff":
+ //            $('.nav-person').addClass('active');
+ //            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+ //            break;
+	// case "Staff":
+ //            $('.nav-staff').addClass('active');
+ //            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+ //            break;
+	// case "Staff":
+ //            $('.nav-inter-apply').addClass('active');
+ //            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+ //            break;
+>>>>>>> 2b58c910c0b92c028f8917f2384fa8e9c101d08f
 	case "Period":
         $('.nav-person').addClass('active');
         PageAction('#period', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
@@ -52,6 +98,7 @@ switch (pathname[1]) {
         PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');
         break;
 	case "AbsenceRecrod":
+<<<<<<< HEAD
         $('.nav-attendance-record').addClass('active');
         PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');
         break;
@@ -161,6 +208,118 @@ switch (pathname[1]) {
         //     };
         // };
         break;
+=======
+            $('.nav-attendance-record').addClass('active');
+            PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');
+            break;
+        case "CertificateType":
+            $('.nav-basic').addClass('active');
+            PageAction('#certificatetype', '新建证照类型', '编辑证照类型', '证照类型详情', '创建', '更新', '删除');
+            break;
+        case "JobTitle":
+            $('.nav-organ').addClass('active');
+            PageAction('#jobtitle', '新建职位', '编辑职位', '职位详情', '创建', '更新', '删除');
+            break;
+		         
+        case "DegreeType":
+            $('.nav-basic').addClass('active');
+            PageAction('#degreetype', '新建学历', '编辑学历', '学历详情', '创建', '更新', '删除');
+            break;
+        case "StaffType":
+            $('.nav-basic').addClass('active');
+            PageAction('#stafftype', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
+            break;
+		case "Period":
+            $('.nav-person').addClass('active');
+            PageAction('#period', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
+            break;
+        case "InSureType":
+            $('.nav-basic').addClass('active');
+            PageAction('#insuretype', '新建保险类别', '编辑保险类别', '保险类别详情', '创建', '更新', '删除');
+            break;
+        case "ResignType":
+            $('.nav-inter-apply').addClass('active');
+            PageAction('#resigntype', '新建离职类型', '编辑离职类型', '离职类型详情', '创建', '更新', '删除');
+            break;
+        case "AbsenceType":
+            $('.nav-attendance-record').addClass('active');
+            PageAction('#absencetype', '新建缺勤类型', '编辑缺勤类型', '缺勤类型详情', '创建', '更新', '删除');
+            break;
+        case "ExtraWorkType":
+            $('.nav-attendance-record').addClass('active');
+            PageAction('#extraworktype', '新建加班类型', '编辑加班类型', '加班类型详情', '创建', '更新', '删除');
+            break;
+        case "WorkAndRests":
+            $('.nav-shift').addClass('active');
+            PageAction('#workandrests', '新建作息表', '编辑作息表', '作息表详情', '创建', '更新', '删除');
+            break;
+        case "Certificate":
+            $('.nav-certificate').addClass('active');
+            PageAction('#certificate', '新建证照', '编辑证照', '证照详情', '创建', '更新', '删除');
+            break;
+        case "AbsenceRecrod":
+            $('.nav-absencerecrod').addClass('active');
+            PageAction('#absencerecord', '新建缺勤', '编辑缺勤', '缺勤详情', '创建', '更新', '删除');
+            break;
+        case "ExtraWorkRecord":
+            $('.nav-attendance-record').addClass('active');
+            PageAction('#extrawordrecord', '新建加班', '编辑加班', '加班详情', '创建', '更新', '删除');
+            break;
+        case "Shift":
+            $('.nav-shift').addClass('active');
+            PageAction('#shift', '新建班次', '编辑班次', '班次详情', '创建', '更新', '删除');
+            break;
+        case "ShiftSchedule":
+            $('.nav-shift').addClass('active');
+            PageAction('#shiftschedule', '新建排班', '编辑排班', '排班详情', '创建', '更新', '删除');
+            break;
+        case "QuartzJob":
+            $('.nav-attendance-record').addClass('active');
+            PageAction('#quartzjob', '新建考勤计算设置', '编辑考勤计算设置', '考勤计算设置详情', '创建', '更新', '删除');
+            break;
+        case "SysRole":
+            $('.nav-sysRole').addClass('active');
+            PageAction('#sysrole', '新建角色', '编辑角色', '角色详情', '创建', '更新', '删除');
+            break;
+        case "SysAuthorization":
+            $('.nav-sysRole').addClass('active');
+            PageAction('#sysauthorization', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
+            break;
+        case "SysRoleAuthorization":
+            $('.nav-sysRole').addClass('active');
+            PageAction('#sysauthorization', '新建角色权限', '编辑角色权限', '角色权限详情', '创建', '更新', '删除');
+            break;
+        case "TaskRound":
+            $('.nav-taskround').addClass('active');
+            break;
+        case "SystemSetting":
+            $('.nav-system-setting').addClass('active');
+            break;
+        case "InterApply":
+            $('.nav-inter-apply').addClass('active');
+            PageAction('#user', '新建离退申请', '编辑离退申请', '离退申请详情', '创建', '更新', '删除');
+            break;
+        case "Rehire":
+            $('.nav-rehire').addClass('active');
+            PageAction('#user', '新建回聘申请', '编辑回聘申请', '回聘申请详情', '创建', '更新', '删除');
+            break;
+        case "ExtraWorkRecord":
+            $('.nav-summary-report').addClass('active');
+            PageAction('#user', '新建加班管理', '编辑加班管理', '加班管理详情', '创建', '更新', '删除');
+            break;
+        case "SysOpera":
+            $('.nav-system-opera').addClass('active');
+            PageAction('#user', '新建系统操作', '编辑系统操作', '系统操作详情', '创建', '更新', '删除');
+            break;
+        case "RewardsAndPenalty":
+            
+            PageAction('#rewardsandpenalties', '新建奖惩记录', '编辑奖惩记录', '奖惩记录详情', '创建', '更新', '删除');
+            break;
+        case "Recruit":
+            
+            PageAction('#recruit', '新建招聘需求', '编辑招聘需求', '招聘需求详情', '创建', '更新', '删除');
+            break;	
+>>>>>>> 2b58c910c0b92c028f8917f2384fa8e9c101d08f
         
 	case "Personal":
         $('.nav-myThing').addClass('active');
@@ -216,7 +375,7 @@ switch (pathname[1]) {
             }
         });
 
-        if (pathname[pathname.length - 2] == "Edit") {
+ 		if (pathname[2] == "Edit") {
             $(".main-header").remove();
             $(".main-sidebar").remove();
 
@@ -228,7 +387,7 @@ switch (pathname[1]) {
 
             vueName.action = editAction;
             vueName.actionBtn = editBtn;
-        } else if (pathname[pathname.length - 2] == "Delete") {
+        } else if (pathname[2] == "Delete") {
             $(".main-header").remove();
             $(".main-sidebar").remove();
             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
@@ -238,6 +397,14 @@ switch (pathname[1]) {
             })
             vueName.action = deleteAction;
             vueName.actionBtn = deleteBtn;
+        }else if(pathname[2] == "Create"){
+        	$(".main-header").remove();
+            $(".main-sidebar").remove();
+            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+            $(window).resize(function(){
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            })
         }
     }
 }

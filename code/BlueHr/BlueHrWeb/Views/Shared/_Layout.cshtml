@@ -268,9 +268,9 @@
                                 </a>
                             </li>*@
 
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-calendar-minus-o"></i>
+                            <li class="nav-rewards_penalty ">
+                                <a href="/RewardsAndPenalty/Index">
+                                    <i class="fa fa-anchor"></i>
                                     奖惩管理
                                 </a>
                             </li>
@@ -396,8 +396,8 @@
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="#">
+                            <li class="nav-leave">
+                                <a href="/Recruit/Index">
                                     <i class="fa fa-user-times"></i>
                                     招聘需求
                                 </a>
@@ -456,6 +456,20 @@
 
 <script type="text/javascript">
     $('.option-icon-primary').click(function(){
-        Layout.openNewWindow($(this).attr("href"), $(window).width()-200, $(window).height()-100, 100, 200, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+        //1920* 1200  1068 * 677 刚刚好
+        //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
+        Layout.openNewWindow($(this).attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+
+        return false;
+    });
+    $('.option-icon-warning').click(function(){
+        Layout.openNewWindow($(this).attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+        return false;
+
+    });
+    $('a>button.marco-btn-primary').click(function(){
+        Layout.openNewWindow($(this).parent().attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+        
+        return false;
     });
 </script>
