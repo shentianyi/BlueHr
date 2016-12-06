@@ -42,18 +42,18 @@ Layout.init = function () {
             $('.nav-inter-apply').addClass('active');
             PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
             break;
-	case "Staff":
-            $('.nav-person').addClass('active');
-            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
-            break;
-	case "Staff":
-            $('.nav-staff').addClass('active');
-            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
-            break;
-	case "Staff":
-            $('.nav-inter-apply').addClass('active');
-            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
-            break;
+	// case "Staff":
+ //            $('.nav-person').addClass('active');
+ //            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+ //            break;
+	// case "Staff":
+ //            $('.nav-staff').addClass('active');
+ //            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+ //            break;
+	// case "Staff":
+ //            $('.nav-inter-apply').addClass('active');
+ //            PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+ //            break;
 	case "Period":
             $('.nav-person').addClass('active');
             PageAction('#period', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
@@ -183,7 +183,7 @@ Layout.init = function () {
             }
         });
 
-        if (pathname[pathname.length - 2] == "Edit") {
+ 		if (pathname[2] == "Edit") {
             $(".main-header").remove();
             $(".main-sidebar").remove();
 
@@ -195,7 +195,7 @@ Layout.init = function () {
 
             vueName.action = editAction;
             vueName.actionBtn = editBtn;
-        } else if (pathname[pathname.length - 2] == "Delete") {
+        } else if (pathname[2] == "Delete") {
             $(".main-header").remove();
             $(".main-sidebar").remove();
             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
@@ -205,6 +205,14 @@ Layout.init = function () {
             })
             vueName.action = deleteAction;
             vueName.actionBtn = deleteBtn;
+        }else if(pathname[2] == "Create"){
+        	$(".main-header").remove();
+            $(".main-sidebar").remove();
+            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+            $(window).resize(function(){
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            })
         }
     }
 }

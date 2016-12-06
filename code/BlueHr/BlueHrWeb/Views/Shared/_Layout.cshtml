@@ -361,6 +361,24 @@
         <!--1068 * 677 刚刚好-->
 
         <!--pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook-->
-        Layout.openNewWindow($(this).attr("href"), $(window).width()-200, $(window).height()-100, 100, 200, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+        Layout.openNewWindow($(this).attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+
+        return false;
+    });
+    $('.option-icon-warning').click(function(){
+        <!--1068 * 677 刚刚好-->
+
+        <!--pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook-->
+        Layout.openNewWindow($(this).attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+        return false;
+
+    });
+    $('a>button.marco-btn-primary').click(function(){
+        <!--1068 * 677 刚刚好-->
+
+        <!--pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook-->
+        Layout.openNewWindow($(this).parent().attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+        
+        return false;
     });
 </script>
