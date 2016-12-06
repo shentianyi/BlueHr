@@ -1,4 +1,4 @@
-USE [BlueHrV2]
+USE [BlueHrV1]
 GO
 
 delete from ExtraWorkRecordApproval

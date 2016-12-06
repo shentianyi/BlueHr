@@ -1029,6 +1029,8 @@ namespace BlueHrWeb.Controllers
         }
 
 
+
+
         [HttpGet]
         public JsonResult GetResignType()
         {
