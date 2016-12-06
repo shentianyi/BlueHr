@@ -146,7 +146,41 @@
                         <a href="/Basic/BasicInfo">
                             <i class="fa fa-unlock-alt"></i>
                             <span>基础信息管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
                         </a>
+
+                        <ul class="treeview-menu">
+                                <li>
+                                    <a href="/StaffType/Index">
+                                        <i class="fa fa-group"></i>
+                                        人员类型
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/CertificateType/Index">
+                                        <i class="fa fa-newspaper-o"></i>
+                                        证照类型
+                                    </a>
+                                </li>
+                           
+                                <li>
+                                    <a href="/DegreeType/Index">
+                                        <i class="fa fa-graduation-cap"></i>
+                                        学历管理
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="/InSureType/Index">
+                                        <i class="fa fa-flash"></i>
+                                        保险管理
+                                    </a>
+                                </li>
+                            
+                        </ul>
+
                     </li>
 
                     <li class="nav-organization">
@@ -165,12 +199,12 @@
                                     组织架构管理
                                 </a>
                             </li>
-                            <li class="nav-organizationTreeShow">
+                            @*<li class="nav-organizationTreeShow">
                                 <a href="/Comany/TreeShow">
                                     <i class="fa fa-anchor"></i>
                                     组织架构视图
                                 </a>
-                            </li>
+                            </li>*@
                         </ul>
                     </li>
                
@@ -184,15 +218,15 @@
                         </a>
 
                         <ul class="treeview-menu">
-                            <li class="nav-contract">
+                            @*<li class="nav-contract">
                                 <a href="#">
                                     <i class="fa fa-anchor"></i>
                                     合同管理
                                 </a>
-                            </li>
+                            </li>*@
 
                             <li class="nav-entry">
-                                <a href="#">
+                                <a href="/Staff/Create">
                                     <i class="fa fa-list-ol"></i>
                                     入职管理
                                 </a>
@@ -219,19 +253,19 @@
                                 </a>
                             </li>
 
-                            <li class="nav-rehire">
+                            @*<li class="nav-rehire">
                                 <a href="#">
                                     <i class="fa fa-anchor"></i>
                                     回聘管理
                                 </a>
-                            </li>
+                            </li>*@
 
-                            <li class="nav-retired">
+                            @*<li class="nav-retired">
                                 <a href="#">
                                     <i class="fa fa-anchor"></i>
                                     员工退休
                                 </a>
-                            </li>
+                            </li>*@
 
                             <li class="nav-rewards_penalty ">
                                 <a href="#">
@@ -253,21 +287,70 @@
                         </a>
 
                         <ul class="treeview-menu">
+
+                            <li>
+                                <a href="/Shift/Index">
+                                    <i class="fa fa-list-ol"></i>
+                                    班次设置
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/ShiftSchedule/Index">
+                                    <i class="fa fa-table"></i>
+                                    排班查询
+                                </a>
+                            </li>
+
                             <li class="nav-leave">
                                 <a href="#">
                                     <i class="fa fa-anchor"></i>
                                     请假管理
                                 </a>
                             </li>
-
-                            <li class="nav-extraWork">
+                            <li class="nav-extrawordrecord">
                                 <a href="/ExtraWorkRecord/Index">
-                                    <i class="fa fa-list-ol"></i>
+                                    <i class="fa fa-tachometer"></i>
                                     加班管理
                                 </a>
                             </li>
 
-                            <li class="nav-business">
+                            <li>
+                                <a href="/AttendanceRecordDetail/Index">
+                                    <i class="fa fa-list-ol"></i>
+                                    考勤记录
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/QuartzJob/Index">
+                                    <i class="fa fa-rocket"></i>
+                                    考勤计算设置
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/AttendanceRecordCal/Index">
+                                    <i class="fa fa-table"></i>
+                                    统计记录
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/AttendanceRecordCal/ExceptionList">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    异常统计
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/WorkAndRests/Index">
+                                    <i class="fa fa-calendar-minus-o"></i>
+                                    作息时间
+                                </a>
+                            </li>
+
+                            @*<li class="nav-business">
                                 <a href="#">
                                     <i class="fa fa-anchor"></i>
                                     出差管理
@@ -279,7 +362,7 @@
                                     <i class="fa fa-anchor"></i>
                                     公出管理
                                 </a>
-                            </li>
+                            </li>*@
                         </ul>
                     </li>
 
