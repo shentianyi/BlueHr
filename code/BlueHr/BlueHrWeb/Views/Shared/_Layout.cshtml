@@ -356,16 +356,25 @@
 </html>
 @if (Session["user"] != null && MenuAuthHelper.CanShow("MessageRecord", "Index"))
 {
+    <script type="text/javascript">
+            $(function () {
+                $.get("/MessageRecord/UnReadCount", null, function (data) {
+                    if (data != null && data > 0) {
+                        $('.fa-bell-o').css({ animation: "bell-shake 3s", animationIterationCount: "infinite" })
+                        $("#unread-count").text(data>999 ? "..." : data);
+                    } else {
+                        $("#unread-count").text("");
+                    }
+                },"json");
+            });
+    </script>
+}
+
 <script type="text/javascript">
-    $(function () {
-        $.get("/MessageRecord/UnReadCount", null, function (data) {
-            if (data != null && data > 0) {
-                $('.fa-bell-o').css({ animation: "bell-shake 3s", animationIterationCount: "infinite" })
-                $("#unread-count").text(data>999 ? "..." : data);
-            } else {
-                $("#unread-count").text("");
-            }
-        },"json");
+    $('.option-icon-primary').click(function(){
+        <!--1068 * 677 刚刚好-->
+
+        <!--pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook-->
+        Layout.openNewWindow($(this).attr("href"), $(window).width()-200, $(window).height()-100, 100, 200, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
     });
 </script>
-}

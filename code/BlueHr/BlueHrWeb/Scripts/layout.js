@@ -184,9 +184,25 @@ Layout.init = function () {
         });
 
         if (pathname[pathname.length - 2] == "Edit") {
+            $(".main-header").remove();
+            $(".main-sidebar").remove();
+
+            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+            $(window).resize(function(){
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            })
+
             vueName.action = editAction;
             vueName.actionBtn = editBtn;
         } else if (pathname[pathname.length - 2] == "Delete") {
+            $(".main-header").remove();
+            $(".main-sidebar").remove();
+            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+            $(window).resize(function(){
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            })
             vueName.action = deleteAction;
             vueName.actionBtn = deleteBtn;
         }
@@ -366,4 +382,13 @@ Layout.TransferTableToGrid = function (width, height, editable, divID, title, rP
     newObj.pageModel = { rPP: rPP, type: "local" };
 
     $("#" + gridID).pqGrid(newObj);
+}
+
+// 弹出任意界面的内容
+Layout.openNewWindow = function(pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook){
+    NewWindow = window.open (pageURL, 'newwindow', 'height='+height+', width='+width+', top = '+top+',left= '+left+
+    ', toolbar='+toolbar+', menubar='+menubar+', scrollbars='+scrollbars+', resizable='+resizable+',location='+location+', status='+status+
+    ', alwaysRaised='+alwaysRaised+', zLook='+zLook+' ');
+
+    NewWindow.focus();
 }

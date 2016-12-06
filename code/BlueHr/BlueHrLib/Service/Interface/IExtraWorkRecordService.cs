@@ -30,5 +30,7 @@ namespace BlueHrLib.Service.Interface
 
         bool ApprovalTheRecord(ExtraWorkRecordApproval extralApproval);
         List<ExtraWorkRecord> GetAllTableName();
+
+        IQueryable<ExtraWorkRecordView> ExtraWorkViewSearch(ExtraWorkRecordSearchModel searchModel);
     }
 }

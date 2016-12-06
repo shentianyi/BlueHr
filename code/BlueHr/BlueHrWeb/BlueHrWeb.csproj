@@ -310,6 +310,8 @@
       <DependentUpon>company.css</DependentUpon>
     </Content>
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\fullcalendar.css" />
+    <Content Include="Content\fullcalendar.print.css" />
     <Content Include="Content\highcharts.css" />
     <Content Include="Content\layout.css">
       <DependentUpon>layout.scss</DependentUpon>
@@ -408,6 +410,9 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\certificate.js" />
     <Content Include="Scripts\company.js" />
+    <Content Include="Scripts\fullcalendar-locale-all.js" />
+    <Content Include="Scripts\fullcalendar-moment.min.js" />
+    <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\go.js" />
     <Content Include="Scripts\highcharts\highcharts-3d.js" />
     <Content Include="Scripts\highcharts\highcharts-3d.src.js" />
