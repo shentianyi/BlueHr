@@ -175,8 +175,11 @@ namespace BlueHrLib.Data.Repository.Implement
                     parModel.scheduleAt = startTimeSet;
                     DateTime scheduleAt = parModel.scheduleAt;
                     current.scheduleAt = scheduleAt;
-                    this.context.GetTable<ShiftSchedule>().InsertOnSubmit(current);
-                    this.context.SubmitChanges();
+                    if (!IsDup(current))
+                    {
+                        this.context.GetTable<ShiftSchedule>().InsertOnSubmit(current);
+                        this.context.SubmitChanges();
+                    }
                     startTimeSet=startTimeSet.AddDays(1);
                     parModel.id= parModel.id+1;
                 }
@@ -186,6 +189,20 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 return false;
             }
+        }
+
+        private bool IsDup(ShiftSchedule current)
+        {
+            var q = this.context.GetTable<ShiftSchedule>().Where(s => s.scheduleAt.Equals(current.scheduleAt) && s.staffNr.Equals(current.staffNr) && s.shiftId.Equals(current.shiftId));
+            if (current.id > 0)
+            {
+                q = q.Where(s => s.id != current.id);
+            }
+
+
+            var m = q.FirstOrDefault();
+
+            return m != null;
         }
     }
 }
