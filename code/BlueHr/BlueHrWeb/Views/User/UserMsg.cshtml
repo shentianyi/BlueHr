@@ -1,4 +1,4 @@
-@using MvcPaging
+﻿@using MvcPaging
 @model IPagedList<BlueHrLib.Data.User>
 @{
     ViewBag.Title = "个人信息";
@@ -6,7 +6,7 @@
 @*@Styles.Render("~/Content/degreetype")*@
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
-    <li>个人信息</li>   
+    <li>个人信息</li>
 </ol>
 
 <hr class="hr-grey" />
@@ -133,15 +133,16 @@
         </div>
     </div>
 </div>
-    <style>
-        .input_kuang {
-            background: #fff;
-            border: 1px solid #999;
-        }
-        .input_kuang {
-            width: 70%;
-        }
-    </style>
+<style>
+    .input_kuang {
+        background: #fff;
+        border: 1px solid #999;
+    }
+
+    .input_kuang {
+        width: 70%;
+    }
+</style>
 
 @*@Scripts.Render("~/bundles/degreetype")*@
 <script type="text/javascript">
@@ -150,6 +151,6 @@
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "user_msg", "基本信息", "20", "user_msg_grid_table");
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "user_detailmsg", "详细信息", "20", "user_detailmsg_grid_table");
     })
-   
+
     Layout.advancedfilter();
 </script>
