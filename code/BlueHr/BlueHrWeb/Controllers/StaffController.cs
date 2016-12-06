@@ -119,40 +119,28 @@ namespace BlueHrWeb.Controllers
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
             IPagedList<Staff> staffs = null;
-
-            string AllTableName = null;
-            string SearchConditions = null;
-            string SearchValueFirst = null;
-            string SearchValueSecond =null;
-
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
-                AllTableName = Request.Form["allTableName"].ToString();
-
-                SetAllTableName(AllTableName);
-
                 if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
                 {
-                    SearchConditions = Request.Form.Get("searchConditions");
-
-                    SetSearchConditions(Convert.ToInt32(SearchConditions));
-
                     if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
                     {
-                        SearchValueFirst = Request.Form.Get("searchValueFirst").ToString();
-
-                        ViewBag.searchValueFirst = SearchValueFirst;
-
-                        SearchValueSecond = Request.Form.Get("searchValueSecond").ToString();
-                        ViewBag.searchValueSecond = SearchValueSecond;
-
-                        //有两个值， 需要进行两个值的查询
-                        staffs = ss.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
-                       
-                    }
-                    else
-                    {
-                        //不能进行查询
+                        string AllTableName = Request.Form["allTableName"].ToString();
+                        string[] AllTableNameArray = AllTableName.Split(',');
+                        string SearchConditions = Request.Form["searchConditions"];
+                        string[] SearchConditionsArray = AllTableName.Split(',');
+                        string searchValueFirst = Request.Form["searchValueFirst"];
+                        string[] searchValueFirstArray = AllTableName.Split(',');
+                        staffs= ss.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0]).ToPagedList(pageIndex, Settings.Default.pageSize);
+                        for (var i = 0; i < AllTableNameArray.Length; i++)
+                        {
+                            IPagedList<Staff> staffstemp = null;
+                            staffstemp = ss.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i]).ToPagedList(pageIndex, Settings.Default.pageSize);
+                            foreach (var temp in staffstemp)
+                            {
+                                if(staffs.FirstOrDefault(s => s.nr.Equals(temp.nr)) ==null)staffs.ToList().Remove(temp);
+                            }
+                        }
                     }
                 }
             }

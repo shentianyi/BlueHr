@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 USE [BlueHrV1]
+=======
+USE [BlueHr]
+>>>>>>> 85824e2235e8a895feeb51be9a9b362535ce8855
 GO
 
 /****** Object:  View [dbo].[ExtraWorkRecordView]    Script Date: 12/05/2016 19:19:23 ******/
@@ -6,7 +10,11 @@ IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[ExtraWo
 DROP VIEW [dbo].[ExtraWorkRecordView]
 GO
 
+<<<<<<< HEAD
 USE [BlueHrV1]
+=======
+USE [BlueHr]
+>>>>>>> 85824e2235e8a895feeb51be9a9b362535ce8855
 GO
 
 /****** Object:  View [dbo].[ExtraWorkRecordView]    Script Date: 12/05/2016 19:19:24 ******/
