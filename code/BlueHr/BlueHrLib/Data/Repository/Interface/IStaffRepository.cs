@@ -35,7 +35,7 @@ namespace BlueHrLib.Data.Repository.Interface
 
         List<Staff> GetAllTableName();
 
-        IQueryable<Staff> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst, string SearchValueSecond);
+        IQueryable<Staff> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst);
         
         int CountStaff(int workStatus);
         

@@ -201,14 +201,14 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        private void SetDropDownList(RewardsAndPenalty rewardsAndPenalties)
+        private void SetDropDownList(RewardsAndPenalty rewardsAndPenalty)
         {
-            if (rewardsAndPenalties != null)
+            if (rewardsAndPenalty != null)
             {
-                SetSexList(rewardsAndPenalties.staffSex);
-                SetCompanyList(rewardsAndPenalties.companyId);
-                SetDepartmentList(rewardsAndPenalties.companyId, rewardsAndPenalties.departmentId);
-                SetTypeList(rewardsAndPenalties.type);
+                SetSexList(rewardsAndPenalty.staffSex);
+                SetCompanyList(rewardsAndPenalty.companyId);
+                SetDepartmentList(rewardsAndPenalty.companyId, rewardsAndPenalty.departmentId);
+                SetTypeList(rewardsAndPenalty.type);
             }
             else
             {
