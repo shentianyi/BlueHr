@@ -55,11 +55,33 @@ namespace BlueHrWeb.Controllers
 
 
         [RoleAndDataAuthorizationAttribute]
-        // GET: User/UserMsg/
         public ActionResult UserMsg()
         {
             return View();
         }
+
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult Log()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult UserDetail(int id)
+        {
+            try
+            {
+                Dictionary<string, string> Result = new Dictionary<string, string>();
+                IUserService us = new UserService(Settings.Default.db);
+                User detail = us.FindById(id);
+                Result.Add("用户名", detail.name);
+                Result.Add("邮箱", detail.email);
+                Result.Add("是否锁定", detail.isLockedStr);
+                Result.Add("角色类型", detail.roleStr);
+                return Json(Result, JsonRequestBehavior.AllowGet);
+            }catch { return null; }
+        }
+
 
         [AdminAuthorize]
         [RoleAndDataAuthorizationAttribute]
