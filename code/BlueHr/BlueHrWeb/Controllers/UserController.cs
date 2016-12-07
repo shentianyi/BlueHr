@@ -57,7 +57,8 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult UserMsg()
         {
-            return View();
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            return View(user);
         }
 
         [RoleAndDataAuthorizationAttribute]
@@ -81,7 +82,9 @@ namespace BlueHrWeb.Controllers
                 Result.Add("是否锁定", user.isLockedStr);
                 Result.Add("角色类型", user.roleStr);
                 return Json(Result, JsonRequestBehavior.AllowGet);
-            }catch { return null; }
+            }catch {
+                return null;
+            }
         }
 
 
