@@ -38,5 +38,11 @@ namespace BlueHrLib.Data.Repository.Implement
             var q = this.context.MessageRecord.Where(s => s.messageType == 203).ToList();
             return q;
         }
+
+        public List<MessageRecord> FindByType(int type)
+        {
+            var q = this.context.MessageRecord.Where(s => s.messageType == type).ToList();
+            return q;
+        }
     }
 }
