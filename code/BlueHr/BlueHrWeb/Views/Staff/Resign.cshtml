@@ -107,6 +107,7 @@
 @Scripts.Render("~/bundles/staff")
 
 <script type="text/javascript">
+    Layout.init();
     Staff.other_image_preview('#photo_name', '#photo', '.photo_preview');
 
     $("#resignAt").val(FutureDate(0));

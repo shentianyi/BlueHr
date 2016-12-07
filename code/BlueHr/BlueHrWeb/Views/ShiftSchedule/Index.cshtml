@@ -55,12 +55,7 @@
                             <i class="fa fa-search"></i>
                             搜索
                         </button>
-                        @if (canImport)
-                        {
-                            <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
-                                导入排班记录
-                            </button>
-                        }
+                        
                     </span>
                 </div>
             </div>
@@ -112,6 +107,12 @@
                 <span>创建</span>
             </button>
         </a>
+        @if (canImport)
+        {
+            <button class="marco-btn-primary import-button-dialog pull-right" title="Import" type="button" style="margin-top: -5px; margin-right:5px;">
+                导入排班记录
+            </button>
+        }
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
 
             <li role="presentation" class="active"><a href="#all_ShiftSchedule" role="tab" data-toggle="tab">所有排班管理</a></li>
@@ -119,8 +120,6 @@
 
         </ul>
         <div class="tab-content">
-
-
             <div role="tabpanel" class="tab-pane  active" id="all_ShiftSchedule">
                 <div id="all_ShiftSchedule_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">

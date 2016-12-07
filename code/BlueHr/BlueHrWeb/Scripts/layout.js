@@ -62,13 +62,12 @@ switch (pathname[1]) {
         if(pathname[2]=="Index"){
             $('.nav-attendancerecordcal').addClass('active');
             $('.nav-attendance').addClass('active');
-            PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');
         }
         if(pathname[2]=="ExceptionList"){
             $('.nav-bugstatistic').addClass('active');
             $('.nav-attendance').addClass('active');
-            PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');
-        }            
+        }  
+        PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');          
         break;
 	case "AbsenceRecrod":
         $('.nav-attendance-record').addClass('active');
@@ -179,7 +178,7 @@ switch (pathname[1]) {
         PageAction('#extrawordrecord', '新建加班申请', '编辑加班申请', '加班申请详情', '创建', '更新', '删除');
         break;
     case "RewardsAndPenalty":
-        $('.nav-laborrelations').addClass('active');
+        $('.nav-manage').addClass('active');
         $('.nav-rewardspenalty').addClass('active');
         PageAction('#rewardsandpenalties', '新建奖惩记录', '编辑奖惩记录', '奖惩记录详情', '创建', '更新', '删除');
         break;
