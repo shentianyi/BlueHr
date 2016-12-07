@@ -10,7 +10,7 @@
 
     <hr class="hr-grey" />
 
-    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action"}))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -25,7 +25,7 @@
                 {{action}}
 
                 <div class="pull-right">
-                    <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;" id="submitform">
+                    <button type="submit" class="submit-btn marco-btn-primary" style="margin-top:-10px; padding: 0 10px;" id="submitform">
                         <i class="fa fa-check-circle-o"></i>
                         <span>{{actionBtn}}</span>
                     </button>
@@ -132,46 +132,50 @@
         datepicker: false
     });
 
-    //验证
-    //function validate_page_info() {
-     
-    //    if (Layout.IsStringNull($('#name').val())) {
-    //        Layout.popMsg('popMsg-danger', "名称不能为空");
-    //        return false;
-    //    }
+    $('.submit-btn').click(function () {
+                if (Layout.IsStringNull($('#name').val())) {
+                    Layout.popMsg('popMsg-danger', "名称不能为空");
+                    return false;
+                }
 
-    //    if (Layout.IsStringNull($('#code').val())) {
-    //        Layout.popMsg('popMsg-danger', "代码不能为空");
-    //        return false;
-    //    }
+                if (Layout.IsStringNull($('#code').val())) {
+                    Layout.popMsg('popMsg-danger', "代码不能为空");
+                    return false;
+                }
 
-    //    if (Layout.IsStringNull($('#startAt').val())) {
-    //        Layout.popMsg('popMsg-danger', "开始时间不能为空");
-    //        return false;
-    //    }
+                if (Layout.IsStringNull($('#startAt').val())) {
+                    Layout.popMsg('popMsg-danger', "开始时间不能为空");
+                    return false;
+                }
 
-    //    if (Layout.IsStringNull($('#endAt').val())) {
-    //        Layout.popMsg('popMsg-danger', "截止时间不能为空");
-    //        return false;
-    //    }
+                if (Layout.IsStringNull($('#endAt').val())) {
+                    Layout.popMsg('popMsg-danger', "截止时间不能为空");
+                    return false;
+                }
 
-    //    if (Layout.IsStringNull($('#shiftType').val())) {
-    //        Layout.popMsg('popMsg-danger', "班次类型不能为空");
-    //        return false;
-    //    }
-    //}
+                if (Layout.IsStringNull($('#shiftType').val())) {
+                    Layout.popMsg('popMsg-danger', "班次类型不能为空");
+                    return false;
+                }
 
+                //var start = new Date($('#startAt').val()).getTime();
+                //var end = new Date($('#endAt').val()).getTime();
+
+                //if (start > end) {
+                //    Layout.popMsg('popMsg-danger', "开始时间不能晚于截止时间");
+                 //   return false;
+                //}               
+    });
+    
     //回调函数
     function post_return_action(data) {
-
-        if (!data.Success) {
-            Layout.popMsg('popMsg-danger', data.Content);
-            return false;
-        }
-        else {
-            
+        if (data.Success) {
             location.href = '/Shift/Index';
         }
+        else {
+            Layout.popMsg('popMsg-danger', data.Content);
+            
+        }
     }
-
+  
 </script>

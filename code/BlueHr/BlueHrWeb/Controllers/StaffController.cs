@@ -1219,16 +1219,39 @@ namespace BlueHrWeb.Controllers
             //q.IsOnTrial = true;
             User user = System.Web.HttpContext.Current.Session["user"] as User;
             q.loginUser = user;
+            q.IsOnTrial = true;
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+
+            List<Staff> staffs = ss.Search(q).ToList()/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+
             IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+
             foreach (var i in mrs.FindByType(201))
             {
-                q.StaffNrs.Add(i.staffNr);
+                staffs.Add(ss.FindByNr(i.staffNr));
             }
-            IStaffService ss = new StaffService(Settings.Default.db);
-            IPagedList<Staff> staffs = ss.SearchOnTrialStaff(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            //q.IsOnTrial = false;
+
+            //foreach(var staff in ss.Search(q).ToList())
+            //{
+            //    staffs.Add(staff);/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+            //}
+
+            //StaffSearchModel ontrail = new StaffSearchModel();
+
+            //ontrail.loginUser = user;
+
+            //foreach(var i in ss.SearchOnTrialStaff(ontrail))
+            //{
+            //    staffs.Add(i);
+            //}
+
             ViewBag.Query = q;
+
             SetDropDownList(null);
-            return View(staffs);
+            return View(staffs.ToPagedList(pageIndex, Settings.Default.pageSize));
         }
 
         //[UserAuthorize]
