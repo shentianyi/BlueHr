@@ -250,10 +250,10 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            if (model.shiftType == 100 && model.endAt.ToString() == model.startAt.ToString())
+            if (model.shiftType == 100 && Convert.ToInt32(model.endAt.Hours.ToString()) <= Convert.ToInt32(model.startAt.Hours.ToString()))
             {
                 msg.Success = false;
-                msg.Content = "上班时间为0，请检查";
+                msg.Content = "上班时间错误，请检查";
 
                 return msg;
             }
