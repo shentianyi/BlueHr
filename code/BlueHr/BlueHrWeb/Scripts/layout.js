@@ -145,7 +145,6 @@ switch (pathname[1]) {
             $('.nav-laborRelations').addClass('active');
             $('.nav-create').addClass('active');
         };
-
         PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
 
         break;
@@ -168,9 +167,9 @@ switch (pathname[1]) {
         PageAction('#rewardsandpenalties', '新建奖惩记录', '编辑奖惩记录', '奖惩记录详情', '创建', '更新', '删除');
         break;
     case "Recruit":
+        $('.nav-manage').addClass('active');
         PageAction('#recruit', '新建招聘需求', '编辑招聘需求', '招聘需求详情', '创建', '更新', '删除');
         break;	
-        
 	case "Personal":
         $('.nav-myThing').addClass('active');
         if(pathname[2] == "Application"){

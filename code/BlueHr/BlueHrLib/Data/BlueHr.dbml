@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHrV2" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=S2\SQLSERVER2008R2;Initial Catalog=BlueHrV2;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrV2ConnectionString3" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=SFZ-PC\SQLEXPRESS;Initial Catalog=BlueHrV2;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrV2ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.WorkAndRest" Member="WorkAndRest">
     <Type Name="WorkAndRest">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -686,36 +686,6 @@
       <Association Name="JobTitle_Staff" Member="Staff" ThisKey="id" OtherKey="jobTitleId" Type="Staff" />
     </Type>
   </Table>
-  <Table Name="dbo.Recruit" Member="Recruit">
-    <Type Name="Recruit">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="requirement" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="departmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="amount" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="createAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="requirementAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="requirementMan" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="status" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="auditRecord" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="auditView" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.RewardsAndPenalty" Member="RewardsAndPenalty">
-    <Type Name="RewardsAndPenalty">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="staffName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="staffSex" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="departmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="type" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="project" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="createAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.ExtraWorkRecord" Member="ExtraWorkRecord">
     <Type Name="ExtraWorkRecord">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -826,6 +796,49 @@
       <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Staff_FullMemberRecord" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Recruit" Member="Recruit">
+    <Type Name="Recruit">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="requirement" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="departmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="amount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="createAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="requirementAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="requirementMan" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="auditRecord" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="auditView" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RewardsAndPenalty" Member="RewardsAndPenalty">
+    <Type Name="RewardsAndPenalty">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="staffName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="staffSex" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="departmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="project" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="createAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonSchedule" Member="PersonSchedule">
+    <Type Name="PersonSchedule">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="startTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="endTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="subject" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="significance" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="context" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="isDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
