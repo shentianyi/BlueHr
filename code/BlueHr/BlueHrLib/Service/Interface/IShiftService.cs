@@ -33,6 +33,6 @@ namespace BlueHrLib.Service.Interface
 
         ShiftInfoModel GetShiftInfo(ShiftSearchModel searchModel);
         List<Shift> GetAllTableName();
-        IQueryable<Shift> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst, string searchValueSecond);
+        IQueryable<Shift> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst);
     }
 }

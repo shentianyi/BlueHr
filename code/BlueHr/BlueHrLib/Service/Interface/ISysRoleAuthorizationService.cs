@@ -35,6 +35,6 @@ namespace BlueHrLib.Service.Interface
 
         bool DeleteByRoleId(int roleId);
         List<SysRoleAuthorization> GetAllTableName();
-        IQueryable<SysRoleAuthorization> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst, string searchValueSecond);
+        IQueryable<SysRoleAuthorization> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst);
     }
 }

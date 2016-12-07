@@ -318,51 +318,48 @@ namespace BlueHrWeb.Controllers
             q.loginUser = user;
             ViewBag.Query = q;
 
-            IWorkAndRestService wars = new WorkAndRestService(Settings.Default.db);
+            IWorkAndRestService sras = new WorkAndRestService(Settings.Default.db);
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
             IPagedList<WorkAndRest> workAndRests = null;
-
-            string AllTableName = null;
-            string SearchConditions = null;
-            string SearchValueFirst = null;
-            string SearchValueSecond = null;
-
+            IQueryable<WorkAndRest> workAndReststemp = null;
+            IQueryable<WorkAndRest> workAndReststemp1 = null;
+            List<WorkAndRest> Result = new List<WorkAndRest>();
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
-                AllTableName = Request.Form["allTableName"].ToString();
-
-                SetAllTableName(AllTableName);
-
                 if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
                 {
-                    SearchConditions = Request.Form.Get("searchConditions");
-
-                    SetSearchConditions(Convert.ToInt32(SearchConditions));
-
                     if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
                     {
-                        SearchValueFirst = Request.Form.Get("searchValueFirst").ToString();
-
-                        ViewBag.searchValueFirst = SearchValueFirst;
-
-                        SearchValueSecond = Request.Form.Get("searchValueSecond").ToString();
-                        ViewBag.searchValueSecond = SearchValueSecond;
-
-                        //有两个值， 需要进行两个值的查询
-                        workAndRests = wars.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
-
-                    }
-                    else
-                    {
-                        //不能进行查询
+                        string AllTableName = Request.Form["allTableName"].ToString();
+                        string[] AllTableNameArray = AllTableName.Split(',');
+                        string SearchConditions = Request.Form["searchConditions"];
+                        string[] SearchConditionsArray = SearchConditions.Split(',');
+                        string searchValueFirst = Request.Form["searchValueFirst"];
+                        string[] searchValueFirstArray = searchValueFirst.Split(',');
+                        workAndReststemp1 = sras.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                        if (AllTableNameArray.Length > 1)
+                        {
+                            for (var i = 1; i < AllTableNameArray.Length; i++)
+                            {
+                                workAndReststemp = sras.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in workAndReststemp)
+                                {
+                                    if (workAndReststemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            workAndRests = workAndReststemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                        }
                     }
                 }
             }
+            workAndRests = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
 
-            SetWorkAndRestTypeList(null);
             return View("Index", workAndRests);
         }
     }
