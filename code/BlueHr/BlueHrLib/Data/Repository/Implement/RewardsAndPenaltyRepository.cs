@@ -55,9 +55,13 @@ namespace BlueHrLib.Data.Repository.Implement
         public IQueryable<RewardsAndPenalty> Search(RewardsAndPenaltySearchModel searchModel)
         {
             IQueryable<RewardsAndPenalty> certf = this.context.RewardsAndPenalty;
-            if (!string.IsNullOrEmpty(searchModel.StaffName))
+            if (!string.IsNullOrEmpty(searchModel.StaffNr))
             {
-                certf = certf.Where(c => c.staffName.Contains(searchModel.StaffName.Trim()));
+                certf = certf.Where(c => c.staffNr.Contains(searchModel.StaffNr.Trim()));
+            }
+            if (searchModel.type==null)
+            {
+                certf = certf.Where(c => c.type == searchModel.type);
             }
             return certf;
         }
@@ -69,15 +73,15 @@ namespace BlueHrLib.Data.Repository.Implement
             if (cp != null)
             {
                 cp.staffNr = certf.staffNr;
-                cp.staffName = certf.staffName;
-                cp.staffSex = certf.staffSex;
-                cp.departmentId = certf.departmentId;
                 cp.type = certf.type;
                 cp.project = certf.project;
                 cp.description = certf.description;
-                cp.createAt = certf.createAt;
-                cp.userId = certf.userId;
-
+                cp.createdAt = certf.createdAt;
+                cp.createdUserId = certf.createdUserId;
+                cp.approvalUserId = certf.approvalUserId;
+                cp.approvalStatus = certf.approvalStatus;
+                cp.approvalRemark = certf.approvalRemark;
+                cp.approvalAt = certf.approvalAt;
                 this.context.SubmitChanges();
                 return true;
             }
