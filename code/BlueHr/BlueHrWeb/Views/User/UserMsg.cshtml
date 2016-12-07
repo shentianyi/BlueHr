@@ -51,7 +51,7 @@
                 <img src="~/Images/user.jpg" alt="图片" />
             </div>
             <div style="width:60%;margin-left:20%;margin-top:-20%;margin-bottom:7%;">
-                <table width=20%; class="table" style="color:#4a9195;font-size:1.2em;">
+                <table width=20% class="table" style="color:#4a9195;font-size:1.2em;">
                     <tbody id="UserMessages" style="background:none;"></tbody>
                 </table>
             </div>
@@ -64,10 +64,10 @@
                 <div class="row">
                    
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                        <span>登陆时间: </span> <span id="loginTime">13:55</span>
+                        <span>登录时间: </span> <span id="loginTime">13:55</span>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                        <span>在线时长: </span> <span id="OnlineTime">00</span> <span>分钟</span>
+                        <span>登录时长: </span> <span id="OnlineTime">00</span> <span></span>
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
                         <span>登录次数:</span><span id="loginCount">00</span> <span>次</span>
@@ -77,7 +77,6 @@
         </div>
     </div>
 </div>
-
 
 @*@Scripts.Render("~/bundles/degreetype")*@
 <script type="text/javascript">
@@ -99,30 +98,85 @@
         }
     });
 
+
+    $.ajax({
+        url: '/MessageRecord/LoginDetail',
+        type: 'get',
+        success: function (data) {
+            $("#loginTime").html(data);
+        },
+        error: function () {
+            console.log("CCCCCCCC");
+        }
+    });
+    
     $.ajax({
         url: '/MessageRecord/LoginInCount',
         type: 'get',
         success: function (data) {
-            console.log(data)
+            $("#loginCount").html(data);
         },
         error: function () {
             console.log("CCCCCCCC");
         }
     });
 
-    $("#loginTime").html(SetTime(new Date().getHours())+ ":" + SetTime(new Date().getMinutes()));
+    // var OnlineTime = setInterval(function(){
+    //     $("#OnlineTime").html(i);
+    //     i++;
+    // }, 60000);
 
-        function SetTime(time){
-            if(time<10){
-                return "0"+time;
-            }else{
-                return time;
-            }
-        }
+    // var thisTime = SetTime(new Date().getHours())+ ":" + SetTime(new Date().getMinutes());
 
-        var i = 0;
-        setInterval(function(){
-            $("#OnlineTime").html(i);
-            i++;
-        }, 60000);
+    // $("#loginTime").html(thisTime.getTime() - OnlineTime.getTime());
+
+    // function SetTime(time){
+    //     if(time<10){
+    //         return "0"+time;
+    //     }else{
+    //         return time;
+    //     }
+    // }
+    
+function DiffLong(datestr1, datestr2) {
+
+    var date1 = new Date(Date.parse(datestr1.replace(/-/g, "/")));
+    var date2 = new Date(Date.parse(datestr2.replace(/-/g, "/")));
+    var datetimeTemp;
+    var isLater = true;
+
+    if (date1.getTime() > date2.getTime()) {
+        isLater = false;
+        datetimeTemp = date1;
+        date1 = date2;
+        date2 = datetimeTemp;
+    }
+
+    difference = date2.getTime() - date1.getTime();
+    //thisdays = Math.floor(difference / (1000 * 60 * 60 * 24));
+    thishours = Math.floor(difference / (1000 * 60 * 60));
+
+    difference = difference - thishours * (1000 * 60 * 60);
+    thisminutes = Math.floor(difference / (1000 * 60));
+
+    difference = difference - thisminutes * (1000 * 60);
+    thisseconds = Math.floor(difference / (1000));
+
+
+    var strRet = thishours + '时' + thisminutes + '分' + thisseconds + '秒';
+
+    return strRet;
+}
+
+
+function SetTime(time){
+    if(time<10){
+        return "0"+time;
+    }else{
+        return time;
+    }
+}
+
+DiffLong(SetTime(new Date().getHours())+ ":" + SetTime(new Date().getMinutes()), 0)
+
 </script>

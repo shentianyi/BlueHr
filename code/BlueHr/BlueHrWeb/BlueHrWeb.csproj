@@ -320,6 +320,7 @@
     <Content Include="Content\layout.min.css">
       <DependentUpon>layout.css</DependentUpon>
     </Content>
+    <Content Include="Images\alarm_clock.png" />
     <Content Include="Images\back1.jpg" />
     <Content Include="Images\back2.jpg" />
     <Content Include="Images\back3.png" />
@@ -374,6 +375,7 @@
     <Content Include="Images\treeIcon\loading.gif" />
     <Content Include="Images\treeIcon\metro.gif" />
     <Content Include="Images\treeIcon\metro.png" />
+    <Content Include="Images\user.jpg" />
     <Content Include="README.txt" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />

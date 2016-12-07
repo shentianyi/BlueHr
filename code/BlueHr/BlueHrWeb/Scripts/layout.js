@@ -25,11 +25,7 @@ switch (pathname[1]) {
     case "Home":
         $('.nav-myHome').addClass('active');       
         break;
-    case "User":
-        $('.nav-userAuthorization').addClass('active');
-        $('.nav-user').addClass('active');
-        PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
-        break;
+    
     case "SysRole":
         $('.nav-userAuthorization').addClass('active');
         $('.nav-sysRole').addClass('active');
@@ -68,6 +64,14 @@ switch (pathname[1]) {
             $('.nav-attendance').addClass('active');
         }  
         PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');          
+        break;
+
+    case "User":
+        if(pathname[2]=="Index"){
+            $('.nav-user').addClass('active');
+            $('.nav-userAuthorization').addClass('active');
+        }
+        PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
         break;
 	case "AbsenceRecrod":
         $('.nav-attendance-record').addClass('active');
