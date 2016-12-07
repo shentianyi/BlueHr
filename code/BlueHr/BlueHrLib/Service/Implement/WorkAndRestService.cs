@@ -20,9 +20,9 @@ namespace BlueHrLib.Service.Implement
             workAndRestRep = new WorkAndRestRepository(this.Context);
         }
 
-        public IQueryable<WorkAndRest> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst, string searchValueSecond)
+        public IQueryable<WorkAndRest> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst)
         {
-            return workAndRestRep.AdvancedSearch(allTableName, searchConditions, searchValueFirst, searchValueSecond);
+            return workAndRestRep.AdvancedSearch(allTableName, searchConditions, searchValueFirst);
 
         }
 

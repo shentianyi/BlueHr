@@ -46,6 +46,6 @@ namespace BlueHrLib.Service.Interface
 
         List<WorkAndRest> GetByDateSpan(DateTime startDate, DateTime endDate);
         List<WorkAndRest> GetAllTableName();
-        IQueryable<WorkAndRest> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst, string searchValueSecond);
+        IQueryable<WorkAndRest> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst);
     }
 }

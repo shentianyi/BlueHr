@@ -81,21 +81,13 @@ namespace BlueHrLib.Data.Repository.Implement
             return this.context.GetTable<User>().Where(c => c.role.Equals(sysRoleId)).ToList();
         }
 
-        public IQueryable<User> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst, string SearchValueSecond)
+        public IQueryable<User> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst)
         {
             string strWhere = string.Empty;
 
             try
             {
-                if (SearchValueSecond != string.Empty)
-                {
-                    strWhere += SearchConditionsHelper.GetStrWhere("User", AllTableName, SearchConditions, SearchValueFirst);
-                    strWhere += SearchConditionsHelper.GetStrWhere("User", AllTableName, SearchConditions, SearchValueSecond);
-                }
-                else
-                {
-                    strWhere = SearchConditionsHelper.GetStrWhere("User", AllTableName, SearchConditions, SearchValueFirst);
-                }
+                strWhere = SearchConditionsHelper.GetStrWhere("User", AllTableName, SearchConditions, SearchValueFirst);
                 var q = this.context.CreateQuery<User>(strWhere);
                 return q;
             }

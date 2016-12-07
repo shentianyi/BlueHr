@@ -32,7 +32,7 @@ namespace BlueHrWeb.Controllers
             IUserService ss = new UserService(Settings.Default.db);
 
             IPagedList<User> users = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
-            
+
             users.ToList().ForEach(p =>
             {
                 Tuple<string, string, string, string, string> cmpDep = GetAuthCompanyAndDepartment(p);
@@ -81,7 +81,9 @@ namespace BlueHrWeb.Controllers
                 Result.Add("是否锁定", user.isLockedStr);
                 Result.Add("角色类型", user.roleStr);
                 return Json(Result, JsonRequestBehavior.AllowGet);
-            }catch {
+            }
+            catch
+            {
                 return null;
             }
         }
@@ -194,11 +196,11 @@ namespace BlueHrWeb.Controllers
             string dep = cmpDep.Item3.TrimEnd(',');
             if (dep.Split(',').Count() > 5)
             {
-                dep = string.Join(",", dep.Split(',').Take(5).ToArray())+ " ...";
+                dep = string.Join(",", dep.Split(',').Take(5).ToArray()) + " ...";
             }
             user.roleStr = cmpDep.Item1.TrimEnd(',');
             user.AuthCompany = cmpDep.Item2.TrimEnd(',');
-            user.AuthDepartment =dep;
+            user.AuthDepartment = dep;
             ViewBag.TheCmpDepIds = cmpDep.Item4;
             ViewBag.TheSelCmpDepNames = cmpDep.Item5;
 
@@ -302,7 +304,7 @@ namespace BlueHrWeb.Controllers
 
             User user = cs.FindById(id);
 
-           
+
 
 
             SetRoleList(user.role);
@@ -368,7 +370,8 @@ namespace BlueHrWeb.Controllers
 
                 return View();
             }
-            else {
+            else
+            {
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -377,10 +380,10 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         // GET: User/Create
         [HttpPost]
-        public ActionResult ChangePwd(int id, string pwd,string pwdcompare)
+        public ActionResult ChangePwd(int id, string pwd, string pwdcompare)
         {
             ViewBag.id = id;
-             IUserService cs = new UserService(Settings.Default.db);
+            IUserService cs = new UserService(Settings.Default.db);
             if (string.IsNullOrEmpty(pwd.Trim()))
             {
                 ViewBag.error = "密码不可为空";
@@ -941,47 +944,43 @@ namespace BlueHrWeb.Controllers
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
             IPagedList<User> users = null;
-
-            string AllTableName = null;
-            string SearchConditions = null;
-            string SearchValueFirst = null;
-            string SearchValueSecond = null;
-
+            IQueryable<User> userstemp = null;
+            IQueryable<User> userstemp1 = null;
+            List<User> Result = new List<User>();
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
-                AllTableName = Request.Form["allTableName"].ToString();
-
-                SetAllTableName(AllTableName);
-
                 if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
                 {
-                    SearchConditions = Request.Form.Get("searchConditions");
-
-                    SetSearchConditions(Convert.ToInt32(SearchConditions));
-
                     if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
                     {
-                        SearchValueFirst = Request.Form.Get("searchValueFirst").ToString();
-
-                        ViewBag.searchValueFirst = SearchValueFirst;
-
-                        SearchValueSecond = Request.Form.Get("searchValueSecond").ToString();
-                        ViewBag.searchValueSecond = SearchValueSecond;
-
-                        //有两个值， 需要进行两个值的查询
-                        users = us.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
-
-                    }
-                    else
-                    {
-                        //不能进行查询
+                        string AllTableName = Request.Form["allTableName"].ToString();
+                        string[] AllTableNameArray = AllTableName.Split(',');
+                        string SearchConditions = Request.Form["searchConditions"];
+                        string[] SearchConditionsArray = SearchConditions.Split(',');
+                        string searchValueFirst = Request.Form["searchValueFirst"];
+                        string[] searchValueFirstArray = searchValueFirst.Split(',');
+                        userstemp1 = us.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                        if (AllTableNameArray.Length > 1)
+                        {
+                            for (var i = 1; i < AllTableNameArray.Length; i++)
+                            {
+                                userstemp = us.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in userstemp)
+                                {
+                                    if (userstemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            users = userstemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                        }
                     }
                 }
             }
-
+            users = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
 
             return View("Index", users);
         }
     }
-
 }

@@ -15,9 +15,9 @@ namespace BlueHrLib.Service.Implement
         public UserService(string dbString) : base(dbString) { }
 
         private IUserRepository userRep;
-        public IQueryable<User> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst, string searchValueSecond)
+        public IQueryable<User> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst)
         {
-            return userRep.AdvancedSearch(allTableName, searchConditions, searchValueFirst, searchValueSecond);
+            return userRep.AdvancedSearch(allTableName, searchConditions, searchValueFirst);
         }
 
         public bool ChangePwd(int id, string pwd)

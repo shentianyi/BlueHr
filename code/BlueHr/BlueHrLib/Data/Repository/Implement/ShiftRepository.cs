@@ -102,21 +102,13 @@ namespace BlueHrLib.Data.Repository.Implement
             }
         }
 
-        public IQueryable<Shift> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst, string SearchValueSecond)
+        public IQueryable<Shift> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst)
         {
             string strWhere = string.Empty;
 
             try
             {
-                if (SearchValueSecond != string.Empty)
-                {
-                    strWhere += SearchConditionsHelper.GetStrWhere("Shift", AllTableName, SearchConditions, SearchValueFirst);
-                    strWhere += SearchConditionsHelper.GetStrWhere("Shift", AllTableName, SearchConditions, SearchValueSecond);
-                }
-                else
-                {
-                    strWhere = SearchConditionsHelper.GetStrWhere("Shift", AllTableName, SearchConditions, SearchValueFirst);
-                }
+                strWhere = SearchConditionsHelper.GetStrWhere("Shift", AllTableName, SearchConditions, SearchValueFirst);
                 var q = this.context.CreateQuery<Shift>(strWhere);
                 return q;
             }
