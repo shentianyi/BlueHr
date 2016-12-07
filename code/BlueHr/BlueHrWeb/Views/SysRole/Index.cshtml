@@ -116,10 +116,11 @@
 
             for(var i=0; i<data.length; i++){
                 var Html = "<li id="+data[i].id+" title="+data[i].remark+"> <div></div><p>"+data[i].name+"</p>"+
-                "<i class='fa fa-pencil editRole' title='编辑角色' style='margin-left: -50px;'></i>"+
-                "<i class='fa fa-trash removeRole' title='删除角色' style='color: darkred; margin-left: -20px;'></i>"+
-                "<i class='fa fa-users assignUser' title='分配用户' style='color: orange; margin-left: 10px;'></i>"+
-                "<i class='fa fa-unlock assignRole' title='分配权限' style='color: lightseagreen; margin-left: 40px;'></i></li>";
+                "<i class='fa fa-pencil editRole' title='编辑角色' style='margin-left: -30px;'></i>"+
+                "<i class='fa fa-trash removeRole' title='删除角色' style='color: darkred; margin-left: 10px;'></i>"+
+                // "<i class='fa fa-users assignUser' title='分配用户' style='color: orange; margin-left: 10px;'></i>"+
+                // "<i class='fa fa-unlock assignRole' title='分配权限' style='color: lightseagreen; margin-left: 40px;'></i>"+
+                "</li>";
 
                 $(Html).appendTo($("#sysRoleContent>ul"));
             }
