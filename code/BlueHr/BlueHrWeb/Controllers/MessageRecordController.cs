@@ -107,6 +107,13 @@ namespace BlueHrWeb.Controllers
             return Json(new MessageRecordService(Settings.Default.db).CountUnRead(),JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult LoginInCount()
+        {
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            return Json(new MessageRecordService(Settings.Default.db).FindByType(401).Where(m=> m.staffNr==user.id.ToString()).ToList().Count, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public ActionResult Read(int id)
         {
