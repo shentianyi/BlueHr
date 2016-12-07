@@ -399,7 +399,7 @@ namespace BlueHrLib.Data.Repository.Implement
                 var q = this.context.CreateQuery<Staff>(strWhere);
                 return q;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }
