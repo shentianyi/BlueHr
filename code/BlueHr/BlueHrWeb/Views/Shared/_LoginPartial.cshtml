@@ -112,22 +112,19 @@
             </li>
         </ul>
     </li>
-    <div class="marco-footer">
+    @*<div class="marco-footer">
         <div class="row">
-                @*获用户取当前登录*@
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">                
                 <span>当前用户: @((Session["user"] as User).name)</span>
             </div>
-                @*获取当前登录时间*@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
                     <span>登陆时间: </span> <span id="loginTime">13:55</span>
                 </div>
-                @*获取在线时长*@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
                     <span>在线时长: </span> <span id="OnlineTime">00</span> <span>分钟</span>
                 </div>
             </div>
-        </div>
+     </div>*@
     }
    
 else
@@ -160,7 +157,7 @@ else
     }
  }
 
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         $("#loginTime").html(SetTime(new Date().getHours())+ ":" + SetTime(new Date().getMinutes()));
 
         function SetTime(time){
@@ -175,5 +172,5 @@ else
         setInterval(function(){
             $("#OnlineTime").html(i);
             i++;
-        }, 60000);
+        }, 60000);*@
     </script>

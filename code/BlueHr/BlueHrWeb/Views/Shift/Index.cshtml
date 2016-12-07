@@ -29,8 +29,6 @@
                     <input type="text" name="Name" id="Name" placeholder="班次名称" value="@ViewBag.Query.Name" />
                 </div>
             </div>
-            
-
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 5px;">
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                     <button type="submit" class="marco-btn-success pull-left">
@@ -93,9 +91,7 @@
             </button>
         </a>
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-
             <li role="presentation" class="active"><a href="#all_shift" role="tab" data-toggle="tab">所有班次管理</a></li>           
-
         </ul>
         <div class="tab-content">
            
@@ -150,7 +146,8 @@
                                         {
                                             <a href="/Shift/Delete/@item.id" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
-                                            </a>}
+                                            </a>
+                                        }
                                         @if (canEdit)
                                         {
                                             <a href="/Shift/Edit/@item.id" class="option-icon-warning" title="编辑">
@@ -158,9 +155,9 @@
                                             </a>
                                         }
                                     </td>
-                                </tr>
-                                                }
-                                            }
+                              </tr>
+                            }
+                        }
                     </tbody>
                 </table>
             </div>

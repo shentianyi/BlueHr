@@ -394,8 +394,6 @@ function FutureDate(day) {
     return FutureDate;
 }
 
-
-
 Layout.advancedfilter = function () {
     $('.advanced-filter-btn').click(function () {
         var Display = $('.advanced-filter').css('display');
@@ -406,9 +404,7 @@ Layout.advancedfilter = function () {
             $('.advanced-filter').slideUp();
         }
     });
-
 }
-
 
 Layout.TransferTableToGrid = function (width, height, editable, divID, title, rPP, gridID) {
 

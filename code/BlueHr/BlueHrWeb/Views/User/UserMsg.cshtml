@@ -2,54 +2,82 @@
     ViewBag.Title = "个人信息";
 }
 
-<ol class="breadcrumb current-position" style="margin-top:10px;">
-    您的位置：
-    <li>个人信息</li>
-</ol>
-
-
-<hr class="hr-grey" />
-
-<div style="margin:10px;">
-    <div class="minitor-show marco-tabs-default">
-        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#all_usermsg" role="tab" data-toggle="tab">个人信息</a></li>
-        </ul>
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="all_usermsg">
-                <div id="all_usermsg_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-                            <th>用户名</th>
-                            <th>电子邮箱</th>
-                            <th>是否锁定</th>
-                            <th>角色类型</th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="UserMessages">
-
-                    </tbody>
-                </table>
-            </div>
-           
-        </div>
-        
-
-    </div>
-
-</div>
 <style>
-    .input_kuang {
-        background: #fff;
-        border: 1px solid #999;
+    .out_box {
+        font-weight: bolder;
+        background:#6f6353;
+        width:100%;
+        height:800px;
     }
-
-    .input_kuang {
-        width: 70%;
+    .content_box {
+        width:80%; 
+        height:600px;
+        background:#ececec;
+        position:absolute;
+        top:15%;
+        left:17%;
+        border-radius:5em;
+    }
+     .content_box1 {
+        width:96%; 
+        height:570px;
+        background:#fff;
+        position:absolute;
+        left:2%;
+        top:3%;
+        box-shadow:2px 2px 30px #6f6353;
+        border-radius:8em;
+    }
+    .user_msg span{
+        position:absolute;
+        left:42%;
+        top:5%;
+        color:#4a9195;
+        font-size:2em;
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        padding:0 50px 10px 50px;
+        border-bottom:5px solid #4a9195;
+        box-shadow:2px 2px 20px #808080;
     }
 </style>
+
+<div class="out_box">
+    <div class="content_box">
+        <div class="content_box1">
+            <div class="user_msg container">
+                <span>个人信息</span>
+            </div>
+            <div style="width:30%; margin-left:1%;margin-top:5%;">
+                <img src="~/Images/user.jpg" alt="图片" />
+            </div>
+            <div style="width:60%;margin-left:20%;margin-top:-20%;margin-bottom:7%;">
+                <table width=20%; class="table" style="color:#4a9195;font-size:1.2em;">
+                    <tbody id="UserMessages" style="background:none;"></tbody>
+                </table>
+            </div>
+
+            <hr class="hr-grey" style="color:#4a9195;"/>
+            <div style="margin-left:5%; float:left; width:30%;">
+                <img src="~/Images/alarm_clock.png"/>
+            </div>
+            <div style="width:100%;font-size:1.5em; position:relative;top:8%; left:-10%;color:#ff0000;">
+                <div class="row">
+                   
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        <span>登陆时间: </span> <span id="loginTime">13:55</span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        <span>在线时长: </span> <span id="OnlineTime">00</span> <span>分钟</span>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                        <span>登录次数:</span><span id="loginCount">00</span> <span>次</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @*@Scripts.Render("~/bundles/degreetype")*@
 <script type="text/javascript">
@@ -62,21 +90,39 @@
             console.log(data);
             $("#UserMessages").empty();
 
-            var Html = "<tr><td > " + data.用户名 + " </td><td > " + data.邮箱 + " </td><td > " + data.是否锁定 + " </td><td > " + data.角色类型 + " </td></tr> ";
+            var Html = "<tr><td> 用户名：</td><td> " + data.用户名 + " </td></tr><tr><td > 电子邮箱：</td><td>" + data.邮箱 + " </td></tr><tr><td > 是否锁定：</td><td>" + data.是否锁定 + " </td></tr><tr><td > 角色类型 ： </td><td>" + data.角色类型 + " </td></tr> ";
             $(Html).appendTo($("#UserMessages"));
 
-            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_usermsg", "个人信息", "20", "all_usermsg_grid_table");
-
-            $(window).resize(function () {
-                Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_usermsg", "个人信息", "20", "all_usermsg_grid_table");
-            })
-            
         },
         error: function () {
             console.log("CCCCCCCC");
         }
     });
 
+    $.ajax({
+        url: '/MessageRecord/LoginInCount',
+        type: 'get',
+        success: function (data) {
+            console.log(data)
+        },
+        error: function () {
+            console.log("CCCCCCCC");
+        }
+    });
 
-    
+    $("#loginTime").html(SetTime(new Date().getHours())+ ":" + SetTime(new Date().getMinutes()));
+
+        function SetTime(time){
+            if(time<10){
+                return "0"+time;
+            }else{
+                return time;
+            }
+        }
+
+        var i = 0;
+        setInterval(function(){
+            $("#OnlineTime").html(i);
+            i++;
+        }, 60000);
 </script>
