@@ -1236,6 +1236,27 @@ namespace BlueHrWeb.Controllers
             SetDropDownList(null);
             return View(staffs);
         }
+
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult ToEmployees(int? page)
+        {
+            int pageIndex = PagingHelper.GetPageIndex(page);
+            StaffSearchModel q = new StaffSearchModel();
+            q.IsOnTrial = true;
+            IMessageRecordService mrs =new MessageRecordService(Settings.Default.db);
+            foreach (var i in mrs.FindByType(201))
+            {
+                q.StaffNrs.Add(i.staffNr);
+            }
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.loginUser = user;
+            IStaffService ss = new StaffService(Settings.Default.db);
+            IPagedList<Staff> staffs = ss.SearchOnTrialStaff(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            ViewBag.Query = q;
+            SetDropDownList(null);
+            return View(staffs);
+        }
         // GET: Staff/CountStaff
         [HttpGet]
         public JsonResult StaffCount()
@@ -1316,6 +1337,30 @@ namespace BlueHrWeb.Controllers
             Result.Add("过期", eachDetailExpired);
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
+
+        //[HttpGet]
+        //public ActionResult EmployeesDetail()
+        //{
+        //    try
+        //    {
+        //        IStaffService ss = new StaffService(Settings.Default.db);
+        //        List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+        //        foreach (var i in ss.ToEmployeesDetail(0))
+        //        {
+        //            Dictionary<string, string> each = new Dictionary<string, string>();
+        //            each.Add("ea", user.name);
+        //            each.Add("邮箱", user.email);
+        //            each.Add("是否锁定", user.isLockedStr);
+        //            each.Add("角色类型", user.roleStr);
+        //            Result.Add(each);
+        //        }
+        //        return Json(Result, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
 
         [HttpGet]
         public JsonResult ToEmployeesDetail()

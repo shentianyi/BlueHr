@@ -279,5 +279,10 @@ namespace BlueHrLib.Service.Implement
         {
             return messageReocrdRep.FindBystaffNrShiftJob(staffNr);
         }
+
+        public List<MessageRecord> FindByType(int type)
+        {
+            return messageReocrdRep.FindByType(type);
+        }
     }
 }
