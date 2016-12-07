@@ -69,17 +69,15 @@ namespace BlueHrLib.Data.Repository.Implement
             if (mr1 != null)
             {
                 mr1.staffNr = fmr.staffNr;
-                mr1.isPassCheck = fmr.isPassCheck;
                 mr1.checkScore = fmr.checkScore;
-                mr1.beFullAt = fmr.beFullAt;
                 mr1.remark = fmr.remark;
-                mr1.checkAt = fmr.checkAt;
-                mr1.beFullChecker = fmr.beFullChecker;
+                mr1.approvalUserId = fmr.approvalUserId;
                 mr1.approvalAt = fmr.approvalAt;
                 mr1.approvalStatus = fmr.approvalStatus;
                 mr1.approvalRemark = fmr.approvalRemark;
                 mr1.createdAt = fmr.createdAt;
-                mr1.userId = fmr.userId;
+                mr1.createdUserId = fmr.createdUserId;
+                mr1.isPassCheck = fmr.isPassCheck;
                 this.context.SubmitChanges();
                 return true;
             }

@@ -1,4 +1,4 @@
-USE [BlueHr]
+USE [BlueHrV1]
 
 GO
 
@@ -7,7 +7,7 @@ IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[ExtraWo
 DROP VIEW [dbo].[ExtraWorkRecordView]
 GO
 
-USE [BlueHr]
+USE [BlueHrV1]
 GO
 
 /****** Object:  View [dbo].[ExtraWorkRecordView]    Script Date: 12/05/2016 19:19:24 ******/

@@ -1,4 +1,4 @@
-USE [BlueHrV2]
+USE [BlueHrV1]
 GO
 
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_FullMemberRecord_Staff]') AND parent_object_id = OBJECT_ID(N'[dbo].[FullMemberRecord]'))
@@ -12,7 +12,7 @@ END
 
 GO
 
-USE [BlueHrV2]
+USE [BlueHrV1]
 GO
 
 /****** Object:  Table [dbo].[FullMemberRecord]    Script Date: 12/06/2016 15:19:16 ******/
@@ -20,7 +20,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[FullM
 DROP TABLE [dbo].[FullMemberRecord]
 GO
 
-USE [BlueHrV2]
+USE [BlueHrV1]
 GO
 
 /****** Object:  Table [dbo].[FullMemberRecord]    Script Date: 12/06/2016 15:19:16 ******/

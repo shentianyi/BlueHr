@@ -1,4 +1,4 @@
-USE [BlueHr]
+USE [BlueHrV1]
 GO
 
 /****** Object:  Index [PK_RewardsAndPenalty]    Script Date: 12/06/2016 14:59:17 ******/
@@ -9,7 +9,7 @@ ALTER TABLE [dbo].[RewardsAndPenalty] ADD  CONSTRAINT [PK_RewardsAndPenalty] PRI
 GO
 
 
-USE [BlueHr]
+USE [BlueHrV1]
 GO
 
 /****** Object:  Index [PK_Recruit]    Script Date: 12/06/2016 14:59:02 ******/

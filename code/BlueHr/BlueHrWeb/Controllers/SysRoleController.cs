@@ -186,20 +186,21 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                ////存在员工时不可删除
-                //IStaffService shfSi = new StaffService(Settings.Default.db);
-                //List<Staff> shf = shfSi.FindByJobTitleId(id);
+                //存在员工时不可删除
+                ISysRoleService cs = new SysRoleService(Settings.Default.db);
 
-                //if (null != shf && shf.Count() > 0)
-                //{
-                //    msg.Success = false;
-                //    msg.Content = "职位信息正在使用,不能删除!";
-
-                //    return Json(msg, JsonRequestBehavior.AllowGet);
-                //}
-                //else
+                IUserService us = new UserService(Settings.Default.db);
+                List<User> user = us.FindByRole(cs.FindById(id).name);
+                User ab = new BlueHrLib.Data.User();
+                if (null != user && user.Count() > 0)
                 {
-                    ISysRoleService cs = new SysRoleService(Settings.Default.db);
+                    msg.Success = false;
+                    msg.Content = "用户类型正在使用中,不能删除!";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
                     bool isSucceed = cs.DeleteById(id);
 
                     msg.Success = isSucceed;

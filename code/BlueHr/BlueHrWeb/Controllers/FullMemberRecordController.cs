@@ -75,10 +75,12 @@ namespace BlueHrWeb.Controllers
         // POST: FullMemberRecord/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Create([Bind(Include = "staffNr,isPassCheck,checkScore,beFullAt,remark,checkAt,beFullChecker,approvalAt,approvalStatus,approvalRemark,createdAt,userId")] FullMemberRecord fullMemberRecord)
+        public JsonResult Create([Bind(Include = "staffNr,remark")] FullMemberRecord fullMemberRecord)
         {
             ResultMessage msg = new ResultMessage();
-
+            fullMemberRecord.createdAt = System.DateTime.Now;
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            fullMemberRecord.createdUserId = user.id;
             try
             {
                 msg = DoValidation(fullMemberRecord);
@@ -92,7 +94,7 @@ namespace BlueHrWeb.Controllers
                     IFullMemberRecordService raps = new FullMemberRecordService(Settings.Default.db);
                     bool isSucceed = raps.Create(fullMemberRecord);
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "添加失败";
+                    msg.Content = isSucceed ? "添加成功" : "添加失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -120,10 +122,12 @@ namespace BlueHrWeb.Controllers
         // POST: FullMemberRecord/Edit/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Edit([Bind(Include = "staffNr,isPassCheck,checkScore,beFullAt,remark,checkAt,beFullChecker,approvalAt,approvalStatus,approvalRemark,createdAt,userId")] FullMemberRecord fullMemberRecord)
+        public JsonResult Edit([Bind(Include = "id,staffNr,remark")] FullMemberRecord fullMemberRecord)
         {
             ResultMessage msg = new ResultMessage();
-
+            fullMemberRecord.createdAt = System.DateTime.Now;
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            fullMemberRecord.createdUserId = user.id;
             try
             {
                 msg = DoValidation(fullMemberRecord);
@@ -138,7 +142,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = raps.Update(fullMemberRecord);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "更新失败";
+                    msg.Content = isSucceed ? "更新成功" : "更新失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -149,6 +153,38 @@ namespace BlueHrWeb.Controllers
             }
         }
 
+        [RoleAndDataAuthorizationAttribute]
+        [HttpPost]
+        public JsonResult Approval([Bind(Include = "id,checkScore,isPassCheck,approvalStatus,approvalRemark")] FullMemberRecord fullMemberRecord)
+        {
+            ResultMessage msg = new ResultMessage();
+            fullMemberRecord.approvalAt = System.DateTime.Now;
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            fullMemberRecord.approvalUserId = user.id;
+            try
+            {
+                msg = DoValidation(fullMemberRecord);
+
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IFullMemberRecordService raps = new FullMemberRecordService(Settings.Default.db);
+                    bool isSucceed = raps.Update(fullMemberRecord);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "更新成功" : "更新失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         // GET: FullMemberRecord/Delete/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)

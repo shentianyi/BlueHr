@@ -696,10 +696,9 @@ body {
     vertical-align: middle; }
 
 .table-heading {
-  background: #ecf0f1;
   padding: 10px;
   border-bottom: 2px solid #f2f2f2;
-  font-size: 1.3em; }
+  font-size: 0.8em; }
   .table-heading i {
     margin-right: 10px; }
 
@@ -709,10 +708,9 @@ body {
   margin-top: 10px;
   border: 2px solid #3498db; }
   .usual-table .table-heading {
-    background: #ecf0f1;
     padding: 10px;
     border-bottom: 2px solid #f2f2f2;
-    font-size: 1.3em;
+    font-size: 0.8em;
     margin: 0;
     color: #ecf0f1;
     /*background:-webkit-gradient(linear, 0 0, 0 100%, from(lighten($peter-river, 5%)), to(lighten($brlize-hole, 5%)));

@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHrV2" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=SFZ-PC\SQLEXPRESS;Initial Catalog=BlueHrV2;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrV2ConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BlueHr" Class="BlueHrDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=MB-PC;Initial Catalog=BlueHr;Persist Security Info=True;User ID=sa" SettingsObjectName="BlueHrLib.Properties.Settings" SettingsPropertyName="BlueHrConnectionString10" Provider="System.Data.SqlClient" />
   <Table Name="dbo.WorkAndRest" Member="WorkAndRest">
     <Type Name="WorkAndRest">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -515,7 +515,7 @@
       <Association Name="Staff_Certificate" Member="Certificates" ThisKey="nr" OtherKey="staffNr" Type="Certificate" />
       <Association Name="Staff_AbsenceRecrod" Member="AbsenceRecrods" ThisKey="nr" OtherKey="staffNr" Type="AbsenceRecrod" />
       <Association Name="Staff_ExtraWorkRecord" Member="ExtraWorkRecord" ThisKey="nr" OtherKey="staffNr" Type="ExtraWorkRecord" />
-      <Association Name="Staff_FullMemberRecord" Member="FullMemberRecords" ThisKey="nr" OtherKey="staffNr" Type="FullMemberRecord" />
+      <Association Name="Staff_FullMemberRecord" Member="FullMemberRecord" ThisKey="nr" OtherKey="staffNr" Type="FullMemberRecord" />
       <Association Name="Company_Staff" Member="Company" ThisKey="companyId" OtherKey="id" Type="Company" IsForeignKey="true" />
       <Association Name="DegreeType_Staff" Member="DegreeType" ThisKey="degreeTypeId" OtherKey="id" Type="DegreeType" IsForeignKey="true" />
       <Association Name="Department_Staff" Member="Department" ThisKey="departmentId" OtherKey="id" Type="Department" IsForeignKey="true" />
@@ -780,24 +780,6 @@
       <Association Name="ResignType_ResignRecord" Member="ResignType" ThisKey="resignTypeId" OtherKey="id" Type="ResignType" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.FullMemberRecord" Member="FullMemberRecord">
-    <Type Name="FullMemberRecord">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="isPassCheck" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="checkScore" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="beFullAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="checkAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="beFullChecker" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="approvalAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="approvalStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="approvalRemark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Staff_FullMemberRecord" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Recruit" Member="Recruit">
     <Type Name="Recruit">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -813,21 +795,6 @@
       <Column Name="auditView" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.RewardsAndPenalty" Member="RewardsAndPenalty">
-    <Type Name="RewardsAndPenalty">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="staffName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="staffSex" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="companyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="departmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="type" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="project" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="createAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.PersonSchedule" Member="PersonSchedule">
     <Type Name="PersonSchedule">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -839,6 +806,37 @@
       <Column Name="context" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
       <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="isDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RewardsAndPenalty" Member="RewardsAndPenalty">
+    <Type Name="RewardsAndPenalty">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="project" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="createdUserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="approvalUserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="approvalStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="approvalRemark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="approvalAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FullMemberRecord" Member="FullMemberRecord">
+    <Type Name="FullMemberRecord">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="checkScore" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="approvalUserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="approvalAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="approvalStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="approvalRemark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="createdUserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isPassCheck" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Staff_FullMemberRecord" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

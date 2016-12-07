@@ -1,4 +1,4 @@
-﻿using BlueHrLib.Data;
+using BlueHrLib.Data;
 using BlueHrLib.Data.Enum;
 using BlueHrLib.Data.Message;
 using BlueHrLib.Data.Model.Search;
@@ -57,8 +57,7 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult UserMsg()
         {
-            User user = System.Web.HttpContext.Current.Session["user"] as User;
-            return View(user);
+            return View();
         }
 
         [RoleAndDataAuthorizationAttribute]
@@ -73,6 +72,7 @@ namespace BlueHrWeb.Controllers
             try
             {
                 User user = System.Web.HttpContext.Current.Session["user"] as User;
+
                 Dictionary<string, string> Result = new Dictionary<string, string>();
                 // IUserService us = new UserService(Settings.Default.db);
                 // User detail = us.FindById(id);
@@ -80,11 +80,15 @@ namespace BlueHrWeb.Controllers
                 Result.Add("邮箱", user.email);
                 Result.Add("是否锁定", user.isLockedStr);
                 Result.Add("角色类型", user.roleStr);
+                
                 return Json(Result, JsonRequestBehavior.AllowGet);
-            }
-            catch
-            {
-                return null;
+            }catch (Exception e) {
+
+                Console.Write(e);
+                Console.Write(e);
+
+                return null; 
+
             }
         }
 

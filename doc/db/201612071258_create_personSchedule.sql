@@ -1,4 +1,4 @@
-USE [BlueHrV2]
+USE [BlueHrV1]
 GO
 
 /****** Object:  Table [dbo].[PersonSchedule]    Script Date: 12/07/2016 00:57:24 ******/

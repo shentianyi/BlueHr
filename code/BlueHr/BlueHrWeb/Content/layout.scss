@@ -41,7 +41,6 @@ $asbestos: #7f8c8d !global; // 深灰色  石棉
 
 body{
     font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", Heiti, "黑体", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", sans-serif !important;
-
 }
 
 .login{
@@ -387,10 +386,9 @@ body{
 }
 
 @mixin table-heading {
-  background: $clouds;
   padding: 10px;
   border-bottom: 2px solid $dark-white;
-  font-size: 1.3em;
+  font-size: 0.8em;
   i {
     margin-right: 10px;
   }
