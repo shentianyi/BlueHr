@@ -113,24 +113,29 @@ namespace BlueHrWeb.Controllers
             User user = System.Web.HttpContext.Current.Session["user"] as User;
             try
             {
-                if (!msg.Success)
-                {
-                    return Json(msg, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    rewardsAndPenalties.approvalUserId = user.id;
-                    IRewardsAndPenaltyService raps = new RewardsAndPenaltyService(Settings.Default.db);
-                    bool isSucceed = raps.Update(rewardsAndPenalties);
-                    msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "审批成功" : "审批失败";
+                RewardsAndPenalty rap = new RewardsAndPenalty();
 
-                    return Json(msg, JsonRequestBehavior.AllowGet);
-                }
+                rap.id = rewardsAndPenalties.id;
+                rap.approvalUserId = user.id;
+                rap.approvalStatus = rewardsAndPenalties.approvalStatus;
+                rap.approvalRemark = rewardsAndPenalties.approvalRemark;
+                rap.approvalAt = DateTime.Now;
+
+                //TODO:Update 不能使用， 需要重写
+                IRewardsAndPenaltyService raps = new RewardsAndPenaltyService(Settings.Default.db);
+                bool isSucceed = raps.Update(rap);
+
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "审批成功" : "审批失败";
+
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new ResultMessage() {
+                    Success = false,
+                    Content = ex.Message
+                }, JsonRequestBehavior.AllowGet);
             }
         }
 

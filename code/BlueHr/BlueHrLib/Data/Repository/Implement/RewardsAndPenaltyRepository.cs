@@ -59,7 +59,7 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 certf = certf.Where(c => c.staffNr.Contains(searchModel.StaffNr.Trim()));
             }
-            if (searchModel.type==null)
+            if (searchModel.type!=null)
             {
                 certf = certf.Where(c => c.type == searchModel.type);
             }
