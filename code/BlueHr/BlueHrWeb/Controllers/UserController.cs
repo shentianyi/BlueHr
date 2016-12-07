@@ -73,7 +73,6 @@ namespace BlueHrWeb.Controllers
             try
             {
                 User user = System.Web.HttpContext.Current.Session["user"] as User;
-
                 Dictionary<string, string> Result = new Dictionary<string, string>();
                 // IUserService us = new UserService(Settings.Default.db);
                 // User detail = us.FindById(id);
