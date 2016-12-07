@@ -580,44 +580,41 @@ namespace BlueHrWeb.Controllers
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
             IPagedList<SysRoleAuthorization> sysRoleAuthorizations = null;
-
-            string AllTableName = null;
-            string SearchConditions = null;
-            string SearchValueFirst = null;
-            string SearchValueSecond = null;
-
+            IQueryable<SysRoleAuthorization> sysRoleAuthorizationstemp = null;
+            IQueryable<SysRoleAuthorization> sysRoleAuthorizationstemp1 = null;
+            List<SysRoleAuthorization> Result = new List<SysRoleAuthorization>();
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
-                AllTableName = Request.Form["allTableName"].ToString();
-
-                SetAllTableName(AllTableName);
-
                 if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
                 {
-                    SearchConditions = Request.Form.Get("searchConditions");
-
-                    SetSearchConditions(Convert.ToInt32(SearchConditions));
-
                     if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
                     {
-                        SearchValueFirst = Request.Form.Get("searchValueFirst").ToString();
-
-                        ViewBag.searchValueFirst = SearchValueFirst;
-
-                        SearchValueSecond = Request.Form.Get("searchValueSecond").ToString();
-                        ViewBag.searchValueSecond = SearchValueSecond;
-
-                        //有两个值， 需要进行两个值的查询
-                        sysRoleAuthorizations = sras.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
-
-                    }
-                    else
-                    {
-                        //不能进行查询
+                        string AllTableName = Request.Form["allTableName"].ToString();
+                        string[] AllTableNameArray = AllTableName.Split(',');
+                        string SearchConditions = Request.Form["searchConditions"];
+                        string[] SearchConditionsArray = SearchConditions.Split(',');
+                        string searchValueFirst = Request.Form["searchValueFirst"];
+                        string[] searchValueFirstArray = searchValueFirst.Split(',');
+                        sysRoleAuthorizationstemp1 = sras.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                        if (AllTableNameArray.Length > 1)
+                        {
+                            for (var i = 1; i < AllTableNameArray.Length; i++)
+                            {
+                                sysRoleAuthorizationstemp = sras.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in sysRoleAuthorizationstemp)
+                                {
+                                    if (sysRoleAuthorizationstemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            sysRoleAuthorizations = sysRoleAuthorizationstemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                        }
                     }
                 }
             }
-
+            sysRoleAuthorizations = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
 
             return View("Index", sysRoleAuthorizations);
         }

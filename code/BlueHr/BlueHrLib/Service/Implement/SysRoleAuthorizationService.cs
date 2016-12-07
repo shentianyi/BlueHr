@@ -110,9 +110,9 @@ on sra.authId equals sa.id
             return rep.GetAllTableName();
         }
 
-        public IQueryable<SysRoleAuthorization> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst, string searchValueSecond)
+        public IQueryable<SysRoleAuthorization> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst)
         {
-            return rep.AdvancedSearch(allTableName, searchConditions, searchValueFirst, searchValueSecond);
+            return rep.AdvancedSearch(allTableName, searchConditions, searchValueFirst);
         }
     }
 }

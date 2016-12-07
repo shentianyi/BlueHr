@@ -109,7 +109,7 @@
                                     日程安排
                                 </a>
                             </li>
-                            <li>
+                            <li class="nav-note">
                                 <a href="/Personal/Note">
                                     <i class="fa fa-sticky-note-o"></i>
                                     便笺本
@@ -136,7 +136,7 @@
 
                             <li class="nav-sysRole">
                                 <a href="/SysRole/Index">
-                                    <i class="fa fa-group"></i>
+                                    <i class="fa fa-gavel"></i>
                                     权限管理
                                 </a>
                             </li>
@@ -182,7 +182,7 @@
 
                                 <li class="nav-absenceType">
                                     <a href="/AbsenceType/Index">
-                                        <i class="fa fa-street-view"></i>
+                                        <i class="fa fa-times"></i>
                                         缺勤类型
                                     </a>
                                 </li>
@@ -228,7 +228,7 @@
                         </ul>
                     </li>
                
-                    <li class="nav-laborRelations">
+                    <li class="nav-laborrelations">
                         <a href="#">
                             <i class="fa fa-hourglass-start"></i>
                             <span>劳动关系管理</span>
@@ -253,15 +253,15 @@
                             </li>
 
                             @*<li class="nav-regular">
-                                <a href="/Staff/Index">
+                                <a href="#">
                                     <i class="fa fa-list-ol"></i>
                                     员工转正
                                 </a>
                             </li>*@
 
-                            <li>
+                            <li class="nav-transfer">
                                 <a href="#">
-                                    <i class="fa fa-share-square-o"></i>
+                                    <i class="fa fa-retweet"></i>
                                     员工调岗
                                 </a>
                             </li>
@@ -271,6 +271,13 @@
                                 <a href="/Staff/Resign">
                                     <i class="fa fa-user-times"></i>
                                     员工离职
+                                </a>
+                            </li>
+
+                            <li class="nav-ontrail">
+                                <a href="/Staff/Ontrail">
+                                    <i class="fa fa-binoculars"></i>
+                                    试用期管理
                                 </a>
                             </li>
 
@@ -288,12 +295,7 @@
                                 </a>
                             </li>*@
 
-                            <li class="nav-rewards_penalty ">
-                                <a href="/RewardsAndPenalty/Index">
-                                    <i class="fa fa-anchor"></i>
-                                    奖惩管理
-                                </a>
-                            </li>
+                            
 
                         </ul>
                     </li>
@@ -309,16 +311,16 @@
 
                         <ul class="treeview-menu">
 
-                            <li>
+                            <li class="nav-shift">
                                 <a href="/Shift/Index">
-                                    <i class="fa fa-list-ol"></i>
+                                    <i class="fa fa-calendar"></i>
                                     班次设置
                                 </a>
                             </li>
 
-                            <li>
+                            <li class="nav-shiftschedule">
                                 <a href="/ShiftSchedule/Index">
-                                    <i class="fa fa-table"></i>
+                                    <i class="fa fa-search"></i>
                                     排班查询
                                 </a>
                             </li>
@@ -336,35 +338,35 @@
                                 </a>
                             </li>
 
-                            <li>
+                            <li class="nav-attendancerecorddetail">
                                 <a href="/AttendanceRecordDetail/Index">
                                     <i class="fa fa-pencil-square-o"></i>
                                     考勤记录
                                 </a>
                             </li>
 
-                            <li>
+                            <li class="nav-attendancesetting">
                                 <a href="/QuartzJob/Index">
                                     <i class="fa fa-cog"></i>
                                     考勤计算设置
                                 </a>
                             </li>
 
-                            <li>
+                            <li class="nav-attendancerecordcal">
                                 <a href="/AttendanceRecordCal/Index">
-                                    <i class="fa fa-table"></i>
+                                    <i class="fa fa-list"></i>
                                     统计记录
                                 </a>
                             </li>
 
-                            <li>
+                            <li class="nav-bugstatistic">
                                 <a href="/AttendanceRecordCal/ExceptionList">
                                     <i class="fa fa-exclamation-triangle"></i>
                                     异常统计
                                 </a>
                             </li>
 
-                            <li>
+                            <li class="nav-rest">
                                 <a href="/WorkAndRests/Index">
                                     <i class="fa fa-calendar-minus-o"></i>
                                     作息时间
@@ -397,7 +399,7 @@
                         </a>
 
                         <ul class="treeview-menu">
-                            <li class="nav-index">
+                            <li class="nav-staff">
                                 <a href="/Staff/Index">
                                     <i class="fa fa-user"></i>
                                     员工管理
@@ -405,32 +407,34 @@
                             </li>
                             <li class="nav-idcard">
                                 <a href="/Staff/Idcard">
-                                    <i class="fa fa-newspaper-o"></i>
+                                    <i class="fa fa-credit-card"></i>
                                     身份证管理
                                 </a>
                             </li>
-                            <li class="nav-ontrail">
-                                <a href="/Staff/Ontrail">
-                                    <i class="fa fa-list-ol"></i>
-                                    试用期管理
-                                </a>
-                            </li>
+                            
 
-                            <li class="nav-leave">
+                            <li class="nav-recruit">
                                 <a href="/Recruit/Index">
-                                    <i class="fa fa-user-times"></i>
+                                    <i class="fa fa-sign-in"></i>
                                     招聘需求
                                 </a>
                             </li>
 
-                            @*<li class="nav-business">
+                            <li class="nav-rewardspenalty">
+                                <a href="/RewardsAndPenalty/Index">
+                                    <i class="fa fa-balance-scale"></i>
+                                    奖惩管理
+                                </a>
+                            </li>
+
+                            @*<li class="nav-cv">
                                 <a href="#">
                                     <i class="fa fa-table"></i>
                                     简历管理
                                 </a>
                             </li>*@
 
-                            @*<li class="nav-business">
+                            @*<li class="nav-train">
                                 <a href="#">
                                     <i class="fa fa-anchor"></i>
                                     培训管理

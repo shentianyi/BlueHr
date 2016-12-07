@@ -96,25 +96,27 @@
                 <i class="glyphicon glyphicon-search"></i>
                 搜索
             </button>
-            @if (canExport)
-            {
-                <button type="button" class="marco-btn-danger export-button-dialog" style="width: 150px; height:40px;">
-                    <i class="glyphicon glyphicon-dashboard"></i>
-                    导出考勤报表
-                </button>
-            }
+           
         </div>
     </form>
 </div>
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        <a href="/AttendanceRecordCal/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
+        <a href="/AttendanceRecordCal/Create" class="pull-right" style="margin-top: -10px; margin-right:13px;">
             <button class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
-            </button>
+            </button>           
         </a>
+        @if (canExport)
+        {
+                
+            <button class="marco-btn-primary export-button-dialog pull-right" title="Export" style="margin-top: -5px; margin-right:5px;" type="button">
+                <i class="glyphicon glyphicon-dashboard"></i>
+                导出考勤报表
+            </button>
+        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#" role="tab" data-toggle="tab">统计记录列表</a></li>

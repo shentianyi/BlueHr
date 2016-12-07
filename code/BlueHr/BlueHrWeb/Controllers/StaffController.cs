@@ -145,17 +145,6 @@ namespace BlueHrWeb.Controllers
                                 {
                                     if (staffstemp1.FirstOrDefault(s => s.nr.Equals(temp.nr)) != null) Result.Add(temp);
                                 }
-                                //List<Integer> result = new ArrayList<Integer>();
-                                //for (Integer integer : list2)
-                                //{//遍历list1  
-                                //    if (list1.contains(integer))
-                                //    {//如果存在这个数  
-                                //        result.add(integer);//放进一个list里面，这个list就是交集  
-                                //    }
-                                //foreach (var temp2 in staffs)
-                                //{
-                                //    if(staffstemp.FirstOrDefault(s => s.nr.Equals(temp2.nr)) == null) staffs.ToList().Remove(temp2);
-                                //}
                             }
                         }
                         else
@@ -1003,7 +992,7 @@ namespace BlueHrWeb.Controllers
             ResultMessage msg = new ResultMessage();
             if (record.isPassCheck)
             {
-                if (record.beFullAt == null)
+                if (record.approvalAt == null)
                 {
                     msg.Content = "请填写转正日期";
                     return Json(msg);
@@ -1227,15 +1216,76 @@ namespace BlueHrWeb.Controllers
         {
             int pageIndex = PagingHelper.GetPageIndex(page);
             StaffSearchModel q = new StaffSearchModel();
-            q.IsOnTrial = true;
+            //q.IsOnTrial = true;
             User user = System.Web.HttpContext.Current.Session["user"] as User;
             q.loginUser = user;
+            q.IsOnTrial = true;
+
             IStaffService ss = new StaffService(Settings.Default.db);
-            IPagedList<Staff> staffs = ss.SearchOnTrialStaff(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            List<Staff> staffs = ss.Search(q).ToList()/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+
+            IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+
+            foreach (var i in mrs.FindByType(201))
+            {
+                staffs.Add(ss.FindByNr(i.staffNr));
+            }
+
+            //q.IsOnTrial = false;
+
+            //foreach(var staff in ss.Search(q).ToList())
+            //{
+            //    staffs.Add(staff);/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+            //}
+
+            //StaffSearchModel ontrail = new StaffSearchModel();
+
+            //ontrail.loginUser = user;
+
+            //foreach(var i in ss.SearchOnTrialStaff(ontrail))
+            //{
+            //    staffs.Add(i);
+            //}
+
             ViewBag.Query = q;
+
             SetDropDownList(null);
-            return View(staffs);
+            return View(staffs.ToPagedList(pageIndex, Settings.Default.pageSize));
         }
+
+        //[UserAuthorize]
+        //[RoleAndDataAuthorizationAttribute]
+        //public ActionResult ToEmployees(int? page)
+        //{
+        //    int pageIndex = PagingHelper.GetPageIndex(page);
+        //    StaffSearchModel q = new StaffSearchModel();
+        //    IMessageRecordService mrs =new MessageRecordService(Settings.Default.db);
+        //    foreach (var i in mrs.FindByType(201))
+        //    {
+        //        q.StaffNrs.Add(i.staffNr);
+        //    }
+        //    User user = System.Web.HttpContext.Current.Session["user"] as User;
+        //    q.loginUser = user;
+        //    IStaffService ss = new StaffService(Settings.Default.db);
+        //    IPagedList<Staff> staffs = ss.SearchOnTrialStaff(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+        //    ViewBag.Query = q;
+        //    SetDropDownList(null);
+        //    return View(staffs);
+        //}
+
+        //[HttpGet]
+        //public JsonResult ToEmployeesapi()
+        //{
+        //    IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+        //    foreach (var i in mrs.FindByType(201))
+        //    {
+        //        Dictionary<string, string> eachdetail = new Dictionary<string, string>();
+        //        IStaffService ss =new StaffService(Settings.Default.db);
+        //    }
+
+        //}
+
         // GET: Staff/CountStaff
         [HttpGet]
         public JsonResult StaffCount()
@@ -1316,6 +1366,30 @@ namespace BlueHrWeb.Controllers
             Result.Add("过期", eachDetailExpired);
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
+
+        //[HttpGet]
+        //public ActionResult EmployeesDetail()
+        //{
+        //    try
+        //    {
+        //        IStaffService ss = new StaffService(Settings.Default.db);
+        //        List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+        //        foreach (var i in ss.ToEmployeesDetail(0))
+        //        {
+        //            Dictionary<string, string> each = new Dictionary<string, string>();
+        //            each.Add("ea", user.name);
+        //            each.Add("邮箱", user.email);
+        //            each.Add("是否锁定", user.isLockedStr);
+        //            each.Add("角色类型", user.roleStr);
+        //            Result.Add(each);
+        //        }
+        //        return Json(Result, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
 
         [HttpGet]
         public JsonResult ToEmployeesDetail()
