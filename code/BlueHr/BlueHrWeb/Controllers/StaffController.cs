@@ -148,11 +148,11 @@ namespace BlueHrWeb.Controllers
                             //    {//如果存在这个数  
                             //        result.add(integer);//放进一个list里面，这个list就是交集  
                             //    }
-                                //foreach (var temp2 in staffs)
-                                //{
-                                //    if(staffstemp.FirstOrDefault(s => s.nr.Equals(temp2.nr)) == null) staffs.ToList().Remove(temp2);
-                                //}
-                            }
+                            //foreach (var temp2 in staffs)
+                            //{
+                            //    if(staffstemp.FirstOrDefault(s => s.nr.Equals(temp2.nr)) == null) staffs.ToList().Remove(temp2);
+                            //}
+                        }
                     }
                 }
             }
