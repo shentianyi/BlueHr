@@ -155,7 +155,7 @@ namespace BlueHrWeb.Controllers
 
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Approval([Bind(Include = "id,checkScore,approvalStatus,approvalRemark")] FullMemberRecord fullMemberRecord)
+        public JsonResult Approval([Bind(Include = "id,checkScore,isPassCheck,approvalStatus,approvalRemark")] FullMemberRecord fullMemberRecord)
         {
             ResultMessage msg = new ResultMessage();
             fullMemberRecord.approvalAt = System.DateTime.Now;
