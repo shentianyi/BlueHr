@@ -80,9 +80,9 @@ namespace BlueHrLib.Service.Implement
             return rep.GetAllTableName();
         }
 
-        public IQueryable<Shift> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst, string searchValueSecond)
+        public IQueryable<Shift> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst)
         {
-            return rep.AdvancedSearch(allTableName, searchConditions, searchValueFirst, searchValueSecond);
+            return rep.AdvancedSearch(allTableName, searchConditions, searchValueFirst);
         }
     }
 }

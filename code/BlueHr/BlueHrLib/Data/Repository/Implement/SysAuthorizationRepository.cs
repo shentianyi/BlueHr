@@ -141,21 +141,13 @@ namespace BlueHrLib.Data.Repository.Implement
             }
         }
 
-        public IQueryable<SysAuthorization> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst, string SearchValueSecond)
+        public IQueryable<SysAuthorization> AdvancedSearch(string AllTableName, string SearchConditions, string SearchValueFirst)
         {
             string strWhere = string.Empty;
 
             try
             {
-                if (SearchValueSecond != string.Empty)
-                {
-                    strWhere += SearchConditionsHelper.GetStrWhere("SysAuthorization", AllTableName, SearchConditions, SearchValueFirst);
-                    strWhere += SearchConditionsHelper.GetStrWhere("SysAuthorization", AllTableName, SearchConditions, SearchValueSecond);
-                }
-                else
-                {
-                    strWhere = SearchConditionsHelper.GetStrWhere("SysAuthorization", AllTableName, SearchConditions, SearchValueFirst);
-                }
+                strWhere = SearchConditionsHelper.GetStrWhere("SysAuthorization", AllTableName, SearchConditions, SearchValueFirst);
                 var q = this.context.CreateQuery<SysAuthorization>(strWhere);
                 return q;
             }

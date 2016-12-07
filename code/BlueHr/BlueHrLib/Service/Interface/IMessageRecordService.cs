@@ -109,5 +109,6 @@ namespace BlueHrLib.Service.Interface
         bool Read(int id);
         List<MessageRecord> GetAllTableName();
         List<MessageRecord> LoginDetail();
+        List<MessageRecord> FindByType(int type);
     }
 }

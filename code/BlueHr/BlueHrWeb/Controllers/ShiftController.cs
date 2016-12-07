@@ -250,6 +250,16 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
+            if (model.shiftType == 100 && 
+                Convert.ToInt32(model.endAt.Hours.ToString()) <= Convert.ToInt32(model.startAt.Hours.ToString()) && 
+                Convert.ToInt32(model.endAt.Minutes.ToString()) <= Convert.ToInt32(model.startAt.Minutes.ToString()))
+            {
+                msg.Success = false;
+                msg.Content = "上班时间错误，请检查";
+
+                return msg;
+            }
+
             IShiftService cs = new ShiftService(Settings.Default.db);
             List<Shift> shift = cs.All();
 
@@ -376,50 +386,47 @@ namespace BlueHrWeb.Controllers
             q.loginUser = user;
             ViewBag.Query = q;
 
-            IShiftService ss = new ShiftService(Settings.Default.db);
+            IShiftService sras = new ShiftService(Settings.Default.db);
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
             IPagedList<Shift> shifts = null;
-
-            string AllTableName = null;
-            string SearchConditions = null;
-            string SearchValueFirst = null;
-            string SearchValueSecond = null;
-
+            IQueryable<Shift> shiftstemp = null;
+            IQueryable<Shift> shiftstemp1 = null;
+            List<Shift> Result = new List<Shift>();
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
-                AllTableName = Request.Form["allTableName"].ToString();
-
-                SetAllTableName(AllTableName);
-
                 if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
                 {
-                    SearchConditions = Request.Form.Get("searchConditions");
-
-                    SetSearchConditions(Convert.ToInt32(SearchConditions));
-
                     if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
                     {
-                        SearchValueFirst = Request.Form.Get("searchValueFirst").ToString();
-
-                        ViewBag.searchValueFirst = SearchValueFirst;
-
-                        SearchValueSecond = Request.Form.Get("searchValueSecond").ToString();
-                        ViewBag.searchValueSecond = SearchValueSecond;
-
-                        //有两个值， 需要进行两个值的查询
-                        shifts = ss.AdvancedSearch(AllTableName, SearchConditions, SearchValueFirst, SearchValueSecond).ToPagedList(pageIndex, Settings.Default.pageSize);
-
-                    }
-                    else
-                    {
-                        //不能进行查询
+                        string AllTableName = Request.Form["allTableName"].ToString();
+                        string[] AllTableNameArray = AllTableName.Split(',');
+                        string SearchConditions = Request.Form["searchConditions"];
+                        string[] SearchConditionsArray = SearchConditions.Split(',');
+                        string searchValueFirst = Request.Form["searchValueFirst"];
+                        string[] searchValueFirstArray = searchValueFirst.Split(',');
+                        shiftstemp1 = sras.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                        if (AllTableNameArray.Length > 1)
+                        {
+                            for (var i = 1; i < AllTableNameArray.Length; i++)
+                            {
+                                shiftstemp = sras.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in shiftstemp)
+                                {
+                                    if (shiftstemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            shifts = shiftstemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                        }
                     }
                 }
             }
-
+            shifts = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
 
             return View("Index", shifts);
         }
