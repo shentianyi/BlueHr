@@ -88,9 +88,11 @@ namespace BlueHrWeb.Controllers
         // POST: ExtraWorkRecord/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public ActionResult Create([Bind(Include = "extraWorkTypeId,staffNr,otTime,startHour,endHour,duration,durationType,otReason, userId")] ExtraWorkRecord model)
+        public ActionResult Create([Bind(Include = "extraWorkTypeId,staffNr,otTime,startHour,endHour,duration,durationType,otReason")] ExtraWorkRecord model)
         {
             ResultMessage msg = new ResultMessage();
+
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
 
             try
             { 
@@ -105,6 +107,7 @@ namespace BlueHrWeb.Controllers
                 else
                 {
                     IExtraWorkRecordService cs = new ExtraWorkRecordService(Settings.Default.db);
+                    model.userId = user.id;
                     bool isSucceed = cs.Create(model);
 
                     msg.Success = isSucceed;

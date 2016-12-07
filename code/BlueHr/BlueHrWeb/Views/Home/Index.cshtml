@@ -2,6 +2,13 @@
     ViewBag.Title = "我的主页";
 }
 
+<style type="text/css">
+    .marco-nbody{
+        max-height: 420px;
+        overflow: auto;
+    }
+</style>
+
 <div style="margin: 10px;">
     @* 简单的显示 *@
     <div class="row" style="margin-top:20px;">
@@ -397,16 +404,17 @@
 		    if(current.length>0){
 		        for(var i =0; i< current.length; i++){
 		            var html = "<tr><td > "+current[i].姓名+" </td><td > "+current[i].员工号+" </td><td > "+current[i].合同签订次数+" </td><td > "+current[i].合同到期+" </td></tr>";
-		            $(html).appendTo($("#ExpiredNextMonth"));
+		            $(html).appendTo($("#ExpiredCurrentMonth"));
 		        }
 		    }
 
 		    if (next.length > 0) {
 		        for (var i = 0; i < next.length; i++) {
 		            var html = "<tr><td > " + next[i].姓名 + " </td><td > " + next[i].员工号 + " </td><td > " + next[i].合同签订次数 + " </td><td > " + next[i].合同到期 + " </td></tr>";
-		            $(html).appendTo($("#ExpiredCurrentMonth"));
+		            $(html).appendTo($("#ExpiredNextMonth"));
 		        }
 		    }
+            
 		    if(expired.length>0){
 		        for(var i =0; i< expired.length; i++){
 		            var html = "<tr><td > "+expired[i].姓名+" </td><td > "+expired[i].员工号+" </td><td > "+expired[i].合同签订次数+" </td><td > "+expired[i].合同到期+" </td></tr>";
@@ -489,25 +497,7 @@
         }
     });
 
-    $.ajax({
-        url:'Staff/CountStaff',
-        type:'get',
-        success:function(data){
-            $('#test1').empty();
-            $('#test2').empty();
-            $('#test3').empty();
-            var current = data.本月，
-                next = data.下月，
-                expired = data.过期；
-            if(current.length > 0){
-                for(var i = 0; i< current.length; i++){
-                    var Html = "<tr><td>"+current[i].本月+"</td><td>"++
-                }
-            }
 
-        }
-    })
- 	
 	$.ajax({
         url: '/Staff/CountStaffBirthday',
         type: 'get',
