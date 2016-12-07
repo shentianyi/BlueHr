@@ -21,18 +21,6 @@
                     <input type="text" name="Nr" id="Nr" placeholder="工号" value="@ViewBag.Query.StaffNr" />
                 </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>姓名</span>
-                    <input type="text" name="Name" id="Name" placeholder="姓名" value="@ViewBag.Query.StaffName" />
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>所属部门</span>
-                    <input type="text" name="Department" id="Department" placeholder="所属部门" value="@ViewBag.Query.departmentId" />
-                </div>
-            </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 5px;">
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                     <button type="submit" class="marco-btn-success pull-left">
@@ -109,15 +97,15 @@
                     <thead>
                         <tr>
                             <th>工号</th>
-                            <th>姓名</th>
-                            <th>性别</th>
-                            <th>所属公司</th>
-                            <th>所属部门</th>
                             <th>奖惩类型</th>
                             <th>奖惩项目</th>
                             <th>奖惩描述</th>
-                            <th>奖惩日期</th>
+                            <th>申请日期</th>
+                            <th>申请人</th>
                             <th>审批人</th>
+                            <th>审批状态</th>
+                            <th>审批时间</th>
+                            <th>备注</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -131,18 +119,6 @@
                                         @Html.DisplayFor(modelItem => item.staffNr)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.staffName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.staffSex)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.companyId)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.departmentId)
-                                    </td>
-                                    <td>
                                         @Html.DisplayFor(modelItem => item.type)
                                     </td>
                                     <td>
@@ -152,10 +128,22 @@
                                         @Html.DisplayFor(modelItem => item.description)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.createAt)
+                                        @Html.DisplayFor(modelItem => item.createdAt)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.userId)
+                                        @Html.DisplayFor(modelItem => item.createdUserId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalUserId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalStatus)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalAt)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalRemark)
                                     </td>
                                     <td>
                                         <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
@@ -163,7 +151,10 @@
                                         </a>    
                                         <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
                                             <i class="fa fa-pencil"></i>
-                                        </a>                                   
+                                        </a>
+                                        <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
+                                            <i class="fa fa-check"></i>
+                                        </a>                                                                        
                                     </td>
                                 </tr>
                             }

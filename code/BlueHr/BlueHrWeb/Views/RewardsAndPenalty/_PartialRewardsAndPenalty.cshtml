@@ -40,30 +40,6 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <span>姓名</span>
-                        @Html.EditorFor(model => model.staffName)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>性别</span>
-                        @Html.EditorFor(model => model.staffSex)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>所属公司</span>
-                        @Html.EditorFor(model => model.companyId)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>所属部门</span>
-                        @Html.EditorFor(model => model.departmentId)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
                         <span>奖惩类型</span>
                         @Html.EditorFor(model => model.type)
                     </div>
@@ -80,18 +56,45 @@
                         @Html.EditorFor(model => model.description)
                     </div>
                 </div>
+                @if (Model != null)
+                {
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <span>奖惩日期</span>
-                        <input type="text" name="rewardsandpenaltiesAt" class="date-picker"/>
+                        <span>申请日期</span>
+                        @Html.EditorFor(model => model.createdAt, new { htmlAttributes = new { @class = "date-picker" } })
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <span>审批人</span>
-                        @Html.EditorFor(model => model.userId)
+                        <span>申请人</span>
+                        @Html.EditorFor(model => model.createdUserId)
                     </div>
-                </div>             
+                </div> 
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>审批人</span>
+                        @Html.EditorFor(model => model.approvalUserId)
+                    </div>
+                </div> 
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>审批状态</span>
+                        @Html.EditorFor(model => model.approvalStatus)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>审批时间</span>
+                        @Html.EditorFor(model => model.approvalAt, new { htmlAttributes = new { @class = "date-picker" } })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>备注</span>
+                        @Html.TextAreaFor(model => model.approvalRemark)                        
+                    </div>
+                </div>
+                }
             </div>
         </div>
     }
