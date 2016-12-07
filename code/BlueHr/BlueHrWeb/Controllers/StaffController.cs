@@ -119,6 +119,9 @@ namespace BlueHrWeb.Controllers
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
             IPagedList<Staff> staffs = null;
+            IQueryable<Staff> staffstemp = null;
+            IQueryable<Staff> staffstemp1 = null;
+            List<Staff> Result = new List<Staff>();
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
                 if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
@@ -131,32 +134,38 @@ namespace BlueHrWeb.Controllers
                         string[] SearchConditionsArray = SearchConditions.Split(',');
                         string searchValueFirst = Request.Form["searchValueFirst"];
                         string[] searchValueFirstArray = searchValueFirst.Split(',');
-                        staffs= ss.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0]).ToPagedList(pageIndex, Settings.Default.pageSize);
-
-                        for (var i = 0; i < AllTableNameArray.Length; i++)
+                        staffstemp1 = ss.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                        if (AllTableNameArray.Length > 1)
                         {
-                            IPagedList<Staff> staffstemp = null;
-                            staffstemp = ss.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i]).ToPagedList(pageIndex, Settings.Default.pageSize);
-                            foreach (var temp in staffstemp)
+                            for (var i = 1; i < AllTableNameArray.Length; i++)
                             {
-                                if (staffs.FirstOrDefault(s => s.nr.Equals(temp.nr)) == null) staffs.ToList().Remove(temp);
-                            }
-                            //List<Integer> result = new ArrayList<Integer>();
-                            //for (Integer integer : list2)
-                            //{//遍历list1  
-                            //    if (list1.contains(integer))
-                            //    {//如果存在这个数  
-                            //        result.add(integer);//放进一个list里面，这个list就是交集  
-                            //    }
+                                //IPagedList<Staff> staffstemp = null;
+                                staffstemp = ss.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in staffstemp)
+                                {
+                                    if (staffstemp1.FirstOrDefault(s => s.nr.Equals(temp.nr)) != null) Result.Add(temp);
+                                }
+                                //List<Integer> result = new ArrayList<Integer>();
+                                //for (Integer integer : list2)
+                                //{//遍历list1  
+                                //    if (list1.contains(integer))
+                                //    {//如果存在这个数  
+                                //        result.add(integer);//放进一个list里面，这个list就是交集  
+                                //    }
                                 //foreach (var temp2 in staffs)
                                 //{
                                 //    if(staffstemp.FirstOrDefault(s => s.nr.Equals(temp2.nr)) == null) staffs.ToList().Remove(temp2);
                                 //}
                             }
+                        }
+                        else
+                        {
+                            staffs = staffstemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                        }
                     }
                 }
             }
-
+            staffs = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
             SetDropDownList(null);
 
             return View("Index", staffs);
