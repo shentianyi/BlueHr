@@ -992,7 +992,7 @@ namespace BlueHrWeb.Controllers
             ResultMessage msg = new ResultMessage();
             if (record.isPassCheck)
             {
-                if (record.beFullAt == null)
+                if (record.approvalAt == null)
                 {
                     msg.Content = "请填写转正日期";
                     return Json(msg);

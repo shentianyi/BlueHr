@@ -75,10 +75,10 @@ namespace BlueHrWeb.Controllers
         // POST: RewardsAndPenalty/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Create([Bind(Include = "staffNr,staffName,staffSex,companyId,departmentId,type,project,description,createAt,userId")] RewardsAndPenalty rewardsAndPenalties)
+        public JsonResult Create([Bind(Include = "staffNr,type,project,description")] RewardsAndPenalty rewardsAndPenalties)
         {
             ResultMessage msg = new ResultMessage();
-
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
             try
             {
                 msg = DoValidation(rewardsAndPenalties);
@@ -89,10 +89,41 @@ namespace BlueHrWeb.Controllers
                 }
                 else
                 {
+                    rewardsAndPenalties.createdUserId = user.id;
+                    rewardsAndPenalties.createdAt = System.DateTime.Now;
                     IRewardsAndPenaltyService raps = new RewardsAndPenaltyService(Settings.Default.db);
                     bool isSucceed = raps.Create(rewardsAndPenalties);
                     msg.Success = isSucceed;
                     msg.Content = isSucceed ? "" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [RoleAndDataAuthorizationAttribute]
+        [HttpPost]
+        public JsonResult Approval([Bind(Include = "id,approvalStatus,approvalRemark")] RewardsAndPenalty rewardsAndPenalties)
+        {
+            ResultMessage msg = new ResultMessage();
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            try
+            {
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    rewardsAndPenalties.approvalUserId = user.id;
+                    IRewardsAndPenaltyService raps = new RewardsAndPenaltyService(Settings.Default.db);
+                    bool isSucceed = raps.Update(rewardsAndPenalties);
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "审批成功" : "审批失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -127,11 +158,11 @@ namespace BlueHrWeb.Controllers
                 detail.Add("奖惩类型", i.type == 1?"奖励":"惩罚");
                 detail.Add("奖惩项目", i.project);
                 detail.Add("奖惩描述", i.description);
-                detail.Add("奖惩日期", i.createAt.ToString());
+                detail.Add("奖惩日期", i.createdAt.ToString());
                 IUserService us = new UserService(Settings.Default.db);
                 try
                 {
-                    detail.Add("审批人", us.FindById((int)i.userId).name);
+                    detail.Add("审批人", us.FindById((int)i.approvalUserId).name);
                 }
                 catch { detail.Add("审批人", null); }
                 Result.Add(detail);
@@ -141,7 +172,7 @@ namespace BlueHrWeb.Controllers
         // POST: RewardsAndPenalty/Edit/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Edit([Bind(Include = "nr,name,sex,companyId,departmentId,type,project,description,datetime,approver")] RewardsAndPenalty rewardsAndPenalties)
+        public JsonResult Edit([Bind(Include = "id,staffNr,type,project,description")] RewardsAndPenalty rewardsAndPenalties)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -205,43 +236,14 @@ namespace BlueHrWeb.Controllers
         {
             if (rewardsAndPenalty != null)
             {
-                SetSexList(rewardsAndPenalty.staffSex);
-                SetCompanyList(rewardsAndPenalty.companyId);
-                SetDepartmentList(rewardsAndPenalty.companyId, rewardsAndPenalty.departmentId);
                 SetTypeList(rewardsAndPenalty.type);
             }
             else
             {
-                SetSexList(null);
-                SetCompanyList(null);
-                SetDepartmentList(null, null);
                 SetTypeList(null);
             }
         }
-        private void SetSexList(int? type, bool allowBlank = true)
-        {
-            List<EnumItem> item = EnumHelper.GetList(typeof(Sex));
 
-            List<SelectListItem> select = new List<SelectListItem>();
-
-            if (allowBlank)
-            {
-                select.Add(new SelectListItem { Text = "", Value = "" });
-            }
-
-            foreach (var it in item)
-            {
-                if (type.HasValue && type.ToString().Equals(it.Value))
-                {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
-                }
-                else
-                {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
-                }
-            }
-            ViewData["sexList"] = select;
-        }
         private void SetTypeList(int? type, bool allowBlank = true)
         {
             List<EnumItem> item = EnumHelper.GetList(typeof(RewardsAndPenaltyType));
@@ -266,66 +268,7 @@ namespace BlueHrWeb.Controllers
             }
             ViewData["rewardsAndPenaltiesTypeList"] = select;
         }
-        private void SetDepartmentList(int? companyId, int? type, bool allowBlank = true)
-        {
-            IDepartmentService ds = new DepartmentService(Settings.Default.db);
 
-            List<SelectListItem> select = new List<SelectListItem>();
-
-            List<Department> departments = new List<Department>();
-            if (companyId.HasValue)
-            {
-                departments = ds.FindByCompanyId(companyId).ToList();
-
-                if (allowBlank)
-                {
-                    select.Add(new SelectListItem { Text = "", Value = "" });
-                }
-
-                foreach (var department in departments)
-                {
-                    if (type.HasValue && type.ToString().Equals(department.id))
-                    {
-                        select.Add(new SelectListItem { Text = department.fullName, Value = department.id.ToString(), Selected = true });
-                    }
-                    else
-                    {
-                        select.Add(new SelectListItem { Text = department.fullName, Value = department.id.ToString(), Selected = false });
-                    }
-                }
-            }
-
-            ViewData["departmentList"] = select;
-        }
-
-        private void SetCompanyList(int? type, bool allowBlank = true)
-        {
-            ICompanyService cs = new CompanyService(Settings.Default.db);
-
-            CompanySearchModel csm = new CompanySearchModel();
-
-            List<Company> companies = cs.Search(csm).ToList();
-
-            List<SelectListItem> select = new List<SelectListItem>();
-
-            if (allowBlank)
-            {
-                select.Add(new SelectListItem { Text = "", Value = "" });
-            }
-
-            foreach (var company in companies)
-            {
-                if (type.HasValue && type.ToString().Equals(company.id))
-                {
-                    select.Add(new SelectListItem { Text = company.name, Value = company.id.ToString(), Selected = true });
-                }
-                else
-                {
-                    select.Add(new SelectListItem { Text = company.name, Value = company.id.ToString(), Selected = false });
-                }
-            }
-            ViewData["companyList"] = select;
-        }
         [HttpPost]
 
         public ResultMessage DoValidation(RewardsAndPenalty model)
@@ -336,18 +279,6 @@ namespace BlueHrWeb.Controllers
             {
                 msg.Success = false;
                 msg.Content = "员工号不能为空";
-                return msg;
-            }
-            if (string.IsNullOrEmpty(model.staffName))
-            { 
-                msg.Success = false;
-                msg.Content = "员工姓名不能为空";
-                return msg;
-            }
-            if (model.staffSex==null)
-            {
-                msg.Success = false;
-                msg.Content = "员工性别不能为空";
                 return msg;
             }
             if (model.type == null)
