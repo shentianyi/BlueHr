@@ -81,13 +81,13 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         // POST: SysRole/Create
         [HttpPost]
-        public JsonResult Create([Bind(Include = "name,remarks")] SysRole jobTitle)
+        public JsonResult Create([Bind(Include = "name,remarks")] SysRole sysRole)
         {
             ResultMessage msg = new ResultMessage();
 
             try
             {
-                msg = DoValidation(jobTitle);
+                msg = DoValidation(sysRole);
 
                 if (!msg.Success)
                 {
@@ -104,14 +104,14 @@ namespace BlueHrWeb.Controllers
 
                     //    jobCerts.Split(new Char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList().ForEach(p =>
                     //    {
-                    //        jobTitle.JobCertificate.Add(new JobCertificate()
+                    //        sysRole.JobCertificate.Add(new JobCertificate()
                     //        {
                     //            certificateTypeId = int.Parse(p),
-                    //            jobTitleId = jobTitle.id
+                    //            jobTitleId = sysRole.id
                     //        });
                     //    });
                     //}
-                    bool isSucceed = cs.Create(jobTitle);
+                    bool isSucceed = cs.Create(sysRole);
 
                     msg.Success = isSucceed;
                     msg.Content = isSucceed ? "" : "添加失败";
@@ -137,13 +137,13 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         // POST: SysRole/Edit/5
         [HttpPost]
-        public JsonResult Edit([Bind(Include = "id, name, remarks")] SysRole jobTitle)
+        public JsonResult Edit([Bind(Include = "id, name, remarks")] SysRole sysRole)
         {
             ResultMessage msg = new ResultMessage();
 
             try
             {
-                msg = DoValidation(jobTitle);
+                msg = DoValidation(sysRole);
 
                 if (!msg.Success)
                 {
@@ -154,7 +154,7 @@ namespace BlueHrWeb.Controllers
                     //string jobCerts = this.HttpContext.Request.Form["jobCertificateType"];
 
                     ISysRoleService cs = new SysRoleService(Settings.Default.db);
-                    bool isSucceed = cs.Update(jobTitle);
+                    bool isSucceed = cs.Update(sysRole);
 
                     msg.Success = isSucceed;
                     msg.Content = isSucceed ? "" : "更新失败";
