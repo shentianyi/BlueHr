@@ -374,6 +374,7 @@
     <Content Include="Images\treeIcon\loading.gif" />
     <Content Include="Images\treeIcon\metro.gif" />
     <Content Include="Images\treeIcon\metro.png" />
+    <Content Include="Images\UserSysRole.png" />
     <Content Include="README.txt" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
@@ -753,6 +754,8 @@
     <Content Include="Views\Personal\Note.cshtml" />
     <Content Include="Views\User\Log.cshtml" />
     <Content Include="Views\User\UserMsg.cshtml" />
+    <Content Include="Views\Shared\_Layout - 复制.cshtml" />
+    <Content Include="Views\SysRole\Index - 复制.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
