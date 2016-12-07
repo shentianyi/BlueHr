@@ -77,6 +77,7 @@ namespace BlueHrLib.Data.Repository.Implement
                 mr1.approvalRemark = fmr.approvalRemark;
                 mr1.createdAt = fmr.createdAt;
                 mr1.createdUserId = fmr.createdUserId;
+                mr1.isPassCheck = fmr.isPassCheck;
                 this.context.SubmitChanges();
                 return true;
             }

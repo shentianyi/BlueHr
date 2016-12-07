@@ -102,5 +102,10 @@ namespace BlueHrLib.Service.Implement
         {
             return new UserRepository(new DataContext(this.DbString)).Update(user);
         }
+
+        public List<User> FindByRole(string role)
+        {
+            return userRep.FindByRole(role);
+        }
     }
 }
