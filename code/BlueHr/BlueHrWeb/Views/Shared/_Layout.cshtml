@@ -120,7 +120,7 @@
                     <li class="nav-userAuthorization">
                         <a href="#">
                             <i class="fa fa-unlock-alt"></i>
-                            <span>用户权限管理</span>
+                            <span>权限管理</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -483,8 +483,8 @@
         //1920* 1200  1068 * 677 刚刚好
         //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
         Layout.openNewWindow($(this).attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
-
         return false;
+
     });
     $('.option-icon-warning').click(function(){
         Layout.openNewWindow($(this).attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
@@ -493,7 +493,7 @@
     });
     $('a>button.marco-btn-primary').click(function(){
         Layout.openNewWindow($(this).parent().attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
-        
         return false;
+        
     });
 </script>

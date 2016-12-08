@@ -13,16 +13,18 @@
     </li>
 </ol>
 <hr class="hr-grey" />
+
 @{
     bool canDelete = MenuAuthHelper.CanShow("ExtraWorkRecord", "Delete");
     bool canEdit = MenuAuthHelper.CanShow("ExtraWorkRecord", "Edit");
     bool canCreate = MenuAuthHelper.CanShow("ExtraWorkRecord", "Create");
-
     bool canApp = MenuAuthHelper.CanShow("ExtraWorkRecord", "ApprovalExtraWorkRecord");
     bool canImport = MenuAuthHelper.CanShow("ExtraWorkRecord", "Import");
 }
+
 <div class="row" style="margin:0;">
     <form action="/ExtraWorkRecord/Search" method="get">
+
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
             <div class="marco-igroup-primary">
                 <span>员工编号</span>
@@ -46,10 +48,10 @@
                         <i class="fa fa-search"></i>
                         搜索
                     </button>
-                   
                 </span>
             </div>
         </div>
+
     </form>
 </div>
 

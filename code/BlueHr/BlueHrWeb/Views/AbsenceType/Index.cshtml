@@ -11,9 +11,12 @@
         <strong>缺勤类型</strong>
     </li>
 </ol>
+
 <hr class="hr-grey" />
+
 <div class="search">
     <form action="/AbsenceType/Search" method="get">
+
         <div class="row" style="margin:0;">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
@@ -28,11 +31,11 @@
                 </button>
             </div>
         </div>
+
     </form>
 </div>
 
 <hr class="hr-primary" />
-
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
@@ -45,13 +48,9 @@
         </a>
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-
             <li role="presentation" class="active"><a href="#all_AbsenceType" role="tab" data-toggle="tab">所有缺勤类型</a></li>
-
-
         </ul>
         <div class="tab-content">
-
 
             <div role="tabpanel" class="tab-pane  active" id="all_AbsenceType">
                 <div id="all_AbsenceType_grid_table" style="margin:auto;"></div>
@@ -93,20 +92,17 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
-
-
     </div>
 </div>
 
 <script type="text/javascript">
     Layout.init();
+
+    //resize()：调整浏览器窗口大小的方法
     $(window).resize(function () {
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_AbsenceType", "所有缺勤类型列表", "20", "all_AbsenceType_grid_table");
-
     })
 
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_AbsenceType", "所有缺勤类型列表", "20", "all_AbsenceType_grid_table");
-
 </script>

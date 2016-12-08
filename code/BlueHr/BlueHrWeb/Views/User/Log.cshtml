@@ -9,9 +9,6 @@
     <li>登陆日志</li>
 </ol>
 
-
-<hr class="hr-grey" />
-
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
@@ -35,10 +32,7 @@
                     </tbody>
                 </table>
             </div>
-           
         </div>
-        
-
     </div>
 </div> 
 
@@ -46,8 +40,6 @@
 @*@Scripts.Render("~/bundles/degreetype")*@
 <script type="text/javascript">
     Layout.init();
-    
-
 
     Layout.advancedfilter();
 
@@ -56,7 +48,7 @@
         type: 'get',
         success: function (data) {
             $("#LogMessages").empty();
-            if(data.length>0){
+            if(data.length> 0){
                 for (var i = 0; i < data.length; i++) {
                     console.log(data);
                     console.log(data[i]);
@@ -69,7 +61,7 @@
                 Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 200, false, "all_log", "登陆日志列表", "20", "all_log_grid_table");
             })
 
-            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 200, false, "all_log", "登陆日志列表", "20", "all_log_grid_table");
+                Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 200, false, "all_log", "登陆日志列表", "20", "all_log_grid_table");
         },
         error: function () {
             console.log("CCCCCCCC");

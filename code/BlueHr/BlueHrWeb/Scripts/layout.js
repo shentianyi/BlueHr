@@ -25,7 +25,6 @@ switch (pathname[1]) {
     case "Home":
         $('.nav-myHome').addClass('active');       
         break;
-    
     case "SysRole":
         $('.nav-userAuthorization').addClass('active');
         $('.nav-sysRole').addClass('active');
@@ -74,7 +73,6 @@ switch (pathname[1]) {
         }  
         PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');          
         break;
-
     case "User":
         if(pathname[2]=="Index"){
             $('.nav-user').addClass('active');
@@ -241,9 +239,8 @@ switch (pathname[1]) {
         PageAction('#user', '新建系统操作', '编辑系统操作', '系统操作详情', '创建', '更新', '删除');
         break;
 
-    
-        default:
-            break;
+    default:
+        break;
     }
 
     function PageAction(id, newAction, editAction, deleteAction, newBtn, editBtn, deleteBtn) {
@@ -277,7 +274,7 @@ switch (pathname[1]) {
             })
             vueName.action = deleteAction;
             vueName.actionBtn = deleteBtn;
-        }else if(pathname[2] == "Create"){
+        } else if(pathname[2] == "Create"){
         	$(".main-header").remove();
             $(".main-sidebar").remove();
             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
@@ -454,7 +451,6 @@ Layout.TransferTableToGrid = function (width, height, editable, divID, title, rP
 
     newObj.dataModel = { data: obj.data };
     newObj.colModel = obj.colModel;
-
     newObj.pageModel = { rPP: rPP, type: "local" };
 
     $("#" + gridID).pqGrid(newObj);
