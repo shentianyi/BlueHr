@@ -257,6 +257,7 @@
     <Compile Include="Controllers\InSureTypeController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\RecruitController.cs" />
+    <Compile Include="Controllers\ResignRecordController.cs" />
     <Compile Include="Controllers\RewardsAndPenaltyController.cs" />
     <Compile Include="Controllers\SysRoleAuthorizationController.cs" />
     <Compile Include="Controllers\SysRoleController.cs" />
@@ -422,6 +423,8 @@
     <Content Include="Scripts\certificate.js" />
     <Content Include="Scripts\company.js" />
     <Content Include="Scripts\fullcalendar-moment.min.js" />
+    <Content Include="Scripts\fullcalendar-zh-cn.js" />
+    <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\go.js" />
     <Content Include="Scripts\highcharts\highcharts-3d.js" />
     <Content Include="Scripts\highcharts\highcharts-3d.src.js" />
@@ -757,7 +760,6 @@
     <Content Include="Views\Personal\Schedule.cshtml" />
     <Content Include="Views\Personal\Approval.cshtml" />
     <Content Include="Views\Personal\Application.cshtml" />
-    <Content Include="Views\Personal\Note.cshtml" />
     <Content Include="Views\User\Log.cshtml" />
     <Content Include="Views\User\UserMsg.cshtml" />
     <Content Include="Views\Shared\_Layout - 复制.cshtml" />

@@ -17,7 +17,7 @@ namespace BlueHrLib.Service.Interface
 
         ResignRecord FindById(int id);
 
-        ResultMessage Create(ResignRecord title);
+        bool Create(ResignRecord resignRecord);
 
         bool Update(ResignRecord title);
 

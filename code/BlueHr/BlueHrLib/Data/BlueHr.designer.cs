@@ -22,7 +22,7 @@ namespace BlueHrLib.Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BlueHr")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BlueHrV2")]
 	public partial class BlueHrDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -132,9 +132,6 @@ namespace BlueHrLib.Data
     partial void InsertExtraWorkRecord(ExtraWorkRecord instance);
     partial void UpdateExtraWorkRecord(ExtraWorkRecord instance);
     partial void DeleteExtraWorkRecord(ExtraWorkRecord instance);
-    partial void InsertResignRecord(ResignRecord instance);
-    partial void UpdateResignRecord(ResignRecord instance);
-    partial void DeleteResignRecord(ResignRecord instance);
     partial void InsertRecruit(Recruit instance);
     partial void UpdateRecruit(Recruit instance);
     partial void DeleteRecruit(Recruit instance);
@@ -147,10 +144,13 @@ namespace BlueHrLib.Data
     partial void InsertFullMemberRecord(FullMemberRecord instance);
     partial void UpdateFullMemberRecord(FullMemberRecord instance);
     partial void DeleteFullMemberRecord(FullMemberRecord instance);
+    partial void InsertResignRecord(ResignRecord instance);
+    partial void UpdateResignRecord(ResignRecord instance);
+    partial void DeleteResignRecord(ResignRecord instance);
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString10, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.BlueHrV2ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -523,14 +523,6 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		public System.Data.Linq.Table<ResignRecord> ResignRecord
-		{
-			get
-			{
-				return this.GetTable<ResignRecord>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Recruit> Recruit
 		{
 			get
@@ -560,6 +552,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<FullMemberRecord>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ResignRecord> ResignRecord
+		{
+			get
+			{
+				return this.GetTable<ResignRecord>();
 			}
 		}
 	}
@@ -15026,421 +15026,6 @@ namespace BlueHrLib.Data
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ResignRecord")]
-	public partial class ResignRecord : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _resignTypeId;
-		
-		private string _staffNr;
-		
-		private System.DateTime _resignAt;
-		
-		private System.DateTime _resignEffectiveAt;
-		
-		private string _resignReason;
-		
-		private int _resignCheckUserId;
-		
-		private string _resignChecker;
-		
-		private System.Nullable<System.DateTime> _approvalAt;
-		
-		private string _approvalStatus;
-		
-		private string _approvalRemark;
-		
-		private System.Nullable<System.DateTime> _createdAt;
-		
-		private string _remark;
-		
-		private System.Nullable<int> _userId;
-		
-		private EntityRef<ResignType> _ResignType;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnresignTypeIdChanging(int value);
-    partial void OnresignTypeIdChanged();
-    partial void OnstaffNrChanging(string value);
-    partial void OnstaffNrChanged();
-    partial void OnresignAtChanging(System.DateTime value);
-    partial void OnresignAtChanged();
-    partial void OnresignEffectiveAtChanging(System.DateTime value);
-    partial void OnresignEffectiveAtChanged();
-    partial void OnresignReasonChanging(string value);
-    partial void OnresignReasonChanged();
-    partial void OnresignCheckUserIdChanging(int value);
-    partial void OnresignCheckUserIdChanged();
-    partial void OnresignCheckerChanging(string value);
-    partial void OnresignCheckerChanged();
-    partial void OnapprovalAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnapprovalAtChanged();
-    partial void OnapprovalStatusChanging(string value);
-    partial void OnapprovalStatusChanged();
-    partial void OnapprovalRemarkChanging(string value);
-    partial void OnapprovalRemarkChanged();
-    partial void OncreatedAtChanging(System.Nullable<System.DateTime> value);
-    partial void OncreatedAtChanged();
-    partial void OnremarkChanging(string value);
-    partial void OnremarkChanged();
-    partial void OnuserIdChanging(System.Nullable<int> value);
-    partial void OnuserIdChanged();
-    #endregion
-		
-		public ResignRecord()
-		{
-			this._ResignType = default(EntityRef<ResignType>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignTypeId", DbType="Int NOT NULL")]
-		public int resignTypeId
-		{
-			get
-			{
-				return this._resignTypeId;
-			}
-			set
-			{
-				if ((this._resignTypeId != value))
-				{
-					if (this._ResignType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnresignTypeIdChanging(value);
-					this.SendPropertyChanging();
-					this._resignTypeId = value;
-					this.SendPropertyChanged("resignTypeId");
-					this.OnresignTypeIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string staffNr
-		{
-			get
-			{
-				return this._staffNr;
-			}
-			set
-			{
-				if ((this._staffNr != value))
-				{
-					this.OnstaffNrChanging(value);
-					this.SendPropertyChanging();
-					this._staffNr = value;
-					this.SendPropertyChanged("staffNr");
-					this.OnstaffNrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignAt", DbType="DateTime NOT NULL")]
-		public System.DateTime resignAt
-		{
-			get
-			{
-				return this._resignAt;
-			}
-			set
-			{
-				if ((this._resignAt != value))
-				{
-					this.OnresignAtChanging(value);
-					this.SendPropertyChanging();
-					this._resignAt = value;
-					this.SendPropertyChanged("resignAt");
-					this.OnresignAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignEffectiveAt", DbType="DateTime NOT NULL")]
-		public System.DateTime resignEffectiveAt
-		{
-			get
-			{
-				return this._resignEffectiveAt;
-			}
-			set
-			{
-				if ((this._resignEffectiveAt != value))
-				{
-					this.OnresignEffectiveAtChanging(value);
-					this.SendPropertyChanging();
-					this._resignEffectiveAt = value;
-					this.SendPropertyChanged("resignEffectiveAt");
-					this.OnresignEffectiveAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignReason", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string resignReason
-		{
-			get
-			{
-				return this._resignReason;
-			}
-			set
-			{
-				if ((this._resignReason != value))
-				{
-					this.OnresignReasonChanging(value);
-					this.SendPropertyChanging();
-					this._resignReason = value;
-					this.SendPropertyChanged("resignReason");
-					this.OnresignReasonChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignCheckUserId", DbType="Int NOT NULL")]
-		public int resignCheckUserId
-		{
-			get
-			{
-				return this._resignCheckUserId;
-			}
-			set
-			{
-				if ((this._resignCheckUserId != value))
-				{
-					this.OnresignCheckUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._resignCheckUserId = value;
-					this.SendPropertyChanged("resignCheckUserId");
-					this.OnresignCheckUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignChecker", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string resignChecker
-		{
-			get
-			{
-				return this._resignChecker;
-			}
-			set
-			{
-				if ((this._resignChecker != value))
-				{
-					this.OnresignCheckerChanging(value);
-					this.SendPropertyChanging();
-					this._resignChecker = value;
-					this.SendPropertyChanged("resignChecker");
-					this.OnresignCheckerChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approvalAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> approvalAt
-		{
-			get
-			{
-				return this._approvalAt;
-			}
-			set
-			{
-				if ((this._approvalAt != value))
-				{
-					this.OnapprovalAtChanging(value);
-					this.SendPropertyChanging();
-					this._approvalAt = value;
-					this.SendPropertyChanged("approvalAt");
-					this.OnapprovalAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approvalStatus", DbType="VarChar(50)")]
-		public string approvalStatus
-		{
-			get
-			{
-				return this._approvalStatus;
-			}
-			set
-			{
-				if ((this._approvalStatus != value))
-				{
-					this.OnapprovalStatusChanging(value);
-					this.SendPropertyChanging();
-					this._approvalStatus = value;
-					this.SendPropertyChanged("approvalStatus");
-					this.OnapprovalStatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approvalRemark", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string approvalRemark
-		{
-			get
-			{
-				return this._approvalRemark;
-			}
-			set
-			{
-				if ((this._approvalRemark != value))
-				{
-					this.OnapprovalRemarkChanging(value);
-					this.SendPropertyChanging();
-					this._approvalRemark = value;
-					this.SendPropertyChanged("approvalRemark");
-					this.OnapprovalRemarkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdAt", DbType="DateTime")]
-		public System.Nullable<System.DateTime> createdAt
-		{
-			get
-			{
-				return this._createdAt;
-			}
-			set
-			{
-				if ((this._createdAt != value))
-				{
-					this.OncreatedAtChanging(value);
-					this.SendPropertyChanging();
-					this._createdAt = value;
-					this.SendPropertyChanged("createdAt");
-					this.OncreatedAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string remark
-		{
-			get
-			{
-				return this._remark;
-			}
-			set
-			{
-				if ((this._remark != value))
-				{
-					this.OnremarkChanging(value);
-					this.SendPropertyChanging();
-					this._remark = value;
-					this.SendPropertyChanged("remark");
-					this.OnremarkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userId", DbType="Int")]
-		public System.Nullable<int> userId
-		{
-			get
-			{
-				return this._userId;
-			}
-			set
-			{
-				if ((this._userId != value))
-				{
-					this.OnuserIdChanging(value);
-					this.SendPropertyChanging();
-					this._userId = value;
-					this.SendPropertyChanged("userId");
-					this.OnuserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ResignType_ResignRecord", Storage="_ResignType", ThisKey="resignTypeId", OtherKey="id", IsForeignKey=true)]
-		public ResignType ResignType
-		{
-			get
-			{
-				return this._ResignType.Entity;
-			}
-			set
-			{
-				ResignType previousValue = this._ResignType.Entity;
-				if (((previousValue != value) 
-							|| (this._ResignType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ResignType.Entity = null;
-						previousValue.ResignRecord.Remove(this);
-					}
-					this._ResignType.Entity = value;
-					if ((value != null))
-					{
-						value.ResignRecord.Add(this);
-						this._resignTypeId = value.id;
-					}
-					else
-					{
-						this._resignTypeId = default(int);
-					}
-					this.SendPropertyChanged("ResignType");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Recruit")]
 	public partial class Recruit : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -16617,6 +16202,421 @@ namespace BlueHrLib.Data
 						this._staffNr = default(string);
 					}
 					this.SendPropertyChanged("Staff");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ResignRecord")]
+	public partial class ResignRecord : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _resignTypeId;
+		
+		private string _staffNr;
+		
+		private System.DateTime _resignAt;
+		
+		private System.Nullable<System.DateTime> _resignEffectiveAt;
+		
+		private string _resignReason;
+		
+		private System.Nullable<int> _resignCheckUserId;
+		
+		private string _resignChecker;
+		
+		private System.Nullable<System.DateTime> _approvalAt;
+		
+		private string _approvalStatus;
+		
+		private string _approvalRemark;
+		
+		private System.Nullable<System.DateTime> _createdAt;
+		
+		private string _remark;
+		
+		private System.Nullable<int> _userId;
+		
+		private EntityRef<ResignType> _ResignType;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnresignTypeIdChanging(int value);
+    partial void OnresignTypeIdChanged();
+    partial void OnstaffNrChanging(string value);
+    partial void OnstaffNrChanged();
+    partial void OnresignAtChanging(System.DateTime value);
+    partial void OnresignAtChanged();
+    partial void OnresignEffectiveAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnresignEffectiveAtChanged();
+    partial void OnresignReasonChanging(string value);
+    partial void OnresignReasonChanged();
+    partial void OnresignCheckUserIdChanging(System.Nullable<int> value);
+    partial void OnresignCheckUserIdChanged();
+    partial void OnresignCheckerChanging(string value);
+    partial void OnresignCheckerChanged();
+    partial void OnapprovalAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnapprovalAtChanged();
+    partial void OnapprovalStatusChanging(string value);
+    partial void OnapprovalStatusChanged();
+    partial void OnapprovalRemarkChanging(string value);
+    partial void OnapprovalRemarkChanged();
+    partial void OncreatedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OncreatedAtChanged();
+    partial void OnremarkChanging(string value);
+    partial void OnremarkChanged();
+    partial void OnuserIdChanging(System.Nullable<int> value);
+    partial void OnuserIdChanged();
+    #endregion
+		
+		public ResignRecord()
+		{
+			this._ResignType = default(EntityRef<ResignType>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignTypeId", DbType="Int NOT NULL")]
+		public int resignTypeId
+		{
+			get
+			{
+				return this._resignTypeId;
+			}
+			set
+			{
+				if ((this._resignTypeId != value))
+				{
+					if (this._ResignType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnresignTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._resignTypeId = value;
+					this.SendPropertyChanged("resignTypeId");
+					this.OnresignTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string staffNr
+		{
+			get
+			{
+				return this._staffNr;
+			}
+			set
+			{
+				if ((this._staffNr != value))
+				{
+					this.OnstaffNrChanging(value);
+					this.SendPropertyChanging();
+					this._staffNr = value;
+					this.SendPropertyChanged("staffNr");
+					this.OnstaffNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignAt", DbType="DateTime NOT NULL")]
+		public System.DateTime resignAt
+		{
+			get
+			{
+				return this._resignAt;
+			}
+			set
+			{
+				if ((this._resignAt != value))
+				{
+					this.OnresignAtChanging(value);
+					this.SendPropertyChanging();
+					this._resignAt = value;
+					this.SendPropertyChanged("resignAt");
+					this.OnresignAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignEffectiveAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> resignEffectiveAt
+		{
+			get
+			{
+				return this._resignEffectiveAt;
+			}
+			set
+			{
+				if ((this._resignEffectiveAt != value))
+				{
+					this.OnresignEffectiveAtChanging(value);
+					this.SendPropertyChanging();
+					this._resignEffectiveAt = value;
+					this.SendPropertyChanged("resignEffectiveAt");
+					this.OnresignEffectiveAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignReason", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string resignReason
+		{
+			get
+			{
+				return this._resignReason;
+			}
+			set
+			{
+				if ((this._resignReason != value))
+				{
+					this.OnresignReasonChanging(value);
+					this.SendPropertyChanging();
+					this._resignReason = value;
+					this.SendPropertyChanged("resignReason");
+					this.OnresignReasonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignCheckUserId", DbType="Int")]
+		public System.Nullable<int> resignCheckUserId
+		{
+			get
+			{
+				return this._resignCheckUserId;
+			}
+			set
+			{
+				if ((this._resignCheckUserId != value))
+				{
+					this.OnresignCheckUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._resignCheckUserId = value;
+					this.SendPropertyChanged("resignCheckUserId");
+					this.OnresignCheckUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resignChecker", DbType="VarChar(50)")]
+		public string resignChecker
+		{
+			get
+			{
+				return this._resignChecker;
+			}
+			set
+			{
+				if ((this._resignChecker != value))
+				{
+					this.OnresignCheckerChanging(value);
+					this.SendPropertyChanging();
+					this._resignChecker = value;
+					this.SendPropertyChanged("resignChecker");
+					this.OnresignCheckerChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approvalAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> approvalAt
+		{
+			get
+			{
+				return this._approvalAt;
+			}
+			set
+			{
+				if ((this._approvalAt != value))
+				{
+					this.OnapprovalAtChanging(value);
+					this.SendPropertyChanging();
+					this._approvalAt = value;
+					this.SendPropertyChanged("approvalAt");
+					this.OnapprovalAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approvalStatus", DbType="VarChar(50)")]
+		public string approvalStatus
+		{
+			get
+			{
+				return this._approvalStatus;
+			}
+			set
+			{
+				if ((this._approvalStatus != value))
+				{
+					this.OnapprovalStatusChanging(value);
+					this.SendPropertyChanging();
+					this._approvalStatus = value;
+					this.SendPropertyChanged("approvalStatus");
+					this.OnapprovalStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approvalRemark", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string approvalRemark
+		{
+			get
+			{
+				return this._approvalRemark;
+			}
+			set
+			{
+				if ((this._approvalRemark != value))
+				{
+					this.OnapprovalRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._approvalRemark = value;
+					this.SendPropertyChanged("approvalRemark");
+					this.OnapprovalRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> createdAt
+		{
+			get
+			{
+				return this._createdAt;
+			}
+			set
+			{
+				if ((this._createdAt != value))
+				{
+					this.OncreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._createdAt = value;
+					this.SendPropertyChanged("createdAt");
+					this.OncreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this.OnremarkChanging(value);
+					this.SendPropertyChanging();
+					this._remark = value;
+					this.SendPropertyChanged("remark");
+					this.OnremarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userId", DbType="Int")]
+		public System.Nullable<int> userId
+		{
+			get
+			{
+				return this._userId;
+			}
+			set
+			{
+				if ((this._userId != value))
+				{
+					this.OnuserIdChanging(value);
+					this.SendPropertyChanging();
+					this._userId = value;
+					this.SendPropertyChanged("userId");
+					this.OnuserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ResignType_ResignRecord", Storage="_ResignType", ThisKey="resignTypeId", OtherKey="id", IsForeignKey=true)]
+		public ResignType ResignType
+		{
+			get
+			{
+				return this._ResignType.Entity;
+			}
+			set
+			{
+				ResignType previousValue = this._ResignType.Entity;
+				if (((previousValue != value) 
+							|| (this._ResignType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ResignType.Entity = null;
+						previousValue.ResignRecord.Remove(this);
+					}
+					this._ResignType.Entity = value;
+					if ((value != null))
+					{
+						value.ResignRecord.Add(this);
+						this._resignTypeId = value.id;
+					}
+					else
+					{
+						this._resignTypeId = default(int);
+					}
+					this.SendPropertyChanged("ResignType");
 				}
 			}
 		}

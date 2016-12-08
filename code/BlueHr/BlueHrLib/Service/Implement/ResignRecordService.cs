@@ -25,23 +25,18 @@ namespace BlueHrLib.Service.Implement
             return rep.Search(searchModel);
         }
 
-        public ResultMessage Create(ResignRecord model)
+        public bool Create(ResignRecord model)
         {
-            ResultMessage msg = new ResultMessage();
-
+            bool isSucceed = false;
             try
             {
-
-                bool isSucceed = rep.Create(model);
-
-                msg.Success = isSucceed ? true : false;
+                isSucceed = rep.Create(model);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                msg.Content = ex.Message;
             }
 
-            return msg;
+            return isSucceed;
         }
 
         public bool DeleteById(int id)

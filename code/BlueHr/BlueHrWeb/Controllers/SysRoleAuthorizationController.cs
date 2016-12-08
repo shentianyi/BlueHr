@@ -291,6 +291,229 @@ namespace BlueHrWeb.Controllers
         /// </summary>
         /// <param name="sysRoleId">角色ID</param>
         /// <returns></returns>
+        //[RoleAndDataAuthorizationAttribute]
+        //[HttpGet]
+        //public JsonResult SysAuthorizationTree(int sysRoleId, int showType)
+        //{
+        //    Dictionary<string, List<Dictionary<string, string>>> Result = new Dictionary<string, List<Dictionary<string, string>>>();
+
+        //    List<Dictionary<string, string>> Users = new List<Dictionary<string, string>>();
+        //    List<Dictionary<string, string>> SysRoleAuths = new List<Dictionary<string, string>>();
+
+        //    ISysRoleAuthViewService sras = new SysRoleAuthViewService(Settings.Default.db);
+
+        //    List<IGrouping<string, SysRoleAuthView>> sysRoleAuthViews = new List<IGrouping<string, SysRoleAuthView>>();
+
+        //    //进行分组显示
+        //    if (showType == 1)
+        //    {
+        //        sysRoleAuthViews = sras.SysRoleAuthViewTree().GroupBy(c => c.actionName).ToList();
+        //    }else
+        //    {
+        //        sysRoleAuthViews = sras.SysRoleAuthViewTree().GroupBy(c => c.funCode).ToList();
+        //    }
+
+
+        //    foreach (var sysRoleAuthView in sysRoleAuthViews)
+        //    {
+        //        Dictionary<string, string> srav = new Dictionary<string, string>();
+
+        //        if (showType == 1)
+        //        {
+        //            //可以考虑 进行分组
+        //            string NameShow;
+        //            if (sysRoleAuthView.Key == "Index")
+        //            {
+        //                NameShow = "【查】查看权限";
+        //            }
+        //            else if (sysRoleAuthView.Key == "Create")
+        //            {
+        //                NameShow = "【增】添加权限";
+        //            }
+        //            else if (sysRoleAuthView.Key == "Edit")
+        //            {
+        //                NameShow = "【改】编辑权限";
+        //            }
+        //            else if (sysRoleAuthView.Key == "Delete")
+        //            {
+        //                NameShow = "【删】删除权限";
+        //            }else if (sysRoleAuthView.Key == "Import")
+        //            {
+        //                NameShow = "【导】导入权限";
+        //            }else if (sysRoleAuthView.Key == "ExceptionList")
+        //            {
+        //                NameShow = "【异】异常权限";
+        //            }else if(sysRoleAuthView.Key == "ApprovalAbsenceRecord")
+        //            {
+        //                NameShow = "【缺】缺勤审批权限";
+        //            }else if(sysRoleAuthView.Key == "ApprovalExtraWorkRecord")
+        //            {
+        //                NameShow = "【加】加班审批权限";
+        //            }
+        //            else
+        //            {
+        //                NameShow = "【他】其他权限";
+        //            }
+
+        //            srav.Add("id", sysRoleAuthView.Key + sysRoleAuthView.Count());
+        //            srav.Add("name", NameShow + " (共 " + sysRoleAuthView.Count() + " 项)");
+        //            srav.Add("Count", sysRoleAuthView.Count().ToString());
+        //            srav.Add("iconSkin", "parentSysRoleAuthIcon");
+        //            SysRoleAuths.Add(srav);
+        //        }
+        //        else
+        //        {
+        //            //可以考虑 进行分组
+        //            srav.Add("id", sysRoleAuthView.Key + sysRoleAuthView.Count());
+        //            srav.Add("name", sysRoleAuthView.Key + " (共 " + sysRoleAuthView.Count() + " 项)");
+        //            srav.Add("Count", sysRoleAuthView.Count().ToString());
+        //            srav.Add("iconSkin", "parentSysRoleAuthIcon");
+        //            SysRoleAuths.Add(srav);
+        //        }
+
+        //        var ssraIndex = 1;
+        //        foreach (var ssra in sysRoleAuthView)
+        //        {
+        //            Dictionary<string, string> tempSRAV = new Dictionary<string, string>();
+
+        //            //如果没值，就是不具备的权限
+        //            //如果有值，并且需要 roleId 相等，才可以。
+        //            if (ssra.roleId.HasValue)
+        //            {
+        //                if(ssra.roleId == sysRoleId)
+        //                {
+        //                    tempSRAV.Add("id", ssra.SysAuthId.ToString());
+        //                    tempSRAV.Add("name", "[" + ssraIndex + "] " + ssra.SysAuthName);
+        //                    tempSRAV.Add("controlName", ssra.controlName);
+        //                    tempSRAV.Add("actionName", ssra.actionName);
+        //                    //如果为空的话， 就是最上层？
+        //                    tempSRAV.Add("pId", ssra.SysAuthParentId.HasValue ? ssra.SysAuthParentId.ToString() : sysRoleAuthView.Key + sysRoleAuthView.Count());
+        //                    tempSRAV.Add("funCode", ssra.funCode);
+        //                    tempSRAV.Add("isDelete", ssra.isDelete.ToString());
+        //                    tempSRAV.Add("remarks", ssra.SysAuthRemarks);
+        //                    tempSRAV.Add("open", "false");
+        //                    tempSRAV.Add("iconSkin", "sysRoleAuthIcon");
+
+        //                    if (ssra.roleId == sysRoleId)
+        //                    {
+        //                        tempSRAV.Add("checked", "true");
+        //                    }
+        //                    ssraIndex++;
+        //                    SysRoleAuths.Add(tempSRAV);
+        //                }else
+        //                {
+        //                    tempSRAV.Add("id", ssra.SysAuthId.ToString());
+        //                    tempSRAV.Add("name", "[" + ssraIndex + "] " + ssra.SysAuthName);
+        //                    tempSRAV.Add("controlName", ssra.controlName);
+        //                    tempSRAV.Add("actionName", ssra.actionName);
+        //                    //如果为空的话， 就是最上层？
+        //                    tempSRAV.Add("pId", ssra.SysAuthParentId.HasValue ? ssra.SysAuthParentId.ToString() : sysRoleAuthView.Key + sysRoleAuthView.Count());
+        //                    tempSRAV.Add("funCode", ssra.funCode);
+        //                    tempSRAV.Add("isDelete", ssra.isDelete.ToString());
+        //                    tempSRAV.Add("remarks", ssra.SysAuthRemarks);
+        //                    tempSRAV.Add("open", "false");
+        //                    tempSRAV.Add("iconSkin", "sysRoleAuthIcon");
+
+        //                    if (ssra.roleId == sysRoleId)
+        //                    {
+        //                        tempSRAV.Add("checked", "true");
+        //                    }
+        //                    ssraIndex++;
+        //                    SysRoleAuths.Add(tempSRAV);
+        //                }
+        //            }else
+        //            {
+        //                tempSRAV.Add("id", ssra.SysAuthId.ToString());
+        //                tempSRAV.Add("name", "[" + ssraIndex + "] " + ssra.SysAuthName);
+        //                tempSRAV.Add("controlName", ssra.controlName);
+        //                tempSRAV.Add("actionName", ssra.actionName);
+        //                //如果为空的话， 就是最上层？
+        //                tempSRAV.Add("pId", ssra.SysAuthParentId.HasValue ? ssra.SysAuthParentId.ToString() : sysRoleAuthView.Key + sysRoleAuthView.Count());
+        //                tempSRAV.Add("funCode", ssra.funCode);
+        //                tempSRAV.Add("isDelete", ssra.isDelete.ToString());
+        //                tempSRAV.Add("remarks", ssra.SysAuthRemarks);
+        //                tempSRAV.Add("open", "false");
+        //                tempSRAV.Add("iconSkin", "sysRoleAuthIcon");
+
+        //                if (ssra.roleId == sysRoleId)
+        //                {
+        //                    tempSRAV.Add("checked", "true");
+        //                }
+
+        //                ssraIndex++;
+
+        //                SysRoleAuths.Add(tempSRAV);
+        //            }
+        //        }
+        //    }
+
+        //    IUserService us = new UserService(Settings.Default.db);
+        //    List<User> users = us.FindByRoleId(sysRoleId);
+
+        //    foreach(var user in users)
+        //    {
+        //        Dictionary<string, string> urs = new Dictionary<string, string>();
+        //        urs.Add("id", user.id.ToString());
+        //        urs.Add("name", "[" + user.name + "] [ " + user.email + "]");
+        //        urs.Add("email", user.email);
+        //        urs.Add("isLockedStr", user.isLockedStr);
+        //        urs.Add("role", user.role.ToString());
+        //        urs.Add("open", "false");
+        //        urs.Add("iconSkin", "userIcon");
+        //        Users.Add(urs);
+        //    }
+
+        //    Result.Add("Users", Users);
+        //    Result.Add("SysRoleAuths", SysRoleAuths);
+
+        //    return Json(Result, JsonRequestBehavior.AllowGet);
+        //}
+
+        //[RoleAndDataAuthorizationAttribute]
+        //[HttpPost]
+        //public JsonResult AssignAuthsToRole(int sysRoleId, List<Dictionary<string, string>> roleAuthArray)
+        //{
+        //    bool result = false;
+        //    try
+        //    {
+        //        ISysRoleAuthorizationService sras = new SysRoleAuthorizationService(Settings.Default.db);
+        //        //先删除全部权限，再新建
+        //        if (sras.DeleteByRoleId(sysRoleId))
+        //        {
+        //            if(roleAuthArray==null)
+        //            {
+        //                result = true;
+        //                return Json(result, JsonRequestBehavior.DenyGet);
+        //            }
+
+        //            foreach (var roleAuth in roleAuthArray)
+        //            {
+        //                //通过判断有没有Count字段 就可以断定 是否是自定义字段 - 头字段  funCode
+        //                string HasCount;
+        //                roleAuth.TryGetValue("Count", out HasCount);
+
+        //                if (string.IsNullOrWhiteSpace(HasCount))
+        //                {
+        //                    string authId;
+        //                    roleAuth.TryGetValue("id", out authId);
+
+        //                    SysRoleAuthorization sysRoleAuthorization = new SysRoleAuthorization();
+        //                    sysRoleAuthorization.roleId = sysRoleId;
+        //                    sysRoleAuthorization.authId = Convert.ToInt16(authId);
+        //                    sysRoleAuthorization.remarks = "创建时间:" + DateTime.Now;
+
+        //                    result = sras.Create(sysRoleAuthorization);
+        //                }
+        //            }
+        //        }
+        //        return Json(result, JsonRequestBehavior.DenyGet);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Json(result, JsonRequestBehavior.DenyGet);
+        //    }
+        //}
+
         [RoleAndDataAuthorizationAttribute]
         [HttpGet]
         public JsonResult SysAuthorizationTree(int sysRoleId, int showType)
@@ -300,53 +523,59 @@ namespace BlueHrWeb.Controllers
             List<Dictionary<string, string>> Users = new List<Dictionary<string, string>>();
             List<Dictionary<string, string>> SysRoleAuths = new List<Dictionary<string, string>>();
 
-            ISysRoleAuthViewService sras = new SysRoleAuthViewService(Settings.Default.db);
+            ISysAuthorizationService sas = new SysAuthorizationService(Settings.Default.db);
+            SysAuthorizationSearchModel saSearchModel = new SysAuthorizationSearchModel();
 
-            List<IGrouping<string, SysRoleAuthView>> sysRoleAuthViews = new List<IGrouping<string, SysRoleAuthView>>();
+            List<IGrouping<string, SysAuthorization>> sysAuthorizations = new List<IGrouping<string, SysAuthorization>>();
 
-            //进行分组显示
+            //查询出所有的权限， 进行分组显示
             if (showType == 1)
             {
-                sysRoleAuthViews = sras.SysRoleAuthViewTree().GroupBy(c => c.actionName).ToList();
-            }else
+                sysAuthorizations = sas.Search(saSearchModel).GroupBy(c => c.actionName).ToList();
+            }
+            else
             {
-                sysRoleAuthViews = sras.SysRoleAuthViewTree().GroupBy(c => c.funCode).ToList();
+                sysAuthorizations = sas.Search(saSearchModel).GroupBy(c => c.funCode).ToList();
             }
 
 
-            foreach (var sysRoleAuthView in sysRoleAuthViews)
+            foreach (var sysAuthorization in sysAuthorizations)
             {
-                Dictionary<string, string> srav = new Dictionary<string, string>();
+                Dictionary<string, string> sysA = new Dictionary<string, string>();
 
                 if (showType == 1)
                 {
                     //可以考虑 进行分组
                     string NameShow;
-                    if (sysRoleAuthView.Key == "Index")
+                    if (sysAuthorization.Key == "Index")
                     {
                         NameShow = "【查】查看权限";
                     }
-                    else if (sysRoleAuthView.Key == "Create")
+                    else if (sysAuthorization.Key == "Create")
                     {
                         NameShow = "【增】添加权限";
                     }
-                    else if (sysRoleAuthView.Key == "Edit")
+                    else if (sysAuthorization.Key == "Edit")
                     {
                         NameShow = "【改】编辑权限";
                     }
-                    else if (sysRoleAuthView.Key == "Delete")
+                    else if (sysAuthorization.Key == "Delete")
                     {
                         NameShow = "【删】删除权限";
-                    }else if (sysRoleAuthView.Key == "Import")
+                    }
+                    else if (sysAuthorization.Key == "Import")
                     {
                         NameShow = "【导】导入权限";
-                    }else if (sysRoleAuthView.Key == "ExceptionList")
+                    }
+                    else if (sysAuthorization.Key == "ExceptionList")
                     {
                         NameShow = "【异】异常权限";
-                    }else if(sysRoleAuthView.Key == "ApprovalAbsenceRecord")
+                    }
+                    else if (sysAuthorization.Key == "ApprovalAbsenceRecord")
                     {
                         NameShow = "【缺】缺勤审批权限";
-                    }else if(sysRoleAuthView.Key == "ApprovalExtraWorkRecord")
+                    }
+                    else if (sysAuthorization.Key == "ApprovalExtraWorkRecord")
                     {
                         NameShow = "【加】加班审批权限";
                     }
@@ -355,102 +584,71 @@ namespace BlueHrWeb.Controllers
                         NameShow = "【他】其他权限";
                     }
 
-                    srav.Add("id", sysRoleAuthView.Key + sysRoleAuthView.Count());
-                    srav.Add("name", NameShow + " (共 " + sysRoleAuthView.Count() + " 项)");
-                    srav.Add("Count", sysRoleAuthView.Count().ToString());
-                    srav.Add("iconSkin", "parentSysRoleAuthIcon");
-                    SysRoleAuths.Add(srav);
+                    sysA.Add("id", sysAuthorization.Key + sysAuthorization.Count());
+                    sysA.Add("name", NameShow + " (共 " + sysAuthorization.Count() + " 项)");
+                    sysA.Add("Count", sysAuthorization.Count().ToString());
+                    sysA.Add("iconSkin", "parentSysRoleAuthIcon");
+                    SysRoleAuths.Add(sysA);
                 }
                 else
                 {
                     //可以考虑 进行分组
-                    srav.Add("id", sysRoleAuthView.Key + sysRoleAuthView.Count());
-                    srav.Add("name", sysRoleAuthView.Key + " (共 " + sysRoleAuthView.Count() + " 项)");
-                    srav.Add("Count", sysRoleAuthView.Count().ToString());
-                    srav.Add("iconSkin", "parentSysRoleAuthIcon");
-                    SysRoleAuths.Add(srav);
+                    sysA.Add("id", sysAuthorization.Key + sysAuthorization.Count());
+                    sysA.Add("name", sysAuthorization.Key + " (共 " + sysAuthorization.Count() + " 项)");
+                    sysA.Add("Count", sysAuthorization.Count().ToString());
+                    sysA.Add("iconSkin", "parentSysRoleAuthIcon");
+                    SysRoleAuths.Add(sysA);
                 }
 
                 var ssraIndex = 1;
-                foreach (var ssra in sysRoleAuthView)
+                foreach (var sysAuth in sysAuthorization)
                 {
                     Dictionary<string, string> tempSRAV = new Dictionary<string, string>();
 
-                    //如果没值，就是不具备的权限
-                    //如果有值，并且需要 roleId 相等，才可以。
-                    if (ssra.roleId.HasValue)
+                    //通过roleID进行查询 authId， 如果找到相同的， 跳出循环。
+
+                    ISysRoleAuthorizationService sras = new SysRoleAuthorizationService(Settings.Default.db);
+
+                    List<SysRoleAuthorization> sysRoleAuths = sras.FindByRoleId(sysRoleId);
+
+                    bool IsSelected = false;
+
+                    foreach(var sysRoleAuth in sysRoleAuths)
                     {
-                        if(ssra.roleId == sysRoleId)
+                        if (sysAuth.id == sysRoleAuth.authId)
                         {
-                            tempSRAV.Add("id", ssra.SysAuthId.ToString());
-                            tempSRAV.Add("name", "[" + ssraIndex + "] " + ssra.SysAuthName);
-                            tempSRAV.Add("controlName", ssra.controlName);
-                            tempSRAV.Add("actionName", ssra.actionName);
-                            //如果为空的话， 就是最上层？
-                            tempSRAV.Add("pId", ssra.SysAuthParentId.HasValue ? ssra.SysAuthParentId.ToString() : sysRoleAuthView.Key + sysRoleAuthView.Count());
-                            tempSRAV.Add("funCode", ssra.funCode);
-                            tempSRAV.Add("isDelete", ssra.isDelete.ToString());
-                            tempSRAV.Add("remarks", ssra.SysAuthRemarks);
-                            tempSRAV.Add("open", "false");
-                            tempSRAV.Add("iconSkin", "sysRoleAuthIcon");
-
-                            if (ssra.roleId == sysRoleId)
-                            {
-                                tempSRAV.Add("checked", "true");
-                            }
-                            ssraIndex++;
-                            SysRoleAuths.Add(tempSRAV);
-                        }else
-                        {
-                            tempSRAV.Add("id", ssra.SysAuthId.ToString());
-                            tempSRAV.Add("name", "[" + ssraIndex + "] " + ssra.SysAuthName);
-                            tempSRAV.Add("controlName", ssra.controlName);
-                            tempSRAV.Add("actionName", ssra.actionName);
-                            //如果为空的话， 就是最上层？
-                            tempSRAV.Add("pId", ssra.SysAuthParentId.HasValue ? ssra.SysAuthParentId.ToString() : sysRoleAuthView.Key + sysRoleAuthView.Count());
-                            tempSRAV.Add("funCode", ssra.funCode);
-                            tempSRAV.Add("isDelete", ssra.isDelete.ToString());
-                            tempSRAV.Add("remarks", ssra.SysAuthRemarks);
-                            tempSRAV.Add("open", "false");
-                            tempSRAV.Add("iconSkin", "sysRoleAuthIcon");
-
-                            if (ssra.roleId == sysRoleId)
-                            {
-                                tempSRAV.Add("checked", "true");
-                            }
-                            ssraIndex++;
-                            SysRoleAuths.Add(tempSRAV);
+                            IsSelected = true;
+                            break;
                         }
-                    }else
-                    {
-                        tempSRAV.Add("id", ssra.SysAuthId.ToString());
-                        tempSRAV.Add("name", "[" + ssraIndex + "] " + ssra.SysAuthName);
-                        tempSRAV.Add("controlName", ssra.controlName);
-                        tempSRAV.Add("actionName", ssra.actionName);
-                        //如果为空的话， 就是最上层？
-                        tempSRAV.Add("pId", ssra.SysAuthParentId.HasValue ? ssra.SysAuthParentId.ToString() : sysRoleAuthView.Key + sysRoleAuthView.Count());
-                        tempSRAV.Add("funCode", ssra.funCode);
-                        tempSRAV.Add("isDelete", ssra.isDelete.ToString());
-                        tempSRAV.Add("remarks", ssra.SysAuthRemarks);
-                        tempSRAV.Add("open", "false");
-                        tempSRAV.Add("iconSkin", "sysRoleAuthIcon");
-
-                        if (ssra.roleId == sysRoleId)
-                        {
-                            tempSRAV.Add("checked", "true");
-                        }
-
-                        ssraIndex++;
-
-                        SysRoleAuths.Add(tempSRAV);
                     }
+
+                    tempSRAV.Add("id", sysAuth.id.ToString());
+                    tempSRAV.Add("name", "[" + ssraIndex + "] " + sysAuth.name);
+                    tempSRAV.Add("controlName", sysAuth.controlName);
+                    tempSRAV.Add("actionName", sysAuth.actionName);
+                    //如果为空的话， 就是最上层？
+                    tempSRAV.Add("pId", sysAuth.parentId.HasValue ? sysAuth.parentId.ToString() : sysAuthorization.Key + sysAuthorization.Count());
+                    tempSRAV.Add("funCode", sysAuth.funCode);
+                    tempSRAV.Add("isDelete", sysAuth.isDelete.ToString());
+                    tempSRAV.Add("remarks", sysAuth.remarks);
+                    tempSRAV.Add("open", "false");
+                    tempSRAV.Add("iconSkin", "sysRoleAuthIcon");
+
+                    if (IsSelected)
+                    {
+                        tempSRAV.Add("checked", "true");
+                    }
+
+                    SysRoleAuths.Add(tempSRAV);
+
+                    ssraIndex++;
                 }
             }
 
             IUserService us = new UserService(Settings.Default.db);
             List<User> users = us.FindByRoleId(sysRoleId);
 
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 Dictionary<string, string> urs = new Dictionary<string, string>();
                 urs.Add("id", user.id.ToString());
@@ -480,7 +678,7 @@ namespace BlueHrWeb.Controllers
                 //先删除全部权限，再新建
                 if (sras.DeleteByRoleId(sysRoleId))
                 {
-                    if(roleAuthArray==null)
+                    if (roleAuthArray == null)
                     {
                         result = true;
                         return Json(result, JsonRequestBehavior.DenyGet);
@@ -513,6 +711,7 @@ namespace BlueHrWeb.Controllers
                 return Json(result, JsonRequestBehavior.DenyGet);
             }
         }
+
 
         private void SetAllTableName(string type, bool allowBlank = false)
         {

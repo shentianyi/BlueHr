@@ -46,7 +46,7 @@ namespace BlueHrWeb.Controllers
                 extraWorks.Add("Time", extraWork.otTimeStr);
                 extraWorks.Add("StartHour", extraWork.startHour.ToString());
                 extraWorks.Add("EndHour", extraWork.endHour.ToString());
-                extraWorks.Add("Duration", extraWork.duration + " (小时)");
+                extraWorks.Add("Duration", extraWork.duration + " (h)");
                 //extraWorks.Add("DurationType", extraWork.durationType==100?"天":"小时");
                 extraWorks.Add("Reason", extraWork.otReason);
                 extraWorks.Add("ApprovalStatus", extraWork.approvalStatus == null ? "审批中" : extraWork.approvalStatus);
@@ -96,7 +96,6 @@ namespace BlueHrWeb.Controllers
         {
             return View();
         }
-
 
         // GET: Schedule 
         // 日程安排
@@ -157,12 +156,12 @@ namespace BlueHrWeb.Controllers
 
         // GET: Note 
         // 便笺本
-        [UserAuthorize]
-        [RoleAndDataAuthorizationAttribute]
-        public ActionResult Note()
-        {
-            return View();
-        }
+        //[UserAuthorize]
+        //[RoleAndDataAuthorizationAttribute]
+        //public ActionResult Note()
+        //{
+        //    return View();
+        //}
 
         [UserAuthorize]
         [RoleAndDataAuthorizationAttribute]

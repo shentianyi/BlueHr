@@ -1105,9 +1105,9 @@ namespace BlueHrWeb.Controllers
             ResultMessage msg = new ResultMessage();
 
             IResignRecordService ss = new ResignRecordService(Settings.Default.db);
-            msg = ss.Create(record);
+            bool IsSucceed = ss.Create(record);
 
-            if (msg.Success)
+            if (IsSucceed)
             {
                 IStaffService staffSi = new StaffService(Settings.Default.db);
                 Staff staff = staffSi.FindByNr(record.staffNr);

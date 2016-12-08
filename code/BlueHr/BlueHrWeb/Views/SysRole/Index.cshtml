@@ -13,39 +13,39 @@
         list-style: none;
     }
 
-        #sysRoleContent > ul li {
-            float: left;
-            width: 120px;
-            text-align: center;
-            cursor: pointer;
-            margin-bottom: 40px;
-        }
+    #sysRoleContent > ul li {
+        float: left;
+        width: 120px;
+        text-align: center;
+        cursor: pointer;
+        margin-bottom: 40px;
+    }
 
-            #sysRoleContent > ul li > div {
-                width: 96px;
-                height: 72px;
-                background-image: url('/Images/UserSysRole.png');
-                background-repeat: no-repeat;
-                margin-left: 24px;
-            }
+    #sysRoleContent > ul li > div {
+        width: 96px;
+        height: 72px;
+        background-image: url('/Images/UserSysRole.png');
+        background-repeat: no-repeat;
+        margin-left: 24px;
+    }
 
-            #sysRoleContent > ul li i {
-                display: none;
-                color: #3498db;
-                width: 24px;
-                height: 24px;
-                font-size: 14px;
-                border: 1px solid #3498db;
-                padding: 4px 5px;
-                border-radius: 4px;
-                margin: 0 3px;
-                position: absolute;
-            }
+    #sysRoleContent > ul li i {
+        display: none;
+        color: #3498db;
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+        border: 1px solid #3498db;
+        padding: 4px 5px;
+        border-radius: 4px;
+        margin: -5px 3px;
+        position: absolute;
+    }
 
-                #sysRoleContent > ul li i:hover {
-                    background: #3498db !important;
-                    color: white !important;
-                }
+    #sysRoleContent > ul li i:hover {
+        background: #3498db !important;
+        color: white !important;
+    }
 </style>
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
@@ -132,8 +132,8 @@
 
             for (var i = 0; i < data.length; i++) {
                 var Html = "<li id=" + data[i].id + " title=" + data[i].remark + "> <div></div><p>" + data[i].name + "</p>" +
-                "<i class='fa fa-pencil editRole' title='编辑角色' style='margin-left: -20px;'></i>" +
-                "<i class='fa fa-trash removeRole' title='删除角色' style='color: darkred; margin-left: 20px;'></i>" +
+                "<i class='fa fa-pencil editRole' title='编辑角色' style='margin-left: -30px;'></i>" +
+                "<i class='fa fa-trash removeRole' title='删除角色' style='color: darkred; margin-left: 10px;'></i>" +
                 // "<i class='fa fa-users assignUser' title='分配用户' style='color: orange; margin-left: 10px;'></i>"+
                 "</li>";
 
@@ -192,16 +192,13 @@
                                     remarks: NewRemarks
                                 },
                                 success: function (data) {
-                                    console.log(data);
                                     if (data) {
                                         window.location.reload();
                                     } else {
-                                        console.log("更新失败");
                                         return false;
                                     }
                                 },
                                 error: function () {
-                                    console.log("更新失败");
                                     return false;
                                 }
                             })
@@ -232,7 +229,6 @@
                             id: ID
                         },
                         success: function (data) {
-                            console.log(data);
                             if (data) {
                                 window.location.reload();
                             } else {
@@ -241,7 +237,7 @@
                             }
                         },
                         error: function () {
-                            console.log("请求API失败")
+                            // console.log("请求API失败")
                         }
                     })
                 }
@@ -249,7 +245,6 @@
             //如何分配用户
 
             $(".assignUser").click(function(){
-                console.log("点击了分配用户");
                 // 弹框进行显示。 左右分隔分配用户
                 $('#AssignToUser').dialogModal({
                     onOkBut: function () {
@@ -264,7 +259,7 @@
             })
         },
         error: function () {
-            console.log("请求API 失败");
+            // console.log("请求API 失败");
         }
     })
 
@@ -284,16 +279,15 @@
                         remarks: Remarks
                     },
                     success: function (data) {
-                        console.log(data);
                         if (data) {
                             window.location.reload();
                         } else {
-                            console.log("更新失败");
+                            // console.log("新建失败");
                             return false;
                         }
                     },
                     error: function () {
-                        console.log("更新失败");
+                        // console.log("新建失败");
                         return false;
                     }
                 })
