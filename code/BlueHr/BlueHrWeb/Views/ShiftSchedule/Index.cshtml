@@ -55,16 +55,16 @@
                             <i class="fa fa-search"></i>
                             搜索
                         </button>
-                        
                     </span>
                 </div>
             </div>
+
         </div>
     </form>
 
     @* 自定义搜索 *@
     <form action="/ShiftSchedule/AdvancedSearch" method="post">
-        <div class="advanced-filter row" style="margin:0;display:none;">
+        <div class="advanced-filter row" style="margin:0; display:none;">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>字段</span>
@@ -93,20 +93,20 @@
                     <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
                 </div>
             </div>
+
         </div>
     </form>
 </div>
 <hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-
-
-        <a href="/ShiftSchedule/Create" class="pull-right" style="margin-top: -10px; margin-right:15px;">
+        <a href="/ShiftSchedule/Create" class="pull-right" style="margin-top:-10px; margin-right:15px;">
             <button class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
             </button>
         </a>
+
         @if (canImport)
         {
             <button class="marco-btn-primary import-button-dialog pull-right" title="Import" type="button" style="margin-top: -5px; margin-right:5px;">
@@ -114,10 +114,7 @@
             </button>
         }
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-
             <li role="presentation" class="active"><a href="#all_ShiftSchedule" role="tab" data-toggle="tab">所有排班管理</a></li>
-
-
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane  active" id="all_ShiftSchedule">

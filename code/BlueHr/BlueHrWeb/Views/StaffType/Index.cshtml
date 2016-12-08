@@ -41,10 +41,7 @@
     <div class="minitor-show marco-tabs-default">
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-
             <li role="presentation" class="active"><a href="#all_StaffType" role="tab" data-toggle="tab">所有人员类型</a></li>
-
-
         </ul>
         <div class="tab-content">
 
@@ -61,9 +58,9 @@
                     </thead>
                     <tbody>
                         @if (Model != null)
-            {
-                foreach (var item in Model)
-                {
+                        {
+                            foreach (var item in Model)
+                            {
                                 <tr>
 
                                     <td>
@@ -87,16 +84,9 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
-
-
     </div>
 </div>
-
-
-
-
 
 @*@Scripts.Render("~/bundles/degreetype")*@
 
@@ -107,7 +97,6 @@
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_StaffType", "所有人员类型列表", "20", "all_StaffType_grid_table");
 
     })
-
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_StaffType", "所有人员类型列表", "20", "all_StaffType_grid_table");
 
 

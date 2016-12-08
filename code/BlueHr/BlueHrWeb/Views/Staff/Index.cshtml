@@ -65,6 +65,7 @@
         </div>
     </form>
 
+    <!--高级搜索-->
     <form action="/Staff/AdvancedSearch" method="post">
         <div class="advanced-filter row" style="margin:0;display:none;">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -108,7 +109,6 @@
                     <input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />
                 </div>
             </div>
-
 
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
@@ -509,6 +509,7 @@
     Layout.advancedfilter();
 
     $('.import-dialog-btn').click(function () {
+
         $('#dialog_content').dialogModal({
             onOkBut: function () {
             },
@@ -519,6 +520,7 @@
             onClose: function () {
                 window.location.reload();
             }
+            
         });
     });
 
@@ -596,10 +598,8 @@
                         k++;
                     }
                 }
-
             }
         }
-
         return k > 0;
     }
 
@@ -640,7 +640,6 @@
                             }
                         });
 
-
                         //var checkedNodes = $("#cmpTree").treeview('getChecked');
                         //$(checkedNodes).each(function (index, element) {
                         //    if (element.nodeId !== data.nodeId) {
@@ -651,8 +650,8 @@
                         //});
 
                         //check if selected
-                        var isSel = ifCmpSelected(data.id);
 
+                        var isSel = ifCmpSelected(data.id);
                         if (!isSel) {
                             var cmpSelNode = {};
                             cmpSelNode.cmpId = data.id;
@@ -677,7 +676,6 @@
                         bindDepTree(data.id);
                     }
                 });
-
                 reBindCompany();
             }
         });
