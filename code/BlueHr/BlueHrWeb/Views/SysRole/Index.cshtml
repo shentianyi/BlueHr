@@ -7,43 +7,43 @@
 }
 
 <style type="text/css">
-    #sysRoleContent> ul{
+    #sysRoleContent > ul {
         list-style: none;
     }
 
-    #sysRoleContent>ul li{
-        float:left;
-        width: 120px;
-        text-align: center;
-        cursor: pointer;
-        margin-bottom: 40px;
-    }
+        #sysRoleContent > ul li {
+            float: left;
+            width: 120px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 40px;
+        }
 
-    #sysRoleContent>ul li>div{
-        width: 96px;
-        height: 72px;
-        background-image: url('/Images/UserSysRole.png');
-        background-repeat: no-repeat;
-        margin-left: 24px;
-    }
+            #sysRoleContent > ul li > div {
+                width: 96px;
+                height: 72px;
+                background-image: url('/Images/UserSysRole.png');
+                background-repeat: no-repeat;
+                margin-left: 24px;
+            }
 
-    #sysRoleContent>ul li i{
-        display: none;
-        color: #3498db; 
-        width: 24px; 
-        height:24px; 
-        font-size: 14px; 
-        border: 1px solid #3498db; 
-        padding: 4px 5px; 
-        border-radius: 4px;
-        margin: 0 3px;
-        position: absolute;
-    }
+            #sysRoleContent > ul li i {
+                display: none;
+                color: #3498db;
+                width: 24px;
+                height: 24px;
+                font-size: 14px;
+                border: 1px solid #3498db;
+                padding: 4px 5px;
+                border-radius: 4px;
+                margin: 0 3px;
+                position: absolute;
+            }
 
-     #sysRoleContent>ul li i:hover{
-       background: #3498db!important;
-       color:white!important;
-    }
+                #sysRoleContent > ul li i:hover {
+                    background: #3498db !important;
+                    color: white !important;
+                }
 </style>
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
@@ -63,9 +63,14 @@
 </div>
 
 <div class="row" style="border-top: 1px solid #3498db; margin:-6px 15px 0 18px;">
-    <div id="sysRoleContent"> <ul></ul> </div>
+    <div id="sysRoleContent">
+        <ul>
+
+        </ul>
+    </div>
 </div>
 
+@*弹出框*@
 <div id="RolePopModal" class="approval_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
         <span>角色权限管理</span>
@@ -81,7 +86,7 @@
             </div>
             <br />
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                 <div class="marco-textarea">
+                <div class="marco-textarea">
                     <span>备注</span>
                     <textarea name="remarks" class="remarks"></textarea>
                 </div>
@@ -104,20 +109,20 @@
 
     // 请求角色API
     $.ajax({
-        url:'/SysRole/SysRoleTree',
-        type:'get',
-        success:function(data){
+        url: '/SysRole/SysRoleTree',
+        type: 'get',
+        success: function (data) {
             // 展示在界面上
-            // iconSkin: 
-            // id: 
-            // name: 
-            // open: 
+            // iconSkin:
+            // id:
+            // name:
+            // open:
             // remark:
 
-            for(var i=0; i<data.length; i++){
-                var Html = "<li id="+data[i].id+" title="+data[i].remark+"> <div></div><p>"+data[i].name+"</p>"+
-                "<i class='fa fa-pencil editRole' title='编辑角色' style='margin-left: -30px;'></i>"+
-                "<i class='fa fa-trash removeRole' title='删除角色' style='color: darkred; margin-left: 10px;'></i>"+
+            for (var i = 0; i < data.length; i++) {
+                var Html = "<li id=" + data[i].id + " title=" + data[i].remark + "> <div></div><p>" + data[i].name + "</p>" +
+                "<i class='fa fa-pencil editRole' title='编辑角色' style='margin-left: -30px;'></i>" +
+                "<i class='fa fa-trash removeRole' title='删除角色' style='color: darkred; margin-left: 10px;'></i>" +
                 // "<i class='fa fa-users assignUser' title='分配用户' style='color: orange; margin-left: 10px;'></i>"+
                 // "<i class='fa fa-unlock assignRole' title='分配权限' style='color: lightseagreen; margin-left: 40px;'></i>"+
                 "</li>";
@@ -125,26 +130,25 @@
                 $(Html).appendTo($("#sysRoleContent>ul"));
             }
 
-            $("#sysRoleContent>ul").unbind('mouseover').on('mouseover', 'li', function(){
+            $("#sysRoleContent>ul").unbind('mouseover').on('mouseover', 'li', function () {
                 $("#sysRoleContent>ul li").not($(this)).find('i').css("display", "none");
                 $(this).find('i').fadeIn(300);
             })
 
-            $("#sysRoleContent>ul").unbind('click').on('click', 'li', function(){
+            $("#sysRoleContent>ul").unbind('click').on('click', 'li', function () {
                 // console.log($(this));
                 // console.log($(this).attr("id"));
                 // console.log($(this).find("p").html());
             })
 
-            $("body").bind("click",function(evt){ 
-                if($(evt.target).parents("#sysRoleContent > ul li").length==0)
-                { 
+            $("body").bind("click", function (evt) {
+                if ($(evt.target).parents("#sysRoleContent > ul li").length == 0) {
                     $("#sysRoleContent>ul li").find('i').css("display", "none");
-                } 
+                }
             });
 
             //编辑角色
-            $('.editRole').click(function(){
+            $('.editRole').click(function () {
                 var ID = $(this).parent().attr("id");
                 var Name = $(this).parent().find("p").html();
                 var Remarks = $(this).parent().attr("title");
@@ -157,40 +161,40 @@
 
                         // 判断是否是相等， 如果是相等，不需要进行请求API进行修改
 
-                        if(Name==NewName && Remarks==NewRemarks){
-                            
-                        }else{
+                        if (Name == NewName && Remarks == NewRemarks) {
+
+                        } else {
                             // 请求API 进行 编辑角色名称和备注
                             $.ajax({
-                                url:'/SysRole/Edit',
-                                type:'post',
-                                data:{
+                                url: '/SysRole/Edit',
+                                type: 'post',
+                                data: {
                                     id: ID,
                                     name: NewName,
                                     remarks: NewRemarks
                                 },
-                                success:function(data){
+                                success: function (data) {
                                     console.log(data);
-                                    if(data){
+                                    if (data) {
                                         window.location.reload();
-                                    }else{
+                                    } else {
                                         console.log("更新失败");
                                         return false;
                                     }
                                 },
-                                error:function(){
+                                error: function () {
                                     console.log("更新失败");
                                     return false;
                                 }
                             })
                         }
                     },
-                    onCancelBut: function () { 
+                    onCancelBut: function () {
                     },
                     onLoad: function () {
                         // 填充数据
                         $(".roleName").val(Name);
-                        $(".remarks").val(Remarks=="null"?"":Remarks);
+                        $(".remarks").val(Remarks == "null" ? "" : Remarks);
                     },
                     onClose: function () {
                     }
@@ -199,39 +203,40 @@
             })
 
             //删除角色
-            $('.removeRole').click(function(){
+            $('.removeRole').click(function () {
                 var ID = $(this).parent().attr("id");
 
-                if(confirm("确认删除该角色?")){
+                if (confirm("确认删除该角色?")) {
                     $.ajax({
-                        url:'/SysRole/Delete',
+                        url: '/SysRole/Delete',
                         type: 'post',
-                        data:{
+                        data: {
                             id: ID
                         },
-                        success:function(data){
+                        success: function (data) {
                             console.log(data);
-                            if(data){
+                            if (data) {
                                 window.location.reload();
-                            }else{
+                            } else {
                                 Layout.popMsg("popMsg-danger", "删除失败， 角色正在使用");
                                 return false;
                             }
                         },
-                        error:function(){
+                        error: function () {
                             console.log("请求API失败")
                         }
                     })
                 }
             })
+            
         },
-        error:function(){
+        error: function () {
             console.log("请求API 失败");
         }
     })
 
     //新建角色
-    $('.create-sysRole').click(function(){
+    $('.create-sysRole').click(function () {
         $('#RolePopModal').dialogModal({
             onOkBut: function () {
                 //进行处理
@@ -239,35 +244,35 @@
                 var Remarks = $(".dialogModal").find(".remarks").val();
 
                 $.ajax({
-                    url:'/SysRole/Create',
-                    type:'post',
-                    data:{
+                    url: '/SysRole/Create',
+                    type: 'post',
+                    data: {
                         name: Name,
                         remarks: Remarks
                     },
-                    success:function(data){
+                    success: function (data) {
                         console.log(data);
-                        if(data){
+                        if (data) {
                             window.location.reload();
-                        }else{
+                        } else {
                             console.log("更新失败");
                             return false;
                         }
                     },
-                    error:function(){
+                    error: function () {
                         console.log("更新失败");
                         return false;
                     }
                 })
             },
-            onCancelBut: function () {},
-            onLoad: function () {},
-            onClose: function () {}
+            onCancelBut: function () { },
+            onLoad: function () { },
+            onClose: function () { }
         });
     })
 
     //如何分配用户
-    
+
 
 
 
@@ -283,168 +288,188 @@
 
 
 @*<div class="row" style="margin: 0;">
-    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12">
-        <span>角色</span>
-        <div class="pull-right" style="margin-top: -8px;">
-            <a href="/SysRole/TableShow">
-                <button class="marco-btn-primary">
-                    角色列表展示
-                </button>
-            </a>
-        </div> 
-                
-        <div id="SysRole" class="ztree" style="overflow:auto;"></div>
-    </div>
+        <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12">
+            <span>角色</span>
+            <div class="pull-right" style="margin-top: -8px;">
+                <a href="/SysRole/TableShow">
+                    <button class="marco-btn-primary">
+                        角色列表展示
+                    </button>
+                </a>
+            </div>
 
-    <div class="col-lg-5 col-md-5 col-xs-6 col-sm-12" style="border-left: 1px dashed #ddd ;">
-        <div class="pull-right" style="margin-right:5px;">
-            <a href="/SysRoleAuthorization/Index">
-                <button class="marco-btn-primary">
-                    角色权限列表展示
-                </button>
-            </a>
-        </div> 
-
-        <div id="sysRoleDetail">
-            <p>
-                角色名称：<br />备注：
-            </p>   
+            <div id="SysRole" class="ztree" style="overflow:auto;"></div>
         </div>
 
-        <hr class="hr-grey" />
+        <div class="col-lg-5 col-md-5 col-xs-6 col-sm-12" style="border-left: 1px dashed #ddd ;">
+            <div class="pull-right" style="margin-right:5px;">
+                <a href="/SysRoleAuthorization/Index">
+                    <button class="marco-btn-primary">
+                        角色权限列表展示
+                    </button>
+                </a>
+            </div>
 
-        <span class="marco-badge">角色权限</span>
+            <div id="sysRoleDetail">
+                <p>
+                    角色名称：<br />备注：
+                </p>
+            </div>
 
-        <button id="assign-auth" class="marco-btn-success pull-right" style="margin-top: -5px; display:none;">
-            <i class="fa fa-check"></i>   
-            <span>分配权限</span>    
-        </button>
+            <hr class="hr-grey" />
 
-        <div class="marco-igroup-primary pull-right" style="margin-top: -5px; height:30px; margin-right:5px; display:none;">
-            <select id="treeTypeSelect" style="padding:0; height:28px;">
-                <option value="1">按动作显示</option>
-                <option value="0">按模块显示</option>
-            </select>
+            <span class="marco-badge">角色权限</span>
+
+            <button id="assign-auth" class="marco-btn-success pull-right" style="margin-top: -5px; display:none;">
+                <i class="fa fa-check"></i>
+                <span>分配权限</span>
+            </button>
+
+            <div class="marco-igroup-primary pull-right" style="margin-top: -5px; height:30px; margin-right:5px; display:none;">
+                <select id="treeTypeSelect" style="padding:0; height:28px;">
+                    <option value="1">按动作显示</option>
+                    <option value="0">按模块显示</option>
+                </select>
+            </div>
+
+            <div id="SysRoleAuthorization" class="ztree" style="overflow:auto; width: 100%;"></div>
         </div>
 
-        <div id="SysRoleAuthorization" class="ztree" style="overflow:auto; width: 100%;"></div>
+        <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12" style="border-left: 1px dashed #ddd ;">
+            <span>用户</span>
+
+            <div class="pull-right" style="margin-top: -5px;">
+                <a href="/User/Index">
+                    <button class="marco-btn-primary">
+                        用户列表展示
+                    </button>
+                </a>
+            </div>
+
+            <div id="Users" class="ztree" style="overflow:auto;"></div>
+        </div>
     </div>
 
-    <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12" style="border-left: 1px dashed #ddd ;">
-        <span>用户</span>
+    <script type="text/javascript">
+        Layout.init();
 
-        <div class="pull-right" style="margin-top: -5px;">
-            <a href="/User/Index">
-                <button class="marco-btn-primary">
-                    用户列表展示
-                </button>
-            </a>
-        </div> 
+        $(".ztree").css("height", $(window).height() - 200 + 'px');
 
-        <div id="Users" class="ztree" style="overflow:auto;"></div>
-    </div>
-</div>
+        $.ajax({
+                url: '/SysRole/SysRoleTree',
+                type: 'get',
+                success: function (data) {
+                    function zTreeSysRoleOnClick(event, treeId, treeNode) {
+                        $("#assign-auth").css("display", "block");
+                        $("#treeTypeSelect").parent().css("display", "block");
 
-<script type="text/javascript">
-    Layout.init();
+                        var SysRoleNode = $.fn.zTree.getZTreeObj("SysRole").getSelectedNodes()[0];
+                        $.fn.zTree.getZTreeObj("SysRole").checkNode(SysRoleNode, true, true);
 
-    $(".ztree").css("height", $(window).height() - 200 + 'px');
+                        $("#sysRoleDetail").empty();
+                        $("#SysRoleAuthorization").empty();
+                        $("#Users").empty();
 
-    $.ajax({
-            url: '/SysRole/SysRoleTree',
-            type: 'get',
-            success: function (data) {
-                function zTreeSysRoleOnClick(event, treeId, treeNode) {
-                    $("#assign-auth").css("display", "block");
-                    $("#treeTypeSelect").parent().css("display", "block");
+                        var Html = "<p> 角色名称： <span style='color: red; font-weight: bold;'>" + SysRoleNode.name + "</span>  <br />备注： " + SysRoleNode.remark + " </p>";
 
-                    var SysRoleNode = $.fn.zTree.getZTreeObj("SysRole").getSelectedNodes()[0];
-                    $.fn.zTree.getZTreeObj("SysRole").checkNode(SysRoleNode, true, true);
+                        $(Html).appendTo('#sysRoleDetail');
 
-                    $("#sysRoleDetail").empty();
-                    $("#SysRoleAuthorization").empty();
-                    $("#Users").empty();
-
-                    var Html = "<p> 角色名称： <span style='color: red; font-weight: bold;'>" + SysRoleNode.name + "</span>  <br />备注： " + SysRoleNode.remark + " </p>";
-
-                    $(Html).appendTo('#sysRoleDetail');
-
-                    ShowTree();
-
-                    $("#treeTypeSelect").change(function () {
-                        console.log("VVVVVVVVVVVVVV");
                         ShowTree();
-                    })
 
-                    function ShowTree() {
-                      $.ajax({
-                        url: '/SysRoleAuthorization/SysAuthorizationTree',
-                        type: 'get',
-                        data: {
-                            sysRoleId: SysRoleNode.id,
-                            showType: $("#treeTypeSelect").val()
-                        },
-                        success: function (data) {
-                            //进行数据整合
-                            var sysRoleAuthzNodes = data["SysRoleAuths"];
+                        $("#treeTypeSelect").change(function () {
+                            console.log("VVVVVVVVVVVVVV");
+                            ShowTree();
+                        })
 
-                            var UsersNodes = data["Users"];
+                        function ShowTree() {
+                          $.ajax({
+                            url: '/SysRoleAuthorization/SysAuthorizationTree',
+                            type: 'get',
+                            data: {
+                                sysRoleId: SysRoleNode.id,
+                                showType: $("#treeTypeSelect").val()
+                            },
+                            success: function (data) {
+                                //进行数据整合
+                                var sysRoleAuthzNodes = data["SysRoleAuths"];
 
-                            var sysRoleAuthSetting = {
-                                check: {
-                                    enable: true,
-                                    chkboxType: { "Y": "ps", "N": "ps" }
-                                },
-                                data: {
-                                    simpleData: {
-                                        enable: true
+                                var UsersNodes = data["Users"];
+
+                                var sysRoleAuthSetting = {
+                                    check: {
+                                        enable: true,
+                                        chkboxType: { "Y": "ps", "N": "ps" }
+                                    },
+                                    data: {
+                                        simpleData: {
+                                            enable: true
+                                        }
+                                    },
+                                    callback: {
+                                        //onClick: zTreeSysRoleAuthOnClick
+                                    },
+                                    view: {
+                                        selectedMulti: false
                                     }
-                                },
-                                callback: {
-                                    //onClick: zTreeSysRoleAuthOnClick
-                                },
-                                view: {
-                                    selectedMulti: false
-                                }
-                            };
+                                };
 
-                            var usersSetting = {
-                                check: {
-                                    enable: false,
-                                    chkboxType: { "Y": "", "N": "" }
-                                },
-                                data: {
-                                    simpleData: {
-                                        enable: true
+                                var usersSetting = {
+                                    check: {
+                                        enable: false,
+                                        chkboxType: { "Y": "", "N": "" }
+                                    },
+                                    data: {
+                                        simpleData: {
+                                            enable: true
+                                        }
+                                    },
+                                    callback: {
+                                        //点击用户可以做什么
+                                        //onClick: zTreeSysRoleOnClick
+                                    },
+                                    view: {
+                                        selectedMulti: false
                                     }
-                                },
-                                callback: {
-                                    //点击用户可以做什么
-                                    //onClick: zTreeSysRoleOnClick
-                                },
-                                view: {
-                                    selectedMulti: false
-                                }
-                            };
+                                };
 
-                            $.fn.zTree.init($("#SysRoleAuthorization"), sysRoleAuthSetting, sysRoleAuthzNodes);
-                            $.fn.zTree.init($("#Users"), usersSetting, UsersNodes);
+                                $.fn.zTree.init($("#SysRoleAuthorization"), sysRoleAuthSetting, sysRoleAuthzNodes);
+                                $.fn.zTree.init($("#Users"), usersSetting, UsersNodes);
 
-                            $("#assign-auth").click(function () {
-                                var ZTree = $.fn.zTree.getZTreeObj("SysRoleAuthorization");
+                                $("#assign-auth").click(function () {
+                                    var ZTree = $.fn.zTree.getZTreeObj("SysRoleAuthorization");
 
-                                var CheckedArray = new Array();
-                                CheckedArray = ZTree.getCheckedNodes(true);
+                                    var CheckedArray = new Array();
+                                    CheckedArray = ZTree.getCheckedNodes(true);
 
-                                var nodes = $.fn.zTree.getZTreeObj("SysRole").getSelectedNodes();
+                                    var nodes = $.fn.zTree.getZTreeObj("SysRole").getSelectedNodes();
 
-                                if (nodes.length > 1 && confirm("确定要给多个角色分配相同权限？")) {
-                                    for (var node in nodes) {
+                                    if (nodes.length > 1 && confirm("确定要给多个角色分配相同权限？")) {
+                                        for (var node in nodes) {
+                                            $.ajax({
+                                                url: "/SysRoleAuthorization/AssignAuthsToRole",
+                                                type: 'post',
+                                                data: {
+                                                    sysRoleId: nodes[node].id,
+                                                    roleAuthArray: CheckedArray
+                                                },
+                                                success: function (data) {
+                                                    if (data) {
+                                                        Layout.popMsg("popMsg-success", "分配成功");
+                                                    } else {
+                                                        Layout.popMsg("popMsg-danger", "分配失败");
+                                                    }
+                                                },
+                                                error: function () {
+                                                    Layout.popMsg("popMsg-danger", "设置权限API失败");
+                                                }
+                                            })
+                                        }
+                                    } else if (nodes.length == 1) {
                                         $.ajax({
                                             url: "/SysRoleAuthorization/AssignAuthsToRole",
                                             type: 'post',
                                             data: {
-                                                sysRoleId: nodes[node].id,
+                                                sysRoleId: nodes[0].id,
                                                 roleAuthArray: CheckedArray
                                             },
                                             success: function (data) {
@@ -458,61 +483,41 @@
                                                 Layout.popMsg("popMsg-danger", "设置权限API失败");
                                             }
                                         })
+                                    } else {
+                                        Layout.popMsg("popMsg-danger", "请先选择角色，再进行权限分配");
                                     }
-                                } else if (nodes.length == 1) {
-                                    $.ajax({
-                                        url: "/SysRoleAuthorization/AssignAuthsToRole",
-                                        type: 'post',
-                                        data: {
-                                            sysRoleId: nodes[0].id,
-                                            roleAuthArray: CheckedArray
-                                        },
-                                        success: function (data) {
-                                            if (data) {
-                                                Layout.popMsg("popMsg-success", "分配成功");
-                                            } else {
-                                                Layout.popMsg("popMsg-danger", "分配失败");
-                                            }
-                                        },
-                                        error: function () {
-                                            Layout.popMsg("popMsg-danger", "设置权限API失败");
-                                        }
-                                    })
-                                } else {
-                                    Layout.popMsg("popMsg-danger", "请先选择角色，再进行权限分配");
-                                }
-                            });
+                                });
+                            },
+                            error: function () {
+                                console.log("DDDDDDDDDd");
+                            }
+                        });
+                        }
+                    }
+                    var sysRolezNodes = data;
+
+                    var setting = {
+                        check: {
+                            enable: false,
+                            chkboxType: { "Y": "", "N": "" }
                         },
-                        error: function () {
-                            console.log("DDDDDDDDDd");
+                        data: {
+                            simpleData: {
+                                enable: true
+                            }
+                        },
+                        callback: {
+                            onClick: zTreeSysRoleOnClick
+                        },
+                        view: {
+                            selectedMulti: false
                         }
-                    });
-                    }
+                    };
+
+                    $.fn.zTree.init($("#SysRole"), setting, sysRolezNodes);
+                },
+                error: function () {
+                    console.log("DDDDDDDDDD");
                 }
-                var sysRolezNodes = data;
-
-                var setting = {
-                    check: {
-                        enable: false,
-                        chkboxType: { "Y": "", "N": "" }
-                    },
-                    data: {
-                        simpleData: {
-                            enable: true
-                        }
-                    },
-                    callback: {
-                        onClick: zTreeSysRoleOnClick
-                    },
-                    view: {
-                        selectedMulti: false
-                    }
-                };
-
-                $.fn.zTree.init($("#SysRole"), setting, sysRolezNodes);
-            },
-            error: function () {
-                console.log("DDDDDDDDDD");
-            }
-        });
-</script>*@
+            });
+    </script>*@
