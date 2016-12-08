@@ -271,7 +271,7 @@ namespace BlueHrWeb.Controllers
                     select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
                 }
             }
-            ViewData["rewardsAndPenaltiesTypeList"] = select;
+            ViewData["rewardsAndPenaltyTypeList"] = select;
         }
 
         [HttpPost]

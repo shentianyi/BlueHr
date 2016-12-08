@@ -41,7 +41,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>奖惩类型</span>
-                        @Html.EditorFor(model => model.type)
+                        @Html.DropDownList("type", ViewData["rewardsAndPenaltyTypeList"] as IEnumerable<SelectListItem>)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -58,42 +58,44 @@
                 </div>
                 @if (Model != null)
                 {
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>申请日期</span>
-                        @Html.EditorFor(model => model.createdAt, new { htmlAttributes = new { @class = "date-picker" } })
+                    <div id="approval-prp">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>申请日期</span>
+                                @Html.EditorFor(model => model.createdAt, new { htmlAttributes = new { @class = "date-picker" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>申请人</span>
+                                @Html.EditorFor(model => model.createdUserId)
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>审批人</span>
+                                @Html.EditorFor(model => model.approvalUserId)
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>审批状态</span>
+                                @Html.EditorFor(model => model.approvalStatus)
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>审批时间</span>
+                                @Html.EditorFor(model => model.approvalAt, new { htmlAttributes = new { @class = "date-picker" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>备注</span>
+                                @Html.TextAreaFor(model => model.approvalRemark)
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>申请人</span>
-                        @Html.EditorFor(model => model.createdUserId)
-                    </div>
-                </div> 
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>审批人</span>
-                        @Html.EditorFor(model => model.approvalUserId)
-                    </div>
-                </div> 
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>审批状态</span>
-                        @Html.EditorFor(model => model.approvalStatus)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>审批时间</span>
-                        @Html.EditorFor(model => model.approvalAt, new { htmlAttributes = new { @class = "date-picker" } })
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>备注</span>
-                        @Html.TextAreaFor(model => model.approvalRemark)                        
-                    </div>
-                </div>
                 }
             </div>
         </div>

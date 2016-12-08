@@ -94,7 +94,7 @@
     <Compile Include="Data\Enum\EnumItem.cs" />
     <Compile Include="Data\Enum\MessageRecordCatetory.cs" />
     <Compile Include="Data\Enum\MessageRecordType.cs" />
-    <Compile Include="Data\Enum\RewardsAndPenaltiesType.cs" />
+    <Compile Include="Data\Enum\RewardsAndPenaltyType.cs" />
     <Compile Include="Data\Enum\RoleType.cs" />
     <Compile Include="Data\Enum\SystemAbsenceType.cs" />
     <Compile Include="Data\Enum\SystemExtraType.cs" />
@@ -157,6 +157,7 @@
     <Compile Include="Data\Repository\Interface\ISysUserDataAuthRepository.cs" />
     <Compile Include="Data\Repository\Interface\IWorkAndRestRepository.cs" />
     <Compile Include="Data\StaffView.cs" />
+    <Compile Include="Data\RewardsAndPenalty.cs" />
     <Compile Include="Data\WorkAndRest.cs" />
     <Compile Include="Helper\SearchConditionsHelper.cs" />
     <Compile Include="Helper\DateTimeHelper.cs" />

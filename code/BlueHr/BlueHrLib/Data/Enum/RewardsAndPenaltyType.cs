@@ -13,9 +13,9 @@ namespace BlueHrLib.Data.Enum
     public enum RewardsAndPenaltyType
     {
         [Description("奖励")]
-        Reward = 1,
+        Reward = 0,
 
         [Description("惩罚")]
-        Penaltiy = 0
+        Penality = 1
     }
 }

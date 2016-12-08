@@ -114,49 +114,52 @@
                         {
                             foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.staffNr)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.type)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.project)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.description)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.createdAt)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.createdUserId)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalUserId)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalStatus)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalAt)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalRemark)
-                                    </td>
-                                    <td>
-                                        <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>    
-                                        <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
-                                            <i class="fa fa-check"></i>
-                                        </a>                                                                        
-                                    </td>
-                                </tr>
+                                if (item.type == 0)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.staffNr)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.typeStr)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.project)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.createdAt)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.createdUserId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalUserId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalStatus)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalAt)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalRemark)
+                                        </td>
+                                        <td>
+                                            <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
                             }
                         }
                     </tbody>
@@ -185,49 +188,52 @@
                         {
                             foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.staffNr)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.type)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.project)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.description)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.createdAt)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.createdUserId)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalUserId)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalStatus)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalAt)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalRemark)
-                                    </td>
-                                    <td>
-                                        <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
-                                            <i class="fa fa-check"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                if (item.type == 1)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.staffNr)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.typeStr)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.project)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.createdAt)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.createdUserId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalUserId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalStatus)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalAt)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalRemark)
+                                        </td>
+                                        <td>
+                                            <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
                             }
                         }
                     </tbody>

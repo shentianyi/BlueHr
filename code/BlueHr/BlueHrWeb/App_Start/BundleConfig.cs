@@ -25,7 +25,7 @@ namespace BlueHrWeb
                    "~/Scripts/jquery.file.upload/jquery.fileupload.js",
                    "~/Scripts/jquery.file.upload/jquery.iframe-transport.js",
                    "~/Scripts/jquery.file.upload/upload.file.data.js",
-                   "~/Scripts/jquery.cookie.js",
+                //    "~/Scripts/jquery.cookie.js",
                    "~/Scripts/highcharts/highcharts.js"
                    ));
 
@@ -45,9 +45,12 @@ namespace BlueHrWeb
                       "~/Scripts/jquery.combo.select.js",
                       "~/Scripts/bootstrap.addtabs.js",
                       "~/Scripts/jquery.ztree.all-3.5.js",
-                      "~/Scripts/pqgrid.dev.js",
-                      "~/Scripts/go.js"
+                      "~/Scripts/pqgrid.dev.js"
                       ));
+
+            bundles.Add(new ScriptBundle("~/bundles/go").Include(
+                      "~/Scripts/go.js"
+            ));
 
             bundles.Add(new ScriptBundle("~/bundles/layout").Include(
                 "~/Scripts/layout.js",

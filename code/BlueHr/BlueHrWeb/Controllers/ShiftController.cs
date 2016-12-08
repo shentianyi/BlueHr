@@ -301,6 +301,9 @@ namespace BlueHrWeb.Controllers
             {
                 SetShiftList(null);
             }
+
+            SetAllTableName(null);
+            SetSearchConditions(null);
         }
 
         private void SetShiftList(int? type, bool allowBlank = true)
@@ -427,6 +430,8 @@ namespace BlueHrWeb.Controllers
                 }
             }
             shifts = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            SetDropDownList(null);
 
             return View("Index", shifts);
         }

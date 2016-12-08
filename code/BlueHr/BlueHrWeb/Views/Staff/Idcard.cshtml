@@ -1,10 +1,12 @@
-@using MvcPaging
+﻿@using MvcPaging
 
 @model IPagedList<BlueHrLib.Data.Staff>
 
 @{
     ViewBag.Title = "身份证管理";
 }
+
+
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>员工管理</li>
@@ -31,11 +33,11 @@
                 </div>
             </div>
             @*<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>身份证地址</span>
-                    <input type="text" name="Address" id="Address" placeholder="身份证地址" value="@ViewBag.Query.ResidenceAddress" />
-                </div>
-            </div>*@
+                    <div class="marco-igroup-primary">
+                        <span>身份证地址</span>
+                        <input type="text" name="Address" id="Address" placeholder="身份证地址" value="@ViewBag.Query.ResidenceAddress" />
+                    </div>
+                </div>*@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
                 <button type="submit" class="marco-btn-success">
                     <i class="glyphicon glyphicon-search"></i>
@@ -58,7 +60,7 @@
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#checked_Idcard" role="tab" data-toggle="tab">已验证身份证</a></li>
-             <li role="presentation"><a href="#unchecked_Idcard" role="tab" data-toggle="tab">未验证身份证</a></li>
+            <li role="presentation"><a href="#unchecked_Idcard" role="tab" data-toggle="tab">未验证身份证</a></li>
             <li role="presentation"><a href="#all_Idcard" role="tab" data-toggle="tab">所有身份证</a></li>
         </ul>
 
@@ -125,7 +127,22 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.id)
+                                        <span style="display:inline;">
+                                            @Html.DisplayFor(modelItem => item.id)
+                                        </span>
+
+                                        @if (item.isIdChecked)
+                                        {
+                                            <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">
+                                                已验证
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="pull-right marco-label-danger" title="身份证还未验证, 请使用客户端进行验证" style="cursor:help;">
+                                                未验证
+                                            </span>
+                                        }
                                     </td>
 
                                     <td>
@@ -216,7 +233,5 @@
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Idcard", "所有身份证列表", "20", "all_Idcard_grid_table");
     $('#all_Idcard').removeClass("active");
     //});
-
-
 
 </script>
