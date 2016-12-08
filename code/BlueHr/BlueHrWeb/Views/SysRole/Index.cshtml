@@ -6,6 +6,8 @@
     ViewBag.Title = "角色管理";
 }
 
+@Styles.Render("~/Content/multi-select")
+
 <style type="text/css">
     #sysRoleContent > ul {
         list-style: none;
@@ -57,9 +59,16 @@
 <hr class="hr-grey" />
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <button class="marco-btn-primary create-sysRole">新建角色</button>
-    <!--<button class="marco-btn-primary">给角色分配权限</button>-->
-    <!--<button class="marco-btn-primary">给角色分配用户</button>-->
+    <button class="marco-btn-success create-sysRole">新建角色</button>
+    <a href="/SysRole/TableShow">
+        <button class="marco-btn-primary">角色列表展示</button>
+    </a>
+
+    <a href="/SysRole/AssignAuth">
+        <button class="marco-btn-primary assign-sysRole-to-auth">给角色分配权限</button>
+    </a>
+    
+    <!--<button class="marco-btn-primary assign-sysRole-to-users">给角色分配用户</button>-->
 </div>
 
 <div class="row" style="border-top: 1px solid #3498db; margin:-6px 15px 0 18px;">
@@ -73,7 +82,7 @@
 @*弹出框*@
 <div id="RolePopModal" class="approval_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
-        <span>角色权限管理</span>
+        <span>角色管理</span>
     </div>
 
     <div class="dialogModal_content">
@@ -104,6 +113,8 @@
     </div>
 </div>
 
+@Scripts.Render("~/bundles/multi-select")
+
 <script type="text/javascript">
     Layout.init();
 
@@ -121,14 +132,21 @@
 
             for (var i = 0; i < data.length; i++) {
                 var Html = "<li id=" + data[i].id + " title=" + data[i].remark + "> <div></div><p>" + data[i].name + "</p>" +
-                "<i class='fa fa-pencil editRole' title='编辑角色' style='margin-left: -30px;'></i>" +
-                "<i class='fa fa-trash removeRole' title='删除角色' style='color: darkred; margin-left: 10px;'></i>" +
+                "<i class='fa fa-pencil editRole' title='编辑角色' style='margin-left: -20px;'></i>" +
+                "<i class='fa fa-trash removeRole' title='删除角色' style='color: darkred; margin-left: 20px;'></i>" +
                 // "<i class='fa fa-users assignUser' title='分配用户' style='color: orange; margin-left: 10px;'></i>"+
-                // "<i class='fa fa-unlock assignRole' title='分配权限' style='color: lightseagreen; margin-left: 40px;'></i>"+
                 "</li>";
 
                 $(Html).appendTo($("#sysRoleContent>ul"));
             }
+
+            $('.option-icon-primary').click(function(){
+                //1920* 1200  1068 * 677 刚刚好
+                //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
+                Layout.openNewWindow($(this).attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+
+                return false;
+            });
 
             $("#sysRoleContent>ul").unbind('mouseover').on('mouseover', 'li', function () {
                 $("#sysRoleContent>ul li").not($(this)).find('i').css("display", "none");
@@ -228,7 +246,22 @@
                     })
                 }
             })
-            
+            //如何分配用户
+
+            $(".assignUser").click(function(){
+                console.log("点击了分配用户");
+                // 弹框进行显示。 左右分隔分配用户
+                $('#AssignToUser').dialogModal({
+                    onOkBut: function () {
+                       
+                    },
+                    onCancelBut: function () {},
+                    onLoad: function () {
+                        $(".dialogModal").find('#assign-to-user-headers').multiSelect();
+                    },
+                    onClose: function () {}
+                });
+            })
         },
         error: function () {
             console.log("请求API 失败");
@@ -270,14 +303,6 @@
             onClose: function () { }
         });
     })
-
-    //如何分配用户
-
-
-
-
-
-
 
 
     // 如何分配权限

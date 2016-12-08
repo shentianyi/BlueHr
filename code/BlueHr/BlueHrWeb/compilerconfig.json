@@ -10,5 +10,9 @@
   {
     "outputFile": "Scripts/jquery-ui-1.9.1.custom.min.es5.js",
     "inputFile": "Scripts/jquery-ui-1.9.1.custom.min.js"
+  },
+  {
+    "outputFile": "Content/multi-select.css",
+    "inputFile": "Content/multi-select.scss"
   }
 ]

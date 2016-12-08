@@ -1,6 +1,4 @@
-﻿@using MvcPaging
-
-@model IPagedList<BlueHrLib.Data.SysRole>
+﻿@model BlueHrLib.Data.SysRole
 
 @{
     ViewBag.Title = "角色管理";
@@ -30,26 +28,18 @@
 
 <div class="row" style="margin: 0;">
     <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12">
-        <span>角色</span>
-        <div class="pull-right" style="margin-top: -8px;">
-            <a href="/SysRole/TableShow">
-                <button class="marco-btn-primary">
-                    角色列表展示
-                </button>
-            </a>
-        </div> 
-                
+        <span>角色</span>         
         <div id="SysRole" class="ztree" style="overflow:auto;"></div>
     </div>
 
     <div class="col-lg-5 col-md-5 col-xs-6 col-sm-12" style="border-left: 1px dashed #ddd ;">
-        <div class="pull-right" style="margin-right:5px;">
+        <!--<div class="pull-right" style="margin-right:5px;">
             <a href="/SysRoleAuthorization/Index">
                 <button class="marco-btn-primary">
                     角色权限列表展示
                 </button>
             </a>
-        </div> 
+        </div> -->
 
         <div id="sysRoleDetail">
             <p>
@@ -79,13 +69,13 @@
     <div class="col-lg-4 col-md-4 col-xs-12 col-sm-12" style="border-left: 1px dashed #ddd ;">
         <span>用户</span>
 
-        <div class="pull-right" style="margin-top: -5px;">
+        <!--<div class="pull-right" style="margin-top: -5px;">
             <a href="/User/Index">
                 <button class="marco-btn-primary">
                     用户列表展示
                 </button>
             </a>
-        </div> 
+        </div> -->
 
         <div id="Users" class="ztree" style="overflow:auto;"></div>
     </div>
@@ -124,7 +114,7 @@
 
                     function ShowTree() {
                       $.ajax({
-                        url: '/SysRoleAuthorization/SysAuthorizationTree',
+                        url: '/SysRoleAuthorization/SysAuthorizationTrees',
                         type: 'get',
                         data: {
                             sysRoleId: SysRoleNode.id,

@@ -10,13 +10,48 @@
 
 <hr class="hr-grey" />
 
-<div id="person_calendar" style="padding: 0 20px 0 20px;"></div>
+<div id="person_calendar" style="padding:30px;"></div>
+
+<div id="PersonScheduleModal" class="approval_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        <span>日程事件</span>
+    </div>
+
+    <div class="dialogModal_content">
+        <div class="marco-nbody row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>名称</span>
+                    <input type="text" class="roleName" name="roleName" autofocus>
+                </div>
+            </div>
+            <br />
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <div class="marco-textarea">
+                    <span>备注</span>
+                    <textarea name="remarks" class="remarks"></textarea>
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+
+    <div class="dialogModal_footer">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+            <button type="button" class="marco-btn-primary pull-right" data-dialogmodalbut="ok">
+                确认
+            </button>
+        </div>
+    </div>
+</div>
+
 
 @Scripts.Render("~/bundles/fullcalendar")
 
 <script type="text/javascript">
     Layout.init();
 
+    $("#person_calendar").css({"height":$(window).height()-300+'px', "width": $(window).width()-300+'px'});
     $.ajax({
         url:'/Personal/AllPersonSchedule',
         type:'get',
@@ -43,25 +78,36 @@
                 selectable: true,
                 selectHelper: true,
                 select: function(start, end) {
-                    var title = prompt('Event Title:');
-                    var eventData;
-                    if (title) {
-                        eventData = {
-                            id: "id"+title,
-                            title: title,
-                            start: start,
-                            end: end
-                        };
-                        $('#person_calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-                    }
+                    $('#PersonScheduleModal').dialogModal({
+                        onOkBut: function () {
+                            // var title = prompt('Event Title:');
+                            // var eventData;
+                            if (title) {
+                                eventData = {
+                                    id: "id"+title,
+                                    title: title,
+                                    start: start,
+                                    end: end
+                                };
+                            }
+
+                            $('#person_calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                        },
+                        onCancelBut: function () { 
+                        },
+                        onLoad: function () {
+                            console.log("CCCCC")
+                        },
+                        onClose: function () {
+                        }
+                    });
+
                     $('#person_calendar').fullCalendar('unselect');
                 },
+                dayClick: function(date, allDay, jsEvent, view){
+                    console.log(view);
+                },
                 eventClick: function(event, jsEvent, view) {
-                    // console.log("CCCCCCCCCCCCC");
-                    // console.log(event);
-                    // console.log(jsEvent);
-                    // console.log(view);
-
                     if(confirm("确认删除？")){
                         $('#person_calendar').fullCalendar('removeEvents', [event.id]);
                     }

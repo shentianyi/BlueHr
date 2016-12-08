@@ -97,9 +97,9 @@ namespace BlueHrLib.Data.Repository.Implement
             }
         }
 
-        public List<User> FindByRole(string role)
-        {
-            return this.context.GetTable<User>().Where(c => c.roleStr.Equals(role)).ToList();
-        }
+        //public List<User> FindByRole(string role)
+        //{
+        //    return this.context.GetTable<User>().Where(c => c.roleStr.Equals(role)).ToList();
+        //}
     }
 }

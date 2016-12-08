@@ -20,7 +20,7 @@ namespace BlueHrWeb.Controllers
     public class UserController : Controller
     {
         // GET: User
-        //
+        //没有使用到
         [AdminAuthorize]
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
@@ -76,10 +76,13 @@ namespace BlueHrWeb.Controllers
                 Dictionary<string, string> Result = new Dictionary<string, string>();
                 // IUserService us = new UserService(Settings.Default.db);
                 // User detail = us.FindById(id);
+
+                ISysRoleService srs = new SysRoleService(Settings.Default.db);
+
                 Result.Add("用户名", user.name);
                 Result.Add("邮箱", user.email);
                 Result.Add("是否锁定", user.isLockedStr);
-                Result.Add("角色类型", user.roleStr);
+                Result.Add("角色类型", srs.FindById(Convert.ToInt32(user.role)).name);
                 
                 return Json(Result, JsonRequestBehavior.AllowGet);
             }catch (Exception e) {
@@ -88,7 +91,6 @@ namespace BlueHrWeb.Controllers
                 Console.Write(e);
 
                 return null; 
-
             }
         }
 
@@ -934,7 +936,6 @@ namespace BlueHrWeb.Controllers
             }
             ViewData["searchConditionsList"] = select;
         }
-
 
         public ActionResult AdvancedSearch(UserSearchModel q)
         {

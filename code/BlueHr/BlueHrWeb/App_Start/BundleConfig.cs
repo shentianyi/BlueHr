@@ -81,6 +81,10 @@ namespace BlueHrWeb
                 "~/Scripts/fullcalendar-zh-cn.js"
               ));
 
+            bundles.Add(new ScriptBundle("~/bundles/multi-select").Include(
+                "~/Scripts/jquery.multi-select.js"
+              ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      "~/Content/site.css",
                      "~/Content/bootstrap.css",
@@ -116,6 +120,10 @@ namespace BlueHrWeb
             bundles.Add(new StyleBundle("~/Content/bootstrap-treeview").Include(
                   "~/Scripts/bootstrap-treeview-1.2.0/bootstrap-treeview.css"
               ));
+
+            bundles.Add(new StyleBundle("~/Content/multi-select").Include(
+                 "~/Content/multi-select.css"
+             ));
         }
     }
 }

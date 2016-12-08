@@ -11,9 +11,17 @@ namespace BlueHrLib.Data
     {
         public string roleStr
         {
-            get { return EnumHelper.GetDescription((RoleType)this.role.Value); }
-            //get;
-            set { }
+            //get
+            //{
+            //    // 不能直接通过Enum 进行获取， 需要查询数据库
+
+            //    return this.role.HasValue ? this.role.ToString() : "无角色";
+
+            //    //return EnumHelper.GetDescription((RoleType)this.role.Value);
+            //}
+            //set { }
+
+            get; set;
         }
 
         public string isLockedStr

@@ -29,6 +29,15 @@ switch (pathname[1]) {
         $('.nav-userAuthorization').addClass('active');
         $('.nav-sysRole').addClass('active');
         PageAction('#sysrole', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
+        if(pathname[2]=="AssignAuth"||pathname[2]=="TableShow"){
+            $(".main-header").remove();
+            $(".main-sidebar").remove();
+            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+            $(window).resize(function(){
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+            })
+        }
         break;  
     case "Company":
         $('.nav-organization').addClass('active');
