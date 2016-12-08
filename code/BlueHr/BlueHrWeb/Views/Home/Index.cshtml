@@ -12,28 +12,30 @@
 <div style="margin: 10px;">
     @* 简单的显示 *@
     <div class="row" style="margin-top:20px;">
+        <!--离职/在职-->
         <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-default">
-            <div class="dashboard-box" title="点击查看员工列表">
+            <div class="dashboard-box" title="点击查看员工状态">
+
                 <a href="/Staff/Index">
                     <div class="dashboard-icon">
                         <i class="fa fa-users"></i>
                     </div>
-
                     <div class="dashboard-content">
                         <p>离职 / 在职</p>
                         <div class="show"><span id="OutWork">无</span> / <span id="InWork">无</span></div>
                     </div>
                 </a>
+
             </div>
         </div>
-
+        <!--公司部门-->
         <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-primary">
             <div class="dashboard-box" title="公司部门">
+
                 <a href="/Company/TreeShow">
                     <div class="dashboard-icon">
                         <i class="fa fa-bank"></i>
                     </div>
-
                     <div class="dashboard-content">
                         <p id="companyName"> </p>
                         <div class="show">
@@ -41,38 +43,42 @@
                         </div>
                     </div>
                 </a>
+
             </div>
         </div>
-
+        <!--员工将转正/已转正-->
         <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-warning">
-            <div class="dashboard-box" title="友情提醒">
+            <div class="dashboard-box" title="点击查看转正员工">
+
                 <a href="/Staff/Search?isOnTrail=1">
                     <div class="dashboard-icon">
                         <i class="fa fa-user"></i>
                     </div>
-
                     <div class="dashboard-content">
                         <p>将转正 / 待转正</p>
                         <div class="show"><span id="willNum">无</span> / <span id="waitNum">无</span></div>
                     </div>
                 </a>
+
             </div>
         </div>
-
+        <!--今天生日-->
         <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-success">
             <div class="dashboard-box" title="点击查看生日员工">
+
                 <a href="#birthday">
                     <div class="dashboard-icon">
                         <i class="fa fa-birthday-cake"></i>
                     </div>
-
                     <div class="dashboard-content">
                         <p>今天生日</p>
                         <div class="show"><span id="birthDayNum">无</span></div>
                     </div>
                 </a>
+
             </div>
         </div>
+
     </div>
 
     <hr class="hr-grey" />
@@ -81,10 +87,12 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="marco-npanel-primary">
+
                 <div class="marco-nheading">
                     <i class="fa fa-newspaper-o"></i>
                     <span>员工合同到期提醒</span>
                 </div>
+
                 <div class="marco-nbody">
                     @* 进行tab显示 *@
                     <div class="marco-tabs-normal">
@@ -106,7 +114,6 @@
                                             <td>合同到期时间</td>
                                         </tr>
                                     </thead>
-
                                    @* 获取表格内容*@
                                     <tbody id="ExpiredCurrentMonth">
                                        

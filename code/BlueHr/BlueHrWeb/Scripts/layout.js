@@ -34,11 +34,12 @@ switch (pathname[1]) {
         $('.nav-organization').addClass('active');
         if(pathname[2]=="Index"){
             $('.nav-company-list').addClass('active');
-            PageAction('#company', '新建公司', '编辑公司', '公司详情', '创建', '更新', '删除');
+            PageAction('#company', '新建公司', '公司编辑', '公司详情', '创建', '更新', '删除');
         } 
         if(pathname[2]=="TreeShow"){
             $('.nav-organizationTreeShow').addClass('active');
         }
+        PageAction('#company', '新建公司', '公司编辑', '公司详情', '创建', '更新', '删除');
         break;
     case "Department":
         $('.nav-organ').addClass('active');
