@@ -312,13 +312,18 @@
     </Content>
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\fullcalendar.css" />
-    <Content Include="Content\fullcalendar.print.css" />
     <Content Include="Content\highcharts.css" />
     <Content Include="Content\layout.css">
       <DependentUpon>layout.scss</DependentUpon>
     </Content>
     <Content Include="Content\layout.min.css">
       <DependentUpon>layout.css</DependentUpon>
+    </Content>
+    <Content Include="Content\multi-select.css">
+      <DependentUpon>multi-select.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\multi-select.min.css">
+      <DependentUpon>multi-select.css</DependentUpon>
     </Content>
     <Content Include="Images\alarm_clock.png" />
     <Content Include="Images\back1.jpg" />
@@ -328,6 +333,7 @@
     <Content Include="Images\change.jpg" />
     <Content Include="Images\changepwd.jpg" />
     <Content Include="Images\No.png" />
+    <Content Include="Images\switch.png" />
     <Content Include="Images\treeIcon\diy\company.png" />
     <Content Include="Content\input-style.css" />
     <Content Include="Content\jquery-popModal.css" />
@@ -404,6 +410,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="Content\multi-select.scss" />
     <None Include="Properties\PublishProfiles\BlueHr.pubxml" />
     <None Include="Properties\PublishProfiles\BlueHrWeb.pubxml" />
     <None Include="Properties\PublishProfiles\BlueHrWebPubConfig.pubxml" />
@@ -414,9 +421,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\certificate.js" />
     <Content Include="Scripts\company.js" />
-    <Content Include="Scripts\fullcalendar-locale-all.js" />
     <Content Include="Scripts\fullcalendar-moment.min.js" />
-    <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\go.js" />
     <Content Include="Scripts\highcharts\highcharts-3d.js" />
     <Content Include="Scripts\highcharts\highcharts-3d.src.js" />
@@ -484,6 +489,7 @@
     <Content Include="Scripts\jquery.file.upload\jquery.iframe-transport.js" />
     <Content Include="Scripts\jquery.file.upload\upload.file.data.js" />
     <Content Include="Scripts\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="Scripts\jquery.multi-select.js" />
     <Content Include="Scripts\jquery.slimscroll.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -757,7 +763,7 @@
     <Content Include="Views\User\Log.cshtml" />
     <Content Include="Views\User\UserMsg.cshtml" />
     <Content Include="Views\Shared\_Layout - 复制.cshtml" />
-    <Content Include="Views\SysRole\Index - 复制.cshtml" />
+    <Content Include="Views\SysRole\AssignAuth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

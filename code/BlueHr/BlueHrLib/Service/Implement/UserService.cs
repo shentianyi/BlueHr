@@ -12,9 +12,11 @@ namespace BlueHrLib.Service.Implement
 {
     public class UserService : ServiceBase, IUserService
     {
-        public UserService(string dbString) : base(dbString) { }
-
         private IUserRepository userRep;
+
+        public UserService(string dbString) : base(dbString) {
+            userRep = new UserRepository(this.Context);
+        }
         public IQueryable<User> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst)
         {
             return userRep.AdvancedSearch(allTableName, searchConditions, searchValueFirst);
@@ -40,12 +42,12 @@ namespace BlueHrLib.Service.Implement
         {
             user.pwdSalt = user.GenSalt();
             user.pwd = MD5Helper.Encryt(string.Format("{0}{1}", user.pwd, user.pwdSalt));
-            return new UserRepository(new DataContext(this.DbString)).Create(user);
+            return userRep.Create(user);
         }
 
         public bool DeleteById(int id)
         {
-            return new UserRepository(new DataContext(this.DbString)).DeleteById(id);
+            return userRep.DeleteById(id);
         }
 
         public User FindByEmail(string email)
@@ -56,12 +58,12 @@ namespace BlueHrLib.Service.Implement
 
         public User FindById(int id)
         {
-            return new UserRepository(new DataContext(this.DbString)).FindById(id);
+            return userRep.FindById(id);
         }
 
         public List<User> FindByRoleId(int sysRoleId)
         {
-            return new UserRepository(new DataContext(this.DbString)).FindByRoleId(sysRoleId);
+            return userRep.FindByRoleId(sysRoleId);
         }
 
         public List<User> GetAllTableName()
@@ -94,18 +96,18 @@ namespace BlueHrLib.Service.Implement
 
         public IQueryable<User> Search(UserSearchModel searchModel)
         {
-            return new UserRepository(new DataContext(this.DbString)).Search(searchModel);
+            return userRep.Search(searchModel);
 
         }
 
         public bool Update(User user)
         {
-            return new UserRepository(new DataContext(this.DbString)).Update(user);
+            return userRep.Update(user);
         }
 
-        public List<User> FindByRole(string role)
-        {
-            return userRep.FindByRole(role);
-        }
+        //public List<User> FindByRole(string role)
+        //{
+        //    return userRep.FindByRole(role);
+        //}
     }
 }

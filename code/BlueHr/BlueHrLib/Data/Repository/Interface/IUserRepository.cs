@@ -20,6 +20,7 @@ namespace BlueHrLib.Data.Repository.Interface
 
         List<User> FindByRoleId(int sysRoleId);
         IQueryable<User> AdvancedSearch(string allTableName, string searchConditions, string searchValueFirst);
-        List<User> FindByRole(string role);
+
+        //List<User> FindByRole(string role);
     }
 }

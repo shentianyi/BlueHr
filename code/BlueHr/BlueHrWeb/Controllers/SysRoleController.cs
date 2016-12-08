@@ -187,21 +187,22 @@ namespace BlueHrWeb.Controllers
             try
             {
                 //存在员工时不可删除
-                ISysRoleService cs = new SysRoleService(Settings.Default.db);
+                ISysRoleService srs = new SysRoleService(Settings.Default.db);
 
                 IUserService us = new UserService(Settings.Default.db);
-                List<User> user = us.FindByRole(cs.FindById(id).name);
-                User ab = new BlueHrLib.Data.User();
-                if (null != user && user.Count() > 0)
+
+                List<User> user = us.FindByRoleId(id);
+
+                if (user !=null && user.Count() > 0)
                 {
                     msg.Success = false;
-                    msg.Content = "用户类型正在使用中,不能删除!";
+                    msg.Content = "角色正在使用中,不能删除!";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    bool isSucceed = cs.DeleteById(id);
+                    bool isSucceed = srs.DeleteById(id);
 
                     msg.Success = isSucceed;
                     msg.Content = isSucceed ? "" : "删除失败";
@@ -257,6 +258,24 @@ namespace BlueHrWeb.Controllers
 
             return new ResultMessage() { Success = true, Content = "" };
         }
+
+
+        [RoleAndDataAuthorizationAttribute]
+        // GET: SysRole/Edit/5
+        public ActionResult AssignAuth(int? id)
+        {
+            ISysRoleService cs = new SysRoleService(Settings.Default.db);
+            if (id.HasValue)
+            {
+                SysRole jt = cs.FindById(Convert.ToInt32(id));
+                return View(jt);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
 
         [HttpGet]
         public JsonResult SysRoleTree()
