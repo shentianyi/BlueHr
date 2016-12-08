@@ -16,17 +16,22 @@ namespace BlueHrLib.Data.Repository.Implement
             this.context = dataContextFactory.Context as BlueHrDataContext;
         }
 
-        public bool Create(PersonSchedule personSchedule)
+        public PersonSchedule Create(PersonSchedule personSchedule)
         {
+            PersonSchedule Result = new PersonSchedule();
+
             try
             {
                 this.context.GetTable<PersonSchedule>().InsertOnSubmit(personSchedule);
                 this.context.SubmitChanges();
-                return true;
+
+                Result = this.context.GetTable<PersonSchedule>().OrderByDescending(c=>c.id).FirstOrDefault() as PersonSchedule;
+
+                return Result;
             }
             catch (Exception)
             {
-                return false;
+                return Result;
             }
         }
 

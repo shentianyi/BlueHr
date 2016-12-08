@@ -14,25 +14,25 @@
 
 <div id="PersonScheduleModal" class="approval_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
-        <span>日程事件</span>
+        <span>日程安排</span>
     </div>
 
     <div class="dialogModal_content">
         <div class="marco-nbody row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>名称</span>
-                    <input type="text" class="roleName" name="roleName" autofocus>
+                 <div class="marco-igroup-primary">
+                    <span>内容</span>
+                    <input type="text" id="context" class="context" name="context" autofocus>
                 </div>
             </div>
             <br />
+
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                 <div class="marco-textarea">
+                 <div class="marco-igroup-primary">
                     <span>备注</span>
-                    <textarea name="remarks" class="remarks"></textarea>
+                    <input type="text" id="remarks" class="remarks" name="remarks">
                 </div>
             </div>
-            <br />
         </div>
     </div>
 
@@ -52,6 +52,7 @@
     Layout.init();
 
     $("#person_calendar").css({"height":$(window).height()-300+'px', "width": $(window).width()-300+'px'});
+
     $.ajax({
         url:'/Personal/AllPersonSchedule',
         type:'get',
@@ -80,23 +81,44 @@
                 select: function(start, end) {
                     $('#PersonScheduleModal').dialogModal({
                         onOkBut: function () {
-                            // var title = prompt('Event Title:');
-                            // var eventData;
-                            if (title) {
-                                eventData = {
-                                    id: "id"+title,
-                                    title: title,
-                                    start: start,
-                                    end: end
-                                };
-                            }
+                            var Context = $(".dialogModal").find("#context").val();
+                            var Remark = $(".dialogModal").find("#remarks").val();
+                            $.ajax({
+                                url:"/Personal/AddSchedule",
+                                type:'post',
+                                data:{
+                                    category: '日常',
+                                    subject: '日常事务',
+                                    significance: '一般',
+                                    context:Context,
+                                    remark: Remark,
+                                    startTime: start.format('YYYY-MM-DD hh:mm:ss'),
+                                    endTime: end.format('YYYY-MM-DD hh:mm:ss')
+                                },
+                                success:function(data){
+                                    var eventData;
+                                    if (data) {
+                                        eventData = {
+                                            id: data.id,
+                                            title: data.context,
+                                            category: data.category,
+                                            significance: data.significance,
+                                            subject: data.subject,
+                                            start: start,
+                                            end: end
+                                        };
+                                    }
 
-                            $('#person_calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                                    $('#person_calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                                },
+                                error:function(){
+                                    Layout.popMsg("popMsg-danger", "添加日程事件失败");
+                                }
+                            })
                         },
                         onCancelBut: function () { 
                         },
                         onLoad: function () {
-                            console.log("CCCCC")
                         },
                         onClose: function () {
                         }
@@ -109,7 +131,21 @@
                 },
                 eventClick: function(event, jsEvent, view) {
                     if(confirm("确认删除？")){
-                        $('#person_calendar').fullCalendar('removeEvents', [event.id]);
+                        $.ajax({
+                            url:'/Personal/DeleteSchedule',
+                            type:'post',
+                            data:{
+                                id: event.id
+                            },
+                            success:function(data){
+                                if(data){
+                                    $('#person_calendar').fullCalendar('removeEvents', [event.id]);
+                                }
+                            },
+                            error:function(){
+                                Layout.popMsg("popMsg-danger", "删除失败");
+                            }
+                        })
                     }
                 },
                 events: data

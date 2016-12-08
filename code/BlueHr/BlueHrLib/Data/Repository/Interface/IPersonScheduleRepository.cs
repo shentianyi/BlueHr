@@ -10,8 +10,7 @@ namespace BlueHrLib.Data.Repository.Interface
     interface IPersonScheduleRepository
     {
         IQueryable<PersonSchedule> Search(PersonScheduleSearchModel searchModel);
-
-        bool Create(PersonSchedule personSchedule);
+        PersonSchedule Create(PersonSchedule personSchedule);
 
         PersonSchedule FindById(int id);
 

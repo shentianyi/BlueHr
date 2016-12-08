@@ -107,6 +107,54 @@ namespace BlueHrWeb.Controllers
             return View();
         }
 
+        [UserAuthorize]
+        [RoleAndDataAuthorization]
+        [HttpPost]
+        public JsonResult AddSchedule(string category, string subject, string significance, string context, DateTime startTime, DateTime endTime) 
+        {
+            IPersonScheduleService pss = new PersonScheduleService(Settings.Default.db);
+            PersonSchedule personSchedule = new PersonSchedule();
+            personSchedule.category = category;
+            personSchedule.subject = subject;
+            personSchedule.significance = significance;
+            personSchedule.context = context;
+            personSchedule.startTime = startTime;
+            personSchedule.endTime = endTime;
+            personSchedule.createdAt = DateTime.Now;
+
+            PersonSchedule ps = pss.Create(personSchedule);
+
+            Dictionary<string, string> Result = new Dictionary<string, string>();
+            Result.Add("id", ps.id.ToString());
+            Result.Add("category", ps.category);
+            Result.Add("subject", ps.subject);
+            Result.Add("significance", ps.significance);
+            Result.Add("context", ps.context);
+            Result.Add("startTime", ps.startTime.ToString());
+            Result.Add("endTime", ps.endTime.ToString());
+
+            return Json(Result, JsonRequestBehavior.DenyGet);
+        }
+        [UserAuthorize]
+        [RoleAndDataAuthorization]
+        [HttpPost]
+        public JsonResult DeleteSchedule (int id)
+        {
+            IPersonScheduleService pss = new PersonScheduleService(Settings.Default.db);
+            bool Result = false;
+
+            try
+            {
+                Result = pss.DeleteById(id);
+
+                return Json(Result, JsonRequestBehavior.DenyGet);
+            }
+            catch (Exception)
+            {
+                return Json(Result, JsonRequestBehavior.DenyGet);
+            }
+        }
+
         // GET: Note 
         // 便笺本
         [UserAuthorize]

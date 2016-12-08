@@ -22,6 +22,8 @@ namespace BlueHrLib.Service.Interface
 
         PersonSchedule FindById(int id);
 
+        PersonSchedule Create(PersonSchedule personSchedule);
+
         /// <summary>
         /// 更新日程安排
         /// </summary>

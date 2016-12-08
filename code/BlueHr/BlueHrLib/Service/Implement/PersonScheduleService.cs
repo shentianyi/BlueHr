@@ -22,7 +22,7 @@ namespace BlueHrLib.Service.Implement
             personScheduleRep = new PersonScheduleRepository(this.Context);
         }
 
-        public bool Create(PersonSchedule personSchedule)
+        public PersonSchedule Create(PersonSchedule personSchedule)
         {
             return personScheduleRep.Create(personSchedule);
         }
@@ -46,6 +46,5 @@ namespace BlueHrLib.Service.Implement
         {
             return personScheduleRep.Update(personSchedule);
         }
-
     }
 }
