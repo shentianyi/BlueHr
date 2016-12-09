@@ -28,18 +28,14 @@ namespace BlueHrWeb.Controllers
             int pageIndex = PagingHelper.GetPageIndex(page);
 
             ResignRecordSearchModel q = new ResignRecordSearchModel();
-            IStaffService ss = new StaffService(Settings.Default.db);
 
             IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
-            List<Staff> staffs = new List<Staff>();
-            List<ResignRecord> resignRecords = rrs.Search(q).ToList()/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-            foreach(var i in resignRecords)
-            {
-                staffs.Add(ss.FindByNrThis(i.staffNr));
-            }
+
+            IPagedList<ResignRecord> resignRecords = rrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+
             ViewBag.Query = q;
 
-            return View(staffs.ToPagedList(pageIndex, Settings.Default.pageSize));
+            return View(resignRecords);
         }
 
         [RoleAndDataAuthorizationAttribute]
