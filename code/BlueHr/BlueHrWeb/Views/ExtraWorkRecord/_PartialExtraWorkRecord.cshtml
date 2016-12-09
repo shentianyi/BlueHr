@@ -1,5 +1,5 @@
 ﻿@model BlueHrLib.Data.ExtraWorkRecord
-<div id="extrawordrecord" style="margin:10px;">
+<div id="extrawordrecord" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：
         <li>@Html.ActionLink("加班管理", "Index")</li>
@@ -102,18 +102,15 @@
     //Layout.datepicker('.datetimepicker');
     Layout.datepicker('.date-picker');
     Layout.timepicker('.time-picker');
+
     //回调函数
     function post_return_action(data) {
-        console.log(data);
-
         if (!data.Success) {
             Layout.popMsg('popMsg-danger', data.Content);
             return false;
         }
         else {
-        
             window.close();
-
             //location.href = '/ExtraWorkRecord/Index';
         }
     }

@@ -66,6 +66,17 @@ namespace BlueHrWeb.Controllers
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
 
+        //[HttpGet]
+        //public JsonResult LoginTime()
+        //{
+        //    User user = System.Web.HttpContext.Current.Session["user"] as User;
+        //    IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+        //    DateTime loginTime = Convert.ToDateTime(mrs.FindByType(401).LastOrDefault(s => s.staffNr == user.id.ToString()).createdAt);
+
+        //    return Json(Result, JsonRequestBehavior.AllowGet);
+        //}
+
+
         [HttpGet]
         public JsonResult FindBystaffNrShiftJob(string staffNr)
         {
@@ -150,6 +161,14 @@ namespace BlueHrWeb.Controllers
                 Result.Add(detail);
             }
             return Json(Result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult LastLoginTime()
+        {
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+            return Json(mrs.LoginDetail().LastOrDefault(s => s.staffNr == user.id.ToString()).createdAt.ToString(), JsonRequestBehavior.AllowGet);
         }
         private void SetAllTableName(bool allowBlank = false)
         {

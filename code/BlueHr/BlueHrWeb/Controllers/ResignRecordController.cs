@@ -28,14 +28,18 @@ namespace BlueHrWeb.Controllers
             int pageIndex = PagingHelper.GetPageIndex(page);
 
             ResignRecordSearchModel q = new ResignRecordSearchModel();
+            IStaffService ss = new StaffService(Settings.Default.db);
 
             IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
-
-            IPagedList<ResignRecord> resignRecords = rrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
-
+            List<Staff> staffs = new List<Staff>();
+            List<ResignRecord> resignRecords = rrs.Search(q).ToList()/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+            foreach(var i in resignRecords)
+            {
+                staffs.Add(ss.FindByNrThis(i.staffNr));
+            }
             ViewBag.Query = q;
 
-            return View(resignRecords);
+            return View(staffs.ToPagedList(pageIndex, Settings.Default.pageSize));
         }
 
         [RoleAndDataAuthorizationAttribute]
@@ -72,28 +76,45 @@ namespace BlueHrWeb.Controllers
         // POST: ResignType/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Create([Bind(Include = "resignTypeId, staffNr, resignEffectiveAt, resignReson")] ResignRecord resignRecord)
+        public JsonResult Create([Bind(Include = "staffNr, resignEffectiveAt, resignReson")] ResignRecord resignRecord)
         {
             ResultMessage msg = new ResultMessage();
+
+            ResignType resignType = new ResignType();
+
+            //对ResignType 进行处理， 返回ID
+            IResignTypeService rts = new ResignTypeService(Settings.Default.db);
+            resignType = rts.IsResignTypeExit(Request.Form.Get("resignTypeName"));
+
+            string A = Request.Form.Get("resignTypeName");
+            Console.Write(A);
+            Console.Write(A);
+
+            //填充 是谁创建的
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            resignRecord.userId = user.id;
+
+            resignRecord.resignTypeId = resignType.id;
+            resignRecord.resignAt = DateTime.Now;
 
             try
             {
                 msg = DoValidation(resignRecord);
 
+                IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
                 if (!msg.Success)
                 {
-                    return Json(msg, JsonRequestBehavior.AllowGet);
+                    return Json(msg, JsonRequestBehavior.DenyGet);
                 }
                 else
                 {
-                    IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
 
                     bool isSucceed = rrs.Create(resignRecord);
 
                     msg.Success = isSucceed;
                     msg.Content = isSucceed ? "添加成功" : "添加失败";
 
-                    return Json(msg, JsonRequestBehavior.AllowGet);
+                    return Json(msg, JsonRequestBehavior.DenyGet);
                 }
             }
             catch (Exception ex)
@@ -214,14 +235,6 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            if (string.IsNullOrWhiteSpace(resignRecord.resignEffectiveAt.ToString()))
-            {
-                msg.Success = false;
-                msg.Content = "离职生效日期不能为空";
-
-                return msg;
-            }
-
             return new ResultMessage() { Success = true, Content = "" };
         }
 
@@ -241,6 +254,25 @@ namespace BlueHrWeb.Controllers
             rt.Add("Remark", getResignType.remark);
 
             return Json(rt, JsonRequestBehavior.DenyGet);
+        }
+
+        
+        [HttpGet]
+        public JsonResult GetResignType()
+        {
+            IResignTypeService rts = new ResignTypeService(Settings.Default.db);
+            ResignTypeSearchModel csm = new ResignTypeSearchModel();
+
+            List<ResignType> certType = rts.Search(csm).ToList();
+
+            Dictionary<string, string> Result = new Dictionary<string, string>();
+
+            foreach(var resignType in certType)
+            {
+                Result.Add(resignType.id.ToString(), resignType.name);
+            }
+
+            return Json(Result, JsonRequestBehavior.AllowGet);
         }
 
         private void SetAllTableName(bool allowBlank = false)

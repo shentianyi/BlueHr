@@ -250,6 +250,27 @@ namespace BlueHrWeb.Controllers
             return new ResultMessage() { Success = true, Content = "" };
         }
 
+        
+        //获取到所有的ResignType
+        [HttpGet]
+        public JsonResult GetResignType(){
+            IResignTypeService rts = new ResignTypeService(Settings.Default.db);
+            ResignTypeSearchModel q = new ResignTypeSearchModel();
+            List<ResignType> resignTypes = rts.Search(q).ToList();
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+
+            foreach(var resignType in resignTypes)
+            {
+                Dictionary<string, string> rst = new Dictionary<string, string>();
+                rst.Add("id", resignType.id.ToString());
+                rst.Add("code", resignType.code);
+                rst.Add("name", resignType.name);
+                rst.Add("remark", resignType.remark);
+                Result.Add(rst);
+            }
+
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public JsonResult IsResignTypeExit(string resignType)

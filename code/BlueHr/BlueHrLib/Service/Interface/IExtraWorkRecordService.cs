@@ -32,5 +32,6 @@ namespace BlueHrLib.Service.Interface
         List<ExtraWorkRecord> GetAllTableName();
 
         IQueryable<ExtraWorkRecordView> ExtraWorkViewSearch(ExtraWorkRecordSearchModel searchModel);
+        IQueryable<ExtraWorkRecordView> AdvancedSearch(string v1, string v2, string v3);
     }
 }

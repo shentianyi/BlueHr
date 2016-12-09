@@ -38,7 +38,7 @@ namespace BlueHrWeb.Controllers
 
             IExtraWorkRecordService ss = new ExtraWorkRecordService(Settings.Default.db);
 
-            IPagedList<ExtraWorkRecord> models = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<ExtraWorkRecordView> models = ss.ExtraWorkViewSearch(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
@@ -176,6 +176,69 @@ namespace BlueHrWeb.Controllers
             ExtraWorkRecord cp = cs.FindById(id);
             SetDropDownList(cp);
             return View(cp);
+        }
+
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult AdvancedSearch(ExtraWorkRecordSearchModel q)
+        {
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.lgUser = user;
+            ViewBag.Query = q;
+
+            IExtraWorkRecordService ewrs = new ExtraWorkRecordService(Settings.Default.db);
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            IPagedList<ExtraWorkRecordView> extraWorkRecords = null;
+            IQueryable<ExtraWorkRecordView> extraWorkRecordstemp = null;
+            IQueryable<ExtraWorkRecordView> extraWorkRecordstemp1 = null;
+            List<ExtraWorkRecordView> Result = new List<ExtraWorkRecordView>();
+            if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
+            {
+                if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
+                {
+                    if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
+                    {
+                        string AllTableName = Request.Form["allTableName"].ToString();
+                        string[] AllTableNameArray = AllTableName.Split(',');
+                        string SearchConditions = Request.Form["searchConditions"];
+                        string[] SearchConditionsArray = SearchConditions.Split(',');
+                        string searchValueFirst = Request.Form["searchValueFirst"];
+                        string[] searchValueFirstArray = searchValueFirst.Split(',');
+
+                        try
+                        {
+                            extraWorkRecordstemp1 = ewrs.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                            if (AllTableNameArray.Length > 1)
+                            {
+                                for (var i = 1; i < AllTableNameArray.Length; i++)
+                                {
+                                    extraWorkRecordstemp = ewrs.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                    foreach (var temp in extraWorkRecordstemp)
+                                    {
+                                        if (extraWorkRecordstemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                extraWorkRecords = extraWorkRecordstemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            extraWorkRecords = null;
+                        }
+
+                    }
+                }
+            }
+            extraWorkRecords = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
+            SetDropDownList(null);
+
+            return View("Index", extraWorkRecords);
         }
 
         // POST: ExtraWorkRecord/Delete/5
@@ -472,5 +535,59 @@ namespace BlueHrWeb.Controllers
             }
             ViewData["searchConditionsList"] = select;
         }
+
+        private void SetAllTableName(string type, bool allowBlank = false)
+        {
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            IExtraWorkRecordService ss = new ExtraWorkRecordService(Settings.Default.db);
+
+            var extraWorkRecords = ss.GetAllTableName();
+
+            if (extraWorkRecords != null)
+            {
+                //获取当前记录的属性
+                foreach (var property in extraWorkRecords[0].GetType().GetProperties())
+                {
+                    if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
+                    {
+                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
+                    }
+                    else
+                    {
+                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                    }
+
+                }
+            }
+
+            ViewData["getAllTableNameList"] = select;
+        }
+
+        private void SetSearchConditions(int? type, bool allowBlank = false)
+        {
+            var item = EnumHelper.GetList(typeof(SearchConditions));
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
+            {
+                select.Add(new SelectListItem { Text = "", Value = "" });
+            }
+
+            foreach (var it in item)
+            {
+                if (type.HasValue && type.ToString().Equals(it.Value))
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+                }
+            }
+            ViewData["searchConditionsList"] = select;
+        }
+
     }
 }

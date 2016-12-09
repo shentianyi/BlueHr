@@ -46,7 +46,7 @@ namespace BlueHrWeb.Controllers
                 extraWorks.Add("Time", extraWork.otTimeStr);
                 extraWorks.Add("StartHour", extraWork.startHour.ToString());
                 extraWorks.Add("EndHour", extraWork.endHour.ToString());
-                extraWorks.Add("Duration", extraWork.duration + " (h)");
+                extraWorks.Add("Duration", extraWork.duration + " h");
                 //extraWorks.Add("DurationType", extraWork.durationType==100?"天":"小时");
                 extraWorks.Add("Reason", extraWork.otReason);
                 extraWorks.Add("ApprovalStatus", extraWork.approvalStatus == null ? "审批中" : extraWork.approvalStatus);
@@ -74,7 +74,7 @@ namespace BlueHrWeb.Controllers
                 resigns.Add("ID", resignRecord.id.ToString());
                 resigns.Add("StaffNr", resignRecord.staffNr);
                 resigns.Add("ResignAt", resignRecord.resignAt.ToString());
-                resigns.Add("ResignReason", resignRecord.resignReason);
+                resigns.Add("ResignReason", resignType.name);
                 resigns.Add("CreateAt", resignRecord.createdAt.ToString());
                 resigns.Add("ApprovalStatus", resignRecord.approvalStatus == null ? "审批中" : resignRecord.approvalStatus);
                 resigns.Add("ResignChecker", resignRecord.resignChecker);
@@ -94,6 +94,139 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Approval()
         {
+            //可以使用ViewData进行传值
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+
+            //加班申请信息
+            IExtraWorkRecordService rwrs = new ExtraWorkRecordService(Settings.Default.db);
+            ExtraWorkRecordSearchModel ewrsSearchModel = new ExtraWorkRecordSearchModel();
+            //ewrsSearchModel.lgUser = user;
+            List<ExtraWorkRecordView> extraWorkRecord = rwrs.ExtraWorkViewSearch(ewrsSearchModel).Where(c => c.ApprovalUserId.Equals(user.id)).ToList();
+            List<Dictionary<string, string>> AllExtraWork = new List<Dictionary<string, string>>();
+
+            foreach (var extraWork in extraWorkRecord)
+            {
+                Dictionary<string, string> extraWorks = new Dictionary<string, string>();
+
+                extraWorks.Add("ID", extraWork.id.ToString());
+                extraWorks.Add("StaffNr", extraWork.staffNr);
+                extraWorks.Add("StaffNrName", extraWork.staffName);
+                extraWorks.Add("ExtraWorkType", extraWork.name);
+                extraWorks.Add("Time", extraWork.otTimeStr);
+                extraWorks.Add("StartHour", extraWork.startHour.ToString());
+                extraWorks.Add("EndHour", extraWork.endHour.ToString());
+                extraWorks.Add("Duration", extraWork.duration + " (h)");
+                //extraWorks.Add("DurationType", extraWork.durationType==100?"天":"小时");
+                extraWorks.Add("Reason", extraWork.otReason);
+                extraWorks.Add("ApprovalStatus", extraWork.approvalStatus == null ? "审批中" : extraWork.approvalStatus);
+                extraWorks.Add("ApprovalRemarks", extraWork.remarks);
+
+                AllExtraWork.Add(extraWorks);
+            }
+
+            ViewData["ExtraWork"] = AllExtraWork;
+
+            //离职申请信息
+            IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
+            ResignRecordSearchModel rrsSearchModel = new ResignRecordSearchModel();
+            //ewrsSearchModel.lgUser = user;
+            List<ResignRecord> resignRecords = rrs.Search(rrsSearchModel).Where(c => c.resignCheckUserId.Equals(user.id)).ToList();
+            List<Dictionary<string, string>> AllResignRecords = new List<Dictionary<string, string>>();
+
+            foreach (var resignRecord in resignRecords)
+            {
+                Dictionary<string, string> resigns = new Dictionary<string, string>();
+
+                IResignTypeService rts = new ResignTypeService(Settings.Default.db);
+                ResignType resignType = rts.FindById(resignRecord.resignTypeId);
+
+                resigns.Add("ID", resignRecord.id.ToString());
+                resigns.Add("StaffNr", resignRecord.staffNr);
+                resigns.Add("ResignAt", resignRecord.resignAt.ToString());
+                resigns.Add("ResignReason", resignRecord.resignReason);
+                resigns.Add("CreateAt", resignRecord.createdAt.ToString());
+                resigns.Add("ApprovalStatus", resignRecord.approvalStatus == null ? "审批中" : resignRecord.approvalStatus);
+                resigns.Add("ResignChecker", resignRecord.resignChecker);
+                resigns.Add("ApprovalRemark", resignRecord.approvalRemark);
+
+                AllResignRecords.Add(resigns);
+            }
+
+            ViewData["Resign"] = AllResignRecords;
+
+
+            return View();
+        }
+
+
+        // GET: Finished 
+        // 我的已办
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult Finished()
+        {
+
+            //可以使用ViewData进行传值
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+
+            //加班申请信息
+            IExtraWorkRecordService rwrs = new ExtraWorkRecordService(Settings.Default.db);
+            ExtraWorkRecordSearchModel ewrsSearchModel = new ExtraWorkRecordSearchModel();
+            ewrsSearchModel.lgUser = user;
+            List<ExtraWorkRecordView> extraWorkRecord = rwrs.ExtraWorkViewSearch(ewrsSearchModel).Where(c => c.userId.Equals(user.id)).Where(c => c.approvalStatus != null).ToList();
+            List<Dictionary<string, string>> AllExtraWork = new List<Dictionary<string, string>>();
+
+            foreach (var extraWork in extraWorkRecord)
+            {
+                Dictionary<string, string> extraWorks = new Dictionary<string, string>();
+
+                extraWorks.Add("ID", extraWork.id.ToString());
+                extraWorks.Add("StaffNr", extraWork.staffNr);
+                extraWorks.Add("StaffNrName", extraWork.staffName);
+                extraWorks.Add("ExtraWorkType", extraWork.name);
+                extraWorks.Add("Time", extraWork.otTimeStr);
+                extraWorks.Add("StartHour", extraWork.startHour.ToString());
+                extraWorks.Add("EndHour", extraWork.endHour.ToString());
+                extraWorks.Add("Duration", extraWork.duration + " (h)");
+                //extraWorks.Add("DurationType", extraWork.durationType==100?"天":"小时");
+                extraWorks.Add("Reason", extraWork.otReason);
+                extraWorks.Add("ApprovalStatus", extraWork.approvalStatus == null ? "审批中" : extraWork.approvalStatus);
+                extraWorks.Add("ApprovalRemarks", extraWork.remarks);
+
+                AllExtraWork.Add(extraWorks);
+            }
+
+            ViewData["ExtraWork"] = AllExtraWork;
+
+            //离职申请信息
+            IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
+            ResignRecordSearchModel rrsSearchModel = new ResignRecordSearchModel();
+            ewrsSearchModel.lgUser = user;
+            List<ResignRecord> resignRecords = rrs.Search(rrsSearchModel).Where(c => c.userId.Equals(user.id)).Where(c => c.approvalStatus != null).ToList();
+            List<Dictionary<string, string>> AllResignRecords = new List<Dictionary<string, string>>();
+
+            foreach (var resignRecord in resignRecords)
+            {
+                Dictionary<string, string> resigns = new Dictionary<string, string>();
+
+                IResignTypeService rts = new ResignTypeService(Settings.Default.db);
+                ResignType resignType = rts.FindById(resignRecord.resignTypeId);
+
+                resigns.Add("ID", resignRecord.id.ToString());
+                resigns.Add("StaffNr", resignRecord.staffNr);
+                resigns.Add("ResignAt", resignRecord.resignAt.ToString());
+                resigns.Add("ResignReason", resignRecord.resignReason);
+                resigns.Add("CreateAt", resignRecord.createdAt.ToString());
+                resigns.Add("ApprovalStatus", resignRecord.approvalStatus == null ? "审批中" : resignRecord.approvalStatus);
+                resigns.Add("ResignChecker", resignRecord.resignChecker);
+                resigns.Add("ApprovalRemark", resignRecord.approvalRemark);
+
+                AllResignRecords.Add(resigns);
+            }
+
+            ViewData["Resign"] = AllResignRecords;
+
+
             return View();
         }
 

@@ -90,5 +90,10 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.ExtraWorkViewSearch(searchModel);
         }
+
+        public IQueryable<ExtraWorkRecordView> AdvancedSearch(string v1, string v2, string v3)
+        {
+            return rep.AdvancedSearch(v1,v2,v3);
+        }
     }
 }

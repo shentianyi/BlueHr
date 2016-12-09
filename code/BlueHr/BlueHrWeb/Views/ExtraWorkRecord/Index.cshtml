@@ -1,7 +1,7 @@
 ﻿@using MvcPaging
 @using BlueHrWeb.Helpers.View
 
-@model IPagedList<BlueHrLib.Data.ExtraWorkRecord>
+@model IPagedList<BlueHrLib.Data.ExtraWorkRecordView>
 @{
     ViewBag.Title = "加班管理";
 }
@@ -87,17 +87,15 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
-                            <th>  </th>
+                            <th></th>
                             <th>日期</th>
-                            <th>员工号</th>
-                            <th>姓名</th>
-                            <th>公司</th>
-                            <th>部门</th>
+                            <th>工号</th>                            
                             <th>起讫</th>
                             <th>加班时长(小时)</th>
                             <th>加班类别</th>
                             <th>加班原因</th>
                             <th>审批状态</th>
+                            <th>备注</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -106,29 +104,25 @@
                         {
                             foreach (var item in Model)
                             {
-                                bool approved = item.ExtraWorkRecordApprovals.OrderByDescending(p => p.id).Count() > 0;
 
                                 <tr>
-                                    <td>
+                                    @if(item.approvalStatus==null){
+                                    <td style="width: 100px;">
                                         <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
                                     </td>
+                                    }else{
+                                        <td></td>
+                                    }
                                     <td>
+                                       
                                         @Html.DisplayFor(modelItem => item.otTimeStr)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.staffNr)
+                                        <a href="/Staff/Delete/@item.nr" class="option-icon-primary">
+                                            @Html.DisplayFor(modelItem => item.staffNr)
+                                            <i class="fa fa-eye"></i>
+                                        </a>
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Staff.name)
-                                    </td>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Staff.companyName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Staff.departmentFullName)
-                                    </td>
-
                                     <td>
                                         @Html.DisplayFor(modelItem => item.startEndHourStr)
                                     </td>
@@ -136,41 +130,37 @@
                                         @Html.DisplayFor(modelItem => item.duration)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.ExtraWorkType.name)
+                                        @Html.DisplayFor(modelItem => item.name)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.otReason)
                                     </td>
-                                    @if (approved)
-                                    {
+                                        @if(item.approvalStatus==null){
+                                            <td>未审批</td>
+                                        }else{
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.ExtraWorkRecordApprovals.OrderByDescending(p => p.id).FirstOrDefault().approvalStatus)
+                                            @Html.DisplayFor(modelItem => item.approvalStatus)
                                         </td>
-                                    }
-                                    else
-                                    {
-                                        <td>
-                                            未审批
-                                        </td>
-                                    }
+                                        }
                                     <td>
-                                        @if (canDelete)
-                                        {
+                                        @Html.DisplayFor(modelItem => item.remarks)
+                                    </td>
+                                    <td>
+
+                                        @if(item.approvalStatus==null){
+                                        
                                             <a href="/ExtraWorkRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                        }
-                                        @if (canEdit)
-                                        {
+                                       
                                             <a href="/ExtraWorkRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                        }
-                                        @if (canApp)
-                                        {
-                                            <a title="审核" id="shAbsenceRecord" onclick="shAbsenceRecord(@item.id)">
-                                                <i class="fa fa-calculator" style="width: 24px;height: 24px;border-radius: 4px;border: 2px solid #c0392b;line-height: 20px;vertical-align: middle;color: #c0392b;padding-left: 2px; cursor: pointer;"></i>
+                                       
+                                            <a title="审批" id="shAbsenceRecord" class="option-icon-danger" onclick="shAbsenceRecord(@item.id)">
+                                                <i class="fa fa-check"></i>
                                             </a>
+                                        
                                         }
                                     </td>
                                 </tr>
@@ -199,7 +189,7 @@
 
     <div id="approval_content" class="approval_content" style="display:none;">
         <div class="dialogModal_header" style="background:steelblue;color:white;">
-            缺勤审批
+            加班审批
         </div>
 
         <div class="dialogModal_content">
@@ -207,26 +197,22 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>审批状态</span>
-                        <select id="aplStatus" name="aplStatus" onchange="selAplStatus(this.options[this.options.selectedIndex].value)">
-                            <option value="未审批">未审批</option>
-                            <option value="通过审批">通过审批</option>
-                            <option value="未通过审批">未通过审批</option>
+                        <select id="aplStatus" name="aplStatus">                            
+                            <option value="通过审批">审批通过</option>
+                            <option value="未通过审批">审批未通过</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="marco-igroup-primary">
+                    <div class="marco-textarea">
                         <span>审批备注</span>
-                        <textarea id="apvRemarks" name="apvRemarks" onchange="checkField(this.value)"></textarea>
+                        <textarea id="apvRemarks" name="apvRemarks"></textarea>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <input id="thePkId" hidden="hidden" />
-                    <input id="theAplStatus" hidden="hidden" />
-                    <input id="theApvRemarks" hidden="hidden" />
-                    <button class="marco-btn-primary " title="确定" type="button" id="apprvalConfirm" onclick="theApprvalConfirm()">
+                    <button class="marco-btn-primary" title="确定" type="button" data-dialogmodalbut="ok">
                         确定
                     </button>
                 </div>
@@ -261,10 +247,30 @@
 
         //审核
         function shAbsenceRecord(id) {
-            $("#thePkId").val(id);
-
             $('#approval_content').dialogModal({
                 onOkBut: function () {
+                    var approvalStatus = $(".dialogModal").find("#aplStatus").val();
+                    var approvalRemarks = $(".dialogModal").find("#apvRemarks").val();
+
+                    if (approvalStatus == null || approvalStatus == "") {
+                        Layout.popMsg('popMsg-danger', "请选择审批状态！");
+                        return;
+                    }
+                    else {
+                        $.post("/ExtraWorkRecord/ApprovalExtraWorkRecord", { extralRecordId: id, approvalStatus: approvalStatus, approvalRemarks: approvalRemarks }, function (data) {
+
+                            if (!data.Success) {
+                                $('#approval_content').dialogModal("hide");
+                                Layout.popMsg('popMsg-danger', data.Content);
+                                return false;
+                            }
+                            else {
+                                $('#approval_content').dialogModal("hide");
+                                Layout.popMsg('popMsg-danger', data.Content);
+                                window.location.reload();
+                            }
+                        });
+                    }
                 },
                 onCancelBut: function () { },
                 onLoad: function () {
@@ -298,41 +304,13 @@
             });
         }
 
-        function selAplStatus(s) {
-            $("#theAplStatus").val(s);
-        }
+        // function selAplStatus(s) {
+        //     $("#theAplStatus").val(s);
+        // }
 
-        function checkField(s) {
-            $("#theApvRemarks").val(s);
-        }
-
-        var theApprvalConfirm = function () {
-
-            var approvalStatus = $("#theAplStatus").val();
-            var approvalRemarks = $("#theApvRemarks").val();
-
-            if (approvalStatus == null || approvalStatus == "") {
-                Layout.popMsg('popMsg-danger', "请选择审批状态！");
-                return;
-            }
-            else {
-                $.post("/ExtraWorkRecord/ApprovalExtraWorkRecord", { extralRecordId: $("#thePkId").val(), approvalStatus: approvalStatus, approvalRemarks: approvalRemarks }, function (data) {
-
-                    if (!data.Success) {
-                        $('#approval_content').dialogModal("hide");
-                        Layout.popMsg('popMsg-danger', data.Content);
-                        return false;
-                    }
-                    else {
-                        $('#approval_content').dialogModal("hide");
-                        Layout.popMsg('popMsg-danger', data.Content);
-                        window.location.reload();
-                    }
-                });
-            }
-        }
-
-
+        // function checkField(s) {
+        //     $("#theApvRemarks").val(s);
+        // }
         function get_items() {
             var items = [];
             $.each($('.record-approve:checked'), function (i, item) {
