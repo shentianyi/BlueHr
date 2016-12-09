@@ -405,7 +405,7 @@ Layout.IsStringNull = function (str) {
 
 Date.prototype.Format = function (fmt) { //author: meizz   
     var o = {
-        "M+": this.getMonth() + 1,                 //月份   
+        "M+": this.getMonth() + 1,               //月份   
         "d+": this.getDate(),                    //日   
         "h+": this.getHours(),                   //小时   
         "m+": this.getMinutes(),                 //分   

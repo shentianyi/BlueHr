@@ -10,13 +10,13 @@
         height:800px;
     }
     .content_box {
-        width:80%; 
+        width:1260px; 
         height:600px;
         background:#ececec;
         position:absolute;
         top:50%;
         left:50%;
-        margin-left:-520px;
+        margin-left:-525px;
         margin-top:-300px;
         border-radius:5em;
     }
@@ -66,13 +66,13 @@
                 <div class="row">
                    
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
-                        <span>登录时间: </span> <span id="loginTime">13:55</span>
+                        <span>登录时间: </span> <span id="loginTime">00:00</span>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
                         <span>登录时长: </span> <span id="OnlineTime">00</span> 
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
-                        <span>登录次数:</span><span id="loginCount">00</span> <span>次</span>
+                        <span>登录次数: </span><span id="loginCount">0</span> <span>次</span>
                     </div>
                 </div>
             </div>
@@ -90,30 +90,36 @@
         success: function (data) {
             console.log(data);
             $("#UserMessages").empty();
-
             var Html = "<tr><td> 用户名：</td><td> " + data.用户名 + " </td></tr><tr><td > 电子邮箱：</td><td>" + data.邮箱 + " </td></tr><tr><td > 是否锁定：</td><td>" + data.是否锁定 + " </td></tr><tr><td > 角色类型 ： </td><td>" + data.角色类型 + " </td></tr> ";
             $(Html).appendTo($("#UserMessages"));
-
         },
         error: function () {
             console.log("CCCCCCCC");
         }
     });
-
 
     $.ajax({
         url: '/MessageRecord/LastLoginTime',
         type: 'get',
         success: function (data) {
+            console.log(data)
+            var thisTime = new Date().Format("yyyy/MM/dd hh:mm");
             $("#loginTime").empty();
-            $("#loginTime").html(data[1].登录时间);
+            $("#loginTime").html(data);
+            $("#OnlineTime").html(DiffLong(thisTime, data));
+
+            // setInterval(function(data){
+            //     var thisTime = new Date().Format("yyyy/MM/dd hh:mm");
+            //     $("#loginTime").empty();
+            //     $("#loginTime").html(data);
+            //     $("#OnlineTime").html( DiffLong(thisTime, data));
+            // },60000);
         },
         error: function () {
             console.log("CCCCCCCC");
         }
     });
 
-    
     $.ajax({
         url: '/MessageRecord/LoginInCount',
         type: 'get',
@@ -125,10 +131,7 @@
         }
     });
 
-    $("#OnlineTime").html(DiffLong('2016/12/1 9:00', '2016/12/2 12:00'));
-    
 function DiffLong(datestr1, datestr2) {
-
     var date1 = new Date(Date.parse(datestr1.replace(/-/g, "/")));//现在时间
     var date2 = new Date(Date.parse(datestr2.replace(/-/g, "/")));//登录时间
     var datetimeTemp;
@@ -140,21 +143,15 @@ function DiffLong(datestr1, datestr2) {
         date1 = date2;
         date2 = datetimeTemp;
     }
-
     difference = date2.getTime() - date1.getTime();
     thishours = Math.floor(difference / (1000 * 60 * 60));
 
     difference = difference - thishours * (1000 * 60 * 60);
     thisminutes = Math.floor(difference / (1000 * 60));
 
-    // difference = difference - thisminutes * (1000 * 60);
-    // thisseconds = Math.floor(difference / (1000));
-
     var strRet = thishours + '时' + thisminutes + '分';//在线时长
-
     return strRet;
 }
-
 
 function SetTime(time){
     if(time<10){
@@ -164,5 +161,4 @@ function SetTime(time){
     }
 }
 
-var thisTime = SetTime(new Date().getHours())+ ":" + SetTime(new Date().getMinutes())
 </script>
