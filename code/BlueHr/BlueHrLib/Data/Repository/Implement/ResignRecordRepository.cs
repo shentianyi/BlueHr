@@ -69,11 +69,16 @@ namespace BlueHrLib.Data.Repository.Implement
 
             if (cp != null)
             {
-                cp.remark = rsr.remark;
-                cp.resignAt = rsr.resignAt;
-                cp.resignChecker = rsr.resignChecker;
+                cp.remark = rsr.remark == null ? cp.remark : rsr.remark;
+                cp.resignChecker = rsr.resignChecker == null ? cp.remark : rsr.remark;
                 cp.resignTypeId = rsr.resignTypeId;
-                cp.staffNr = rsr.staffNr;
+                cp.resignEffectiveAt = rsr.resignEffectiveAt == null ? cp.resignEffectiveAt : rsr.resignEffectiveAt;
+                cp.resignReason = rsr.resignReason == null ? cp.resignReason : rsr.resignReason;
+                cp.resignCheckUserId = rsr.resignCheckUserId == null ? cp.resignCheckUserId : rsr.resignCheckUserId;
+                cp.resignChecker = rsr.resignChecker == null ? cp.resignChecker : rsr.resignChecker;
+                cp.approvalAt = rsr.approvalAt == null ? cp.approvalAt : rsr.approvalAt;
+                cp.approvalStatus = rsr.approvalStatus == null ? cp.approvalStatus : rsr.approvalStatus;
+                cp.approvalRemark = rsr.approvalRemark == null ? cp.approvalRemark : rsr.approvalRemark;
                
 
                 this.context.SubmitChanges();
