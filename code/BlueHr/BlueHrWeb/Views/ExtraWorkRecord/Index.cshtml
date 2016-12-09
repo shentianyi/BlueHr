@@ -78,7 +78,7 @@
         }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">加班列表</a></li>
+            <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">加班申请</a></li>
         </ul>
 
         <div class="tab-content">
@@ -222,9 +222,11 @@
 
     <script type="text/javascript">
         Layout.init();
+        $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_extra_type", "加班申请列表", "20", "all_extra_type_grid_table");
+        })
 
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_extra_type", "加班列表", "20", "all_extra_type_grid_table");
-
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_extra_type", "加班申请列表", "20", "all_extra_type_grid_table");
 
         $('.datetimepicker').datetimepicker({
             format: 'Y-m-d',

@@ -28,22 +28,18 @@ namespace BlueHrWeb.Controllers
             int pageIndex = PagingHelper.GetPageIndex(page);
 
             ResignRecordSearchModel q = new ResignRecordSearchModel();
-            IStaffService ss = new StaffService(Settings.Default.db);
 
             IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
-            List<Staff> staffs = new List<Staff>();
-            List<ResignRecord> resignRecords = rrs.Search(q).ToList()/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-            foreach(var i in resignRecords)
-            {
-                staffs.Add(ss.FindByNrThis(i.staffNr));
-            }
+
+            IPagedList<ResignRecord> resignRecords = rrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+
             ViewBag.Query = q;
 
-            return View(staffs.ToPagedList(pageIndex, Settings.Default.pageSize));
+            return View(resignRecords);
         }
 
         [RoleAndDataAuthorizationAttribute]
-        public ActionResult Search([Bind(Include = "Name")] ResignRecordSearchModel q)
+        public ActionResult Search([Bind(Include = "staffNr")] ResignRecordSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
@@ -76,7 +72,7 @@ namespace BlueHrWeb.Controllers
         // POST: ResignType/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Create([Bind(Include = "staffNr, resignEffectiveAt, resignReson")] ResignRecord resignRecord)
+        public JsonResult Create([Bind(Include = "staffNr, resignEffectiveAt, resignReason, remark")] ResignRecord resignRecord)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -127,17 +123,16 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
-            IResignTypeService cs = new ResignTypeService(Settings.Default.db);
+            IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
 
-            ResignType jt = cs.FindById(id);
-            //SetDropDownList(jt);
-            return View(jt);
+            //ResignRecord resignRecord = rrs.FindById(id);
+            return View(rrs.FindById(id));
         }
 
         // POST: ResignType/Edit/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Edit([Bind(Include = "id, name,code, remark")] ResignRecord resignRecord)
+        public JsonResult Edit([Bind(Include = "id, staffNr, resignEffectiveAt, resignReason, remark")] ResignRecord resignRecord)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -159,6 +154,34 @@ namespace BlueHrWeb.Controllers
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // POST: ResignType/Approval/5
+        [RoleAndDataAuthorizationAttribute]
+        [HttpPost]
+        public JsonResult Approval([Bind(Include = "id, approvalStatus, approvalRemark")] ResignRecord resignRecord)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            try
+            {
+                User user = System.Web.HttpContext.Current.Session["user"] as User;
+                resignRecord.approvalAt = DateTime.Now;
+                resignRecord.resignCheckUserId = user.id;
+                IUserService us = new UserService(Settings.Default.db);
+                resignRecord.resignChecker = us.FindById(user.id).name;
+                IResignRecordService cs = new ResignRecordService(Settings.Default.db);
+                bool isSucceed = cs.Update(resignRecord);
+
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "" : "更新失败";
+
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

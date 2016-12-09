@@ -1391,7 +1391,7 @@ namespace BlueHrWeb.Controllers
                 Dictionary<string, string> detail = new Dictionary<string, string>();
 
                 detail.Add("姓名", i.name);
-                detail.Add("性别", i.sex);
+                detail.Add("性别", i.sexDisplay);
                 detail.Add("入职日期", i.firstCompanyEmployAtDisplay);
                 detail.Add("转正日期", i.trialOverAt.ToString());
                 DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
@@ -1408,7 +1408,7 @@ namespace BlueHrWeb.Controllers
                 Dictionary<string, string> detail = new Dictionary<string, string>();
 
                 detail.Add("姓名", i.name);
-                detail.Add("性别", i.nr);
+                detail.Add("性别", i.sexDisplay);
                 detail.Add("入职日期", i.firstCompanyEmployAtDisplay);
                 detail.Add("转正日期", i.trialOverAt.ToString());
                 DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
@@ -1425,7 +1425,7 @@ namespace BlueHrWeb.Controllers
                 Dictionary<string, string> detail = new Dictionary<string, string>();
 
                 detail.Add("姓名", i.name);
-                detail.Add("性别", i.nr);
+                detail.Add("性别", i.sexDisplay);
                 detail.Add("入职日期", i.firstCompanyEmployAtDisplay);
                 detail.Add("转正日期", i.trialOverAt.ToString());
                 DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
