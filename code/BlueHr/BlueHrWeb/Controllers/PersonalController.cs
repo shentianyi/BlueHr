@@ -46,7 +46,7 @@ namespace BlueHrWeb.Controllers
                 extraWorks.Add("Time", extraWork.otTimeStr);
                 extraWorks.Add("StartHour", extraWork.startHour.ToString());
                 extraWorks.Add("EndHour", extraWork.endHour.ToString());
-                extraWorks.Add("Duration", extraWork.duration + " (h)");
+                extraWorks.Add("Duration", extraWork.duration + " h");
                 //extraWorks.Add("DurationType", extraWork.durationType==100?"天":"小时");
                 extraWorks.Add("Reason", extraWork.otReason);
                 extraWorks.Add("ApprovalStatus", extraWork.approvalStatus == null ? "审批中" : extraWork.approvalStatus);
@@ -74,7 +74,7 @@ namespace BlueHrWeb.Controllers
                 resigns.Add("ID", resignRecord.id.ToString());
                 resigns.Add("StaffNr", resignRecord.staffNr);
                 resigns.Add("ResignAt", resignRecord.resignAt.ToString());
-                resigns.Add("ResignReason", resignRecord.resignReason);
+                resigns.Add("ResignReason", resignType.name);
                 resigns.Add("CreateAt", resignRecord.createdAt.ToString());
                 resigns.Add("ApprovalStatus", resignRecord.approvalStatus == null ? "审批中" : resignRecord.approvalStatus);
                 resigns.Add("ResignChecker", resignRecord.resignChecker);
@@ -104,6 +104,7 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Finished()
         {
+
             //可以使用ViewData进行传值
             User user = System.Web.HttpContext.Current.Session["user"] as User;
 
@@ -163,6 +164,7 @@ namespace BlueHrWeb.Controllers
             }
 
             ViewData["Resign"] = AllResignRecords;
+
 
             return View();
         }

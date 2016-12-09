@@ -20,6 +20,7 @@ namespace BlueHrWeb.Controllers
 {
     public class FullMemberRecordController : Controller
     {
+        // GET: ResignType
         [UserAuthorize]
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
@@ -28,43 +29,39 @@ namespace BlueHrWeb.Controllers
 
             FullMemberRecordSearchModel q = new FullMemberRecordSearchModel();
 
-            IFullMemberRecordService raps = new FullMemberRecordService(Settings.Default.db);
+            IFullMemberRecordService rrs = new FullMemberRecordService(Settings.Default.db);
 
-            IPagedList<FullMemberRecord> fullMemberRecord = raps.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<FullMemberRecord> fullMemberRecords = rrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
-            FullMemberRecordInfoModel info = raps.GetFullMemberRecordInfo(q);
-            ViewBag.Info = info;
-
-            return View(fullMemberRecord);
+            return View(fullMemberRecords);
         }
 
         [RoleAndDataAuthorizationAttribute]
-        public ActionResult Search([Bind(Include = "staffNr")] FullMemberRecordSearchModel q)
+        public ActionResult Search([Bind(Include = "StaffNr")] FullMemberRecordSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
-            IFullMemberRecordService raps = new FullMemberRecordService(Settings.Default.db);
+            IFullMemberRecordService rrs = new FullMemberRecordService(Settings.Default.db);
 
-            IPagedList<FullMemberRecord> fullMemberRecord = raps.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<FullMemberRecord> fullMemberRecords = rrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
-            return View("Index", fullMemberRecord);
+            return View("Index", fullMemberRecords);
         }
 
-
-        // GET: FullMemberRecord/Details/5
+        // GET: ResignType/Details/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: FullMemberRecord/Create
+        // GET: ResignType/Create
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
@@ -72,31 +69,36 @@ namespace BlueHrWeb.Controllers
             return View();
         }
 
-        // POST: FullMemberRecord/Create
+        // POST: ResignType/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Create([Bind(Include = "staffNr,remark")] FullMemberRecord fullMemberRecord)
+        public JsonResult Create([Bind(Include = "staffNr, isPassCheck, checkScore, beFullAt, remark")] FullMemberRecord fullMemberRecord)
         {
             ResultMessage msg = new ResultMessage();
-            fullMemberRecord.createdAt = System.DateTime.Now;
+            
+            //填充 是谁创建的
             User user = System.Web.HttpContext.Current.Session["user"] as User;
             fullMemberRecord.createdUserId = user.id;
+            fullMemberRecord.createdAt = DateTime.Now;
+
             try
             {
                 msg = DoValidation(fullMemberRecord);
 
+                IFullMemberRecordService rrs = new FullMemberRecordService(Settings.Default.db);
                 if (!msg.Success)
                 {
-                    return Json(msg, JsonRequestBehavior.AllowGet);
+                    return Json(msg, JsonRequestBehavior.DenyGet);
                 }
                 else
                 {
-                    IFullMemberRecordService raps = new FullMemberRecordService(Settings.Default.db);
-                    bool isSucceed = raps.Create(fullMemberRecord);
+
+                    bool isSucceed = rrs.Create(fullMemberRecord);
+
                     msg.Success = isSucceed;
                     msg.Content = isSucceed ? "添加成功" : "添加失败";
 
-                    return Json(msg, JsonRequestBehavior.AllowGet);
+                    return Json(msg, JsonRequestBehavior.DenyGet);
                 }
             }
             catch (Exception ex)
@@ -105,29 +107,23 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        // GET: FullMemberRecord/Edit/5
+        // GET: ResignType/Edit/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
             IFullMemberRecordService cs = new FullMemberRecordService(Settings.Default.db);
 
-            FullMemberRecord fullMemberRecord = cs.FindById(id);
-
-            //SetDropDownList(fullMemberRecord);
-
-            return View(fullMemberRecord);
+            FullMemberRecord fmr = cs.FindById(id);
+            return View(fmr);
         }
 
-        
-        // POST: FullMemberRecord/Edit/5
+        // POST: ResignType/Edit/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Edit([Bind(Include = "id,staffNr,remark")] FullMemberRecord fullMemberRecord)
+        public JsonResult Edit([Bind(Include = "id, staffNr, isPassCheck, checkScore, beFullAt, remark")] FullMemberRecord fullMemberRecord)
         {
             ResultMessage msg = new ResultMessage();
-            fullMemberRecord.createdAt = System.DateTime.Now;
-            User user = System.Web.HttpContext.Current.Session["user"] as User;
-            fullMemberRecord.createdUserId = user.id;
+
             try
             {
                 msg = DoValidation(fullMemberRecord);
@@ -138,11 +134,11 @@ namespace BlueHrWeb.Controllers
                 }
                 else
                 {
-                    IFullMemberRecordService raps = new FullMemberRecordService(Settings.Default.db);
-                    bool isSucceed = raps.Update(fullMemberRecord);
+                    IFullMemberRecordService cs = new FullMemberRecordService(Settings.Default.db);
+                    bool isSucceed = cs.Update(fullMemberRecord);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "更新成功" : "更新失败";
+                    msg.Content = isSucceed ? "" : "更新失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -228,10 +224,15 @@ namespace BlueHrWeb.Controllers
                 msg.Content = "员工号不能为空";
                 return msg;
             }
-            
+
+            if (string.IsNullOrWhiteSpace(model.isPassCheck.ToString()))
+            {
+                msg.Success = false;
+                msg.Content = "请填写是否通过";
+                return msg;
+            }
+
             return new ResultMessage() { Success = true, Content = "" };
         }
-
-
     }
 }

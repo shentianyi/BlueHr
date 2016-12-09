@@ -96,6 +96,7 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>工号</th>
                             <th>奖惩类型</th>
                             <th>奖惩项目</th>
@@ -117,6 +118,13 @@
                                 if (item.type == 0)
                                 {
                                     <tr>
+                                        @if(item.approvalStatus==null){
+                                        <td>
+                                            <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
+                                        </td>
+                                        }else{
+                                            <td></td>
+                                        }
                                         <td>
                                             @Html.DisplayFor(modelItem => item.staffNr)
                                         </td>
@@ -138,9 +146,13 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalUserId)
                                         </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalStatus)
-                                        </td>
+                                            @if(item.approvalStatus==null){
+                                                <td>未审批</td>
+                                            }else{
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.approvalStatus)
+                                            </td>
+                                            }
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalAt)
                                         </td>
@@ -148,6 +160,7 @@
                                             @Html.DisplayFor(modelItem => item.approvalRemark)
                                         </td>
                                         <td>
+                                            @if(item.approvalStatus==null){
                                             <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
@@ -157,6 +170,7 @@
                                             <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
                                                 <i class="fa fa-check"></i>
                                             </a>
+                                            }
                                         </td>
                                     </tr>
                                 }
@@ -170,6 +184,7 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>工号</th>
                             <th>奖惩类型</th>
                             <th>奖惩项目</th>
@@ -191,6 +206,13 @@
                                 if (item.type == 1)
                                 {
                                     <tr>
+                                        @if(item.approvalStatus==null){
+                                        <td>
+                                            <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
+                                        </td>
+                                        }else{
+                                            <td></td>
+                                        }
                                         <td>
                                             @Html.DisplayFor(modelItem => item.staffNr)
                                         </td>
@@ -212,9 +234,13 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalUserId)
                                         </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalStatus)
-                                        </td>
+                                            @if(item.approvalStatus==null){
+                                                <td>未审批</td>
+                                            }else{
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.approvalStatus)
+                                            </td>
+                                            }
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalAt)
                                         </td>
@@ -222,6 +248,7 @@
                                             @Html.DisplayFor(modelItem => item.approvalRemark)
                                         </td>
                                         <td>
+                                            @if(item.approvalStatus==null){
                                             <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
@@ -231,6 +258,7 @@
                                             <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
                                                 <i class="fa fa-check"></i>
                                             </a>
+                                            }
                                         </td>
                                     </tr>
                                 }
@@ -244,6 +272,7 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>工号</th>
                             <th>奖惩类型</th>
                             <th>奖惩项目</th>
@@ -263,6 +292,13 @@
                             foreach (var item in Model)
                             {
                                 <tr>
+                                    @if(item.approvalStatus==null){
+                                    <td>
+                                        <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
+                                    </td>
+                                    }else{
+                                        <td></td>
+                                    }
                                     <td>
                                         @Html.DisplayFor(modelItem => item.staffNr)
                                     </td>
@@ -284,9 +320,15 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalUserId)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalStatus)
-                                    </td>
+                                   
+                                        @if(item.approvalStatus==null){
+                                            <td>未审批</td>
+                                        }else{
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalStatus)
+                                        </td>
+                                        }
+                                    
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalAt)
                                     </td>
@@ -294,15 +336,17 @@
                                         @Html.DisplayFor(modelItem => item.approvalRemark)
                                     </td>
                                     <td>
-                                        <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
-                                            <i class="fa fa-check"></i>
-                                        </a>
+                                            @if(item.approvalStatus==null){
+                                            <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                            }
                                     </td>
                                 </tr>
                             }
@@ -315,7 +359,7 @@
 </div>
 <div id="approval_content" class="import_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
-        审批
+        奖惩审批
     </div>
 
     <div class="dialogModal_content">
@@ -324,7 +368,6 @@
                 <div class="marco-igroup-primary">
                     <span>审批状态</span>
                     <select id="aplStatus" name="aplStatus">
-                        <option value="未审批">未审批</option>
                         <option value="通过审批">审批通过</option>
                         <option value="未通过审批">审批未通过</option>
                     </select>
@@ -334,7 +377,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="marco-textarea">
                     <span>审批备注</span>
-                    <textarea id="apvRemarks" name="apvRemarks" style="width:100%;"></textarea>
+                    <textarea id="apvRemarks" name="apvRemarks"></textarea>
                 </div>
             </div>
 
@@ -370,27 +413,34 @@
     Layout.advancedfilter();
 
     function shRewardsAndPenalty(id) {
-        $('#approval_content').dialogModal({
-            onOkBut: function () {
-                $.ajax({
-                    url: '/RewardsAndPenalty/Approval',
-                    type: 'post',
-                    data:{
-                        id:id,
-                        approvalStatus: "审核",
-                        // approvalStatus: $('#approval_content').find('#aplStatus').val(),
-                        // approvalRemark: $('#approval_content').find('#apvRemarks').val()
-                        approvalRemark: "BBBBB"
-                    },
-                    success: function (data) {
-                        //window.location.reload();
-                    },
-                    error: function () {
-                        console.log("CCCCCCCC");
-                    }
-                });
-            },           
-        });
-    }
+            $('#approval_content').dialogModal({
+                onOkBut: function () {
+                    var approvalStatus = $(".dialogModal").find("#aplStatus").val();
+                    var approvalRemark = $(".dialogModal").find("#apvRemarks").val();                   
+                   
+                    $.post("/RewardsAndPenalty/Approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemark }, function (data) {
+
+                        if (!data.Success) {
+                            $('#approval_content').dialogModal("hide");
+                            Layout.popMsg('popMsg-danger', data.Content);
+                            return false;
+                        }
+                        else {
+                            $('#approval_content').dialogModal("hide");
+                            Layout.popMsg('popMsg-danger', data.Content);
+                            window.location.reload();
+                        }
+                    });
+                    
+                },
+                onCancelBut: function () { },
+                onLoad: function () {
+
+                },
+                onClose: function () {
+                    //window.location.reload();
+                }
+            });
+        }
  
 </script>

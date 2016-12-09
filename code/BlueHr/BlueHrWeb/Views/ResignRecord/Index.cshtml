@@ -1,0 +1,122 @@
+﻿@using MvcPaging
+@using BlueHrWeb.Helpers.View
+
+@model IPagedList<BlueHrLib.Data.ResignRecord>
+
+@{
+    ViewBag.Title = "离职管理";
+}
+
+@Styles.Render("~/Content/company")
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>劳动关系管理</li>
+    <li>员工离职</li>
+</ol>
+
+<hr class="hr-grey" />
+@{
+    bool canDelete = MenuAuthHelper.CanShow("ResignRecord", "Delete");
+    bool canEdit = MenuAuthHelper.CanShow("ResignRecord", "Edit");
+    bool canCreate = MenuAuthHelper.CanShow("ResignRecord", "Create");
+
+}
+<form action="/ResignRecord/Search" method="get">
+    <div class="row" style="margin:0;">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>工号</span>
+                @Html.DisplayFor(modelItem => item.staffNr)
+                <!--<input type="text" name="StaffNr" id="StaffNr" placeholder="工号" value="@ViewBag.Query.StaffNr" />-->
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="marco-igroup-primary">
+                <span>离职类型</span>
+                <!--使用下拉框进行显示-->
+                @Html.DropDownList("resignTypeId", ViewData["resignTypeIdList"] as IEnumerable<SelectListItem>)
+                <!--<input type="text" name="ResignTypeId" id="ResignTypeId" placeholder="离职类型" value="@ViewBag.Query.ResignTypeId" />-->
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="margin-top:5px;">
+            <button type="submit" class="marco-btn-success">
+                <i class="glyphicon glyphicon-search"></i>
+                搜索
+            </button>
+        </div>
+    </div>
+</form>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="usual-table">
+        <div class="table-heading">
+            离职管理
+            <div class="pull-right" style="margin-top:-12px;">
+                @if (canCreate)
+                {
+                <a href="/ResignRecord/Create">
+                    <button class="marco-btn-primary">
+                        <i class="glyphicon glyphicon-plus-sign"></i>
+                        <span>创建</span>
+                    </button>
+                </a>
+                }
+            </div>
+        </div>
+        <div class="table-body content_3">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>离职员工</th>
+                        <th>离职生效</th>
+                        <!--离职原因就是 resignTypeId-->
+                        <th>离职原因</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.staffNr)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.resignEffectiveAt)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.resignTypeStr)
+                                </td>
+                                <td>
+                                    @if (canDelete)
+                                    {
+                                    <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    }
+                                    @if (canEdit)
+                                    {
+                                    <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/company")
+
+<script type="text/javascript">
+    Layout.init();
+    //Layout.TbodyHeight('.table-body', 310);
+</script>
