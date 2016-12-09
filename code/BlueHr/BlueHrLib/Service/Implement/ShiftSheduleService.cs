@@ -151,5 +151,10 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.EasyCreate(title, startTime, endTime);
         }
+
+        public List<ShiftScheduleView> GetAllShiftSchedule()
+        {
+            return rep.GetAllShiftSchedule();
+        }
     }
 }

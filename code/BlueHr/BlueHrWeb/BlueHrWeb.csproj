@@ -775,6 +775,7 @@
     <Content Include="Views\FullMemberRecord\Edit.cshtml" />
     <Content Include="Views\FullMemberRecord\Index.cshtml" />
     <Content Include="Views\FullMemberRecord\_PartialResignRecord.cshtml" />
+    <Content Include="Views\Personal\Finished.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

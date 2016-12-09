@@ -267,6 +267,78 @@ namespace BlueHrWeb.Controllers
             return Json(msg, "text/html");
         }
 
+        [RoleAndDataAuthorizationAttribute]
+        [HttpGet]
+        public JsonResult GetAllShiftSchedule()
+        {
+            List<Dictionary<string, object>> Result = new List<Dictionary<string, object>>();
+
+            IShiftScheduleService sss = new ShiftSheduleService(Settings.Default.db);
+            IShiftService ss = new ShiftService(Settings.Default.db);
+
+            ShiftScheduleSearchModel q = new ShiftScheduleSearchModel();
+
+            List<ShiftScheduleView> shiftScheduleViews = sss.GetAllShiftSchedule();
+
+            //可以进行分组显示
+
+            var shiftScheduleGroups = shiftScheduleViews.GroupBy(c=>new {c.name, c.fullStartAt, c.endAt });
+
+            foreach(var shiftScheduleGroup in shiftScheduleGroups)
+            {
+                Dictionary<string, object> calendar = new Dictionary<string, object>();
+
+                calendar.Add("id", shiftScheduleGroup.Key.name + "_" + shiftScheduleGroup.Key.fullStartAt + "_" + shiftScheduleGroup.Key.endAt + "_" + shiftScheduleGroup.Count());
+                calendar.Add("title", "~ " + shiftScheduleGroup.Key.endAt.Hours + ":" + shiftScheduleGroup.Key.endAt.Minutes + " -> " + shiftScheduleGroup.Key.name + "(共" + shiftScheduleGroup.Count() + "人)");
+                calendar.Add("start", shiftScheduleGroup.Key.fullStartAt.ToString());
+
+                List<Dictionary<string, string>> Childs = new List<Dictionary<string, string>>();
+
+                foreach (var shiftSchedule in shiftScheduleGroup)
+                {
+                    Dictionary<string, string> sfs = new Dictionary<string, string>();
+
+                    sfs.Add("parentId", shiftScheduleGroup.Key.name + "_" + shiftScheduleGroup.Key.fullStartAt + "_" + shiftScheduleGroup.Key.endAt + "_" + shiftScheduleGroup.Count());
+                    sfs.Add("id", shiftSchedule.id.ToString());
+                    sfs.Add("staffNr", shiftSchedule.staffNr);
+                    sfs.Add("scheduleAt", shiftSchedule.scheduleAt.ToString());
+                    sfs.Add("shiftId", shiftSchedule.shiftId.ToString());
+                    sfs.Add("code", shiftSchedule.code);
+                    sfs.Add("name", shiftSchedule.name);
+                    sfs.Add("shiftType", shiftSchedule.shiftType.ToString());
+                    sfs.Add("title", shiftSchedule.staffNr + " -> " + shiftSchedule.name);
+                    sfs.Add("start", shiftSchedule.fullStartAt.ToString());
+                    sfs.Add("end", shiftSchedule.fullEndAt.ToString());
+
+                    Childs.Add(sfs);
+                }
+
+                calendar.Add("childrens", Childs);
+
+                Result.Add(calendar);
+            }
+
+
+            //foreach(var shiftScheduleView in shiftScheduleViews)
+            //{
+            //    Dictionary<string, string> sfs = new Dictionary<string, string>();
+
+            //    sfs.Add("id", shiftScheduleView.id.ToString());
+            //    sfs.Add("staffNr", shiftScheduleView.staffNr);
+            //    sfs.Add("scheduleAt", shiftScheduleView.scheduleAt.ToString());
+            //    sfs.Add("shiftId", shiftScheduleView.shiftId.ToString());
+            //    sfs.Add("code", shiftScheduleView.code);
+            //    sfs.Add("name", shiftScheduleView.name);
+            //    sfs.Add("shiftType", shiftScheduleView.shiftType.ToString());
+            //    sfs.Add("title", shiftScheduleView.staffNr+" -> " + shiftScheduleView.name);
+            //    sfs.Add("start", shiftScheduleView.fullStartAt.ToString());
+            //    sfs.Add("end", shiftScheduleView.fullEndAt.ToString());
+
+            //    Result.Add(sfs);
+            //}
+
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
 
         private void SetDropDownList(ShiftSchedule model)
         {

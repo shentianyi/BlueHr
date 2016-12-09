@@ -204,5 +204,10 @@ namespace BlueHrLib.Data.Repository.Implement
 
             return m != null;
         }
+
+        public List<ShiftScheduleView> GetAllShiftSchedule()
+        {
+            return this.context.GetTable<ShiftScheduleView>().ToList();
+        }
     }
 }

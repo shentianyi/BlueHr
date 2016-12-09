@@ -1,13 +1,31 @@
 ﻿@using MvcPaging
 @using BlueHrWeb.Helpers.View
 
-
 @model IPagedList<BlueHrLib.Data.ShiftSchedule>
 @{
     ViewBag.Title = "排班查询";
 }
 
-@*@Styles.Render("~/Content/degreetype")*@
+<style type="text/css">
+    .fc-event{
+        height: 20px !important;
+        line-height: 20px !important;
+    }
+
+    .popModal{
+        border-radius: 0;
+        background: #34495e;
+        border:none;
+        z-index: 9999;
+    }
+
+    .popModal.bottomLeft:after, .popModal.bottomRight:after, .popModal.bottomCenter:after{
+        border-bottom-color: #34495e;
+    }
+</style>
+
+@Scripts.Render("~/bundles/fullcalendar")
+
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>考勤管理</li>
@@ -20,7 +38,6 @@
     bool canDelete = MenuAuthHelper.CanShow("ShiftSchedule", "Delete");
     bool canEdit = MenuAuthHelper.CanShow("ShiftSchedule", "Edit");
     bool canCreate = MenuAuthHelper.CanShow("ShiftSchedule", "Create");
-
     bool canImport = MenuAuthHelper.CanShow("ShiftSchedule", "Import");
 }
 
@@ -93,126 +110,133 @@
                     <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
                 </div>
             </div>
-
         </div>
     </form>
 </div>
 <hr class="hr-primary" />
-<div style="margin:10px;">
-    <div class="minitor-show marco-tabs-default">
-        <a href="/ShiftSchedule/Create" class="pull-right" style="margin-top:-10px; margin-right:15px;">
-            <button class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>创建</span>
-            </button>
-        </a>
 
-        @if (canImport)
-        {
-            <button class="marco-btn-primary import-button-dialog pull-right" title="Import" type="button" style="margin-top: -5px; margin-right:5px;">
-                导入排班记录
-            </button>
-        }
-        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#all_ShiftSchedule" role="tab" data-toggle="tab">所有排班管理</a></li>
-        </ul>
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane  active" id="all_ShiftSchedule">
-                <div id="all_ShiftSchedule_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-                            <th>员工</th>
-                            <th>日期</th>
-                            <th>班次</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.staffNr)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.scheduleAtStr)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Shift.code)
-                                    </td>
-                                    <td>
-                                        @if (canDelete)
-                                        {
-                                            <a href="/ShiftSchedule/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                        }
-                                        @if (canEdit)
-                                        {
-                                            <a href="/ShiftSchedule/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                        }
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
+<div style="position:absolute; z-index:5;"><div id="shift_schedule_calendar"></div></div>
 
-        </div>
-
-
-    </div>
-</div> 
-
-
-<!--导入数据-->
-<div id="dialog_content" class="import_content" style="display:none;">
+<div id="ShiftScheduleModal" class="approval_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
-        导入排班
+        <span>班次详情</span>
     </div>
+
     <div class="dialogModal_content">
-        <strong>选择数据文件:</strong>
-        <hr />
-        <input class="item-data-uploader" type="file" name="files[]" data-url="/ShiftSchedule/Import" />
-        <div class="item-data-uploader-preview" style="display:none;"></div>
-        <hr />
-        <a href="~/Template/排班导入文件模板.xlsx" target="_blank">下载文件模板</a>
+        <div class="marco-nbody row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <div class="marco-igroup-primary">
+                    <span>班次代码</span>
+                    <input type="text" id="code" class="code" name="code" autofocus>
+                </div>
+            </div>
+            <br />
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <div class="marco-igroup-primary">
+                    <span>班次名称</span>
+                    <input type="text" id="name" class="name" name="name">
+                </div>
+            </div>
+        </div>
     </div>
-  
+<!--
+    <div class="dialogModal_footer">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+            <button type="button" class="marco-btn-primary pull-right" data-dialogmodalbut="ok">
+                确认
+            </button>
+        </div>
+    </div>-->
 </div>
 
 <script type="text/javascript">
-    Layout.init();
+    $.ajax({
+        url:'/ShiftSchedule/GetAllShiftSchedule',
+        type:'get',
+        success:function(data){
+            console.log(data);
 
-    $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_ShiftSchedule", "所有排班管理列表", "20", "all_ShiftSchedule_grid_table");
+            $('#shift_schedule_calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaMonth,agendaWeek,agendaDay,listMonth,listWeek,listDay'
+                },
+                views: {
+                    listDay: { buttonText: '天列表' },
+                    listWeek: { buttonText: '周列表' },
+                    listMonth: { buttonText: '月列表' }
+                },
+                // weekends:false,
+                defaultDate: new Date(),
+                firstDay:1,
+                locale: 'zh-cn',
+                editable: true,
+                timeFormat: 'H:mm',
+                axisFormat: 'H:mm',
+                weekNumbers: true,
+                weekNumbersWithinDays: true,
+                selectable: true,
+                selectHelper: true,
+                select: function(start, end) {
+                    var eventData; 
+                    $('#person_calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                    
+                    $('#person_calendar').fullCalendar('unselect');
+                },
+                dayClick: function(date, allDay, jsEvent, view){
+                    // console.log(view);
+                },
+                eventClick: function(event, jsEvent, view) {
+                    // var Html = "<ul> <li>"+event.id+"</li> <li>"+event.title+"</li> "+
+                    // "<li>"+event.start+"</li><li>"+event.name+"</li><li>"+event.staffNr+"</li>"+
+                    // "<li>"+event.end+"</li><li>"+event.name+"</li><li>"+event.title+"</li></ul>";
 
+                    // $("#ShiftScheduleModal").dialogModal({
+                    //    onOkBut: function () {
+                    //     },
+                    //     onCancelBut: function () { 
+                    //     },
+                    //     onLoad: function () {
+                    //     },
+                    //     onClose: function () {
+                    //     }
+                    // });
+
+                    // console.log(view);
+
+                    console.log(event);
+
+
+                    // if(confirm("确认删除？")){
+                    //     $.ajax({
+                    //         url:'/Personal/DeleteSchedule',
+                    //         type:'post',
+                    //         data:{
+                    //             id: event.id
+                    //         },
+                    //         success:function(data){
+                    //             if(data){
+                    //                 $('#person_calendar').fullCalendar('removeEvents', [event.id]);
+                    //             }
+                    //         },
+                    //         error:function(){
+                    //             Layout.popMsg("popMsg-danger", "删除失败");
+                    //         }
+                    //     })
+                    // }
+                },
+                eventMouseover:function(event, jsEvent, view){
+                   
+                },
+                events: data
+            });
+        },
+        error:function(){
+            console.log("CCVVError");
+        }
     })
 
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_ShiftSchedule", "所有排班管理列表", "20", "all_ShiftSchedule_grid_table");
-    Layout.advancedfilter();
-
-    $('.datetimepicker').datetimepicker({
-        format: 'Y-m-d',
-        timepicker:false
-    });
-    $('.import-button-dialog').click(function () {
-        $('#dialog_content').dialogModal({
-            onOkBut: function () {
-            },
-            onCancelBut: function () { },
-            onLoad: function () {
-                data_upload(".item-data-uploader");
-            },
-            onClose: function () {
-
-            },
-        });
-    });
 </script>
+

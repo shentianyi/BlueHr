@@ -63,7 +63,6 @@ namespace BlueHrLib.Service.Interface
         ShiftScheduleView GetFirstShiftByStaffAndDate(string staffNr, DateTime date);
 
 
-
         /// <summary>
         /// 获得员工某一段时间的所有排班
         /// </summary>
@@ -72,5 +71,7 @@ namespace BlueHrLib.Service.Interface
         /// <returns></returns>
         List<ShiftScheduleView> GetShiftsByStaffAndDateSpan(string staffNr, DateTime startDate,DateTime endDate);
         bool EasyCreate(ShiftSchedule title, DateTime startTime, DateTime endTime);
+
+        List<ShiftScheduleView> GetAllShiftSchedule();
     }
 }
