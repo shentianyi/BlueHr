@@ -55,39 +55,43 @@
         </div>
     </form>
 
+</div>
+
+<div id="search_content" class="import_content" style="display:none;">
     <form action="/WorkAndRests/AdvancedSearch" method="post">
-        <div class="advanced-filter row" style="margin:0;display:none;">
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dialogModal_header" style="background:steelblue; color:white;">
+            自定义搜索信息
+        </div>
+        <div class="advanced-filter row" style="margin:8px;">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>字段</span>
                     @Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>条件</span>
                     @Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
-                    <span>值1</span>
+                    <span>值</span>
                     <input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>值2</span>
-                    <input type="text" name="searchValueSecond" value="@ViewBag.searchValueSecond" />
-                    <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
-                </div>
-            </div>
+        
+        </div>
+        <div style="width:80px;height:40px;line-height:40px;background:steelblue; color:white;margin-left:550px;text-align:center;position:absolute;bottom:5px;">
+            <span>添加</span>
+                 <!--@Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)-->
         </div>
     </form>
 </div>
+
 <hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
@@ -108,8 +112,6 @@
 
         </ul>
         <div class="tab-content">
-
-
             <div role="tabpanel" class="tab-pane  active" id="all_WorkAndRests">
                 <div id="all_WorkAndRests_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
@@ -299,13 +301,9 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
-
-
     </div>
 </div>
-
 
 <div id="dialog_content" class="import_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
@@ -347,11 +345,29 @@
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "holiday_WorkAndRests", "双休日作息表列表", "20", "holiday_WorkAndRests_grid_table");
     $('#holiday_WorkAndRests').removeClass("active");
     //});
-    Layout.advancedfilter();
+    // Layout.advancedfilter();
 
 
     Layout.datepicker('.date_picker')
   
+  //自定义搜索弹出框
+    $('.advanced-filter-btn').click(function () {
+        $('#search_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { 
+
+            },
+            onLoad: function () {
+
+            },
+            onClose: function () {
+
+            },
+        });
+    });
+
+//导入弹出框
     $('.import-button-dialog').click(function () {
         $('#dialog_content').dialogModal({
             onOkBut: function () {
@@ -361,8 +377,8 @@
                 data_upload(".item-data-uploader");
             },
             onClose: function () {
-
-            },
+                window.location.reload();
+            }
         });
     });
 </script>

@@ -151,7 +151,7 @@ switch (pathname[1]) {
         PageAction('#sysauthorization', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
         break;
     case "Staff":
-        if(pathname[2] == "IDCard"){
+        if(pathname[2] == "Idcard"){
             $('.nav-manage').addClass('active');
             $('.nav-idcard').addClass('active');
         }
@@ -403,7 +403,7 @@ Layout.IsStringNull = function (str) {
 
 Date.prototype.Format = function (fmt) { //author: meizz   
     var o = {
-        "M+": this.getMonth() + 1,                 //月份   
+        "M+": this.getMonth() + 1,               //月份   
         "d+": this.getDate(),                    //日   
         "h+": this.getHours(),                   //小时   
         "m+": this.getMinutes(),                 //分   
