@@ -68,15 +68,15 @@ namespace BlueHrLib.Data.Repository.Implement
 
             if (mr1 != null)
             {
-                mr1.staffNr = fmr.staffNr;
-                mr1.checkScore = fmr.checkScore;
-                mr1.remark = fmr.remark;
-                mr1.approvalUserId = fmr.approvalUserId;
-                mr1.approvalAt = fmr.approvalAt;
-                mr1.approvalStatus = fmr.approvalStatus;
-                mr1.approvalRemark = fmr.approvalRemark;
-                mr1.createdAt = fmr.createdAt;
-                mr1.createdUserId = fmr.createdUserId;
+                mr1.staffNr = fmr.staffNr == null ? mr1.staffNr : fmr.staffNr;
+                mr1.checkScore = fmr.checkScore == null ? mr1.checkScore : fmr.checkScore;
+                mr1.remark = fmr.remark == null ? mr1.remark : fmr.remark;
+                mr1.approvalUserId = fmr.approvalUserId == null ? mr1.approvalUserId : fmr.approvalUserId;
+                mr1.approvalAt = fmr.approvalAt == null ? mr1.approvalAt : fmr.approvalAt;
+                mr1.approvalStatus = fmr.approvalStatus == null ? mr1.approvalStatus : fmr.approvalStatus;
+                mr1.approvalRemark = fmr.approvalRemark == null ? mr1.approvalRemark : fmr.approvalRemark;
+                mr1.createdAt = fmr.createdAt == null ? mr1.createdAt : fmr.createdAt;
+                mr1.createdUserId = fmr.createdUserId == null ? mr1.createdUserId : fmr.createdUserId;
                 mr1.isPassCheck = fmr.isPassCheck;
                 this.context.SubmitChanges();
                 return true;

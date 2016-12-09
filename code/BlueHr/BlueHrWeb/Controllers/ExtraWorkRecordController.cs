@@ -38,7 +38,7 @@ namespace BlueHrWeb.Controllers
 
             IExtraWorkRecordService ss = new ExtraWorkRecordService(Settings.Default.db);
 
-            IPagedList<ExtraWorkRecord> models = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<ExtraWorkRecordView> models = ss.ExtraWorkViewSearch(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
