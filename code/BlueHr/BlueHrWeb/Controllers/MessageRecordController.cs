@@ -66,6 +66,17 @@ namespace BlueHrWeb.Controllers
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
 
+        //[HttpGet]
+        //public JsonResult LoginTime()
+        //{
+        //    User user = System.Web.HttpContext.Current.Session["user"] as User;
+        //    IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+        //    DateTime loginTime = Convert.ToDateTime(mrs.FindByType(401).LastOrDefault(s => s.staffNr == user.id.ToString()).createdAt);
+
+        //    return Json(Result, JsonRequestBehavior.AllowGet);
+        //}
+
+
         [HttpGet]
         public JsonResult FindBystaffNrShiftJob(string staffNr)
         {
