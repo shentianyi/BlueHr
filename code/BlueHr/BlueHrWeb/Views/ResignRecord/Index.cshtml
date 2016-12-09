@@ -22,7 +22,7 @@
             <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
                 <div class="marco-igroup-primary">
                     <span>工号</span>
-                    
+                    <input type="text" name="Nr" id="Nr" placeholder="工号" value="@ViewBag.Query.StaffNr" />
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 5px;">
@@ -230,7 +230,7 @@
                     var approvalStatus = $(".dialogModal").find("#aplStatus").val();
                     var approvalRemark = $(".dialogModal").find("#apvRemarks").val();                   
                    
-                    $.post("/RewardsAndPenalty/Approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemark }, function (data) {
+                    $.post("/ResignRecord/approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemark }, function (data) {
 
                         if (!data.Success) {
                             $('#approval_content').dialogModal("hide");
