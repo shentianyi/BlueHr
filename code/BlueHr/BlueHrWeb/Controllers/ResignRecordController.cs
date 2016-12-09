@@ -39,7 +39,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [RoleAndDataAuthorizationAttribute]
-        public ActionResult Search([Bind(Include = "Name")] ResignRecordSearchModel q)
+        public ActionResult Search([Bind(Include = "staffNr")] ResignRecordSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
