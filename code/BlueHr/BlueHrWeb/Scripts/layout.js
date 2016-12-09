@@ -151,10 +151,6 @@ switch (pathname[1]) {
         PageAction('#sysauthorization', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
         break;
     case "Staff":
-        if(pathname[2] == "Resign"){
-            $('.nav-laborrelations').addClass('active');
-            $('.nav-resignation').addClass('active');
-        }
         if(pathname[2] == "IDCard"){
             $('.nav-manage').addClass('active');
             $('.nav-idcard').addClass('active');
@@ -240,6 +236,8 @@ switch (pathname[1]) {
         PageAction('#user', '新建系统操作', '编辑系统操作', '系统操作详情', '创建', '更新', '删除');
         break;
     case "ResignRecord":
+    $('.nav-resignation').addClass('active');
+    $('.nav-laborrelations').addClass('active');
     PageAction('#resignrecord', '新建离职申请', '编辑离职申请', '离职申请详情', '创建', '更新', '删除');
     break;
     default:
