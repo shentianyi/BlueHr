@@ -1035,27 +1035,6 @@ namespace BlueHrWeb.Controllers
             return View(staff);
         }
 
-
-
-
-        [HttpGet]
-        public JsonResult GetResignType()
-        {
-            IResignTypeService rts = new ResignTypeService(Settings.Default.db);
-            ResignTypeSearchModel csm = new ResignTypeSearchModel();
-
-            List<ResignType> certType = rts.Search(csm).ToList();
-
-            Dictionary<string, string> Result = new Dictionary<string, string>();
-
-            foreach(var resignType in certType)
-            {
-                Result.Add(resignType.id.ToString(), resignType.name);
-            }
-
-            return Json(Result, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpGet]
         public JsonResult StaffTree(int companyId, int departmentId)
         {
