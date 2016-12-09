@@ -1,5 +1,7 @@
-﻿using BlueHrLib.Data.Model.Search;
+﻿using ALinq.Dynamic;
+using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Interface;
+using BlueHrLib.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -264,6 +266,22 @@ namespace BlueHrLib.Data.Repository.Implement
 
 
             return q.OrderByDescending(s => s.otTime);
+        }
+
+        public IQueryable<ExtraWorkRecordView> AdvancedSearch(string v1, string v2, string v3)
+        {
+            string strWhere = string.Empty;
+
+            try
+            {
+                strWhere = SearchConditionsHelper.GetStrWhere("ExtraWorkRecordView", v1, v2, v3);
+                var q = this.context.CreateQuery<ExtraWorkRecordView>(strWhere);
+                return q;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }
