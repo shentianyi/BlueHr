@@ -72,7 +72,7 @@ namespace BlueHrWeb.Controllers
         // POST: ResignType/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Create([Bind(Include = "staffNr, resignEffectiveAt, resignReson")] ResignRecord resignRecord)
+        public JsonResult Create([Bind(Include = "staffNr, resignEffectiveAt, resignReson, remark")] ResignRecord resignRecord)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -133,7 +133,7 @@ namespace BlueHrWeb.Controllers
         // POST: ResignType/Edit/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Edit([Bind(Include = "id, name,code, remark")] ResignRecord resignRecord)
+        public JsonResult Edit([Bind(Include = "id, staffNr, resignEffectiveAt, resignReson, remark")] ResignRecord resignRecord)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -141,6 +141,42 @@ namespace BlueHrWeb.Controllers
             {
                 msg = DoValidation(resignRecord);
 
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IResignRecordService cs = new ResignRecordService(Settings.Default.db);
+                    bool isSucceed = cs.Update(resignRecord);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "更新失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // POST: ResignType/Approval/5
+        [RoleAndDataAuthorizationAttribute]
+        [HttpPost]
+        public JsonResult Approval([Bind(Include = "id, approvalStatus, approvalRemark")] ResignRecord resignRecord)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            try
+            {
+                msg = DoValidation(resignRecord);
+                User user = System.Web.HttpContext.Current.Session["user"] as User;
+                resignRecord.approvalAt = DateTime.Now;
+                resignRecord.resignCheckUserId = user.id;
+                IUserService us = new UserService(Settings.Default.db);
+                resignRecord.resignChecker = us.FindById(user.id).name;
                 if (!msg.Success)
                 {
                     return Json(msg, JsonRequestBehavior.AllowGet);
