@@ -239,7 +239,9 @@ switch (pathname[1]) {
         $('.nav-system-opera').addClass('active');
         PageAction('#user', '新建系统操作', '编辑系统操作', '系统操作详情', '创建', '更新', '删除');
         break;
-
+    case "ResignRecord":
+    PageAction('#resignrecord', '新建离职申请', '编辑离职申请', '离职申请详情', '创建', '更新', '删除');
+    break;
     default:
         break;
     }
