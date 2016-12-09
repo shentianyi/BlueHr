@@ -1,7 +1,7 @@
 ﻿@using MvcPaging
 @using BlueHrWeb.Helpers.View
 
-@model IPagedList<BlueHrLib.Data.Staff>
+@model IPagedList<BlueHrLib.Data.ResignRecord>
 
 @{
     ViewBag.Title = "员工离职";
@@ -16,12 +16,65 @@
 </ol>
 
 <hr class="hr-grey" />
-@{
-    bool canDelete = MenuAuthHelper.CanShow("ResignRecord", "Delete");
-    bool canEdit = MenuAuthHelper.CanShow("ResignRecord", "Edit");
-    bool canCreate = MenuAuthHelper.CanShow("ResignRecord", "Create");
+<div class="search">
+    <form action="/ResignRecord/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>工号</span>
+                    
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 5px;">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <button type="submit" class="marco-btn-success pull-left">
+                        <i class="fa fa-search"></i>
+                        <span>搜索</span>
+                    </button>
+                </div>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <button type="button" class="marco-btn-primary advanced-filter-btn" title="自定义搜索">
+                        <i class="fa fa-filter"></i>
+                        <span>自定义搜索</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
 
-}
+    <form action="/ResignRecord/AdvancedSearch" method="post">
+        <div class="advanced-filter row" style="margin:0;display:none;">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>字段</span>
+                    @*@Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)*@
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>条件</span>
+                    @*@Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)*@
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值1</span>
+                    @*<input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />*@
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值2</span>
+                    @*<input type="text" name="searchValueSecond" value="@ViewBag.searchValueSecond" />*@
+                    <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 
 <hr class="hr-primary" />
 <div style="margin:10px;">
@@ -73,7 +126,10 @@
                                             <td></td>
                                         }
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.staffNr)
+                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                                @Html.DisplayFor(modelItem => item.staffNr)
+                                                <i class="fa fa-eye"></i>
+                                            </a>
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.resignTypeId)
@@ -93,34 +149,26 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalAt)
                                         </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalStatus)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalRemark)
-                                        </td>
                                             @if(item.approvalStatus==null){
                                                 <td>未审批</td>
                                             }else{
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalStatus)
-                                            </td>
-                                            }
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalAt)
-                                        </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.approvalStatus)
+                                                </td>
+                                            } 
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalRemark)
                                         </td>
+                                                                                   
                                         <td>
                                             @if(item.approvalStatus==null){
-                                            <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
+                                            <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                            <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
+                                            <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">
                                                 <i class="fa fa-check"></i>
                                             </a>
                                             }
@@ -135,7 +183,38 @@
         </div>
     </div>
 </div> 
+<div id="approval_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        奖惩审批
+    </div>
 
+    <div class="dialogModal_content">
+        <div class="marco-nbody row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>审批状态</span>
+                    <select id="aplStatus" name="aplStatus">
+                        <option value="通过审批">审批通过</option>
+                        <option value="未通过审批">审批未通过</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="marco-textarea">
+                    <span>审批备注</span>
+                    <textarea id="apvRemarks" name="apvRemarks"></textarea>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <button class="marco-btn-primary " title="确定" data-dialogmodalbut="ok" type="button" >
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 @Scripts.Render("~/bundles/company")
 
 <script type="text/javascript">
@@ -145,7 +224,36 @@
     })
 
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_ResignRecord", "离职申请列表", "20", "all_ResignRecord_grid_table");
-  
+    function shResignRecord(id) {
+            $('#approval_content').dialogModal({
+                onOkBut: function () {
+                    var approvalStatus = $(".dialogModal").find("#aplStatus").val();
+                    var approvalRemark = $(".dialogModal").find("#apvRemarks").val();                   
+                   
+                    $.post("/RewardsAndPenalty/Approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemark }, function (data) {
+
+                        if (!data.Success) {
+                            $('#approval_content').dialogModal("hide");
+                            Layout.popMsg('popMsg-danger', data.Content);
+                            return false;
+                        }
+                        else {
+                            $('#approval_content').dialogModal("hide");
+                            Layout.popMsg('popMsg-danger', data.Content);
+                            window.location.reload();
+                        }
+                    });
+                    
+                },
+                onCancelBut: function () { },
+                onLoad: function () {
+
+                },
+                onClose: function () {
+                    //window.location.reload();
+                }
+            });
+        }
 
    
     //Layout.TbodyHeight('.table-body', 310);

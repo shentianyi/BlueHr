@@ -126,7 +126,10 @@
                                             <td></td>
                                         }
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.staffNr)
+                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                                @Html.DisplayFor(modelItem => item.staffNr)
+                                                <i class="fa fa-eye"></i>
+                                            </a>
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.typeStr)
