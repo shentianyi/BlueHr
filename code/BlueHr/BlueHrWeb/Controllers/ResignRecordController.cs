@@ -72,7 +72,7 @@ namespace BlueHrWeb.Controllers
         // POST: ResignType/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Create([Bind(Include = "staffNr, resignEffectiveAt, resignReson, remark")] ResignRecord resignRecord)
+        public JsonResult Create([Bind(Include = "staffNr, resignEffectiveAt, resignReason, remark")] ResignRecord resignRecord)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -123,17 +123,16 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
-            IResignTypeService cs = new ResignTypeService(Settings.Default.db);
+            IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
 
-            //ResignType jt = cs.FindById(id);
-            //SetDropDownList(jt);
-            return View();
+            //ResignRecord resignRecord = rrs.FindById(id);
+            return View(rrs.FindById(id));
         }
 
         // POST: ResignType/Edit/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Edit([Bind(Include = "id, staffNr, resignEffectiveAt, resignReson, remark")] ResignRecord resignRecord)
+        public JsonResult Edit([Bind(Include = "id, staffNr, resignEffectiveAt, resignReason, remark")] ResignRecord resignRecord)
         {
             ResultMessage msg = new ResultMessage();
 
