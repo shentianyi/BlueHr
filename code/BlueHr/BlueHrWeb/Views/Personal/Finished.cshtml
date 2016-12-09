@@ -1,0 +1,159 @@
+﻿@{
+    ViewBag.Title = "我的已办";
+}
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>个人事项</li>
+    <li>我的已办</li>
+</ol>
+
+<hr class="hr-grey" />
+
+@*<div id="person_calendar" style="padding:30px;"></div>
+
+<div id="PersonScheduleModal" class="approval_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        <span>日程安排</span>
+    </div>
+
+    <div class="dialogModal_content">
+        <div class="marco-nbody row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <div class="marco-igroup-primary">
+                    <span>内容</span>
+                    <input type="text" id="context" class="context" name="context" autofocus>
+                </div>
+            </div>
+            <br />
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <div class="marco-igroup-primary">
+                    <span>备注</span>
+                    <input type="text" id="remarks" class="remarks" name="remarks">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dialogModal_footer">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+            <button type="button" class="marco-btn-primary pull-right" data-dialogmodalbut="ok">
+                确认
+            </button>
+        </div>
+    </div>
+</div>
+
+
+@Scripts.Render("~/bundles/fullcalendar")
+
+<script type="text/javascript">
+    Layout.init();
+
+    $("#person_calendar").css({"height":$(window).height()-300+'px', "width": $(window).width()-300+'px'});
+
+    $.ajax({
+        url:'/Personal/AllPersonSchedule',
+        type:'get',
+        success:function(data){
+            $('#person_calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay,listDay,listWeek,listMonth'
+                },
+                views: {
+                    listDay: { buttonText: '天列表' },
+                    listWeek: { buttonText: '周列表' },
+                    listMonth: { buttonText: '月列表' }
+                },
+                defaultDate: new Date(),
+                firstDay:1,
+                locale: 'zh-cn',
+                editable: true,
+                timeFormat: 'H:mm',
+                axisFormat: 'H:mm',
+                weekNumbers: true,
+                weekNumbersWithinDays: true,
+                selectable: true,
+                selectHelper: true,
+                select: function(start, end) {
+                    $('#PersonScheduleModal').dialogModal({
+                        onOkBut: function () {
+                            var Context = $(".dialogModal").find("#context").val();
+                            var Remark = $(".dialogModal").find("#remarks").val();
+                            $.ajax({
+                                url:"/Personal/AddSchedule",
+                                type:'post',
+                                data:{
+                                    category: '日常',
+                                    subject: '日常事务',
+                                    significance: '一般',
+                                    context:Context,
+                                    remark: Remark,
+                                    startTime: start.format('YYYY-MM-DD hh:mm:ss'),
+                                    endTime: end.format('YYYY-MM-DD hh:mm:ss')
+                                },
+                                success:function(data){
+                                    var eventData;
+                                    if (data) {
+                                        eventData = {
+                                            id: data.id,
+                                            title: data.context,
+                                            category: data.category,
+                                            significance: data.significance,
+                                            subject: data.subject,
+                                            start: start,
+                                            end: end
+                                        };
+                                    }
+
+                                    $('#person_calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                                },
+                                error:function(){
+                                    Layout.popMsg("popMsg-danger", "添加日程事件失败");
+                                }
+                            })
+                        },
+                        onCancelBut: function () { 
+                        },
+                        onLoad: function () {
+                        },
+                        onClose: function () {
+                        }
+                    });
+
+                    $('#person_calendar').fullCalendar('unselect');
+                },
+                dayClick: function(date, allDay, jsEvent, view){
+                    console.log(view);
+                },
+                eventClick: function(event, jsEvent, view) {
+                    if(confirm("确认删除？")){
+                        $.ajax({
+                            url:'/Personal/DeleteSchedule',
+                            type:'post',
+                            data:{
+                                id: event.id
+                            },
+                            success:function(data){
+                                if(data){
+                                    $('#person_calendar').fullCalendar('removeEvents', [event.id]);
+                                }
+                            },
+                            error:function(){
+                                Layout.popMsg("popMsg-danger", "删除失败");
+                            }
+                        })
+                    }
+                },
+                events: data
+            });
+        },
+        error:function (){
+            console.log("Something Error!");
+        }
+    });
+
+</script>*@

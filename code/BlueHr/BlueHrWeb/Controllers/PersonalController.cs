@@ -97,6 +97,15 @@ namespace BlueHrWeb.Controllers
             return View();
         }
 
+        // GET: Finished 
+        // 我的已办
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult Finished()
+        {
+            return View();
+        }
+
         // GET: Schedule 
         // 日程安排
         [UserAuthorize]
