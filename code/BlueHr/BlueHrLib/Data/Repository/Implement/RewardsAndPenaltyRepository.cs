@@ -72,16 +72,16 @@ namespace BlueHrLib.Data.Repository.Implement
 
             if (cp != null)
             {
-                cp.staffNr = certf.staffNr;
-                cp.type = certf.type;
-                cp.project = certf.project;
-                cp.description = certf.description;
-                cp.createdAt = certf.createdAt;
-                cp.createdUserId = certf.createdUserId;
-                cp.approvalUserId = certf.approvalUserId;
-                cp.approvalStatus = certf.approvalStatus;
-                cp.approvalRemark = certf.approvalRemark;
-                cp.approvalAt = certf.approvalAt;
+                cp.staffNr = certf.staffNr==null?cp.staffNr:certf.staffNr;
+                cp.type = certf.type == null ? cp.type : certf.type;
+                cp.project = certf.project == null ? cp.project : certf.project;
+                cp.description = certf.description == null ? cp.description : certf.description;
+                cp.createdAt = certf.createdAt == null ? cp.createdAt : certf.createdAt;
+                cp.createdUserId = certf.createdUserId == null ? cp.createdUserId : certf.createdUserId;
+                cp.approvalUserId = certf.approvalUserId == null ? cp.approvalUserId : certf.approvalUserId;
+                cp.approvalStatus = certf.approvalStatus == null ? cp.approvalStatus : certf.approvalStatus;
+                cp.approvalRemark = certf.approvalRemark == null ? cp.approvalRemark : certf.approvalRemark;
+                cp.approvalAt = certf.approvalAt == null ? cp.approvalAt : certf.approvalAt; ;
                 this.context.SubmitChanges();
                 return true;
             }
