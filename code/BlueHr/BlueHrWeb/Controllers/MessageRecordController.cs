@@ -162,6 +162,14 @@ namespace BlueHrWeb.Controllers
             }
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult LastLoginTime()
+        {
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+            return Json(mrs.LoginDetail().LastOrDefault(s => s.staffNr == user.id.ToString()).createdAt.ToString(), JsonRequestBehavior.AllowGet);
+        }
         private void SetAllTableName(bool allowBlank = false)
         {
             List<SelectListItem> select = new List<SelectListItem>();

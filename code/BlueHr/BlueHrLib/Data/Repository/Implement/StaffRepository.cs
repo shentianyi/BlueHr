@@ -644,19 +644,22 @@ namespace BlueHrLib.Data.Repository.Implement
                     {
                         try
                         {
-                            int now = Convert.ToInt32(System.DateTime.Today.ToString("yyyyMM"));
+                            int now = Convert.ToInt32(System.DateTime.Today.ToString("yyyyMMdd"));
                             foreach (var i in q)
                             {
                                 if (i.trialOverAt != null)
                                 {
                                     DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
-                                    int currentDate = Convert.ToInt32(strdate.ToString("yyyyMM"));
+                                    int currentDate = Convert.ToInt32(strdate.ToString("yyyyMMdd"));
                                     if (now > currentDate) count.Add(i);
                                 }
                             }
                             return count;
                         }
-                        catch { return null; }
+                        catch(Exception e)
+                        {
+                            return null;
+                        }
                     }
             }
             return null;

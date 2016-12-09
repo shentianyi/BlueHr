@@ -2,7 +2,7 @@
 
 @Styles.Render("~/Content/magnific-popup")
 
-<div id="certificate" style="margin:10px;">
+<div id="certificate" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：
         <li>@Html.ActionLink("证照管理", "Index",new {nr= Model==null ? (ViewBag.staffNr==null ? "" : ViewBag.staffNr) : Model.staffNr })</li>

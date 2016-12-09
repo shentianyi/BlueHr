@@ -141,6 +141,8 @@ namespace BlueHrWeb.Controllers
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+
+
                 bool isSucceed = cs.EasyCreate(model, startTime, endTime);
                 msg.Success = isSucceed;
                 msg.Content = isSucceed ? "添加成功" : "添加失败";
@@ -148,7 +150,7 @@ namespace BlueHrWeb.Controllers
                 //{
                 //    bool isSucceed = cs.EasyCreate(model[i], startTime, endTime);
                 //    msg.Success = isSucceed;
-                //    msg.Content += isSucceed ? "第" + i + "条添加成功" : "第" + i + "条添加失败";
+                //    msg.Content += isSucceed ? "第" + i + "条添加成功  " : "第" + i + "条添加失败  ";
                 //}  此段注释请不要删除！！！！！！！！！！！！！
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
