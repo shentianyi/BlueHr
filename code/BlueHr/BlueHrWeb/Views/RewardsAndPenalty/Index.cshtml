@@ -146,9 +146,13 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalUserId)
                                         </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalStatus)
-                                        </td>
+                                            @if(item.approvalStatus==null){
+                                                <td>未审批</td>
+                                            }else{
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.approvalStatus)
+                                            </td>
+                                            }
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalAt)
                                         </td>
@@ -230,9 +234,13 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalUserId)
                                         </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalStatus)
-                                        </td>
+                                            @if(item.approvalStatus==null){
+                                                <td>未审批</td>
+                                            }else{
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.approvalStatus)
+                                            </td>
+                                            }
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalAt)
                                         </td>
@@ -240,7 +248,7 @@
                                             @Html.DisplayFor(modelItem => item.approvalRemark)
                                         </td>
                                         <td>
-                                             @if(item.approvalStatus==null){
+                                            @if(item.approvalStatus==null){
                                             <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
@@ -312,9 +320,15 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalUserId)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalStatus)
-                                    </td>
+                                   
+                                        @if(item.approvalStatus==null){
+                                            <td>未审批</td>
+                                        }else{
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalStatus)
+                                        </td>
+                                        }
+                                    
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalAt)
                                     </td>
@@ -399,27 +413,34 @@
     Layout.advancedfilter();
 
     function shRewardsAndPenalty(id) {
-        $('#approval_content').dialogModal({
-            onOkBut: function () {
-                $.ajax({
-                    url: '/RewardsAndPenalty/Approval',
-                    type: 'post',
-                    data:{
-                        id:id,
-                        approvalStatus: "审核",
-                        // approvalStatus: $('#approval_content').find('#aplStatus').val(),
-                        // approvalRemark: $('#approval_content').find('#apvRemarks').val()
-                        approvalRemark: "BBBBB"
-                    },
-                    success: function (data) {
-                        //window.location.reload();
-                    },
-                    error: function () {
-                        console.log("CCCCCCCC");
-                    }
-                });
-            },           
-        });
-    }
+            $('#approval_content').dialogModal({
+                onOkBut: function () {
+                    var approvalStatus = $(".dialogModal").find("#aplStatus").val();
+                    var approvalRemark = $(".dialogModal").find("#apvRemarks").val();                   
+                   
+                    $.post("/RewardsAndPenalty/Approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemark }, function (data) {
+
+                        if (!data.Success) {
+                            $('#approval_content').dialogModal("hide");
+                            Layout.popMsg('popMsg-danger', data.Content);
+                            return false;
+                        }
+                        else {
+                            $('#approval_content').dialogModal("hide");
+                            Layout.popMsg('popMsg-danger', data.Content);
+                            window.location.reload();
+                        }
+                    });
+                    
+                },
+                onCancelBut: function () { },
+                onLoad: function () {
+
+                },
+                onClose: function () {
+                    //window.location.reload();
+                }
+            });
+        }
  
 </script>
