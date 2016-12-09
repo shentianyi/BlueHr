@@ -125,9 +125,9 @@ namespace BlueHrWeb.Controllers
         {
             IResignTypeService cs = new ResignTypeService(Settings.Default.db);
 
-            ResignType jt = cs.FindById(id);
+            //ResignType jt = cs.FindById(id);
             //SetDropDownList(jt);
-            return View(jt);
+            return View();
         }
 
         // POST: ResignType/Edit/5
@@ -171,26 +171,18 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                msg = DoValidation(resignRecord);
                 User user = System.Web.HttpContext.Current.Session["user"] as User;
                 resignRecord.approvalAt = DateTime.Now;
                 resignRecord.resignCheckUserId = user.id;
                 IUserService us = new UserService(Settings.Default.db);
                 resignRecord.resignChecker = us.FindById(user.id).name;
-                if (!msg.Success)
-                {
-                    return Json(msg, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    IResignRecordService cs = new ResignRecordService(Settings.Default.db);
-                    bool isSucceed = cs.Update(resignRecord);
+                IResignRecordService cs = new ResignRecordService(Settings.Default.db);
+                bool isSucceed = cs.Update(resignRecord);
 
-                    msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "更新失败";
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "" : "更新失败";
 
-                    return Json(msg, JsonRequestBehavior.AllowGet);
-                }
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
