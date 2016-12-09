@@ -155,7 +155,7 @@ switch (pathname[1]) {
             $('.nav-laborrelations').addClass('active');
             $('.nav-resignation').addClass('active');
         }
-        if(pathname[2] == "IDCard"){
+        if(pathname[2] == "Idcard"){
             $('.nav-manage').addClass('active');
             $('.nav-idcard').addClass('active');
         }

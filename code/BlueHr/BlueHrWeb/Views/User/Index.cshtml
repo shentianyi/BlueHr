@@ -10,9 +10,7 @@
     <li>
         <strong>用户管理</strong>
     </li>
-
 </ol>
-
 
 <hr class="hr-grey" />
 
@@ -49,46 +47,52 @@
             </div>
         </div>
     </form>
+</div>
 
-    @* 自定义搜索 *@
+ @* 自定义搜索 *@
+<div id="search_content" class="import_content" style="display:none;">
     <form action="/User/AdvancedSearch" method="post">
-        <div class="advanced-filter row" style="margin:0;display:none;">
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dialogModal_header" style="background:steelblue; color:white;">
+            自定义搜索信息
+        </div>
+        <div class="advanced-filter row" style="margin:8px;">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>字段</span>
                     @Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>条件</span>
                     @Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
-                    <span>值1</span>
+                    <span>值</span>
                     <input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>值2</span>
-                    <input type="text" name="searchValueSecond" value="@ViewBag.searchValueSecond" />
-                    <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
-                </div>
-            </div>
+   
         </div>
+        <div class="advanced-filter row" style="margin:8px;position:relative;left:14px;bottom:5px;">
+                <span>添加查询条件：</span>
+                <select id="params" name="params"><option value="字段">字段</option>
+                    <option value="条件1">条件1</option>
+                    <option value="条件2">条件2</option>
+                    <option value="条件3">条件3</option>
+                    <option value="条件4">条件4</option>
+                </select>
+        </div> 
     </form>
 </div>
+
 <hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        
-       
         <a href="/User/Create" class="pull-right"  style="margin-top: -10px; margin-right:15px;">
             <button class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
@@ -328,7 +332,22 @@
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "locked_user", "已锁定用户列表", "20", "locked_user_grid_table");
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unlocked_user", "未锁定用户列表", "20", "unlocked_user_grid_table");
     })
+//自定义搜索
+     $('.advanced-filter-btn').click(function () {
 
+        $('#search_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+                // data_upload(".item-data-uploader");
+            },
+            onClose: function () {
+                window.location.reload();
+            }
+            
+        });
+    });
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unlocked_user", "未锁定用户列表", "20", "unlocked_user_grid_table");
 
     //$('a[href="#locked_user"]').click(function () {
@@ -343,7 +362,7 @@
         $('#all_user').removeClass("active");
     //});
 
-    Layout.advancedfilter();
+    //Layout.advancedfilter();
     function lock(id){
         if(confirm('确定操作？')){
             $.post('/User/LockUnLock',{id: id},function(data){

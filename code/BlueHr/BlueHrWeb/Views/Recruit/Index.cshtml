@@ -55,36 +55,33 @@
             </div>
         </div>
     </form>
-
+</div>
+<div id="search_content" class="import_content" style="display:none;">
     <form action="/Recruit/AdvancedSearch" method="post">
-        <div class="advanced-filter row" style="margin:0;display:none;">
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dialogModal_header" style="background:steelblue; color:white;">
+            自定义搜索信息
+        </div>
+        <div class="advanced-filter row" style="margin:8px;">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>字段</span>
-                    @*@Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)*@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>条件</span>
-                    @*@Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)*@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
-                    <span>值1</span>
-                    @*<input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />*@
+                    <span>值</span>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>值2</span>
-                    @*<input type="text" name="searchValueSecond" value="@ViewBag.searchValueSecond" />*@
-                    <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
-                </div>
+            <div style="width:80px;height:40px;line-height:40px;background:steelblue; color:white;margin-left:550px;text-align:center;position:absolute;bottom:5px;">
+                <span>添加查询条件</span>
+                
             </div>
         </div>
     </form>
@@ -196,7 +193,23 @@
 
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Recruitment", "所有需求列表", "20", "all_Recruitment_grid_table");
 
-   
-    Layout.advancedfilter();
+   $('.advanced-filter-btn').click(function () {
+
+        $('#search_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { 
+
+            },
+            onLoad: function () {
+
+            },
+            onClose: function () {
+
+            }
+            
+        });
+    });
+    // Layout.advancedfilter();
  
 </script>
