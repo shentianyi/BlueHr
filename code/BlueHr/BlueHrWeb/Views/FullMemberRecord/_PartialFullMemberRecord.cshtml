@@ -1,9 +1,9 @@
-﻿@model BlueHrLib.Data.ResignRecord
+﻿@model BlueHrLib.Data.FullMemberRecord
 
-<div id="resignrecord" style="margin:20px;">
+<div id="fullMemberRecord" style="margin:10px;">
     <ol class="breadcrumb current-position">
         您的位置：
-        <li>@Html.ActionLink("离职管理", "Index")</li>
+        <li>个人事项</li>
         <li>{{action}}</li>
     </ol>
 
@@ -34,41 +34,40 @@
             </div>
 
             <div class="marco-nbody">
-                <div class="row" style="margin:0;">
+                <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
-                            <span>工号</span>
+                            <label for="name">员工号</label>
                             @Html.EditorFor(model => model.staffNr)
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
-                            <span>离职原因</span>
-                            <select name="resignTypeId" id="resignTypeId"></select>
-                            <input type="hidden" id="resignTypeName" name="resignTypeName">
+                            <label for="name">是否通过转正</label>
+                            <input type="checkbox" id="isPassCheck" name="isPassCheck" style="width: 24px; margin-left: 20px;">
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
-                            <span>申请时间</span>
-                            @Html.EditorFor(model => model.resignAt, new { htmlAttributes = new { @class = "date-picker" } })
+                            <label for="name">转正分数</label>
+                            @Html.EditorFor(model => model.checkScore)
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
-                            <span>离职生效日期</span>
-                            @Html.EditorFor(model => model.resignEffectiveAt, new { htmlAttributes = new { @class = "date-picker" } })
+                            <label for="name">转正日期</label>
+                            @Html.EditorFor(model => model.beFullAt)
                         </div>
                     </div>
                 </div>
-                <div class="row" style="margin:0;">
+                <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="marco-textarea">
                             <span style="padding:3px 10px; height: 35px; margin-bottom: -2px;">备注</span>
-                            @Html.TextAreaFor(model => model.resignReason)
+                            @Html.TextAreaFor(model => model.remark)
                         </div>
                     </div>
                 </div>
@@ -79,31 +78,14 @@
 
 <script type="text/javascript">
     Layout.init();
-    Layout.datepicker('.date-picker');
+
     $(".submit-btn").click(function(){
         $("#resignTypeName").val($(".combo-input").val());
-        if($("#resignTypeName").val()==""|| $("#resignTypeName").val()==null){
-            Layout.popMsg("popMsg-danger", "离职原因不能为空");
+        if($("#staffNr").val()==""){
+            Layout.popMsg("popMsg-danger", "员工号不能为空");
             return false;
         }
     })
-
-
-    //将离职类型填充进去
-    $.ajax({
-        url: '/ResignType/GetResignType',
-        type: 'get',
-        success: function (data) {
-            for (var resignType =0; resignType < data.length; resignType++) {
-                $("#resignTypeId").append("<option id="+ data[resignType].id +" value=" + data[resignType].name + "> " + data[resignType].name + "</option>");
-            }
-
-            $('#resignTypeId').comboSelect();
-        },
-        error: function () {
-            console.log("Error!");
-        }
-    });
 
     //控制textarea高度
     $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });

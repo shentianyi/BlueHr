@@ -522,8 +522,8 @@ temporary rendered events).
 	/*border-radius: 3px;*/
 	border: 1px solid #2980b9; /* default BORDER color */
 	font-weight: normal; /* undo jqui's ui-widget-header bold */
-	height:40px;
-	line-height: 35px;
+	/*height:40px;*/
+	/*line-height: 35px;*/
 	padding: 5px;
 }
 
@@ -589,8 +589,8 @@ temporary rendered events).
 	z-index: 9999; /* user of this util can scope within a lower z-index */
 	top: 50%;
 	left: 50%;
-	width: 40px;
-	height: 40px;
+	/*width: 40px;*/
+	/*height: 40px;*/
 	margin-left: -20px;
 	margin-top: -20px;
 }

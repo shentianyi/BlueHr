@@ -99,6 +99,10 @@ switch (pathname[1]) {
         $('.nav-degreeType').addClass('active');
         PageAction('#degreetype', '新建学历', '编辑学历', '学历详情', '创建', '更新', '删除');
         break;
+    case "FullMemberRecord":
+        $('.nav-fullMemberRecord').addClass('active');
+        PageAction('#fullMemberRecord', '新建转正申请', '编辑转正申请', '转正申请详情', '创建', '更新', '删除');
+        break;
     case "StaffType":
         $('.nav-basic-info').addClass('active');
         $('.nav-staffType').addClass('active');

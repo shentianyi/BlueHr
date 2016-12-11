@@ -76,7 +76,7 @@ namespace BlueHrLib.Data.Repository.Implement
                 mr1.approvalStatus = fmr.approvalStatus == null ? mr1.approvalStatus : fmr.approvalStatus;
                 mr1.approvalRemark = fmr.approvalRemark == null ? mr1.approvalRemark : fmr.approvalRemark;
                 mr1.createdAt = fmr.createdAt == null ? mr1.createdAt : fmr.createdAt;
-                mr1.createdUserId = fmr.createdUserId == null ? mr1.createdUserId : fmr.createdUserId;
+                mr1.userId = fmr.userId == null ? mr1.userId : fmr.userId;
                 mr1.isPassCheck = fmr.isPassCheck;
                 this.context.SubmitChanges();
                 return true;

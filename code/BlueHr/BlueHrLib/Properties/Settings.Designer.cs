@@ -184,5 +184,16 @@ namespace BlueHrLib.Properties {
                 return ((string)(this["BlueHrV2ConnectionString3"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SFZ-PC\\SQLEXPRESS;Initial Catalog=BlueHrV3;Persist Security Info=True" +
+            ";User ID=sa")]
+        public string BlueHrV3ConnectionString {
+            get {
+                return ((string)(this["BlueHrV3ConnectionString"]));
+            }
+        }
     }
 }

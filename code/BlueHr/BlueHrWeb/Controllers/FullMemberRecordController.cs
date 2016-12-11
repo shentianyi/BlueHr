@@ -20,7 +20,7 @@ namespace BlueHrWeb.Controllers
 {
     public class FullMemberRecordController : Controller
     {
-        // GET: ResignType
+        // GET: FullMemberRecord
         [UserAuthorize]
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
@@ -31,11 +31,11 @@ namespace BlueHrWeb.Controllers
 
             IFullMemberRecordService rrs = new FullMemberRecordService(Settings.Default.db);
 
-            IPagedList<FullMemberRecord> fullMemberRecords = rrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<FullMemberRecord> FullMemberRecordRecords = rrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
-            return View(fullMemberRecords);
+            return View(FullMemberRecordRecords);
         }
 
         [RoleAndDataAuthorizationAttribute]
@@ -47,43 +47,42 @@ namespace BlueHrWeb.Controllers
 
             IFullMemberRecordService rrs = new FullMemberRecordService(Settings.Default.db);
 
-            IPagedList<FullMemberRecord> fullMemberRecords = rrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<FullMemberRecord> FullMemberRecordRecords = rrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
-            return View("Index", fullMemberRecords);
+            return View("Index", FullMemberRecordRecords);
         }
 
-        // GET: ResignType/Details/5
+        // GET: FullMemberRecord/Details/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: ResignType/Create
+        // GET: FullMemberRecord/Create
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
-            //SetDropDownList(null);
             return View();
         }
 
-        // POST: ResignType/Create
+        // POST: FullMemberRecord/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Create([Bind(Include = "staffNr, isPassCheck, checkScore, beFullAt, remark")] FullMemberRecord fullMemberRecord)
+        public JsonResult Create([Bind(Include = "staffNr, isPassCheck, checkScore, beFullAt, remark")] FullMemberRecord FullMemberRecordRecord)
         {
             ResultMessage msg = new ResultMessage();
             
             //填充 是谁创建的
             User user = System.Web.HttpContext.Current.Session["user"] as User;
-            fullMemberRecord.createdUserId = user.id;
-            fullMemberRecord.createdAt = DateTime.Now;
+            FullMemberRecordRecord.userId = user.id;
+            FullMemberRecordRecord.createdAt = DateTime.Now;
 
             try
             {
-                msg = DoValidation(fullMemberRecord);
+                msg = DoValidation(FullMemberRecordRecord);
 
                 IFullMemberRecordService rrs = new FullMemberRecordService(Settings.Default.db);
                 if (!msg.Success)
@@ -92,8 +91,7 @@ namespace BlueHrWeb.Controllers
                 }
                 else
                 {
-
-                    bool isSucceed = rrs.Create(fullMemberRecord);
+                    bool isSucceed = rrs.Create(FullMemberRecordRecord);
 
                     msg.Success = isSucceed;
                     msg.Content = isSucceed ? "添加成功" : "添加失败";
@@ -107,7 +105,7 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        // GET: ResignType/Edit/5
+        // GET: FullMemberRecord/Edit/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
@@ -117,7 +115,7 @@ namespace BlueHrWeb.Controllers
             return View(fmr);
         }
 
-        // POST: ResignType/Edit/5
+        // POST: FullMemberRecord/Edit/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Edit([Bind(Include = "id, staffNr, isPassCheck, checkScore, beFullAt, remark")] FullMemberRecord fullMemberRecord)
@@ -181,18 +179,18 @@ namespace BlueHrWeb.Controllers
                 return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        // GET: FullMemberRecord/Delete/5
+        // GET: FullMemberRecordRecord/Delete/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
             IFullMemberRecordService raps = new FullMemberRecordService(Settings.Default.db);
 
-            FullMemberRecord fullMemberRecord = raps.FindById(id);
-            //SetDropDownList(fullMemberRecord);
-            return View(fullMemberRecord);
+            FullMemberRecord FullMemberRecordRecord = raps.FindById(id);
+            //SetDropDownList(FullMemberRecordRecord);
+            return View(FullMemberRecordRecord);
         }
 
-        // POST: FullMemberRecord/Delete/5
+        // POST: FullMemberRecordRecord/Delete/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Delete(int id, FormCollection collection)
