@@ -111,6 +111,23 @@ namespace BlueHrWeb.Controllers
             return View("Index", records);
         }
 
+        [HttpGet]
+        public JsonResult TransferDetail()
+        {
+            IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+            foreach (var i in mrs.FindByType(203))
+            {
+                Dictionary<string, string> detail = new Dictionary<string, string>();
+                string[] texts = i.text.Split(',');
+                detail.Add("员工号", i.staffNr);
+                detail.Add("调岗日期", i.createdAt.ToString());
+                detail.Add("调岗前岗位", texts[0]);
+                detail.Add("调岗后岗位", texts[1]);
+                Result.Add(detail);
+            }
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpGet] 
         public ActionResult UnReadCount()
