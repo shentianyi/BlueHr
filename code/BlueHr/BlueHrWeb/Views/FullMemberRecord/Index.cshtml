@@ -83,7 +83,8 @@
                                         @Html.DisplayFor(modelItem => item.staffNr)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.isPassCheck)
+                                        <!--@Html.DisplayFor(modelItem => item.isPassCheck)-->
+                                        <span> @(item.isPassCheck?"通过":"未通过") </span>
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.checkScore)

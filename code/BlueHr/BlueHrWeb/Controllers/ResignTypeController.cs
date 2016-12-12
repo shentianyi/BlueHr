@@ -75,7 +75,7 @@ namespace BlueHrWeb.Controllers
         // POST: ResignType/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Create([Bind(Include = "Name,code, remark")] ResignType resignType)
+        public JsonResult Create([Bind(Include = "Name, code, remark")] ResignType resignType)
         {
             ResultMessage msg = new ResultMessage();
 
