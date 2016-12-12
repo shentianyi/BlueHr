@@ -16687,9 +16687,9 @@ namespace BlueHrLib.Data
 		
 		private string _staffNr;
 		
-		private System.DateTime _leaveStart;
+		private System.Nullable<System.DateTime> _leaveStart;
 		
-		private System.DateTime _leaveEnd;
+		private System.Nullable<System.DateTime> _leaveEnd;
 		
 		private string _remark;
 		
@@ -16715,9 +16715,9 @@ namespace BlueHrLib.Data
     partial void OnidChanged();
     partial void OnstaffNrChanging(string value);
     partial void OnstaffNrChanged();
-    partial void OnleaveStartChanging(System.DateTime value);
+    partial void OnleaveStartChanging(System.Nullable<System.DateTime> value);
     partial void OnleaveStartChanged();
-    partial void OnleaveEndChanging(System.DateTime value);
+    partial void OnleaveEndChanging(System.Nullable<System.DateTime> value);
     partial void OnleaveEndChanged();
     partial void OnremarkChanging(string value);
     partial void OnremarkChanged();
@@ -16782,8 +16782,8 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_leaveStart", DbType="DateTime NOT NULL")]
-		public System.DateTime leaveStart
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_leaveStart", DbType="DateTime")]
+		public System.Nullable<System.DateTime> leaveStart
 		{
 			get
 			{
@@ -16802,8 +16802,8 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_leaveEnd", DbType="DateTime NOT NULL")]
-		public System.DateTime leaveEnd
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_leaveEnd", DbType="DateTime")]
+		public System.Nullable<System.DateTime> leaveEnd
 		{
 			get
 			{

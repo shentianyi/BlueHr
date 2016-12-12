@@ -65,6 +65,7 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
+            GetAllOnTrailStaff();
             return View();
         }
 
@@ -112,6 +113,7 @@ namespace BlueHrWeb.Controllers
             IFullMemberRecordService cs = new FullMemberRecordService(Settings.Default.db);
 
             FullMemberRecord fmr = cs.FindById(id);
+            GetAllOnTrailStaff();
             return View(fmr);
         }
 
@@ -187,6 +189,7 @@ namespace BlueHrWeb.Controllers
 
             FullMemberRecord FullMemberRecordRecord = raps.FindById(id);
             //SetDropDownList(FullMemberRecordRecord);
+            GetAllOnTrailStaff();
             return View(FullMemberRecordRecord);
         }
 
@@ -241,5 +244,27 @@ namespace BlueHrWeb.Controllers
 
             return new ResultMessage() { Success = true, Content = "" };
         }
+
+        private void GetAllOnTrailStaff(bool allowBlank = false)
+        {
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+            StaffSearchModel q = new StaffSearchModel();
+
+            var OnTrialStaff = ss.Search(q).Where(c=>c.isOnTrial);
+
+            if (OnTrialStaff != null)
+            {
+                //获取当前记录的属性
+                foreach (var onTrailStaff in OnTrialStaff)
+                {
+                    select.Add(new SelectListItem { Text = onTrailStaff.name, Value = onTrailStaff.nr });
+                }
+            }
+
+            ViewData["onTrialStaff"] = select;
+        }
+
     }
 }

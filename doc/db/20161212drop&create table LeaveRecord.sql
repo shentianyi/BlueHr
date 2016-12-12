@@ -1,7 +1,7 @@
 USE [BlueHr]
 GO
 
-/****** Object:  Table [dbo].[LeaveRecord]    Script Date: 12/12/2016 11:37:08 ******/
+/****** Object:  Table [dbo].[LeaveRecord]    Script Date: 12/12/2016 12:05:32 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[LeaveRecord]') AND type in (N'U'))
 DROP TABLE [dbo].[LeaveRecord]
 GO
@@ -9,7 +9,7 @@ GO
 USE [BlueHr]
 GO
 
-/****** Object:  Table [dbo].[LeaveRecord]    Script Date: 12/12/2016 11:37:08 ******/
+/****** Object:  Table [dbo].[LeaveRecord]    Script Date: 12/12/2016 12:05:32 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -22,8 +22,8 @@ GO
 CREATE TABLE [dbo].[LeaveRecord](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[staffNr] [varchar](200) NOT NULL,
-	[leaveStart] [datetime] NOT NULL,
-	[leaveEnd] [datetime] NOT NULL,
+	[leaveStart] [datetime] NULL,
+	[leaveEnd] [datetime] NULL,
 	[remark] [text] NULL,
 	[createdAt] [datetime] NULL,
 	[userId] [int] NULL,
