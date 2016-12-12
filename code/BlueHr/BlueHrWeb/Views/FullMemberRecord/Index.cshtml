@@ -94,13 +94,17 @@
                                         @Html.DisplayFor(modelItem => item.remark)
                                     </td>
                                     <td>
+                                        @Html.DisplayFor(modelItem => item.userId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.createdAt)
+                                    </td>
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.approvalUserId)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalAt)
                                     </td>
-                                    <td></td>
-                                    <td>
                                     @if (item.approvalStatus == null)
                                     {
                                         <td>未审批</td>
@@ -111,7 +115,6 @@
                                             @Html.DisplayFor(modelItem => item.approvalStatus)
                                         </td>
                                     }
-                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalRemark)
                                     </td>
@@ -124,7 +127,7 @@
                                             <a href="/FullMemberRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
+                                            <a title="审批" class="option-icon-danger" onclick="shFullMemberRecord(@item.id)">
                                                 <i class="fa fa-check"></i>
                                             </a>
                                         }
@@ -178,7 +181,7 @@
     Layout.init();
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_FullMemberRecord", "转正记录列表", "20", "all_FullMemberRecord_grid_table");
 
-    function shLeaveRecord(id) {
+    function shFullMemberRecord(id) {
         $('#approval_content').dialogModal({
             onOkBut: function () {
                 var approvalStatus = $(".dialogModal").find("#aplStatus").val();
