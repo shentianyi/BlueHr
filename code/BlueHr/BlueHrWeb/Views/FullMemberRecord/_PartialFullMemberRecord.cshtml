@@ -37,15 +37,20 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
-                            <label for="name">员工号</label>
-                            @Html.EditorFor(model => model.staffNr)
+                            <label for="name">员工号 *</label>
+                            @*@Html.EditorFor(model => model.staffNr)*@
+                            
+                            <!--@Html.DropDownList("onTrialStaff", ViewData["onTrialStaff"] as IEnumerable<SelectListItem>)-->
+                            @Html.DropDownList("staffNr", ViewData["onTrialStaff"] as IEnumerable<SelectListItem>)
+
+                            <!--<input type="hidden" id="staffNr" name="staffNr">-->
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <label for="name">是否通过转正</label>
-                            <input type="checkbox" id="isPassCheck" name="isPassCheck" style="width: 24px; margin-left: 20px;">
+                            <input type="checkbox" id="isPassCheck" name="isPassCheck" value="true" checked style="width: 24px; margin-left: 20px;">
                         </div>
                     </div>
 
@@ -59,7 +64,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <label for="name">转正日期</label>
-                            @Html.EditorFor(model => model.beFullAt)
+                            @Html.EditorFor(model => model.beFullAt, new { htmlAttributes = new { @class = "date-picker" } })
                         </div>
                     </div>
                 </div>
@@ -79,8 +84,24 @@
 <script type="text/javascript">
     Layout.init();
 
+    Layout.datepicker(".date-picker"); 
+
+    $("#isPassCheck").click(function(){
+
+        if($("#isPassCheck").val()=="true"){
+            $("#isPassCheck").val("false");
+            console.log($("#isPassCheck").val());
+        }else{
+            $("#isPassCheck").val("true");
+            console.log($("#isPassCheck").val());
+        }
+    })
+
     $(".submit-btn").click(function(){
         $("#resignTypeName").val($(".combo-input").val());
+        // $("#staffNr").val($("#onTrialStaff").val());
+
+        console.log($("#staffNr").val());
         if($("#staffNr").val()==""){
             Layout.popMsg("popMsg-danger", "员工号不能为空");
             return false;

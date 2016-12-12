@@ -88,26 +88,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var extraWorks in ViewData["Resign"] as List<Dictionary<string, string>>)
+                    @foreach (var resigns in ViewData["Resign"] as List<Dictionary<string, string>>)
                     {
                         <tr>
-                            @foreach (var extraWork in extraWorks)
+                            @foreach (var resign in resigns)
                             {
-                                if (extraWork.Key == "ID")
+                                if (resign.Key == "ID")
                                 {
                                 }
-                                else if (extraWork.Key == "StaffNr")
+                                else if (resign.Key == "StaffNr")
                                 {
                                     <td title="查看员工详细信息">
-                                        <a href="/Staff/Delete/@extraWork.Value" class="option-icon-primary">
-                                            @extraWork.Value
+                                        <a href="/Staff/Delete/@resign.Value" class="option-icon-primary">
+                                            @resign.Value
                                             <i class="fa fa-eye"></i>
                                         </a>
                                     </td>
                                 }
                                 else
                                 {
-                                    <td>@extraWork.Value</td>
+                                    <td>@resign.Value</td>
                                 }
                             }
                         </tr>
@@ -123,6 +123,47 @@
 
         <div role="tabpanel" class="tab-pane" id="to_fullMember_application">
             @* 转正申请 *@
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        @*<th>ID</th>*@
+                        <th>工号</th>
+                        <th>是否通过</th>
+                        <th>转正分数</th>
+                        <th>转正时间</th>
+                        <th>审批状态</th>
+                        <th>审批人</th>
+                        <th>审批备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var fullMembers in ViewData["FullMembers"] as List<Dictionary<string, string>>)
+                    {
+                        <tr>
+                            @foreach (var fullMember in fullMembers)
+                            {
+                                if (fullMember.Key == "ID")
+                                {
+                                }
+                                else if (fullMember.Key == "StaffNr")
+                                {
+                                    <td title="查看员工详细信息">
+                                        <a href="/Staff/Delete/@fullMember.Value" class="option-icon-primary">
+                                            @fullMember.Value
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>@fullMember.Value</td>
+                                }
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            
         </div>
 
         <!--<div role="tabpanel" class="tab-pane" id="business_application">
