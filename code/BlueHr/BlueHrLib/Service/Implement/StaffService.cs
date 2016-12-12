@@ -343,6 +343,11 @@ namespace BlueHrLib.Service.Implement
             return staffRep.ToEmployeesDetail(v);
         }
 
+        public IQueryable<StaffView> SearchView(StaffSearchModel searchModel)
+        {
+            return staffRep.SearchView(searchModel);
+        }
+
         //public List<Staff> getStaffUserIDCard()
         //{
         //    return staffRep.getStaffUserIDCard();

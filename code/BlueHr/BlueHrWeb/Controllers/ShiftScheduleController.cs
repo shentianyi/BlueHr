@@ -42,10 +42,12 @@ namespace BlueHrWeb.Controllers
             ShiftScheduleInfoModel info = ss.GetShiftScheduleInfo(q);
             ViewBag.Info = info;
 
+            SetDropDownList(null);
+
             return View(models);
         }
 
-        public ActionResult Search([Bind(Include = "StaffNr,StaffNrAct,ScheduleAtFrom,ScheduleAtEnd")]  ShiftScheduleSearchModel q)
+        public ActionResult Search([Bind(Include = "StaffNr, StaffNrAct, ScheduleAtFrom, ScheduleAtEnd")]  ShiftScheduleSearchModel q)
         {
             //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
             User user = System.Web.HttpContext.Current.Session["user"] as User;
@@ -61,7 +63,9 @@ namespace BlueHrWeb.Controllers
 
             ViewBag.Query = q;
 
-            return View("Index", models);
+            SetDropDownList(null);
+
+            return View("Search", models);
         }
 
         // GET: ShiftShedule/Details/5
@@ -247,7 +251,28 @@ namespace BlueHrWeb.Controllers
             {
                 // TODO: Add delete logic here
                 IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
-               msg.Success= cs.DeleteById(id);
+                msg.Success = cs.DeleteById(id);
+                return Json(msg, JsonRequestBehavior.AllowGet);
+                //return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                msg.Content = ex.Message;
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // POST: ShiftShedule/Delete/5
+        [RoleAndDataAuthorizationAttribute]
+        [HttpPost]
+        public JsonResult DeleteSchedule(int id)
+        {
+            ResultMessage msg = new ResultMessage();
+            try
+            {
+                // TODO: Add delete logic here
+                IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+                msg.Success= cs.DeleteById(id);
                 return Json(msg, JsonRequestBehavior.AllowGet);
                 //return RedirectToAction("Index");
             }
@@ -283,7 +308,6 @@ namespace BlueHrWeb.Controllers
             List<ShiftScheduleView> shiftScheduleViews = sss.GetAllShiftSchedule();
 
             //可以进行分组显示
-
             var shiftScheduleGroups = shiftScheduleViews.GroupBy(c=>new {c.name, c.fullStartAt, c.endAt });
 
             foreach(var shiftScheduleGroup in shiftScheduleGroups)
@@ -320,26 +344,60 @@ namespace BlueHrWeb.Controllers
                 Result.Add(calendar);
             }
 
-
-            //foreach(var shiftScheduleView in shiftScheduleViews)
-            //{
-            //    Dictionary<string, string> sfs = new Dictionary<string, string>();
-
-            //    sfs.Add("id", shiftScheduleView.id.ToString());
-            //    sfs.Add("staffNr", shiftScheduleView.staffNr);
-            //    sfs.Add("scheduleAt", shiftScheduleView.scheduleAt.ToString());
-            //    sfs.Add("shiftId", shiftScheduleView.shiftId.ToString());
-            //    sfs.Add("code", shiftScheduleView.code);
-            //    sfs.Add("name", shiftScheduleView.name);
-            //    sfs.Add("shiftType", shiftScheduleView.shiftType.ToString());
-            //    sfs.Add("title", shiftScheduleView.staffNr+" -> " + shiftScheduleView.name);
-            //    sfs.Add("start", shiftScheduleView.fullStartAt.ToString());
-            //    sfs.Add("end", shiftScheduleView.fullEndAt.ToString());
-
-            //    Result.Add(sfs);
-            //}
+            ViewData["Shift_Schedule_Data"] = Result;
 
             return Json(Result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public ResultMessage DoValidation(ShiftSchedule model)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            if (string.IsNullOrEmpty(model.staffNr))
+            {
+                msg.Success = false;
+                msg.Content = "员工不能为空";
+
+                return msg;
+            }
+
+            if (model.scheduleAt == null || model.scheduleAt == DateTime.MinValue)
+            {
+                msg.Success = false;
+                msg.Content = "日期不能为空";
+
+                return msg;
+            }
+
+            if (model.shiftId == 0)
+            {
+                msg.Success = false;
+                msg.Content = "班次不能为空";
+
+                return msg;
+            }
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+            if (ss.FindByNr(model.staffNr) == null)
+            {
+                msg.Success = false;
+                msg.Content = "员工号不存在";
+
+                return msg;
+            }
+
+            IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+            if (cs.IsDup(model))
+            {
+                msg.Success = false;
+                msg.Content = "排班已存在，不可重复排班";
+
+                return msg;
+            }
+
+            return new ResultMessage() { Success = true, Content = "" };
         }
 
         private void SetDropDownList(ShiftSchedule model)
@@ -347,10 +405,12 @@ namespace BlueHrWeb.Controllers
             if (model != null)
             {
                 SetShiftScheduleList(model.shiftId);
+                GetAllShifts(null);
              }
             else
             {
                 SetShiftScheduleList(null);
+                GetAllShifts(null);
              }
         }
 
@@ -383,54 +443,72 @@ namespace BlueHrWeb.Controllers
             ViewData["shiftList"] = select;
         }
 
-        [HttpPost]
-        public ResultMessage DoValidation(ShiftSchedule model)
+        private void GetAllShifts(int? type, bool allowBlank = false)
         {
-            ResultMessage msg = new ResultMessage();
+            IShiftService cs = new ShiftService(Settings.Default.db);
 
-            if (string.IsNullOrEmpty(model.staffNr))
+            ShiftSearchModel shiftSearchModel= new ShiftSearchModel();
+
+            List<Shift> shifts = cs.Search(shiftSearchModel).ToList();
+
+            List<SelectListItem> select = new List<SelectListItem>();
+
+            if (allowBlank)
             {
-                msg.Success = false;
-                msg.Content = "员工不能为空";
-
-                return msg;
+                select.Add(new SelectListItem { Text = "", Value = "" });
             }
 
-            if ( model.scheduleAt==null || model.scheduleAt == DateTime.MinValue )
+            foreach (var shift in shifts)
             {
-                msg.Success = false;
-                msg.Content = "日期不能为空";
-
-                return msg;
+                if (type.HasValue && type.ToString().Equals(shift.id))
+                {
+                    select.Add(new SelectListItem { Text = shift.name + " (" + shift.startAt + "-" + shift.endAt + ")", Value = shift.id.ToString(), Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = shift.name + " (" + shift.startAt + "-" + shift.endAt + ")", Value = shift.id.ToString(), Selected = false });
+                }
             }
+            ViewData["shiftsList"] = select;
+        }
 
-            if (model.shiftId==0)
-            {
-                msg.Success = false;
-                msg.Content = "班次不能为空";
-
-                return msg;
-            }
+        public JsonResult GetAllStaff()
+        {
+            List<Dictionary<string, object>> Result = new List<Dictionary<string, object>>();
 
             IStaffService ss = new StaffService(Settings.Default.db);
-            if (ss.FindByNr(model.staffNr)==null)
-            {
-                msg.Success = false;
-                msg.Content = "员工号不存在";
 
-                return msg;
+            StaffSearchModel staffSearchModel = new StaffSearchModel();
+
+            var staffViews = ss.SearchView(staffSearchModel).GroupBy(c=> new { c.departmentName , c.companyName}).ToList();
+
+            foreach (var staffView in staffViews)
+            {
+                Dictionary<string, object> staffGroup = new Dictionary<string, object>();
+                staffGroup.Add("label", staffView.Key.companyName + "-" + staffView.Key.departmentName);
+                staffGroup.Add("isParent", "true");
+
+                List<Dictionary<string, string>> Childs = new List<Dictionary<string, string>>();
+
+                foreach (var staffs in staffView)
+                {
+                    Dictionary<string, string> staff = new Dictionary<string, string>();
+
+                    staff.Add("nr", staffs.nr);
+                    staff.Add("name", staffs.name);
+                    staff.Add("department", staffs.departmentName);
+                    staff.Add("parentId", staffView.Key.companyName + "-" + staffView.Key.departmentName);
+
+                    Childs.Add(staff);
+                }
+
+                staffGroup.Add("childrens", Childs);
+
+                Result.Add(staffGroup);
             }
 
-            IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
-            if (cs.IsDup(model))
-            {
-                msg.Success = false;
-                msg.Content = "排班已存在，不可重复排班";
+            return Json(Result, JsonRequestBehavior.AllowGet);
 
-                return msg;
-            }
-
-            return new ResultMessage() { Success = true, Content = "" };
         }
     }
 }

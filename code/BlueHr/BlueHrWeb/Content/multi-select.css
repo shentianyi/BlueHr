@@ -35,7 +35,7 @@
   -moz-border-radius: 3px;
   border-radius: 3px;*/
   position: relative;
-  height: 200px;
+  height: 300px;
   padding: 0;
   overflow-y: auto; }
 
@@ -59,21 +59,26 @@
   margin: 0;
   padding: 5px 0px 0px 5px;
   cursor: pointer;
-  color: #999; }
+  color: #2980b9;
+  font-weight: bold; }
 
 .ms-container .ms-selectable li.ms-elem-selectable,
 .ms-container .ms-selection li.ms-elem-selection {
-  border-bottom: 1px #eee solid;
+  border-bottom: 1px #31708f solid;
   padding: 5px 10px;
   color: #555;
-  font-size: 14px; }
+  font-size: 14px;
+  margin-left: 20px;
+  border-left: 1px double;
+  margin-right: 20px; }
 
 .ms-container .ms-selectable li.ms-hover,
 .ms-container .ms-selection li.ms-hover {
   cursor: pointer;
-  color: #fff;
+  color: #2980b9;
   text-decoration: none;
-  background-color: #08c; }
+  background-color: #ddd;
+  border-left: 1px double #31708f; }
 
 .ms-container .ms-selectable li.disabled,
 .ms-container .ms-selection li.disabled {
