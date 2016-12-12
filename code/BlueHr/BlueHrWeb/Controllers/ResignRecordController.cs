@@ -249,6 +249,23 @@ namespace BlueHrWeb.Controllers
 
                 return msg;
             }
+            IStaffService ss = new StaffService(Settings.Default.db);
+            if (ss.FindByNr(resignRecord.staffNr) == null)
+            {
+                msg.Success = false;
+                msg.Content = "员工号不存在";
+
+                return msg;
+            }
+
+            IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
+            if (rrs.FindByNr(resignRecord.staffNr) != null)
+            {
+                msg.Success = false;
+                msg.Content = "员工号已存在";
+
+                return msg;
+            }
 
             if (string.IsNullOrEmpty(resignRecord.staffNr))
             {

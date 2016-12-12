@@ -235,6 +235,15 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
+            IFullMemberRecordService fmrs = new FullMemberRecordService(Settings.Default.db);
+            if (fmrs.FindBystaffNr(model.staffNr) != null)
+            {
+                msg.Success = false;
+                msg.Content = "员工号已存在";
+
+                return msg;
+            }
+
             if (string.IsNullOrWhiteSpace(model.isPassCheck.ToString()))
             {
                 msg.Success = false;
