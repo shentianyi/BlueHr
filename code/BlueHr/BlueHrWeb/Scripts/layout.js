@@ -145,13 +145,6 @@ switch (pathname[1]) {
         PageAction('#shift', '新建班次', '编辑班次', '班次详情', '创建', '更新', '删除');
         break;
    
-    case "ShiftSchedule":
-        if(pathname[2] == "Index"){
-            $('.nav-attendance').addClass('active');
-            $('.nav-shiftschedule').addClass('active');
-        }
-        PageAction('#shiftschedule', '新建排班', '编辑排班', '排班详情', '创建', '更新', '删除');
-        break;
     case "QuartzJob":
         $('.nav-attendance').addClass('active');
         $('.nav-attendancesetting').addClass('active');
@@ -261,6 +254,10 @@ switch (pathname[1]) {
         $('.nav-leave').addClass('active');
         $('.nav-attendance').addClass('active');
         PageAction('#leaverecord', '新建请假申请', '编辑请假申请', '请假申请详情', '创建', '更新', '删除');
+        break;
+    case "ShiftSchedule":
+        $('.nav-shiftschedule').addClass('active');
+        $('.nav-attendance').addClass('active');
         break;
     default:
         break;
