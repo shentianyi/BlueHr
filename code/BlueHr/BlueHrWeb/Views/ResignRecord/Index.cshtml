@@ -116,18 +116,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                                    @if (Model != null)
-                                    {
-                                        foreach (var item in Model)
-                                        {
-                                        <tr>
-                                            @*@if(item.approvalStatus==null){
-                                        <td>
-                                            <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
-                                        </td>
-                                        }else{
-                                            <td></td>
-                                        }*@
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                            <tr>
                                 <td>
                                     <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
                                         @Html.DisplayFor(modelItem => item.staffNr)
