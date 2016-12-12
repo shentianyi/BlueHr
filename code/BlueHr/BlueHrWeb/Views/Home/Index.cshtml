@@ -462,7 +462,12 @@
         	$("#birthweek").empty();
         	$("#birthmonth").empty();
         	$("#birthnextmonth").empty();
-            console.log(data);
+            if(data.今日.length>0){
+                for(var i =0; i< data.今日.length; i++){
+                    var Html = "<tr><td > "+data.今日[i].姓名+" </td><td > "+data.今日[i].性别+" </td><td > "+data.今日[i].出生日期+" </td><td > "+data.今日[i].年龄+" </td></tr>";
+                    $(Html).appendTo($("#birthtoday"));
+                }
+            }
             if(data.本周.length>0){
             	for(var i =0; i< data.本周.length; i++){
             		var Html = "<tr><td > "+data.本周[i].姓名+" </td><td > "+data.本周[i].性别+" </td><td > "+data.本周[i].出生日期+" </td><td > "+data.本周[i].年龄+" </td></tr>";
@@ -481,12 +486,7 @@
             		$(Html).appendTo($("#birthnextmonth"));
             	}
             }
-            if(data.今日.length>0){
-                for(var i =0; i< data.今日.length; i++){
-                    var Html = "<tr><td > "+data.今日[i].姓名+" </td><td > "+data.今日[i].性别+" </td><td > "+data.今日[i].出生日期+" </td><td > "+data.今日[i].年龄+" </td></tr>";
-                    $(Html).appendTo($("#birthtoday"));
-                }
-            }
+
         },
         error: function () {
             //console.log("CCCCCCCC");
