@@ -23,7 +23,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>工号</span>
-                    <input type="text" name="Name" id="Name" placeholder="保险类别名称" value="@ViewBag.Query.StaffNr" />
+                    <input type="text" name="Nr" id="Nr" placeholder="工号" value="@ViewBag.Query.staffNr" />
                 </div>
             </div>
 
@@ -72,6 +72,7 @@
                             <th>审批时间</th>
                             <th>审批状态</th>
                             <th>备注</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,13 +97,13 @@
                                         @Html.DisplayFor(modelItem => item.remark)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.createAt)
+                                        @Html.DisplayFor(modelItem => item.createdAt)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.useId)
+                                        @Html.DisplayFor(modelItem => item.userId)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.approvalUseId)
+                                        @Html.DisplayFor(modelItem => item.approvalUserId)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalAt)
@@ -156,6 +157,7 @@
                             <th>审批时间</th>
                             <th>审批状态</th>
                             <th>备注</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -180,13 +182,13 @@
                                         @Html.DisplayFor(modelItem => item.remark)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.createAt)
+                                        @Html.DisplayFor(modelItem => item.createdAt)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.useId)
+                                        @Html.DisplayFor(modelItem => item.userId)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.approvalUseId)
+                                        @Html.DisplayFor(modelItem => item.approvalUserId)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalAt)
@@ -276,6 +278,7 @@
     $('#cancel_LeaveRecord').addClass("active");
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_LeaveRecord", "销假记录列表", "20", "cancel_LeaveRecord_grid_table");
     $('#cancel_LeaveRecord').removeClass("active");
+
     function shLeaveRecord(id) {
         $('#approval_content').dialogModal({
             onOkBut: function () {
