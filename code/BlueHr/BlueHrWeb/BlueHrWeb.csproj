@@ -762,7 +762,7 @@
     <Content Include="Views\FullMemberRecord\Index.cshtml" />
     <Content Include="Views\FullMemberRecord\_PartialFullMemberRecord.cshtml" />
     <Content Include="Views\Personal\Finished.cshtml" />
-    <Content Include="Views\LeaveRecord\_PartialInSureType.cshtml" />
+    <Content Include="Views\LeaveRecord\_PartialLeaveRecord.cshtml" />
     <Content Include="Views\LeaveRecord\Create.cshtml" />
     <Content Include="Views\LeaveRecord\Delete.cshtml" />
     <Content Include="Views\LeaveRecord\Edit.cshtml" />

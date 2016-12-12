@@ -285,7 +285,7 @@
                 var approvalStatus = $(".dialogModal").find("#aplStatus").val();
                 var approvalRemark = $(".dialogModal").find("#apvRemarks").val();
 
-                $.post("/ResignRecord/approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemark }, function (data) {
+                $.post("/leaveRecord/approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemark }, function (data) {
 
                     if (!data.Success) {
                         $('#approval_content').dialogModal("hide");

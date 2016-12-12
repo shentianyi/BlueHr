@@ -244,9 +244,11 @@ switch (pathname[1]) {
         $('.nav-laborrelations').addClass('active');
         PageAction('#resignrecord', '新建离职申请', '编辑离职申请', '离职申请详情', '创建', '更新', '删除');
         break;
-    case "LeaveRecord":       
+    case "LeaveRecord":
+        $('.nav-leave').addClass('active');
+        $('.nav-attendance').addClass('active');
         PageAction('#leaverecord', '新建请假申请', '编辑请假申请', '请假申请详情', '创建', '更新', '删除');
-    break;
+        break;
     default:
         break;
     }
