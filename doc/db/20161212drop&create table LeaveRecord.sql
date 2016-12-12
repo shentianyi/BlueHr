@@ -1,7 +1,15 @@
 USE [BlueHr]
 GO
 
-/****** Object:  Table [dbo].[LeaveRecord]    Script Date: 12/12/2016 11:36:52 ******/
+/****** Object:  Table [dbo].[LeaveRecord]    Script Date: 12/12/2016 11:37:08 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[LeaveRecord]') AND type in (N'U'))
+DROP TABLE [dbo].[LeaveRecord]
+GO
+
+USE [BlueHr]
+GO
+
+/****** Object:  Table [dbo].[LeaveRecord]    Script Date: 12/12/2016 11:37:08 ******/
 SET ANSI_NULLS ON
 GO
 

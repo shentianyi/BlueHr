@@ -844,8 +844,8 @@
     <Type Name="LeaveRecord">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="leaveStart" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="leaveEnd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="leaveStart" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="leaveEnd" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />

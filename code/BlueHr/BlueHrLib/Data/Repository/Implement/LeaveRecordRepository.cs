@@ -1,5 +1,7 @@
-﻿using BlueHrLib.Data.Model.Search;
+﻿using ALinq.Dynamic;
+using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Data.Repository.Interface;
+using BlueHrLib.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,22 @@ namespace BlueHrLib.Data.Repository.Implement
         public LeaveRecordRepository(IDataContextFactory dc) : base(dc)
         {
             this.context = dc.Context as BlueHrDataContext;
+        }
+
+        public IQueryable<LeaveRecord> AdvancedSearch(string v1, string v2, string v3)
+        {
+            string strWhere = string.Empty;
+
+            try
+            {
+                strWhere = SearchConditionsHelper.GetStrWhere("LeaveRecord", v1, v2, v3);
+                var q = this.context.CreateQuery<LeaveRecord>(strWhere);
+                return q;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         public bool Create(LeaveRecord rsr)
