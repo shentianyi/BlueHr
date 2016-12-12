@@ -99,8 +99,12 @@ switch (pathname[1]) {
         $('.nav-degreeType').addClass('active');
         PageAction('#degreetype', '新建学历', '编辑学历', '学历详情', '创建', '更新', '删除');
         break;
+    
     case "FullMemberRecord":
-        $('.nav-fullMemberRecord').addClass('active');
+        if(pathname[2] == "Index"){
+            $('.nav-regular').addClass('active');
+            $('.nav-laborrelations').addClass('active');
+        }
         PageAction('#fullMemberRecord', '新建转正申请', '编辑转正申请', '转正申请详情', '创建', '更新', '删除');
         break;
     case "StaffType":
@@ -140,9 +144,12 @@ switch (pathname[1]) {
         $('.nav-shift').addClass('active');
         PageAction('#shift', '新建班次', '编辑班次', '班次详情', '创建', '更新', '删除');
         break;
+   
     case "ShiftSchedule":
-        $('.nav-attendance').addClass('active');
-        $('.nav-shiftschedule').addClass('active');
+        if(pathname[2] == "Index"){
+            $('.nav-attendance').addClass('active');
+            $('.nav-shiftschedule').addClass('active');
+        }
         PageAction('#shiftschedule', '新建排班', '编辑排班', '排班详情', '创建', '更新', '删除');
         break;
     case "QuartzJob":
@@ -244,8 +251,10 @@ switch (pathname[1]) {
         PageAction('#user', '新建系统操作', '编辑系统操作', '系统操作详情', '创建', '更新', '删除');
         break;
     case "ResignRecord":
-        $('.nav-resignation').addClass('active');
-        $('.nav-laborrelations').addClass('active');
+        if(pathname[2] == "Index"){
+            $('.nav-resignation').addClass('active');
+            $('.nav-laborrelations').addClass('active');
+        }
         PageAction('#resignrecord', '新建离职申请', '编辑离职申请', '离职申请详情', '创建', '更新', '删除');
         break;
     case "LeaveRecord":
