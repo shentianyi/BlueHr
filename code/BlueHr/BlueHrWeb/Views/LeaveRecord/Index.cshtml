@@ -134,6 +134,9 @@
                                             <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
                                                 <i class="fa fa-check"></i>
                                             </a>
+                                            <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
+                                                <i class="fa fa-times"></i>
+                                            </a>
                                         }
                                     </td>
                                 </tr>
@@ -157,7 +160,7 @@
                             <th>审批时间</th>
                             <th>审批状态</th>
                             <th>备注</th>
-                            <th>操作</th>
+                            @*<th>操作</th>*@
                         </tr>
                     </thead>
                     <tbody>
@@ -165,63 +168,65 @@
                         {
                             foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
-                                            @Html.DisplayFor(modelItem => item.staffNr)
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.leaveStart)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.leaveEnd)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.remark)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.createdAt)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.userId)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalUserId)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalAt)
-                                    </td>
-                                    @if (item.approvalStatus == null)
-                                    {
-                                        <td>未审批</td>
-                                    }
-                                    else
-                                    {
+                                if(item.isDelete==true){
+                                    <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.approvalStatus)
-                                        </td>
-                                    }
-                                    
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.approvalRemark)
-                                    </td>
-                                    <td>
-                                        @if (item.approvalStatus == null)
-                                        {
-                                            <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                                @Html.DisplayFor(modelItem => item.staffNr)
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
-                                                <i class="fa fa-check"></i>
-                                            </a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.leaveStart)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.leaveEnd)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.remark)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.createdAt)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.userId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalUserId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalAt)
+                                        </td>
+                                        @if (item.approvalStatus == null)
+                                        {
+                                            <td>未审批</td>
                                         }
-                                    </td>
-                                </tr>
+                                        else
+                                        {
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.approvalStatus)
+                                            </td>
+                                        }
+                                        
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalRemark)
+                                        </td>
+                                        @*<td>
+                                            @if (item.approvalStatus == null)
+                                            {
+                                                <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            }
+                                        </td>*@
+                                    </tr>
+                                }
                             }
                         }
                     </tbody>
@@ -231,7 +236,7 @@
     </div>
 </div>
 
-
+//请假审批
 <div id="approval_content" class="import_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
         请假审批
@@ -308,5 +313,21 @@
                 //window.location.reload();
             }
         });
+    }
+
+    function cancelLeaveRecord(id){
+        var w=confirm("确认进行销假操作吗？");
+        if(w){
+            $.ajax({
+                url:'/LeaveRecord/SetIsDelete',
+                type:'post',
+                data:{id:id},
+                sucess:function(data){
+                    if (data.Success) {
+                        window.location.reload();
+                    }
+                }
+            });
+        }
     }
 </script>
