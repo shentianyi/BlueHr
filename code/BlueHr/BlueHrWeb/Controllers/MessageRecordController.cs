@@ -120,10 +120,10 @@ namespace BlueHrWeb.Controllers
             {
                 Dictionary<string, string> detail = new Dictionary<string, string>();
                 string[] texts = i.text.Split(',');
-                detail.Add("员工号", i.staffNr);
-                detail.Add("调岗日期", i.createdAt.ToString());
-                detail.Add("调岗前岗位", texts[0]);
-                detail.Add("调岗后岗位", texts[1]);
+                detail.Add("staffNr", i.staffNr);
+                detail.Add("transferDate", i.createdAt.ToString());
+                detail.Add("beforeJob", texts[0]);
+                detail.Add("afterJob", texts[1]);
                 Result.Add(detail);
             }
             return Json(Result, JsonRequestBehavior.AllowGet);
