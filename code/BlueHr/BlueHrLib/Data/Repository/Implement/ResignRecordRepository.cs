@@ -55,12 +55,12 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public IQueryable<ResignRecord> Search(ResignRecordSearchModel searchModel)
         {
-            IQueryable<ResignRecord> certf = this.context.ResignRecord;
+            IQueryable<ResignRecord> resignRecord = this.context.ResignRecord;
             if (!string.IsNullOrEmpty(searchModel.staffNr))
             {
-                certf = certf.Where(c => c.staffNr.Contains(searchModel.staffNr.Trim()));
+                resignRecord = resignRecord.Where(c => c.staffNr.Contains(searchModel.staffNr.Trim()));
             }
-            return certf;
+            return resignRecord;
         }
 
         public bool Update(ResignRecord rsr)
@@ -93,6 +93,12 @@ namespace BlueHrLib.Data.Repository.Implement
         public List<ResignRecord> FindByResignType(int id)
         {
             return this.context.GetTable<ResignRecord>().Where(p => p.resignTypeId.Equals(id)).ToList();
+        }
+
+        public ResignRecord FindByNr(string staffNr)
+        {
+            IQueryable<ResignRecord> resignRecord = this.context.ResignRecord;
+            return resignRecord.Where(c => c.staffNr == staffNr).FirstOrDefault();
         }
     }
 }

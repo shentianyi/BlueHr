@@ -146,6 +146,29 @@ namespace BlueHrWeb.Controllers
             }
         }
 
+        // POST: LeaveRecord/SetIsDelete/5
+        [RoleAndDataAuthorizationAttribute]
+        [HttpPost]
+        public JsonResult SetIsDelete(int id)
+        {
+            ResultMessage msg = new ResultMessage();
+            try
+            {
+                ILeaveRecordService cs = new LeaveRecordService(Settings.Default.db);
+                LeaveRecord leaveRecord = cs.FindById(id);
+                leaveRecord.isDelete = true;
+                bool isSucceed = cs.Update(leaveRecord);
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "销假成功" : "销假失败";
+
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         // POST: LeaveRecord/Approval/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
