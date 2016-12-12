@@ -188,7 +188,7 @@ namespace BlueHrWeb.Controllers
                     shift.scheduleAt = DateTime.Now;
                     bool isSucceed = cs.EasyCreate(shift, startTime, endTime);
                     msg.Success = isSucceed;
-                    msg.Content += isSucceed ? "第" + i+1 + "条添加成功  " : "第" + i+1 + "条添加失败  ";
+                    msg.Content += isSucceed ? "" : "第" + i+1 + "条添加失败  ";
                 }
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
