@@ -116,69 +116,72 @@
                         </tr>
                     </thead>
                     <tbody>
-                      @if (Model != null)
-                        {
-                            foreach (var item in Model)
-                            {
-                                    <tr>
-                                        @*@if(item.approvalStatus==null){
+                                    @if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                        <tr>
+                                            @*@if(item.approvalStatus==null){
                                         <td>
                                             <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
                                         </td>
                                         }else{
                                             <td></td>
                                         }*@
-                                        <td>
-                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
-                                                @Html.DisplayFor(modelItem => item.staffNr)
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.resignTypeId)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.resignAt)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.resignEffectiveAt)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.resignReason)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.resignChecker)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalAt)
-                                        </td>
-                                            @if(item.approvalStatus==null){
-                                                <td>未审批</td>
-                                            }else{
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.approvalStatus)
-                                                </td>
-                                            } 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalRemark)
-                                        </td>
-                                                                                   
-                                        <td>
-                                            @if(item.approvalStatus==null){
-                                            <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">
-                                                <i class="fa fa-check"></i>
-                                            </a>
-                                            }
-                                        </td>
-                                    </tr>
+                                <td>
+                                    <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                        @Html.DisplayFor(modelItem => item.staffNr)
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.resignTypeId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.resignAt)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.resignEffectiveAt)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.resignReason)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.resignChecker)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.approvalAt)
+                                </td>
+                                @if (item.approvalStatus == null)
+                                {
+                                    <td>未审批</td>
                                 }
-                            
+                                else
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalStatus)
+                                    </td>
+                                }
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.approvalRemark)
+                                </td>
+
+                                <td>
+                                    @if (item.approvalStatus == null)
+                                    {
+                                        <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">
+                                            <i class="fa fa-check"></i>
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                            }
                         }
                     </tbody>
                 </table>
