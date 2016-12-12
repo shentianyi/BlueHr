@@ -41,42 +41,47 @@
             </div>
         </div>
     </form>
+</div>
 
+<div id="search_content" class="import_content" style="display:none;">
     <form action="/ResignRecord/AdvancedSearch" method="post">
-        <div class="advanced-filter row" style="margin:0;display:none;">
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dialogModal_header" style="background:steelblue; color:white;">
+            自定义搜索信息
+         </div>
+
+        <div class="advanced-filter row" style="margin:0;">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>字段</span>
                     @*@Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)*@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>条件</span>
                     @*@Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)*@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="marco-igroup-primary">
-                    <span>值1</span>
+                    <span>值</span>
                     @*<input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />*@
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>值2</span>
-                    @*<input type="text" name="searchValueSecond" value="@ViewBag.searchValueSecond" />*@
-                    <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
-                </div>
-            </div>
         </div>
+
+        <div class="advanced-filter row" style="margin:8px;">
+            <div style="width:100px; height:40px; line-height:40px; color:#000; margin-left:350px; text-align:center;">
+                <span>添加查询条件：</span>
+            </div>
+        </div> 
     </form>
 </div>
 
 <hr class="hr-primary" />
+
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
 
@@ -86,7 +91,6 @@
                     <span>创建</span>
                 </button>
             </a>
-
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#all_ResignRecord" role="tab" data-toggle="tab">离职申请</a></li>            
@@ -116,66 +120,64 @@
                         {
                             foreach (var item in Model)
                             {
-                                
-                                    <tr>
+                                <tr>
+                                    @if(item.approvalStatus==null){
+                                    <td>
+                                        <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
+                                    </td>
+                                    }else{
+                                        <td></td>
+                                    }
+                                    <td>
+                                        <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                            @Html.DisplayFor(modelItem => item.staffNr)
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.resignTypeId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.resignAt)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.resignEffectiveAt)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.resignReason)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.resignChecker)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalAt)
+                                    </td>
                                         @if(item.approvalStatus==null){
-                                        <td>
-                                            <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
-                                        </td>
+                                            <td>未审批</td>
                                         }else{
-                                            <td></td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.approvalStatus)
+                                            </td>
+                                        } 
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalRemark)
+                                    </td>
+                                                                                
+                                    <td>
+                                        @if(item.approvalStatus==null){
+                                        <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">
+                                            <i class="fa fa-check"></i>
+                                        </a>
                                         }
-                                        <td>
-                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
-                                                @Html.DisplayFor(modelItem => item.staffNr)
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.resignTypeId)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.resignAt)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.resignEffectiveAt)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.resignReason)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.resignChecker)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalAt)
-                                        </td>
-                                            @if(item.approvalStatus==null){
-                                                <td>未审批</td>
-                                            }else{
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.approvalStatus)
-                                                </td>
-                                            } 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalRemark)
-                                        </td>
-                                                                                   
-                                        <td>
-                                            @if(item.approvalStatus==null){
-                                            <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">
-                                                <i class="fa fa-check"></i>
-                                            </a>
-                                            }
-                                        </td>
-                                    </tr>
-                                }
-                            
+                                    </td>
+                                </tr>
+                             }
                         }
                     </tbody>
                 </table>
@@ -255,6 +257,22 @@
             });
         }
 
-   
+   $('.advanced-filter-btn').click(function () {
+
+        $('#search_content').dialogModal({
+            onOkBut: function () {
+
+            },
+            onCancelBut: function () { 
+
+            },
+            onLoad: function () {
+
+            },
+            onClose: function () {
+
+            }
+        });
+    });
     //Layout.TbodyHeight('.table-body', 310);
 </script>
