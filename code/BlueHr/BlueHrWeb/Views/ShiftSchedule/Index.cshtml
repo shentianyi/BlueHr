@@ -23,7 +23,10 @@
     }
 </style>
 
+@Styles.Render("~/Content/multi-select")
+
 @Scripts.Render("~/bundles/fullcalendar")
+@Scripts.Render("~/bundles/multi-select")
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
@@ -40,7 +43,7 @@
     bool canImport = MenuAuthHelper.CanShow("ShiftSchedule", "Import");
 }
 
-<div class="search">
+<!--<div class="search">
     @* 简单搜索 *@
     <form action="/ShiftSchedule/Search" method="get">
         <div class="row" style="margin:0;">
@@ -111,10 +114,62 @@
             </div>
         </div>
     </form>
-</div>
-<hr class="hr-primary" />
+</div>-->
 
-<div style="position:absolute; z-index:5;"><div id="shift_schedule_calendar"></div></div>
+<!--<hr class="hr-primary" />-->
+
+<div style="position:absolute; z-index:5; padding: 0 30px;"><div id="shift_schedule_calendar"></div></div>
+
+<div id="NewShiftScheduleModal" class="new_shift_schedule_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        <span>新建排班</span>
+    </div>
+
+    <div class="dialogModal_content">
+        <div class="marco-nbody">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="marco-igroup-primary">
+                        <span>选择班次</span>
+                        @Html.DropDownList("shiftId", ViewData["shiftsList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="marco-igroup-primary">
+                        <span>选择时间段</span>
+                        <input type="text" class="date-picker" id="startTime">
+                        <span>~</span>
+                        <input type="text" class="date-picker" id="endTime">
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="hr-primary" />
+
+            <div class="row" style="margin: 0;">
+                <span style="color: #31708f;">选择要排班员工</span>
+                <button class="marco-btn-primary" id="select_all_staff">全选</button>
+                <button class="marco-btn-primary" id="deselect_all_staff">全不选</button>
+
+                <br />
+                <select name="allStaff" id="allStaff" multiple='multiple'></select>
+            </div>
+        </div>
+    </div>
+
+    <div class="dialogModal_footer">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+            <button type="button" class="marco-btn-primary pull-right" data-dialogmodalbut="ok">
+                确认
+            </button>
+        </div>
+    </div>
+</div>
+
+<button id="createBtn" class="marco-btn-primary" style="position:absolute; top: 60px; right: 20px;">
+    <i class="fa fa-plus"></i>
+    新建排班
+</button>
 
 <div id="ShiftScheduleModal" class="approval_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
@@ -130,7 +185,7 @@
 
             <br />
 
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="max-height: 490px; overflow:auto;">
                 <!--<span>人员名单</span>-->
 
                 <table class="table table-bordered">
@@ -147,34 +202,28 @@
                     </thead>
                     <tbody id="shift_schedule_tbody"></tbody>
                 </table>
-
             </div>
         </div>
     </div>
-<!--
-    <div class="dialogModal_footer">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
-            <button type="button" class="marco-btn-primary pull-right" data-dialogmodalbut="ok">
-                确认
-            </button>
-        </div>
-    </div>-->
 </div>
 
 <script type="text/javascript">
     Layout.init();
     $("#shift_schedule_calendar").parent().css({"width" : $(window).width() - 250 + 'px'});
 
-    $(window).resize(function(){
-        $("#shift_schedule_calendar").parent().css({"width" : $(window).width() - 250 + 'px'});
-    })
+    $(window).resize(function () {
+        $("#shift_schedule_calendar").parent().css({ "width": $(window).width() - 250 + 'px' });
+    });
+
+    Layout.rangedatepicker('#ScheduleAtFrom', '#ScheduleAtEnd');
 
     $.ajax({
         url:'/ShiftSchedule/GetAllShiftSchedule',
         type:'get',
-        success:function(data){
-            console.log(data);
+        data:{
 
+        },
+        success:function(data){
             $('#shift_schedule_calendar').fullCalendar({
                 header: {
                     left: 'prev,next today',
@@ -190,19 +239,19 @@
                 defaultDate: new Date(),
                 firstDay:1,
                 locale: 'zh-cn',
-                editable: true,
+                editable: false,
                 timeFormat: 'H:mm',
                 axisFormat: 'H:mm',
                 weekNumbers: true,
                 weekNumbersWithinDays: true,
-                selectable: true,
-                selectHelper: true,
-                select: function(start, end) {
-                    var eventData; 
-                    $('#person_calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                selectable: false,
+                // selectHelper: false,
+                // select: function(start, end) {
+                //     var eventData; 
+                //     $('#person_calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
                     
-                    $('#person_calendar').fullCalendar('unselect');
-                },
+                //     $('#person_calendar').fullCalendar('unselect');
+                // },
                 dayClick: function(date, allDay, jsEvent, view){
                     // console.log(view);
                 },
@@ -215,7 +264,7 @@
                         $("<tr><td>"+event.childrens[i].staffNr+" <a href='/Staff/Delete/"+event.childrens[i].staffNr+"' class='option-icon-primary' title='员工详情' > <i class='fa fa-eye'></i> </a> </td><td>"+event.childrens[i].name+"</td><td>"+event.childrens[i].code+"</td>"+
                         "<td>"+event.childrens[i].start+"</td>"+
                         "<td>"+event.childrens[i].end+"</td><td>"+event.childrens[i].scheduleAt+"</td>"+
-                        "<td><i class='fa fa-pencil'></i>  <i class='fa fa-trash' id='delete_shift_schedule' style='color: darkred; cursor: pointer;' title='删除该员工排班'></i> </td></tr>").appendTo($("#shift_schedule_tbody"));
+                        "<td><i class='fa fa-pencil'></i>  <i class='fa fa-trash' id='delete_shift_schedule' shift_scheduleId = "+event.childrens[i].id+" style='color: darkred; cursor: pointer;' title='删除该员工排班'></i> </td></tr>").appendTo($("#shift_schedule_tbody"));
                     }
                     
                     $("#ShiftScheduleModal").dialogModal({
@@ -231,23 +280,26 @@
                             });
 
                             $(".dialogModal").find("#delete_shift_schedule").click(function(){
-                                console.log("CCCCC")
+                                var This = $(this);
                                 if(confirm("确认删除？")){
-                                    // $.ajax({
-                                    //     url:'/Personal/DeleteSchedule',
-                                    //     type:'post',
-                                    //     data:{
-                                    //         id: event.id
-                                    //     },
-                                    //     success:function(data){
-                                    //         if(data){
-                                    //             $('#person_calendar').fullCalendar('removeEvents', [event.id]);
-                                    //         }
-                                    //     },
-                                    //     error:function(){
-                                    //         Layout.popMsg("popMsg-danger", "删除失败");
-                                    //     }
-                                    // })
+                                    $.ajax({
+                                        url:'/ShiftSchedule/DeleteSchedule',
+                                        type:'post',
+                                        data:{
+                                            id: $(".dialogModal").find("#delete_shift_schedule").attr("shift_scheduleId")
+                                        },
+                                        success:function(data){
+                                            if(data.Success){
+                                                $(".dialogModal").find("#shift_schedule_name").html(event.id.split("_")[0]+" "+event.id.split("_")[1].split(" ")[1]+" - "+event.id.split("_")[2]+" 共:"+ (event.id.split("_")[3] - 1) +"人");
+                                                
+                                                This.parent().parent().fadeOut();
+                                                // $('#person_calendar').fullCalendar('removeEvents', [event.id]);
+                                            }
+                                        },
+                                        error:function(){
+                                            Layout.popMsg("popMsg-danger", "删除失败");
+                                        }
+                                    })
                                 }
                             });
                         },
@@ -269,5 +321,107 @@
         }
     })
 
+    $("#createBtn").click(function(){
+        $("#NewShiftScheduleModal").dialogModal({
+            onOkBut: function () {
+                var ShiftID = $(".dialogModal").find("#shiftId").val();
+                var StartTime = $(".dialogModal").find("#startTime").val()
+                var EndTime = $(".dialogModal").find("#endTime").val()
+                var StaffNrs = $(".dialogModal").find("#allStaff").val()
+
+                $.ajax({
+                    url:'/ShiftSchedule/MoreEasyCreate',
+                    type:'post',
+                    data:{
+                        shiftId: ShiftID,
+                        startTime: StartTime,
+                        endTime: EndTime,
+                        staffNrs: StaffNrs
+                    },
+                    success:function(data){
+                        // console.log(data);
+                        if(data.Success){
+                            window.location.reload();
+                        }
+                    },
+                    error:function(){
+                        // console.log("Something Error!");
+                    }
+                })
+
+
+            },
+            onCancelBut: function () { 
+            },
+            onLoad: function () {
+                Layout.datepicker(".date-picker");
+                //初始化选择框
+                $(".dialogModal").find('#allStaff').multiSelect({ 
+                    selectableOptgroup: true,
+                    selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='搜索：工号、姓名'>",
+                    selectionHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='搜索：工号、姓名'>",
+                    afterInit: function(ms){
+                        var that = this,
+                            $selectableSearch = that.$selectableUl.prev(),
+                            $selectionSearch = that.$selectionUl.prev(),
+                            selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+                            selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+
+                        that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                        .on('keydown', function(e){
+                        if (e.which === 40){
+                            that.$selectableUl.focus();
+                            return false;
+                        }
+                        });
+
+                        that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                        .on('keydown', function(e){
+                        if (e.which == 40){
+                            that.$selectionUl.focus();
+                            return false;
+                        }
+                        });
+                    },
+                    afterSelect: function(values){
+                        // console.log(values);
+                    }
+                });
+
+                $(".dialogModal").find('#select_all_staff').click(function(){
+                    $(".dialogModal").find('#allStaff').multiSelect('select_all');
+                    return false;
+                });
+
+                $(".dialogModal").find('#deselect_all_staff').click(function(){
+                    $(".dialogModal").find('#allStaff').multiSelect('deselect_all');
+                    return false;
+                });
+            },
+            onClose: function () {
+            }
+        });
+    })
+
+    $.ajax({
+        url:'/ShiftSchedule/GetAllStaff',
+        type:'get',
+        success:function(data){
+            for(var i =0; i<data.length; i++){
+                var Html = "<optgroup label="+data[i].label+">";
+
+                for(var staff=0; staff < data[i].childrens.length; staff++){
+                    Html += "<option value=" + data[i].childrens[staff].nr + ">" + data[i].childrens[staff].nr + " - " + data[i].childrens[staff].name + " - " + data[i].childrens[staff].department + "</option>";
+                }
+
+                Html += "</optgroup>";
+                
+                $(Html).appendTo($("#allStaff"));
+            }
+        },
+        error:function(){
+            console.log("Something Error!");
+        }
+    })
 </script>
 

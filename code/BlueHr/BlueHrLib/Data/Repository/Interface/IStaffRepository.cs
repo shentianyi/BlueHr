@@ -46,5 +46,7 @@ namespace BlueHrLib.Data.Repository.Interface
         List<Staff> StaffBirthday(int v);
         List<Staff> ContractExpiredDetail(int v);
         List<Staff> ToEmployeesDetail(int v);
+
+        IQueryable<StaffView> SearchView(StaffSearchModel searchModel);
     }
 }

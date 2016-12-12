@@ -664,5 +664,139 @@ namespace BlueHrLib.Data.Repository.Implement
             }
             return null;
         }
+
+        public IQueryable<StaffView> SearchView(StaffSearchModel searchModel)
+        {
+            IQueryable<StaffView> staffs = this.context.StaffView;
+
+            if (!string.IsNullOrWhiteSpace(searchModel.Nr))
+            {
+                staffs = staffs.Where(c => c.nr.Contains(searchModel.Nr.Trim()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchModel.NrAct))
+            {
+                staffs = staffs.Where(c => c.nr.Equals(searchModel.NrAct.Trim()));
+            }
+            if (!string.IsNullOrWhiteSpace(searchModel.Name))
+            {
+                staffs = staffs.Where(c => c.name.Contains(searchModel.Name.Trim()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchModel.Id))
+            {
+                staffs = staffs.Where(c => c.id.Contains(searchModel.Id.Trim()));
+            }
+
+            if (searchModel.Sex.HasValue)
+            {
+                staffs = staffs.Where(c => c.sex.Equals(searchModel.Sex));
+            }
+
+            if (searchModel.JobTitleId.HasValue)
+            {
+                staffs = staffs.Where(c => c.jobTitleId.Equals(searchModel.JobTitleId));
+            }
+
+            if (searchModel.companyId.HasValue)
+            {
+                staffs = staffs.Where(c => c.companyId.Equals(searchModel.companyId));
+            }
+
+            if (searchModel.departmentId.HasValue)
+            {
+                staffs = staffs.Where(c => c.departmentId.Equals(searchModel.departmentId));
+            }
+
+            if (searchModel.CompanyEmployAtFrom.HasValue)
+            {
+                staffs = staffs.Where(c => c.companyEmployAt > searchModel.CompanyEmployAtFrom);
+            }
+
+            if (searchModel.CompanyEmployAtTo.HasValue)
+            {
+                staffs = staffs.Where(c => c.companyEmployAt < searchModel.CompanyEmployAtTo);
+            }
+            if (searchModel.BirthdayFrom.HasValue)
+            {
+                staffs = staffs.Where(c => c.birthday > searchModel.BirthdayFrom);
+            }
+
+            if (searchModel.BirthdayTo.HasValue)
+            {
+                staffs = staffs.Where(c => c.birthday < searchModel.BirthdayTo);
+            }
+
+            if (searchModel.IsOnTrial.HasValue)
+            {
+                staffs = staffs.Where(c => c.isOnTrial.Equals(searchModel.IsOnTrial));
+            }
+
+            if (!string.IsNullOrEmpty(searchModel.companyIds))
+            {
+                List<string> ids = searchModel.companyIds.TrimEnd().TrimEnd(',').Split(',').Where(s => s != "").ToList();
+                if (ids.Count > 0)
+                {
+                    staffs = staffs.Where(c => ids.Contains(c.companyId.ToString()));
+                }
+            }
+
+            if (!string.IsNullOrEmpty(searchModel.departmentIds))
+            {
+                List<string> ids = searchModel.departmentIds.TrimEnd().TrimEnd(',').Split(',').Where(s => s != "").ToList();
+                if (ids.Count > 0)
+                {
+                    staffs = staffs.Where(c => ids.Contains(c.departmentId.ToString()));
+
+                }
+            }
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            if (searchModel.loginUser != null)
+            {
+                User lgUser = searchModel.loginUser;
+
+                List<SysUserDataAuth> allDataAuths = this.context.GetTable<SysUserDataAuth>().Where(p => p.userId == lgUser.id).ToList();
+
+                List<string> cmpIds = new List<string>();
+                List<string> depIds = new List<string>();
+
+                allDataAuths.ForEach(p =>
+                {
+                    if (!cmpIds.Contains(p.cmpId.ToString()))
+                    {
+                        cmpIds.Add(p.cmpId.ToString());
+                    }
+
+                    p.departId.Split(',').ToList().ForEach(pp =>
+                    {
+                        if (!string.IsNullOrEmpty(pp))
+                        {
+                            depIds.Add(pp);
+                        }
+                    });
+                    //if (!depIds.Contains(p.departId.ToString()))
+                    //{
+                    //    depIds.Add(p.departId.ToString());
+                    //}
+                });
+
+                if (cmpIds.Count > 0)
+                {
+                    staffs = staffs.Where(c => cmpIds.Contains(c.companyId.ToString()));
+                }
+
+                if (depIds.Count > 0)
+                {
+                    staffs = staffs.Where(c => depIds.Contains(c.departmentId.ToString()));
+                }
+
+                if (searchModel.WorkStatus.HasValue)
+                {
+                    staffs = staffs.Where(c => c.workStatus.Equals(searchModel.WorkStatus));
+                }
+            }
+
+            return staffs;
+        }
     }
 }

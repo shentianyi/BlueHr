@@ -117,5 +117,7 @@ namespace BlueHrLib.Service.Interface
         List<Staff> StaffBirthday(int v);
         List<Staff> ContractExpiredDetail(int v);
         List<Staff> ToEmployeesDetail(int v);
+
+        IQueryable<StaffView> SearchView(StaffSearchModel searchModel);
     }
 }
