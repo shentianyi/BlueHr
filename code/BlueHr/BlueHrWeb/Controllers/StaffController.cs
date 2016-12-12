@@ -1393,7 +1393,7 @@ namespace BlueHrWeb.Controllers
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sexDisplay);
                 detail.Add("入职日期", i.firstCompanyEmployAtDisplay);
-                detail.Add("转正日期", i.trialOverAt.Value.ToShortDateString());
+                detail.Add("转正日期", i.trialOverAt.Value.ToString("yyyy-MM-dd"));
                 DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
                 TimeSpan rest = (strdate - now);
                 double r = rest.TotalDays;
@@ -1410,7 +1410,7 @@ namespace BlueHrWeb.Controllers
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sexDisplay);
                 detail.Add("入职日期", i.firstCompanyEmployAtDisplay);
-                detail.Add("转正日期", i.trialOverAt.Value.ToShortDateString());
+                detail.Add("转正日期", i.trialOverAt.Value.ToString("yyyy-MM-dd"));
                 DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
                 TimeSpan rest = (strdate - now);
                 double r = rest.TotalDays;
@@ -1427,7 +1427,7 @@ namespace BlueHrWeb.Controllers
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sexDisplay);
                 detail.Add("入职日期", i.firstCompanyEmployAtDisplay);
-                detail.Add("转正日期", i.trialOverAt.Value.ToShortDateString());
+                detail.Add("转正日期", i.trialOverAt.Value.ToString("yyyy-MM-dd"));
                 DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
                 TimeSpan rest = (strdate - now);
                 double r = rest.TotalDays;
@@ -1449,7 +1449,7 @@ namespace BlueHrWeb.Controllers
                 Dictionary<string, string> detail = new Dictionary<string, string>();
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sexDisplay);
-                detail.Add("出生日期", i.birthday.Value.ToShortDateString());
+                detail.Add("出生日期", i.birthday.Value.ToString("yyyy-MM-dd"));
                 int age;
                 try
                 {
@@ -1467,7 +1467,7 @@ namespace BlueHrWeb.Controllers
                 Dictionary<string, string> detail = new Dictionary<string, string>();
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sexDisplay);
-                detail.Add("出生日期", i.birthday.Value.ToShortDateString());
+                detail.Add("出生日期", i.birthday.Value.ToString("yyyy-MM-dd"));
                 int age;
                 try
                 {
@@ -1485,7 +1485,7 @@ namespace BlueHrWeb.Controllers
                 Dictionary<string, string> detail = new Dictionary<string, string>();
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sexDisplay);
-                detail.Add("出生日期", i.birthday.Value.ToShortDateString());
+                detail.Add("出生日期", i.birthday.Value.ToString("yyyy-MM-dd"));
                 int age;
                 try
                 {
@@ -1503,7 +1503,7 @@ namespace BlueHrWeb.Controllers
                 Dictionary<string, string> detail = new Dictionary<string, string>();
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sexDisplay);
-                detail.Add("出生日期", i.birthday.Value.ToShortDateString());
+                detail.Add("出生日期", i.birthday.Value.ToString("yyyy-MM-dd"));
                 int age;
                 try
                 {
