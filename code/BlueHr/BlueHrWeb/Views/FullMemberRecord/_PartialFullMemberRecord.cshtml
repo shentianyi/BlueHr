@@ -50,7 +50,8 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <label for="name">是否通过转正</label>
-                            <input type="checkbox" id="isPassCheck" name="isPassCheck" value="true" checked style="width: 24px; margin-left: 20px;">
+                            @Html.EditorFor(model => model.isPassCheck, new { htmlAttributes =  new {@style="width: 24px; margin-left: 20px;"} })
+                            <!--<input type="checkbox" id="isPassCheck" name="isPassCheck" value="true" checked style="width: 24px; margin-left: 20px;">-->
                         </div>
                     </div>
 
