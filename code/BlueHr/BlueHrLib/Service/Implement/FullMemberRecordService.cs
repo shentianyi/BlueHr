@@ -75,5 +75,12 @@ namespace BlueHrLib.Service.Implement
             IFullMemberRecordRepository fmrRep = new FullMemberRecordRepository(dc);
             return fmrRep.FindBystaffNr(staffNr);
         }
+
+        public FullMemberRecord FindByNr(string staffNr)
+        {
+            DataContext dc = new DataContext(this.DbString);
+            IFullMemberRecordRepository fmrRep = new FullMemberRecordRepository(dc);
+            return fmrRep.FindByNr(staffNr);
+        }
     }
 }

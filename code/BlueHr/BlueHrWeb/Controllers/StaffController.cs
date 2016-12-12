@@ -1443,7 +1443,7 @@ namespace BlueHrWeb.Controllers
         {
             IStaffService ss = new StaffService(Settings.Default.db);
             Dictionary<string, List<Dictionary<string, string>>> Result = new Dictionary<string, List<Dictionary<string, string>>>();
-            List<Dictionary<string, string>> eachDetailThisWeek = new List<Dictionary<string, string>>();
+            List<Dictionary<string, string>> eachDetailThisDay = new List<Dictionary<string, string>>();
             foreach (var i in ss.StaffBirthday(0))
             {
                 Dictionary<string, string> detail = new Dictionary<string, string>();
@@ -1457,10 +1457,11 @@ namespace BlueHrWeb.Controllers
                 }
                 catch { age = 0; }
                 detail.Add("年龄", age.ToString());
-                eachDetailThisWeek.Add(detail);
+                eachDetailThisDay.Add(detail);
             }
-            Result.Add("今日", eachDetailThisWeek);
+            Result.Add("今日", eachDetailThisDay);
 
+            List<Dictionary<string, string>> eachDetailThisWeek = new List<Dictionary<string, string>>();
             foreach (var i in ss.StaffBirthday(1))
             {
                 Dictionary<string, string> detail = new Dictionary<string, string>();

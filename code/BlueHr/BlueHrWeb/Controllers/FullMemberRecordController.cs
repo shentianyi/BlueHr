@@ -126,22 +126,14 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                msg = DoValidation(fullMemberRecord);
 
-                if (!msg.Success)
-                {
-                    return Json(msg, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    IFullMemberRecordService cs = new FullMemberRecordService(Settings.Default.db);
-                    bool isSucceed = cs.Update(fullMemberRecord);
+                IFullMemberRecordService cs = new FullMemberRecordService(Settings.Default.db);
+                bool isSucceed = cs.Update(fullMemberRecord);
 
-                    msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "更新失败";
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "" : "更新失败";
 
-                    return Json(msg, JsonRequestBehavior.AllowGet);
-                }
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -159,22 +151,14 @@ namespace BlueHrWeb.Controllers
             fullMemberRecord.approvalUserId = user.id;
             try
             {
-                msg = DoValidation(fullMemberRecord);
 
-                if (!msg.Success)
-                {
-                    return Json(msg, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    IFullMemberRecordService raps = new FullMemberRecordService(Settings.Default.db);
-                    bool isSucceed = raps.Update(fullMemberRecord);
+                IFullMemberRecordService raps = new FullMemberRecordService(Settings.Default.db);
+                bool isSucceed = raps.Update(fullMemberRecord);
 
-                    msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "更新成功" : "更新失败";
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "更新成功" : "更新失败";
 
-                    return Json(msg, JsonRequestBehavior.AllowGet);
-                }
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -236,7 +220,7 @@ namespace BlueHrWeb.Controllers
             }
 
             IFullMemberRecordService fmrs = new FullMemberRecordService(Settings.Default.db);
-            if (fmrs.FindBystaffNr(model.staffNr) != null)
+            if (fmrs.FindByNr(model.staffNr) != null)
             {
                 msg.Success = false;
                 msg.Content = "该员工已经递交申请";

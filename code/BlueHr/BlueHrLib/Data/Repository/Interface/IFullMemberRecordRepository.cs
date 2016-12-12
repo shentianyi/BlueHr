@@ -21,5 +21,6 @@ namespace BlueHrLib.Data.Repository.Interface
         List<FullMemberRecord> GetAll();
         List<FullMemberRecord> GetAllTableName();
         List<FullMemberRecord> FindBystaffNr(string staffNr);
+        FullMemberRecord FindByNr(string staffNr);
     }
 }
