@@ -1393,7 +1393,7 @@ namespace BlueHrWeb.Controllers
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sexDisplay);
                 detail.Add("入职日期", i.firstCompanyEmployAtDisplay);
-                detail.Add("转正日期", i.trialOverAt.ToString());
+                detail.Add("转正日期", i.trialOverAt.Value.ToShortDateString());
                 DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
                 TimeSpan rest = (strdate - now);
                 double r = rest.TotalDays;
@@ -1410,7 +1410,7 @@ namespace BlueHrWeb.Controllers
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sexDisplay);
                 detail.Add("入职日期", i.firstCompanyEmployAtDisplay);
-                detail.Add("转正日期", i.trialOverAt.ToString());
+                detail.Add("转正日期", i.trialOverAt.Value.ToShortDateString());
                 DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
                 TimeSpan rest = (strdate - now);
                 double r = rest.TotalDays;
@@ -1427,7 +1427,7 @@ namespace BlueHrWeb.Controllers
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sexDisplay);
                 detail.Add("入职日期", i.firstCompanyEmployAtDisplay);
-                detail.Add("转正日期", i.trialOverAt.ToString());
+                detail.Add("转正日期", i.trialOverAt.Value.ToShortDateString());
                 DateTime strdate = DateTime.Parse(i.trialOverAt.ToString());
                 TimeSpan rest = (strdate - now);
                 double r = rest.TotalDays;
@@ -1444,12 +1444,29 @@ namespace BlueHrWeb.Controllers
             IStaffService ss = new StaffService(Settings.Default.db);
             Dictionary<string, List<Dictionary<string, string>>> Result = new Dictionary<string, List<Dictionary<string, string>>>();
             List<Dictionary<string, string>> eachDetailThisWeek = new List<Dictionary<string, string>>();
+            foreach (var i in ss.StaffBirthday(0))
+            {
+                Dictionary<string, string> detail = new Dictionary<string, string>();
+                detail.Add("姓名", i.name);
+                detail.Add("性别", i.sexDisplay);
+                detail.Add("出生日期", i.birthday.Value.ToShortDateString());
+                int age;
+                try
+                {
+                    age = System.DateTime.Now.Year - Convert.ToInt32(i.birthday.ToString().Substring(0, 4));
+                }
+                catch { age = 0; }
+                detail.Add("年龄", age.ToString());
+                eachDetailThisWeek.Add(detail);
+            }
+            Result.Add("今日", eachDetailThisWeek);
+
             foreach (var i in ss.StaffBirthday(1))
             {
                 Dictionary<string, string> detail = new Dictionary<string, string>();
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sexDisplay);
-                detail.Add("出生日期", i.birthday.ToString());
+                detail.Add("出生日期", i.birthday.Value.ToShortDateString());
                 int age;
                 try
                 {
@@ -1467,7 +1484,7 @@ namespace BlueHrWeb.Controllers
                 Dictionary<string, string> detail = new Dictionary<string, string>();
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sexDisplay);
-                detail.Add("出生日期", i.birthday.ToString());
+                detail.Add("出生日期", i.birthday.Value.ToShortDateString());
                 int age;
                 try
                 {
@@ -1485,7 +1502,7 @@ namespace BlueHrWeb.Controllers
                 Dictionary<string, string> detail = new Dictionary<string, string>();
                 detail.Add("姓名", i.name);
                 detail.Add("性别", i.sexDisplay);
-                detail.Add("出生日期", i.birthday.ToString());
+                detail.Add("出生日期", i.birthday.Value.ToShortDateString());
                 int age;
                 try
                 {

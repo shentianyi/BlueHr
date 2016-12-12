@@ -160,6 +160,45 @@ namespace BlueHrWeb.Controllers
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
         }
+
+        // POST: ShiftSchedule/MoreEasyCreate
+        [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult MoreEasyCreate(string[] staffNrs,int shiftId, DateTime startTime, DateTime endTime)
+        {
+            ResultMessage msg = new ResultMessage();
+            try
+            {
+                if (Convert.IsDBNull(startTime))
+                {
+                    msg.Content = "起始日期 不能为空";
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                if (Convert.IsDBNull(endTime))
+                {
+                    msg.Content = "截止日期 不能为空";
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+                for (int i = 0; i < staffNrs.Length; i++)
+                {
+                    ShiftSchedule shift = new ShiftSchedule();
+                    shift.staffNr = staffNrs[i];
+                    shift.shiftId = shiftId;
+                    shift.scheduleAt = DateTime.Now;
+                    bool isSucceed = cs.EasyCreate(shift, startTime, endTime);
+                    msg.Success = isSucceed;
+                    msg.Content += isSucceed ? "第" + i+1 + "条添加成功  " : "第" + i+1 + "条添加失败  ";
+                }
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                msg.Content = "添加失败,失败原因：" + ex;
+                return Json(msg, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         // GET: ShiftShedule/Edit/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
