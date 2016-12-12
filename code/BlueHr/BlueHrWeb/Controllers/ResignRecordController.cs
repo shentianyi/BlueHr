@@ -262,7 +262,7 @@ namespace BlueHrWeb.Controllers
             if (rrs.FindByNr(resignRecord.staffNr) != null)
             {
                 msg.Success = false;
-                msg.Content = "员工号已存在";
+                msg.Content = "该员工已经递交申请";
 
                 return msg;
             }
