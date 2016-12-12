@@ -1,4 +1,4 @@
-USE [BlueHr]
+USE [BlueHrV1]
 GO
 
 /****** Object:  Table [dbo].[LeaveRecord]    Script Date: 12/12/2016 12:05:32 ******/

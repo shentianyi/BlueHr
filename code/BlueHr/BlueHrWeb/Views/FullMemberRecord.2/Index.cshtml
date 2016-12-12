@@ -69,7 +69,7 @@
                             <th>审批人</th>
                             <th>审批时间</th>
                             <th>审核状态</th>
-                            <th>审核备注</th>
+                            <th>备注</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -80,7 +80,10 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.staffNr)
+                                        <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                            @Html.DisplayFor(modelItem => item.staffNr)
+                                            <i class="fa fa-eye"></i>
+                                        </a>
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.isPassCheck)
@@ -100,8 +103,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalAt)
                                     </td>
-                                    <td></td>
-                                    <td>
+                                
                                     @if (item.approvalStatus == null)
                                     {
                                         <td>未审批</td>
@@ -112,17 +114,17 @@
                                             @Html.DisplayFor(modelItem => item.approvalStatus)
                                         </td>
                                     }
-                                    </td>
+                                    
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalRemark)
                                     </td>
                                     <td>
                                         @if (item.approvalStatus == null)
                                         {
-                                            <a href="/FullMemberRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                            <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            <a href="/FullMemberRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                            <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                             <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
@@ -177,7 +179,7 @@
 
 <script type="text/javascript">
     Layout.init();
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_FullMemberRecord", "转正记录列表", "20", "all_FullMemberRecord_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_FullMemberRecor", "转正记录列表", "20", "all_FullMemberRecord_grid_table");
 
     function shLeaveRecord(id) {
         $('#approval_content').dialogModal({
@@ -185,7 +187,7 @@
                 var approvalStatus = $(".dialogModal").find("#aplStatus").val();
                 var approvalRemark = $(".dialogModal").find("#apvRemarks").val();
 
-                $.post("/FullMemberRecord/Approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemark }, function (data) {
+                $.post("/leaveRecord/approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemark }, function (data) {
 
                     if (!data.Success) {
                         $('#approval_content').dialogModal("hide");

@@ -102,11 +102,10 @@
         url: '/MessageRecord/LastLoginTime',
         type: 'get',
         success: function (data) {
-            console.log(data)
             var thisTime = new Date().Format("yyyy/MM/dd hh:mm");
             $("#loginTime").empty();
-            $("#loginTime").html(data);
-            $("#OnlineTime").html(DiffLong(thisTime, data));
+            $("#loginTime").html(data);  //请求登录时间
+            $("#OnlineTime").html(DiffLong(thisTime, data));  //利用函数计算出登录时长
 
             // setInterval(function(data){
             //     var thisTime = new Date().Format("yyyy/MM/dd hh:mm");
@@ -120,6 +119,7 @@
         }
     });
 
+    //请求登录的次数
     $.ajax({
         url: '/MessageRecord/LoginInCount',
         type: 'get',
@@ -153,12 +153,11 @@ function DiffLong(datestr1, datestr2) {
     return strRet;
 }
 
-function SetTime(time){
-    if(time<10){
-        return "0"+time;
-    }else{
-        return time;
-    }
-}
-
+// function SetTime(time){
+//     if(time<10){
+//         return "0"+time;
+//     }else{
+//         return time;
+//     }
+// }
 </script>
