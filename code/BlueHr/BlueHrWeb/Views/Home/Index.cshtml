@@ -202,9 +202,10 @@
                                     <thead>
                                         <tr>
                                             <td>姓名</td>
-                                            <td>合同名称</td>
-                                            <td>合同类型</td>
-                                            <td>合同到期</td>
+                                            <td>性别</td>
+                                            <td>入职日期</td>
+                                            <td>转正日期</td>
+                                            <td>剩余</td>
                                         </tr>
                                     </thead>
                                     <tbody id="ToEmployeesMonth">
@@ -220,9 +221,10 @@
                                     <thead>
                                         <tr>
                                             <td>姓名</td>
-                                            <td>合同名称</td>
-                                            <td>合同类型</td>
-                                            <td>合同到期</td>
+                                            <td>性别</td>
+                                            <td>入职日期</td>
+                                            <td>转正日期</td>
+                                            <td>剩余</td>
                                         </tr>
                                     </thead>
                                     <tbody id="AlreadyToEmployees">
@@ -249,12 +251,30 @@
                     @*<span style="font-family:黑体; font-size:14px; color:lightseagreen;">员工转正提醒</span>*@
                     <div class="marco-tabs-success">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#staffBirthdayThisWeekend" role="tab" data-toggle="tab">未来一周</a></li>
+                            <li role="presentation" class="active"><a href="#staffBirthdayToday" role="tab" data-toggle="tab">今日</a></li>
+                            <li role="presentation"><a href="#staffBirthdayThisWeekend" role="tab" data-toggle="tab">未来一周</a></li>
                             <li role="presentation"><a href="#staffBirthdayThisMonth" role="tab" data-toggle="tab">本月</a></li>
                             <li role="presentation"><a href="#staffBirthdayNextMonth" role="tab" data-toggle="tab">下月</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="staffBirthdayThisWeekend">
+                            <div role="tabpanel" class="tab-pane active" id="staffBirthdayToday">
+                                <span>未来一周生日员工</span>
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td>姓名</td>
+                                            <td>性别</td>
+                                            <td>出生日期</td>
+                                            <td>年龄</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="birthtoday">
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="staffBirthdayThisWeekend">
                                 <span>未来一周生日员工</span>
 
                                 <table class="table table-bordered">
@@ -438,10 +458,11 @@
         url: '/Staff/BirthdayDetail',
         type: 'get',
         success: function (data) {
-        	$("#staffBirthday").empty();
+        	$("#birthtoday").empty();
         	$("#birthweek").empty();
         	$("#birthmonth").empty();
         	$("#birthnextmonth").empty();
+            console.log(data);
             if(data.本周.length>0){
             	for(var i =0; i< data.本周.length; i++){
             		var Html = "<tr><td > "+data.本周[i].姓名+" </td><td > "+data.本周[i].性别+" </td><td > "+data.本周[i].出生日期+" </td><td > "+data.本周[i].年龄+" </td></tr>";
@@ -460,6 +481,12 @@
             		$(Html).appendTo($("#birthnextmonth"));
             	}
             }
+            if(data.今日.length>0){
+                for(var i =0; i< data.今日.length; i++){
+                    var Html = "<tr><td > "+data.今日[i].姓名+" </td><td > "+data.今日[i].性别+" </td><td > "+data.今日[i].出生日期+" </td><td > "+data.今日[i].年龄+" </td></tr>";
+                    $(Html).appendTo($("#birthtoday"));
+                }
+            }
         },
         error: function () {
             //console.log("CCCCCCCC");
@@ -474,7 +501,6 @@
             $("#ToEmployees").empty();
             $("#ToEmployeesMonth").empty();
             $("#AlreadyToEmployees").empty();
-
             var current = data.本月;
             var next = data.下月;
             var expired = data.过期;
