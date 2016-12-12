@@ -97,7 +97,7 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public ResignType IsResignTypeExit(string resignType)
         {
-            ResignType getResignType = FindByName(resignType);
+            ResignType getResignType = FindByName(resignType.Trim());
 
             if (getResignType != null)
             {
