@@ -223,6 +223,15 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
+            IStaffService ss = new StaffService(Settings.Default.db);
+            if (ss.FindByNr(model.staffNr) == null)
+            {
+                msg.Success = false;
+                msg.Content = "员工号不存在";
+
+                return msg;
+            }
+
             if (string.IsNullOrWhiteSpace(model.isPassCheck.ToString()))
             {
                 msg.Success = false;
