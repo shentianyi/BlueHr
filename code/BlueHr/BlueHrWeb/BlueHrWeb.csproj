@@ -494,6 +494,7 @@
     <Content Include="Scripts\jquery.file.upload\upload.file.data.js" />
     <Content Include="Scripts\jquery.mCustomScrollbar.concat.min.js" />
     <Content Include="Scripts\jquery.multi-select.js" />
+    <Content Include="Scripts\jquery.quicksearch.js" />
     <Content Include="Scripts\jquery.slimscroll.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />

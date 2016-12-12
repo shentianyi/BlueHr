@@ -85,7 +85,8 @@ namespace BlueHrWeb
               ));
 
             bundles.Add(new ScriptBundle("~/bundles/multi-select").Include(
-                "~/Scripts/jquery.multi-select.js"
+                "~/Scripts/jquery.multi-select.js",
+                "~/Scripts/jquery.quicksearch.js"
               ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

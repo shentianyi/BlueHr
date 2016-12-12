@@ -1516,59 +1516,5 @@ namespace BlueHrWeb.Controllers
             Result.Add("下月", eachDetailNextMonth);
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
-        //    private void SetResignTypeList(int? type, bool allowBlank = true)
-        //    {
-        //        IResignTypeService cs = new ResignTypeService(Settings.Default.db);
-
-        //        ResignTypeSearchModel csm = new ResignTypeSearchModel();
-
-        //        List<ResignType> certType = cs.Search(csm).ToList();
-
-        //        List<SelectListItem> select = new List<SelectListItem>();
-
-        //        if (allowBlank)
-        //        {
-        //            select.Add(new SelectListItem { Text = "", Value = "" });
-        //        }
-
-        //        foreach (var certt in certType)
-        //        {
-        //            if (type.HasValue && type.ToString().Equals(certt.id))
-        //            {
-        //                select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = true });
-        //            }
-        //            else
-        //            {
-        //                select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = false });
-        //            }
-        //        }
-        //        ViewData["resignTypeList"] = select;
-        //    }
-        //[HttpGet]
-        //public List<UserIDCardViewModel> getStaffUserIDCard()
-        //{
-
-        //    List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
-
-        //    Dictionary<string, string> aa = new Dictionary<string, string>();
-        //    IStaffService ss = new StaffService(Settings.Default.db);
-
-
-
-        //    foreach (var a in ss)
-        //    {
-
-        //        aa.Add("ID", ":SAD");
-        //        a
-
-
-
-
-        //            Result.Add(aa);
-        //    }
-
-
-        //    return UserIDCardViewModel.Converts(new StaffService(Settings.Default.db).getStaffUserIDCard());
-        //}
     }
 }

@@ -220,7 +220,7 @@ namespace BlueHrWeb.Controllers
             }
 
             IFullMemberRecordService fmrs = new FullMemberRecordService(Settings.Default.db);
-            if (fmrs.FindBystaffNr(model.staffNr) != null)
+            if (fmrs.FindByNr(model.staffNr) != null)
             {
                 msg.Success = false;
                 msg.Content = "该员工已经递交申请";

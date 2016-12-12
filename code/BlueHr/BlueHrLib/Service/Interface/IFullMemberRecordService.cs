@@ -24,5 +24,6 @@ namespace BlueHrLib.Service.Interface
 
         List<FullMemberRecord> GetAll();
         List<FullMemberRecord> FindBystaffNr(string staffNr);
+        FullMemberRecord FindByNr(string staffNr);
     }
 }
