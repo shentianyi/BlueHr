@@ -10,9 +10,9 @@ namespace BlueHrLib.Data
 {
     public partial class LeaveRecord
     {
-        public TimeSpan duration
+        public TimeSpan? duration
         {
-            get { return (this.leaveEnd-this.leaveStart).Duration(); }
+            get { return (this.leaveEnd-this.leaveStart); }
         }
     }
 }
