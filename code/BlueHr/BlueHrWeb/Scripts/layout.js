@@ -203,19 +203,23 @@ switch (pathname[1]) {
         if(pathname[2] == "Application"){
             $('.nav-apply').addClass('active');
             $('.nav-myThing').addClass('active');
-        };
+        }
         if(pathname[2] == "Approval"){
             $('.nav-view').addClass('active');
             $('.nav-myThing').addClass('active');
-        };
+        }
         if(pathname[2] == "Schedule"){
             $('.nav-day').addClass('active');
             $('.nav-myThing').addClass('active');
-        };
+        }
         if(pathname[2] == "Note"){
             $('.nav-note').addClass('active');
             $('.nav-myThing').addClass('active');
-        };
+        }
+        if(pathname[2] == "Finished"){
+            $('.nav-finished').addClass('active');
+            $('.nav-myThing').addClass('active');
+        }
         break;
     case "SysRoleAuthorization":
         $('.nav-sysRole').addClass('active');

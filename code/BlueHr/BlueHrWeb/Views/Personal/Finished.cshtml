@@ -10,150 +10,108 @@
 
 <hr class="hr-grey" />
 
-@*<div id="person_calendar" style="padding:30px;"></div>
-
-<div id="PersonScheduleModal" class="approval_content" style="display:none;">
-    <div class="dialogModal_header" style="background:steelblue;color:white;">
-        <span>日程安排</span>
-    </div>
-
-    <div class="dialogModal_content">
-        <div class="marco-nbody row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                 <div class="marco-igroup-primary">
-                    <span>内容</span>
-                    <input type="text" id="context" class="context" name="context" autofocus>
-                </div>
+<div class="row marco-tabs-default" style="margin:10px;">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#extra_work_application" role="tab" data-toggle="tab">加班申请</a></li>
+        <li role="presentation"><a href="#resign_application" role="tab" data-toggle="tab">离职申请</a></li>
+        <li role="presentation"><a href="#to_fullMember_application" role="tab" data-toggle="tab">转正申请</a></li>
+    </ul>
+    <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="extra_work_application">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            @*<th>ID</th>*@
+                            <th>工号</th>
+                            <th>申请人</th>
+                            <th>加班类型</th>
+                            <th>加班日期</th>
+                            <th>开始时间</th>
+                            <th>截至时间</th>
+                            <th>时长</th>
+                            <th>原因</th>
+                            <th>审批状态</th>
+                            <th>审批备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var extraWorks in ViewData["ExtraWork"] as List<Dictionary<string, string>>)
+                        {
+                            <tr>
+                                @foreach (var extraWork in extraWorks)
+                                {
+                                    if (extraWork.Key == "ID")
+                                    {
+                                    }
+                                    else if (extraWork.Key == "StaffNr")
+                                    {
+                                        <td title="查看员工详细信息">
+                                            <a href="/Staff/Delete/@extraWork.Value" class="option-icon-primary">
+                                                @extraWork.Value
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@extraWork.Value</td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
-            <br />
 
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                 <div class="marco-igroup-primary">
-                    <span>备注</span>
-                    <input type="text" id="remarks" class="remarks" name="remarks">
-                </div>
+            <div role="tabpanel" class="tab-pane" id="resign_application">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            @*<th>ID</th>*@
+                            <th>工号</th>
+                            <th>申请时间</th>
+                            <th>离职原因</th>
+                            <th>创建时间</th>
+                            <th>审批状态</th>
+                            <th>审批人</th>
+                            <th>审批备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var resigns in ViewData["Resign"] as List<Dictionary<string, string>>)
+                        {
+                            <tr>
+                                @foreach (var resign in resigns)
+                                {
+                                    if (resign.Key == "ID")
+                                    {
+                                    }
+                                    else if (resign.Key == "StaffNr")
+                                    {
+                                        <td title="查看员工详细信息">
+                                            <a href="/Staff/Delete/@resign.Value" class="option-icon-primary">
+                                                @resign.Value
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@resign.Value</td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
             </div>
-        </div>
-    </div>
 
-    <div class="dialogModal_footer">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
-            <button type="button" class="marco-btn-primary pull-right" data-dialogmodalbut="ok">
-                确认
-            </button>
+            
         </div>
     </div>
 </div>
 
-
-@Scripts.Render("~/bundles/fullcalendar")
-
-<script type="text/javascript">
+<script>
     Layout.init();
-
-    $("#person_calendar").css({"height":$(window).height()-300+'px', "width": $(window).width()-300+'px'});
-
-    $.ajax({
-        url:'/Personal/AllPersonSchedule',
-        type:'get',
-        success:function(data){
-            $('#person_calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay,listDay,listWeek,listMonth'
-                },
-                views: {
-                    listDay: { buttonText: '天列表' },
-                    listWeek: { buttonText: '周列表' },
-                    listMonth: { buttonText: '月列表' }
-                },
-                defaultDate: new Date(),
-                firstDay:1,
-                locale: 'zh-cn',
-                editable: true,
-                timeFormat: 'H:mm',
-                axisFormat: 'H:mm',
-                weekNumbers: true,
-                weekNumbersWithinDays: true,
-                selectable: true,
-                selectHelper: true,
-                select: function(start, end) {
-                    $('#PersonScheduleModal').dialogModal({
-                        onOkBut: function () {
-                            var Context = $(".dialogModal").find("#context").val();
-                            var Remark = $(".dialogModal").find("#remarks").val();
-                            $.ajax({
-                                url:"/Personal/AddSchedule",
-                                type:'post',
-                                data:{
-                                    category: '日常',
-                                    subject: '日常事务',
-                                    significance: '一般',
-                                    context:Context,
-                                    remark: Remark,
-                                    startTime: start.format('YYYY-MM-DD hh:mm:ss'),
-                                    endTime: end.format('YYYY-MM-DD hh:mm:ss')
-                                },
-                                success:function(data){
-                                    var eventData;
-                                    if (data) {
-                                        eventData = {
-                                            id: data.id,
-                                            title: data.context,
-                                            category: data.category,
-                                            significance: data.significance,
-                                            subject: data.subject,
-                                            start: start,
-                                            end: end
-                                        };
-                                    }
-
-                                    $('#person_calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-                                },
-                                error:function(){
-                                    Layout.popMsg("popMsg-danger", "添加日程事件失败");
-                                }
-                            })
-                        },
-                        onCancelBut: function () { 
-                        },
-                        onLoad: function () {
-                        },
-                        onClose: function () {
-                        }
-                    });
-
-                    $('#person_calendar').fullCalendar('unselect');
-                },
-                dayClick: function(date, allDay, jsEvent, view){
-                    console.log(view);
-                },
-                eventClick: function(event, jsEvent, view) {
-                    if(confirm("确认删除？")){
-                        $.ajax({
-                            url:'/Personal/DeleteSchedule',
-                            type:'post',
-                            data:{
-                                id: event.id
-                            },
-                            success:function(data){
-                                if(data){
-                                    $('#person_calendar').fullCalendar('removeEvents', [event.id]);
-                                }
-                            },
-                            error:function(){
-                                Layout.popMsg("popMsg-danger", "删除失败");
-                            }
-                        })
-                    }
-                },
-                events: data
-            });
-        },
-        error:function (){
-            console.log("Something Error!");
-        }
-    });
-
-</script>*@
+</script>
