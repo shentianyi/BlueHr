@@ -148,6 +148,8 @@
 
             <div class="row" style="margin: 0;">
                 <span style="color: #31708f;">选择要排班员工</span>
+                <button class="marco-btn-primary" id="select_all_staff">全选</button>
+                <button class="marco-btn-primary" id="deselect_all_staff">全不选</button>
 
                 <br />
                 <select name="allStaff" id="allStaff" multiple='multiple'></select>
@@ -183,7 +185,7 @@
 
             <br />
 
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="max-height: 490px; overflow:auto;">
                 <!--<span>人员名单</span>-->
 
                 <table class="table table-bordered">
@@ -206,6 +208,7 @@
 </div>
 
 <script type="text/javascript">
+
     $("#shift_schedule_calendar").parent().css({"width" : $(window).width() - 250 + 'px'});
 
     $(window).resize(function () {
@@ -336,10 +339,13 @@
                         staffNrs: StaffNrs
                     },
                     success:function(data){
-                        console.log(data);
+                        // console.log(data);
+                        if(data.Success){
+                            window.location.reload();
+                        }
                     },
                     error:function(){
-                        console.log("Something Error!");
+                        // console.log("Something Error!");
                     }
                 })
 
@@ -352,8 +358,8 @@
                 //初始化选择框
                 $(".dialogModal").find('#allStaff').multiSelect({ 
                     selectableOptgroup: true,
-                    selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='工号、姓名'>",
-                    selectionHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='工号、姓名'>",
+                    selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='搜索：工号、姓名'>",
+                    selectionHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='搜索：工号、姓名'>",
                     afterInit: function(ms){
                         var that = this,
                             $selectableSearch = that.$selectableUl.prev(),
@@ -380,6 +386,16 @@
                     afterSelect: function(values){
                         // console.log(values);
                     }
+                });
+
+                $(".dialogModal").find('#select_all_staff').click(function(){
+                    $(".dialogModal").find('#allStaff').multiSelect('select_all');
+                    return false;
+                });
+
+                $(".dialogModal").find('#deselect_all_staff').click(function(){
+                    $(".dialogModal").find('#allStaff').multiSelect('deselect_all');
+                    return false;
                 });
             },
             onClose: function () {
