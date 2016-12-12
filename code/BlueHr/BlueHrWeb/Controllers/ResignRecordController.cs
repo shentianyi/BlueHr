@@ -80,7 +80,7 @@ namespace BlueHrWeb.Controllers
 
             //对ResignType 进行处理， 返回ID
             IResignTypeService rts = new ResignTypeService(Settings.Default.db);
-            resignType = rts.IsResignTypeExit(Request.Form.Get("resignTypeName"));
+            resignType = rts.IsResignTypeExit(Request.Form.Get("resignTypeName").Trim());
 
             string A = Request.Form.Get("resignTypeName");
             Console.Write(A);
