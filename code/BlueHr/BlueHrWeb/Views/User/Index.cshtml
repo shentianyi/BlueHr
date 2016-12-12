@@ -78,7 +78,7 @@
             </div>
    
         </div>
-        <div class="advanced-filter row" style="margin:8px;position:relative;left:14px;bottom:5px;">
+        <div class="advanced-filter row" style="margin:8px;position:relative;left:8px;bottom:5px;">
                 <span>添加查询条件：</span>
                 <select id="params" name="params"><option value="字段">字段</option>
                     <option value="条件1">条件1</option>
@@ -100,11 +100,9 @@
             </button>
         </a>
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            
             <li role="presentation" class="active"><a href="#unlocked_user" role="tab" data-toggle="tab">未锁定用户</a></li>
             <li role="presentation"><a href="#locked_user" role="tab" data-toggle="tab">已锁定用户</a></li>
             <li role="presentation"><a href="#all_user" role="tab" data-toggle="tab">所有用户</a></li> 
-            
         </ul>
         <div class="tab-content">
             
@@ -332,9 +330,8 @@
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "locked_user", "已锁定用户列表", "20", "locked_user_grid_table");
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unlocked_user", "未锁定用户列表", "20", "unlocked_user_grid_table");
     })
-//自定义搜索
+    //弹出框
      $('.advanced-filter-btn').click(function () {
-
         $('#search_content').dialogModal({
             onOkBut: function () {
             },
@@ -345,7 +342,6 @@
             onClose: function () {
                 window.location.reload();
             }
-            
         });
     });
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unlocked_user", "未锁定用户列表", "20", "unlocked_user_grid_table");
@@ -363,6 +359,7 @@
     //});
 
     //Layout.advancedfilter();
+    
     function lock(id){
         if(confirm('确定操作？')){
             $.post('/User/LockUnLock',{id: id},function(data){

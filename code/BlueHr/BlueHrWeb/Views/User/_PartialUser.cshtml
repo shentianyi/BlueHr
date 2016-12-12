@@ -18,11 +18,11 @@
 
         <div class="marco-npanel-primary">
             <div class="marco-nheading">
-                {{action}}
+                {{action}}  <!--编辑用户-->
                 <div class="pull-right">
                     <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;">
                         <i class="fa fa-check-circle-o"></i>
-                        <span>{{actionBtn}}</span>
+                        <span>{{actionBtn}}</span> <!--更新-->
                     </button>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                         @if (Model != null)
                         {
                            <label for="pwd">密码*</label>
-
+                           <!--@Html.EditorFor(model => model.pwd)-->
                             <input type="password" name="pwd" id="pwd" placeholder="密码" value="@Model.pwd" />
                         }
                         else
@@ -180,6 +180,7 @@
     </div>
 </div>
 
+<!--公司和部门弹出框-->
 <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -187,6 +188,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <p class="modal-title">选择权限公司和部门</p>
             </div>
+
             <div class="modal-body">
                 <div class="row">
                     <div class="col col-lg-4">
@@ -197,15 +199,17 @@
                     </div>
                 </div>
             </div>
+
             <div class="modal-footer">
                 <button id="btnEdit3" class="btn btn-primary" style="border-radius:3px;">确认</button>
             </div>
+
         </div>
     </div>
 </div>
+
 <script type="text/javascript">
     Layout.init();
-
     var cmpList = [];
 
     //控制textarea高度
@@ -221,7 +225,6 @@
             return false;
         }
         else {
-
             location.href = '/User/Index';
         }
     }
@@ -229,8 +232,12 @@
     //审核
     function asignRoleConfirm(id) {
         $('#approval_content').dialogModal({
-            onOkBut: function () { },
-            onCancelBut: function () { },
+            onOkBut: function () {
+
+             },
+            onCancelBut: function () {
+                
+             },
             onLoad: function () {
                 var theSel = $("#role").val();
                 if (theSel != "" && theSel != undefined && theSel != null) {
