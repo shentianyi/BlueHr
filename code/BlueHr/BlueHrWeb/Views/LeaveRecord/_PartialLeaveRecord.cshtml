@@ -1,0 +1,129 @@
+﻿@model BlueHrLib.Data.LeaveRecord
+
+<div id="leaverecord" style="margin:20px;">
+    <ol class="breadcrumb current-position">
+        您的位置：
+        <li>@Html.ActionLink("请假管理", "Index")</li>
+        <li>{{action}}</li>
+    </ol>
+
+    <hr class="hr-grey" />
+
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        if (Model != null)
+        {
+            @Html.HiddenFor(model => model.id)
+        }
+
+        <div class="marco-npanel-primary">
+            <div class="marco-nheading">
+                {{action}}
+
+                <div class="pull-right">
+                    <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;">
+                        <i class="fa fa-check-circle-o"></i>
+                        <span>{{actionBtn}}</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>工号</span>
+                        @Html.EditorFor(model => model.staffNr)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>起始日期</span>
+                        @Html.EditorFor(model => model.leaveStart, new { htmlAttributes = new { @class = "date-picker" } })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>结束日期</span>
+                        @Html.EditorFor(model => model.leaveEnd, new { htmlAttributes = new { @class = "date-picker" } })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>请假原因</span>
+                        @Html.EditorFor(model => model.remark)
+                    </div>
+                </div>
+                @if (Model != null)
+                {
+                    <div id="approval-prp">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>申请时间</span>
+                                @Html.EditorFor(model => model.createdAt, new { htmlAttributes = new { @class = "date-picker" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>申请人</span>
+                                @Html.EditorFor(model => model.userId)
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>审批人</span>
+                                @Html.EditorFor(model => model.approvalUserId)
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>审批状态</span>
+                                @Html.EditorFor(model => model.approvalStatus)
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>审批时间</span>
+                                @Html.EditorFor(model => model.approvalAt, new { htmlAttributes = new { @class = "date-picker" } })
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-textarea">
+                                <span>备注</span>
+                                @Html.TextAreaFor(model => model.approvalRemark)
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    Layout.init();
+
+    //控制textarea高度
+    $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+    $(window).resize(function () {
+        $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+    });
+
+    //Layout.datepicker('.datetimepicker');
+    Layout.datepicker('.date-picker');
+
+    //回调函数
+    function post_return_action(data) {
+
+        if (!data.Success) {
+            Layout.popMsg('popMsg-danger', data.Content);
+            return false;
+        }
+        else {
+
+            location.href = '/LeaveRecord/Index';
+        }
+    }
+</script>

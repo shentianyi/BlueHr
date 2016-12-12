@@ -80,7 +80,7 @@
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
 
-            <a href="/ResignRecord/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
+            <a href="/ResignRecord/Create" class="pull-right" style="margin-top: -10px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
                     <span>创建</span>
@@ -98,7 +98,7 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
-                            <th></th>
+                            @*<th></th>*@
                             <th>工号</th>
                             <th>离职类型</th>
                             <th>申请时间</th>
@@ -118,13 +118,13 @@
                             {
                                 
                                     <tr>
-                                        @if(item.approvalStatus==null){
+                                        @*@if(item.approvalStatus==null){
                                         <td>
                                             <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
                                         </td>
                                         }else{
                                             <td></td>
-                                        }
+                                        }*@
                                         <td>
                                             <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
                                                 @Html.DisplayFor(modelItem => item.staffNr)

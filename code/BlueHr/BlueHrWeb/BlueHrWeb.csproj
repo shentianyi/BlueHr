@@ -255,6 +255,7 @@
     <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\FullMemberRecordController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
+    <Compile Include="Controllers\LeaveRecordController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\RecruitController.cs" />
     <Compile Include="Controllers\ResignRecordController.cs" />
@@ -761,6 +762,11 @@
     <Content Include="Views\FullMemberRecord\Index.cshtml" />
     <Content Include="Views\FullMemberRecord\_PartialFullMemberRecord.cshtml" />
     <Content Include="Views\Personal\Finished.cshtml" />
+    <Content Include="Views\LeaveRecord\_PartialLeaveRecord.cshtml" />
+    <Content Include="Views\LeaveRecord\Create.cshtml" />
+    <Content Include="Views\LeaveRecord\Delete.cshtml" />
+    <Content Include="Views\LeaveRecord\Edit.cshtml" />
+    <Content Include="Views\LeaveRecord\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -122,7 +122,7 @@ namespace BlueHrWeb.Controllers
             //可以使用ViewData进行传值
             User user = System.Web.HttpContext.Current.Session["user"] as User;
 
-            //加班申请信息
+            //加班审核信息
             IExtraWorkRecordService rwrs = new ExtraWorkRecordService(Settings.Default.db);
             ExtraWorkRecordSearchModel ewrsSearchModel = new ExtraWorkRecordSearchModel();
             //ewrsSearchModel.lgUser = user;
@@ -151,7 +151,7 @@ namespace BlueHrWeb.Controllers
 
             ViewData["ExtraWork"] = AllExtraWork;
 
-            //离职申请信息
+            //离职审核信息
             IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
             ResignRecordSearchModel rrsSearchModel = new ResignRecordSearchModel();
             //ewrsSearchModel.lgUser = user;
@@ -194,7 +194,7 @@ namespace BlueHrWeb.Controllers
             //可以使用ViewData进行传值
             User user = System.Web.HttpContext.Current.Session["user"] as User;
 
-            //加班申请信息
+            //加班已办信息
             IExtraWorkRecordService rwrs = new ExtraWorkRecordService(Settings.Default.db);
             ExtraWorkRecordSearchModel ewrsSearchModel = new ExtraWorkRecordSearchModel();
             ewrsSearchModel.lgUser = user;
@@ -223,7 +223,7 @@ namespace BlueHrWeb.Controllers
 
             ViewData["ExtraWork"] = AllExtraWork;
 
-            //离职申请信息
+            //离职已办信息
             IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
             ResignRecordSearchModel rrsSearchModel = new ResignRecordSearchModel();
             ewrsSearchModel.lgUser = user;
