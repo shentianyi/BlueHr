@@ -108,6 +108,7 @@
     <Compile Include="Data\ExtraWorkRecord.cs" />
     <Compile Include="Data\ExtraWorkRecordView.cs" />
     <Compile Include="Data\JobTitle.cs" />
+    <Compile Include="Data\LeaveRecord.cs" />
     <Compile Include="Data\MessageRecordView.cs" />
     <Compile Include="Data\Message\ImportMessage.cs" />
     <Compile Include="Data\Message\ReportMessage.cs" />
@@ -122,12 +123,14 @@
     <Compile Include="Data\Model\Excel\WorkSumExcelModel.cs" />
     <Compile Include="Data\Model\PageViewModel\RecruitInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\FullMemberRecordInfoModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\LeaveRecordInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\RewardsAndPenaltiesInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\SysAuthorizationInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\SysRoleAuthorizationInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\SysRoleInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\SysUserDataAuthInfoModel.cs" />
     <Compile Include="Data\Model\Search\FullMemberRecordSearchModel.cs" />
+    <Compile Include="Data\Model\Search\LeaveRecordSearchModel.cs" />
     <Compile Include="Data\Model\Search\RecruitSearchModel.cs" />
     <Compile Include="Data\Model\Search\RewardsAndPenaltySearchModel.cs" />
     <Compile Include="Data\Model\Search\PersonScheduleSearchModel.cs" />
@@ -138,6 +141,7 @@
     <Compile Include="Data\Model\Search\WorkAndRestSearchModel.cs" />
     <Compile Include="Data\Repository\Implement\RecruitRepository.cs" />
     <Compile Include="Data\Repository\Implement\FullMemberRecordRepository.cs" />
+    <Compile Include="Data\Repository\Implement\LeaveRecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\RewardsAndPenaltyRepository.cs" />
     <Compile Include="Data\Repository\Implement\PersonScheduleRepository.cs" />
     <Compile Include="Data\Repository\Implement\SysAuthorizationRepository.cs" />
@@ -148,6 +152,7 @@
     <Compile Include="Data\Repository\Implement\WorkAndRestRepository.cs" />
     <Compile Include="Data\Repository\Interface\IRecruitRepository.cs" />
     <Compile Include="Data\Repository\Interface\IFullMemberRecordRepository.cs" />
+    <Compile Include="Data\Repository\Interface\ILeaveRecordRepository.cs" />
     <Compile Include="Data\Repository\Interface\IRewardsAndPenaltyRepository.cs" />
     <Compile Include="Data\Repository\Interface\IPersonScheduleRepository.cs" />
     <Compile Include="Data\Repository\Interface\ISysAuthorizationRepository.cs" />
@@ -321,6 +326,7 @@
     <Compile Include="Service\Implement\PersonScheduleService.cs" />
     <Compile Include="Service\Implement\QuartzJobService.cs" />
     <Compile Include="Service\Implement\RecruitService.cs" />
+    <Compile Include="Service\Implement\LeaveRecordService.cs" />
     <Compile Include="Service\Implement\ResignRecordService.cs" />
     <Compile Include="Service\Implement\ResignTypeService.cs" />
     <Compile Include="Service\Implement\FullMemberRecordService.cs" />
@@ -357,6 +363,7 @@
     <Compile Include="Service\Interface\IFullMemberRecordService.cs" />
     <Compile Include="Service\Interface\IInSureTypeService.cs" />
     <Compile Include="Service\Interface\IBankCardService.cs" />
+    <Compile Include="Service\Interface\ILeaveRecordService.cs" />
     <Compile Include="Service\Interface\IMessageRecordService.cs" />
     <Compile Include="Service\Interface\IPersonScheduleService.cs" />
     <Compile Include="Service\Interface\IQuartzJobService.cs" />

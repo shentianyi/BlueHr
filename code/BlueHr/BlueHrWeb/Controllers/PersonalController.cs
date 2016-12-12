@@ -85,6 +85,31 @@ namespace BlueHrWeb.Controllers
 
             ViewData["Resign"] = AllResignRecords;
 
+            //转正申请信息
+            IFullMemberRecordService fmrs= new FullMemberRecordService(Settings.Default.db);
+            FullMemberRecordSearchModel fmrsSearchModel = new FullMemberRecordSearchModel();
+            ewrsSearchModel.lgUser = user;
+            List<FullMemberRecord> fullMemberRecords = fmrs.Search(fmrsSearchModel).Where(c => c.userId.Equals(user.id)).Where(c => c.approvalStatus == null).ToList();
+            List<Dictionary<string, string>> AllFullMemberRecords = new List<Dictionary<string, string>>();
+
+            foreach (var fullMemberRecord in fullMemberRecords)
+            {   
+                Dictionary<string, string> fullMembers = new Dictionary<string, string>();
+
+                fullMembers.Add("ID", fullMemberRecord.id.ToString());
+                fullMembers.Add("StaffNr", fullMemberRecord.staffNr);
+                fullMembers.Add("isPassCheck", fullMemberRecord.isPassCheck?"通过":"未通过");
+                fullMembers.Add("checkScore", fullMemberRecord.checkScore.ToString());
+                fullMembers.Add("beFullAt", fullMemberRecord.beFullAt.ToString());
+                fullMembers.Add("ApprovalStatus", fullMemberRecord.approvalStatus == null ? "审批中" : fullMemberRecord.approvalStatus);
+                fullMembers.Add("approvalUserId", fullMemberRecord.approvalUserId.ToString());
+                fullMembers.Add("ApprovalRemark", fullMemberRecord.approvalRemark);
+
+                AllFullMemberRecords.Add(fullMembers);
+            }
+
+            ViewData["FullMembers"] = AllFullMemberRecords;
+
             return View();
         }
 
@@ -97,7 +122,7 @@ namespace BlueHrWeb.Controllers
             //可以使用ViewData进行传值
             User user = System.Web.HttpContext.Current.Session["user"] as User;
 
-            //加班申请信息
+            //加班审核信息
             IExtraWorkRecordService rwrs = new ExtraWorkRecordService(Settings.Default.db);
             ExtraWorkRecordSearchModel ewrsSearchModel = new ExtraWorkRecordSearchModel();
             //ewrsSearchModel.lgUser = user;
@@ -126,7 +151,7 @@ namespace BlueHrWeb.Controllers
 
             ViewData["ExtraWork"] = AllExtraWork;
 
-            //离职申请信息
+            //离职审核信息
             IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
             ResignRecordSearchModel rrsSearchModel = new ResignRecordSearchModel();
             //ewrsSearchModel.lgUser = user;
@@ -169,7 +194,7 @@ namespace BlueHrWeb.Controllers
             //可以使用ViewData进行传值
             User user = System.Web.HttpContext.Current.Session["user"] as User;
 
-            //加班申请信息
+            //加班已办信息
             IExtraWorkRecordService rwrs = new ExtraWorkRecordService(Settings.Default.db);
             ExtraWorkRecordSearchModel ewrsSearchModel = new ExtraWorkRecordSearchModel();
             ewrsSearchModel.lgUser = user;
@@ -198,7 +223,7 @@ namespace BlueHrWeb.Controllers
 
             ViewData["ExtraWork"] = AllExtraWork;
 
-            //离职申请信息
+            //离职已办信息
             IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
             ResignRecordSearchModel rrsSearchModel = new ResignRecordSearchModel();
             ewrsSearchModel.lgUser = user;

@@ -26,12 +26,16 @@ INSERT INTO [BlueHr].[dbo].[SystemSetting]
            ,[repeatAttendanceRecordTime]
            ,[validAttendanceRecordTime]
            ,[lateExceptionTime]
-           ,[earlyLeaveExceptionTime],
-            [systemHost])
+           ,[earlyLeaveExceptionTime]
+           ,[systemHost]
+           ,[emaiSMTPHost]
+           ,[emailUser]
+           ,[emailPwd]
+           ,[emailAddress]
+           ,[defaultTrailMonth])
      VALUES
-           (5,	NULL,	NULL,	NULL,	2,	50,	30,	30, 'http://localhost/')
+           (5,	NULL,	NULL,	NULL, 2,	50,	30,	30, 'http://localhost/', NULL, NULL, NULL, NULL, 2)
 GO
-
 
 -- 建立自动任务
 -- 每天23:30分运行QuartzJob, 计算转正提醒
