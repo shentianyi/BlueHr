@@ -255,6 +255,7 @@
     <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\FullMemberRecordController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
+    <Compile Include="Controllers\LeaveRecordController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\RecruitController.cs" />
     <Compile Include="Controllers\ResignRecordController.cs" />
