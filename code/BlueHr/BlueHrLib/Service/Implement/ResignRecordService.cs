@@ -70,5 +70,10 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.FindByResignType(id);
         }
+
+        public ResignRecord FindByNr(string staffNr)
+        {
+            return rep.FindByNr(staffNr);
+        }
     }
 }

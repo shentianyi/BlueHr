@@ -203,19 +203,23 @@ switch (pathname[1]) {
         if(pathname[2] == "Application"){
             $('.nav-apply').addClass('active');
             $('.nav-myThing').addClass('active');
-        };
+        }
         if(pathname[2] == "Approval"){
             $('.nav-view').addClass('active');
             $('.nav-myThing').addClass('active');
-        };
+        }
         if(pathname[2] == "Schedule"){
             $('.nav-day').addClass('active');
             $('.nav-myThing').addClass('active');
-        };
+        }
         if(pathname[2] == "Note"){
             $('.nav-note').addClass('active');
             $('.nav-myThing').addClass('active');
-        };
+        }
+        if(pathname[2] == "Finished"){
+            $('.nav-finished').addClass('active');
+            $('.nav-myThing').addClass('active');
+        }
         break;
     case "SysRoleAuthorization":
         $('.nav-sysRole').addClass('active');
@@ -362,7 +366,6 @@ Layout.datepicker = function (date_picker) {
     });
 }
 
-
 Layout.timepicker = function (time_picker) {
     $(time_picker).datetimepicker({
         format: 'H:i',
@@ -434,8 +437,10 @@ function FutureDate(day) {
     return FutureDate;
 }
 
+//自定义搜索按钮控制内容的上下显示
 Layout.advancedfilter = function () {
     $('.advanced-filter-btn').click(function () {
+
         var Display = $('.advanced-filter').css('display');
 
         if (Display === "none") {
@@ -466,7 +471,7 @@ Layout.TransferTableToGrid = function (width, height, editable, divID, title, rP
     $("#" + gridID).pqGrid(newObj);
 }
 
-// 弹出任意界面的内容
+// 在新的页面打开任意界面的内容
 Layout.openNewWindow = function(pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook){
     NewWindow = window.open (pageURL, 'newwindow', 'height='+height+', width='+width+', top = '+top+',left= '+left+
     ', toolbar='+toolbar+', menubar='+menubar+', scrollbars='+scrollbars+', resizable='+resizable+',location='+location+', status='+status+

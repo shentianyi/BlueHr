@@ -179,6 +179,30 @@ namespace BlueHrWeb.Controllers
 
             ViewData["Resign"] = AllResignRecords;
 
+            //转正审核信息
+            IFullMemberRecordService fmrs = new FullMemberRecordService(Settings.Default.db);
+            FullMemberRecordSearchModel fmrsSearchModel = new FullMemberRecordSearchModel();
+            ewrsSearchModel.lgUser = user;
+            List<FullMemberRecord> fullMemberRecords = fmrs.Search(fmrsSearchModel).Where(c => c.approvalUserId.Equals(user.id)).ToList();
+            List<Dictionary<string, string>> AllFullMemberRecords = new List<Dictionary<string, string>>();
+
+            foreach (var fullMemberRecord in fullMemberRecords)
+            {
+                Dictionary<string, string> fullMembers = new Dictionary<string, string>();
+
+                fullMembers.Add("ID", fullMemberRecord.id.ToString());
+                fullMembers.Add("StaffNr", fullMemberRecord.staffNr);
+                fullMembers.Add("isPassCheck", fullMemberRecord.isPassCheck ? "通过" : "未通过");
+                fullMembers.Add("checkScore", fullMemberRecord.checkScore.ToString());
+                fullMembers.Add("beFullAt", fullMemberRecord.beFullAt.ToString());
+                fullMembers.Add("ApprovalStatus", fullMemberRecord.approvalStatus == null ? "审批中" : fullMemberRecord.approvalStatus);
+                fullMembers.Add("approvalUserId", fullMemberRecord.approvalUserId.ToString());
+                fullMembers.Add("ApprovalRemark", fullMemberRecord.approvalRemark);
+
+                AllFullMemberRecords.Add(fullMembers);
+            }
+
+            ViewData["FullMembers"] = AllFullMemberRecords;
 
             return View();
         }
@@ -251,6 +275,30 @@ namespace BlueHrWeb.Controllers
 
             ViewData["Resign"] = AllResignRecords;
 
+            //转正已办信息
+            IFullMemberRecordService fmrs = new FullMemberRecordService(Settings.Default.db);
+            FullMemberRecordSearchModel fmrsSearchModel = new FullMemberRecordSearchModel();
+            ewrsSearchModel.lgUser = user;
+            List<FullMemberRecord> fullMemberRecords = fmrs.Search(fmrsSearchModel).Where(c => c.userId.Equals(user.id)).Where(c => c.approvalStatus != null).ToList();
+            List<Dictionary<string, string>> AllFullMemberRecords = new List<Dictionary<string, string>>();
+
+            foreach (var fullMemberRecord in fullMemberRecords)
+            {
+                Dictionary<string, string> fullMembers = new Dictionary<string, string>();
+
+                fullMembers.Add("ID", fullMemberRecord.id.ToString());
+                fullMembers.Add("StaffNr", fullMemberRecord.staffNr);
+                fullMembers.Add("isPassCheck", fullMemberRecord.isPassCheck ? "通过" : "未通过");
+                fullMembers.Add("checkScore", fullMemberRecord.checkScore.ToString());
+                fullMembers.Add("beFullAt", fullMemberRecord.beFullAt.ToString());
+                fullMembers.Add("ApprovalStatus", fullMemberRecord.approvalStatus == null ? "审批中" : fullMemberRecord.approvalStatus);
+                fullMembers.Add("approvalUserId", fullMemberRecord.approvalUserId.ToString());
+                fullMembers.Add("ApprovalRemark", fullMemberRecord.approvalRemark);
+
+                AllFullMemberRecords.Add(fullMembers);
+            }
+
+            ViewData["FullMembers"] = AllFullMemberRecords;
 
             return View();
         }

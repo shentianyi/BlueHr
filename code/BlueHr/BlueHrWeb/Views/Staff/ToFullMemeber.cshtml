@@ -130,7 +130,10 @@
 
             var nr = $("#staffNr").val();
             var isPassCheck = $("#isPassCheck").is(':checked');
+            
             var beFullAt = $("#beFullAt").val();
+            console.log(beFullAt);
+            console.log(beFullAt.length);
             var checkAt = $("#checkAt").val();
             var checkScore = $("#checkScore").val();
             var beFullChecker = $("#beFullChecker").val();
@@ -142,7 +145,6 @@
                 return;
             }
 
-
             if (checkScore.length > 0) {
                 if (isNaN(checkScore)) {
                     alert("请填写正确的数字");
@@ -150,7 +152,7 @@
                 }
             }
 
-            $.post("/Staff/DoToFullMemeber/", { staffNr: nr, isPassCheck: isPassCheck, beFullAt: beFullAt, checkAt: checkAt, beFullChecker: beFullChecker, checkScore: checkScore, remark: remark }, function (data) {
+            $.post("/Staff/DoToFullMemeber", { staffNr: nr, isPassCheck: isPassCheck, beFullAt: beFullAt, checkAt: checkAt, beFullChecker: beFullChecker, checkScore: checkScore, remark: remark }, function (data) {
                 if (data.Success) {
                     alert("转正成功！");
                     window.location = "/Staff/Delete/" + nr;
