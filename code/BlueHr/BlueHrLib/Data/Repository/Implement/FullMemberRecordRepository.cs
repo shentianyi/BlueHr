@@ -110,5 +110,11 @@ namespace BlueHrLib.Data.Repository.Implement
             List<FullMemberRecord> rp = this.context.GetTable<FullMemberRecord>().Where(r => r.staffNr == staffNr).ToList();
             return rp;
         }
+
+        public FullMemberRecord FindByNr(string staffNr)
+        {
+            IQueryable<FullMemberRecord> fullMemberRecord = this.context.FullMemberRecord;
+            return fullMemberRecord.Where(c => c.staffNr == staffNr).FirstOrDefault();
+        }
     }
 }
