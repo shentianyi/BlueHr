@@ -17,5 +17,6 @@ namespace BlueHrLib.Data.Repository.Interface
         LeaveRecord FindById(int id);
 
         bool DeleteById(int id);
+        IQueryable<LeaveRecord> AdvancedSearch(string v1, string v2, string v3);
     }
 }

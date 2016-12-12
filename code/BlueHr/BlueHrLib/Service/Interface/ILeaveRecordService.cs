@@ -22,6 +22,7 @@ namespace BlueHrLib.Service.Interface
         bool Update(LeaveRecord title);
 
         bool DeleteById(int id);
-
+        IQueryable<LeaveRecord> AdvancedSearch(string v1, string v2, string v3);
+        //DateTime CalculateTime(int id);
     }
 }

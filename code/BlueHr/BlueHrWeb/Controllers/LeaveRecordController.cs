@@ -183,6 +183,15 @@ namespace BlueHrWeb.Controllers
             return View(lr);
         }
 
+        //[HttpGet]
+        //public JsonResult CalculateTime(int id)
+        //{
+        //    ILeaveRecordService lrs = new LeaveRecordService(Settings.Default.db);
+        //    DateTime caculated = lrs.CalculateTime(id);
+        //    return Json(caculated, JsonRequestBehavior.AllowGet);
+        //}
+
+
         // POST: LeaveRecord/Delete/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
@@ -206,6 +215,70 @@ namespace BlueHrWeb.Controllers
                 return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult AdvancedSearch(LeaveRecordSearchModel q)
+        {
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.loginUser = user;
+            ViewBag.Query = q;
+
+            ILeaveRecordService lrs = new LeaveRecordService(Settings.Default.db);
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            IPagedList<LeaveRecord> leaveRecords = null;
+            IQueryable<LeaveRecord> leaveRecordstemp = null;
+            IQueryable<LeaveRecord> leaveRecordstemp1 = null;
+            List<LeaveRecord> Result = new List<LeaveRecord>();
+            if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
+            {
+                if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
+                {
+                    if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
+                    {
+                        string AllTableName = Request.Form["allTableName"].ToString();
+                        string[] AllTableNameArray = AllTableName.Split(',');
+                        string SearchConditions = Request.Form["searchConditions"];
+                        string[] SearchConditionsArray = SearchConditions.Split(',');
+                        string searchValueFirst = Request.Form["searchValueFirst"];
+                        string[] searchValueFirstArray = searchValueFirst.Split(',');
+
+                        try
+                        {
+                            leaveRecordstemp1 = lrs.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                            if (AllTableNameArray.Length > 1)
+                            {
+                                for (var i = 1; i < AllTableNameArray.Length; i++)
+                                {
+                                    //IPagedList<Staff> staffstemp = null;
+                                    leaveRecordstemp = lrs.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                    foreach (var temp in leaveRecordstemp)
+                                    {
+                                        if (leaveRecordstemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                leaveRecords = leaveRecordstemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            leaveRecords = null;
+                        }
+
+                    }
+                }
+            }
+            leaveRecords = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            return View("Index", leaveRecords);
+        }
+
 
         [HttpPost]
         public ResultMessage DoValidation(LeaveRecord leaveRecord)
