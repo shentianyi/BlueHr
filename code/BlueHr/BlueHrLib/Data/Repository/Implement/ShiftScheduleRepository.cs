@@ -209,5 +209,10 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<ShiftScheduleView>().ToList();
         }
+
+        public ShiftSchedule FindForEdit(string staffNr, DateTime scheduleAt, int shiftId)
+        {
+            return this.context.GetTable<ShiftSchedule>().FirstOrDefault(s => s.scheduleAt.Equals(scheduleAt) && s.staffNr.Equals(staffNr) && s.shiftId.Equals(shiftId));
+        }
     }
 }
