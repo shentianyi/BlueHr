@@ -83,6 +83,14 @@ namespace BlueHrWeb.Controllers
 
             try
             {
+                IFullMemberRecordService fmrs = new FullMemberRecordService(Settings.Default.db);
+                if (fmrs.FindByNr(FullMemberRecordRecord.staffNr) != null && fmrs.FindByNr(FullMemberRecordRecord.staffNr).isPassCheck == true)
+                {
+                    msg.Success = false;
+                    msg.Content = "该员工已经递交申请并通过";
+
+                    return Json(msg, JsonRequestBehavior.DenyGet);
+                }
                 msg = DoValidation(FullMemberRecordRecord);
 
                 IFullMemberRecordService rrs = new FullMemberRecordService(Settings.Default.db);
@@ -126,14 +134,23 @@ namespace BlueHrWeb.Controllers
 
             try
             {
+                msg = DoValidation(fullMemberRecord);
 
-                IFullMemberRecordService cs = new FullMemberRecordService(Settings.Default.db);
-                bool isSucceed = cs.Update(fullMemberRecord);
+                IFullMemberRecordService rrs = new FullMemberRecordService(Settings.Default.db);
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.DenyGet);
+                }
+                else
+                {
+                    IFullMemberRecordService cs = new FullMemberRecordService(Settings.Default.db);
+                    bool isSucceed = cs.Update(fullMemberRecord);
 
-                msg.Success = isSucceed;
-                msg.Content = isSucceed ? "" : "更新失败";
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "" : "更新失败";
 
-                return Json(msg, JsonRequestBehavior.AllowGet);
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception ex)
             {
@@ -232,14 +249,7 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            IFullMemberRecordService fmrs = new FullMemberRecordService(Settings.Default.db);
-            if (fmrs.FindByNr(model.staffNr) != null && fmrs.FindByNr(model.staffNr).isPassCheck==true)
-            {
-                msg.Success = false;
-                msg.Content = "该员工已经递交申请并通过";
-
-                return msg;
-            }
+            
 
             if (string.IsNullOrWhiteSpace(model.isPassCheck.ToString()))
             {
