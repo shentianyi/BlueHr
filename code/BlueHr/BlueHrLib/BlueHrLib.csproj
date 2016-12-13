@@ -121,6 +121,7 @@
     <Compile Include="Data\Model\Excel\ExtraWorkRecordExcelModel.cs" />
     <Compile Include="Data\Model\Excel\WorkAndRestExcelModel.cs" />
     <Compile Include="Data\Model\Excel\WorkSumExcelModel.cs" />
+    <Compile Include="Data\Model\PageViewModel\ShiftJobRecordInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\RecruitInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\FullMemberRecordInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\LeaveRecordInfoModel.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Data\Model\PageViewModel\SysRoleInfoModel.cs" />
     <Compile Include="Data\Model\PageViewModel\SysUserDataAuthInfoModel.cs" />
     <Compile Include="Data\Model\Search\FullMemberRecordSearchModel.cs" />
+    <Compile Include="Data\Model\Search\ShiftJobRecordSearchModel.cs" />
     <Compile Include="Data\Model\Search\LeaveRecordSearchModel.cs" />
     <Compile Include="Data\Model\Search\RecruitSearchModel.cs" />
     <Compile Include="Data\Model\Search\RewardsAndPenaltySearchModel.cs" />
@@ -139,6 +141,7 @@
     <Compile Include="Data\Model\Search\SysRoleSearchModel.cs" />
     <Compile Include="Data\Model\Search\SysUserDataAuthSearchModel.cs" />
     <Compile Include="Data\Model\Search\WorkAndRestSearchModel.cs" />
+    <Compile Include="Data\Repository\Implement\ShiftJobRecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\RecruitRepository.cs" />
     <Compile Include="Data\Repository\Implement\FullMemberRecordRepository.cs" />
     <Compile Include="Data\Repository\Implement\LeaveRecordRepository.cs" />
@@ -150,6 +153,7 @@
     <Compile Include="Data\Repository\Implement\SysRoleRepository.cs" />
     <Compile Include="Data\Repository\Implement\SysUserDataAuthRepository.cs" />
     <Compile Include="Data\Repository\Implement\WorkAndRestRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IShiftJobRecordRepository.cs" />
     <Compile Include="Data\Repository\Interface\IRecruitRepository.cs" />
     <Compile Include="Data\Repository\Interface\IFullMemberRecordRepository.cs" />
     <Compile Include="Data\Repository\Interface\ILeaveRecordRepository.cs" />
@@ -321,6 +325,7 @@
     <Compile Include="Service\Implement\DegreeTypeService.cs" />
     <Compile Include="Service\Implement\InSureTypeService.cs" />
     <Compile Include="Service\Implement\BankCardService.cs" />
+    <Compile Include="Service\Implement\ShiftJobRecordService.cs" />
     <Compile Include="Service\Implement\MessageRecordService.cs" />
     <Compile Include="Service\Implement\ExtraWorkTypeService.cs" />
     <Compile Include="Service\Implement\PersonScheduleService.cs" />
@@ -363,6 +368,7 @@
     <Compile Include="Service\Interface\IFullMemberRecordService.cs" />
     <Compile Include="Service\Interface\IInSureTypeService.cs" />
     <Compile Include="Service\Interface\IBankCardService.cs" />
+    <Compile Include="Service\Interface\IShiftJobRecordService.cs" />
     <Compile Include="Service\Interface\ILeaveRecordService.cs" />
     <Compile Include="Service\Interface\IMessageRecordService.cs" />
     <Compile Include="Service\Interface\IPersonScheduleService.cs" />
