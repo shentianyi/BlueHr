@@ -112,6 +112,9 @@ namespace BlueHrWeb.Controllers
 
             //调岗申请信息
             IShiftJobRecordService sjrs = new ShiftJobRecordService(Settings.Default.db);
+            ICompanyService cs = new CompanyService(Settings.Default.db);
+            IDepartmentService ds = new DepartmentService(Settings.Default.db);
+            IJobTitleService jts = new JobTitleService(Settings.Default.db);
             ShiftJobRecordSearchModel sjrsSearchModel = new ShiftJobRecordSearchModel();
             ewrsSearchModel.lgUser = user;
             List<ShiftJobRecord> shiftJobRecords = sjrs.Search(sjrsSearchModel).Where(c => c.userId.Equals(user.id)).Where(c => c.approvalStatus == null).ToList();
@@ -123,7 +126,12 @@ namespace BlueHrWeb.Controllers
 
                 shiftjobs.Add("ID", shiftJobrecord.id.ToString());
                 shiftjobs.Add("StaffNr", shiftJobrecord.staffNr);
-                //shiftjobs.Add("beforeCompanyId", shiftJobrecord.beforCompanyId.ToString());
+                shiftjobs.Add("BeforeCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.beforCompanyId)).name);
+                shiftjobs.Add("BeforeDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.beforDepartmentId)).name);
+                shiftjobs.Add("BeforeJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.beforJobId)).name);
+                shiftjobs.Add("AfterCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.afterCompanyId)).name);
+                shiftjobs.Add("AfterDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.afterDepartmentId)).name);
+                shiftjobs.Add("AfterJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.afterJobId)).name);
                 shiftjobs.Add("ApprovalStatus", shiftJobrecord.approvalStatus == null ? "审批中" : shiftJobrecord.approvalStatus);
                 shiftjobs.Add("approvalUserId", shiftJobrecord.approvalUserId.ToString());
                 shiftjobs.Add("ApprovalRemark", shiftJobrecord.approvalRemark);
@@ -230,6 +238,9 @@ namespace BlueHrWeb.Controllers
 
             //调岗审核信息
             IShiftJobRecordService sjrs = new ShiftJobRecordService(Settings.Default.db);
+            ICompanyService cs = new CompanyService(Settings.Default.db);
+            IDepartmentService ds = new DepartmentService(Settings.Default.db);
+            IJobTitleService jts = new JobTitleService(Settings.Default.db);
             ShiftJobRecordSearchModel sjrsSearchModel = new ShiftJobRecordSearchModel();
             ewrsSearchModel.lgUser = user;
             List<ShiftJobRecord> shiftJobRecords = sjrs.Search(sjrsSearchModel).Where(c => c.approvalUserId.Equals(user.id)).ToList();
@@ -241,7 +252,12 @@ namespace BlueHrWeb.Controllers
 
                 shiftjobs.Add("ID", shiftJobrecord.id.ToString());
                 shiftjobs.Add("StaffNr", shiftJobrecord.staffNr);
-                //shiftjobs.Add("beforeCompanyId", shiftJobrecord.beforCompanyId.ToString());
+                shiftjobs.Add("BeforeCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.beforCompanyId)).name);
+                shiftjobs.Add("BeforeDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.beforDepartmentId)).name);
+                shiftjobs.Add("BeforeJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.beforJobId)).name);
+                shiftjobs.Add("AfterCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.afterCompanyId)).name);
+                shiftjobs.Add("AfterDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.afterDepartmentId)).name);
+                shiftjobs.Add("AfterJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.afterJobId)).name);
                 shiftjobs.Add("ApprovalStatus", shiftJobrecord.approvalStatus == null ? "审批中" : shiftJobrecord.approvalStatus);
                 shiftjobs.Add("approvalUserId", shiftJobrecord.approvalUserId.ToString());
                 shiftjobs.Add("ApprovalRemark", shiftJobrecord.approvalRemark);
@@ -349,6 +365,9 @@ namespace BlueHrWeb.Controllers
 
             //调岗已办信息
             IShiftJobRecordService sjrs = new ShiftJobRecordService(Settings.Default.db);
+            ICompanyService cs = new CompanyService(Settings.Default.db);
+            IDepartmentService ds = new DepartmentService(Settings.Default.db);
+            IJobTitleService jts = new JobTitleService(Settings.Default.db);
             ShiftJobRecordSearchModel sjrsSearchModel = new ShiftJobRecordSearchModel();
             ewrsSearchModel.lgUser = user;
             List<ShiftJobRecord> shiftJobRecords = sjrs.Search(sjrsSearchModel).Where(c => c.userId.Equals(user.id)).Where(c => c.approvalStatus != null).ToList();
@@ -360,7 +379,12 @@ namespace BlueHrWeb.Controllers
 
                 shiftjobs.Add("ID", shiftJobrecord.id.ToString());
                 shiftjobs.Add("StaffNr", shiftJobrecord.staffNr);
-                //shiftjobs.Add("beforeCompanyId", shiftJobrecord.beforCompanyId.ToString());
+                shiftjobs.Add("BeforeCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.beforCompanyId)).name);
+                shiftjobs.Add("BeforeDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.beforDepartmentId)).name);
+                shiftjobs.Add("BeforeJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.beforJobId)).name);
+                shiftjobs.Add("AfterCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.afterCompanyId)).name);
+                shiftjobs.Add("AfterDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.afterDepartmentId)).name);
+                shiftjobs.Add("AfterJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.afterJobId)).name);
                 shiftjobs.Add("ApprovalStatus", shiftJobrecord.approvalStatus == null ? "审批中" : shiftJobrecord.approvalStatus);
                 shiftjobs.Add("approvalUserId", shiftJobrecord.approvalUserId.ToString());
                 shiftjobs.Add("ApprovalRemark", shiftJobrecord.approvalRemark);
