@@ -6,7 +6,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Leave
 DROP TABLE [dbo].[LeaveRecord]
 GO
 
-USE [BlueHr]
+USE [BlueHrV1]
 GO
 
 /****** Object:  Table [dbo].[LeaveRecord]    Script Date: 12/12/2016 12:05:32 ******/
