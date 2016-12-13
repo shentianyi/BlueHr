@@ -265,22 +265,23 @@ namespace BlueHrWeb.Controllers
             IWorkAndRestService wars = new WorkAndRestService(Settings.Default.db);
 
             var WorkAndRest = wars.GetAllTableName();
-
-            if (WorkAndRest.Count != 0)
+            if (WorkAndRest.Count == 0)
             {
-                //获取当前记录的属性
-                foreach (var property in WorkAndRest[0].GetType().GetProperties())
+                WorkAndRest wartemp = new WorkAndRest();
+                WorkAndRest.Add(wartemp);
+            }
+            //获取当前记录的属性
+            foreach (var property in WorkAndRest[0].GetType().GetProperties())
+            {
+                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
                 {
-                    if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
-                    {
-                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
-                    }
-                    else
-                    {
-                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
-                    }
-
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
                 }
+                else
+                {
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                }
+
             }
 
             ViewData["getAllTableNameList"] = select;

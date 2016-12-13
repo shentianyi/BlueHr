@@ -261,22 +261,24 @@ namespace BlueHrWeb.Controllers
             ISysAuthorizationService sas = new SysAuthorizationService(Settings.Default.db);
 
             var SysAuthorization = sas.GetAllTableName();
-
-            if (SysAuthorization.Count != 0)
+            if (SysAuthorization.Count == 0)
             {
-                //获取当前记录的属性
-                foreach (var property in SysAuthorization[0].GetType().GetProperties())
-                {
-                    if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
-                    {
-                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
-                    }
-                    else
-                    {
-                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
-                    }
+                SysAuthorization tempSysAuthorization = new SysAuthorization();
+                SysAuthorization.Add(tempSysAuthorization);
+            }
 
+            //获取当前记录的属性
+            foreach (var property in SysAuthorization[0].GetType().GetProperties())
+            {
+                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
+                {
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
                 }
+                else
+                {
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                }
+
             }
 
             ViewData["getAllTableNameList"] = select;

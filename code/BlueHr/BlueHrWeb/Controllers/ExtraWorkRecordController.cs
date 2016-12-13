@@ -543,23 +543,26 @@ namespace BlueHrWeb.Controllers
             IExtraWorkRecordService ss = new ExtraWorkRecordService(Settings.Default.db);
 
             var extraWorkRecords = ss.GetAllTableName();
-
-            if (extraWorkRecords.Count != 0)
+            if (extraWorkRecords.Count == 0)
             {
-                //获取当前记录的属性
-                foreach (var property in extraWorkRecords[0].GetType().GetProperties())
-                {
-                    if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
-                    {
-                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
-                    }
-                    else
-                    {
-                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
-                    }
-
-                }
+                ExtraWorkRecord ewrtemp = new ExtraWorkRecord();
+                extraWorkRecords.Add(ewrtemp);
             }
+
+            //获取当前记录的属性
+            foreach (var property in extraWorkRecords[0].GetType().GetProperties())
+            {
+                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
+                {
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                }
+
+            }
+
 
             ViewData["getAllTableNameList"] = select;
         }

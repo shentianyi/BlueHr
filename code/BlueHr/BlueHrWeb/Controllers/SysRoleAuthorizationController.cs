@@ -720,22 +720,23 @@ namespace BlueHrWeb.Controllers
             ISysRoleAuthorizationService sras = new SysRoleAuthorizationService(Settings.Default.db);
 
             var SysRoleAuthorization = sras.GetAllTableName();
-
-            if (SysRoleAuthorization.Count != 0)
+            if (SysRoleAuthorization.Count == 0)
             {
-                //获取当前记录的属性
-                foreach (var property in SysRoleAuthorization[0].GetType().GetProperties())
+                SysRoleAuthorization tempSysRoleAuthorization = new SysRoleAuthorization();
+                SysRoleAuthorization.Add(tempSysRoleAuthorization);
+            }
+            //获取当前记录的属性
+            foreach (var property in SysRoleAuthorization[0].GetType().GetProperties())
+            {
+                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
                 {
-                    if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
-                    {
-                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
-                    }
-                    else
-                    {
-                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
-                    }
-
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
                 }
+                else
+                {
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                }
+
             }
 
             ViewData["getAllTableNameList"] = select;

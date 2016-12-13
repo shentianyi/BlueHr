@@ -891,22 +891,23 @@ namespace BlueHrWeb.Controllers
             IUserService us = new UserService(Settings.Default.db);
 
             var User = us.GetAllTableName();
-
-            if (User.Count != 0)
+            if (User.Count == 0)
             {
-                //获取当前记录的属性
-                foreach (var property in User[0].GetType().GetProperties())
+                User tempUser = new User();
+                User.Add(tempUser);
+            }
+            //获取当前记录的属性
+            foreach (var property in User[0].GetType().GetProperties())
+            {
+                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
                 {
-                    if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
-                    {
-                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
-                    }
-                    else
-                    {
-                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
-                    }
-
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
                 }
+                else
+                {
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                }
+
             }
 
             ViewData["getAllTableNameList"] = select;
