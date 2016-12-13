@@ -752,11 +752,6 @@
     <Content Include="Views\Shared\_Layout - 复制.cshtml" />
     <Content Include="Views\SysRole\AssignAuth.cshtml" />
     <Content Include="Views\Staff\IDCard.cshtml" />
-    <Content Include="Views\ResignRecord\Create.cshtml" />
-    <Content Include="Views\ResignRecord\Delete.cshtml" />
-    <Content Include="Views\ResignRecord\Edit.cshtml" />
-    <Content Include="Views\ResignRecord\Index.cshtml" />
-    <Content Include="Views\ResignRecord\_PartialResignRecord.cshtml" />
     <Content Include="Views\FullMemberRecord\Create.cshtml" />
     <Content Include="Views\FullMemberRecord\Delete.cshtml" />
     <Content Include="Views\FullMemberRecord\Edit.cshtml" />
@@ -768,6 +763,11 @@
     <Content Include="Views\LeaveRecord\Delete.cshtml" />
     <Content Include="Views\LeaveRecord\Edit.cshtml" />
     <Content Include="Views\LeaveRecord\Index.cshtml" />
+    <Content Include="Views\ResignRecord\Index.cshtml" />
+    <Content Include="Views\ResignRecord\Create.cshtml" />
+    <Content Include="Views\ResignRecord\Edit.cshtml" />
+    <Content Include="Views\ResignRecord\Delete.cshtml" />
+    <Content Include="Views\ResignRecord\_PartialResignRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

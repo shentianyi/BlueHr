@@ -134,7 +134,7 @@
                                 <tr>
                                     @*<td>@(i += 1)</td>*@
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.dateAt)
+                                        <span>@(@item.dateAt.HasValue?@item.dateAt.Value.ToString("yyyy-MM-dd"):"")</span>
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.dateTypeDisplay)
@@ -181,7 +181,7 @@
                                 <tr>
                                     
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.dateAt)
+                                        <span>@(@item.dateAt.HasValue?@item.dateAt.Value.ToString("yyyy-MM-dd"):"")</span>
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.dateTypeDisplay)
@@ -229,7 +229,7 @@
                                 <tr>
                                     
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.dateAt)
+                                        <span>@(@item.dateAt.HasValue?@item.dateAt.Value.ToString("yyyy-MM-dd"):"")</span>
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.dateTypeDisplay)
@@ -277,7 +277,7 @@
                                     <tr>
 
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.dateAt)
+                                            <span>@(@item.dateAt.HasValue?@item.dateAt.Value.ToString("yyyy-MM-dd"):"")</span>
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.dateTypeDisplay)

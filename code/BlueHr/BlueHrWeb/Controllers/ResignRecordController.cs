@@ -1,7 +1,6 @@
 ﻿using BlueHrLib.Data;
 using BlueHrLib.Data.Enum;
 using BlueHrLib.Data.Message;
-using BlueHrLib.Data.Model.PageViewModel;
 using BlueHrLib.Data.Model.Search;
 using BlueHrLib.Helper;
 using BlueHrLib.Service.Implement;
@@ -12,7 +11,6 @@ using MvcPaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using BlueHrWeb.CustomAttributes;
 
@@ -20,7 +18,7 @@ namespace BlueHrWeb.Controllers
 {
     public class ResignRecordController : Controller
     {
-        // GET: ResignType
+        // GET: ResignRecord
         [UserAuthorize]
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Index(int? page)
@@ -54,22 +52,21 @@ namespace BlueHrWeb.Controllers
             return View("Index", resignTypes);
         }
 
-        // GET: ResignType/Details/5
+        // GET: ResignRecord/Details/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: ResignType/Create
+        // GET: ResignRecord/Create
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
-            //SetDropDownList(null);
             return View();
         }
 
-        // POST: ResignType/Create
+        // POST: ResignRecord/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Create([Bind(Include = "staffNr, resignTypeId, resignEffectiveAt, resignReason, remark")] ResignRecord resignRecord)
@@ -122,7 +119,7 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        // GET: ResignType/Edit/5
+        // GET: ResignRecord/Edit/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
         {
@@ -132,7 +129,7 @@ namespace BlueHrWeb.Controllers
             return View(rrs.FindById(id));
         }
 
-        // POST: ResignType/Edit/5
+        // POST: ResignRecord/Edit/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Edit([Bind(Include = "id, staffNr, resignEffectiveAt, resignReason, remark")] ResignRecord resignRecord)
@@ -164,7 +161,7 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        // POST: ResignType/Approval/5
+        // POST: ResignRecord/Approval/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Approval([Bind(Include = "id, approvalStatus, approvalRemark")] ResignRecord resignRecord)
@@ -208,7 +205,7 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        // GET: ResignType/Delete/5
+        // GET: ResignRecord/Delete/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
@@ -219,7 +216,7 @@ namespace BlueHrWeb.Controllers
             return View(rr);
         }
 
-        // POST: ResignType/Delete/5
+        // POST: ResignRecord/Delete/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult Delete(int id, FormCollection collection)

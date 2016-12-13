@@ -47,7 +47,7 @@
     <form action="/ResignRecord/AdvancedSearch" method="post">
         <div class="dialogModal_header" style="background:steelblue; color:white;">
             自定义搜索信息
-         </div>
+        </div>
 
         <div class="advanced-filter row" style="margin:0;">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -76,7 +76,7 @@
             <div style="width:100px; height:40px; line-height:40px; color:#000; margin-left:350px; text-align:center;">
                 <span>添加查询条件：</span>
             </div>
-        </div> 
+        </div>
     </form>
 </div>
 
@@ -85,15 +85,15 @@
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
 
-            <a href="/ResignRecord/Create" class="pull-right" style="margin-top: -10px;">
-                <button class="marco-btn-primary">
-                    <i class="glyphicon glyphicon-plus-sign"></i>
-                    <span>创建</span>
-                </button>
-            </a>
+        <a href="/ResignRecord/Create" class="pull-right" style="margin-top: -10px;">
+            <button class="marco-btn-primary">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>创建</span>
+            </button>
+        </a>
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#all_ResignRecord" role="tab" data-toggle="tab">离职申请</a></li>            
+            <li role="presentation" class="active"><a href="#all_ResignRecord" role="tab" data-toggle="tab">离职申请</a></li>
         </ul>
 
         <div class="tab-content">
@@ -120,61 +120,66 @@
                         {
                             foreach (var item in Model)
                             {
-                            <tr>
-                                <td>
-                                    <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
-                                        @Html.DisplayFor(modelItem => item.staffNr)
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.resignTypeId)
-                                </td>
-                                <td>
-                                    <span>@item.resignAt.ToString("yyyy-MM-dd")</span>  
-                                </td>
-                                <td>
-                                    <span>@item.resignEffectiveAt.Value.ToString("yyyy-MM-dd")</span>
-                                    @*@Html.DisplayFor(modelItem => item.resignEffectiveAt)*@
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.resignReason)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.resignChecker)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.approvalAt)
-                                </td>
-                                @if (item.approvalStatus == null)
-                                {
-                                    <td>未审批</td>
-                                }
-                                else
-                                {
+                                <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.approvalStatus)
-                                    </td>
-                                }
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.approvalRemark)
-                                </td>
-
-                                <td>
-                                    @if (item.approvalStatus == null)
-                                    {
-                                        <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                        <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                            @Html.DisplayFor(modelItem => item.staffNr)
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                        <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">
-                                            <i class="fa fa-check"></i>
-                                        </a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.resignTypeId)
+                                    </td>
+
+                                    <td>
+                                        <!--值不可为空-->
+                                        <span>@item.resignAt.ToString("yyyy-MM-dd")</span>
+                                    </td>
+                                    <td>
+                                        <!--值可为空-->
+                                        @(@item.resignEffectiveAt.HasValue ? @item.resignEffectiveAt.Value.ToString("yyyy-MM-dd") : "")
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.resignReason)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.resignChecker)
+                                    </td>
+                                    <td>
+                                        <!--审批时间-->
+                                        <span>
+                                            @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </span>
+                                    </td>
+                                    @if (item.approvalStatus == null)
+                                    {
+                                        <td>未审批</td>
                                     }
-                                </td>
-                            </tr>
+                                    else
+                                    {
+                                        @Html.DisplayFor(modelItem => item.approvalStatus)
+                                    }
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalRemark)
+                                    </td>
+
+                                    <td>
+                                        @if (item.approvalStatus == null)
+                                        {
+                                            <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
                             }
                         }
                     </tbody>
@@ -182,7 +187,7 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 <div id="approval_content" class="import_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
         奖惩审批
@@ -199,7 +204,7 @@
                     </select>
                 </div>
             </div>
-            <br/>
+            <br />
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="marco-textarea">
                     <span>审批备注</span>
@@ -208,15 +213,16 @@
             </div>
             <div class="dialogModal_footer row" style="margin: 0;">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <button class="marco-btn-primary pull-right" title="确定" data-dialogmodalbut="ok" type="button" >
+                    <button class="marco-btn-primary pull-right" title="确定" data-dialogmodalbut="ok" type="button">
                         确定
                     </button>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
+
 @Scripts.Render("~/bundles/company")
 
 <script type="text/javascript">
@@ -230,8 +236,8 @@
             $('#approval_content').dialogModal({
                 onOkBut: function () {
                     var approvalStatus = $(".dialogModal").find("#aplStatus").val();
-                    var approvalRemark = $(".dialogModal").find("#apvRemarks").val();                   
-                   
+                    var approvalRemark = $(".dialogModal").find("#apvRemarks").val();
+
                     $.post("/ResignRecord/approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemark }, function (data) {
 
                         if (!data.Success) {
@@ -245,7 +251,7 @@
                             window.location.reload();
                         }
                     });
-                    
+
                 },
                 onCancelBut: function () { },
                 onLoad: function () {
@@ -263,7 +269,7 @@
             onOkBut: function () {
 
             },
-            onCancelBut: function () { 
+            onCancelBut: function () {
 
             },
             onLoad: function () {

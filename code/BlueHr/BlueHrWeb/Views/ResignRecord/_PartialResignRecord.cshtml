@@ -11,7 +11,7 @@
 
     <input type="hidden" id="error_info" value="@ViewBag.ErrorMsg" />
 
-    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action"}))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -52,17 +52,31 @@
 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
-                            <span>申请时间</span>
-                            @*@Html.EditorFor(model => model.resignAt, new { htmlAttributes = new { @class = "date-picker" } })*@
-                            <input type="text" value="@Model.resignAt.ToString("yyyy-MM-dd")" class="date-picker" />
+                            <span>申请时间 *</span>
+
+                            @Html.EditorFor(model => model.resignAt, new { htmlAttributes = new { @class = "date-picker" } })
+
+                            @*<input type="text" value="@Model.resignAt.ToString("yyyy-MM-dd")" class="date-picker" />*@
+
+                            @*@if (Model != null)
+                            {
+                                <input type="text" value='@Model.resignAt.ToString("yyyy-MM-dd")' class="date-picker" />
+                            }else
+                            {
+                                <input type = "text" value = "" class="date-picker" />
+                            }*@
+
+                            @*<input type="text" value='@(@Model!=null?@Model.resignAt.ToString("yyyy-MM-dd"):"2016-3-20")' class="date-picker" />*@
+
+                            @*<input type="text" value='@(@Model.resignAt.ToString().Trim()=="0001/1/1 0:00:00" ? @Model.resignAt.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd") )' class="date-picker" />*@
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <span>离职生效日期</span>
-                            @*@Html.EditorFor(model => model.resignEffectiveAt, new { htmlAttributes = new { @class = "date-picker" } })*@
-                            <input type="text" value="@Model.resignEffectiveAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                            @Html.EditorFor(model => model.resignEffectiveAt, new { htmlAttributes = new { @class = "date-picker" } })
+                            @*<input type="text" value='@(@Model.resignEffectiveAt.HasValue?@Model.resignEffectiveAt.Value.ToString("yyyy-MM-dd") :" ")' class="date-picker" />*@
                         </div>
                     </div>
                 </div>
@@ -81,14 +95,16 @@
 
 <script type="text/javascript">
     Layout.init();
+
     Layout.datepicker('.date-picker');
-    $(".submit-btn").click(function(){
+
+    $(".submit-btn").click(function () {
         $("#resignTypeName").val($(".combo-input").val());
-        if($("#resignTypeName").val()==""|| $("#resignTypeName").val()==null){
+        if ($("#resignTypeName").val() == "" || $("#resignTypeName").val() == null) {
             Layout.popMsg("popMsg-danger", "离职原因不能为空");
             return false;
         }
-    })
+    });
 
     //将离职类型填充进去
     $.ajax({
@@ -108,16 +124,18 @@
 
     //控制textarea高度
     $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
+
     $(window).resize(function () {
         $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     });
 
     if ($("#error_info").val() != "" && $("#error_info").val() != undefined) {
         Layout.popMsg("popMsg-danger", $("#error_info").val());
-    }
+    };
 
      //回调函数
     function post_return_action(data) {
+        console.log(data.Success);
         if (!data.Success) {
             Layout.popMsg('popMsg-danger', data.Content);
             return false;
@@ -126,6 +144,5 @@
             window.close();
             //location.href = '/ExtraWorkRecord/Index';
         }
-    }
-
+    };
 </script>
