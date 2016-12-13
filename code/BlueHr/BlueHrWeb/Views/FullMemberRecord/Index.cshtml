@@ -10,7 +10,7 @@
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>劳动关系管理</li>
-    <li>转正管理</li>
+    <li>员工转正</li>
 </ol>
 
 <hr class="hr-grey" />
@@ -60,7 +60,6 @@
                         <tr>
                             <th>工号</th>
                             <th>是否通过考核</th>
-                            <!--离职原因就是 resignTypeId-->
                             <th>考核分数</th>
                             <th>转正时间</th>
                             <th>转正备注</th>
@@ -83,7 +82,8 @@
                                         @Html.DisplayFor(modelItem => item.staffNr)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.isPassCheck)
+                                        <!--@Html.DisplayFor(modelItem => item.isPassCheck)-->
+                                        <span> @(item.isPassCheck?"通过":"未通过") </span>
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.checkScore)
@@ -95,13 +95,17 @@
                                         @Html.DisplayFor(modelItem => item.remark)
                                     </td>
                                     <td>
+                                        @Html.DisplayFor(modelItem => item.userId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.createdAt)
+                                    </td>
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.approvalUserId)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalAt)
                                     </td>
-                                    <td></td>
-                                    <td>
                                     @if (item.approvalStatus == null)
                                     {
                                         <td>未审批</td>
@@ -112,7 +116,6 @@
                                             @Html.DisplayFor(modelItem => item.approvalStatus)
                                         </td>
                                     }
-                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalRemark)
                                     </td>
@@ -125,7 +128,7 @@
                                             <a href="/FullMemberRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
+                                            <a title="审批" class="option-icon-danger" onclick="shFullMemberRecord(@item.id)">
                                                 <i class="fa fa-check"></i>
                                             </a>
                                         }
@@ -156,19 +159,22 @@
                     </select>
                 </div>
             </div>
-
+            <br />
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="marco-textarea">
                     <span>审批备注</span>
-                    <textarea id="apvRemarks" name="apvRemarks"></textarea>
+                
+                    <textarea id="apvRemarks" name="apvRemarks">
+                    </textarea>
                 </div>
             </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <button class="marco-btn-primary " title="确定" data-dialogmodalbut="ok" type="button">
-                    确定
-                </button>
-            </div>
+        </div>
+    </div>
+    <div class="dialogModal_footer row" style="margin:0;">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 pull-right">
+            <button class="marco-btn-primary " title="确定" data-dialogmodalbut="ok" type="button" >
+                确定
+            </button>
         </div>
     </div>
 </div>
@@ -179,7 +185,7 @@
     Layout.init();
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_FullMemberRecord", "转正记录列表", "20", "all_FullMemberRecord_grid_table");
 
-    function shLeaveRecord(id) {
+    function shFullMemberRecord(id) {
         $('#approval_content').dialogModal({
             onOkBut: function () {
                 var approvalStatus = $(".dialogModal").find("#aplStatus").val();

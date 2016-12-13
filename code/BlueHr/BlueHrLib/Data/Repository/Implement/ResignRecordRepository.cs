@@ -25,8 +25,9 @@ namespace BlueHrLib.Data.Repository.Implement
                 this.context.SubmitChanges();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.Write(e);
                 return false;
             }
         }
@@ -60,6 +61,7 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 resignRecord = resignRecord.Where(c => c.staffNr.Contains(searchModel.staffNr.Trim()));
             }
+
             return resignRecord;
         }
 

@@ -72,7 +72,7 @@ namespace BlueHrWeb.Controllers
         // POST: ResignType/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Create([Bind(Include = "staffNr, resignEffectiveAt, resignReason, remark")] ResignRecord resignRecord)
+        public JsonResult Create([Bind(Include = "staffNr, resignTypeId, resignEffectiveAt, resignReason, remark")] ResignRecord resignRecord)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -81,10 +81,6 @@ namespace BlueHrWeb.Controllers
             //对ResignType 进行处理， 返回ID
             IResignTypeService rts = new ResignTypeService(Settings.Default.db);
             resignType = rts.IsResignTypeExit(Request.Form.Get("resignTypeName").Trim());
-
-            string A = Request.Form.Get("resignTypeName");
-            Console.Write(A);
-            Console.Write(A);
 
             //填充 是谁创建的
             User user = System.Web.HttpContext.Current.Session["user"] as User;
@@ -193,11 +189,11 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id)
         {
-            IResignTypeService cs = new ResignTypeService(Settings.Default.db);
+            IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
 
-            ResignType cp = cs.FindById(id);
+            ResignRecord rr = rrs.FindById(id);
             //SetDropDownList(cp);
-            return View(cp);
+            return View(rr);
         }
 
         // POST: ResignType/Delete/5

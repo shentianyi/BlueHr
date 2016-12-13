@@ -53,14 +53,16 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <span>申请时间</span>
-                            @Html.EditorFor(model => model.resignAt, new { htmlAttributes = new { @class = "date-picker" } })
+                            @*@Html.EditorFor(model => model.resignAt, new { htmlAttributes = new { @class = "date-picker" } })*@
+                            <input type="text" value="@Model.resignAt.ToString("yyyy-MM-dd")" class="date-picker" />
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <span>离职生效日期</span>
-                            @Html.EditorFor(model => model.resignEffectiveAt, new { htmlAttributes = new { @class = "date-picker" } })
+                            @*@Html.EditorFor(model => model.resignEffectiveAt, new { htmlAttributes = new { @class = "date-picker" } })*@
+                            <input type="text" value="@Model.resignEffectiveAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
                         </div>
                     </div>
                 </div>
@@ -87,7 +89,6 @@
             return false;
         }
     })
-
 
     //将离职类型填充进去
     $.ajax({
