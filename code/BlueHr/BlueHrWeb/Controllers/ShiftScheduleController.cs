@@ -203,6 +203,17 @@ namespace BlueHrWeb.Controllers
             }
         }
 
+        public ActionResult ChangeShiftSchedule(int id)
+        {
+            IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+
+            ShiftSchedule jt = cs.FindById(id);
+
+            SetDropDownList(jt);
+            
+            return View(jt);
+        } 
+
         // GET: ShiftShedule/Edit/5
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Edit(int id)
@@ -394,14 +405,14 @@ namespace BlueHrWeb.Controllers
                     sfs.Add("parentId", shiftScheduleGroup.Key.name + "_" + shiftScheduleGroup.Key.fullStartAt + "_" + shiftScheduleGroup.Key.endAt + "_" + shiftScheduleGroup.Count());
                     sfs.Add("id", shiftSchedule.id.ToString());
                     sfs.Add("staffNr", shiftSchedule.staffNr);
-                    sfs.Add("scheduleAt", shiftSchedule.scheduleAt.ToString());
+                    sfs.Add("scheduleAt", shiftSchedule.scheduleAt.ToString("yyyy-MM-dd"));
                     sfs.Add("shiftId", shiftSchedule.shiftId.ToString());
                     sfs.Add("code", shiftSchedule.code);
                     sfs.Add("name", shiftSchedule.name);
                     sfs.Add("shiftType", shiftSchedule.shiftType.ToString());
                     sfs.Add("title", shiftSchedule.staffNr + " -> " + shiftSchedule.name);
-                    sfs.Add("start", shiftSchedule.fullStartAt.ToString());
-                    sfs.Add("end", shiftSchedule.fullEndAt.ToString());
+                    sfs.Add("start", shiftSchedule.fullStartAt.Value.ToString("yyyy-MM-dd hh:mm:ss"));
+                    sfs.Add("end", shiftSchedule.fullEndAt.Value.ToString("yyyy-MM-dd hh:mm:ss"));
 
                     Childs.Add(sfs);
                 }

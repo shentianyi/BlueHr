@@ -1,15 +1,15 @@
-USE [BlueHr]
+USE [DerjinHr]
 GO
 
-/****** Object:  Table [dbo].[ShiftJobRecord]    Script Date: 12/13/2016 17:32:54 ******/
+/****** Object:  Table [dbo].[ShiftJobRecord]    Script Date: 12/13/2016 17:51:43 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ShiftJobRecord]') AND type in (N'U'))
 DROP TABLE [dbo].[ShiftJobRecord]
 GO
 
-USE [BlueHr]
+USE [DerjinHr]
 GO
 
-/****** Object:  Table [dbo].[ShiftJobRecord]    Script Date: 12/13/2016 17:32:54 ******/
+/****** Object:  Table [dbo].[ShiftJobRecord]    Script Date: 12/13/2016 17:51:43 ******/
 SET ANSI_NULLS ON
 GO
 

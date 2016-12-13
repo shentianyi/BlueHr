@@ -1,6 +1,14 @@
 USE [DerjinHr]
 GO
 
+--离职原因
+
+INSERT INTO [DerjinHr].[dbo].[ResignType]([code],[name],[remark])VALUES ('身体不适' ,'身体不适' , '身体原因,  无法继续工作')
+INSERT INTO [DerjinHr].[dbo].[ResignType]([code],[name],[remark])VALUES ('无法适应工作' ,'无法适应工作' , '无法适应工作')
+INSERT INTO [DerjinHr].[dbo].[ResignType]([code],[name],[remark])VALUES ('技能不达标' ,'技能不达标' , '技能不达标, 需进修')
+
+--添加请假表
+
 /****** Object:  Table [dbo].[LeaveRecord]    Script Date: 12/12/2016 12:05:32 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[LeaveRecord]') AND type in (N'U'))
 DROP TABLE [dbo].[LeaveRecord]
