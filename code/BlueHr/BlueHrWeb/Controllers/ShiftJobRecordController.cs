@@ -67,7 +67,7 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
-            //SetDropDownList(null);
+            SetDropDownList(null);
             return View();
         }
 
@@ -225,9 +225,6 @@ namespace BlueHrWeb.Controllers
             return View(lr);
         }
 
-
-
-
         // POST: ShiftJobRecord/Delete/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
@@ -362,8 +359,6 @@ namespace BlueHrWeb.Controllers
             }
             return new ResultMessage() { Success = true, Content = "" };
         }
-
-
 
         private void SetAllTableName(bool allowBlank = false)
         {

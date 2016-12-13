@@ -1,7 +1,15 @@
 USE [DerjinHr]
 GO
 
-/****** Object:  Table [dbo].[ShiftJobRecord]    Script Date: 12/13/2016 16:34:09 ******/
+/****** Object:  Table [dbo].[ShiftJobRecord]    Script Date: 12/13/2016 17:51:43 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ShiftJobRecord]') AND type in (N'U'))
+DROP TABLE [dbo].[ShiftJobRecord]
+GO
+
+USE [DerjinHr]
+GO
+
+/****** Object:  Table [dbo].[ShiftJobRecord]    Script Date: 12/13/2016 17:51:43 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -14,9 +22,9 @@ GO
 CREATE TABLE [dbo].[ShiftJobRecord](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[staffNr] [varchar](200) NOT NULL,
-	[beforCompanyId] [int] NULL,
-	[beforDepartmentId] [int] NULL,
-	[beforJobId] [int] NULL,
+	[beforeCompanyId] [int] NULL,
+	[beforeDepartmentId] [int] NULL,
+	[beforeJobId] [int] NULL,
 	[afterCompanyId] [int] NULL,
 	[afterDepartmentId] [int] NULL,
 	[afterJobId] [int] NULL,
