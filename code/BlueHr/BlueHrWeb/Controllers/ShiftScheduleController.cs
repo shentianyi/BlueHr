@@ -268,32 +268,32 @@ namespace BlueHrWeb.Controllers
             //}
         }
 
-        // POST: ShiftShedule/Edit/5
-        [RoleAndDataAuthorizationAttribute]
-        [HttpPost]
-        public ActionResult EasyEdit(string[] staffNrs,DateTime scheduleAt, int shiftId)
-        {
-            try
-            {
-                IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
-                ResultMessage msg = new ResultMessage();
-                int i;
-                for (i = 0; i <= staffNrs.Length; i++)
-                {
-                    ShiftSchedule shift = cs.FindForEdit(staffNrs[i], scheduleAt, shiftId);
-                    shift.shiftId = shiftId;
-                    shift.scheduleAt = scheduleAt;
-                    bool isSucceed = cs.Update(shift);
-                    msg.Success = isSucceed;
-                    msg.Content += isSucceed ? "" : "第" + i + 1 + "条更新失败  ";
-                }
-                return Json(msg, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        //// POST: ShiftShedule/Edit/5
+        //[RoleAndDataAuthorizationAttribute]
+        //[HttpPost]
+        //public ActionResult EasyEdit(string[] staffNrs,DateTime scheduleAt, int shiftId)
+        //{
+        //    try
+        //    {
+        //        IShiftScheduleService cs = new ShiftSheduleService(Settings.Default.db);
+        //        ResultMessage msg = new ResultMessage();
+        //        int i;
+        //        for (i = 0; i <= staffNrs.Length; i++)
+        //        {
+        //            ShiftSchedule shift = cs.FindForEdit(staffNrs[i], scheduleAt, shiftId);
+        //            shift.shiftId = shiftId;
+        //            shift.scheduleAt = scheduleAt;
+        //            bool isSucceed = cs.Update(shift);
+        //            msg.Success = isSucceed;
+        //            msg.Content += isSucceed ? "" : "第" + i + 1 + "条更新失败  ";
+        //        }
+        //        return Json(msg, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
 
 
         // GET: ShiftShedule/Delete/5
