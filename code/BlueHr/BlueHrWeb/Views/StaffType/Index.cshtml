@@ -34,18 +34,23 @@
                 </button>
             </div>
         </div>
-</form>
+    </form>
 </div>
 <hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
 
+        <a href="/StaffType/Create" class="pull-right" style="margin-top: -10px;">
+            <button class="marco-btn-primary">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>创建</span>
+            </button>
+        </a>
+
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#all_StaffType" role="tab" data-toggle="tab">所有人员类型</a></li>
         </ul>
         <div class="tab-content">
-
-
             <div role="tabpanel" class="tab-pane  active" id="all_StaffType">
                 <div id="all_StaffType_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
@@ -62,7 +67,6 @@
                             foreach (var item in Model)
                             {
                                 <tr>
-
                                     <td>
                                         @Html.DisplayFor(modelItem => item.name)
                                     </td>
