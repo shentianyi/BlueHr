@@ -1,0 +1,284 @@
+﻿@using MvcPaging
+
+@model IPagedList<BlueHrLib.Data.Staff>
+@using BlueHrWeb.Helpers.View
+
+@{
+    ViewBag.Title = "员工调岗"
+}
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>劳动关系管理</li>
+    <li>
+        <strong>员工调岗</strong>
+    </li>
+</ol>
+
+<hr class="hr-grey" />
+@{
+    bool canImport = MenuAuthHelper.CanShow("Staff", "Import");
+    bool canCreate = MenuAuthHelper.CanShow("Staff", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("Staff", "Edit");
+    bool canShow = MenuAuthHelper.CanShow("Staff", "Show");
+}
+@*Search*@
+<div class="search">
+    @* 简单搜索 *@
+    <form action="/Staff/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>身份证</span>
+                    <input type="text" name="Id" id="Id" value="@ViewBag.Query.Id" placeholder="身份证号码" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>员工号</span>
+                    <input type="text" name="Nr" id="Nr" value="@ViewBag.Query.Nr" placeholder="员工号" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>姓名</span>
+                    <input type="text" name="Name" id="Name" value="@ViewBag.Query.Name" placeholder="姓名" />
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 5px;">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <button type="submit" class="marco-btn-success pull-left">
+                        <i class="fa fa-search"></i>
+                        <span>搜索</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+
+<hr class="hr-primary" />
+
+@* 将离职和在职的员工进行区分显示 *@
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+        @if (canImport)
+        {
+            <button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -5px;">
+                <i class="fa fa-cloud-upload"></i>
+                <span>上传</span>
+            </button>
+        }
+
+        @if (canCreate)
+        {
+            <a href="/Staff/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
+
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+            <li role="presentation" class="active"><a href="#on_staff" role="tab" data-toggle="tab">员工调岗</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="on_transfer">
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="on_transfer_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>身份证</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>是否备齐证照</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            if(item.workStatus == 100)
+                            {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.nr)
+                                        </td>
+                                        <td>
+                                            <span style="display:inline;">
+                                                @Html.DisplayFor(modelItem => item.id)
+                                            </span>
+
+                                            @if (item.isIdChecked)
+                                    {
+                                                <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">
+                                                    已验证
+                                                </span>
+                                    }
+                                    else
+                                    {
+                                                <span class="pull-right marco-label-danger" title="身份证还未验证, 请使用客户端进行验证" style="cursor:help;">
+                                                    未验证
+                                                </span>
+                                    }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.sexDisplay)
+                                        </td>
+
+                                        <td>  
+                                            @Html.DisplayFor(modelItem => item.Company.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.departmentFullName)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.JobTitle.name)
+                                        </td>
+
+                                        <td>
+                                            @if (item.IsHasAllCertificate)
+                                    {
+                                                <span class="marco-label-success" title="证照信息已经备齐" style="cursor:help;">已备齐</span>
+                                    }
+                                    else
+                                    {
+                                                <span class="marco-label-danger" title="证照信息尚未备齐" style="cursor:help;">尚未备齐</span>
+                                    }
+                                        </td>
+
+                                        <td>
+                                            @if (canShow)
+                                    {
+                                                <a href="/Staff/Delete/@item.nr" target="window_name" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                    }
+                                            @if (canEdit)
+                                    {
+                                                <a href="/Staff/Edit/@item.nr" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>}
+                                        </td>
+                                    </tr>
+                            }
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div> 
+<!--导入数据-->
+<div id="dialog_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        导入员工信息
+    </div>
+    <div class="dialogModal_content">
+        <strong>选择数据文件:</strong>
+        <hr />
+        <input class="item-data-uploader" type="file" name="files[]" data-url="/Staff/Import" />
+        <div class="item-data-uploader-preview" style="display:none;"></div>
+        <hr />
+        <a href="~/Template/员工信息导入文件模板.xlsx" target="_blank">下载文件模板</a>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <p class="modal-title">选择员工公司和部门</p>
+                <button id="btnEdit3" class="btn btn-primary" style="border-radius:3px;">确认</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col col-lg-4">
+                        <div id="cmpTree"></div>
+                    </div>
+                    <div class="col col-lg-8">
+                        <div id="depTree"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div hidden="hidden">
+    <input type="text" id="selCmpDepIds" name="selCmpDepIds" value="@ViewBag.TheCmpDepIds" />
+    <input type="text" id="selCmpDepNames" name="selCmpDepNames" value="@ViewBag.TheSelCmpDepNames" />
+</div>
+
+@Scripts.Render("~/bundles/staff")
+
+<script type="text/javascript">
+    Layout.init();
+
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "on_transfer", "员工调岗列表", "20", "on_transfer_grid_table");
+    })
+
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "on_staff", "员工调岗列表", "20", "on_staff_grid_table");
+    
+     $.post("/MessageRecord/TransferDetail", { staffNr: nr, isPassCheck: isPassCheck, beFullAt: beFullAt, checkAt: checkAt, beFullChecker: beFullChecker, checkScore: checkScore, remark: remark }, function (data) {
+        if (data.Success) {
+            alert("调岗成功！");
+            window.location = "/Staff/Delete/" + nr;
+
+        } else {
+            alert("调岗失败：" + data.Content);
+        }
+    }, "json");
+
+    $('.import-dialog-btn').click(function () {
+
+        $('#dialog_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+                data_upload(".item-data-uploader");
+            },
+            onClose: function () {
+                window.location.reload();
+            }
+            
+        });
+    });
+
+    $('.advanced-filter-btn').click(function () {
+
+        $('#search_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+
+            },
+            onClose: function () {
+                window.location.reload();
+            }
+            
+        });
+    });
+
+</script>
+

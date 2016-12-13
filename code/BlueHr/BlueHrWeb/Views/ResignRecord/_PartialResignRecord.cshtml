@@ -53,22 +53,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <span>申请时间 *</span>
-
                             @Html.EditorFor(model => model.resignAt, new { htmlAttributes = new { @class = "date-picker" } })
-
-                            @*<input type="text" value="@Model.resignAt.ToString("yyyy-MM-dd")" class="date-picker" />*@
-
-                            @*@if (Model != null)
-                            {
-                                <input type="text" value='@Model.resignAt.ToString("yyyy-MM-dd")' class="date-picker" />
-                            }else
-                            {
-                                <input type = "text" value = "" class="date-picker" />
-                            }*@
-
-                            @*<input type="text" value='@(@Model!=null?@Model.resignAt.ToString("yyyy-MM-dd"):"2016-3-20")' class="date-picker" />*@
-
-                            @*<input type="text" value='@(@Model.resignAt.ToString().Trim()=="0001/1/1 0:00:00" ? @Model.resignAt.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd") )' class="date-picker" />*@
                         </div>
                     </div>
 
@@ -76,7 +61,6 @@
                         <div class="marco-igroup-primary">
                             <span>离职生效日期</span>
                             @Html.EditorFor(model => model.resignEffectiveAt, new { htmlAttributes = new { @class = "date-picker" } })
-                            @*<input type="text" value='@(@Model.resignEffectiveAt.HasValue?@Model.resignEffectiveAt.Value.ToString("yyyy-MM-dd") :" ")' class="date-picker" />*@
                         </div>
                     </div>
                 </div>

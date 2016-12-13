@@ -156,5 +156,12 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.GetAllShiftSchedule();
         }
+
+
+
+        public ShiftSchedule FindForEdit(string staffNr, DateTime scheduleAt, int shiftId)
+        {
+            return rep.FindForEdit(staffNr, scheduleAt, shiftId);
+        }
     }
 }

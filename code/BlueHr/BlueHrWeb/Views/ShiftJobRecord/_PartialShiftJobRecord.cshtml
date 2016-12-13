@@ -1,9 +1,9 @@
-﻿@model BlueHrLib.Data.Recruit
+﻿@model BlueHrLib.Data.ShiftJobRecord
 
-<div id="recruit" style="margin:20px;">
+<div id="shiftjobrecord" style="margin:20px;">
     <ol class="breadcrumb current-position">
-        您的位置：  
-        <li>@Html.ActionLink("招聘需求", "Index")</li>
+        您的位置：
+        <li>@Html.ActionLink("请假管理", "Index")</li>
         <li>{{action}}</li>
     </ol>
 
@@ -34,32 +34,50 @@
             <div class="marco-nbody row">
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <span>招聘需求</span>
-                        @Html.EditorFor(model => model.requirement)
+                        <span>工号</span>
+                        @Html.EditorFor(model => model.staffNr)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <span>所属公司</span>
-                        @Html.EditorFor(model => model.companyId)
+                        <span>调岗前公司</span>
+                        @Html.DropDownList("beforeCompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <span>所属部门</span>
-                        @Html.EditorFor(model => model.departmentId)
+                        <span>调岗后公司</span>
+                        @Html.DropDownList("afterCompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <span>需求人数</span>
-                        @Html.EditorFor(model => model.amount)
+                        <span>调岗前部门</span>
+                        @Html.DropDownList("beforeDepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <span>用工日期</span>
-                        @Html.EditorFor(model => model.requirementAt, new { htmlAttributes = new { @class = "date-picker" } })
+                        <span>调岗后部门</span>
+                        @Html.DropDownList("afterDepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>调岗前职位</span>
+                        @Html.DropDownList("beforeJobId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>调岗后职位</span>
+                        @Html.DropDownList("afterJobId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>申请备注</span>
+                        @Html.EditorFor(model => model.remark)
                     </div>
                 </div>
                 @if (Model != null)
@@ -68,36 +86,41 @@
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
                                 <span>申请日期</span>
-                                @Html.EditorFor(model => model.createAt, new { htmlAttributes = new { @class = "date-picker" } })
+                                @Html.EditorFor(model => model.createdAt, new { htmlAttributes = new { @class = "date-picker" } })
                             </div>
                         </div>
-                        
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
                                 <span>申请人</span>
-                                @Html.EditorFor(model => model.requirementMan)
+                                @Html.EditorFor(model => model.userId)
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
-                                <span>流程状态</span>
-                                @Html.EditorFor(model => model.status)
+                                <span>审批人</span>
+                                @Html.EditorFor(model => model.approvalUserId)
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
-                                <span>审核记录</span>
-                                <input type="text" name="rewardsandpenaltiesAt" class="date-picker"/>
+                                <span>审批状态</span>
+                                @Html.EditorFor(model => model.approvalStatus)
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
-                                <span>流程查看</span>
-                                @Html.EditorFor(model => model.auditView)
+                                <span>审批日期</span>
+                                @Html.EditorFor(model => model.approvalAt, new { htmlAttributes = new { @class = "date-picker" } })
                             </div>
-                        </div>  
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-textarea">
+                                <span>备注</span>
+                                @Html.TextAreaFor(model => model.approvalRemark)
+                            </div>
+                        </div>
                     </div>
-                }           
+                }
             </div>
         </div>
     }
@@ -124,7 +147,7 @@
         }
         else {
 
-            location.href = '/Recruit/Index';
+            location.href = '/ShiftJobRecord/Index';
         }
     }
 </script>

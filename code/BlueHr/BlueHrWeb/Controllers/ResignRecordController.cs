@@ -71,8 +71,15 @@ namespace BlueHrWeb.Controllers
         [HttpPost]
         public JsonResult Create([Bind(Include = "staffNr, resignTypeId, resignEffectiveAt, resignReason, remark")] ResignRecord resignRecord)
         {
-            ResultMessage msg = new ResultMessage();
 
+            ResultMessage msg = new ResultMessage();
+            IResignRecordService irrs = new ResignRecordService(Settings.Default.db);
+            if (irrs.FindByNr(resignRecord.staffNr) != null)
+            {
+                msg.Success = false;
+                msg.Content = "该员工已经递交申请";
+                return Json(msg, JsonRequestBehavior.DenyGet);
+            }
             ResignType resignType = new ResignType();
 
             //对ResignType 进行处理， 返回ID
@@ -267,14 +274,7 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
-            if (rrs.FindByNr(resignRecord.staffNr) != null)
-            {
-                msg.Success = false;
-                msg.Content = "该员工已经递交申请";
-
-                return msg;
-            }
+            
 
             if (string.IsNullOrEmpty(resignRecord.staffNr))
             {

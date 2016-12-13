@@ -106,6 +106,7 @@
                             <th>工号</th>
                             <th>离职类型</th>
                             <th>申请时间</th>
+                            <th>申请人</th>
                             <th>生效时间</th>
                             <th>离职理由</th>
                             <th>审批人</th>
@@ -136,6 +137,9 @@
                                         <span>@item.resignAt.ToString("yyyy-MM-dd")</span>
                                     </td>
                                     <td>
+                                        @Html.DisplayFor(modelItem =>item.userId)
+                                    </td>
+                                    <td>
                                         <!--值可为空-->
                                         @(@item.resignEffectiveAt.HasValue ? @item.resignEffectiveAt.Value.ToString("yyyy-MM-dd") : "")
                                     </td>
@@ -152,14 +156,16 @@
                                             @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
                                         </span>
                                     </td>
-                                    @if (item.approvalStatus == null)
-                                    {
-                                        <td>未审批</td>
-                                    }
-                                    else
-                                    {
-                                        @Html.DisplayFor(modelItem => item.approvalStatus)
-                                    }
+                                        @if (item.approvalStatus == null)
+                                        {
+                                            <td>未审批</td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.approvalStatus)
+                                            </td>
+                                        }
 
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalRemark)

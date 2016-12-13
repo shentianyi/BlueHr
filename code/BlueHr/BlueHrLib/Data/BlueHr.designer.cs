@@ -150,6 +150,9 @@ namespace BlueHrLib.Data
     partial void InsertLeaveRecord(LeaveRecord instance);
     partial void UpdateLeaveRecord(LeaveRecord instance);
     partial void DeleteLeaveRecord(LeaveRecord instance);
+    partial void InsertShiftJobRecord(ShiftJobRecord instance);
+    partial void UpdateShiftJobRecord(ShiftJobRecord instance);
+    partial void DeleteShiftJobRecord(ShiftJobRecord instance);
     #endregion
 		
 		public BlueHrDataContext() : 
@@ -571,6 +574,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<LeaveRecord>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ShiftJobRecord> ShiftJobRecord
+		{
+			get
+			{
+				return this.GetTable<ShiftJobRecord>();
 			}
 		}
 	}
@@ -16978,6 +16989,404 @@ namespace BlueHrLib.Data
 					this._isDelete = value;
 					this.SendPropertyChanged("isDelete");
 					this.OnisDeleteChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ShiftJobRecord")]
+	public partial class ShiftJobRecord : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _staffNr;
+		
+		private System.Nullable<int> _beforeCompanyId;
+		
+		private System.Nullable<int> _beforeDepartmentId;
+		
+		private System.Nullable<int> _beforeJobId;
+		
+		private System.Nullable<int> _afterCompanyId;
+		
+		private System.Nullable<int> _afterDepartmentId;
+		
+		private System.Nullable<int> _afterJobId;
+		
+		private int _userId;
+		
+		private System.DateTime _createdAt;
+		
+		private string _remark;
+		
+		private System.Nullable<int> _approvalUserId;
+		
+		private System.Nullable<System.DateTime> _approvalAt;
+		
+		private string _approvalStatus;
+		
+		private string _approvalRemark;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnstaffNrChanging(string value);
+    partial void OnstaffNrChanged();
+    partial void OnbeforeCompanyIdChanging(System.Nullable<int> value);
+    partial void OnbeforeCompanyIdChanged();
+    partial void OnbeforeDepartmentIdChanging(System.Nullable<int> value);
+    partial void OnbeforeDepartmentIdChanged();
+    partial void OnbeforeJobIdChanging(System.Nullable<int> value);
+    partial void OnbeforeJobIdChanged();
+    partial void OnafterCompanyIdChanging(System.Nullable<int> value);
+    partial void OnafterCompanyIdChanged();
+    partial void OnafterDepartmentIdChanging(System.Nullable<int> value);
+    partial void OnafterDepartmentIdChanged();
+    partial void OnafterJobIdChanging(System.Nullable<int> value);
+    partial void OnafterJobIdChanged();
+    partial void OnuserIdChanging(int value);
+    partial void OnuserIdChanged();
+    partial void OncreatedAtChanging(System.DateTime value);
+    partial void OncreatedAtChanged();
+    partial void OnremarkChanging(string value);
+    partial void OnremarkChanged();
+    partial void OnapprovalUserIdChanging(System.Nullable<int> value);
+    partial void OnapprovalUserIdChanged();
+    partial void OnapprovalAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnapprovalAtChanged();
+    partial void OnapprovalStatusChanging(string value);
+    partial void OnapprovalStatusChanged();
+    partial void OnapprovalRemarkChanging(string value);
+    partial void OnapprovalRemarkChanged();
+    #endregion
+		
+		public ShiftJobRecord()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string staffNr
+		{
+			get
+			{
+				return this._staffNr;
+			}
+			set
+			{
+				if ((this._staffNr != value))
+				{
+					this.OnstaffNrChanging(value);
+					this.SendPropertyChanging();
+					this._staffNr = value;
+					this.SendPropertyChanged("staffNr");
+					this.OnstaffNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_beforeCompanyId", DbType="Int")]
+		public System.Nullable<int> beforeCompanyId
+		{
+			get
+			{
+				return this._beforeCompanyId;
+			}
+			set
+			{
+				if ((this._beforeCompanyId != value))
+				{
+					this.OnbeforeCompanyIdChanging(value);
+					this.SendPropertyChanging();
+					this._beforeCompanyId = value;
+					this.SendPropertyChanged("beforeCompanyId");
+					this.OnbeforeCompanyIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_beforeDepartmentId", DbType="Int")]
+		public System.Nullable<int> beforeDepartmentId
+		{
+			get
+			{
+				return this._beforeDepartmentId;
+			}
+			set
+			{
+				if ((this._beforeDepartmentId != value))
+				{
+					this.OnbeforeDepartmentIdChanging(value);
+					this.SendPropertyChanging();
+					this._beforeDepartmentId = value;
+					this.SendPropertyChanged("beforeDepartmentId");
+					this.OnbeforeDepartmentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_beforeJobId", DbType="Int")]
+		public System.Nullable<int> beforeJobId
+		{
+			get
+			{
+				return this._beforeJobId;
+			}
+			set
+			{
+				if ((this._beforeJobId != value))
+				{
+					this.OnbeforeJobIdChanging(value);
+					this.SendPropertyChanging();
+					this._beforeJobId = value;
+					this.SendPropertyChanged("beforeJobId");
+					this.OnbeforeJobIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_afterCompanyId", DbType="Int")]
+		public System.Nullable<int> afterCompanyId
+		{
+			get
+			{
+				return this._afterCompanyId;
+			}
+			set
+			{
+				if ((this._afterCompanyId != value))
+				{
+					this.OnafterCompanyIdChanging(value);
+					this.SendPropertyChanging();
+					this._afterCompanyId = value;
+					this.SendPropertyChanged("afterCompanyId");
+					this.OnafterCompanyIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_afterDepartmentId", DbType="Int")]
+		public System.Nullable<int> afterDepartmentId
+		{
+			get
+			{
+				return this._afterDepartmentId;
+			}
+			set
+			{
+				if ((this._afterDepartmentId != value))
+				{
+					this.OnafterDepartmentIdChanging(value);
+					this.SendPropertyChanging();
+					this._afterDepartmentId = value;
+					this.SendPropertyChanged("afterDepartmentId");
+					this.OnafterDepartmentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_afterJobId", DbType="Int")]
+		public System.Nullable<int> afterJobId
+		{
+			get
+			{
+				return this._afterJobId;
+			}
+			set
+			{
+				if ((this._afterJobId != value))
+				{
+					this.OnafterJobIdChanging(value);
+					this.SendPropertyChanging();
+					this._afterJobId = value;
+					this.SendPropertyChanged("afterJobId");
+					this.OnafterJobIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userId", DbType="Int NOT NULL")]
+		public int userId
+		{
+			get
+			{
+				return this._userId;
+			}
+			set
+			{
+				if ((this._userId != value))
+				{
+					this.OnuserIdChanging(value);
+					this.SendPropertyChanging();
+					this._userId = value;
+					this.SendPropertyChanged("userId");
+					this.OnuserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_createdAt", DbType="DateTime NOT NULL")]
+		public System.DateTime createdAt
+		{
+			get
+			{
+				return this._createdAt;
+			}
+			set
+			{
+				if ((this._createdAt != value))
+				{
+					this.OncreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._createdAt = value;
+					this.SendPropertyChanged("createdAt");
+					this.OncreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_remark", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string remark
+		{
+			get
+			{
+				return this._remark;
+			}
+			set
+			{
+				if ((this._remark != value))
+				{
+					this.OnremarkChanging(value);
+					this.SendPropertyChanging();
+					this._remark = value;
+					this.SendPropertyChanged("remark");
+					this.OnremarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approvalUserId", DbType="Int")]
+		public System.Nullable<int> approvalUserId
+		{
+			get
+			{
+				return this._approvalUserId;
+			}
+			set
+			{
+				if ((this._approvalUserId != value))
+				{
+					this.OnapprovalUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._approvalUserId = value;
+					this.SendPropertyChanged("approvalUserId");
+					this.OnapprovalUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approvalAt", DbType="DateTime")]
+		public System.Nullable<System.DateTime> approvalAt
+		{
+			get
+			{
+				return this._approvalAt;
+			}
+			set
+			{
+				if ((this._approvalAt != value))
+				{
+					this.OnapprovalAtChanging(value);
+					this.SendPropertyChanging();
+					this._approvalAt = value;
+					this.SendPropertyChanged("approvalAt");
+					this.OnapprovalAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approvalStatus", DbType="VarChar(50)")]
+		public string approvalStatus
+		{
+			get
+			{
+				return this._approvalStatus;
+			}
+			set
+			{
+				if ((this._approvalStatus != value))
+				{
+					this.OnapprovalStatusChanging(value);
+					this.SendPropertyChanging();
+					this._approvalStatus = value;
+					this.SendPropertyChanged("approvalStatus");
+					this.OnapprovalStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_approvalRemark", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string approvalRemark
+		{
+			get
+			{
+				return this._approvalRemark;
+			}
+			set
+			{
+				if ((this._approvalRemark != value))
+				{
+					this.OnapprovalRemarkChanging(value);
+					this.SendPropertyChanging();
+					this._approvalRemark = value;
+					this.SendPropertyChanged("approvalRemark");
+					this.OnapprovalRemarkChanged();
 				}
 			}
 		}
