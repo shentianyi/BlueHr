@@ -64,37 +64,39 @@
                 </div>
                 @if (Model != null)
                 {
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>申请日期</span>
-                            @Html.EditorFor(model => model.createAt, new { htmlAttributes = new { @class = "date-picker" } })
+                    <div id="approval-prp">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>申请日期</span>
+                                @Html.EditorFor(model => model.createAt, new { htmlAttributes = new { @class = "date-picker" } })
+                            </div>
                         </div>
+                        
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>申请人</span>
+                                @Html.EditorFor(model => model.requirementMan)
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>流程状态</span>
+                                @Html.EditorFor(model => model.status)
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>审核记录</span>
+                                <input type="text" name="rewardsandpenaltiesAt" class="date-picker"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>流程查看</span>
+                                @Html.EditorFor(model => model.auditView)
+                            </div>
+                        </div>  
                     </div>
-                    
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>申请人</span>
-                            @Html.EditorFor(model => model.requirementMan)
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>流程状态</span>
-                            @Html.EditorFor(model => model.status)
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>审核记录</span>
-                            <input type="text" name="rewardsandpenaltiesAt" class="date-picker"/>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>流程查看</span>
-                            @Html.EditorFor(model => model.auditView)
-                        </div>
-                    </div>  
                 }           
             </div>
         </div>
