@@ -131,10 +131,11 @@
                                     @Html.DisplayFor(modelItem => item.resignTypeId)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.resignAt)
+                                    <span>@item.resignAt.ToString("yyyy-MM-dd")</span>  
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.resignEffectiveAt)
+                                    <span>@item.resignEffectiveAt.Value.ToString("yyyy-MM-dd")</span>
+                                    @*@Html.DisplayFor(modelItem => item.resignEffectiveAt)*@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.resignReason)
