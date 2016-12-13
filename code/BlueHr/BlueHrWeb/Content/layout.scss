@@ -681,10 +681,11 @@ body{
                 color: $marco-font;
                 background-color: $marco-bg;
                 text-align:center;
+                border-color: $marco-bg;
                 &:hover, &:link, &:active{
                     cursor:pointer;
                     background: transparent;
-                    border-color:$marco-bg;
+                    border:1px solid $marco-bg;
                     border-bottom:$brlize-hole;
                 }
             }
@@ -696,11 +697,11 @@ body{
 
             &:first-child{
                 margin-left:0;
-
             }
         }
         .active{
                 a{
+                    color: white;
                     padding: 5px;
                     border:none;
                     background-color: $marco-active-bg;
