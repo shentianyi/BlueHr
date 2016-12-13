@@ -860,9 +860,9 @@
     <Type Name="ShiftJobRecord">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="staffNr" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="beforCompanyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="beforDepartmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="beforJobId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="beforeCompanyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="beforeDepartmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="beforeJobId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="afterCompanyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="afterDepartmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="afterJobId" Type="System.Int32" DbType="Int" CanBeNull="true" />

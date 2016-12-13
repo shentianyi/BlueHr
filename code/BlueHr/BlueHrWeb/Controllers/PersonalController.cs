@@ -126,9 +126,9 @@ namespace BlueHrWeb.Controllers
 
                 shiftjobs.Add("ID", shiftJobrecord.id.ToString());
                 shiftjobs.Add("StaffNr", shiftJobrecord.staffNr);
-                shiftjobs.Add("BeforeCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.beforCompanyId)).name);
-                shiftjobs.Add("BeforeDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.beforDepartmentId)).name);
-                shiftjobs.Add("BeforeJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.beforJobId)).name);
+                shiftjobs.Add("BeforeCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.beforeCompanyId)).name);
+                shiftjobs.Add("BeforeDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.beforeDepartmentId)).name);
+                shiftjobs.Add("BeforeJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.beforeJobId)).name);
                 shiftjobs.Add("AfterCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.afterCompanyId)).name);
                 shiftjobs.Add("AfterDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.afterDepartmentId)).name);
                 shiftjobs.Add("AfterJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.afterJobId)).name);
@@ -252,9 +252,9 @@ namespace BlueHrWeb.Controllers
 
                 shiftjobs.Add("ID", shiftJobrecord.id.ToString());
                 shiftjobs.Add("StaffNr", shiftJobrecord.staffNr);
-                shiftjobs.Add("BeforeCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.beforCompanyId)).name);
-                shiftjobs.Add("BeforeDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.beforDepartmentId)).name);
-                shiftjobs.Add("BeforeJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.beforJobId)).name);
+                shiftjobs.Add("BeforeCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.beforeCompanyId)).name);
+                shiftjobs.Add("BeforeDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.beforeDepartmentId)).name);
+                shiftjobs.Add("BeforeJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.beforeJobId)).name);
                 shiftjobs.Add("AfterCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.afterCompanyId)).name);
                 shiftjobs.Add("AfterDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.afterDepartmentId)).name);
                 shiftjobs.Add("AfterJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.afterJobId)).name);
@@ -379,9 +379,9 @@ namespace BlueHrWeb.Controllers
 
                 shiftjobs.Add("ID", shiftJobrecord.id.ToString());
                 shiftjobs.Add("StaffNr", shiftJobrecord.staffNr);
-                shiftjobs.Add("BeforeCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.beforCompanyId)).name);
-                shiftjobs.Add("BeforeDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.beforDepartmentId)).name);
-                shiftjobs.Add("BeforeJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.beforJobId)).name);
+                shiftjobs.Add("BeforeCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.beforeCompanyId)).name);
+                shiftjobs.Add("BeforeDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.beforeDepartmentId)).name);
+                shiftjobs.Add("BeforeJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.beforeJobId)).name);
                 shiftjobs.Add("AfterCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.afterCompanyId)).name);
                 shiftjobs.Add("AfterDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.afterDepartmentId)).name);
                 shiftjobs.Add("AfterJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.afterJobId)).name);

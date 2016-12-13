@@ -80,9 +80,9 @@ namespace BlueHrWeb.Controllers
 
             IStaffService ss = new StaffService(Settings.Default.db);
             Staff tempstaff = ss.FindByNrThis(shiftJobRecord.staffNr);
-            shiftJobRecord.beforCompanyId = tempstaff.companyId;
-            shiftJobRecord.beforDepartmentId = tempstaff.departmentId;
-            shiftJobRecord.beforJobId = tempstaff.jobTitleId;
+            shiftJobRecord.beforeCompanyId = tempstaff.companyId;
+            shiftJobRecord.beforeDepartmentId = tempstaff.departmentId;
+            shiftJobRecord.beforeJobId = tempstaff.jobTitleId;
 
             User user = System.Web.HttpContext.Current.Session["user"] as User;
             shiftJobRecord.userId = user.id;
