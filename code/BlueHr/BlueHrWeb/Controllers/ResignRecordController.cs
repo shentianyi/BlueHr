@@ -63,9 +63,7 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()
         {
-            ResignRecord resignRecord = new ResignRecord();
-
-            return View(resignRecord);
+            return View();
         }
 
         // POST: ResignRecord/Create

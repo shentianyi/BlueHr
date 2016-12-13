@@ -1165,11 +1165,12 @@ body {
       padding: 5px;
       color: #3498db;
       background-color: #2980b9;
-      text-align: center; }
+      text-align: center;
+      border-color: #2980b9; }
       .marco-tabs-default ul li a:hover, .marco-tabs-default ul li a:link, .marco-tabs-default ul li a:active {
         cursor: pointer;
         background: transparent;
-        border-color: #2980b9;
+        border: 1px solid #2980b9;
         border-bottom: #2980b9; }
     .marco-tabs-default ul li .badge {
       border-radius: 0;
@@ -1178,6 +1179,7 @@ body {
     .marco-tabs-default ul li:first-child {
       margin-left: 0; }
   .marco-tabs-default ul .active a {
+    color: white;
     padding: 5px;
     border: none;
     background-color: #2980b9; }
@@ -1225,11 +1227,12 @@ body {
       padding: 5px;
       color: #3498db;
       background-color: #2980b9;
-      text-align: center; }
+      text-align: center;
+      border-color: #2980b9; }
       .marco-tabs-dark ul li a:hover, .marco-tabs-dark ul li a:link, .marco-tabs-dark ul li a:active {
         cursor: pointer;
         background: transparent;
-        border-color: #2980b9;
+        border: 1px solid #2980b9;
         border-bottom: #2980b9; }
     .marco-tabs-dark ul li .badge {
       border-radius: 0;
@@ -1238,6 +1241,7 @@ body {
     .marco-tabs-dark ul li:first-child {
       margin-left: 0; }
   .marco-tabs-dark ul .active a {
+    color: white;
     padding: 5px;
     border: none;
     background-color: #2980b9; }
@@ -1285,11 +1289,12 @@ body {
       padding: 5px;
       color: #16a085;
       background-color: #16a085;
-      text-align: center; }
+      text-align: center;
+      border-color: #16a085; }
       .marco-tabs-success ul li a:hover, .marco-tabs-success ul li a:link, .marco-tabs-success ul li a:active {
         cursor: pointer;
         background: transparent;
-        border-color: #16a085;
+        border: 1px solid #16a085;
         border-bottom: #2980b9; }
     .marco-tabs-success ul li .badge {
       border-radius: 0;
@@ -1298,6 +1303,7 @@ body {
     .marco-tabs-success ul li:first-child {
       margin-left: 0; }
   .marco-tabs-success ul .active a {
+    color: white;
     padding: 5px;
     border: none;
     background-color: #1abc9c; }
@@ -1345,11 +1351,12 @@ body {
       padding: 5px;
       color: #3498db;
       background-color: #2980b9;
-      text-align: center; }
+      text-align: center;
+      border-color: #2980b9; }
       .marco-tabs-normal ul li a:hover, .marco-tabs-normal ul li a:link, .marco-tabs-normal ul li a:active {
         cursor: pointer;
         background: transparent;
-        border-color: #2980b9;
+        border: 1px solid #2980b9;
         border-bottom: #2980b9; }
     .marco-tabs-normal ul li .badge {
       border-radius: 0;
@@ -1358,6 +1365,7 @@ body {
     .marco-tabs-normal ul li:first-child {
       margin-left: 0; }
   .marco-tabs-normal ul .active a {
+    color: white;
     padding: 5px;
     border: none;
     background-color: #2980b9; }
