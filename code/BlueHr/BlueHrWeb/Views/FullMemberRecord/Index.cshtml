@@ -47,9 +47,7 @@
         </a>
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-
             <li role="presentation" class="active"><a href="#all_FullMemberRecord" role="tab" data-toggle="tab">转正记录</a></li>
-
         </ul>
         <div class="tab-content">
 
@@ -83,13 +81,17 @@
                                     </td>
                                     <td>
                                         <!--@Html.DisplayFor(modelItem => item.isPassCheck)-->
-                                        <span> @(item.isPassCheck?"通过":"未通过") </span>
+                                        <span> @(item.isPassCheck ? "通过" : "未通过") </span>
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.checkScore)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.beFullAt)
+                                        <!--转正时间-->
+                                        <span>
+                                             @(@item.beFullAt.HasValue ? @item.beFullAt.Value.ToString("yyyy-MM-dd") : "" )
+                                        </span>
+                                        <!--@Html.DisplayFor(modelItem => item.beFullAt)-->
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.remark)
@@ -98,13 +100,19 @@
                                         @Html.DisplayFor(modelItem => item.userId)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.createdAt)
+                                        <span>
+                                             @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "" )
+                                        </span>
+                                        <!--@Html.DisplayFor(modelItem => item.createdAt)-->
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalUserId)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.approvalAt)
+                                        <span>
+                                             @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "" )
+                                        </span>
+                                        <!--@Html.DisplayFor(modelItem => item.approvalAt)-->
                                     </td>
                                     @if (item.approvalStatus == null)
                                     {
@@ -164,8 +172,7 @@
                 <div class="marco-textarea">
                     <span>审批备注</span>
                 
-                    <textarea id="apvRemarks" name="apvRemarks">
-                    </textarea>
+                    <textarea id="apvRemarks" name="apvRemarks"> </textarea>
                 </div>
             </div>
         </div>

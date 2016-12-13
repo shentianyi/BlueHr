@@ -130,11 +130,15 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.resignTypeId)
                                 </td>
+
                                 <td>
+                                     <!--值不可为空-->
                                     <span>@item.resignAt.ToString("yyyy-MM-dd")</span>  
                                 </td>
                                 <td>
-                                    <span>@item.resignEffectiveAt.Value.ToString("yyyy-MM-dd")</span>
+                                     <!--值可为空-->
+                                    @(@item.resignEffectiveAt.HasValue ? @item.resignEffectiveAt.Value.ToString("yyyy-MM-dd") : "")
+                                    @*<span>@item.resignEffectiveAt.Value.ToString("yyyy-MM-dd")</span>*@
                                     @*@Html.DisplayFor(modelItem => item.resignEffectiveAt)*@
                                 </td>
                                 <td>
@@ -144,7 +148,13 @@
                                     @Html.DisplayFor(modelItem => item.resignChecker)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.approvalAt)
+                                    <!--审批时间-->
+
+                                    <span>
+                                        @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                    </span>
+
+                                    <!--@Html.DisplayFor(modelItem => item.approvalAt)-->
                                 </td>
                                 @if (item.approvalStatus == null)
                                 {
