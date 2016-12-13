@@ -82,7 +82,13 @@ namespace BlueHrWeb.Controllers
             try
             {
                 msg = DoValidation(rewardsAndPenalties);
-
+                IStaffService ss = new StaffService(Settings.Default.db);
+                if (ss.FindByNr(rewardsAndPenalties.staffNr) == null)
+                {
+                    msg.Success = false;
+                    msg.Content = "员工号不存在";
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
                 if (!msg.Success)
                 {
                     return Json(msg, JsonRequestBehavior.AllowGet);

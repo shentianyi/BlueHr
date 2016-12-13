@@ -338,22 +338,23 @@ namespace BlueHrWeb.Controllers
             IShiftService ss = new ShiftService(Settings.Default.db);
 
             var Shifts = ss.GetAllTableName();
-
-            if (Shifts != null)
+            if (Shifts.Count == 0)
             {
-                //获取当前记录的属性
-                foreach (var property in Shifts[0].GetType().GetProperties())
+                Shift tempShift = new Shift();
+                Shifts.Add(tempShift);
+            }
+            //获取当前记录的属性
+            foreach (var property in Shifts[0].GetType().GetProperties())
+            {
+                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
                 {
-                    if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
-                    {
-                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
-                    }
-                    else
-                    {
-                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
-                    }
-
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
                 }
+                else
+                {
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                }
+
             }
 
             ViewData["getAllTableNameList"] = select;

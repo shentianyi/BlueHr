@@ -173,7 +173,23 @@ namespace BlueHrWeb.Controllers
                 resignRecord.resignChecker = us.FindById(user.id).name;
                 IResignRecordService cs = new ResignRecordService(Settings.Default.db);
                 bool isSucceed = cs.Update(resignRecord);
-
+                if(isSucceed==true)
+                {
+                    // 创建离职记录##User##
+                    try
+                    {
+                        IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+                        mrs.CreateStaffResignMessage(resignRecord.staffNr, (Session["user"] as User).id);
+                    }
+                    catch { }
+                    if(resignRecord.approvalStatus== "通过审批")
+                    {
+                        IStaffService ss = new StaffService(Settings.Default.db);
+                        Staff staff = ss.FindByNrThis(resignRecord.staffNr);
+                        staff.workStatus = 200;
+                        ss.Update(staff);
+                    }
+                }
                 msg.Success = isSucceed;
                 msg.Content = isSucceed ? "" : "更新失败";
 
