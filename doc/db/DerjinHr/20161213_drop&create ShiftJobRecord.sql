@@ -1,4 +1,4 @@
-USE [DerjinHr]
+USE [BlueHr]
 GO
 
 /****** Object:  Table [dbo].[ShiftJobRecord]    Script Date: 12/13/2016 17:32:54 ******/
@@ -6,7 +6,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Shift
 DROP TABLE [dbo].[ShiftJobRecord]
 GO
 
-USE [DerjinHr]
+USE [BlueHr]
 GO
 
 /****** Object:  Table [dbo].[ShiftJobRecord]    Script Date: 12/13/2016 17:32:54 ******/
@@ -25,9 +25,9 @@ CREATE TABLE [dbo].[ShiftJobRecord](
 	[beforeCompanyId] [int] NULL,
 	[beforeDepartmentId] [int] NULL,
 	[beforeJobId] [int] NULL,
-	[aftereCompanyId] [int] NULL,
-	[aftereDepartmentId] [int] NULL,
-	[aftereJobId] [int] NULL,
+	[afterCompanyId] [int] NULL,
+	[afterDepartmentId] [int] NULL,
+	[afterJobId] [int] NULL,
 	[userId] [int] NOT NULL,
 	[createdAt] [datetime] NOT NULL,
 	[remark] [text] NULL,
