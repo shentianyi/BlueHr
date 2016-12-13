@@ -1,4 +1,4 @@
-USE [BlueHr]
+USE [DerjinHr]
 GO
 
 /****** Object:  Table [dbo].[ShiftJobRecord]    Script Date: 12/13/2016 17:32:54 ******/
@@ -6,7 +6,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Shift
 DROP TABLE [dbo].[ShiftJobRecord]
 GO
 
-USE [BlueHr]
+USE [DerjinHr]
 GO
 
 /****** Object:  Table [dbo].[ShiftJobRecord]    Script Date: 12/13/2016 17:32:54 ******/
