@@ -17024,11 +17024,11 @@ namespace BlueHrLib.Data
 		
 		private string _staffNr;
 		
-		private System.Nullable<int> _beforCompanyId;
+		private System.Nullable<int> _beforeCompanyId;
 		
-		private System.Nullable<int> _beforDepartmentId;
+		private System.Nullable<int> _beforeDepartmentId;
 		
-		private System.Nullable<int> _beforJobId;
+		private System.Nullable<int> _beforeJobId;
 		
 		private System.Nullable<int> _afterCompanyId;
 		
@@ -17058,12 +17058,12 @@ namespace BlueHrLib.Data
     partial void OnidChanged();
     partial void OnstaffNrChanging(string value);
     partial void OnstaffNrChanged();
-    partial void OnbeforCompanyIdChanging(System.Nullable<int> value);
-    partial void OnbeforCompanyIdChanged();
-    partial void OnbeforDepartmentIdChanging(System.Nullable<int> value);
-    partial void OnbeforDepartmentIdChanged();
-    partial void OnbeforJobIdChanging(System.Nullable<int> value);
-    partial void OnbeforJobIdChanged();
+    partial void OnbeforeCompanyIdChanging(System.Nullable<int> value);
+    partial void OnbeforeCompanyIdChanged();
+    partial void OnbeforeDepartmentIdChanging(System.Nullable<int> value);
+    partial void OnbeforeDepartmentIdChanged();
+    partial void OnbeforeJobIdChanging(System.Nullable<int> value);
+    partial void OnbeforeJobIdChanged();
     partial void OnafterCompanyIdChanging(System.Nullable<int> value);
     partial void OnafterCompanyIdChanged();
     partial void OnafterDepartmentIdChanging(System.Nullable<int> value);
@@ -17131,62 +17131,62 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_beforCompanyId", DbType="Int")]
-		public System.Nullable<int> beforCompanyId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_beforeCompanyId", DbType="Int")]
+		public System.Nullable<int> beforeCompanyId
 		{
 			get
 			{
-				return this._beforCompanyId;
+				return this._beforeCompanyId;
 			}
 			set
 			{
-				if ((this._beforCompanyId != value))
+				if ((this._beforeCompanyId != value))
 				{
-					this.OnbeforCompanyIdChanging(value);
+					this.OnbeforeCompanyIdChanging(value);
 					this.SendPropertyChanging();
-					this._beforCompanyId = value;
-					this.SendPropertyChanged("beforCompanyId");
-					this.OnbeforCompanyIdChanged();
+					this._beforeCompanyId = value;
+					this.SendPropertyChanged("beforeCompanyId");
+					this.OnbeforeCompanyIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_beforDepartmentId", DbType="Int")]
-		public System.Nullable<int> beforDepartmentId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_beforeDepartmentId", DbType="Int")]
+		public System.Nullable<int> beforeDepartmentId
 		{
 			get
 			{
-				return this._beforDepartmentId;
+				return this._beforeDepartmentId;
 			}
 			set
 			{
-				if ((this._beforDepartmentId != value))
+				if ((this._beforeDepartmentId != value))
 				{
-					this.OnbeforDepartmentIdChanging(value);
+					this.OnbeforeDepartmentIdChanging(value);
 					this.SendPropertyChanging();
-					this._beforDepartmentId = value;
-					this.SendPropertyChanged("beforDepartmentId");
-					this.OnbeforDepartmentIdChanged();
+					this._beforeDepartmentId = value;
+					this.SendPropertyChanged("beforeDepartmentId");
+					this.OnbeforeDepartmentIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_beforJobId", DbType="Int")]
-		public System.Nullable<int> beforJobId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_beforeJobId", DbType="Int")]
+		public System.Nullable<int> beforeJobId
 		{
 			get
 			{
-				return this._beforJobId;
+				return this._beforeJobId;
 			}
 			set
 			{
-				if ((this._beforJobId != value))
+				if ((this._beforeJobId != value))
 				{
-					this.OnbeforJobIdChanging(value);
+					this.OnbeforeJobIdChanging(value);
 					this.SendPropertyChanging();
-					this._beforJobId = value;
-					this.SendPropertyChanged("beforJobId");
-					this.OnbeforJobIdChanged();
+					this._beforeJobId = value;
+					this.SendPropertyChanged("beforeJobId");
+					this.OnbeforeJobIdChanged();
 				}
 			}
 		}
