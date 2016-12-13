@@ -1,4 +1,4 @@
-USE [DerjinHr]
+USE BlueHr
 GO
 
 /****** Object:  Table [dbo].[ShiftJobRecord]    Script Date: 12/13/2016 16:34:09 ******/
