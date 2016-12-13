@@ -4,6 +4,7 @@
     <ol class="breadcrumb current-position">
         您的位置：
         <li>个人事项</li>
+        <li>我的申请</li>
         <li>{{action}}</li>
     </ol>
 
@@ -38,8 +39,8 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <label for="name">员工号 *</label>
-                            <input type="text" name="staffNr" id="staffNr" placeholder="员工号" disabled value="@Model.staffNr" />
-                            <!--<input type="hidden" id="staffNr" name="staffNr">-->
+                            <!--@Html.EditorFor(model => model.staffNr)-->
+                            @Html.DropDownList("staffNr", ViewData["onTrialStaff"] as IEnumerable<SelectListItem>)
                         </div>
                     </div>
 
@@ -47,7 +48,6 @@
                         <div class="marco-igroup-primary">
                             <label for="name">是否通过转正</label>
                             @Html.EditorFor(model => model.isPassCheck, new { htmlAttributes =  new {@style="width: 24px; margin-left: 20px;"} })
-                            <!--<input type="checkbox" id="isPassCheck" name="isPassCheck" value="true" checked style="width: 24px; margin-left: 20px;">-->
                         </div>
                     </div>
 
@@ -61,7 +61,11 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <label for="name">转正日期</label>
-                            @Html.EditorFor(model => model.beFullAt, new { htmlAttributes = new { @class = "date-picker" } })
+                            @if(Model != null){
+                                <input type="text" value="@Model.beFullAt.Value.ToString("yyyy-MM-dd")" class="date-picker">
+                            }else{
+                                <input type="text" value="" class="date-picker">
+                            }
                         </div>
                     </div>
                 </div>
@@ -82,17 +86,6 @@
     Layout.init();
 
     Layout.datepicker(".date-picker"); 
-
-    $("#isPassCheck").click(function(){
-
-        if($("#isPassCheck").val()=="true"){
-            $("#isPassCheck").val("false");
-            console.log($("#isPassCheck").val());
-        }else{
-            $("#isPassCheck").val("true");
-            console.log($("#isPassCheck").val());
-        }
-    })
 
     $(".submit-btn").click(function(){
         $("#resignTypeName").val($(".combo-input").val());

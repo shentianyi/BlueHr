@@ -275,7 +275,7 @@ namespace BlueHrWeb.Controllers
                 //获取当前记录的属性
                 foreach (var onTrailStaff in OnTrialStaff)
                 {
-                    select.Add(new SelectListItem { Text = onTrailStaff.name, Value = onTrailStaff.nr });
+                    select.Add(new SelectListItem { Text = onTrailStaff.nr +" -> "+ onTrailStaff.name, Value = onTrailStaff.nr });
                 }
             }
 

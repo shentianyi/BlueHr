@@ -417,6 +417,7 @@
     <None Include="Properties\PublishProfiles\BlueHr.pubxml" />
     <None Include="Properties\PublishProfiles\BlueHrWeb.pubxml" />
     <None Include="Properties\PublishProfiles\BlueHrWebPubConfig.pubxml" />
+    <None Include="Properties\PublishProfiles\DerjinHr.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -769,7 +770,6 @@
     <Content Include="Views\ResignRecord\Edit.cshtml" />
     <Content Include="Views\ResignRecord\Delete.cshtml" />
     <Content Include="Views\ResignRecord\_PartialResignRecord.cshtml" />
-
     <Content Include="Views\ShiftJobRecord\_PartialShiftJobRecord.cshtml" />
     <Content Include="Views\ShiftJobRecord\Create.cshtml" />
     <Content Include="Views\ShiftJobRecord\Delete.cshtml" />

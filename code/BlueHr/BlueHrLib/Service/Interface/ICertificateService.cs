@@ -24,5 +24,7 @@ namespace BlueHrLib.Service.Interface
 
         List<Certificate> FindByCertificateType(int id);
         List<Certificate> GetAllTableName();
+
+        List<Certificate> FindByStaffNr(string staffNr);
     }
 }

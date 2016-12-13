@@ -174,7 +174,6 @@ namespace BlueHrWeb.Controllers
         public ActionResult Create()
         {
             SetDropDownList(null);
-
             return View();
         }
 
@@ -736,6 +735,7 @@ namespace BlueHrWeb.Controllers
                     select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
                 }
             }
+
             ViewData["isOnTrialList"] = select;
         }
 

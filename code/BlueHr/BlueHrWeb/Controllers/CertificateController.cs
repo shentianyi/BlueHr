@@ -239,6 +239,40 @@ namespace BlueHrWeb.Controllers
             }
         }
 
+        [RoleAndDataAuthorization]
+        [UserAuthorize]
+        [HttpGet]
+        public JsonResult GetCertificateByStaffNr(string staffNr)
+        {
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+            try
+            {
+                ICertificateService cs = new CertificateService(Settings.Default.db);
+                List<Certificate> certificates = cs.FindByStaffNr(staffNr);
+
+                foreach(var certificate in certificates)
+                {
+                    Dictionary<string, string> ctf = new Dictionary<string, string>();
+                    ctf.Add("id", certificate.id.ToString());
+                    ctf.Add("staffNr", certificate.staffNr);
+                    ctf.Add("certificateName", certificate.CertificateType.name);
+                    ctf.Add("certiLevel", certificate.certiLevel);
+                    ctf.Add("effectiveFrom", certificate.effectiveFrom.Value.ToString("yyyy-MM-dd"));
+                    ctf.Add("effectiveEnd", certificate.effectiveEnd.Value.ToString("yyyy-MM-dd"));
+                    ctf.Add("institution", certificate.institution);
+                    ctf.Add("remark", certificate.remark);
+
+                    Result.Add(ctf);
+                }
+
+                return Json(Result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(Result, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         private void SetDropDownList(Certificate model)
         {
             if (model != null)

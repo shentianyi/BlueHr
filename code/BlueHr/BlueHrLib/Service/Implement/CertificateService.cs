@@ -66,5 +66,10 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.GetAllTableName();
         }
+
+        public List<Certificate> FindByStaffNr(string staffNr)
+        {
+            return rep.FindByStaffNr(staffNr);
+        }
     }
 }

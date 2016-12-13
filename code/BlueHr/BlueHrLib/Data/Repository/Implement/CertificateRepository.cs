@@ -143,5 +143,17 @@ namespace BlueHrLib.Data.Repository.Implement
                 return null;
             }
         }
+
+        public List<Certificate> FindByStaffNr(string staffNr)
+        {
+            try
+            {
+                return this.context.GetTable<Certificate>().Where(p => p.staffNr.Equals(staffNr)).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

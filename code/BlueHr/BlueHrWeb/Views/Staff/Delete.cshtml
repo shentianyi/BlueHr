@@ -29,7 +29,7 @@
                 </button>
             </a>
         }
-
+<!--
         @if (canResign)
         {
             <a href="@resignUrl" title="@resignTitle">
@@ -54,7 +54,7 @@
                 <i class="glyphicon glyphicon-refresh"></i>
                 <span>调 岗</span>
             </button>
-        }
+        }-->
     </div>
 </div>
 
@@ -105,6 +105,27 @@
 @Html.Partial("_PartialStaff")
 
 <script type="text/javascript">
+    $.ajax({
+        url:'/Certificate/GetCertificateByStaffNr',
+        type:'get',
+        data:{
+            staffNr: $("#nr").val()
+        },
+        success:function(data){
+            for(var i =0; i < data.length; i++){
+                console.log(data[i])
+                var Html = "<tr><td>"+data[i].certificateName+"</td><td>"+data[i].certiLevel+"</td>"+
+                "<td>"+data[i].effectiveFrom+"</td><td>"+data[i].effectiveEnd+"</td><td>"+data[i].institution+"</td>"+
+                "<td>"+data[i].remark+"</td></tr>";
+                $(Html).appendTo($(".tbody-certificates"));
+            }
+
+        },
+        error:function(){
+            console.log("Something Error!");
+        }
+    })
+
     Staff.other_image_preview('#photoName', '#photo', '#photopreview');
 
     $('.change-job').click(function () {
