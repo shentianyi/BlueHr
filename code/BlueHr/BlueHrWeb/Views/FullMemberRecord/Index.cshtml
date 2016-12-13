@@ -88,8 +88,10 @@
                                     </td>
                                     <td>
                                         <!--转正时间-->
-                                        @(@item.beFullAt.HasValue?@item.beFullAt.Value.ToString("yyyy-MM-dd"):"" )
-                                        @Html.DisplayFor(modelItem => item.beFullAt)
+                                        <span>
+                                             @(@item.beFullAt.HasValue ? @item.beFullAt.Value.ToString("yyyy-MM-dd") : "" )
+                                        </span>
+                                        <!--@Html.DisplayFor(modelItem => item.beFullAt)-->
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.remark)
@@ -98,13 +100,19 @@
                                         @Html.DisplayFor(modelItem => item.userId)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.createdAt)
+                                        <span>
+                                             @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "" )
+                                        </span>
+                                        <!--@Html.DisplayFor(modelItem => item.createdAt)-->
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalUserId)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.approvalAt)
+                                        <span>
+                                             @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "" )
+                                        </span>
+                                        <!--@Html.DisplayFor(modelItem => item.approvalAt)-->
                                     </td>
                                     @if (item.approvalStatus == null)
                                     {
