@@ -255,7 +255,6 @@
     <Compile Include="Controllers\ExtraWorkTypeController.cs" />
     <Compile Include="Controllers\FullMemberRecordController.cs" />
     <Compile Include="Controllers\InSureTypeController.cs" />
-    <Compile Include="Controllers\ShiftJobRecordController.cs" />
     <Compile Include="Controllers\LeaveRecordController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\RecruitController.cs" />
@@ -773,6 +772,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="UploadImage\" />
+    <Folder Include="Views\ShiftJobRecord\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

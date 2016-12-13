@@ -1,57 +1,37 @@
 ﻿@using MvcPaging
 @using BlueHrWeb.Helpers.View
 
-@model IPagedList<BlueHrLib.Data.ExtraWorkRecordView>
+@model IPagedList<BlueHrLib.Data.ShiftJobRecord>
 @{
-    ViewBag.Title = "加班管理";
+    ViewBag.Title = "员工调岗";
 }
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
-    <li>考勤管理</li>
+    <li>劳动关系管理</li>
     <li>
-        <strong>加班管理</strong>
+        <strong>员工调岗</strong>
     </li>
 </ol>
 <hr class="hr-grey" />
 
-@{
-    bool canDelete = MenuAuthHelper.CanShow("ExtraWorkRecord", "Delete");
-    bool canEdit = MenuAuthHelper.CanShow("ExtraWorkRecord", "Edit");
-    bool canCreate = MenuAuthHelper.CanShow("ExtraWorkRecord", "Create");
-    bool canApp = MenuAuthHelper.CanShow("ExtraWorkRecord", "ApprovalExtraWorkRecord");
-    bool canImport = MenuAuthHelper.CanShow("ExtraWorkRecord", "Import");
-}
 
-<div class="row" style="margin:0;">
-    <form action="/ExtraWorkRecord/Search" method="get">
+<div class="search">
+    <form action="/ShiftJobRecord/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>工号</span>
+                    <input type="text" name="Nr" id="Nr" placeholder="工号" value="@ViewBag.Query.staffNr" />
+                </div>
+            </div>
 
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>员工编号</span>
-                <input type="text" name="staffNr" id="staffNr" placeholder="员工编号" value="@ViewBag.Query.staffNr" />
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
+                <button type="submit" class="marco-btn-success">
+                    <i class="glyphicon glyphicon-search"></i>
+                    搜索
+                </button>
             </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-5">
-            <div class="marco-igroup-primary">
-                <span>加班类别</span>
-                @Html.DropDownList("extraWorkTypeId", ViewData["extraWorkTypeList"] as IEnumerable<SelectListItem>)
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
-            <div class="marco-igroup-primary">
-                <span>加班日期</span>
-                <input type="text" name="durStart" id="durStart" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.durStart" />
-                <span style="margin-left: 5px;"> ~ </span>
-                <input type="text" name="durEnd" id="durEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.durEnd" />
-                <span class="marco-label-success" style="padding:0;">
-                    <button type="submit" class="marco-btn-success" style="padding:10px; margin:0;">
-                        <i class="fa fa-search"></i>
-                        搜索
-                    </button>
-                </span>
-            </div>
-        </div>
-
     </form>
 </div>
 <hr class="hr-primary" />
@@ -64,21 +44,9 @@
             </button>
         </a>
 
-        <button type="button" class="marco-btn-success pull-right" style="margin-top: -5px; margin-right:5px;" onclick="shBatchAbsenceRecord()">
-            <i class="fa fa-pencil"></i>
-            <span>批量审批</span>
-        </button>
-
-        @if (canImport)
-        {
-            <button class="marco-btn-primary import-button-dialog pull-right" title="Import" style="margin-top: -5px; margin-right:5px;" type="button">
-                <i class="fa fa-cloud-upload"></i>
-                <span>导入加班记录</span>
-            </button>
-        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">加班申请</a></li>
+            <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">调岗申请</a></li>
         </ul>
 
         <div class="tab-content">
