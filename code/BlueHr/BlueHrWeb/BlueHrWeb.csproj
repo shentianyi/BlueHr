@@ -768,6 +768,7 @@
     <Content Include="Views\ResignRecord\Edit.cshtml" />
     <Content Include="Views\ResignRecord\Delete.cshtml" />
     <Content Include="Views\ResignRecord\_PartialResignRecord.cshtml" />
+    <Content Include="Views\Staff\Transfer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
