@@ -46,7 +46,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-danger">
                         <span>执行时间*</span>
-                            <input type="text" name="cronSchedule" placeholder="执行时间" />
+                        @Html.EditorFor(model => model.cronSchedule, new { htmlAttributes = new { @class = "date-picker" } })
                     </div>
                 </div>
 

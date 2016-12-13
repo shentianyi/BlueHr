@@ -101,6 +101,9 @@ switch (pathname[1]) {
         break;
     
     case "FullMemberRecord":
+        $('.nav-regular').addClass('active');
+        $('.nav-laborrelations').addClass('active');
+
         if(pathname[2] == "Index"){
             $('.nav-regular').addClass('active');
             $('.nav-laborrelations').addClass('active');
