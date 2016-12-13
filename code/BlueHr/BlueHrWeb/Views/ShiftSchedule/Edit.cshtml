@@ -1,8 +1,37 @@
-﻿
+﻿@model BlueHrLib.Data.ShiftSchedule
+
 @{
     ViewBag.Title = "Edit";
 }
 
+<input type="hidden" id="shift_schedule_id" value="@Model.id">
 
-@Html.Partial("_PartialShiftSchedule")
+<!--展示基本信息-->
 
+<div id="fullMemberRecord" style="margin:10px;">
+    <span>员工号: @Model.staffNr</span>
+
+    <hr class="hr-grey" />
+
+    <div class="marco-npanel-primary">
+        <div class="marco-nheading">
+            <span>员工号: @Model.staffNr</span>
+            <!--<div class="pull-right">
+                <button type="submit" class="marco-btn-primary submit-btn" style="margin-top:-10px; padding: 0 10px;">
+                    <i class="fa fa-check-circle-o"></i>
+                    <span>{{actionBtn}}</span>
+                </button>
+            </div>-->
+        </div>
+
+        <div class="marco-nbody">
+            
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var ShiftScheduleID = $("#shift_schedule_id").val();
+
+
+</script>

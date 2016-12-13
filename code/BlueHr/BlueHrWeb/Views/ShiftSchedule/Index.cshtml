@@ -179,7 +179,7 @@
     <div class="dialogModal_content">
         <div class="marco-nbody row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <span>班次名称</span>
+                <span>班次信息</span>
                 <span id="shift_schedule_name" name = "shift_schedule_name" style="font-weight: bold; color: #2980b9;"> </span>
             </div>
 
@@ -191,13 +191,14 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <td>员工号</td>
-                            <td>名称</td>
-                            <td>代码</td>
-                            <td>开始</td>
-                            <td>结束</td>
-                            <td>排班日期</td>
-                            <td>操作</td>
+                            <!--<th> <input type="checkbox" id="shif_schedule_check_all" style="width: 18px; height: 16px;"> </th>-->
+                            <th>员工号</th>
+                            <th>名称</th>
+                            <th>代码</th>
+                            <th>开始</th>
+                            <th>结束</th>
+                            <th>排班日期</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody id="shift_schedule_tbody"></tbody>
@@ -209,7 +210,7 @@
 
 <script type="text/javascript">
     Layout.init();
-    $("#shift_schedule_calendar").parent().css({"width" : $(window).width() - 250 + 'px'});
+    $("#shift_schedule_calendar").parent().css({"width" : $(window).width() - 250 + 'px', "min-height": $(window).height()+'px'});
 
     $(window).resize(function () {
         $("#shift_schedule_calendar").parent().css({ "width": $(window).width() - 250 + 'px' });
@@ -220,15 +221,12 @@
     $.ajax({
         url:'/ShiftSchedule/GetAllShiftSchedule',
         type:'get',
-        data:{
-
-        },
         success:function(data){
             $('#shift_schedule_calendar').fullCalendar({
                 header: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'month,agendaWeek,agendaDay,listMonth,listWeek,listDay'
+                    right: 'month, agendaWeek, agendaDay, listMonth, listWeek, listDay'
                 },
                 views: {
                     listDay: { buttonText: '天列表' },
@@ -261,10 +259,15 @@
                     $("#shift_schedule_name").html(event.id.split("_")[0]+" "+event.id.split("_")[1].split(" ")[1]+" - "+event.id.split("_")[2]+" 共:"+event.id.split("_")[3]+"人");
 
                     for(var i = 0; i < event.childrens.length; i++){
+                    // $("<tr><td> <input id="+event.childrens[i].id+" type='checkbox' name='shift_schedule_checkbox' style='width: 18px; height: 16px;' /> </td><td>"+event.childrens[i].staffNr+" <a href='/Staff/Delete/"+event.childrens[i].staffNr+"' class='option-icon-primary' title='员工详情' >
                         $("<tr><td>"+event.childrens[i].staffNr+" <a href='/Staff/Delete/"+event.childrens[i].staffNr+"' class='option-icon-primary' title='员工详情' > <i class='fa fa-eye'></i> </a> </td><td>"+event.childrens[i].name+"</td><td>"+event.childrens[i].code+"</td>"+
                         "<td>"+event.childrens[i].start+"</td>"+
                         "<td>"+event.childrens[i].end+"</td><td>"+event.childrens[i].scheduleAt+"</td>"+
-                        "<td><i class='fa fa-pencil'></i>  <i class='fa fa-trash' id='delete_shift_schedule' shift_scheduleId = "+event.childrens[i].id+" style='color: darkred; cursor: pointer;' title='删除该员工排班'></i> </td></tr>").appendTo($("#shift_schedule_tbody"));
+                        "<td><a href='/ShiftSchedule/Edit/"+event.childrens[i].id+"' class='option-icon-primary' title='编辑该员工排班'>"+
+                        "<i class='fa fa-pencil'></i></a>"+
+                        "<i class='fa fa-trash' id='delete_shift_schedule' "+
+                        " shift_scheduleId = " + event.childrens[i].id + " style='margin-left: 5px; color: darkred; cursor: pointer; border: 2px solid darkred; border-radius: 4px; padding: 3px 4px;' title='删除该员工排班'></i></td>"+
+                        "</tr>").appendTo($("#shift_schedule_tbody"));
                     }
                     
                     $("#ShiftScheduleModal").dialogModal({
@@ -273,11 +276,24 @@
                         onCancelBut: function () { 
                         },
                         onLoad: function () {
-                             $(".dialogModal").find('.option-icon-primary').click(function(){
+                            $(".dialogModal").find('.option-icon-primary').click(function(){
                                 //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
                                 Layout.openNewWindow($(this).attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
                                 return false;
                             });
+
+                            $(".dialogModal").on('click', '#shif_schedule_check_all', function() {
+                                var IsChecked = this.checked;
+                                
+                                $(".dialogModal").find('input[name="shift_schedule_checkbox"]').each(function(){
+                                    $(this).attr("checked", IsChecked)
+                                });   
+                            });
+                                    
+                            // var $subBox = $(".dialogModal").find("input[name='shift_schedule_checkbox']");
+                            // $subBox.click(function(){
+                            //     $(".dialogModal").find("#shif_schedule_check_all").attr("checked",$subBox.length == $(".dialogModal").find("input[name='shift_schedule_checkbox']:checked").length ? true : false);
+                            // });
 
                             $(".dialogModal").find("#delete_shift_schedule").click(function(){
                                 var This = $(this);
@@ -364,8 +380,8 @@
                         var that = this,
                             $selectableSearch = that.$selectableUl.prev(),
                             $selectionSearch = that.$selectionUl.prev(),
-                            selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
-                            selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+                            selectableSearchString = '#' + that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+                            selectionSearchString = '#' + that.$container.attr('id')+' .ms-elem-selection.ms-selected';
 
                         that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
                         .on('keydown', function(e){
