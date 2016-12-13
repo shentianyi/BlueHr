@@ -130,13 +130,16 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.resignTypeId)
                                     </td>
+
                                     <td>
+                                        <!--值不可为空-->
                                         <span>@item.resignAt.ToString("yyyy-MM-dd")</span>
                                     </td>
                                     <td>
-                                        <span>@item.resignEffectiveAt.Value.ToString("yyyy-MM-dd")</span>
-                                        @*@Html.DisplayFor(modelItem => item.resignEffectiveAt)*@
+                                        <!--值可为空-->
+                                        @(@item.resignEffectiveAt.HasValue ? @item.resignEffectiveAt.Value.ToString("yyyy-MM-dd") : "")
                                     </td>
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.resignReason)
                                     </td>
@@ -144,7 +147,10 @@
                                         @Html.DisplayFor(modelItem => item.resignChecker)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.approvalAt)
+                                        <!--审批时间-->
+                                        <span>
+                                            @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </span>
                                     </td>
                                     @if (item.approvalStatus == null)
                                     {
@@ -152,10 +158,9 @@
                                     }
                                     else
                                     {
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalStatus)
-                                        </td>
+                                        @Html.DisplayFor(modelItem => item.approvalStatus)
                                     }
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalRemark)
                                     </td>
@@ -217,6 +222,7 @@
         </div>
     </div>
 </div>
+
 @Scripts.Render("~/bundles/company")
 
 <script type="text/javascript">

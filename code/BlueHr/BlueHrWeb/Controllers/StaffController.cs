@@ -662,23 +662,28 @@ namespace BlueHrWeb.Controllers
             IStaffService ss = new StaffService(Settings.Default.db);
 
             var Staffs = ss.GetAllTableName();
-
-            if (Staffs != null)
+            if (Staffs.Count == 0)
             {
-                //获取当前记录的属性
-                foreach (var property in Staffs[0].GetType().GetProperties())
-                {
-                    if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
-                    {
-                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
-                    }
-                    else
-                    {
-                        select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
-                    }
-
-                }
+                Staff tempstaff = new Staff();
+                Staffs.Add(tempstaff);
             }
+            //获取当前记录的属性
+            foreach (var property in Staffs[0].GetType().GetProperties())
+            {
+                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
+                {
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                }
+
+            }
+            //foreach (var col in Staffs.DataMembers)
+            //{
+            //    Console.WriteLine("\t{0}\t{1}", col.MappedName, col.DbType);
+            //}
 
             ViewData["getAllTableNameList"] = select;
         }

@@ -154,9 +154,22 @@ namespace BlueHrWeb.Controllers
 
                 IFullMemberRecordService raps = new FullMemberRecordService(Settings.Default.db);
                 bool isSucceed = raps.Update(fullMemberRecord);
-
+                if (fullMemberRecord.isPassCheck == true)
+                {
+                    IStaffService ss = new StaffService(Settings.Default.db);
+                    Staff toFullMemberStaff = ss.FindByNrThis(fullMemberRecord.staffNr);
+                    toFullMemberStaff.isOnTrial = false;
+                    ss.Update(toFullMemberStaff);
+                    // 创建转正记录##User##
+                    try
+                    {
+                        IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+                        mrs.CreateStaffFullMemeberMessage(fullMemberRecord.staffNr, (Session["user"] as User).id);
+                    }
+                    catch { }
+                }
                 msg.Success = isSucceed;
-                msg.Content = isSucceed ? "更新成功" : "更新失败";
+                msg.Content = isSucceed ? "审批成功" : "审批失败";
 
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
@@ -220,10 +233,10 @@ namespace BlueHrWeb.Controllers
             }
 
             IFullMemberRecordService fmrs = new FullMemberRecordService(Settings.Default.db);
-            if (fmrs.FindByNr(model.staffNr) != null)
+            if (fmrs.FindByNr(model.staffNr) != null && fmrs.FindByNr(model.staffNr).isPassCheck==true)
             {
                 msg.Success = false;
-                msg.Content = "该员工已经递交申请";
+                msg.Content = "该员工已经递交申请并通过";
 
                 return msg;
             }
