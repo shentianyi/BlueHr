@@ -73,5 +73,6 @@ namespace BlueHrLib.Service.Interface
         bool EasyCreate(ShiftSchedule title, DateTime startTime, DateTime endTime);
 
         List<ShiftScheduleView> GetAllShiftSchedule();
+        ShiftSchedule FindForEdit(string staffNr,DateTime scheduleAt,int shiftId);
     }
 }
