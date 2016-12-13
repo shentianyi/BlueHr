@@ -117,6 +117,7 @@
 
      //回调函数
     function post_return_action(data) {
+        console.log(data.Success);
         if (!data.Success) {
             Layout.popMsg('popMsg-danger', data.Content);
             return false;
