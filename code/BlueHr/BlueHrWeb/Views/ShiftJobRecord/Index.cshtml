@@ -37,7 +37,7 @@
 <hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        <a href="/ExtraWorkRecord/Create" class="pull-right" style="margin-top: -10px;">
+        <a href="/ShiftJobRecord/Create" class="pull-right" style="margin-top: -10px;">
             <button type="button" class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
@@ -46,22 +46,24 @@
 
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">调岗申请</a></li>
+            <li role="presentation" class="active"><a href="#ShiftJobRecord" role="tab" data-toggle="tab">调岗申请</a></li>
         </ul>
 
         <div class="tab-content">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_extra_type">
-                <div id="all_extra_type_grid_table"></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="ShiftJobRecord">
+                <div id="ShiftJobRecord_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>日期</th>
-                            <th>工号</th>                            
-                            <th>起讫</th>
-                            <th>加班时长(小时)</th>
-                            <th>加班类别</th>
-                            <th>加班原因</th>
+                            <th>工号</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>申请人</th>                          
+                            <th>申请日期</th>
+                            <th>申请备注</th>
+                            <th>审批人</th>
+                            <th>审批日期</th>
                             <th>审批状态</th>
                             <th>备注</th>
                             <th>操作</th>
@@ -140,24 +142,11 @@
         </div>
         
     </div>
-    <!--导入数据-->
-    <div id="dialog_content" class="import_content" style="display:none;">
-        <div class="dialogModal_header" style="background:steelblue;color:white;">
-            导入加班记录
-        </div>
-        <div class="dialogModal_content">
-            <strong>选择数据文件:</strong>
-            <hr />
-            <input class="item-data-uploader" type="file" name="files[]" data-url="/ExtraWorkRecord/Import" />
-            <div class="item-data-uploader-preview" style="display:none;"></div>
-            <hr />
-            <a href="~/Template/加班记录导入文件模板.xlsx" target="_blank">下载文件模板</a>
-        </div>
-    </div>
+    
 
     <div id="approval_content" class="approval_content" style="display:none;">
         <div class="dialogModal_header" style="background:steelblue;color:white;">
-            加班审批
+            调岗审批
         </div>
 
         <div class="dialogModal_content">
@@ -194,10 +183,10 @@
     <script type="text/javascript">
         Layout.init();
         $(window).resize(function () {
-            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_extra_type", "加班申请列表", "20", "all_extra_type_grid_table");
+            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "ShiftJobRecord", "加班申请列表", "20", "ShiftJobRecord_grid_table");
         })
 
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_extra_type", "加班申请列表", "20", "all_extra_type_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "ShiftJobRecord", "加班申请列表", "20", "ShiftJobRecord_grid_table");
 
         $('.datetimepicker').datetimepicker({
             format: 'Y-m-d',
