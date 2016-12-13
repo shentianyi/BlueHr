@@ -116,18 +116,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                                    @if (Model != null)
-                                    {
-                                        foreach (var item in Model)
-                                        {
-                                        <tr>
-                                            @*@if(item.approvalStatus==null){
-                                        <td>
-                                            <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
-                                        </td>
-                                        }else{
-                                            <td></td>
-                                        }*@
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                            <tr>
                                 <td>
                                     <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
                                         @Html.DisplayFor(modelItem => item.staffNr)
@@ -138,10 +131,11 @@
                                     @Html.DisplayFor(modelItem => item.resignTypeId)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.resignAt)
+                                    <span>@item.resignAt.ToString("yyyy-MM-dd")</span>  
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.resignEffectiveAt)
+                                    <span>@item.resignEffectiveAt.Value.ToString("yyyy-MM-dd")</span>
+                                    @*@Html.DisplayFor(modelItem => item.resignEffectiveAt)*@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.resignReason)

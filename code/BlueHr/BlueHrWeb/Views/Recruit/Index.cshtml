@@ -142,10 +142,10 @@
                                         @Html.DisplayFor(modelItem => item.amount)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.createAt)
+                                        <span>@(@item.createAt.HasValue?@item.createAt.Value.ToString("yyyy-MM-dd"):"")</span>
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.requirementAt)
+                                        @(@item.requirementAt.HasValue?@item.requirementAt.Value.ToString("yyyy-MM-dd"):"")
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.requirementMan)

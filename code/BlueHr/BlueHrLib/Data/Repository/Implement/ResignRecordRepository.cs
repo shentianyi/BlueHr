@@ -61,6 +61,7 @@ namespace BlueHrLib.Data.Repository.Implement
             {
                 resignRecord = resignRecord.Where(c => c.staffNr.Contains(searchModel.staffNr.Trim()));
             }
+
             return resignRecord;
         }
 
