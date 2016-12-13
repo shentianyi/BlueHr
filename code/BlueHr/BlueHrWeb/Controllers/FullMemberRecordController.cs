@@ -160,6 +160,13 @@ namespace BlueHrWeb.Controllers
                     Staff toFullMemberStaff = ss.FindByNr(fullMemberRecord.staffNr);
                     toFullMemberStaff.isOnTrial = false;
                     ss.Update(toFullMemberStaff);
+                    // 创建转正记录##User##
+                    try
+                    {
+                        IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+                        mrs.CreateStaffFullMemeberMessage(fullMemberRecord.staffNr, (Session["user"] as User).id);
+                    }
+                    catch { }
                 }
                 msg.Success = isSucceed;
                 msg.Content = isSucceed ? "审批成功" : "审批失败";
