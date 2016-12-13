@@ -1,6 +1,161 @@
 ﻿@{
-    ViewBag.Title = "我的审核";
+    ViewBag.Title = "我的审批";
 }
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>个人事项</li>
+    <li>我的审批</li>
+</ol>
+
+<hr class="hr-grey" />
+
+<div class="row marco-tabs-default" style="margin:10px;">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#extra_work_application" role="tab" data-toggle="tab">加班申请</a></li>
+        <li role="presentation"><a href="#resign_application" role="tab" data-toggle="tab">离职申请</a></li>
+        <li role="presentation"><a href="#to_fullMember_application" role="tab" data-toggle="tab">转正申请</a></li>
+    </ul>
+    <div class="tab-content pq-grid">
+            <div role="tabpanel" class="tab-pane active" id="extra_work_application">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            @*<th>ID</th>*@
+                            <th>工号</th>
+                            <th>申请人</th>
+                            <th>加班类型</th>
+                            <th>加班日期</th>
+                            <th>开始时间</th>
+                            <th>截至时间</th>
+                            <th>时长</th>
+                            <th>原因</th>
+                            <th>审批状态</th>
+                            <th>审批备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var extraWorks in ViewData["ExtraWork"] as List<Dictionary<string, string>>)
+                        {
+                            <tr>
+                                @foreach (var extraWork in extraWorks)
+                                {
+                                    if (extraWork.Key == "ID")
+                                    {
+                                    }
+                                    else if (extraWork.Key == "StaffNr")
+                                    {
+                                        <td title="查看员工详细信息">
+                                            <a href="/Staff/Delete/@extraWork.Value" class="option-icon-primary">
+                                                @extraWork.Value
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@extraWork.Value</td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="resign_application">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            @*<th>ID</th>*@
+                            <th>工号</th>
+                            <th>申请时间</th>
+                            <th>离职原因</th>
+                            <th>创建时间</th>
+                            <th>审批状态</th>
+                            <th>审批人</th>
+                            <th>审批备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var resigns in ViewData["Resign"] as List<Dictionary<string, string>>)
+                        {
+                            <tr>
+                                @foreach (var resign in resigns)
+                                {
+                                    if (resign.Key == "ID")
+                                    {
+                                    }
+                                    else if (resign.Key == "StaffNr")
+                                    {
+                                        <td title="查看员工详细信息">
+                                            <a href="/Staff/Delete/@resign.Value" class="option-icon-primary">
+                                                @resign.Value
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@resign.Value</td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+            
+            <div role="tabpanel" class="tab-pane" id="to_fullMember_application">
+            @* 转正申请 *@
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        @*<th>ID</th>*@
+                        <th>工号</th>
+                        <th>是否通过</th>
+                        <th>转正分数</th>
+                        <th>转正时间</th>
+                        <th>审批状态</th>
+                        <th>审批人</th>
+                        <th>审批备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var fullMembers in ViewData["FullMembers"] as List<Dictionary<string, string>>)
+                    {
+                        <tr>
+                            @foreach (var fullMember in fullMembers)
+                            {
+                                if (fullMember.Key == "ID")
+                                {
+                                }
+                                else if (fullMember.Key == "StaffNr")
+                                {
+                                    <td title="查看员工详细信息">
+                                        <a href="/Staff/Delete/@fullMember.Value" class="option-icon-primary">
+                                            @fullMember.Value
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>@fullMember.Value</td>
+                                }
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            
+        </div>
+            
+        </div>
+    </div>
+</div>
+
 <script>
-	Layout.init();
+    Layout.init();
 </script>
