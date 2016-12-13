@@ -262,6 +262,11 @@ switch (pathname[1]) {
         $('.nav-shiftschedule').addClass('active');
         $('.nav-attendance').addClass('active');
         break;
+    case "ShiftJobRecord":
+        $('.nav-regular').addClass('active');
+        $('.nav-laborrelations').addClass('active');
+        PageAction('#shiftjobrecord', '新建调岗申请', '编辑调岗申请', '调岗申请详情', '创建', '更新', '删除');
+        break;
     default:
         break;
     }

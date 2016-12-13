@@ -1,99 +1,69 @@
 ﻿@using MvcPaging
 @using BlueHrWeb.Helpers.View
 
-@model IPagedList<BlueHrLib.Data.ExtraWorkRecordView>
+@model IPagedList<BlueHrLib.Data.ShiftJobRecord>
 @{
-    ViewBag.Title = "加班管理";
+    ViewBag.Title = "员工调岗";
 }
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
-    <li>考勤管理</li>
+    <li>劳动关系管理</li>
     <li>
-        <strong>加班管理</strong>
+        <strong>员工调岗</strong>
     </li>
 </ol>
 <hr class="hr-grey" />
 
-@{
-    bool canDelete = MenuAuthHelper.CanShow("ExtraWorkRecord", "Delete");
-    bool canEdit = MenuAuthHelper.CanShow("ExtraWorkRecord", "Edit");
-    bool canCreate = MenuAuthHelper.CanShow("ExtraWorkRecord", "Create");
-    bool canApp = MenuAuthHelper.CanShow("ExtraWorkRecord", "ApprovalExtraWorkRecord");
-    bool canImport = MenuAuthHelper.CanShow("ExtraWorkRecord", "Import");
-}
 
-<div class="row" style="margin:0;">
-    <form action="/ExtraWorkRecord/Search" method="get">
+<div class="search">
+    <form action="/ShiftJobRecord/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>工号</span>
+                    <input type="text" name="Nr" id="Nr" placeholder="工号" value="@ViewBag.Query.staffNr" />
+                </div>
+            </div>
 
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>员工编号</span>
-                <input type="text" name="staffNr" id="staffNr" placeholder="员工编号" value="@ViewBag.Query.staffNr" />
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
+                <button type="submit" class="marco-btn-success">
+                    <i class="glyphicon glyphicon-search"></i>
+                    搜索
+                </button>
             </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-5">
-            <div class="marco-igroup-primary">
-                <span>加班类别</span>
-                @Html.DropDownList("extraWorkTypeId", ViewData["extraWorkTypeList"] as IEnumerable<SelectListItem>)
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
-            <div class="marco-igroup-primary">
-                <span>加班日期</span>
-                <input type="text" name="durStart" id="durStart" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.durStart" />
-                <span style="margin-left: 5px;"> ~ </span>
-                <input type="text" name="durEnd" id="durEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.durEnd" />
-                <span class="marco-label-success" style="padding:0;">
-                    <button type="submit" class="marco-btn-success" style="padding:10px; margin:0;">
-                        <i class="fa fa-search"></i>
-                        搜索
-                    </button>
-                </span>
-            </div>
-        </div>
-
     </form>
 </div>
 <hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        <a href="/ExtraWorkRecord/Create" class="pull-right" style="margin-top: -10px;">
+        <a href="/ShiftJobRecord/Create" class="pull-right" style="margin-top: -10px;">
             <button type="button" class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
             </button>
         </a>
 
-        <button type="button" class="marco-btn-success pull-right" style="margin-top: -5px; margin-right:5px;" onclick="shBatchAbsenceRecord()">
-            <i class="fa fa-pencil"></i>
-            <span>批量审批</span>
-        </button>
-
-        @if (canImport)
-        {
-            <button class="marco-btn-primary import-button-dialog pull-right" title="Import" style="margin-top: -5px; margin-right:5px;" type="button">
-                <i class="fa fa-cloud-upload"></i>
-                <span>导入加班记录</span>
-            </button>
-        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">加班申请</a></li>
+            <li role="presentation" class="active"><a href="#ShiftJobRecord" role="tab" data-toggle="tab">调岗申请</a></li>
         </ul>
 
         <div class="tab-content">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_extra_type">
-                <div id="all_extra_type_grid_table"></div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="ShiftJobRecord">
+                <div id="ShiftJobRecord_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>日期</th>
-                            <th>工号</th>                            
-                            <th>起讫</th>
-                            <th>加班时长(小时)</th>
-                            <th>加班类别</th>
-                            <th>加班原因</th>
+                            <th>工号</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>申请人</th>                          
+                            <th>申请日期</th>
+                            <th>申请备注</th>
+                            <th>审批人</th>
+                            <th>审批日期</th>
                             <th>审批状态</th>
                             <th>备注</th>
                             <th>操作</th>
@@ -106,36 +76,45 @@
                             {
 
                                 <tr>
-                                    @if(item.approvalStatus==null){
-                                    <td style="width: 100px;">
-                                        <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
-                                    </td>
-                                    }else{
-                                        <td></td>
-                                    }
                                     <td>
-                                       
-                                        @Html.DisplayFor(modelItem => item.otTimeStr)
-                                    </td>
-                                    <td>
-                                        <a href="/Staff/Delete/@item.nr" class="option-icon-primary">
+                                        <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary">
                                             @Html.DisplayFor(modelItem => item.staffNr)
                                             <i class="fa fa-eye"></i>
                                         </a>
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.startEndHourStr)
+                                    <td>                                       
+                                        @Html.DisplayFor(modelItem => item.beforeCompanyId)
+                                        <span class="option-icon-primary"><i class="fa fa-long-arrow-right"></i></span>
+                                        @Html.DisplayFor(modelItem => item.afterCompanyId)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.duration)
+                                        @Html.DisplayFor(modelItem => item.beforeDepartmentId)
+                                        <span class="option-icon-primary"><i class="fa fa-long-arrow-right"></i></span>
+                                        @Html.DisplayFor(modelItem => item.afterDepartmentId)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.name)
+                                        @Html.DisplayFor(modelItem => item.beforeJobId)
+                                        <span class="option-icon-primary"><i class="fa fa-long-arrow-right"></i></span>
+                                        @Html.DisplayFor(modelItem => item.afterJobId)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.otReason)
+                                        @Html.DisplayFor(modelItem => item.userId)
                                     </td>
-                                        @if(item.approvalStatus==null){
+                                    <td>
+                                        <!--值不可为空-->
+                                        <span>@item.createdAt.ToString("yyyy-MM-dd")</span>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.remark)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalUserId)
+                                    </td>
+                                    <td>
+                                        <!--值可为空-->
+                                        @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                    </td>
+                                        @if(item.approvalStatus == null){
                                             <td>未审批</td>
                                         }else{
                                         <td>
@@ -143,21 +122,21 @@
                                         </td>
                                         }
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.remarks)
+                                        @Html.DisplayFor(modelItem => item.approvalRemark)
                                     </td>
                                     <td>
 
                                         @if(item.approvalStatus==null){
                                         
-                                            <a href="/ExtraWorkRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                            <a href="/ShiftJobRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                        
-                                            <a href="/ExtraWorkRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                            <a href="/ShiftJobRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                        
-                                            <a title="审批" id="shAbsenceRecord" class="option-icon-danger" onclick="shAbsenceRecord(@item.id)">
+                                            <a title="审批"class="option-icon-danger" onclick="shShiftJobRecord(@item.id)">
                                                 <i class="fa fa-check"></i>
                                             </a>
                                         
@@ -172,24 +151,11 @@
         </div>
         
     </div>
-    <!--导入数据-->
-    <div id="dialog_content" class="import_content" style="display:none;">
-        <div class="dialogModal_header" style="background:steelblue;color:white;">
-            导入加班记录
-        </div>
-        <div class="dialogModal_content">
-            <strong>选择数据文件:</strong>
-            <hr />
-            <input class="item-data-uploader" type="file" name="files[]" data-url="/ExtraWorkRecord/Import" />
-            <div class="item-data-uploader-preview" style="display:none;"></div>
-            <hr />
-            <a href="~/Template/加班记录导入文件模板.xlsx" target="_blank">下载文件模板</a>
-        </div>
-    </div>
+    
 
     <div id="approval_content" class="approval_content" style="display:none;">
         <div class="dialogModal_header" style="background:steelblue;color:white;">
-            加班审批
+            调岗审批
         </div>
 
         <div class="dialogModal_content">
@@ -226,10 +192,10 @@
     <script type="text/javascript">
         Layout.init();
         $(window).resize(function () {
-            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_extra_type", "加班申请列表", "20", "all_extra_type_grid_table");
+            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "ShiftJobRecord", "调岗申请列表", "20", "ShiftJobRecord_grid_table");
         })
 
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_extra_type", "加班申请列表", "20", "all_extra_type_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "ShiftJobRecord", "调岗申请列表", "20", "ShiftJobRecord_grid_table");
 
         $('.datetimepicker').datetimepicker({
             format: 'Y-m-d',
@@ -251,7 +217,7 @@
         });
 
         //审核
-        function shAbsenceRecord(id) {
+        function shShiftJobRecord(id) {
             $('#approval_content').dialogModal({
                 onOkBut: function () {
                     var approvalStatus = $(".dialogModal").find("#aplStatus").val();
