@@ -892,7 +892,7 @@ namespace BlueHrWeb.Controllers
 
             var User = us.GetAllTableName();
 
-            if (User != null)
+            if (User.Count != 0)
             {
                 //获取当前记录的属性
                 foreach (var property in User[0].GetType().GetProperties())

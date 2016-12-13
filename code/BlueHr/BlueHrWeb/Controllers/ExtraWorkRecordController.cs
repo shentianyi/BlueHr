@@ -544,7 +544,7 @@ namespace BlueHrWeb.Controllers
 
             var extraWorkRecords = ss.GetAllTableName();
 
-            if (extraWorkRecords != null)
+            if (extraWorkRecords.Count != 0)
             {
                 //获取当前记录的属性
                 foreach (var property in extraWorkRecords[0].GetType().GetProperties())

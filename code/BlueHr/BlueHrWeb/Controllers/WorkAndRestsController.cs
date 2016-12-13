@@ -266,7 +266,7 @@ namespace BlueHrWeb.Controllers
 
             var WorkAndRest = wars.GetAllTableName();
 
-            if (WorkAndRest != null)
+            if (WorkAndRest.Count != 0)
             {
                 //获取当前记录的属性
                 foreach (var property in WorkAndRest[0].GetType().GetProperties())

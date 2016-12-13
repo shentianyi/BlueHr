@@ -663,7 +663,7 @@ namespace BlueHrWeb.Controllers
 
             var Staffs = ss.GetAllTableName();
 
-            if (Staffs != null)
+            if (Staffs.Count!=0)
             {
                 //获取当前记录的属性
                 foreach (var property in Staffs[0].GetType().GetProperties())
@@ -678,6 +678,10 @@ namespace BlueHrWeb.Controllers
                     }
 
                 }
+                //foreach (var col in Staffs.DataMembers)
+                //{
+                //    Console.WriteLine("\t{0}\t{1}", col.MappedName, col.DbType);
+                //}
             }
 
             ViewData["getAllTableNameList"] = select;

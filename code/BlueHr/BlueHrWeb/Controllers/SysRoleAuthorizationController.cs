@@ -721,7 +721,7 @@ namespace BlueHrWeb.Controllers
 
             var SysRoleAuthorization = sras.GetAllTableName();
 
-            if (SysRoleAuthorization != null)
+            if (SysRoleAuthorization.Count != 0)
             {
                 //获取当前记录的属性
                 foreach (var property in SysRoleAuthorization[0].GetType().GetProperties())

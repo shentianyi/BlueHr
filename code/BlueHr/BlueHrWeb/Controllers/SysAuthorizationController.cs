@@ -262,7 +262,7 @@ namespace BlueHrWeb.Controllers
 
             var SysAuthorization = sas.GetAllTableName();
 
-            if (SysAuthorization != null)
+            if (SysAuthorization.Count != 0)
             {
                 //获取当前记录的属性
                 foreach (var property in SysAuthorization[0].GetType().GetProperties())

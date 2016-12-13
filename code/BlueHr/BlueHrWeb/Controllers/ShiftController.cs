@@ -339,7 +339,7 @@ namespace BlueHrWeb.Controllers
 
             var Shifts = ss.GetAllTableName();
 
-            if (Shifts != null)
+            if (Shifts.Count != 0)
             {
                 //获取当前记录的属性
                 foreach (var property in Shifts[0].GetType().GetProperties())
