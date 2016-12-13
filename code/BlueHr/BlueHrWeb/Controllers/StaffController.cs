@@ -713,7 +713,7 @@ namespace BlueHrWeb.Controllers
             ViewData["searchConditionsList"] = select;
         }
 
-        private void SetIsOnTrialList(bool? type, bool allowBlank = true)
+        private void SetIsOnTrialList(bool? type, bool allowBlank = false)
         {
             List<EnumItem> item = new List<EnumItem>() { new EnumItem() { Text = "是", Value = "true" }, new EnumItem() { Text = "否", Value = "false" } };
             //EnumHelper.GetList(typeof(IsOnTrail));
@@ -764,7 +764,7 @@ namespace BlueHrWeb.Controllers
             ViewData["sexList"] = select;
         }
 
-        private void SetIsPayCPFList(bool? type, bool allowBlank = true)
+        private void SetIsPayCPFList(bool? type, bool allowBlank = false)
         {
             List<EnumItem> item = new List<EnumItem>() { new EnumItem() { Text = "是", Value = "true" }, new EnumItem() { Text = "否", Value = "false" } };
 
@@ -789,7 +789,7 @@ namespace BlueHrWeb.Controllers
             ViewData["isPayCPFList"] = select;
         }
 
-        private void SetWorkStatusList(int? type, bool allowBlank = true)
+        private void SetWorkStatusList(int? type, bool allowBlank = false)
         {
             List<EnumItem> item = EnumHelper.GetList(typeof(WorkStatus));
 
