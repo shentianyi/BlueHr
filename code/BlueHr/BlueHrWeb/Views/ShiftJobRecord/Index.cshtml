@@ -76,16 +76,13 @@
                             {
 
                                 <tr>
-                                    @if(item.approvalStatus==null){
-                                    <td style="width: 100px;">
-                                        <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
+                                    <td>                                       
+                                        @Html.DisplayFor(modelItem => item.beforCompanyId)
+                                        @Html.DisplayFor(modelItem => item.afterCompanyId)
                                     </td>
-                                    }else{
-                                        <td></td>
-                                    }
                                     <td>
-                                       
-                                        @Html.DisplayFor(modelItem => item.otTimeStr)
+                                        @Html.DisplayFor(modelItem => item.beforDepartmentId)
+                                        @Html.DisplayFor(modelItem => item.afterDepartmentId)
                                     </td>
                                     <td>
                                         <a href="/Staff/Delete/@item.nr" class="option-icon-primary">
