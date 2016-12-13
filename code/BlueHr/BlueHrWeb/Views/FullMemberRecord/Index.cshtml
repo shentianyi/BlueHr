@@ -47,9 +47,7 @@
         </a>
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-
             <li role="presentation" class="active"><a href="#all_FullMemberRecord" role="tab" data-toggle="tab">转正记录</a></li>
-
         </ul>
         <div class="tab-content">
 
@@ -89,6 +87,8 @@
                                         @Html.DisplayFor(modelItem => item.checkScore)
                                     </td>
                                     <td>
+                                        <!--转正时间-->
+                                        @(@item.beFullAt.HasValue?@item.beFullAt.Value.ToString("yyyy-MM-dd"):"" )
                                         @Html.DisplayFor(modelItem => item.beFullAt)
                                     </td>
                                     <td>
@@ -164,8 +164,7 @@
                 <div class="marco-textarea">
                     <span>审批备注</span>
                 
-                    <textarea id="apvRemarks" name="apvRemarks">
-                    </textarea>
+                    <textarea id="apvRemarks" name="apvRemarks"> </textarea>
                 </div>
             </div>
         </div>
