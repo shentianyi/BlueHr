@@ -157,7 +157,7 @@ namespace BlueHrWeb.Controllers
                 if (fullMemberRecord.isPassCheck == true)
                 {
                     IStaffService ss = new StaffService(Settings.Default.db);
-                    Staff toFullMemberStaff = ss.FindByNr(fullMemberRecord.staffNr);
+                    Staff toFullMemberStaff = ss.FindByNrThis(fullMemberRecord.staffNr);
                     toFullMemberStaff.isOnTrial = false;
                     ss.Update(toFullMemberStaff);
                     // 创建转正记录##User##

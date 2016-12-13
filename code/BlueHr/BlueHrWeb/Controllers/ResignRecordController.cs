@@ -182,6 +182,13 @@ namespace BlueHrWeb.Controllers
                         mrs.CreateStaffResignMessage(resignRecord.staffNr, (Session["user"] as User).id);
                     }
                     catch { }
+                    if(resignRecord.approvalStatus== "通过审批")
+                    {
+                        IStaffService ss = new StaffService(Settings.Default.db);
+                        Staff staff = ss.FindByNrThis(resignRecord.staffNr);
+                        staff.workStatus = 200;
+                        ss.Update(staff);
+                    }
                 }
                 msg.Success = isSucceed;
                 msg.Content = isSucceed ? "" : "更新失败";
