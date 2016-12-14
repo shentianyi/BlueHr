@@ -109,13 +109,14 @@
         </a>
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#all_Ontrail" role="tab" data-toggle="tab">试用期员工</a></li>
+            <li role="presentation" class="active"><a href="#try_Ontrail" role="tab" data-toggle="tab">试用期员工</a></li>
+            <li role="presentation"><a href="#already_Ontrail" role="tab" data-toggle="tab">已转正员工</a></li>
         </ul>
 
         <div class="tab-content">
 
-            <div role="tabpanel" class="tab-pane active" id="all_Ontrail">
-                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_Ontrail_grid_table" style="margin:auto;"></div>
+            <div role="tabpanel" class="tab-pane active" id="try_Ontrail">
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="try_Ontrail_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -203,9 +204,105 @@
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                             }
-                                            <!-- <a href="#" class="option-icon-danger" title="转正">
-                                                    <i class="fa fa-sign-in"></i>
-                                            </a> -->
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="already_Ontrail">
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="already_Ontrail_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>身份证</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>是否备齐证照</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                if (item.isOnTrial)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.nr)
+                                        </td>
+                                        <td>
+                                            <span style="display:inline;">
+                                                @Html.DisplayFor(modelItem => item.id)
+                                            </span>
+
+                                            @if (item.isIdChecked)
+                                            {
+                                                <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">
+                                                    已验证
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="pull-right marco-label-danger" title="身份证还未验证, 请使用客户端进行验证" style="cursor:help;">
+                                                    未验证
+                                                </span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.name)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.sexDisplay)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Company.name)
+                                        </td>
+                                        
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.departmentFullName)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.JobTitle.name)
+                                        </td>
+
+                                        <td>
+                                            @if (item.IsHasAllCertificate)
+                                            {
+                                                <span class="marco-label-success" title="证照信息已经备齐" style="cursor:help;">已备齐</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="marco-label-danger" title="证照信息尚未备齐" style="cursor:help;">尚未备齐</span>
+                                            }
+                                        </td>
+
+                                        <td>
+                                            @if (canShow)
+                                            {
+                                                <a href="/Staff/Delete/@item.nr" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            @if (canEdit)
+                                            {
+                                                <a href="/Staff/Edit/@item.nr" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
+                                            
                                         </td>
                                     </tr>
                                 }
@@ -222,13 +319,14 @@
 <script>
     Layout.init();
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 230, false, "all_Ontrail", "所有试用期员工列表", "20", "all_Ontrail_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "try_Ontrail", "所有试用期员工列表", "20", "try_Ontrail_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_Ontrail", "已转正员工列表", "20", "already_Ontrail_grid_table");
     })
-   
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 230, false, "all_Ontrail", "所有试用期员工列表", "20", "all_Ontrail_grid_table");
     
-    // Layout.advancedfilter();
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "try_Ontrail", "所有试用期员工列表", "20", "try_Ontrail_grid_table");
     
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_Ontrail", "已转正员工列表", "20", "already_Ontrail_grid_table");
+     
     //自定义搜索
 
     $('.advanced-filter-btn').click(function () {
