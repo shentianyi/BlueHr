@@ -77,7 +77,13 @@ namespace BlueHrWeb.Controllers
         public JsonResult Create([Bind(Include = "staffNr, afterCompanyId, afterDepartmentId, afterJobId, remark")] ShiftJobRecord shiftJobRecord)
         {
             ResultMessage msg = new ResultMessage();
+            //shiftJobRecord.afterDepartmentId = 1;
 
+            msg = DoValidation(shiftJobRecord);
+            if (!msg.Success)
+            {
+                return Json(msg, JsonRequestBehavior.DenyGet);
+            }
             IStaffService ss = new StaffService(Settings.Default.db);
             Staff tempstaff = ss.FindByNrThis(shiftJobRecord.staffNr);
             shiftJobRecord.beforeCompanyId = tempstaff.companyId;
@@ -90,22 +96,13 @@ namespace BlueHrWeb.Controllers
             shiftJobRecord.createdAt = DateTime.Now;
             try
             {
-                msg = DoValidation(shiftJobRecord);
-
                 IShiftJobRecordService lrs = new ShiftJobRecordService(Settings.Default.db);
-                if (!msg.Success)
-                {
-                    return Json(msg, JsonRequestBehavior.DenyGet);
-                }
-                else
-                {
 
-                    bool isSucceed = lrs.Create(shiftJobRecord);
-                    msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "添加成功" : "添加失败";
+                bool isSucceed = lrs.Create(shiftJobRecord);
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "添加成功" : "添加失败";
 
-                    return Json(msg, JsonRequestBehavior.DenyGet);
-                }
+                return Json(msg, JsonRequestBehavior.DenyGet);
             }
             catch (Exception ex)
             {
@@ -166,8 +163,17 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                //先获取之前的Jobstr
                 IStaffService ss = new StaffService(Settings.Default.db);
+
+                //填充数据
+                string tempApprovalStatus = shiftJobRecord.approvalStatus;
+                string tempApprovalRemark = shiftJobRecord.approvalRemark;
+                IShiftJobRecordService ijrs = new ShiftJobRecordService(Settings.Default.db);
+                shiftJobRecord = ijrs.FindById(shiftJobRecord.id);
+                shiftJobRecord.approvalStatus = tempApprovalStatus;
+                shiftJobRecord.approvalRemark = tempApprovalRemark;
+
+                //先获取之前的Jobstr
                 Staff staff = ss.FindByNr(shiftJobRecord.staffNr);
                 string oldCompany = staff.Company == null ? string.Empty : staff.Company.name;
                 string oldDepartment = staff.Department == null ? string.Empty : staff.Department.name;

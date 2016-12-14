@@ -91,7 +91,8 @@ switch (pathname[1]) {
         PageAction('#certificatetype', '新建证照类型', '编辑证照类型', '证照类型详情', '创建', '更新', '删除');
         break;
     case "JobTitle":
-        $('.nav-organ').addClass('active');
+        $('.nav-jobtitle').addClass('active');
+        $('.nav-basic-info').addClass('active');
         PageAction('#jobtitle', '新建职位', '编辑职位', '职位详情', '创建', '更新', '删除');
         break;
     case "DegreeType":

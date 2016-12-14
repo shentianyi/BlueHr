@@ -113,8 +113,7 @@
             <li role="presentation"><a href="#already_Ontrail" role="tab" data-toggle="tab">已转正员工</a></li>
         </ul>
 
-        <div class="tab-content">
-
+         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="try_Ontrail">
                 <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="try_Ontrail_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
@@ -131,7 +130,7 @@
                             <th>操作</th>
                         </tr>
                     </thead>
-                    <tbody>
+                     <tbody>
                         @if (Model != null)
                         {
                             foreach (var item in Model)
@@ -234,7 +233,7 @@
                         {
                             foreach (var item in Model)
                             {
-                                if (item.isOnTrial)
+                                if (!item.isOnTrial)
                                 {
                                     <tr>
                                         <td>
@@ -324,8 +323,9 @@
     })
     
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "try_Ontrail", "所有试用期员工列表", "20", "try_Ontrail_grid_table");
-    
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_Ontrail", "已转正员工列表", "20", "already_Ontrail_grid_table");
+    $('#already_Ontrail').addClass("active");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "already_Ontrail", "已转正员工列表", "20", "already_Ontrail_grid_table");
+    $('#already_Ontrail').removeClass("active");
      
     //自定义搜索
 
