@@ -88,15 +88,5 @@
     if ($("#error_info").val() != "" && $("#error_info").val() != undefined) {
         Layout.popMsg("popMsg-danger", $("#error_info").val());
     }
-    function post_return_action(data) {
-        console.log(data.Success);
-        if (!data.Success) {
-            Layout.popMsg('popMsg-danger', data.Content);
-            return false;
-        }
-        else {
-            window.close();
-            //location.href = '/ExtraWorkRecord/Index';
-        }
-    };
+
 </script>
