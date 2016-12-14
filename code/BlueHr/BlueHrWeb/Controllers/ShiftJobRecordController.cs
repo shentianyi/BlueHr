@@ -77,7 +77,7 @@ namespace BlueHrWeb.Controllers
         public JsonResult Create([Bind(Include = "staffNr, afterCompanyId, afterDepartmentId, afterJobId, remark")] ShiftJobRecord shiftJobRecord)
         {
             ResultMessage msg = new ResultMessage();
-            shiftJobRecord.afterDepartmentId = 1;
+            //shiftJobRecord.afterDepartmentId = 1;
 
             msg = DoValidation(shiftJobRecord);
             if (!msg.Success)
