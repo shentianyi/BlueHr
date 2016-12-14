@@ -124,7 +124,7 @@ namespace BlueHrWeb.Controllers
                 ICompanyService cs = new CompanyService(Settings.Default.db);
                 bool isSucceed = cs.Update(company);
                 msg.Success = isSucceed;
-                msg.Content = isSucceed ? "添加成功" : "添加失败";
+                msg.Content = isSucceed ? "编辑成功" : "编辑失败";
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -159,7 +159,7 @@ namespace BlueHrWeb.Controllers
                 bool isSucceed = cs.DeleteById(id);
 
                 msg.Success = isSucceed;
-                msg.Content = isSucceed ? "添加成功" : "添加失败";
+                msg.Content = isSucceed ? "删除成功" : "删除失败";
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

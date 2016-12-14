@@ -130,10 +130,10 @@ namespace BlueHrWeb.Controllers
                     }
                     bool isSucceed = this.departmentService.Update(department);
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "添加成功" : "添加失败";
+                    msg.Content = isSucceed ? "编辑成功" : "编辑失败";
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
-                return Json(new ResultMessage() { Success = false, Content = "添加失败" }, JsonRequestBehavior.AllowGet);
+                return Json(new ResultMessage() { Success = false, Content = "编辑失败" }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
@@ -171,14 +171,14 @@ namespace BlueHrWeb.Controllers
                 {
                     bool isSucceed = this.departmentService.DeleteById(id);
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "添加成功" : "添加失败";
+                    msg.Content = isSucceed ? "删除成功" : "删除失败";
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 //IStaffService staffService = new StaffService(Settings.Default.db);
                 //TODO:如果该部门下有员工，则不能删除该部门
 
                 msg.Success = false;
-                msg.Content = "添加失败";
+                msg.Content = "删除失败";
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
