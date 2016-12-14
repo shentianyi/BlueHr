@@ -163,7 +163,7 @@ namespace BlueHrWeb.Controllers
         {
             IRewardsAndPenaltyService rps = new RewardsAndPenaltyService(Settings.Default.db);
             List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
-            foreach (var i in rps.FindBystaffNr(staffNr))
+            foreach (var i in rps.FindBystaffNr(staffNr).Where(r => r.approvalStatus == "审批通过"))
             {
                 Dictionary<string, string> detail = new Dictionary<string, string>();
                 detail.Add("奖惩类型", i.type == 1?"奖励":"惩罚");
