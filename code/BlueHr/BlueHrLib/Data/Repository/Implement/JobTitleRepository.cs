@@ -29,6 +29,7 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             try
             {
+                title.IsRevoked = false;
                 this.context.GetTable<JobTitle>().InsertOnSubmit(title);
                 this.context.SubmitChanges();
                 return true;

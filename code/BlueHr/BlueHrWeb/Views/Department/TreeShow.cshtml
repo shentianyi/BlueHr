@@ -1,12 +1,12 @@
 ﻿@{
-    ViewBag.Title = "公司组织架构视图";
+    ViewBag.Title = "部门组织架构视图";
 }
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>组织架构</li>
     <li>
-        <strong>公司组织架构视图</strong>
+        <strong>部门组织架构视图</strong>
     </li>
 </ol>
 
@@ -17,19 +17,19 @@
         <button id="zoomToFit" class="marco-btn-primary">显示全部</button>
         <button id="centerRoot" class="marco-btn-primary">根节点</button>
     </div>
-    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-6">
+    <!--<div class="col-lg-3 col-md-3 col-xs-6 col-sm-6">
         <div class="marco-igroup-primary" style="width: 200px;">
-            <span>公司</span>
+            <span>部门</span>
             @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
         </div>
-    </div>
+    </div>-->
 </div>
 
 <div class="OrganizationShow" style="margin: 0 10px 0 10px;"></div>
 
 @Html.Partial("_HandlingMsgDialog")
                       
- @Scripts.Render("~/bundles/go")
+@Scripts.Render("~/bundles/go")
 
 <script type="text/javascript">
     Layout.init();
