@@ -774,14 +774,14 @@ namespace BlueHrWeb.Controllers
             q.loginUser = user;
             ViewBag.Query = q;
 
-            ISysRoleAuthorizationService sras = new SysRoleAuthorizationService(Settings.Default.db);
+            ISysRoleAuthorizationService ewrs = new SysRoleAuthorizationService(Settings.Default.db);
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
-            IPagedList<SysRoleAuthorization> sysRoleAuthorizations = null;
-            IQueryable<SysRoleAuthorization> sysRoleAuthorizationstemp = null;
-            IQueryable<SysRoleAuthorization> sysRoleAuthorizationstemp1 = null;
+            IPagedList<SysRoleAuthorization> SysRoleAuthorizations = null;
+            IQueryable<SysRoleAuthorization> SysRoleAuthorizationtemp = null;
+            IQueryable<SysRoleAuthorization> SysRoleAuthorizationtemp1 = null;
             List<SysRoleAuthorization> Result = new List<SysRoleAuthorization>();
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
@@ -795,28 +795,48 @@ namespace BlueHrWeb.Controllers
                         string[] SearchConditionsArray = SearchConditions.Split(',');
                         string searchValueFirst = Request.Form["searchValueFirst"];
                         string[] searchValueFirstArray = searchValueFirst.Split(',');
-                        sysRoleAuthorizationstemp1 = sras.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                        if (AllTableNameArray.Length > 1)
+
+                        try
                         {
-                            for (var i = 1; i < AllTableNameArray.Length; i++)
+                            SysRoleAuthorizationtemp1 = ewrs.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                            if (AllTableNameArray.Length > 1)
                             {
-                                sysRoleAuthorizationstemp = sras.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                foreach (var temp in sysRoleAuthorizationstemp)
+                                int i = 1;
+                                SysRoleAuthorizationtemp = ewrs.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in SysRoleAuthorizationtemp)
                                 {
-                                    if (sysRoleAuthorizationstemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                    if (SysRoleAuthorizationtemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                }
+                                if (AllTableNameArray.Length > 2)
+                                {
+                                    for (var i1 = 2; i1 < AllTableNameArray.Length; i1++)
+                                    {
+                                        IQueryable<SysRoleAuthorization> SysRoleAuthorizationtemp2 = null;
+                                        SysRoleAuthorizationtemp2 = ewrs.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                        foreach (var temp in Result)
+                                        {
+                                            if (SysRoleAuthorizationtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                        }
+
+                                    }
                                 }
                             }
+                            else
+                            {
+                                SysRoleAuthorizations = SysRoleAuthorizationtemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                            }
                         }
-                        else
+                        catch (Exception)
                         {
-                            sysRoleAuthorizations = sysRoleAuthorizationstemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                            SysRoleAuthorizations = null;
                         }
+
                     }
                 }
             }
-            sysRoleAuthorizations = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
+            SysRoleAuthorizations = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
 
-            return View("Index", sysRoleAuthorizations);
+            return View("Index", SysRoleAuthorizations);
         }
     }
 }
