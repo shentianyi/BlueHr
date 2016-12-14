@@ -75,9 +75,14 @@ namespace BlueHrWeb.Controllers
         // POST: Recruit/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Create([Bind(Include = "requirement,companyId,departmentId,amount,createAt,requirementAt,requirementMan,status,auditRecord,auditView")] Recruit Recruit)
+        public JsonResult Create([Bind(Include = "requirement,companyId,departmentId,amount,requirementAt,status,auditRecord,auditView")] Recruit Recruit)
         {
             ResultMessage msg = new ResultMessage();
+            IUserService us = new UserService(Settings.Default.db);
+
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            Recruit.requirementMan = us.FindById(user.id).name;
+            Recruit.createAt = DateTime.Now;
 
             try
             {
