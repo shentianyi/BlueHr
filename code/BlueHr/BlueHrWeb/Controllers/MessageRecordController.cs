@@ -32,6 +32,7 @@ namespace BlueHrWeb.Controllers
 
             int pageIndex = PagingHelper.GetPageIndex(page);
             IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+
             IPagedList<MessageRecordView> records = mrs
                 .GetByCateAndAllOrUnread(MessageRecordCatetory.Alert, (allOrUnread=="all" ? true : false))
                 .ToPagedList<MessageRecordView>(pageIndex,  Settings.Default.pageSize);

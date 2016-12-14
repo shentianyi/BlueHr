@@ -24,7 +24,7 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public int CountUnRead()
         {
-            return this.context.GetTable<MessageRecord>().Count(s => s.isRead == false);
+            return this.context.GetTable<MessageRecord>().Where(s => s.messageType != 401).Count(s => s.isRead == false);
         }
 
         public List<MessageRecord> LoginDetail()
