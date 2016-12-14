@@ -11,6 +11,8 @@ namespace BlueHrLib.Data.Repository.Interface
     {
         IQueryable<ShiftSchedule> Search(ShiftScheduleSearchModel searchModel);
 
+        IQueryable<ShiftScheduleView> SearchView(ShiftScheduleSearchModel searchModel);
+
         bool Create(ShiftSchedule parModel);
 
         ShiftSchedule FindById(int id);

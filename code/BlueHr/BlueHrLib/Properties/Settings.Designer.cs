@@ -195,5 +195,16 @@ namespace BlueHrLib.Properties {
                 return ((string)(this["BlueHrV3ConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=S2\\SQLSERVER2008R2;Initial Catalog=DerjinHr;Persist Security Info=Tru" +
+            "e;User ID=sa")]
+        public string DerjinHrConnectionString {
+            get {
+                return ((string)(this["DerjinHrConnectionString"]));
+            }
+        }
     }
 }

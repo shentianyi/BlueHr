@@ -214,5 +214,87 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             return this.context.GetTable<ShiftSchedule>().FirstOrDefault(s => s.scheduleAt.Equals(scheduleAt) && s.staffNr.Equals(staffNr) && s.shiftId.Equals(shiftId));
         }
+
+        public IQueryable<ShiftScheduleView> SearchView(ShiftScheduleSearchModel searchModel)
+        {
+            //TODO
+            IQueryable<ShiftScheduleView> q = this.context.ShiftScheduleView;
+
+            if (!string.IsNullOrEmpty(searchModel.StaffNr))
+            {
+                q = q.Where(c => c.staffNr.Contains(searchModel.StaffNr.Trim()));
+            }
+            if (!string.IsNullOrEmpty(searchModel.StaffNrAct))
+            {
+                q = q.Where(c => c.staffNr.Equals(searchModel.StaffNrAct));
+            }
+            if (searchModel.ScheduleAtFrom.HasValue)
+            {
+                q = q.Where(s => s.scheduleAt >= searchModel.ScheduleAtFrom.Value);
+            }
+
+            if (searchModel.ScheduleAtEnd.HasValue)
+            {
+                q = q.Where(s => s.scheduleAt <= searchModel.ScheduleAtEnd.Value);
+            }
+
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            if (searchModel.lgUser != null)
+            {
+                User lgUser = searchModel.lgUser;
+
+                List<SysUserDataAuth> allDataAuths = this.context.GetTable<SysUserDataAuth>().Where(p => p.userId == lgUser.id).ToList();
+
+                List<string> cmpIds = new List<string>();
+                List<string> depIds = new List<string>();
+
+                allDataAuths.ForEach(p =>
+                {
+                    if (!cmpIds.Contains(p.cmpId.ToString()))
+                    {
+                        cmpIds.Add(p.cmpId.ToString());
+                    }
+
+                    p.departId.Split(',').ToList().ForEach(pp =>
+                    {
+                        if (!string.IsNullOrEmpty(pp))
+                        {
+                            depIds.Add(pp);
+                        }
+                    });
+                });
+
+                IQueryable<Staff> staffs = this.context.Staffs;
+
+                if (cmpIds.Count > 0)
+                {
+                    staffs = staffs.Where(c => cmpIds.Contains(c.companyId.ToString()));
+                }
+
+                if (depIds.Count > 0)
+                {
+                    staffs = staffs.Where(c => depIds.Contains(c.departmentId.ToString()));
+                }
+
+                List<string> staffNrs = new List<string>();
+
+                staffs.ToList().ForEach(p =>
+                {
+                    if (!staffNrs.Contains(p.nr))
+                    {
+                        staffNrs.Add(p.nr);
+                    }
+                });
+
+                //满足cmpid 和departmentid 的所有员工
+                if (staffs.Count() > 0)
+                {
+                    q = q.Where(s => staffNrs.Contains(s.staffNr));
+                }
+            }
+
+
+            return q;
+        }
     }
 }

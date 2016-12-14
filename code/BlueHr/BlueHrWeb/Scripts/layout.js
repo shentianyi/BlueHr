@@ -466,7 +466,6 @@ Layout.advancedfilter = function () {
 }
 
 Layout.TransferTableToGrid = function (width, height, editable, divID, title, rPP, gridID) {
-
     var tb = $("#" + divID + ">table");
     var obj = $.paramquery.tableToArray(tb);
 

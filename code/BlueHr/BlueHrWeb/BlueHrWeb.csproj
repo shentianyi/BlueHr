@@ -775,6 +775,7 @@
     <Content Include="Views\ShiftJobRecord\Delete.cshtml" />
     <Content Include="Views\ShiftJobRecord\Edit.cshtml" />
     <Content Include="Views\ShiftJobRecord\Index.cshtml" />
+    <Content Include="Views\ShiftSchedule\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

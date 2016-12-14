@@ -56,6 +56,11 @@ namespace BlueHrLib.Service.Implement
             return rep.Search(searchModel);
         }
 
+        public IQueryable<ShiftScheduleView> SearchView(ShiftScheduleSearchModel searchModel)
+        {
+            return rep.SearchView(searchModel);
+        }
+
         public bool Create(ShiftSchedule model)
         {
             return rep.Create(model);
@@ -156,8 +161,6 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.GetAllShiftSchedule();
         }
-
-
 
         public ShiftSchedule FindForEdit(string staffNr, DateTime scheduleAt, int shiftId)
         {
