@@ -225,27 +225,25 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                //存在员工时不可删除
-                IResignRecordService shfSi = new ResignRecordService(Settings.Default.db);
-                List<ResignRecord> shf = shfSi.FindByResignType(id);
+                ////存在员工时不可删除
+                //IResignRecordService shfSi = new ResignRecordService(Settings.Default.db);
+                //List<ResignRecord> shf = shfSi.FindByResignType(id);
 
-                if (null != shf && shf.Count() > 0)
-                {
-                    msg.Success = false;
-                    msg.Content = "离职类型正在使用,不能删除!";
+                //if (null != shf && shf.Count() > 0)
+                //{
+                //    msg.Success = false;
+                //    msg.Content = "离职类型正在使用,不能删除!";
 
-                    return Json(msg, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    IResignTypeService cs = new ResignTypeService(Settings.Default.db);
-                    bool isSucceed = cs.DeleteById(id);
+                //    return Json(msg, JsonRequestBehavior.AllowGet);
+                //}
+                //else
+                IResignRecordService cs = new ResignRecordService(Settings.Default.db);
+                bool isSucceed = cs.DeleteById(id);
 
-                    msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "删除失败";
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "" : "删除失败";
 
-                    return Json(msg, JsonRequestBehavior.AllowGet);
-                }
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
