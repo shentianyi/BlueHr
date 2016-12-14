@@ -82,8 +82,13 @@ namespace BlueHrWeb.Controllers
                 Result.Add("用户名", user.name);
                 Result.Add("邮箱", user.email);
                 Result.Add("是否锁定", user.isLockedStr);
-                Result.Add("角色类型", srs.FindById(Convert.ToInt32(user.role)).name);
-                
+                try
+                {
+                    Result.Add("角色类型", srs.FindById(Convert.ToInt32(user.role)).name);
+                }catch
+                {
+                    Result.Add("角色类型", "无");
+                }
                 return Json(Result, JsonRequestBehavior.AllowGet);
             }catch (Exception e) {
 
