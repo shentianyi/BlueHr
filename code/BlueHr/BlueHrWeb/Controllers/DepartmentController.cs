@@ -61,8 +61,10 @@ namespace BlueHrWeb.Controllers
 
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public JsonResult Create(FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
                 var companyId = collection["CompanyId"];
@@ -79,15 +81,17 @@ namespace BlueHrWeb.Controllers
                if(!string.IsNullOrEmpty(collection["parentId"])  ){
                     department.parentId = int.Parse(collection["parentId"]);
                 }
-                this.departmentService.Create(department);
+                bool isSucceed = this.departmentService.Create(department);
 
                 SetCompanyList(null, false);
-                return RedirectToAction("Index");
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "添加成功" : "添加失败";
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
-            catch
+            catch (Exception ex)
             {
                 SetCompanyList(null,false);
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -109,8 +113,10 @@ namespace BlueHrWeb.Controllers
 
         [HttpPost]
         [RoleAndDataAuthorizationAttribute]
-        public ActionResult Edit(int id, FormCollection collection)
+        public JsonResult Edit(int id, FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
                 var department = this.departmentService.FindById(id);
@@ -122,14 +128,18 @@ namespace BlueHrWeb.Controllers
                     if (!string.IsNullOrEmpty(collection["parentId"]) ) {
                         department.parentId = int.Parse(collection["parentId"]);
                     }
-                    this.departmentService.Update(department);
+                    bool isSucceed = this.departmentService.Update(department);
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "添加成功" : "添加失败";
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
-                return RedirectToAction("Index");
+                return Json(new ResultMessage() { Success = false, Content = "添加失败" }, JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception ex)
             {
-                LogUtil.Logger.ErrorFormat("编辑部门时发生错误，详情：{0}", ex.Message);
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+
             }
         }
 
@@ -151,22 +161,29 @@ namespace BlueHrWeb.Controllers
         //[RoleAndDataAuthorizationAttribute]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             { 
 
                 var department = this.departmentService.FindById(id);
                 if (null != department)
-                { 
-                    this.departmentService.DeleteById(id);
+                {
+                    bool isSucceed = this.departmentService.DeleteById(id);
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "添加成功" : "添加失败";
+                    return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 //IStaffService staffService = new StaffService(Settings.Default.db);
                 //TODO:如果该部门下有员工，则不能删除该部门
 
-                return RedirectToAction("Index");
+                msg.Success = false;
+                msg.Content = "添加失败";
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
