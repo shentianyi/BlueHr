@@ -77,6 +77,8 @@ namespace BlueHrWeb.Controllers
         public JsonResult Create([Bind(Include = "staffNr, afterCompanyId, afterDepartmentId, afterJobId, remark")] ShiftJobRecord shiftJobRecord)
         {
             ResultMessage msg = new ResultMessage();
+            shiftJobRecord.afterDepartmentId = 1;
+
             msg = DoValidation(shiftJobRecord);
             if (!msg.Success)
             {
@@ -161,8 +163,17 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                //先获取之前的Jobstr
                 IStaffService ss = new StaffService(Settings.Default.db);
+
+                //填充数据
+                string tempApprovalStatus = shiftJobRecord.approvalStatus;
+                string tempApprovalRemark = shiftJobRecord.approvalRemark;
+                IShiftJobRecordService ijrs = new ShiftJobRecordService(Settings.Default.db);
+                shiftJobRecord = ijrs.FindById(shiftJobRecord.id);
+                shiftJobRecord.approvalStatus = tempApprovalStatus;
+                shiftJobRecord.approvalRemark = tempApprovalRemark;
+
+                //先获取之前的Jobstr
                 Staff staff = ss.FindByNr(shiftJobRecord.staffNr);
                 string oldCompany = staff.Company == null ? string.Empty : staff.Company.name;
                 string oldDepartment = staff.Department == null ? string.Empty : staff.Department.name;

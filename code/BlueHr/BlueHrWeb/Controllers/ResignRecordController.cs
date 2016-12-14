@@ -69,7 +69,7 @@ namespace BlueHrWeb.Controllers
         // POST: ResignRecord/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Create([Bind(Include = "staffNr, resignTypeId, resignEffectiveAt, resignReason, remark")] ResignRecord resignRecord)
+        public JsonResult Create([Bind(Include = "staffNr, resignTypeId, resignAt,resignEffectiveAt, resignReason, remark")] ResignRecord resignRecord)
         {
 
             ResultMessage msg = new ResultMessage();
@@ -91,7 +91,7 @@ namespace BlueHrWeb.Controllers
             resignRecord.userId = user.id;
 
             resignRecord.resignTypeId = resignType.id;
-            resignRecord.resignAt = DateTime.Now;
+            resignRecord.createdAt = DateTime.Now;
 
             try
             {
