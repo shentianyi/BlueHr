@@ -390,14 +390,14 @@ namespace BlueHrWeb.Controllers
             q.loginUser = user;
             ViewBag.Query = q;
 
-            IShiftService sras = new ShiftService(Settings.Default.db);
+            IShiftService ss = new ShiftService(Settings.Default.db);
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
-            IPagedList<Shift> shifts = null;
-            IQueryable<Shift> shiftstemp = null;
-            IQueryable<Shift> shiftstemp1 = null;
+            IPagedList<Shift> Shifts = null;
+            IQueryable<Shift> Shifttemp = null;
+            IQueryable<Shift> Shifttemp1 = null;
             List<Shift> Result = new List<Shift>();
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
@@ -411,30 +411,49 @@ namespace BlueHrWeb.Controllers
                         string[] SearchConditionsArray = SearchConditions.Split(',');
                         string searchValueFirst = Request.Form["searchValueFirst"];
                         string[] searchValueFirstArray = searchValueFirst.Split(',');
-                        shiftstemp1 = sras.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                        if (AllTableNameArray.Length > 1)
+
+                        try
                         {
-                            for (var i = 1; i < AllTableNameArray.Length; i++)
+                            Shifttemp1 = ss.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                            if (AllTableNameArray.Length > 1)
                             {
-                                shiftstemp = sras.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                foreach (var temp in shiftstemp)
+                                int i = 1;
+                                Shifttemp = ss.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in Shifttemp)
                                 {
-                                    if (shiftstemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                    if (Shifttemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                }
+                                if (AllTableNameArray.Length > 2)
+                                {
+                                    for (var i1 = 2; i1 < AllTableNameArray.Length; i1++)
+                                    {
+                                        IQueryable<Shift> Shifttemp2 = null;
+                                        Shifttemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                        foreach (var temp in Result)
+                                        {
+                                            if (Shifttemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                        }
+
+                                    }
                                 }
                             }
+                            else
+                            {
+                                Shifts = Shifttemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                            }
                         }
-                        else
+                        catch (Exception)
                         {
-                            shifts = shiftstemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                            Shifts = null;
                         }
+
                     }
                 }
             }
-            shifts = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
-
+            Shifts = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
             SetDropDownList(null);
 
-            return View("Index", shifts);
+            return View("Index", Shifts);
         }
     }
 }
