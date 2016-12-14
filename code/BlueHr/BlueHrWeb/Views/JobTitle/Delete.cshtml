@@ -7,8 +7,8 @@
 
 <div id="jobtitle" style="margin:10px;">
     <ol class="breadcrumb current-position">
-        ÄúµÄÎ»ÖÃ£º
-        <li>@Html.ActionLink("Ö°Î»¹ÜÀí", "Index")</li>
+        ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã£ï¿½
+        <li>@Html.ActionLink("Ö°Î»ï¿½ï¿½ï¿½ï¿½", "Index")</li>
         <li>{{action}}</li>
     </ol>
 
@@ -29,7 +29,7 @@
                 {{action}}
 
                 <div class="pull-right">
-                    <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;">
+                    <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px; background:#c0392b;">
                         <i class="fa fa-check-circle-o"></i>
                         <span>{{actionBtn}}</span>
                     </button>
@@ -38,12 +38,12 @@
 
             <div class="marco-nbody">
                 <div class="marco-igroup-primary">
-                    <label for="name">Ö°Î»Ãû³Æ*</label>
+                    <label for="name">Ö°Î»ï¿½ï¿½ï¿½ï¿½*</label>
                      <input type="text" value="@Model.name" disabled />
                  </div>
 
                 <div class="marco-igroup-primary" style="height:120px;">
-                    <label for="name">Ö¤ÕÕÀà±ð</label>
+                    <label for="name">Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</label>
                     <ul>
                         @foreach (var i in ViewData["jobCertificateTypeList"] as IEnumerable<SelectListItem>)
                         {
@@ -65,9 +65,9 @@
                 </div>
 
                 <div class="marco-textarea">
-                    <label for="remark">±¸×¢</label>
+                    <label for="remark">ï¿½ï¿½×¢</label>
                   
-                        <textarea name="remark" placeholder="±¸×¢" disabled>@Model.remark</textarea>
+                        <textarea name="remark" placeholder="ï¿½ï¿½×¢" disabled>@Model.remark</textarea>
                      
                 </div>
             </div>
@@ -78,13 +78,13 @@
 <script type="text/javascript">
     Layout.init();
 
-    //¿ØÖÆtextarea¸ß¶È
+    //ï¿½ï¿½ï¿½ï¿½textareaï¿½ß¶ï¿½
     $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     $(window).resize(function () {
         $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     });
 
-    //»Øµ÷º¯Êý
+    //ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
     function post_return_action(data) {
 
         if (!data.Success) {

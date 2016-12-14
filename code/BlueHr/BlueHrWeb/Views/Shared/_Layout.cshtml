@@ -17,6 +17,7 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/layout")
     @Styles.Render("~/Content/bootstrap-treeview")
+    
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -40,7 +41,6 @@
                     <span class="logo-lg">德晋<b>HR</b>系统</span>
                 </a>
                 <nav class="navbar navbar-static-top">
-
                     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                         <span class="sr-only">Toggle navigation</span>
                     </a>
@@ -54,6 +54,7 @@
                                         <span class="label label-primary" id="unread-count"></span>
                                     </a>}
                             </li>
+                            @*显示用户名*@
                             @Html.Partial("_LoginPartial")
                         </ul>
                     </div>
@@ -62,7 +63,8 @@
         }
         else
         {
-        @Html.Partial("_LoginPartial")
+            //显示_loginPartial中的页面登录信息
+            @Html.Partial("_LoginPartial")
         }
 
     @if (Session["user"] != null)
@@ -238,6 +240,7 @@
                                     组织架构视图
                                 </a>
                             </li>
+                            
                         </ul>
                     </li>
                
