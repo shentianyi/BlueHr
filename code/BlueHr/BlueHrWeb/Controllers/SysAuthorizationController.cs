@@ -312,55 +312,73 @@ namespace BlueHrWeb.Controllers
 
         public ActionResult AdvancedSearch(SysAuthorizationSearchModel q)
         {
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.loginUser = user;
+            ViewBag.Query = q;
+
+            ISysAuthorizationService ss = new SysAuthorizationService(Settings.Default.db);
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            IPagedList<SysAuthorization> SysAuthorizations = null;
+            IQueryable<SysAuthorization> SysAuthorizationtemp = null;
+            IQueryable<SysAuthorization> SysAuthorizationtemp1 = null;
+            List<SysAuthorization> Result = new List<SysAuthorization>();
+            if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
-                User user = System.Web.HttpContext.Current.Session["user"] as User;
-                q.loginUser = user;
-                ViewBag.Query = q;
-
-                ISysAuthorizationService sas = new SysAuthorizationService(Settings.Default.db);
-                int pageIndex = 0;
-                int.TryParse(Request.QueryString.Get("page"), out pageIndex);
-                pageIndex = PagingHelper.GetPageIndex(pageIndex);
-
-                IPagedList<SysAuthorization> sysAuthorizations = null;
-                IQueryable<SysAuthorization> sysAuthorizationstemp = null;
-                IQueryable<SysAuthorization> sysAuthorizationstemp1 = null;
-                List<SysAuthorization> Result = new List<SysAuthorization>();
-                if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
+                if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
                 {
-                    if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
+                    if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
                     {
-                        if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
+                        string AllTableName = Request.Form["allTableName"].ToString();
+                        string[] AllTableNameArray = AllTableName.Split(',');
+                        string SearchConditions = Request.Form["searchConditions"];
+                        string[] SearchConditionsArray = SearchConditions.Split(',');
+                        string searchValueFirst = Request.Form["searchValueFirst"];
+                        string[] searchValueFirstArray = searchValueFirst.Split(',');
+
+                        try
                         {
-                            string AllTableName = Request.Form["allTableName"].ToString();
-                            string[] AllTableNameArray = AllTableName.Split(',');
-                            string SearchConditions = Request.Form["searchConditions"];
-                            string[] SearchConditionsArray = SearchConditions.Split(',');
-                            string searchValueFirst = Request.Form["searchValueFirst"];
-                            string[] searchValueFirstArray = searchValueFirst.Split(',');
-                            sysAuthorizationstemp1 = sas.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                            SysAuthorizationtemp1 = ss.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
                             if (AllTableNameArray.Length > 1)
                             {
-                                for (var i = 1; i < AllTableNameArray.Length; i++)
+                                int i = 1;
+                                SysAuthorizationtemp = ss.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in SysAuthorizationtemp)
                                 {
-                                    sysAuthorizationstemp = sas.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                    foreach (var temp in sysAuthorizationstemp)
+                                    if (SysAuthorizationtemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                }
+                                if (AllTableNameArray.Length > 2)
+                                {
+                                    for (var i1 = 2; i1 < AllTableNameArray.Length; i1++)
                                     {
-                                        if (sysAuthorizationstemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                        IQueryable<SysAuthorization> SysAuthorizationtemp2 = null;
+                                        SysAuthorizationtemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                        foreach (var temp in Result)
+                                        {
+                                            if (SysAuthorizationtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                        }
+
                                     }
                                 }
                             }
                             else
                             {
-                                sysAuthorizations = sysAuthorizationstemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                SysAuthorizations = SysAuthorizationtemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
                             }
                         }
+                        catch (Exception)
+                        {
+                            SysAuthorizations = null;
+                        }
+
                     }
                 }
-                sysAuthorizations = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
-
-                return View("Index", sysAuthorizations);
             }
+            SysAuthorizations = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            return View("Index", SysAuthorizations);
         }
     }
 }

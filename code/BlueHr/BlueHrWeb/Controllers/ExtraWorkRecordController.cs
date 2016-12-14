@@ -192,8 +192,8 @@ namespace BlueHrWeb.Controllers
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
             IPagedList<ExtraWorkRecordView> extraWorkRecords = null;
-            IQueryable<ExtraWorkRecordView> extraWorkRecordstemp = null;
-            IQueryable<ExtraWorkRecordView> extraWorkRecordstemp1 = null;
+            IQueryable<ExtraWorkRecordView> extraWorkRecordtemp = null;
+            IQueryable<ExtraWorkRecordView> extraWorkRecordtemp1 = null;
             List<ExtraWorkRecordView> Result = new List<ExtraWorkRecordView>();
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
@@ -210,21 +210,32 @@ namespace BlueHrWeb.Controllers
 
                         try
                         {
-                            extraWorkRecordstemp1 = ewrs.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                            extraWorkRecordtemp1 = ewrs.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
                             if (AllTableNameArray.Length > 1)
                             {
-                                for (var i = 1; i < AllTableNameArray.Length; i++)
+                                int i = 1;
+                                extraWorkRecordtemp = ewrs.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in extraWorkRecordtemp)
                                 {
-                                    extraWorkRecordstemp = ewrs.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                    foreach (var temp in extraWorkRecordstemp)
+                                    if (extraWorkRecordtemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                }
+                                if (AllTableNameArray.Length > 2)
+                                {
+                                    for (var i1 = 2; i1 < AllTableNameArray.Length; i1++)
                                     {
-                                        if (extraWorkRecordstemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                        IQueryable<ExtraWorkRecordView> ExtraWorkRecordViewtemp2 = null;
+                                        ExtraWorkRecordViewtemp2 = ewrs.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                        foreach (var temp in Result)
+                                        {
+                                            if (ExtraWorkRecordViewtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                        }
+
                                     }
                                 }
                             }
                             else
                             {
-                                extraWorkRecords = extraWorkRecordstemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                extraWorkRecords = extraWorkRecordtemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
                             }
                         }
                         catch (Exception)
@@ -235,7 +246,7 @@ namespace BlueHrWeb.Controllers
                     }
                 }
             }
-            extraWorkRecords = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
+            extraWorkRecords = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
             SetDropDownList(null);
 
             return View("Index", extraWorkRecords);

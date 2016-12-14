@@ -247,14 +247,14 @@ namespace BlueHrWeb.Controllers
             q.loginUser = user;
             ViewBag.Query = q;
 
-            ILeaveRecordService lrs = new LeaveRecordService(Settings.Default.db);
+            ILeaveRecordService ss = new LeaveRecordService(Settings.Default.db);
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
-            IPagedList<LeaveRecord> leaveRecords = null;
-            IQueryable<LeaveRecord> leaveRecordstemp = null;
-            IQueryable<LeaveRecord> leaveRecordstemp1 = null;
+            IPagedList<LeaveRecord> LeaveRecords = null;
+            IQueryable<LeaveRecord> LeaveRecordtemp = null;
+            IQueryable<LeaveRecord> LeaveRecordtemp1 = null;
             List<LeaveRecord> Result = new List<LeaveRecord>();
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
@@ -271,35 +271,45 @@ namespace BlueHrWeb.Controllers
 
                         try
                         {
-                            leaveRecordstemp1 = lrs.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                            LeaveRecordtemp1 = ss.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
                             if (AllTableNameArray.Length > 1)
                             {
-                                for (var i = 1; i < AllTableNameArray.Length; i++)
+                                int i = 1;
+                                LeaveRecordtemp = ss.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in LeaveRecordtemp)
                                 {
-                                    //IPagedList<Staff> staffstemp = null;
-                                    leaveRecordstemp = lrs.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                    foreach (var temp in leaveRecordstemp)
+                                    if (LeaveRecordtemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                }
+                                if (AllTableNameArray.Length > 2)
+                                {
+                                    for (var i1 = 2; i1 < AllTableNameArray.Length; i1++)
                                     {
-                                        if (leaveRecordstemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                        IQueryable<LeaveRecord> LeaveRecordtemp2 = null;
+                                        LeaveRecordtemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                        foreach (var temp in Result)
+                                        {
+                                            if (LeaveRecordtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                        }
+
                                     }
                                 }
                             }
                             else
                             {
-                                leaveRecords = leaveRecordstemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                LeaveRecords = LeaveRecordtemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
                             }
                         }
                         catch (Exception)
                         {
-                            leaveRecords = null;
+                            LeaveRecords = null;
                         }
 
                     }
                 }
             }
-            leaveRecords = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
+            LeaveRecords = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
 
-            return View("Index", leaveRecords);
+            return View("Index", LeaveRecords);
         }
 
 
