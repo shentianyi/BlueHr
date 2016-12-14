@@ -10,7 +10,6 @@ function hide_handle_dialog() {
 
 
 var Layout = {};
-
 Layout.init = function () {
     //IE 提示console找不到 解决办法
     window.console = window.console || (function () {
@@ -272,64 +271,80 @@ Layout.init = function () {
                 break;
         }
 
-    function PageAction(id, newAction, editAction, deleteAction, newBtn, editBtn, deleteBtn) {
-        var vueName = new Vue({
-            el: id,
-            data: {
-                action: newAction,
-                actionBtn: newBtn
+        function PageAction(id, newAction, editAction, deleteAction, newBtn, editBtn, deleteBtn) {
+            var vueName = new Vue({
+                el: id,
+                data: {
+                    action: newAction,
+                    actionBtn: newBtn
+                }
+            });
+
+            if (pathname[2] == "Edit") {
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
+
+                vueName.action = editAction;
+                vueName.actionBtn = editBtn;
+            } else if (pathname[2] == "Delete") {
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
+                vueName.action = deleteAction;
+                vueName.actionBtn = deleteBtn;
+            } else if(pathname[2] == "Create"){
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
+            }else if(pathname[2] == "Create"){
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
+            }else if(pathname[2] == "changepwd"){
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
+                
+            }else if(pathname[2] == "UserMsg"){
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
+            }else if(pathname[2] == "Log"){
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
             }
-        });
-
- 		if (pathname[2] == "Edit") {
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-
-            vueName.action = editAction;
-            vueName.actionBtn = editBtn;
-        } else if (pathname[2] == "Delete") {
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-            vueName.action = deleteAction;
-            vueName.actionBtn = deleteBtn;
-        } else if(pathname[2] == "Create"){
-        	$(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-        }else if(pathname[2] == "Create"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-        }else if(pathname[2] == "changepwd"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-            
         }
-    }
 }
 
 Layout.CompanyAndDepartment = function (companyId, departmentId) {

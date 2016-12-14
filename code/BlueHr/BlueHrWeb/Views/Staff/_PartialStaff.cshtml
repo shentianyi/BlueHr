@@ -285,7 +285,6 @@
                                         </div>
                                     </div>
 
-
                                 </div>
                             </div>
                         </div>                                     
@@ -585,7 +584,9 @@
                                                 <!--<th>操作</th>-->
                                             </tr>
                                         </thead>
-                                        <tbody class="tbody-certificates"></tbody>
+                                        <tbody class="tbody-certificates">
+
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -625,35 +626,31 @@
             </button>
         </div>
     }
-
     <div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <p class="modal-title">选择员工公司和部门（*公司和部门只能选择一个，必须取消已选中的才能选其他的*）</p>
-                            <button id="btnEdit3" class="btn btn-primary" style="border-radius:3px;">确认</button>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <p class="modal-title">选择员工公司和部门（*公司和部门只能选择一个，必须取消已选中的才能选其他的*）</p>
+                    <button id="btnEdit3" class="btn btn-primary" style="border-radius:3px;">确认</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col col-lg-4">
+                            <div id="cmpTree"></div>
                         </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col col-lg-4">
-                                    <div id="cmpTree"></div>
-                                </div>
-                                <div class="col col-lg-8">
-                                    <div id="depTree"></div>
-                                </div>
-                            </div>
+                        <div class="col col-lg-8">
+                            <div id="depTree"></div>
                         </div>
-
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
     <div hidden="hidden">
-    @*<input type="text" id="selCompanys" name="selCompanys" value="@ViewBag.TheCmpIds" />
-                    <input type="text" id="selDeparts" name="selDeparts" value="@ViewBag.TheDepIds" />*@
-                <input type="text" id="selCmpDepIds" name="selCmpDepIds" />
-                <input type="text" id="selCmpDepNames" name="selCmpDepNames" />
-                <input type="hidden" id="DefaultTrailMonth" name="DefaultTrailMonth" value="@MenuAuthHelper.DefaultTrailMonth()" />
+        <input type="text" id="selCmpDepIds" name="selCmpDepIds" />
+        <input type="text" id="selCmpDepNames" name="selCmpDepNames" />
+        <input type="hidden" id="DefaultTrailMonth" name="DefaultTrailMonth" value="@MenuAuthHelper.DefaultTrailMonth()" />
     </div>
 </div>
 
@@ -662,11 +659,8 @@
 <script type="text/javascript">
     Layout.init();
 
-    //Layout.rangedatepicker('.date-start-picker', '.date-end-picker');
-    //Layout.datepicker('.date-picker');
     var datepicks = ["firstCompanyEmployAt", "companyEmployAt", "workingYearsAt"];
-    for (var i = 0; i < datepicks.length; i++) {
-
+    for (var i = 0; i< datepicks.length; i++) {
         $("#" + datepicks[i]).datetimepicker({
             format: 'Y-m-d',
             id: datepicks[i],
@@ -823,21 +817,16 @@
         var k = 0;
         for (var i = 0; i < cmpList.length; i++) {
             if (cmpList[i].cmpId == cmpId) {
-
                 var depsTmp = cmpList[i].deps;
-
                 for (var m = 0; m < depsTmp.length; m++) {
                     if (depsTmp[m].depId == id) {
                         k++;
                     }
                 }
-
             }
         }
-
         return k > 0;
     }
-
     //添加部门
     function pushDeps(cmpId, selNode) {
         for (var i = 0; i < cmpList.length; i++) {
@@ -897,13 +886,6 @@
                         }
                     }
                 }
-
-
-                //1|1,2,4,
-                //console.log("the bind value");
-                //console.log(theBindComDep);
-
-                //console.log(cmpList);
             });
         }
     }
@@ -983,13 +965,10 @@
                             }
                         });
 
-
                         var checkedNodes = $("#cmpTree").treeview('getChecked');
                         $(checkedNodes).each(function (index, element) {
                             if (element.nodeId != data.nodeId) {
                                 $('#cmpTree').treeview('toggleNodeChecked', [data.nodeId, { silent: true }]);
-
-                                //  $("#cmpTree").treeview('unselectNode', [element, { silent: true }]);
                             }
                         });
 
@@ -1088,7 +1067,6 @@
                     },
 
                     onNodeSelected: function (event, data) { },
-
                     //未选中
                     onNodeUnchecked: function (event, data) {
 
@@ -1105,7 +1083,6 @@
                                 }
                             }
                         }
-
                         //取消所有子节点
                         if (data.nodes != null && data.nodes.length > 0) {
                             for (var xxk = 0; xxk < data.nodes.length; xxk++) {
@@ -1129,7 +1106,6 @@
                         }
                     }
                 });
-
                 reBindDepartment(cmpId);
             }
         });
@@ -1170,6 +1146,4 @@
             console.log("CCCCCCCC");
         }
     });
-
-            
 </script>
