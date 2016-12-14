@@ -13,6 +13,7 @@ using System.Web.Mvc;
 using BlueHrWeb.CustomAttributes;
 using BlueHrLib.Data.Enum;
 using BlueHrLib.Helper;
+using BlueHrLib.Data.Message;
 
 namespace BlueHrWeb.Controllers
 {
@@ -78,21 +79,24 @@ namespace BlueHrWeb.Controllers
         // POST: Company/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Name, remark, address")] Company company)
+        public JsonResult Create([Bind(Include = "Name, remark, address")] Company company)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
                 // TODO: Add insert logic here
 
                 ICompanyService cs = new CompanyService(Settings.Default.db);
 
-                cs.Create(company);
-
-                return RedirectToAction("Company/Index");
+                bool isSucceed = cs.Create(company);
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "添加成功" : "添加失败";
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -110,18 +114,22 @@ namespace BlueHrWeb.Controllers
         // POST: Company/Edit/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "id, name, address, remark")] Company company)
+        public JsonResult Edit([Bind(Include = "id, name, address, remark")] Company company)
         {
+            ResultMessage msg = new ResultMessage();
+
             try
             {
                 // TODO: Add update logic here
                 ICompanyService cs = new CompanyService(Settings.Default.db);
-                cs.Update(company);
-                return RedirectToAction("Index");
+                bool isSucceed = cs.Update(company);
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "添加成功" : "添加失败";
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -139,21 +147,24 @@ namespace BlueHrWeb.Controllers
         // POST: Company/Delete/5
         [HttpPost]
         [RoleAndDataAuthorizationAttribute]
-        public ActionResult Delete(int id, FormCollection collection)
+        public JsonResult Delete(int id, FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
+
             ICompanyService cs = new CompanyService(Settings.Default.db);
             Company company = cs.FindById(id);
             try
             {
                 // TODO: Add delete logic here
-                cs.DeleteById(id);
+                bool isSucceed = cs.DeleteById(id);
 
-                return RedirectToAction("Index");
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "添加成功" : "添加失败";
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
-            catch
+            catch (Exception ex)
             {
-                ViewBag.ErrorMsg = "删除失败， 请先删除部门后再删除公司";
-                return View(company);
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 
