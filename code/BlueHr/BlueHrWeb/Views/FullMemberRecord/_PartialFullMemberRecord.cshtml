@@ -61,11 +61,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <label for="name">转正日期</label>
-                            @if(Model != null){
-                                <input type="text" value="@Model.beFullAt.Value.ToString("yyyy-MM-dd")" class="date-picker">
-                            }else{
-                                <input type="text" value="" class="date-picker">
-                            }
+                            @Html.EditorFor(model => model.beFullAt, new { htmlAttributes = new { @class = "date-picker" } })
                         </div>
                     </div>
                 </div>
