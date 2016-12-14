@@ -88,7 +88,7 @@ namespace BlueHrWeb.Controllers
 
                 cs.Create(company);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Company/Index");
             }
             catch
             {

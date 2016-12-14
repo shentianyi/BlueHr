@@ -195,7 +195,7 @@ namespace BlueHrLib.Service.Implement
 
             if (!all)
             {
-                q = q.Where(s => s.isRead == false);
+                q = q.Where(s => s.isRead == false).Where(s => s.messageType != 401);
             }
             if (searchModel != null)
             {
@@ -210,7 +210,7 @@ namespace BlueHrLib.Service.Implement
                 }
             }
 
-             return q.OrderByDescending(s => s.createdAt);
+             return q.OrderByDescending(s => s.createdAt).Where(s => s.messageType != 401);
         }
 
         public IQueryable<MessageRecordView> GetEmployee(MessageRecordCatetory catetory, MessageRecordSearchModel searchModel = null)
