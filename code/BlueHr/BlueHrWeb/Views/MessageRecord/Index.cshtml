@@ -11,16 +11,16 @@
 </ol>
 <hr class="hr-grey" />
 
-<div class="row" id="tabs" style="margin-left:20px; display:block;  ">
+<div class="row" id="tabs" style="margin-left:16px;margin-bottom: 10px; display:block;  ">
     @if (ViewBag.allOrUnread == null || ViewBag.allOrUnread == "unread")
     {
-        <span id="tabs1" style=" width:90px;border:1px dotted black; padding:5px 8px 5px 8px;background:#3498db; color:#f2f2f2;font-weight:bold; font-size:20px;"><a href="/MessageRecord?allOrUnread=unread" class="option-icon-warning" title="未读">未 读</a></span>
-        <span id="tabs2" style=" width:90px;border:1px dotted black; padding:5px 8px 5px 8px; color:#f2f2f2;font-weight:bold; font-size:20px;"><a href="/MessageRecord?allOrUnread=all" class="option-icon-primary" title="全部">全 部</a></span>
+        <span id="tabs1" style=" width:80px;border:1px dotted black; padding:3px 6px 3px 6px;background:#3498db; color:#f2f2f2;font-weight:bold; font-size:16px;"><a href="/MessageRecord?allOrUnread=unread" class="option-icon-warning" title="未读">未 读</a></span>
+        <span id="tabs2" style=" width:80px;border:1px dotted black; padding:3px 6px 3px 6px; color:#f2f2f2;font-weight:bold; font-size:16px;"><a href="/MessageRecord?allOrUnread=all" class="option-icon-primary" title="全部">全 部</a></span>
     }
     else
     {
-        <span id="tabs1" style=" width:90px;border:1px dotted black; padding:5px 8px 5px 8px; color:#f2f2f2;font-weight:bold; font-size:20px;"><a href="/MessageRecord?allOrUnread=unread" class="option-icon-warning" title="未读">未 读</a></span>
-        <span id="tabs2" style=" width:90px;border:1px dotted black; padding:5px 8px 5px 8px;background:#3498db; color:#f2f2f2;font-weight:bold; font-size:20px;"><a href="/MessageRecord?allOrUnread=all" class="option-icon-primary" title="全部">全 部</a></span>
+        <span id="tabs1" style=" width:80px;border:1px dotted black; padding:3px 6px 3px 6px; color:#f2f2f2;font-weight:bold; font-size:16px;"><a href="/MessageRecord?allOrUnread=unread" class="option-icon-warning" title="未读">未 读</a></span>
+        <span id="tabs2" style=" width:80px;border:1px dotted black; padding:3px 6px 3px 6px;background:#3498db; color:#f2f2f2;font-weight:bold; font-size:16px;"><a href="/MessageRecord?allOrUnread=all" class="option-icon-primary" title="全部">全 部</a></span>
     }
 </div>
 <div class="row" style="margin:0;">
@@ -43,6 +43,7 @@
         <input type="hidden" name="allOrUnread" value="@ViewBag.allOrUnread" />
     </form>
 </div>
+<hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">

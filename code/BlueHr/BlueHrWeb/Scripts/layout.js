@@ -328,7 +328,7 @@ Layout.init = function () {
                 $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
             })
         }
-    }
+    }   
 }
 
 Layout.CompanyAndDepartment = function (companyId, departmentId) {
