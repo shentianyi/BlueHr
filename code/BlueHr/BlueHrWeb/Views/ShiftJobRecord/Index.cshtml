@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "员工调岗";
 }
+
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>劳动关系管理</li>
@@ -84,17 +85,17 @@
                                     </td>
                                     <td>                                       
                                         @Html.DisplayFor(modelItem => item.beforeCompanyId)
-                                        <span class="option-icon-primary"><i class="fa fa-long-arrow-right"></i></span>
+                                       <i class="fa fa-long-arrow-right"></i>
                                         @Html.DisplayFor(modelItem => item.afterCompanyId)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.beforeDepartmentId)
-                                        <span class="option-icon-primary"><i class="fa fa-long-arrow-right"></i></span>
+                                        <i class="fa fa-long-arrow-right"></i>
                                         @Html.DisplayFor(modelItem => item.afterDepartmentId)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.beforeJobId)
-                                        <span class="option-icon-primary"><i class="fa fa-long-arrow-right"></i></span>
+                                        <i class="fa fa-long-arrow-right"></i>
                                         @Html.DisplayFor(modelItem => item.afterJobId)
                                     </td>
                                     <td>
@@ -228,7 +229,7 @@
                         return;
                     }
                     else {
-                        $.post("/ExtraWorkRecord/ApprovalExtraWorkRecord", { extralRecordId: id, approvalStatus: approvalStatus, approvalRemarks: approvalRemarks }, function (data) {
+                        $.post("/ShiftJobRecord/Approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemarks }, function (data) {
 
                             if (!data.Success) {
                                 $('#approval_content').dialogModal("hide");
