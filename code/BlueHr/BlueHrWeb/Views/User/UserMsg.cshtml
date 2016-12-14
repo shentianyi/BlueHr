@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "个人信息";
 }
-
 <style>
     .out_box {
         font-weight: bolder;
@@ -16,7 +15,7 @@
         position:absolute;
         top:50%;
         left:50%;
-        margin-left:-525px;
+        margin-left:-630px;
         margin-top:-300px;
         border-radius:5em;
     }
@@ -54,12 +53,14 @@
             </div>
             <div style="width:60%;margin-left:20%;margin-top:-20%;margin-bottom:7%;">
                 <table width=20% class="table" style="color:#4a9195;font-size:1.2em;">
-                    <tbody id="UserMessages" style="background:none;"></tbody>
+                    <tbody id="UserMessages">
+
+                    </tbody>
                 </table>
             </div>
 
             <hr class="hr-grey" style="color:#4a9195;"/>
-            <div style="margin-left:5%; float:left; width:30%;">
+            <div style="margin-left:5%; float:left; width:30%; margin-top:2%;">
                 <img src="~/Images/alarm_clock.png"/>
             </div>
             <div style="width:100%;font-size:1.5em; position:relative;top:2%;color:#ff0000;left:-6%;">
@@ -83,7 +84,7 @@
 @*@Scripts.Render("~/bundles/degreetype")*@
 <script type="text/javascript">
     Layout.init();
-
+    
     $.ajax({
         url: '/User/UserDetail',
         type: 'get',

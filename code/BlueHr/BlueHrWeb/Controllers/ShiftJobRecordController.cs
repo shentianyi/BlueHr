@@ -77,7 +77,13 @@ namespace BlueHrWeb.Controllers
         public JsonResult Create([Bind(Include = "staffNr, afterCompanyId, afterDepartmentId, afterJobId, remark")] ShiftJobRecord shiftJobRecord)
         {
             ResultMessage msg = new ResultMessage();
+            //shiftJobRecord.afterDepartmentId = 1;
 
+            msg = DoValidation(shiftJobRecord);
+            if (!msg.Success)
+            {
+                return Json(msg, JsonRequestBehavior.DenyGet);
+            }
             IStaffService ss = new StaffService(Settings.Default.db);
             Staff tempstaff = ss.FindByNrThis(shiftJobRecord.staffNr);
             shiftJobRecord.beforeCompanyId = tempstaff.companyId;
@@ -90,22 +96,13 @@ namespace BlueHrWeb.Controllers
             shiftJobRecord.createdAt = DateTime.Now;
             try
             {
-                msg = DoValidation(shiftJobRecord);
-
                 IShiftJobRecordService lrs = new ShiftJobRecordService(Settings.Default.db);
-                if (!msg.Success)
-                {
-                    return Json(msg, JsonRequestBehavior.DenyGet);
-                }
-                else
-                {
 
-                    bool isSucceed = lrs.Create(shiftJobRecord);
-                    msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "添加成功" : "添加失败";
+                bool isSucceed = lrs.Create(shiftJobRecord);
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "添加成功" : "添加失败";
 
-                    return Json(msg, JsonRequestBehavior.DenyGet);
-                }
+                return Json(msg, JsonRequestBehavior.DenyGet);
             }
             catch (Exception ex)
             {
@@ -166,8 +163,17 @@ namespace BlueHrWeb.Controllers
 
             try
             {
-                //先获取之前的Jobstr
                 IStaffService ss = new StaffService(Settings.Default.db);
+
+                //填充数据
+                string tempApprovalStatus = shiftJobRecord.approvalStatus;
+                string tempApprovalRemark = shiftJobRecord.approvalRemark;
+                IShiftJobRecordService ijrs = new ShiftJobRecordService(Settings.Default.db);
+                shiftJobRecord = ijrs.FindById(shiftJobRecord.id);
+                shiftJobRecord.approvalStatus = tempApprovalStatus;
+                shiftJobRecord.approvalRemark = tempApprovalRemark;
+
+                //先获取之前的Jobstr
                 Staff staff = ss.FindByNr(shiftJobRecord.staffNr);
                 string oldCompany = staff.Company == null ? string.Empty : staff.Company.name;
                 string oldDepartment = staff.Department == null ? string.Empty : staff.Department.name;
@@ -257,14 +263,14 @@ namespace BlueHrWeb.Controllers
             q.loginUser = user;
             ViewBag.Query = q;
 
-            IShiftJobRecordService lrs = new ShiftJobRecordService(Settings.Default.db);
+            IShiftJobRecordService ss = new ShiftJobRecordService(Settings.Default.db);
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
-            IPagedList<ShiftJobRecord> shiftJobRecords = null;
-            IQueryable<ShiftJobRecord> shiftJobRecordstemp = null;
-            IQueryable<ShiftJobRecord> shiftJobRecordstemp1 = null;
+            IPagedList<ShiftJobRecord> ShiftJobRecords = null;
+            IQueryable<ShiftJobRecord> ShiftJobRecordtemp = null;
+            IQueryable<ShiftJobRecord> ShiftJobRecordtemp1 = null;
             List<ShiftJobRecord> Result = new List<ShiftJobRecord>();
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
@@ -281,35 +287,45 @@ namespace BlueHrWeb.Controllers
 
                         try
                         {
-                            shiftJobRecordstemp1 = lrs.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                            ShiftJobRecordtemp1 = ss.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
                             if (AllTableNameArray.Length > 1)
                             {
-                                for (var i = 1; i < AllTableNameArray.Length; i++)
+                                int i = 1;
+                                ShiftJobRecordtemp = ss.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in ShiftJobRecordtemp)
                                 {
-                                    //IPagedList<Staff> staffstemp = null;
-                                    shiftJobRecordstemp = lrs.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                    foreach (var temp in shiftJobRecordstemp)
+                                    if (ShiftJobRecordtemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                }
+                                if (AllTableNameArray.Length > 2)
+                                {
+                                    for (var i1 = 2; i1 < AllTableNameArray.Length; i1++)
                                     {
-                                        if (shiftJobRecordstemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                        IQueryable<ShiftJobRecord> ShiftJobRecordtemp2 = null;
+                                        ShiftJobRecordtemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                        foreach (var temp in Result)
+                                        {
+                                            if (ShiftJobRecordtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                        }
+
                                     }
                                 }
                             }
                             else
                             {
-                                shiftJobRecords = shiftJobRecordstemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                ShiftJobRecords = ShiftJobRecordtemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
                             }
                         }
                         catch (Exception)
                         {
-                            shiftJobRecords = null;
+                            ShiftJobRecords = null;
                         }
 
                     }
                 }
             }
-            shiftJobRecords = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
+            ShiftJobRecords = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
 
-            return View("Index", shiftJobRecords);
+            return View("Index", ShiftJobRecords);
         }
 
 

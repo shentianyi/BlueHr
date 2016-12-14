@@ -82,8 +82,13 @@ namespace BlueHrWeb.Controllers
                 Result.Add("用户名", user.name);
                 Result.Add("邮箱", user.email);
                 Result.Add("是否锁定", user.isLockedStr);
-                Result.Add("角色类型", srs.FindById(Convert.ToInt32(user.role)).name);
-                
+                try
+                {
+                    Result.Add("角色类型", srs.FindById(Convert.ToInt32(user.role)).name);
+                }catch
+                {
+                    Result.Add("角色类型", "无");
+                }
                 return Json(Result, JsonRequestBehavior.AllowGet);
             }catch (Exception e) {
 
@@ -944,14 +949,14 @@ namespace BlueHrWeb.Controllers
             q.loginUser = user;
             ViewBag.Query = q;
 
-            IUserService us = new UserService(Settings.Default.db);
+            IUserService ss = new UserService(Settings.Default.db);
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
-            IPagedList<User> users = null;
-            IQueryable<User> userstemp = null;
-            IQueryable<User> userstemp1 = null;
+            IPagedList<User> Users = null;
+            IQueryable<User> Usertemp = null;
+            IQueryable<User> Usertemp1 = null;
             List<User> Result = new List<User>();
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
@@ -965,28 +970,48 @@ namespace BlueHrWeb.Controllers
                         string[] SearchConditionsArray = SearchConditions.Split(',');
                         string searchValueFirst = Request.Form["searchValueFirst"];
                         string[] searchValueFirstArray = searchValueFirst.Split(',');
-                        userstemp1 = us.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                        if (AllTableNameArray.Length > 1)
+
+                        try
                         {
-                            for (var i = 1; i < AllTableNameArray.Length; i++)
+                            Usertemp1 = ss.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                            if (AllTableNameArray.Length > 1)
                             {
-                                userstemp = us.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                foreach (var temp in userstemp)
+                                int i = 1;
+                                Usertemp = ss.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in Usertemp)
                                 {
-                                    if (userstemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                    if (Usertemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                }
+                                if (AllTableNameArray.Length > 2)
+                                {
+                                    for (var i1 = 2; i1 < AllTableNameArray.Length; i1++)
+                                    {
+                                        IQueryable<User> Usertemp2 = null;
+                                        Usertemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                        foreach (var temp in Result)
+                                        {
+                                            if (Usertemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                        }
+
+                                    }
                                 }
                             }
+                            else
+                            {
+                                Users = Usertemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                            }
                         }
-                        else
+                        catch (Exception)
                         {
-                            users = userstemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                            Users = null;
                         }
+
                     }
                 }
             }
-            users = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
+            Users = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
 
-            return View("Index", users);
+            return View("Index", Users);
         }
     }
 }

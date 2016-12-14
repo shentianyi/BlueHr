@@ -140,13 +140,23 @@ namespace BlueHrWeb.Controllers
                             staffstemp1 = ss.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
                             if (AllTableNameArray.Length > 1)
                             {
-                                for (var i = 1; i < AllTableNameArray.Length; i++)
+                                int i = 1;
+                                staffstemp = ss.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in staffstemp)
                                 {
-                                    //IPagedList<Staff> staffstemp = null;
-                                    staffstemp = ss.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                    foreach (var temp in staffstemp)
+                                    if (staffstemp1.FirstOrDefault(s => s.nr.Equals(temp.nr)) != null) Result.Add(temp);
+                                }
+                                if (AllTableNameArray.Length > 2)
+                                {
+                                    for (var i1 = 2; i1 < AllTableNameArray.Length; i1++)
                                     {
-                                        if (staffstemp1.FirstOrDefault(s => s.nr.Equals(temp.nr)) != null) Result.Add(temp);
+                                        IQueryable<Staff> staffstemp2 = null;
+                                        staffstemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                        foreach (var temp in Result)
+                                        {
+                                            if (staffstemp2.FirstOrDefault(s => s.nr.Equals(temp.nr)) == null) Result.Remove(temp);
+                                        }
+
                                     }
                                 }
                             }
@@ -163,7 +173,7 @@ namespace BlueHrWeb.Controllers
                     }
                 }
             }
-            staffs = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
+            staffs = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
             SetDropDownList(null);
 
             return View("Index", staffs);

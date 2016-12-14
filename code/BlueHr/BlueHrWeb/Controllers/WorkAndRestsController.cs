@@ -319,14 +319,14 @@ namespace BlueHrWeb.Controllers
             q.loginUser = user;
             ViewBag.Query = q;
 
-            IWorkAndRestService sras = new WorkAndRestService(Settings.Default.db);
+            IWorkAndRestService ss = new WorkAndRestService(Settings.Default.db);
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
             pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
-            IPagedList<WorkAndRest> workAndRests = null;
-            IQueryable<WorkAndRest> workAndReststemp = null;
-            IQueryable<WorkAndRest> workAndReststemp1 = null;
+            IPagedList<WorkAndRest> WorkAndRests = null;
+            IQueryable<WorkAndRest> WorkAndResttemp = null;
+            IQueryable<WorkAndRest> WorkAndResttemp1 = null;
             List<WorkAndRest> Result = new List<WorkAndRest>();
             if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
             {
@@ -340,28 +340,48 @@ namespace BlueHrWeb.Controllers
                         string[] SearchConditionsArray = SearchConditions.Split(',');
                         string searchValueFirst = Request.Form["searchValueFirst"];
                         string[] searchValueFirstArray = searchValueFirst.Split(',');
-                        workAndReststemp1 = sras.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                        if (AllTableNameArray.Length > 1)
+
+                        try
                         {
-                            for (var i = 1; i < AllTableNameArray.Length; i++)
+                            WorkAndResttemp1 = ss.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                            if (AllTableNameArray.Length > 1)
                             {
-                                workAndReststemp = sras.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                foreach (var temp in workAndReststemp)
+                                int i = 1;
+                                WorkAndResttemp = ss.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in WorkAndResttemp)
                                 {
-                                    if (workAndReststemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                    if (WorkAndResttemp1.FirstOrDefault(s => s.id.Equals(temp.id)) != null) Result.Add(temp);
+                                }
+                                if (AllTableNameArray.Length > 2)
+                                {
+                                    for (var i1 = 2; i1 < AllTableNameArray.Length; i1++)
+                                    {
+                                        IQueryable<WorkAndRest> WorkAndResttemp2 = null;
+                                        WorkAndResttemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                        foreach (var temp in Result)
+                                        {
+                                            if (WorkAndResttemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                        }
+
+                                    }
                                 }
                             }
+                            else
+                            {
+                                WorkAndRests = WorkAndResttemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                            }
                         }
-                        else
+                        catch (Exception)
                         {
-                            workAndRests = workAndReststemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                            WorkAndRests = null;
                         }
+
                     }
                 }
             }
-            workAndRests = Result.ToPagedList(pageIndex, Settings.Default.pageSize);
+            WorkAndRests = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
 
-            return View("Index", workAndRests);
+            return View("Index", WorkAndRests);
         }
     }
 }

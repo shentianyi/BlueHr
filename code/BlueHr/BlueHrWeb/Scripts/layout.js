@@ -10,7 +10,6 @@ function hide_handle_dialog() {
 
 
 var Layout = {};
-
 Layout.init = function () {
     //IE 提示console找不到 解决办法
     window.console = window.console || (function () {
@@ -21,297 +20,331 @@ Layout.init = function () {
     $('.sidebar-menu li').removeClass('active');
     var pathname = window.location.pathname.split('/');
 
-switch (pathname[1]) {
-    case "Home":
-        $('.nav-myHome').addClass('active');       
-        break;
-    case "SysRole":
-        $('.nav-userAuthorization').addClass('active');
-        $('.nav-sysRole').addClass('active');
-        PageAction('#sysrole', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
-        if(pathname[2]=="AssignAuth"||pathname[2]=="TableShow"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+    switch (pathname[1]) {
+            case "Home":
+                $('.nav-myHome').addClass('active');       
+                break;
+            case "SysRole":
+                $('.nav-userAuthorization').addClass('active');
+                $('.nav-sysRole').addClass('active');
+                PageAction('#sysrole', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
+                if(pathname[2]=="AssignAuth"||pathname[2]=="TableShow"){
+                    $(".main-header").remove();
+                    $(".main-sidebar").remove();
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
 
-            $(window).resize(function(){
+                    $(window).resize(function(){
+                        $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                    })
+                }
+                break;  
+            case "Company":
+                $('.nav-organization').addClass('active');
+                if(pathname[2]=="Index"){
+                    $('.nav-company-list').addClass('active');
+                    PageAction('#company', '新建公司', '公司编辑', '公司详情', '创建', '更新', '删除');
+                } 
+                if(pathname[2]=="TreeShow"){
+                    $('.nav-organizationTreeShow').addClass('active');
+                }
+                PageAction('#company', '新建公司', '公司编辑', '公司详情', '创建', '更新', '删除');
+                break;
+            case "Department":
+                $('.nav-organ').addClass('active');
+                PageAction('#department', '新建部门', '编辑部门', '部门详情', '创建', '更新', '删除');
+                break;	
+        	case "Period":
+                $('.nav-person').addClass('active');
+                PageAction('#period', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+                break;
+            case "AttendanceRecordDetail":
+                $('.nav-attendance').addClass('active');
+                $('.nav-attendancerecorddetail').addClass('active');
+                PageAction('#attendance_record', '新建考勤详细数据', '编辑考勤详细数据', '考勤详细数据详情', '创建', '更新', '删除');
+                break;
+            case "AttendanceRecordCal":
+                if(pathname[2]=="Index"){
+                    $('.nav-attendancerecordcal').addClass('active');
+                    $('.nav-attendance').addClass('active');
+                }
+                if(pathname[2]=="ExceptionList"){
+                    $('.nav-bugstatistic').addClass('active');
+                    $('.nav-attendance').addClass('active');
+                }  
+                PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');          
+                break;
+            case "User":
+                if(pathname[2]=="Index"){
+                    $('.nav-user').addClass('active');
+                    $('.nav-userAuthorization').addClass('active');
+                }
+                PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
+                break;
+        	case "AbsenceRecrod":
+                $('.nav-attendance-record').addClass('active');
+                PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');
+                break;
+            case "CertificateType":
+                $('.nav-basic-info').addClass('active');
+                $('.nav-certificateType').addClass('active');
+                PageAction('#certificatetype', '新建证照类型', '编辑证照类型', '证照类型详情', '创建', '更新', '删除');
+                break;
+            case "JobTitle":
+                $('.nav-jobtitle').addClass('active');
+                $('.nav-basic-info').addClass('active');
+                PageAction('#jobtitle', '新建职位', '编辑职位', '职位详情', '创建', '更新', '删除');
+                break;
+            case "DegreeType":
+                $('.nav-basic-info').addClass('active');
+                $('.nav-degreeType').addClass('active');
+                PageAction('#degreetype', '新建学历', '编辑学历', '学历详情', '创建', '更新', '删除');
+                break;
+            
+            case "FullMemberRecord":
+                $('.nav-regular').addClass('active');
+                $('.nav-laborrelations').addClass('active');
+
+                if(pathname[2] == "Index"){
+                    $('.nav-regular').addClass('active');
+                    $('.nav-laborrelations').addClass('active');
+                }
+                PageAction('#fullMemberRecord', '新建转正申请', '编辑转正申请', '转正申请详情', '创建', '更新', '删除');
+                break;
+            case "StaffType":
+                $('.nav-basic-info').addClass('active');
+                $('.nav-staffType').addClass('active');
+                PageAction('#stafftype', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
+                break;
+        	case "Period":
+                $('.nav-person').addClass('active');
+                PageAction('#period', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
+                break;
+            case "InSureType":
+                $('.nav-basic-info').addClass('active');
+                $('.nav-inSureType').addClass('active');
+                PageAction('#insuretype', '新建保险类别', '编辑保险类别', '保险类别详情', '创建', '更新', '删除');
+                break;
+            case "ResignType":
+                $('.nav-basic-info').addClass('active');
+                $('.nav-resignType').addClass('active');
+                PageAction('#resigntype', '新建离职类型', '编辑离职类型', '离职类型详情', '创建', '更新', '删除');
+                break;
+            case "AbsenceType":
+                $('.nav-basic-info').addClass('active');
+                $('.nav-absenceType').addClass('active');
+                PageAction('#absencetype', '新建缺勤类型', '编辑缺勤类型', '缺勤类型详情', '创建', '更新', '删除');
+                break;                
+            case "Certificate":
+                $('.nav-certificate').addClass('active');
+                PageAction('#certificate', '新建证照', '编辑证照', '证照详情', '创建', '更新', '删除');
+                break;
+            case "AbsenceRecrod":
+                $('.nav-absencerecrod').addClass('active');
+                PageAction('#absencerecord', '新建缺勤', '编辑缺勤', '缺勤详情', '创建', '更新', '删除');
+                break;    
+        	case "Shift":
+                $('.nav-attendance').addClass('active');
+                $('.nav-shift').addClass('active');
+                PageAction('#shift', '新建班次', '编辑班次', '班次详情', '创建', '更新', '删除');
+                break;
+           
+            case "QuartzJob":
+                $('.nav-attendance').addClass('active');
+                $('.nav-attendancesetting').addClass('active');
+                PageAction('#quartzjob', '新建考勤计算设置', '编辑考勤计算设置', '考勤计算设置详情', '创建', '更新', '删除');
+                break;
+            case "SysAuthorization":
+                $('.nav-userAuthorization').addClass('active');
+                PageAction('#sysauthorization', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
+                break;
+            case "Staff":
+                if(pathname[2] == "Idcard"){
+                    $('.nav-manage').addClass('active');
+                    $('.nav-idcard').addClass('active');
+                }
+                if(pathname[2] == "Ontrail"){
+                    $('.nav-laborrelations').addClass('active');
+                    $('.nav-ontrail').addClass('active');
+                }
+                if(pathname[2] == "Index"){
+                    $('.nav-manage').addClass('active');
+                    $('.nav-staff').addClass('active');
+                }
+                if(pathname[2] == "Create"){
+                    $('.nav-laborrelations').addClass('active');
+                    $('.nav-create').addClass('active');
+                }
+                PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+
+                break;
+            case "ExtraWorkType":
+                $('.nav-basic-info').addClass('active');
+                $('.nav-extraWorkType').addClass('active');
+                PageAction('#extraworktype', '新建加班类型', '编辑加班类型', '加班类型详情', '创建', '更新', '删除');
+                break;
+            case "WorkAndRests":
+                $('.nav-attendance').addClass('active');
+                $('.nav-rest').addClass('active');
+                PageAction('#workandrests', '新建作息表', '编辑作息表', '作息表详情', '创建', '更新', '删除');
+                break;
+            case "ExtraWorkRecord":
+                $('.nav-attendance').addClass('active');
+                $('.nav-extraWorkRecord').addClass('active');       
+                PageAction('#extrawordrecord', '新建加班申请', '编辑加班申请', '加班申请详情', '创建', '更新', '删除');
+                break;
+            case "RewardsAndPenalty":
+                $('.nav-manage').addClass('active');
+                $('.nav-rewardspenalty').addClass('active');
+                PageAction('#rewardsandpenalties', '新建奖惩记录', '编辑奖惩记录', '奖惩记录详情', '创建', '更新', '删除');
+                break;
+            case "Recruit":
+                $('.nav-manage').addClass('active');
+                $('.nav-recruit').addClass('active');
+                PageAction('#recruit', '新建招聘需求', '编辑招聘需求', '招聘需求详情', '创建', '更新', '删除');
+                break;	
+        	case "Personal":
+                if(pathname[2] == "Application"){
+                    $('.nav-apply').addClass('active');
+                    $('.nav-myThing').addClass('active');
+                }
+                if(pathname[2] == "Approval"){
+                    $('.nav-view').addClass('active');
+                    $('.nav-myThing').addClass('active');
+                }
+                if(pathname[2] == "Schedule"){
+                    $('.nav-day').addClass('active');
+                    $('.nav-myThing').addClass('active');
+                }
+                if(pathname[2] == "Note"){
+                    $('.nav-note').addClass('active');
+                    $('.nav-myThing').addClass('active');
+                }
+                if(pathname[2] == "Finished"){
+                    $('.nav-finished').addClass('active');
+                    $('.nav-myThing').addClass('active');
+                }
+                break;
+            case "SysRoleAuthorization":
+                $('.nav-sysRole').addClass('active');
+                PageAction('#sysauthorization', '新建角色权限', '编辑角色权限', '角色权限详情', '创建', '更新', '删除');
+                break;
+            case "TaskRound":
+                $('.nav-taskround').addClass('active');
+                break;
+            case "SystemSetting":
+                $('.nav-system-setting').addClass('active');
+                break;
+            case "InterApply":
+                $('.nav-inter-apply').addClass('active');
+                PageAction('#user', '新建离退申请', '编辑离退申请', '离退申请详情', '创建', '更新', '删除');
+                break;
+            case "Rehire":
+                $('.nav-rehire').addClass('active');
+                PageAction('#user', '新建回聘申请', '编辑回聘申请', '回聘申请详情', '创建', '更新', '删除');
+                break;
+            case "SysOpera":
+                $('.nav-system-opera').addClass('active');
+                PageAction('#user', '新建系统操作', '编辑系统操作', '系统操作详情', '创建', '更新', '删除');
+                break;
+            case "ResignRecord":
+                if(pathname[2] == "Index"){
+                    $('.nav-resignation').addClass('active');
+                    $('.nav-laborrelations').addClass('active');
+                }
+                PageAction('#resignrecord', '新建离职申请', '编辑离职申请', '离职申请详情', '创建', '更新', '删除');
+                break;
+            case "LeaveRecord":
+                $('.nav-leave').addClass('active');
+                $('.nav-attendance').addClass('active');
+                PageAction('#leaverecord', '新建请假申请', '编辑请假申请', '请假申请详情', '创建', '更新', '删除');
+                break;
+            case "ShiftSchedule":
+                $('.nav-shiftschedule').addClass('active');
+                $('.nav-attendance').addClass('active');
+                break;
+            case "ShiftJobRecord":
+                $('.nav-transfer').addClass('active');
+                $('.nav-laborrelations').addClass('active');
+                PageAction('#shiftjobrecord', '新建调岗申请', '编辑调岗申请', '调岗申请详情', '创建', '更新', '删除');
+                break;
+            default:
+                break;
+        }
+
+        function PageAction(id, newAction, editAction, deleteAction, newBtn, editBtn, deleteBtn) {
+            var vueName = new Vue({
+                el: id,
+                data: {
+                    action: newAction,
+                    actionBtn: newBtn
+                }
+            });
+
+            if (pathname[2] == "Edit") {
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+
                 $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-        }
-        break;  
-    case "Company":
-        $('.nav-organization').addClass('active');
-        if(pathname[2]=="Index"){
-            $('.nav-company-list').addClass('active');
-            PageAction('#company', '新建公司', '公司编辑', '公司详情', '创建', '更新', '删除');
-        } 
-        if(pathname[2]=="TreeShow"){
-            $('.nav-organizationTreeShow').addClass('active');
-        }
-        PageAction('#company', '新建公司', '公司编辑', '公司详情', '创建', '更新', '删除');
-        break;
-    case "Department":
-        $('.nav-organ').addClass('active');
-        PageAction('#department', '新建部门', '编辑部门', '部门详情', '创建', '更新', '删除');
-        break;	
-	case "Period":
-        $('.nav-person').addClass('active');
-        PageAction('#period', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
-        break;
-    case "AttendanceRecordDetail":
-        $('.nav-attendance').addClass('active');
-        $('.nav-attendancerecorddetail').addClass('active');
-        PageAction('#attendance_record', '新建考勤详细数据', '编辑考勤详细数据', '考勤详细数据详情', '创建', '更新', '删除');
-        break;
-    case "AttendanceRecordCal":
-        if(pathname[2]=="Index"){
-            $('.nav-attendancerecordcal').addClass('active');
-            $('.nav-attendance').addClass('active');
-        }
-        if(pathname[2]=="ExceptionList"){
-            $('.nav-bugstatistic').addClass('active');
-            $('.nav-attendance').addClass('active');
-        }  
-        PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');          
-        break;
-    case "User":
-        if(pathname[2]=="Index"){
-            $('.nav-user').addClass('active');
-            $('.nav-userAuthorization').addClass('active');
-        }
-        PageAction('#user', '新建用户', '编辑用户', '用户详情', '创建', '更新', '删除');
-        break;
-	case "AbsenceRecrod":
-        $('.nav-attendance-record').addClass('active');
-        PageAction('#attendancerecordcal', '新建统计记录', '编辑统计记录', '统计记录详情', '创建', '更新', '删除');
-        break;
-    case "CertificateType":
-        $('.nav-basic-info').addClass('active');
-        $('.nav-certificateType').addClass('active');
-        PageAction('#certificatetype', '新建证照类型', '编辑证照类型', '证照类型详情', '创建', '更新', '删除');
-        break;
-    case "JobTitle":
-        $('.nav-organ').addClass('active');
-        PageAction('#jobtitle', '新建职位', '编辑职位', '职位详情', '创建', '更新', '删除');
-        break;
-    case "DegreeType":
-        $('.nav-basic-info').addClass('active');
-        $('.nav-degreeType').addClass('active');
-        PageAction('#degreetype', '新建学历', '编辑学历', '学历详情', '创建', '更新', '删除');
-        break;
-    
-    case "FullMemberRecord":
-        $('.nav-regular').addClass('active');
-        $('.nav-laborrelations').addClass('active');
 
-        if(pathname[2] == "Index"){
-            $('.nav-regular').addClass('active');
-            $('.nav-laborrelations').addClass('active');
-        }
-        PageAction('#fullMemberRecord', '新建转正申请', '编辑转正申请', '转正申请详情', '创建', '更新', '删除');
-        break;
-    case "StaffType":
-        $('.nav-basic-info').addClass('active');
-        $('.nav-staffType').addClass('active');
-        PageAction('#stafftype', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
-        break;
-	case "Period":
-        $('.nav-person').addClass('active');
-        PageAction('#period', '新建人员类型', '编辑人员类型', '人员类型详情', '创建', '更新', '删除');
-        break;
-    case "InSureType":
-        $('.nav-basic-info').addClass('active');
-        $('.nav-inSureType').addClass('active');
-        PageAction('#insuretype', '新建保险类别', '编辑保险类别', '保险类别详情', '创建', '更新', '删除');
-        break;
-    case "ResignType":
-        $('.nav-basic-info').addClass('active');
-        $('.nav-resignType').addClass('active');
-        PageAction('#resigntype', '新建离职类型', '编辑离职类型', '离职类型详情', '创建', '更新', '删除');
-        break;
-    case "AbsenceType":
-        $('.nav-basic-info').addClass('active');
-        $('.nav-absenceType').addClass('active');
-        PageAction('#absencetype', '新建缺勤类型', '编辑缺勤类型', '缺勤类型详情', '创建', '更新', '删除');
-        break;                
-    case "Certificate":
-        $('.nav-certificate').addClass('active');
-        PageAction('#certificate', '新建证照', '编辑证照', '证照详情', '创建', '更新', '删除');
-        break;
-    case "AbsenceRecrod":
-        $('.nav-absencerecrod').addClass('active');
-        PageAction('#absencerecord', '新建缺勤', '编辑缺勤', '缺勤详情', '创建', '更新', '删除');
-        break;    
-	case "Shift":
-        $('.nav-attendance').addClass('active');
-        $('.nav-shift').addClass('active');
-        PageAction('#shift', '新建班次', '编辑班次', '班次详情', '创建', '更新', '删除');
-        break;
-   
-    case "QuartzJob":
-        $('.nav-attendance').addClass('active');
-        $('.nav-attendancesetting').addClass('active');
-        PageAction('#quartzjob', '新建考勤计算设置', '编辑考勤计算设置', '考勤计算设置详情', '创建', '更新', '删除');
-        break;
-    case "SysAuthorization":
-        $('.nav-userAuthorization').addClass('active');
-        PageAction('#sysauthorization', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
-        break;
-    case "Staff":
-        if(pathname[2] == "Idcard"){
-            $('.nav-manage').addClass('active');
-            $('.nav-idcard').addClass('active');
-        }
-        if(pathname[2] == "Ontrail"){
-            $('.nav-laborrelations').addClass('active');
-            $('.nav-ontrail').addClass('active');
-        }
-        if(pathname[2] == "Index"){
-            $('.nav-manage').addClass('active');
-            $('.nav-staff').addClass('active');
-        }
-        if(pathname[2] == "Create"){
-            $('.nav-laborrelations').addClass('active');
-            $('.nav-create').addClass('active');
-        }
-        PageAction('#staff', '新建员工', '编辑员工', '员工详情', '创建', '更新', '删除');
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
 
-        break;
-    case "ExtraWorkType":
-        $('.nav-basic-info').addClass('active');
-        $('.nav-extraWorkType').addClass('active');
-        PageAction('#extraworktype', '新建加班类型', '编辑加班类型', '加班类型详情', '创建', '更新', '删除');
-        break;
-    case "WorkAndRests":
-        $('.nav-attendance').addClass('active');
-        $('.nav-rest').addClass('active');
-        PageAction('#workandrests', '新建作息表', '编辑作息表', '作息表详情', '创建', '更新', '删除');
-        break;
-    case "ExtraWorkRecord":
-        $('.nav-attendance').addClass('active');
-        $('.nav-extraWorkRecord').addClass('active');       
-        PageAction('#extrawordrecord', '新建加班申请', '编辑加班申请', '加班申请详情', '创建', '更新', '删除');
-        break;
-    case "RewardsAndPenalty":
-        $('.nav-manage').addClass('active');
-        $('.nav-rewardspenalty').addClass('active');
-        PageAction('#rewardsandpenalties', '新建奖惩记录', '编辑奖惩记录', '奖惩记录详情', '创建', '更新', '删除');
-        break;
-    case "Recruit":
-        $('.nav-manage').addClass('active');
-        $('.nav-recruit').addClass('active');
-        PageAction('#recruit', '新建招聘需求', '编辑招聘需求', '招聘需求详情', '创建', '更新', '删除');
-        break;	
-	case "Personal":
-        if(pathname[2] == "Application"){
-            $('.nav-apply').addClass('active');
-            $('.nav-myThing').addClass('active');
-        }
-        if(pathname[2] == "Approval"){
-            $('.nav-view').addClass('active');
-            $('.nav-myThing').addClass('active');
-        }
-        if(pathname[2] == "Schedule"){
-            $('.nav-day').addClass('active');
-            $('.nav-myThing').addClass('active');
-        }
-        if(pathname[2] == "Note"){
-            $('.nav-note').addClass('active');
-            $('.nav-myThing').addClass('active');
-        }
-        if(pathname[2] == "Finished"){
-            $('.nav-finished').addClass('active');
-            $('.nav-myThing').addClass('active');
-        }
-        break;
-    case "SysRoleAuthorization":
-        $('.nav-sysRole').addClass('active');
-        PageAction('#sysauthorization', '新建角色权限', '编辑角色权限', '角色权限详情', '创建', '更新', '删除');
-        break;
-    case "TaskRound":
-        $('.nav-taskround').addClass('active');
-        break;
-    case "SystemSetting":
-        $('.nav-system-setting').addClass('active');
-        break;
-    case "InterApply":
-        $('.nav-inter-apply').addClass('active');
-        PageAction('#user', '新建离退申请', '编辑离退申请', '离退申请详情', '创建', '更新', '删除');
-        break;
-    case "Rehire":
-        $('.nav-rehire').addClass('active');
-        PageAction('#user', '新建回聘申请', '编辑回聘申请', '回聘申请详情', '创建', '更新', '删除');
-        break;
-    case "SysOpera":
-        $('.nav-system-opera').addClass('active');
-        PageAction('#user', '新建系统操作', '编辑系统操作', '系统操作详情', '创建', '更新', '删除');
-        break;
-    case "ResignRecord":
-        if(pathname[2] == "Index"){
-            $('.nav-resignation').addClass('active');
-            $('.nav-laborrelations').addClass('active');
-        }
-        PageAction('#resignrecord', '新建离职申请', '编辑离职申请', '离职申请详情', '创建', '更新', '删除');
-        break;
-    case "LeaveRecord":
-        $('.nav-leave').addClass('active');
-        $('.nav-attendance').addClass('active');
-        PageAction('#leaverecord', '新建请假申请', '编辑请假申请', '请假申请详情', '创建', '更新', '删除');
-        break;
-    case "ShiftSchedule":
-        $('.nav-shiftschedule').addClass('active');
-        $('.nav-attendance').addClass('active');
-        break;
-    case "ShiftJobRecord":
-        $('.nav-transfer').addClass('active');
-        $('.nav-laborrelations').addClass('active');
-        PageAction('#shiftjobrecord', '新建调岗申请', '编辑调岗申请', '调岗申请详情', '创建', '更新', '删除');
-        break;
-    default:
-        break;
-    }
+                vueName.action = editAction;
+                vueName.actionBtn = editBtn;
+            } else if (pathname[2] == "Delete") {
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
 
-    function PageAction(id, newAction, editAction, deleteAction, newBtn, editBtn, deleteBtn) {
-        var vueName = new Vue({
-            el: id,
-            data: {
-                action: newAction,
-                actionBtn: newBtn
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
+                vueName.action = deleteAction;
+                vueName.actionBtn = deleteBtn;
+            } else if(pathname[2] == "Create"){
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
+            }else if(pathname[2] == "Create"){
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
+            }else if(pathname[2] == "changepwd"){
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
+                
+            }else if(pathname[2] == "UserMsg"){
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
+            }else if(pathname[2] == "Log"){
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
             }
-        });
-
- 		if (pathname[2] == "Edit") {
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-
-            vueName.action = editAction;
-            vueName.actionBtn = editBtn;
-        } else if (pathname[2] == "Delete") {
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-            vueName.action = deleteAction;
-            vueName.actionBtn = deleteBtn;
-        } else if(pathname[2] == "Create"){
-        	$(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
         }
-    }
 }
 
 Layout.CompanyAndDepartment = function (companyId, departmentId) {
