@@ -22,7 +22,6 @@
         <div class="marco-npanel-primary">
             <div class="marco-nheading">
                 {{action}}
-
                 <div class="pull-right">
                     <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;">
                         <i class="fa fa-check-circle-o"></i>
@@ -149,13 +148,11 @@
 
     //回调函数
     function post_return_action(data) {
-
         if (!data.Success) {
             Layout.popMsg('popMsg-danger', data.Content);
             return false;
         }
         else {
-
             location.href = '/ShiftJobRecord/Index';
         }
     }

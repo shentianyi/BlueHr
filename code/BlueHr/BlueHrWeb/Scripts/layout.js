@@ -18,6 +18,7 @@ Layout.init = function () {
     })();
 
     $('.sidebar-menu li').removeClass('active');
+
     var pathname = window.location.pathname.split('/');
 
     switch (pathname[1]) {
@@ -27,7 +28,6 @@ Layout.init = function () {
         case "SysRole":
             $('.nav-userAuthorization').addClass('active');
             $('.nav-sysRole').addClass('active');
-            PageAction('#sysrole', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
             if(pathname[2]=="AssignAuth"||pathname[2]=="TableShow"){
                 $(".main-header").remove();
                 $(".main-sidebar").remove();
@@ -37,6 +37,7 @@ Layout.init = function () {
                     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
                 })
             }
+            PageAction('#sysrole', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
             break;  
         case "Company":
             $('.nav-organization').addClass('active');
@@ -374,7 +375,6 @@ Layout.CompanyAndDepartment = function (companyId, departmentId) {
                 Html += '<option value=' + dep + '>' + Department[companyID][dep] + '</option>';
             }
         }
-
         $(Html).appendTo(departmentId);
     })
 }
@@ -459,6 +459,7 @@ Layout.IsStringNull = function (str) {
     }
 }
 
+// 生成日期的函数
 Date.prototype.Format = function (fmt) { //author: meizz   
     var o = {
         "M+": this.getMonth() + 1,               //月份   
@@ -496,6 +497,7 @@ Layout.advancedfilter = function () {
         }
     });
 }
+
 
 Layout.TransferTableToGrid = function (width, height, editable, divID, title, rPP, gridID) {
     var tb = $("#" + divID + ">table");

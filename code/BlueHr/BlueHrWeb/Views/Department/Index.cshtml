@@ -5,14 +5,14 @@
 @model IPagedList<BlueHrLib.Data.Department>
 
 @{
-    ViewBag.Title = "部门管理";
+    ViewBag.Title = "部门架构列表";
 }
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
-    <li>组织机构</li>
+    <li>组织架构</li>
     <li>
-        <strong>部门管理</strong>
+        <strong>部门架构列表</strong>
     </li>
 </ol>
 
@@ -21,7 +21,6 @@
     bool canDelete = MenuAuthHelper.CanShow("Department", "Delete");
     bool canEdit = MenuAuthHelper.CanShow("Department", "Edit");
     bool canCreate = MenuAuthHelper.CanShow("Department", "Create");
-
     bool canImport = MenuAuthHelper.CanShow("Department", "Import");
 }
 
@@ -34,6 +33,7 @@
                     @Html.DropDownList("CompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
+           
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>部门名称</span>
@@ -48,7 +48,7 @@
                     搜索
                 </button>
                 @if (canImport)
-            {
+                {
                     <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
                         导入部门
                     </button>
@@ -57,6 +57,7 @@
         </div>
     </form>
 </div>
+
 <hr class="hr-primary" />
 
 <div style="margin:10px;">
@@ -69,14 +70,9 @@
         </a>
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-
             <li role="presentation" class="active"><a href="#all_Department" role="tab" data-toggle="tab">所有部门</a></li>
-
-
         </ul>
         <div class="tab-content">
-
-
             <div role="tabpanel" class="tab-pane  active" id="all_Department">
                 <div id="all_Department_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
@@ -132,8 +128,6 @@
     </div>
 </div>
 
-
-
 <!--导入数据-->
 <div id="dialog_content" class="import_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
@@ -158,7 +152,6 @@
 
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Department", "所有部门列表", "20", "all_Department_grid_table");
     
-
     $('.import-button-dialog').click(function () {
         $('#dialog_content').dialogModal({
             onOkBut: function () {

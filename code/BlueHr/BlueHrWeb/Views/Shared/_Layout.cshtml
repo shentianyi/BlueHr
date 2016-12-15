@@ -33,13 +33,16 @@
 
 <body class="skin-blue fixed sidebar-mini"">
     <div class="wrapper">
+        @*页面头部*@
         @if (Session["user"] != null) {
+            <!--头部-->
             <header class="main-header">
-                <!-- Logo -->
+                <!-- Logo 头部显示内容-->
                 <a href="/" class="logo">
                     <span class="logo-mini"><b>HR</b></span>
                     <span class="logo-lg">德晋<b>HR</b>系统</span>
                 </a>
+                @*右上角导航*@
                 <nav class="navbar navbar-static-top">
                     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                         <span class="sr-only">Toggle navigation</span>
@@ -52,12 +55,13 @@
                                     <a href="/MessageRecord/Index" title="消息">
                                         <i class="fa fa-bell-o"></i>
                                         <span class="label label-primary" id="unread-count"></span>
-                                    </a>}
+                                    </a>
+                                }
                             </li>
                             @*显示用户名*@
                             @Html.Partial("_LoginPartial")
                         </ul>
-                    </div>
+                  </div>
                 </nav>
             </header>
         }
@@ -66,7 +70,7 @@
             //显示_loginPartial中的页面登录信息
             @Html.Partial("_LoginPartial")
         }
-
+    @*页面左侧边栏*@
     @if (Session["user"] != null)
     {
         bool canSysRole = MenuAuthHelper.CanShow("SysRole", "Index");
@@ -74,8 +78,8 @@
         bool canSysRoleAuthorization = MenuAuthHelper.CanShow("SysRoleAuthorization", "Index");
         <aside class="main-sidebar">
             <section class="sidebar">
-                <ul class="sidebar-menu">
 
+                <ul class="sidebar-menu">
                     <li class="nav-myHome">
                         <a href="/Home/Index">
                             <i class="fa fa-home"></i>
@@ -117,12 +121,6 @@
                                     日程安排
                                 </a>
                             </li>
-                            @*<li class="nav-note">
-                                <a href="/Personal/Note">
-                                    <i class="fa fa-sticky-note-o"></i>
-                                    便笺本
-                                </a>
-                            </li>*@
                         </ul>
                     </li>
                     <li class="nav-userAuthorization">
@@ -268,13 +266,6 @@
                         </a>
 
                         <ul class="treeview-menu">
-                            @*<li class="nav-contract">
-                                <a href="#">
-                                    <i class="fa fa-anchor"></i>
-                                    合同管理
-                                </a>
-                            </li>*@
-
                             <li class="nav-create pq-grid">
                                 <a href="/Staff/Create">
                                     <i class="fa fa-user-plus"></i>
@@ -500,25 +491,24 @@
                     }
                 },"json");
             });
+
+            $('.pq-grid').on('click', 'a', function () {
+                //1920* 1200  1068 * 677 刚刚好
+                //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
+
+                if ($(this).attr("href") == undefined || $(this).attr("href") == "" || $(this).attr("href") == "#" || $(this).attr("href").split("/") == "undefined") {
+                } else {
+                    Layout.openNewWindow($(this).attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+                }
+
+                return false;
+            });
+
+            $('a>button.marco-btn-primary').click(function () {
+                Layout.openNewWindow($(this).parent().attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+                return false;
+
+            });
     </script>
 }
 
-<script type="text/javascript">
-    $('.pq-grid').on('click', 'a', function(){
-        //1920* 1200  1068 * 677 刚刚好
-        //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
-
-        if ($(this).attr("href") == undefined || $(this).attr("href") == "" || $(this).attr("href")=="#" || $(this).attr("href").split("/") == "undefined") {
-        }else{
-            Layout.openNewWindow($(this).attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
-        }
-
-        return false;
-    });
-
-    $('a>button.marco-btn-primary').click(function(){
-        Layout.openNewWindow($(this).parent().attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
-        return false;
-        
-    });
-</script>
