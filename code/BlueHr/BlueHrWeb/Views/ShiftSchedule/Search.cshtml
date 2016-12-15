@@ -83,8 +83,19 @@
     </div>
 </div>
 
+@Html.Partial("_HandlingMsgDialog")
+
 <script type="text/javascript">
     Layout.datepicker('.date-picker');
+
+    show_handle_dialog();
+
+    $("#show_shift_schedule").css({"width": $(window).width() - 255+'px', "height": $(window).height() - 220+'px'});
+
+    $(window).resize(function(){
+        $("#show_shift_schedule").css({"width": $(window).width() - 255+'px', "height": $(window).height() - 220+'px'});
+    })
+
 
     // $(".search-btn").click(function(){
         $.ajax({
@@ -115,17 +126,19 @@
                         var ShiftScheduleData = data["tbody"][j].childrens[child];
                         for(var childs2 in ShiftScheduleData){
                             if(ShiftScheduleData[childs2].id!= undefined){
-                                TbodyHtml += "<td><b class='shift_schedule_changed'>"+ ShiftScheduleData[childs2].name +"</b><br /> "+
+                                TbodyHtml += "<td style='cursor: pointer;'><b class='shift_schedule_changed'>"+ ShiftScheduleData[childs2].name +"</b><br /> "+
                                 "<span style='font-size: 0.8em; color: steelblue;'>"+ShiftScheduleData[childs2].startAt +" - " +ShiftScheduleData[childs2].endAt +"</span>"+
                                 "<input type='hidden' id="+ShiftScheduleData[childs2].id+" staffNr="+data["tbody"][j].staffNr+" scheduleAt = "+ShiftScheduleData[childs2].scheduleAt+"> </td>"
                                 }else{
-                                TbodyHtml += "<td><input type='hidden' id='new_shift_schedule' staffNr="+data["tbody"][j].staffNr + " scheduleAt = "+ShiftScheduleData[childs2].scheduleAt+"></td>"
+                                TbodyHtml += "<td style='cursor: pointer;'><input type='hidden' id='new_shift_schedule' staffNr="+data["tbody"][j].staffNr + " scheduleAt = "+ShiftScheduleData[childs2].scheduleAt+"></td>"
                             }
                         }
                     }
                     TheadHtml += "</tr>"
                 }
                 $(TbodyHtml).appendTo($("#shift_schedule_tbody"));
+
+                hide_handle_dialog();
             },
             error:function(){
                 console.log("Somethine ROOO");
