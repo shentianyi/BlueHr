@@ -21,6 +21,7 @@
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div style="margin:10px;">
             <div class="minitor-show marco-tabs-default">
                 <ul class="nav nav-tabs" role="tablist" style="width: 1000px;">
@@ -31,9 +32,13 @@
                     <li role="presentation"><a href="#contract" role="tab" data-toggle="tab">合同信息</a></li>
                     <li role="presentation"><a href="#bankcard" role="tab" data-toggle="tab">银行卡信息</a></li>
                     <li role="presentation"><a href="#children" role="tab" data-toggle="tab">子女信息</a></li>
-                    <li role="presentation"><a href="#change" role="tab" data-toggle="tab">调动记录</a></li>
-                    <li role="presentation"><a href="#certificatecard" role="tab" data-toggle="tab">证照信息</a></li>
-                    <li role="presentation"><a href="#reword" role="tab" data-toggle="tab">奖惩记录</a></li>               
+                    @if (Model != null)
+                    {
+                        <li role="presentation"><a href="#change" role="tab" data-toggle="tab">调动记录</a></li>
+                        <li role="presentation"><a href="#certificatecard" role="tab" data-toggle="tab">证照信息</a></li>
+                        <li role="presentation"><a href="#reword" role="tab" data-toggle="tab">奖惩记录</a></li>
+                    }
+                    
                 </ul>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="basic">
