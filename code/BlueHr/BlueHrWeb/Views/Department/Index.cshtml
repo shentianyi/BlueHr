@@ -33,6 +33,7 @@
                     @Html.DropDownList("CompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
                 </div>
             </div>
+           
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>部门名称</span>
@@ -47,7 +48,7 @@
                     搜索
                 </button>
                 @if (canImport)
-            {
+                {
                     <button class="marco-btn-primary import-button-dialog" title="Import" type="button">
                         导入部门
                     </button>
@@ -56,6 +57,7 @@
         </div>
     </form>
 </div>
+
 <hr class="hr-primary" />
 
 <div style="margin:10px;">
@@ -126,7 +128,6 @@
     </div>
 </div>
 
-
 <!--导入数据-->
 <div id="dialog_content" class="import_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
@@ -150,7 +151,6 @@
     })
 
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Department", "所有部门列表", "20", "all_Department_grid_table");
-    
     
     $('.import-button-dialog').click(function () {
         $('#dialog_content').dialogModal({
