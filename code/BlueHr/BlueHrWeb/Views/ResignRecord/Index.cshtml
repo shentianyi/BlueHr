@@ -238,13 +238,14 @@
     })
 
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_ResignRecord", "离职申请列表", "20", "all_ResignRecord_grid_table");
+
     function shResignRecord(id) {
             $('#approval_content').dialogModal({
                 onOkBut: function () {
                     var approvalStatus = $(".dialogModal").find("#aplStatus").val();
                     var approvalRemark = $(".dialogModal").find("#apvRemarks").val();
 
-                    $.post("/ResignRecord/approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemark }, function (data) {
+                    $.post("/ResignRecord/Approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemark }, function (data) {
 
                         if (!data.Success) {
                             $('#approval_content').dialogModal("hide");
