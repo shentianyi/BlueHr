@@ -48,7 +48,7 @@ namespace BlueHrLib.Service.Interface
         /// </summary>
         /// <param name="staffNr"></param>
         /// <param name="operatorId"></param>
-        void CreateStaffFullMemeberMessage(string staffNr, int operatorId);
+        void CreateStaffFullMemeberMessage(string staffNr, int operatorId, string content);
 
 
         /// <summary>

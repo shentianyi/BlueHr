@@ -73,38 +73,51 @@ namespace BlueHrWeb.Controllers
         {
 
             ResultMessage msg = new ResultMessage();
-            IResignRecordService irrs = new ResignRecordService(Settings.Default.db);
-            if (irrs.FindByNr(resignRecord.staffNr) != null)
-            {
-                msg.Success = false;
-                msg.Content = "该员工已经递交申请";
-                return Json(msg, JsonRequestBehavior.DenyGet);
-            }
-            ResignType resignType = new ResignType();
-
-            //对ResignType 进行处理， 返回ID
-            IResignTypeService rts = new ResignTypeService(Settings.Default.db);
-            resignType = rts.IsResignTypeExit(Request.Form.Get("resignTypeName").Trim());
-
-            //填充 是谁创建的
-            User user = System.Web.HttpContext.Current.Session["user"] as User;
-            resignRecord.userId = user.id;
-
-            resignRecord.resignTypeId = resignType.id;
-            resignRecord.createdAt = DateTime.Now;
-
+            
             try
             {
+                //首先判断， 是否符合规范
                 msg = DoValidation(resignRecord);
 
-                IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
+                //判断该员工是否已经离职。 如果已经离职， 将不能提交离职申请， 只能提交回聘申请
+                IStaffService ss = new StaffService(Settings.Default.db);
+                Staff staff = ss.FindByNr(resignRecord.staffNr);
+
+                if (staff.workStatus == 200)
+                {
+                    msg.Success = false;
+                    msg.Content = "该员工已经离职， 不能提交离职申请";
+
+                    return Json(msg, JsonRequestBehavior.DenyGet);
+                }
+
+                // 判断该员工是否已经提交过申请
+                IResignRecordService irrs = new ResignRecordService(Settings.Default.db);
+                if (irrs.FindByNr(resignRecord.staffNr) != null && !irrs.FindByNr(resignRecord.staffNr).resignCheckUserId.HasValue)
+                {
+                    msg.Success = false;
+                    msg.Content = "该员工已经递交申请, 请等待审批";
+                    return Json(msg, JsonRequestBehavior.DenyGet);
+                }
+
+                //对ResignType 进行处理， 返回ID, 如果ResignType 不存在， 创建之后返回ID
+                ResignType resignType = new ResignType();
+                IResignTypeService rts = new ResignTypeService(Settings.Default.db);
+                resignType = rts.IsResignTypeExit(Request.Form.Get("resignTypeName").Trim());
+
+                //填充 是谁创建的
+                User user = System.Web.HttpContext.Current.Session["user"] as User;
+                resignRecord.userId = user.id;
+                resignRecord.resignTypeId = resignType.id;
+                resignRecord.createdAt = DateTime.Now;
+
                 if (!msg.Success)
                 {
                     return Json(msg, JsonRequestBehavior.DenyGet);
                 }
                 else
                 {
-
+                    IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
                     bool isSucceed = rrs.Create(resignRecord);
 
                     msg.Success = isSucceed;
@@ -168,40 +181,53 @@ namespace BlueHrWeb.Controllers
         {
             ResultMessage msg = new ResultMessage();
 
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+
             try
             {
-                User user = System.Web.HttpContext.Current.Session["user"] as User;
-                resignRecord.approvalAt = DateTime.Now;
-                resignRecord.resignCheckUserId = user.id;
-                IUserService us = new UserService(Settings.Default.db);
-                resignRecord.resignChecker = us.FindById(user.id).name;
-                IResignRecordService cs = new ResignRecordService(Settings.Default.db);
-                bool isSucceed = cs.Update(resignRecord);
-                if(isSucceed==true)
+                //通过 ID 获取到离职申请记录数据
+                IResignRecordService rrs = new ResignRecordService(Settings.Default.db);
+
+                ResignRecord rsignRecordById = rrs.FindById(resignRecord.id);
+
+                //添加审批固定属性
+                rsignRecordById.resignCheckUserId = user.id;
+                rsignRecordById.resignChecker = user.name;
+                rsignRecordById.approvalStatus = resignRecord.approvalStatus;
+                rsignRecordById.approvalRemark = resignRecord.approvalRemark;
+                rsignRecordById.approvalAt = DateTime.Now;
+
+                //先将操作记录插入到数据库， 然后再进行更新
+
+                //将离职审批信息 添加到 数据库 操作记录
+                IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+                mrs.CreateStaffResignMessage(rsignRecordById.staffNr, user.id);
+            
+                bool isSucceed = rrs.Update(rsignRecordById);
+
+                //如果通过审批， 进行离职， 如果不能通过审批， 将不能离职
+                if (isSucceed)
                 {
-                    // 创建离职记录##User##
-                    try
-                    {
-                        IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
-                        mrs.CreateStaffResignMessage(resignRecord.staffNr, (Session["user"] as User).id);
-                    }
-                    catch { }
-                    if(resignRecord.approvalStatus== "通过审批")
+                    //更新， 需要判断是否通过审批
+                    if (rsignRecordById.approvalStatus == "通过审批")
                     {
                         IStaffService ss = new StaffService(Settings.Default.db);
-                        Staff staff = ss.FindByNrThis(resignRecord.staffNr);
+                        Staff staff = ss.FindByNr(rsignRecordById.staffNr);
+
+                        //将员工状态 从在职 修改为 离职
                         staff.workStatus = 200;
                         ss.Update(staff);
                     }
                 }
-                msg.Success = isSucceed;
-                msg.Content = isSucceed ? "" : "更新失败";
 
-                return Json(msg, JsonRequestBehavior.AllowGet);
+                msg.Success = isSucceed;
+                msg.Content = isSucceed ? "审批成功" : "审批失败";
+
+                return Json(msg, JsonRequestBehavior.DenyGet);
             }
             catch (Exception ex)
             {
-                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.DenyGet);
             }
         }
 

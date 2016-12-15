@@ -72,35 +72,38 @@ namespace BlueHrWeb.Controllers
         // POST: FullMemberRecord/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Create([Bind(Include = "staffNr, isPassCheck, checkScore, beFullAt, remark")] FullMemberRecord FullMemberRecordRecord)
+        public JsonResult Create([Bind(Include = "staffNr, isPassCheck, checkScore, beFullAt, remark")] FullMemberRecord fullMemberRecord)
         {
             ResultMessage msg = new ResultMessage();
             
             //填充 是谁创建的
             User user = System.Web.HttpContext.Current.Session["user"] as User;
-            FullMemberRecordRecord.userId = user.id;
-            FullMemberRecordRecord.createdAt = DateTime.Now;
+            fullMemberRecord.userId = user.id;
+            fullMemberRecord.createdAt = DateTime.Now;
 
             try
             {
-                IFullMemberRecordService fmrs = new FullMemberRecordService(Settings.Default.db);
-                if (fmrs.FindByNr(FullMemberRecordRecord.staffNr) != null && fmrs.FindByNr(FullMemberRecordRecord.staffNr).isPassCheck == true)
-                {
-                    msg.Success = false;
-                    msg.Content = "该员工已经递交申请并通过";
+                //是否通过了数据验证
+                msg = DoValidation(fullMemberRecord);
 
-                    return Json(msg, JsonRequestBehavior.DenyGet);
-                }
-                msg = DoValidation(FullMemberRecordRecord);
-
-                IFullMemberRecordService rrs = new FullMemberRecordService(Settings.Default.db);
                 if (!msg.Success)
                 {
                     return Json(msg, JsonRequestBehavior.DenyGet);
                 }
                 else
                 {
-                    bool isSucceed = rrs.Create(FullMemberRecordRecord);
+                    IFullMemberRecordService fmrs = new FullMemberRecordService(Settings.Default.db);
+
+                    if(fmrs.FindByNr(fullMemberRecord.staffNr) != null && !fmrs.FindByNr(fullMemberRecord.staffNr).approvalUserId.HasValue)
+                    {
+                        //员工已经递交申请， 但是还没通过审批， 不可以重复递交 申请
+                        msg.Success = false;
+                        msg.Content = "该员工已经递交申请, 请等待审核";
+
+                        return Json(msg, JsonRequestBehavior.DenyGet);
+                    }
+
+                    bool isSucceed = fmrs.Create(fullMemberRecord);
 
                     msg.Success = isSucceed;
                     msg.Content = isSucceed ? "添加成功" : "添加失败";
@@ -160,31 +163,45 @@ namespace BlueHrWeb.Controllers
 
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Approval([Bind(Include = "id,checkScore,isPassCheck,approvalStatus,approvalRemark")] FullMemberRecord fullMemberRecord)
+        public JsonResult Approval([Bind(Include = "id, approvalStatus, approvalRemark")] FullMemberRecord fullMemberRecord)
         {
             ResultMessage msg = new ResultMessage();
-            fullMemberRecord.approvalAt = System.DateTime.Now;
+
             User user = System.Web.HttpContext.Current.Session["user"] as User;
-            fullMemberRecord.approvalUserId = user.id;
+
             try
             {
+                IFullMemberRecordService fmrs = new FullMemberRecordService(Settings.Default.db);
 
-                IFullMemberRecordService raps = new FullMemberRecordService(Settings.Default.db);
-                bool isSucceed = raps.Update(fullMemberRecord);
-                if (fullMemberRecord.isPassCheck == true)
+                //先通过ID找到对应的数据， 进行更新
+                FullMemberRecord fullMemRecord = fmrs.FindById(fullMemberRecord.id);
+
+                fullMemRecord.approvalAt = System.DateTime.Now;
+                fullMemRecord.approvalUserId = user.id;
+                fullMemRecord.approvalStatus = fullMemberRecord.approvalStatus;
+                fullMemRecord.approvalRemark = fullMemberRecord.approvalRemark;
+
+                bool isSucceed = fmrs.Update(fullMemRecord);
+
+                //判断是否通过， 如果通过审批，将变为正式员工， 如果不通过审批，还是试用期员工
+                IStaffService ss = new StaffService(Settings.Default.db);
+                Staff toFullMemberStaff = ss.FindByNr(fullMemRecord.staffNr);
+
+                if (fullMemRecord.approvalStatus == "通过审批")
                 {
-                    IStaffService ss = new StaffService(Settings.Default.db);
-                    Staff toFullMemberStaff = ss.FindByNrThis(fullMemberRecord.staffNr);
+                    //变为正式员工
                     toFullMemberStaff.isOnTrial = false;
-                    ss.Update(toFullMemberStaff);
-                    // 创建转正记录##User##
-                    try
-                    {
-                        IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
-                        mrs.CreateStaffFullMemeberMessage(fullMemberRecord.staffNr, (Session["user"] as User).id);
-                    }
-                    catch { }
+                    isSucceed = ss.Update(toFullMemberStaff);
                 }
+               
+                // 创建转正记录##User##
+                IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+
+                string content = "审批人：" + user.name + "在" + DateTime.Now + "对" + toFullMemberStaff.name + "(" + toFullMemberStaff.nr + ")" +
+                    "进行了转正审批操作， 转正审批状态： " + fullMemRecord.approvalStatus + ", 转正审批备注： " + fullMemRecord.approvalRemark;
+
+                mrs.CreateStaffFullMemeberMessage(toFullMemberStaff.nr, user.id, content);
+
                 msg.Success = isSucceed;
                 msg.Content = isSucceed ? "审批成功" : "审批失败";
 
