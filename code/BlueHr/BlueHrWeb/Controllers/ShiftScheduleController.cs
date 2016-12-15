@@ -67,7 +67,7 @@ namespace BlueHrWeb.Controllers
 
             //return View("Search", shiftScheduleViews);            
 
-            //ViewBag.Query = q;
+            ViewBag.Query = q;
 
             return View();
         }
@@ -75,7 +75,7 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorization]
         [UserAuthorize]
         [HttpGet]
-        public JsonResult GetSearch(string StaffNr, DateTime? ScheduleAtFrom, DateTime? ScheduleAtTo)
+        public JsonResult GetShiftScheduleSearch(string StaffNr, DateTime? ScheduleAtFrom, DateTime? ScheduleAtTo)
         {
             Dictionary<string, List<object>> Result = new Dictionary<string, List<object>>();
 
@@ -85,86 +85,81 @@ namespace BlueHrWeb.Controllers
             q.ScheduleAtEnd = ScheduleAtTo;
 
             IShiftScheduleService ss = new ShiftSheduleService(Settings.Default.db);
-
             IQueryable<ShiftScheduleView> ShiftScheduleView = ss.SearchView(q);
 
             //获取所有的内容
-            var shiftScheduleViews = ShiftScheduleView.GroupBy(c=>new { c.scheduleAt }).OrderBy(c=>c.Key.scheduleAt).ToList();
-            var shiftScheduleViewsByStffNr = ShiftScheduleView.GroupBy(c => new { c.staffNr }).ToList();
+            var shiftScheduleViews = ShiftScheduleView.GroupBy(c => new { c.staffNr }).ToList();
 
-            List<object> Thead = new List<object>();
-            
-            //所选时间的循环
-            foreach (var shiftScheduleViewGroup in shiftScheduleViews)
+            if (!ScheduleAtFrom.HasValue || !ScheduleAtTo.HasValue)
             {
-                Thead.Add(shiftScheduleViewGroup.Key.scheduleAt.ToString("yyyy-MM-dd"));
+                ScheduleAtFrom = ShiftScheduleView.Min(c => c.scheduleAt);
+                ScheduleAtTo = ShiftScheduleView.Max(c => c.scheduleAt);
             }
 
+            List<object> Thead = new List<object>();
+
+            for(var i = 0; i< new TimeSpan(ScheduleAtTo.Value.Ticks - ScheduleAtFrom.Value.Ticks).Days + 1; i++)
+            {
+                var CurrentTime = ScheduleAtFrom.Value.AddDays(i);
+                Thead.Add(CurrentTime.ToString("yyyy-MM-dd"));
+            }
+           
             Result.Add("thead", Thead);
 
             List<object> Tbody = new List<object>();
 
-            foreach (var staffNrGroups in shiftScheduleViewsByStffNr)
+            //通过员工进行分组， 分组之后会有2个员工， 进行循环， 每个员工都会有很多条数据
+            foreach (var shiftScheduleView in shiftScheduleViews)
             {
-                Dictionary<string, object> TbodyTemp = new Dictionary<string, object>();
-                TbodyTemp.Add("Count", shiftScheduleViewsByStffNr.Count);
-                TbodyTemp.Add("Key", staffNrGroups.Key.staffNr);
+                Dictionary<string, object> TbodyContent = new Dictionary<string, object>();
 
-                List<object> staffSchedule = new List<object>();
+                string shiftScheduleStaffNr = shiftScheduleView.Key.staffNr.ToString();
 
+                TbodyContent.Add("staffNr", shiftScheduleStaffNr);
 
-                foreach (var staffs in staffNrGroups)
+                //每个员工下面会有很多个排班
+                List<object> Childs = new List<object>();
+                foreach (var thead in Thead)
                 {
-                    Dictionary<string, string> staffsTemp = new Dictionary<string, string>();
-
-                    if (Thead.Contains(staffs.scheduleAt.ToString("yyyy-MM-dd")))
+                    List<object> MoreChilds = new List<object>();
+                    //正常情况下， 同一个时间段， 同一个员工， 无法排两个班
+                    List<ShiftScheduleView> shiftScheduleSignal = ShiftScheduleView.Where(c => c.staffNr == shiftScheduleStaffNr && c.scheduleAt == Convert.ToDateTime(thead)).ToList();
+                    if (shiftScheduleSignal.Count > 0)
                     {
-                        staffsTemp.Add("id", staffs.id.ToString());
-                        staffsTemp.Add("staffNr", staffs.staffNr);
-                        staffsTemp.Add("scheduleAt", staffs.scheduleAt.ToString());
-                        staffsTemp.Add("shiftId", staffs.shiftId.ToString());
-                        staffsTemp.Add("code", staffs.code);
-                        staffsTemp.Add("name", staffs.name);
-                        staffsTemp.Add("startAt", staffs.startAt.ToString());
-                        staffsTemp.Add("endAt", staffs.endAt.ToString());
-                        staffsTemp.Add("shitType", staffs.shiftType.ToString());
-                        staffsTemp.Add("remark", staffs.remark);
-                        staffsTemp.Add("fullStartAt", staffs.fullStartAt.ToString());
-                        staffsTemp.Add("fullEndAt", staffs.fullEndAt.ToString());
-                        //staffSchedule.Add(staffs.name + "[" + staffs.startAt + " - " + staffs.endAt + "]");
-                        staffSchedule.Add(staffsTemp);
+                        foreach (var shiftScheduleTemp in shiftScheduleSignal)
+                        {
+                            Dictionary<string, object> Childrens = new Dictionary<string, object>();
+                            //已经进行了排班
+                            Childrens.Add("id", shiftScheduleTemp.id);
+                            Childrens.Add("name", shiftScheduleTemp.name);
+                            Childrens.Add("code", shiftScheduleTemp.code);
+                            Childrens.Add("scheduleAt", thead);
+                            Childrens.Add("startAt", shiftScheduleTemp.startAt.ToString());
+                            Childrens.Add("endAt", shiftScheduleTemp.endAt.ToString());
+                            Childrens.Add("fullStartAt", shiftScheduleTemp.fullStartAt.Value.ToString("yyyy-MM-dd hh:mm:ss"));
+                            Childrens.Add("fullEndAt", shiftScheduleTemp.fullEndAt.Value.ToString("yyyy-MM-dd hh:mm:ss"));
+
+                            MoreChilds.Add(Childrens);
+                        }
                     }else
                     {
-                        staffsTemp.Add("id", staffs.id.ToString());
-                        staffsTemp.Add("staffNr", staffs.staffNr);
-                        staffsTemp.Add("scheduleAt", staffs.scheduleAt.ToString());
-                        staffsTemp.Add("shiftId", staffs.shiftId.ToString());
-                        staffsTemp.Add("code", staffs.code);
-                        staffsTemp.Add("name", staffs.name);
-                        staffsTemp.Add("startAt", staffs.startAt.ToString());
-                        staffsTemp.Add("endAt", staffs.endAt.ToString());
-                        staffsTemp.Add("shitType", staffs.shiftType.ToString());
-                        staffsTemp.Add("remark", staffs.remark);
-                        staffsTemp.Add("fullStartAt", staffs.fullStartAt.ToString());
-                        staffsTemp.Add("fullEndAt", staffs.fullEndAt.ToString());
-                        //staffSchedule.Add(staffs.name + "[" + staffs.startAt + " - " + staffs.endAt + "]");
-                        staffSchedule.Add(staffsTemp);
-                        //staffSchedule.Add("");
+                        Dictionary<string, object> NoThing = new Dictionary<string, object>();
+                        NoThing.Add("scheduleAt", thead);
+                        MoreChilds.Add(NoThing);
                     }
+
+                    Childs.Add(MoreChilds);
                 }
 
-                TbodyTemp.Add("childrens", staffSchedule);
+                TbodyContent.Add("childrens", Childs);
 
-                Tbody.Add(TbodyTemp);
+                Tbody.Add(TbodyContent);
             }
 
             Result.Add("tbody", Tbody);
 
-            //ViewBag.Query = q;
-
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
-
 
         [HttpPost]
         public JsonResult EditShiftSchedule(int id, string staffNr, int shiftId,  DateTime scheduleAt)
