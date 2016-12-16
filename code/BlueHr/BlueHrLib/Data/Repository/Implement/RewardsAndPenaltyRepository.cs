@@ -55,9 +55,9 @@ namespace BlueHrLib.Data.Repository.Implement
         public IQueryable<RewardsAndPenalty> Search(RewardsAndPenaltySearchModel searchModel)
         {
             IQueryable<RewardsAndPenalty> certf = this.context.RewardsAndPenalty;
-            if (!string.IsNullOrEmpty(searchModel.StaffNr))
+            if (!string.IsNullOrEmpty(searchModel.staffNr))
             {
-                certf = certf.Where(c => c.staffNr.Contains(searchModel.StaffNr.Trim()));
+                certf = certf.Where(c => c.staffNr.Contains(searchModel.staffNr.Trim()));
             }
             if (searchModel.type!=null)
             {
