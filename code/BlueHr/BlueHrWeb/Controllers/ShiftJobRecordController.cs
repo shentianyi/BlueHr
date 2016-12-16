@@ -394,7 +394,11 @@ namespace BlueHrWeb.Controllers
             IShiftJobRecordService lrs = new ShiftJobRecordService(Settings.Default.db);
             ShiftJobRecordSearchModel lrsm = new ShiftJobRecordSearchModel();
             var ShiftJobRecord = lrs.Search(lrsm).ToList();
-
+            if (ShiftJobRecord.Count == 0)
+            {
+                ShiftJobRecord tempShiftJobRecord = new ShiftJobRecord();
+                ShiftJobRecord.Add(tempShiftJobRecord);
+            }
             if (ShiftJobRecord != null)
             {
                 //获取当前记录的属性
