@@ -71,28 +71,27 @@
                 <i class="fa fa-user"></i>
 
                 @*当前用户*@
-
                 @((Session["user"] as User).name)
                 <i class="fa fa-sort-down"></i>
             </span>
         </a>
-        <ul class="dropdown-menu" style="height:114px;">
+        <ul class="dropdown-menu" style="height:114px; box-shadow:1px 1px 10px #808080;">
 
-            <li style="margin:0 0 0 20px">
+            <li style="margin:0 0 0 20px" class="pq-grid">
                 <a href="/User/UserMsg" style="color:#fff">
                     <i class="fa fa-user"></i>
                     <span style="color:#fff; font-weight:500;"> 个人信息 </span>
                 </a>
             </li>
 
-            <li style="margin:0 0 0 20px">
+            <li style="margin:0 0 0 20px" class="pq-grid">
                 <a href="/User/Log" style="color:#fff">
                     <i class="fa fa-file-text-o"></i>
                     <span style="color:#fff; font-weight:500;"> 登陆日志 </span>
                 </a>
             </li>
 
-            <li style="margin:0 0 0 20px">
+            <li style="margin:0 0 0 20px" class="pq-grid">
                 <a href="/User/changepwd?id=@((Session["user"] as User).id)" style="color:#fff">
                     <i class="fa fa-paste"></i>
                     <span style="color:#fff; font-weight:500;"> 修改密码 </span>
@@ -103,7 +102,6 @@
                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                 {
                     @Html.AntiForgeryToken()
-
                     <a href="javascript:document.getElementById('logoutForm').submit()" style="color:#fff;">
                         <i class="fa fa-power-off"></i>
                         <span style="margin-left:10px; font-weight:500;"> 注销 </span>
@@ -112,29 +110,14 @@
             </li>
         </ul>
     </li>
-    @*<div class="marco-footer">
-        <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">                
-                <span>当前用户: @((Session["user"] as User).name)</span>
-            </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                    <span>登陆时间: </span> <span id="loginTime">13:55</span>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
-                    <span>在线时长: </span> <span id="OnlineTime">00</span> <span>分钟</span>
-                </div>
-            </div>
-     </div>*@
-    }
-   
+}
 else
 {
-    //登录界面
+  //如果没有当前用户名登录，进入登录界面
    <div style="background-image:url('/Images/back1.jpg'); background-repeat:no-repeat; position:absolute; top:0; left:0px;right:0;bottom:0;opacity:0.8;"></div>
     using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
     {
-
-   @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div style="width:600px;height:400px;background:#f7f5f6;position:absolute;left:50%;top:50%;margin-top:-200px;margin-left:-300px; border-radius:4px 120px 4px 120px; border:1px solid #808080;box-shadow:2px 2px 30px #ebe4e3; ">
             <div class="header1">德晋HR系统</div>
@@ -156,21 +139,3 @@ else
        </div>
     }
  }
-
-    @*<script type="text/javascript">
-        $("#loginTime").html(SetTime(new Date().getHours())+ ":" + SetTime(new Date().getMinutes()));
-
-        function SetTime(time){
-            if(time<10){
-                return "0"+time;
-            }else{
-                return time;
-            }
-        }
-
-        var i = 0;
-        setInterval(function(){
-            $("#OnlineTime").html(i);
-            i++;
-        }, 60000);
-    </script>*@

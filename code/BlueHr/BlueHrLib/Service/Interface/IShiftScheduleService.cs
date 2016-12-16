@@ -24,6 +24,8 @@ namespace BlueHrLib.Service.Interface
 
         IQueryable<ShiftSchedule> Search(ShiftScheduleSearchModel searchModel);
 
+        IQueryable<ShiftScheduleView> SearchView(ShiftScheduleSearchModel searchModel);
+
         ShiftSchedule FindById(int id);
 
         bool Create(ShiftSchedule title);

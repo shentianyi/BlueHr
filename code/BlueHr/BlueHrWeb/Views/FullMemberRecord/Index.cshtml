@@ -199,7 +199,6 @@
                 var approvalRemark = $(".dialogModal").find("#apvRemarks").val();
 
                 $.post("/FullMemberRecord/Approval", { id: id, approvalStatus: approvalStatus, approvalRemark: approvalRemark }, function (data) {
-
                     if (!data.Success) {
                         $('#approval_content').dialogModal("hide");
                         Layout.popMsg('popMsg-danger', data.Content);

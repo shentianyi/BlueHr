@@ -123,9 +123,9 @@ namespace BlueHrLib.Service.Implement
         /// </summary>
         /// <param name="staffNr"></param>
         /// <param name="operatorId"></param>
-        public void CreateStaffFullMemeberMessage(string staffNr, int operatorId)
+        public void CreateStaffFullMemeberMessage(string staffNr, int operatorId, string content)
         {
-            Create(staffNr, operatorId, MessageRecordType.StaffToFullMemeber, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr));
+            Create(staffNr, operatorId, MessageRecordType.StaffToFullMemeber, content, MessageRecordTypeHelper.FormatManageStaffMsg(staffNr));
         }
 
         /// <summary>

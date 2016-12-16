@@ -17,6 +17,7 @@
         <li role="presentation" class="active"><a href="#extra_work_application" role="tab" data-toggle="tab">加班申请</a></li>
         <li role="presentation"><a href="#resign_application" role="tab" data-toggle="tab">离职申请</a></li>
         <li role="presentation"><a href="#to_fullMember_application" role="tab" data-toggle="tab">转正申请</a></li>
+        <li role="presentation"><a href="#shift_job_application" role="tab" data-toggle="tab">调岗申请</a></li>
     </ul>
     <div class="tab-content pq-grid">
             <div role="tabpanel" class="tab-pane active" id="extra_work_application">
@@ -109,50 +110,96 @@
             </div>
             
             <div role="tabpanel" class="tab-pane" id="to_fullMember_application">
-            @* 转正申请 *@
+                @* 转正申请 *@
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            @*<th>ID</th>*@
+                            <th>工号</th>
+                            <th>是否通过</th>
+                            <th>转正分数</th>
+                            <th>转正时间</th>
+                            <th>审批状态</th>
+                            <th>审批人</th>
+                            <th>审批备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var fullMembers in ViewData["FullMembers"] as List<Dictionary<string, string>>)
+                        {
+                            <tr>
+                                @foreach (var fullMember in fullMembers)
+                                {
+                                    if (fullMember.Key == "ID")
+                                    {
+                                    }
+                                    else if (fullMember.Key == "StaffNr")
+                                    {
+                                        <td title="查看员工详细信息">
+                                            <a href="/Staff/Delete/@fullMember.Value" class="option-icon-primary">
+                                                @fullMember.Value
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@fullMember.Value</td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+             <div role="tabpanel" class="tab-pane" id="shift_job_application">
+            @* 调岗申请 *@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        @*<th>ID</th>*@
                         <th>工号</th>
-                        <th>是否通过</th>
-                        <th>转正分数</th>
-                        <th>转正时间</th>
-                        <th>审批状态</th>
+                        <th>公司</th>
+                        <th>部门</th>
+                        <th>职位</th>
+                        <th>申请人</th>                          
+                        <th>申请日期</th>
+                        <th>申请备注</th>
                         <th>审批人</th>
+                        <th>审批日期</th>
+                        <th>审批状态</th>
                         <th>审批备注</th>
+                        <!--<th>操作</th>-->
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var fullMembers in ViewData["FullMembers"] as List<Dictionary<string, string>>)
-                    {
-                        <tr>
-                            @foreach (var fullMember in fullMembers)
-                            {
-                                if (fullMember.Key == "ID")
+                   <tbody>
+                       @foreach (var shiftJobs in ViewData["ShiftJobs"] as List<Dictionary<string, string>>)
+                        {
+                            <tr>
+                                @foreach (var shiftJob in shiftJobs)
                                 {
+                                    if (shiftJob.Key == "ID")
+                                    {
+                                    }
+                                    else if (shiftJob.Key == "StaffNr")
+                                    {
+                                        <td title="查看调岗s详细信息">
+                                            <a href="/Staff/Delete/@shiftJob.Value" class="option-icon-primary">
+                                                @shiftJob.Value
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@shiftJob.Value</td>
+                                    }
                                 }
-                                else if (fullMember.Key == "StaffNr")
-                                {
-                                    <td title="查看员工详细信息">
-                                        <a href="/Staff/Delete/@fullMember.Value" class="option-icon-primary">
-                                            @fullMember.Value
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>@fullMember.Value</td>
-                                }
-                            }
-                        </tr>
-                    }
-                </tbody>
+                            </tr>
+                        } 
+                    </tbody>
             </table>
-            
         </div>
-            
         </div>
     </div>
 </div>

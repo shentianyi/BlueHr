@@ -111,7 +111,10 @@
 
     <script type="text/javascript">
         Layout.init();
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_message_type", "消息列表", "20", "all_message_type_grid_table");
+        $(window).resize(function () {
+            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_message_type", "消息列表", "20", "all_message_type_grid_table");
+        })
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_message_type", "消息列表", "20", "all_message_type_grid_table");
 
         function read(id){
 

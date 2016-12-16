@@ -1,254 +1,360 @@
-@using MvcPaging
+Ôªø@using MvcPaging
 
 @model IPagedList<BlueHrLib.Data.JobTitle>
 
 @{
-    ViewBag.Title = "÷∞Œªπ‹¿Ì";
+    ViewBag.Title = "ËÅå‰ΩçÁÆ°ÁêÜ";
 }
 
-@*@Styles.Render("~/Content/degreetype")*@
+<style type="text/css">
+    #current_jobTitleContent > ul , #history_jobTitleContent > ul, #all_jobTitleContent > ul{
+        list-style: none;
+    }
+
+    #current_jobTitleContent > ul li , #history_jobTitleContent > ul li, #all_jobTitleContent > ul li {
+        float: left;
+        width: 90px;
+        text-align: center;
+        cursor: pointer;
+        overflow: hidden;
+        margin-bottom: 25px;
+    }
+
+    #current_jobTitleContent > ul li > div,  #history_jobTitleContent > ul li > div, #all_jobTitleContent > ul li > div {
+        /*width: 96px;*/
+        height: 72px;
+        background-image: url('/Images/person1.png');
+        background-repeat: no-repeat;
+        margin-left: 12px;
+    }
+
+    #current_jobTitleContent > ul li i, #history_jobTitleContent > ul li i, #all_jobTitleContent > ul li i {
+        display: none;
+        color: #3498db;
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+        border: 1px solid #3498db;
+        padding: 4px 5px;
+        border-radius: 4px;
+        margin: -5px 3px;
+        position: absolute;
+    }
+
+    #current_jobTitleContent > ul li i:hover, #history_jobTitleContent > ul li i:hover, #all_jobTitleContent > ul li i:hover {
+        background: #3498db !important;
+        color: white !important;
+    }
+
+    .marco-tabs-default .tab-content ul li{
+        border: none;
+        height: auto !important;
+    }
+</style>
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
-    ƒ˙µƒŒª÷√£∫
-    <li>◊È÷Øª˙ππ</li>
+    ÊÇ®ÁöÑ‰ΩçÁΩÆÔºö
+    <li>Âü∫Á°ÄÊï∞ÊçÆÁÆ°ÁêÜ</li>
     <li>
-        <strong>÷∞Œªπ‹¿Ì</strong>
+        <strong>ËÅå‰ΩçÁÆ°ÁêÜ</strong>
     </li>
 </ol>
 
 <hr class="hr-grey" />
 
-<div class="row" style="margin:0;">
-    <form action="/JobTitle/Search" method="get">
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <div class="marco-igroup-primary">
-                <span>÷∞Œª√˚≥∆</span>
-                <input type="text" name="Name" id="Name" placeholder="÷∞Œª√˚≥∆" value="@ViewBag.Query.Name" />
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
-            <button type="submit" class="marco-btn-success">
-                <i class="glyphicon glyphicon-search"></i>
-                À—À˜
-            </button>
-        </div>
-    </form>
+<div class="row" style="margin:0 10px 0 0;">
+    <div class="pull-right">    
+        <button class="marco-btn-success create-jobTitle">Êñ∞Âª∫ËÅå‰Ωç</button>
+        <a href="/JobTitle/TableShow">
+            <button class="marco-btn-primary">ËÅå‰ΩçÂàóË°®Â±ïÁ§∫</button>
+        </a>
+    </div>
 </div>
 
-<div style="margin:10px;">
-    <div class="minitor-show marco-tabs-default">
-        <button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -5px;">
-            <i class="fa fa-cloud-upload"></i>
-            <span>…œ¥´</span>
-        </button>
-
-        <a href="/JobTitle/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
-            <button class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>¥¥Ω®</span>
-            </button>
-        </a>
-
+<div class="row" style="margin: -30px 10px;">
+    <div class="marco-tabs-default">
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#on_job" role="tab" data-toggle="tab">µ±«∞÷∞Œª</a></li>
-            <li role="presentation"><a href="#off_job" role="tab" data-toggle="tab">¿˙ ∑÷∞Œª</a></li>
-            <li role="presentation"><a href="#all_job" role="tab" data-toggle="tab">»´≤ø÷∞Œª</a></li>
+            <li role="presentation" class="active"><a href="#current_jobTitle" role="tab" data-toggle="tab">ÂΩìÂâçËÅå‰Ωç</a></li>
+            <li role="presentation"><a href="#history_jobTitle" role="tab" data-toggle="tab">ÂéÜÂè≤ËÅå‰Ωç</a></li>
+            <li role="presentation"><a href="#all_jobTitle" role="tab" data-toggle="tab">ÂÖ®ÈÉ®ËÅå‰Ωç</a></li>
         </ul>
 
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="on_job">
-                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="on_job_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-                            <th>÷∞Œª√˚≥∆</th>
-                            <th>±ÿ–Î÷§’’</th>
-                            <th>±∏◊¢</th>
-                            <th>≤Ÿ◊˜</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model)
-                            {
-                                if (!item.IsRevoked.Value)
-                                {
-                                <tr>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.name)
-                                    </td>
-                                    <td>
-                                        <span>@item.CertificateTypeStr</span>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.remark)
-                                    </td>
-                                    <td>
-                                        <a href="/JobTitle/Delete/@item.id" class="option-icon-primary" title="œÍ«È">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-
-                                        <a href="/JobTitle/Edit/@item.id" class="option-icon-warning" title="±‡º≠">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                }
-                            }
-                        }
-
-                    </tbody>
-                </table>
+            <div role="tabpanel" class="tab-pane active" id="current_jobTitle">
+                <div id="current_jobTitleContent">
+                    <ul></ul>
+                </div>
             </div>
 
-            <div role="tabpanel" class="tab-pane" id="off_job">
-                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="off_job_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-                            <th>÷∞Œª√˚≥∆</th>
-                            <th>±ÿ–Î÷§’’</th>
-                            <th>±∏◊¢</th>
-                            <th>≤Ÿ◊˜</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model)
-                            {
-                                if (item.IsRevoked.Value)
-                                {
-
-                                <tr>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.name)
-                                    </td>
-                                    <td>
-                                        <span>@item.CertificateTypeStr</span>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.remark)
-                                    </td>
-                                    <td>
-                                        <a href="/JobTitle/Delete/@item.id" class="option-icon-primary" title="œÍ«È">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-
-                                        <a href="/JobTitle/Edit/@item.id" class="option-icon-warning" title="±‡º≠">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                }
-                            }
-                        }
-
-                    </tbody>
-                </table>
+             <div role="tabpanel" class="tab-pane" id="history_jobTitle">
+                <div id="history_jobTitleContent">
+                    <ul></ul>
+                </div>
             </div>
 
-            <div role="tabpanel" class="tab-pane" id="all_job">
-                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_job_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-                            <th>÷∞Œª√˚≥∆</th>
-                            <th>±ÿ–Î÷§’’</th>
-                            <th>±∏◊¢</th>
-                            <th>≤Ÿ◊˜</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model)
-                            {
-                                <tr>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.name)
-                                    </td>
-                                    <td>
-                                        <span>@item.CertificateTypeStr</span>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.remark)
-                                    </td>
-                                    <td>
-                                        <a href="/JobTitle/Delete/@item.id" class="option-icon-primary" title="œÍ«È">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-
-                                        <a href="/JobTitle/Edit/@item.id" class="option-icon-warning" title="±‡º≠">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
+             <div role="tabpanel" class="tab-pane" id="all_jobTitle">
+                <div id="all_jobTitleContent">
+                    <ul></ul>
+                </div>
             </div>
-
         </div>
     </div>
 </div>
 
-
-<!--µº»Î ˝æ›-->
-<div id="dialog_content" class="import_content" style="display:none;">
+@*ÂºπÂá∫Ê°Ü*@
+<div id="JobTitlePopModal" class="approval_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
-        µº»Î‘±π§–≈œ¢
+        <span>ËÅå‰ΩçÁÆ°ÁêÜ</span>
     </div>
+
     <div class="dialogModal_content">
-        <strong>—°‘Ò ˝æ›Œƒº˛:</strong>
-        <hr />
-        <input class="item-data-uploader" type="file" name="files[]" data-url="/Staff/Import" />
-        <div class="item-data-uploader-preview" style="display:none;"></div>
-        <hr />
-        <a href="~/Template/‘±π§–≈œ¢µº»ÎŒƒº˛ƒ£∞Â.xlsx" target="_blank">œ¬‘ÿŒƒº˛ƒ£∞Â</a>
+        <div class="marco-nbody row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>ÂêçÁß∞</span>
+                    <input type="text" class="jobTitleName" name="jobTitleName" autofocus />
+                </div>
+            </div>
+            <br />
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="marco-textarea">
+                    <span>Â§áÊ≥®</span>
+                    <textarea name="remark" class="remark"></textarea>
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+
+    <div class="dialogModal_footer">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+            <button type="button" class="marco-btn-primary pull-right" data-dialogmodalbut="ok" />
+                Á°ÆËÆ§
+            </button>
+        </div>
     </div>
 </div>
-
-@*@Scripts.Render("~/bundles/degreetype")*@
+<div class=""></div>
 
 <script type="text/javascript">
     Layout.init();
 
-    $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "on_job", "µ±«∞÷∞Œª¡–±Ì", "20", "on_job_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "off_job", "¿˙ ∑÷∞Œª¡–±Ì", "20", "off_job_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_job", "À˘”–÷∞Œª¡–±Ì", "20", "all_job_grid_table");
+    // ËØ∑Ê±ÇËÅå‰ΩçAPI
+    $.ajax({
+        url: '/JobTitle/GetAll',
+        type: 'get',
+        success: function (data) {
+            for (var i = 0; i < data.length; i++) {
+                if(data[i].IsRevoked == "False"){
+                    var Html = "<li id=" + data[i].id + " title=" + data[i].remark + "> <div></div><p>" + data[i].name + "</p>" +
+                    "<i class='fa fa-pencil editJobTitle' title='ÁºñËæëËÅå‰Ωç' style='margin-left: -45px;'></i>" +
+                    "<i class='fa fa-trash removeJobTitle' title='Âà†Èô§ËÅå‰Ωç' style='color: darkred; margin-left: -15px;'></i>" +
+                    "<i class='fa fa-share-square-o setHistoryJobTitle' title='ËÆæÁΩÆ‰∏∫ÂéÜÂè≤ËÅå‰Ωç' style='color: lightseagreen; margin-left: 15px; padding-top:5px;'></i>" +
+                    "</li>";
+
+                    $(Html).appendTo($("#current_jobTitleContent>ul"));
+                    $(Html).appendTo($("#all_jobTitleContent>ul"));
+                }else{
+                    var Html = "<li id=" + data[i].id + " title=" + data[i].remark + "> <div></div><p>" + data[i].name + "</p>" +
+                    "<i class='fa fa-pencil editJobTitle' title='ÁºñËæëËÅå‰Ωç' style='margin-left: -45px;'></i>" +
+                    "<i class='fa fa-trash removeJobTitle' title='Âà†Èô§ËÅå‰Ωç' style='color: darkred; margin-left: -15px;'></i>" +
+                    "<i class='fa fa-share-square-o reSetHistoryJobTitle' title='ÈáçÊñ∞ÂêØÁî®' style='color: lightseagreen; margin-left: 15px; padding-top:5px;'></i>" +
+                    "</li>";
+
+                    $(Html).appendTo($("#history_jobTitleContent>ul"));
+                    $(Html).appendTo($("#all_jobTitleContent>ul"));
+                }
+            }
+
+            $('.option-icon-primary').click(function(){
+                //1920* 1200  1068 * 677 ÂàöÂàöÂ•Ω
+                //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
+                Layout.openNewWindow($(this).attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
+                return false;
+            });
+
+            $("#current_jobTitleContent ul").unbind('mouseover').on('mouseover', 'li', function () {
+                $("#current_jobTitleContent>ul li").not($(this)).find('i').css("display", "none");
+                $(this).find('i').fadeIn(300);
+            })
+
+            $("#history_jobTitleContent ul").unbind('mouseover').on('mouseover', 'li', function () {
+                $("#history_jobTitleContent>ul li").not($(this)).find('i').css("display", "none");
+                $(this).find('i').fadeIn(300);
+            })
+
+            $("#all_jobTitleContent ul").unbind('mouseover').on('mouseover', 'li', function () {
+                $("#all_jobTitleContent>ul li").not($(this)).find('i').css("display", "none");
+                $(this).find('i').fadeIn(300);
+            })
+
+            $("body").bind("click", function (evt) {
+                if ($(evt.target).parents(".tab-pane li").length == 0) {
+                    $(".tab-pane li").find('i').css("display", "none");
+                }
+            });
+
+            //ÁºñËæëËßíËâ≤
+            $('.editJobTitle').click(function () {
+                var ID = $(this).parent().attr("id");
+                var Name = $(this).parent().find("p").html();
+                var Remarks = $(this).parent().attr("title");
+
+                $('#JobTitlePopModal').dialogModal({
+                    onOkBut: function () {
+                        //ËøõË°åÂ§ÑÁêÜ
+                        var NewName = $(".dialogModal").find(".jobTitleName").val();
+                        var NewRemarks = $(".dialogModal").find(".remark").val();
+
+                        // Âà§Êñ≠ÊòØÂê¶ÊòØÁõ∏Á≠âÔºå Â¶ÇÊûúÊòØÁõ∏Á≠âÔºå‰∏çÈúÄË¶ÅËøõË°åËØ∑Ê±ÇAPIËøõË°å‰øÆÊîπ
+
+                        if (Name == NewName && Remarks == NewRemarks) {
+
+                        } else {
+                            // ËØ∑Ê±ÇAPI ËøõË°å ÁºñËæëËßíËâ≤ÂêçÁß∞ÂíåÂ§áÊ≥®
+                            $.ajax({
+                                url: '/JobTitle/Edit',
+                                type: 'post',
+                                data: {
+                                    id: ID,
+                                    name: NewName,
+                                    remark: NewRemarks
+                                },
+                                success: function (data) {
+                                    if (data) {
+                                        window.location.reload();
+                                    } else {
+                                        return false;
+                                    }
+                                },
+                                error: function () {
+                                    return false;
+                                }
+                            })
+                        }
+                    },
+                    onCancelBut: function () {
+                    },
+                    onLoad: function () {
+                        // Â°´ÂÖÖÊï∞ÊçÆ
+                        $(".jobTitleName").val(Name);
+                        $(".remark").val(Remarks == "null" ? "" : Remarks);
+                    },
+                    onClose: function () {
+                    }
+                });
+
+            })
+
+            //Âà†Èô§ËßíËâ≤
+            $('.removeJobTitle').click(function () {
+                var ID = $(this).parent().attr("id");
+
+                if (confirm("Á°ÆËÆ§Âà†Èô§ËØ•ËßíËâ≤?")) {
+                    $.ajax({
+                        url: '/JobTitle/Delete',
+                        type: 'post',
+                        data: {
+                            id: ID
+                        },
+                        success: function (data) {
+                            if (data) {
+                                window.location.reload();
+                            } else {
+                                Layout.popMsg("popMsg-danger", "Âà†Èô§Â§±Ë¥•Ôºå ËßíËâ≤Ê≠£Âú®‰ΩøÁî®");
+                                return false;
+                            }
+                        },
+                        error: function () {
+                            // console.log("ËØ∑Ê±ÇAPIÂ§±Ë¥•")
+                        }
+                    })
+                }
+            })
+
+            $('.setHistoryJobTitle').click(function(){
+                if(confirm("Á°ÆÂÆöËÆæÁΩÆ‰∏∫ÂéÜÂè≤ËÅå‰ΩçÔºü")){
+                    var ID = $(this).parent().attr("id");
+                    $.ajax({
+                        url:'/JobTitle/SetHistoryJobTitle',
+                        type:"post",
+                        data:{
+                            id: ID,
+                            IsRevoked: true
+                        },
+                        success:function(data){
+                            if(data){
+                                window.location.reload();
+                            }
+                        },
+                        error:function(){
+                            console.log("CCCCCCCCErorr")
+                        }
+                    })
+                }
+            })
+
+            $('.reSetHistoryJobTitle').click(function(){
+                if(confirm("Á°ÆÂÆöË¶ÅÊí§ÈîÄÂéÜÂè≤ËÅå‰ΩçÔºü")){
+                    var ID = $(this).parent().attr("id");
+                    $.ajax({
+                        url:'/JobTitle/SetHistoryJobTitle',
+                        type:"post",
+                        data:{
+                            id: ID,
+                            IsRevoked: false
+                        },
+                        success:function(data){
+                            if(data){
+                                window.location.reload();
+                            }
+                        },
+                        error:function(){
+                            console.log("CCCCCCCCErorr")
+                        }
+                    })
+                }
+            })
+        },
+        error: function () {
+            // console.log("ËØ∑Ê±ÇAPI Â§±Ë¥•");
+        }
     })
 
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "on_job", "µ±«∞÷∞Œª¡–±Ì", "20", "on_job_grid_table");
-
-
-    $('#off_job').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, true, "off_job", "¿˙ ∑÷∞Œª¡–±Ì", "20", "off_job_grid_table");
-    $('#off_job').removeClass("active");
-
-    $('#all_job').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_job", "À˘”–÷∞Œª¡–±Ì", "20", "all_job_grid_table");
-    //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_job", "¿˙ ∑÷∞Œª¡–±Ì", "20", "all_job_grid_table");
-    $('#all_job').removeClass("active");
-
-    $('.import-dialog-btn').click(function () {
-        $('#dialog_content').dialogModal({
+    //Êñ∞Âª∫ËßíËâ≤
+    $('.create-jobTitle').click(function () {
+        $('#JobTitlePopModal').dialogModal({
             onOkBut: function () {
+                //ËøõË°åÂ§ÑÁêÜ
+                var Name = $(".dialogModal").find(".jobTitleName").val();
+                var Remarks = $(".dialogModal").find(".remark").val();
+
+                $.ajax({
+                    url: '/JobTitle/Create',
+                    type: 'post',
+                    data: {
+                        name: Name,
+                        remark: Remarks
+                    },
+                    success: function (data) {
+                        if (data) {
+                            window.location.reload();
+                        } else {
+                            // console.log("Êñ∞Âª∫Â§±Ë¥•");
+                            return false;
+                        }
+                    },
+                    error: function () {
+                        // console.log("Êñ∞Âª∫Â§±Ë¥•");
+                        return false;
+                    }
+                })
             },
             onCancelBut: function () { },
-            onLoad: function () {
-                data_upload(".item-data-uploader");
-            },
-            onClose: function () {
-                window.location.reload();
-            }
+            onLoad: function () { },
+            onClose: function () { }
         });
-    });
-
+    })
 </script>
+
+

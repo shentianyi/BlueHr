@@ -328,6 +328,7 @@
     <Content Include="Content\multi-select.min.css">
       <DependentUpon>multi-select.css</DependentUpon>
     </Content>
+    <Content Include="Images\person1.png" />
     <Content Include="Images\alarm_clock.png" />
     <Content Include="Images\back1.jpg" />
     <Content Include="Images\back2.jpg" />
@@ -336,6 +337,7 @@
     <Content Include="Images\change.jpg" />
     <Content Include="Images\changepwd.jpg" />
     <Content Include="Images\No.png" />
+    <Content Include="Images\person.png" />
     <Content Include="Images\switch.png" />
     <Content Include="Images\treeIcon\diy\company.png" />
     <Content Include="Content\input-style.css" />
@@ -527,7 +529,6 @@
     <Content Include="UploadCertificate\A001\20160912184100_1435643954_ZJFrtEQM.jpg" />
     <Content Include="UploadCertificate\A001\20160912184106_CycleTime Detail.png" />
     <Content Include="UploadCertificate\keep.txt" />
-    <Content Include="Views\Company\user.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -588,7 +589,6 @@
     <Content Include="Views\Staff\Delete.cshtml" />
     <Content Include="Views\AttendanceRecordCal\ExceptionList.cshtml" />
     <Content Include="Views\Staff\ToFullMemeber.cshtml" />
-    <Content Include="Views\JobTitle\Index.cshtml" />
     <Content Include="Views\JobTitle\Create.cshtml" />
     <Content Include="Views\JobTitle\Edit.cshtml" />
     <Content Include="Views\JobTitle\Delete.cshtml" />
@@ -730,7 +730,6 @@
     <Content Include="Views\SysOpera\Edit.cshtml" />
     <Content Include="Views\SysOpera\Index.cshtml" />
     <Content Include="Views\SysOpera\_PartialSysRole.cshtml" />
-    <Content Include="Views\Company\TreeShow - 复制.cshtml" />
     <Content Include="Views\Company\TreeShow.cshtml" />
     <Content Include="Views\MessageRecord\ToEmployees.cshtml" />
     <Content Include="Views\RewardsAndPenalty\Index.cshtml" />
@@ -775,6 +774,10 @@
     <Content Include="Views\ShiftJobRecord\Delete.cshtml" />
     <Content Include="Views\ShiftJobRecord\Edit.cshtml" />
     <Content Include="Views\ShiftJobRecord\Index.cshtml" />
+    <Content Include="Views\ShiftSchedule\Search.cshtml" />
+    <Content Include="Views\JobTitle\TableShow.cshtml" />
+    <Content Include="Views\JobTitle\Index.cshtml" />
+    <Content Include="Views\Department\TreeShow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

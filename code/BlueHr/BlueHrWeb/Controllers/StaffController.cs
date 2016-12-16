@@ -1006,35 +1006,35 @@ namespace BlueHrWeb.Controllers
             return View(staff);
         }
 
-        /// <summary>
-        /// 执行员工转正
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult DoToFullMemeber([Bind(Include = "staffNr, isPassCheck, beFullAt, checkAt,beFullChecker,checkScore,remark")] FullMemberRecord record)
-        {
-            ResultMessage msg = new ResultMessage();
-            if (record.isPassCheck)
-            {
-                if (record.approvalAt == null)
-                {
-                    msg.Content = "请填写转正日期";
-                    return Json(msg);
-                }
-            }
+        ///// <summary>
+        ///// 执行员工转正
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpPost]
+        //public ActionResult DoToFullMemeber([Bind(Include = "staffNr, isPassCheck, beFullAt, checkAt,beFullChecker,checkScore,remark")] FullMemberRecord record)
+        //{
+        //    ResultMessage msg = new ResultMessage();
+        //    if (record.isPassCheck)
+        //    {
+        //        if (record.approvalAt == null)
+        //        {
+        //            msg.Content = "请填写转正日期";
+        //            return Json(msg);
+        //        }
+        //    }
 
-            IStaffService ss = new StaffService(Settings.Default.db);
-            msg = ss.ToFullMember(record);
+        //    IStaffService ss = new StaffService(Settings.Default.db);
+        //    msg = ss.ToFullMember(record);
 
-            // 创建转正记录##User##
-            try
-            {
-                IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
-                mrs.CreateStaffFullMemeberMessage(record.staffNr, (Session["user"] as User).id);
-            }
-            catch { }
-            return Json(msg);
-        }
+        //    // 创建转正记录##User##
+        //    try
+        //    {
+        //        IMessageRecordService mrs = new MessageRecordService(Settings.Default.db);
+        //        mrs.CreateStaffFullMemeberMessage(record.staffNr, (Session["user"] as User).id);
+        //    }
+        //    catch { }
+        //    return Json(msg);
+        //}
 
 
         /// <summary>
@@ -1234,22 +1234,6 @@ namespace BlueHrWeb.Controllers
             {
                 staffs.Add(ss.FindByNr(i.staffNr));
             }
-
-            //q.IsOnTrial = false;
-
-            //foreach(var staff in ss.Search(q).ToList())
-            //{
-            //    staffs.Add(staff);/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-            //}
-
-            //StaffSearchModel ontrail = new StaffSearchModel();
-
-            //ontrail.loginUser = user;
-
-            //foreach(var i in ss.SearchOnTrialStaff(ontrail))
-            //{
-            //    staffs.Add(i);
-            //}
 
             ViewBag.Query = q;
 

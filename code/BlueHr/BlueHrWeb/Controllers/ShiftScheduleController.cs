@@ -47,25 +47,145 @@ namespace BlueHrWeb.Controllers
             return View(models);
         }
 
-        public ActionResult Search([Bind(Include = "StaffNr, StaffNrAct, ScheduleAtFrom, ScheduleAtEnd")]  ShiftScheduleSearchModel q)
+        public ActionResult Search([Bind(Include = "StaffNr, StaffNrAct, ScheduleAtFrom, ScheduleAtEnd, ShiftId")]  ShiftScheduleSearchModel q)
         {
-            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
-            User user = System.Web.HttpContext.Current.Session["user"] as User;
-            q.lgUser = user;
+            ////在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            //User user = System.Web.HttpContext.Current.Session["user"] as User;
+            //q.lgUser = user;
 
-            int pageIndex = 0;
-            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
-            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+            ////int pageIndex = 0;
+            ////int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            ////pageIndex = PagingHelper.GetPageIndex(pageIndex);
 
-            IShiftScheduleService ss = new ShiftSheduleService(Settings.Default.db);
+            //IShiftScheduleService ss = new ShiftSheduleService(Settings.Default.db);
 
-            IPagedList<ShiftSchedule> models = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            //List<ShiftScheduleView> shiftScheduleViews = ss.SearchView(q).ToList();
+
+            //ViewBag.Query = q;
+
+            SetShiftScheduleList(null);
+
+            //return View("Search", shiftScheduleViews);            
 
             ViewBag.Query = q;
 
-            SetDropDownList(null);
+            return View();
+        }
 
-            return View("Search", models);
+        [RoleAndDataAuthorization]
+        [UserAuthorize]
+        [HttpGet]
+        public JsonResult GetShiftScheduleSearch(string StaffNr, DateTime? ScheduleAtFrom, DateTime? ScheduleAtTo)
+        {
+            Dictionary<string, List<object>> Result = new Dictionary<string, List<object>>();
+
+            ShiftScheduleSearchModel q = new ShiftScheduleSearchModel();
+            q.StaffNr = StaffNr;
+            q.ScheduleAtFrom = ScheduleAtFrom;
+            q.ScheduleAtEnd = ScheduleAtTo;
+
+            IShiftScheduleService ss = new ShiftSheduleService(Settings.Default.db);
+            IQueryable<ShiftScheduleView> ShiftScheduleView = ss.SearchView(q);
+
+            //获取所有的内容
+            var shiftScheduleViews = ShiftScheduleView.GroupBy(c => new { c.staffNr }).ToList();
+
+            if (!ScheduleAtFrom.HasValue || !ScheduleAtTo.HasValue)
+            {
+                ScheduleAtFrom = ShiftScheduleView.Min(c => c.scheduleAt);
+                ScheduleAtTo = ShiftScheduleView.Max(c => c.scheduleAt);
+            }
+
+            List<object> Thead = new List<object>();
+
+            for(var i = 0; i< new TimeSpan(ScheduleAtTo.Value.Ticks - ScheduleAtFrom.Value.Ticks).Days + 1; i++)
+            {
+                var CurrentTime = ScheduleAtFrom.Value.AddDays(i);
+                Thead.Add(CurrentTime.ToString("yyyy-MM-dd"));
+            }
+           
+            Result.Add("thead", Thead);
+
+            List<object> Tbody = new List<object>();
+
+            //通过员工进行分组， 分组之后会有2个员工， 进行循环， 每个员工都会有很多条数据
+            foreach (var shiftScheduleView in shiftScheduleViews)
+            {
+                Dictionary<string, object> TbodyContent = new Dictionary<string, object>();
+
+                string shiftScheduleStaffNr = shiftScheduleView.Key.staffNr.ToString();
+
+                TbodyContent.Add("staffNr", shiftScheduleStaffNr);
+
+                //每个员工下面会有很多个排班
+                List<object> Childs = new List<object>();
+                foreach (var thead in Thead)
+                {
+                    List<object> MoreChilds = new List<object>();
+                    //正常情况下， 同一个时间段， 同一个员工， 无法排两个班
+                    List<ShiftScheduleView> shiftScheduleSignal = ShiftScheduleView.Where(c => c.staffNr == shiftScheduleStaffNr && c.scheduleAt == Convert.ToDateTime(thead)).ToList();
+                    if (shiftScheduleSignal.Count > 0)
+                    {
+                        foreach (var shiftScheduleTemp in shiftScheduleSignal)
+                        {
+                            Dictionary<string, object> Childrens = new Dictionary<string, object>();
+                            //已经进行了排班
+                            Childrens.Add("id", shiftScheduleTemp.id);
+                            Childrens.Add("name", shiftScheduleTemp.name);
+                            Childrens.Add("code", shiftScheduleTemp.code);
+                            Childrens.Add("scheduleAt", thead);
+                            Childrens.Add("startAt", shiftScheduleTemp.startAt.ToString());
+                            Childrens.Add("endAt", shiftScheduleTemp.endAt.ToString());
+                            Childrens.Add("fullStartAt", shiftScheduleTemp.fullStartAt.Value.ToString("yyyy-MM-dd hh:mm:ss"));
+                            Childrens.Add("fullEndAt", shiftScheduleTemp.fullEndAt.Value.ToString("yyyy-MM-dd hh:mm:ss"));
+
+                            MoreChilds.Add(Childrens);
+                        }
+                    }else
+                    {
+                        Dictionary<string, object> NoThing = new Dictionary<string, object>();
+                        NoThing.Add("scheduleAt", thead);
+                        MoreChilds.Add(NoThing);
+                    }
+
+                    Childs.Add(MoreChilds);
+                }
+
+                TbodyContent.Add("childrens", Childs);
+
+                Tbody.Add(TbodyContent);
+            }
+
+            Result.Add("tbody", Tbody);
+
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult EditShiftSchedule(int id, string staffNr, int shiftId,  DateTime scheduleAt)
+        {
+            ShiftSchedule shiftSchedule = new ShiftSchedule();
+
+            shiftSchedule.id = id;
+            shiftSchedule.shiftId = shiftId;
+            shiftSchedule.staffNr = staffNr;
+            shiftSchedule.scheduleAt = scheduleAt;
+
+            IShiftScheduleService sss = new ShiftSheduleService(Settings.Default.db);
+
+            bool Result = sss.Update(shiftSchedule);
+
+            return Json(Result, JsonRequestBehavior.DenyGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteShiftSchedule(int id)
+        {
+            IShiftScheduleService sss = new ShiftSheduleService(Settings.Default.db);
+
+            bool Result = sss.DeleteById(id);
+
+            return Json(Result, JsonRequestBehavior.DenyGet);
         }
 
         // GET: ShiftShedule/Details/5
@@ -511,11 +631,11 @@ namespace BlueHrWeb.Controllers
             {
                 if (type.HasValue && type.ToString().Equals(certt.id))
                 {
-                    select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = true });
+                    select.Add(new SelectListItem { Text = certt.name + "(" + certt.startAt + "-" + certt.endAt + ")", Value = certt.id.ToString(), Selected = true });
                 }
                 else
                 {
-                    select.Add(new SelectListItem { Text = certt.name, Value = certt.id.ToString(), Selected = false });
+                    select.Add(new SelectListItem { Text = certt.name + "(" + certt.startAt + "-" + certt.endAt + ")", Value = certt.id.ToString(), Selected = false });
                 }
             }
             ViewData["shiftList"] = select;

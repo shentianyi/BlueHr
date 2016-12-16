@@ -40,6 +40,27 @@ namespace BlueHrWeb.Controllers
             return View(jobTitles);
         }
 
+        // GET: JobTitle 
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult TableShow(int? page)
+        {
+            int pageIndex = PagingHelper.GetPageIndex(page);
+
+            JobTitleSearchModel q = new JobTitleSearchModel();
+
+            IJobTitleService ss = new JobTitleService(Settings.Default.db);
+
+            IPagedList<JobTitle> jobTitles = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+
+            JobTitleInfoModel info = ss.GetJobTitleInfo(q);
+            ViewBag.Info = info;
+
+            return View(jobTitles);
+        }
+
         [UserAuthorize]
         [RoleAndDataAuthorizationAttribute]
         [HttpGet]
@@ -60,6 +81,26 @@ namespace BlueHrWeb.Controllers
             }
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
+
+
+        [HttpPost]
+        [UserAuthorize]
+        [RoleAndDataAuthorization]
+        public JsonResult SetHistoryJobTitle(int id, bool? IsRevoked)
+        {
+            bool Result = false;
+            IJobTitleService jts = new JobTitleService(Settings.Default.db);
+            JobTitle jobTitle = jts.FindById(id);
+
+            if (jobTitle.IsRevoked != IsRevoked)
+            {
+                jobTitle.IsRevoked = IsRevoked;
+                Result = jts.Update(jobTitle, "");
+            }
+
+            return Json(Result, JsonRequestBehavior.DenyGet);
+        }
+
 
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "Name")] JobTitleSearchModel q)

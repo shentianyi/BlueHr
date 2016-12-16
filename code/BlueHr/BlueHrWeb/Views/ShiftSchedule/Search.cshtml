@@ -1,0 +1,213 @@
+﻿@model List<BlueHrLib.Data.ShiftScheduleView>
+
+@{
+    ViewBag.Title = "排班查询";
+}
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>考勤管理</li>
+    <li>
+        <strong>排班查询</strong>
+    </li>
+</ol>
+
+<hr class="hr-grey" />
+
+<div class="row" style="margin: 0;">
+    <form action="/ShiftSchedule/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>员工号</span>
+                    <input type="text" name="StaffNr" id="StaffNr" value="@ViewBag.Query.StaffNr" placeholder="员工号" />
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>排班日期</span>
+                    <input type="text" name="ScheduleAtFrom" id="ScheduleAtFrom" value="@ViewBag.Query.ScheduleAtFrom" placeholder="开始日期" class="date-picker"/>
+                    <span>~</span>
+                    <input type="text" name="ScheduleAtEnd" id="ScheduleAtEnd" value="@ViewBag.Query.ScheduleAtEnd" placeholder="截止日期" class="date-picker"/>
+                    <span>
+                        <button type="submit" class="marco-btn-primary search-btn" style="margin:0;">搜索</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="show_shift_schedule" id="show_shift_schedule" style="overflow: auto; padding: 20px;">
+    <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="shif_schedule_grid_table" style="margin:auto;"></div>
+
+    <table class="table table-bordered">
+        <thead id="shift_schedule_thead"></thead>
+        <tbody id="shift_schedule_tbody"></tbody>
+    </table>
+</div>
+
+<div id="UpdateOrDeleteShiftScheduleModal" class="approval_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        <span>删除 / 编辑班次信息</span>
+    </div>
+
+    <div class="dialogModal_content">
+        <div class="marco-nbody row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span id="shift_schedule_name" name = "shift_schedule_name" style="font-weight: bold; color: #2980b9;"> </span>
+                <span id="staffNr">员工号</span>
+                <span id="scheduleAt" style="margin-left: 20px;">排班日期</span>
+                <span id="timeSpan" style="margin-left: 20px;">时间段</span>
+                
+                <div class="pull-right" style="margin-top:-10px;">
+                    <button class="marco-btn-danger delete_shift_schedule">删除该排班</button>
+                </div>
+            </div>
+            <hr class="hr-primary" />
+
+            <div class="row" style="margin: 0;">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    <div class="marco-igroup-primary">
+                        <span>请选择班次</span>
+                        @Html.DropDownList("shiftId", ViewData["shiftList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>                
+                <div class="col-lg-4 col-md-4 col-sm-4 colxs-4">
+                    <div class="pull-right" style="margin-right:3px;">
+                        <button class="marco-btn-primary change_shift_schedule">修改该班次</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_HandlingMsgDialog")
+
+<script type="text/javascript">
+    Layout.datepicker('.date-picker');
+
+    show_handle_dialog();
+
+    $("#show_shift_schedule").css({"width": $(window).width() - 255+'px', "height": $(window).height() - 220+'px'});
+
+    $(window).resize(function(){
+        $("#show_shift_schedule").css({"width": $(window).width() - 255+'px', "height": $(window).height() - 220+'px'});
+    })
+
+
+    // $(".search-btn").click(function(){
+        $.ajax({
+            url:'/ShiftSchedule/GetShiftScheduleSearch',
+            type:'get',
+            data:{
+                StaffNr:$("#StaffNr").val(),
+                ScheduleAtFrom: $("#ScheduleAtFrom").val(),
+                ScheduleAtTo: $("#ScheduleAtEnd").val()
+            },
+            success:function(data){
+                console.log(data);
+                $("#shift_schedule_thead").empty();
+                $("#shift_schedule_tbody").empty();
+                    
+                // 绘制表头
+                var TheadHtml = "<tr><th>员工 / 日期 </th>";
+                for(var i = 0; i < data["thead"].length; i++){
+                    TheadHtml += "<th>"+data["thead"][i]+"</th>"
+                }
+                TheadHtml += "</tr>";
+                $(TheadHtml).appendTo($("#shift_schedule_thead"));
+
+                var TbodyHtml="";
+                for(var j = 0; j < data["tbody"].length; j++){
+                    TbodyHtml += "<tr><td>"+data["tbody"][j].staffNr+"</td>"
+                    for(var child = 0; child < data["tbody"][j].childrens.length; child++){
+                        var ShiftScheduleData = data["tbody"][j].childrens[child];
+                        for(var childs2 in ShiftScheduleData){
+                            if(ShiftScheduleData[childs2].id!= undefined){
+                                TbodyHtml += "<td style='cursor: pointer;'><b class='shift_schedule_changed'>"+ ShiftScheduleData[childs2].name +"</b><br /> "+
+                                "<span style='font-size: 0.8em; color: steelblue;'>"+ShiftScheduleData[childs2].startAt +" - " +ShiftScheduleData[childs2].endAt +"</span>"+
+                                "<input type='hidden' id="+ShiftScheduleData[childs2].id+" staffNr="+data["tbody"][j].staffNr+" scheduleAt = "+ShiftScheduleData[childs2].scheduleAt+"> </td>"
+                                }else{
+                                TbodyHtml += "<td style='cursor: pointer;'><input type='hidden' id='new_shift_schedule' staffNr="+data["tbody"][j].staffNr + " scheduleAt = "+ShiftScheduleData[childs2].scheduleAt+"></td>"
+                            }
+                        }
+                    }
+                    TheadHtml += "</tr>"
+                }
+                $(TbodyHtml).appendTo($("#shift_schedule_tbody"));
+
+                hide_handle_dialog();
+            },
+            error:function(){
+                console.log("Somethine ROOO");
+            }
+        })
+    // })
+
+    $('.show_shift_schedule').on('click', '.shift_schedule_changed', function(){
+        var InputTag = $(this).parent().children('input');
+
+        var ID = InputTag.attr("id");
+        var StaffNr = InputTag.attr("staffnr");
+        var ScheduleAt = InputTag.attr("scheduleAt");
+        var TimeSpan = $(this).parent().children('span').html();
+        $('#UpdateOrDeleteShiftScheduleModal').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { 
+            },
+            onLoad: function () {
+                $(".dialogModal").find("#staffNr").html("员工号："+StaffNr);
+                $(".dialogModal").find("#scheduleAt").html("排班日期：" + ScheduleAt);
+                $(".dialogModal").find("#timeSpan").html("时间段：" + TimeSpan);
+
+                $(".dialogModal").find(".delete_shift_schedule").click(function(){
+                    if(confirm("确认删除?")){
+                        $.ajax({
+                            url:'/ShiftSchedule/DeleteShiftSchedule',
+                            type:'post',
+                            data:{
+                                id: ID
+                            },
+                            success:function(data){
+                                // console.log(data);
+                                window.location.reload();
+                            },
+                            error:function(){
+                                // console.log("Something Error");
+                            }
+                        })
+                    }
+                })
+
+                $(".dialogModal").find(".change_shift_schedule").click(function(){
+                    $.ajax({
+                        url:'/ShiftSchedule/EditShiftSchedule',
+                        type:'post',
+                        data:{
+                            id: ID,
+                            staffNr: StaffNr,
+                            shiftId: $(".dialogModal").find("#shiftId").val(),
+                            scheduleAt: ScheduleAt
+                        },
+                        success:function(data){
+                            // console.log(data);
+                            window.location.reload();
+                        },
+                        error:function(){
+                            // console.log("something Error!");
+                        }
+                    })
+                })
+            },
+            onClose: function () {
+            }
+        });
+    })
+
+    $('.show_shift_schedule').on('click', '#new_shift_schedule', function(){
+        console.log("是否要新建班次");
+    })
+</script>
