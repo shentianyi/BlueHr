@@ -7,7 +7,7 @@ namespace BlueHrLib.Data.Model.Search
 {
     public class RewardsAndPenaltySearchModel
     {
-        public string StaffNr{ get; set; }
+        public string staffNr{ get; set; }
         public int? type { get; set; }
     }
 }

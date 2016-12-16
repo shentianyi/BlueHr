@@ -63,7 +63,7 @@ namespace BlueHrWeb.Controllers
 
             IExtraWorkRecordService ss = new ExtraWorkRecordService(Settings.Default.db);
 
-            IPagedList<ExtraWorkRecord> models = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<ExtraWorkRecordView> models = ss.ExtraWorkViewSearch(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
@@ -306,11 +306,15 @@ namespace BlueHrWeb.Controllers
             {
                 SetExtraWorkTypeList(model.extraWorkTypeId);
                 SetDurationTypeCodeList(model.durationType);
+                SetAllTableName(null);
+                SetSearchConditions(null);
             }
             else
             {
                 SetExtraWorkTypeList(null);
                 SetDurationTypeCodeList(null);
+                SetAllTableName(null);
+                SetSearchConditions(null);
             }
         }
 
@@ -533,30 +537,30 @@ namespace BlueHrWeb.Controllers
             ViewData["getAllTableNameList"] = select;
         }
 
-        private void SetSearchConditions(bool? type, bool allowBlank = false)
-        {
-            var item = EnumHelper.GetList(typeof(SearchConditions));
+        //private void SetSearchConditions(bool? type, bool allowBlank = false)
+        //{
+        //    var item = EnumHelper.GetList(typeof(SearchConditions));
 
-            List<SelectListItem> select = new List<SelectListItem>();
+        //    List<SelectListItem> select = new List<SelectListItem>();
 
-            if (allowBlank)
-            {
-                select.Add(new SelectListItem { Text = "", Value = "" });
-            }
+        //    if (allowBlank)
+        //    {
+        //        select.Add(new SelectListItem { Text = "", Value = "" });
+        //    }
 
-            foreach (var it in item)
-            {
-                if (type.HasValue && type.ToString().Equals(it.Value))
-                {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
-                }
-                else
-                {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
-                }
-            }
-            ViewData["searchConditionsList"] = select;
-        }
+        //    foreach (var it in item)
+        //    {
+        //        if (type.HasValue && type.ToString().Equals(it.Value))
+        //        {
+        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+        //        }
+        //        else
+        //        {
+        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+        //        }
+        //    }
+        //    ViewData["searchConditionsList"] = select;
+        //}
 
         private void SetAllTableName(string type, bool allowBlank = false)
         {

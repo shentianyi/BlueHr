@@ -53,6 +53,20 @@ namespace BlueHrWeb.Controllers
             return View(users);
         }
 
+        public ActionResult Search([Bind(Include = "name,roleType")] UserSearchModel q)
+        {
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            IUserService rrs = new UserService(Settings.Default.db);
+
+            IPagedList<User> users = rrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+
+            return View("Index", users);
+        }
 
         [RoleAndDataAuthorizationAttribute]
         public ActionResult UserMsg()
