@@ -813,22 +813,33 @@ namespace BlueHrWeb.Controllers
                                     {
                                         IQueryable<SysRoleAuthorization> SysRoleAuthorizationtemp2 = null;
                                         SysRoleAuthorizationtemp2 = ewrs.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                        foreach (var temp in Result)
+                                        List<SysRoleAuthorization> Resulttemp = new List<SysRoleAuthorization>();
+
+                                        foreach (var addtemp in Result)
                                         {
-                                            if (SysRoleAuthorizationtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                            Resulttemp.Add(addtemp);
                                         }
 
+                                        foreach (var temp in Result)
+                                        {
+                                            if (SysRoleAuthorizationtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null)
+                                            {
+                                                SysRoleAuthorization removetemp = temp;
+                                                Resulttemp.Remove(Resulttemp.Where(s => s.id == removetemp.id).FirstOrDefault());
+                                            }
+                                        }
+                                        Result = Resulttemp;
                                     }
                                 }
                             }
                             else
                             {
-                                SysRoleAuthorizations = SysRoleAuthorizationtemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = SysRoleAuthorizationtemp1.ToList();
                             }
                         }
                         catch (Exception)
                         {
-                            SysRoleAuthorizations = null;
+                            Result = null;
                         }
 
                     }

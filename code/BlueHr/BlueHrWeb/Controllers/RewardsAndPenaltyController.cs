@@ -41,7 +41,7 @@ namespace BlueHrWeb.Controllers
         }
 
         [RoleAndDataAuthorizationAttribute]
-        public ActionResult Search([Bind(Include = "Name")] RewardsAndPenaltySearchModel q)
+        public ActionResult Search([Bind(Include = "staffNr")] RewardsAndPenaltySearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);

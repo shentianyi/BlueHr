@@ -358,22 +358,33 @@ namespace BlueHrWeb.Controllers
                                     {
                                         IQueryable<WorkAndRest> WorkAndResttemp2 = null;
                                         WorkAndResttemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                        foreach (var temp in Result)
+                                        List<WorkAndRest> Resulttemp = new List<WorkAndRest>();
+
+                                        foreach (var addtemp in Result)
                                         {
-                                            if (WorkAndResttemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                            Resulttemp.Add(addtemp);
                                         }
 
+                                        foreach (var temp in Result)
+                                        {
+                                            if (WorkAndResttemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null)
+                                            {
+                                                WorkAndRest removetemp = temp;
+                                                Resulttemp.Remove(Resulttemp.Where(s => s.id == removetemp.id).FirstOrDefault());
+                                            }
+                                        }
+                                        Result = Resulttemp;
                                     }
                                 }
                             }
                             else
                             {
-                                WorkAndRests = WorkAndResttemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = WorkAndResttemp1.ToList();
                             }
                         }
                         catch (Exception)
                         {
-                            WorkAndRests = null;
+                            Result = null;
                         }
 
                     }

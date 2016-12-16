@@ -18,7 +18,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 ol-xs-12">
                 <div class="marco-igroup-primary">
                     <span>招聘需求</span>
-                    <input type="text" name="Recruitment" id="Recruitment" placeholder="招聘需求" value="@ViewBag.Query.requirement" />
+                    <input type="text" name="requirement" id="Recruitment" placeholder="招聘需求" value="@ViewBag.Query.requirement" />
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6 ol-xs-12">
@@ -30,13 +30,13 @@
             <div class="col-lg-4 col-md-4 col-sm-6 ol-xs-12">
                 <div class="marco-igroup-primary">
                     <span>招聘部门</span>
-                    <input type="text" name="Department" id="Department" placeholder="招聘部门" value="@ViewBag.Query.departmentId" />
+                    <input type="text" name="departmentId" id="Department" placeholder="招聘部门" value="@ViewBag.Query.departmentId" />
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6 ol-xs-12">
                 <div class="marco-igroup-primary">
                     <span>需求人数</span>
-                    <input type="text" name="RecruitNum" id="RecruitNum" placeholder="需求人数" value="@ViewBag.Query.amount" />
+                    <input type="text" name="amount" id="RecruitNum" placeholder="需求人数" value="@ViewBag.Query.amount" />
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" style="margin-top: 5px;">
@@ -46,17 +46,17 @@
                         <span>搜索</span>
                     </button>
                 </div>
-                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                <!-- <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
                     <button type="button" class="marco-btn-primary advanced-filter-btn" title="自定义搜索">
                         <i class="fa fa-filter"></i>
                         <span>自定义搜索</span>
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
     </form>
 </div>
-<div id="search_content" class="import_content" style="display:none;">
+<!-- <div id="search_content" class="import_content" style="display:none;">
     <form action="/Recruit/AdvancedSearch" method="post">
         <div class="dialogModal_header" style="background:steelblue; color:white;">
             自定义搜索信息
@@ -85,7 +85,7 @@
             </div>
         </div>
     </form>
-</div>
+</div> -->
 
 <hr class="hr-primary" />
 

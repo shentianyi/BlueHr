@@ -63,7 +63,7 @@ namespace BlueHrWeb.Controllers
 
             IExtraWorkRecordService ss = new ExtraWorkRecordService(Settings.Default.db);
 
-            IPagedList<ExtraWorkRecord> models = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+            IPagedList<ExtraWorkRecordView> models = ss.ExtraWorkViewSearch(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
 
@@ -223,24 +223,35 @@ namespace BlueHrWeb.Controllers
                                 {
                                     for (var i1 = 2; i1 < AllTableNameArray.Length; i1++)
                                     {
-                                        IQueryable<ExtraWorkRecordView> ExtraWorkRecordViewtemp2 = null;
-                                        ExtraWorkRecordViewtemp2 = ewrs.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                        foreach (var temp in Result)
+                                        IQueryable<ExtraWorkRecordView> ExtraWorkRecordtemp2 = null;
+                                        ExtraWorkRecordtemp2 = ewrs.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                        List<ExtraWorkRecordView> Resulttemp = new List<ExtraWorkRecordView>();
+
+                                        foreach (var addtemp in Result)
                                         {
-                                            if (ExtraWorkRecordViewtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                            Resulttemp.Add(addtemp);
                                         }
 
+                                        foreach (var temp in Result)
+                                        {
+                                            if (ExtraWorkRecordtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null)
+                                            {
+                                                ExtraWorkRecordView removetemp = temp;
+                                                Resulttemp.Remove(Resulttemp.Where(s => s.id == removetemp.id).FirstOrDefault());
+                                            }
+                                        }
+                                        Result = Resulttemp;
                                     }
                                 }
                             }
                             else
                             {
-                                extraWorkRecords = extraWorkRecordtemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = extraWorkRecordtemp1.ToList();
                             }
                         }
                         catch (Exception)
                         {
-                            extraWorkRecords = null;
+                            Result = null;
                         }
 
                     }
@@ -295,11 +306,15 @@ namespace BlueHrWeb.Controllers
             {
                 SetExtraWorkTypeList(model.extraWorkTypeId);
                 SetDurationTypeCodeList(model.durationType);
+                SetAllTableName(null);
+                SetSearchConditions(null);
             }
             else
             {
                 SetExtraWorkTypeList(null);
                 SetDurationTypeCodeList(null);
+                SetAllTableName(null);
+                SetSearchConditions(null);
             }
         }
 
@@ -522,30 +537,30 @@ namespace BlueHrWeb.Controllers
             ViewData["getAllTableNameList"] = select;
         }
 
-        private void SetSearchConditions(bool? type, bool allowBlank = false)
-        {
-            var item = EnumHelper.GetList(typeof(SearchConditions));
+        //private void SetSearchConditions(bool? type, bool allowBlank = false)
+        //{
+        //    var item = EnumHelper.GetList(typeof(SearchConditions));
 
-            List<SelectListItem> select = new List<SelectListItem>();
+        //    List<SelectListItem> select = new List<SelectListItem>();
 
-            if (allowBlank)
-            {
-                select.Add(new SelectListItem { Text = "", Value = "" });
-            }
+        //    if (allowBlank)
+        //    {
+        //        select.Add(new SelectListItem { Text = "", Value = "" });
+        //    }
 
-            foreach (var it in item)
-            {
-                if (type.HasValue && type.ToString().Equals(it.Value))
-                {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
-                }
-                else
-                {
-                    select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
-                }
-            }
-            ViewData["searchConditionsList"] = select;
-        }
+        //    foreach (var it in item)
+        //    {
+        //        if (type.HasValue && type.ToString().Equals(it.Value))
+        //        {
+        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
+        //        }
+        //        else
+        //        {
+        //            select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
+        //        }
+        //    }
+        //    ViewData["searchConditionsList"] = select;
+        //}
 
         private void SetAllTableName(string type, bool allowBlank = false)
         {

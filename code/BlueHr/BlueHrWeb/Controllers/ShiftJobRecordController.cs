@@ -302,22 +302,33 @@ namespace BlueHrWeb.Controllers
                                     {
                                         IQueryable<ShiftJobRecord> ShiftJobRecordtemp2 = null;
                                         ShiftJobRecordtemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                        foreach (var temp in Result)
+                                        List<ShiftJobRecord> Resulttemp = new List<ShiftJobRecord>();
+
+                                        foreach (var addtemp in Result)
                                         {
-                                            if (ShiftJobRecordtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                            Resulttemp.Add(addtemp);
                                         }
 
+                                        foreach (var temp in Result)
+                                        {
+                                            if (ShiftJobRecordtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null)
+                                            {
+                                                ShiftJobRecord removetemp = temp;
+                                                Resulttemp.Remove(Resulttemp.Where(s => s.id == removetemp.id).FirstOrDefault());
+                                            }
+                                        }
+                                        Result = Resulttemp;
                                     }
                                 }
                             }
                             else
                             {
-                                ShiftJobRecords = ShiftJobRecordtemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = ShiftJobRecordtemp1.ToList();
                             }
                         }
                         catch (Exception)
                         {
-                            ShiftJobRecords = null;
+                            Result = null;
                         }
 
                     }
@@ -428,12 +439,16 @@ namespace BlueHrWeb.Controllers
                 SetJobTitleList(shiftJobRecord.afterJobId);
                 SetCompanyList(shiftJobRecord.afterCompanyId);
                 SetDepartmentList(shiftJobRecord.afterCompanyId, shiftJobRecord.afterDepartmentId);
+                SetAllTableName(false);
+                SetSearchConditions(null);
             }
             else
             {
                 SetJobTitleList(null);
                 SetCompanyList(null);
                 SetDepartmentList(null, null);
+                SetAllTableName(false);
+                SetSearchConditions(null);
             }
         }
 

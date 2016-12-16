@@ -33,7 +33,8 @@ namespace BlueHrWeb.Controllers
             IPagedList<LeaveRecord> leaveRecords = lrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
-
+            SetAllTableName(null);
+            SetSearchConditions(null);
             return View(leaveRecords);
         }
 
@@ -49,7 +50,8 @@ namespace BlueHrWeb.Controllers
             IPagedList<LeaveRecord> leaveRecords = rrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
-
+            SetAllTableName(null);
+            SetSearchConditions(null);
             return View("Index", leaveRecords);
         }
 
@@ -286,29 +288,41 @@ namespace BlueHrWeb.Controllers
                                     {
                                         IQueryable<LeaveRecord> LeaveRecordtemp2 = null;
                                         LeaveRecordtemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                        foreach (var temp in Result)
+                                        List<LeaveRecord> Resulttemp = new List<LeaveRecord>();
+
+                                        foreach (var addtemp in Result)
                                         {
-                                            if (LeaveRecordtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                            Resulttemp.Add(addtemp);
                                         }
 
+                                        foreach (var temp in Result)
+                                        {
+                                            if (LeaveRecordtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null)
+                                            {
+                                                LeaveRecord removetemp = temp;
+                                                Resulttemp.Remove(Resulttemp.Where(s => s.id == removetemp.id).FirstOrDefault());
+                                            }
+                                        }
+                                        Result = Resulttemp;
                                     }
                                 }
                             }
                             else
                             {
-                                LeaveRecords = LeaveRecordtemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = LeaveRecordtemp1.ToList();
                             }
                         }
                         catch (Exception)
                         {
-                            LeaveRecords = null;
+                            Result = null;
                         }
 
                     }
                 }
             }
             LeaveRecords = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
-
+            SetAllTableName(null);
+            SetSearchConditions(null);
             return View("Index", LeaveRecords);
         }
 
@@ -354,22 +368,54 @@ namespace BlueHrWeb.Controllers
 
 
 
-        private void SetAllTableName(bool allowBlank = false)
+        //private void SetAllTableName(bool allowBlank = false)
+        //{
+        //    List<SelectListItem> select = new List<SelectListItem>();
+
+        //    ILeaveRecordService lrs = new LeaveRecordService(Settings.Default.db);
+        //    LeaveRecordSearchModel lrsm = new LeaveRecordSearchModel();
+        //    var LeaveRecord = lrs.Search(lrsm).ToList();
+
+        //    if (LeaveRecord != null)
+        //    {
+        //        //获取当前记录的属性
+        //        foreach (var property in LeaveRecord[0].GetType().GetProperties())
+        //        {
+        //            select.Add(new SelectListItem { Text = property.Name, Value = property.Name });
+        //        }
+        //    }
+
+        //    ViewData["getAllTableNameList"] = select;
+        //}
+        private void SetAllTableName(string type, bool allowBlank = false)
         {
             List<SelectListItem> select = new List<SelectListItem>();
 
-            ILeaveRecordService lrs = new LeaveRecordService(Settings.Default.db);
-            LeaveRecordSearchModel lrsm = null;
-            var LeaveRecord = lrs.Search(lrsm).ToList();
-
-            if (LeaveRecord != null)
+            ILeaveRecordService ss = new LeaveRecordService(Settings.Default.db);
+            LeaveRecordSearchModel lrsm = new LeaveRecordSearchModel();
+            var LeaveRecords = ss.Search(lrsm).ToList();
+            if (LeaveRecords.Count == 0)
             {
-                //获取当前记录的属性
-                foreach (var property in LeaveRecord[0].GetType().GetProperties())
-                {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name });
-                }
+                LeaveRecord LeaveRecord = new LeaveRecord();
+                LeaveRecords.Add(LeaveRecord);
             }
+            //获取当前记录的属性
+            foreach (var property in LeaveRecords[0].GetType().GetProperties())
+            {
+                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
+                {
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
+                }
+                else
+                {
+                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                }
+
+            }
+            //foreach (var col in Staffs.DataMembers)
+            //{
+            //    Console.WriteLine("\t{0}\t{1}", col.MappedName, col.DbType);
+            //}
 
             ViewData["getAllTableNameList"] = select;
         }
