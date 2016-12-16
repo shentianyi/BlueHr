@@ -107,6 +107,38 @@ namespace BlueHrWeb.Controllers
 
         [UserAuthorize]
         [RoleAndDataAuthorizationAttribute]
+        public ActionResult SearchOntrail([Bind(Include = "Nr, Name, Id, Sex, JobTitleId, CompanyId,companyNames,companyIds, DepartmentId,departmentNames,departmentIds, CompanyEmployAtFrom, CompanyEmployAtTo, BirthdayFrom,BirthdayTo,IsOnTrial, WorkStatus")] StaffSearchModel q)
+        {
+            //在员工管理-员工列表、排班管理-排班管理、缺勤管理、加班管理的列表中，用户如果有权限查看列表，那么只可以查看他所管理部门中的所有员工(员工中已有部门、公司)
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.loginUser = user;
+            q.IsOnTrial = true;
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+
+            IPagedList<Staff> staffs = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            Staff staff = new Staff();
+            staff.companyId = Convert.ToInt16(q.companyId);
+            staff.departmentId = Convert.ToInt16(q.departmentId);
+            //防止SetSexList 抛出异常
+            if (q.Sex.HasValue)
+            {
+                staff.sex = Convert.ToString(q.Sex);
+            }
+            staff.jobTitleId = q.JobTitleId;
+            staff.isOnTrial = Convert.ToBoolean(q.IsOnTrial);
+            SetDropDownList(staff);
+            ViewBag.Query = q;
+
+            return View("Ontrail",staffs);
+        }
+
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult AdvancedSearch(StaffSearchModel q)
         {
             User user = System.Web.HttpContext.Current.Session["user"] as User;
@@ -188,6 +220,91 @@ namespace BlueHrWeb.Controllers
             SetDropDownList(null);
 
             return View("Index", staffs);
+        }
+
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult AdvancedSearchOntrail(StaffSearchModel q)
+        {
+            User user = System.Web.HttpContext.Current.Session["user"] as User;
+            q.loginUser = user;
+            ViewBag.Query = q;
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+            int pageIndex = 0;
+            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
+            pageIndex = PagingHelper.GetPageIndex(pageIndex);
+
+            IPagedList<Staff> staffs = null;
+            IQueryable<Staff> staffstemp = null;
+            IQueryable<Staff> staffstemp1 = null;
+            List<Staff> Result = new List<Staff>();
+            if (!string.IsNullOrEmpty(Request.Form["allTableName"]))
+            {
+                if (!string.IsNullOrEmpty(Request.Form["searchConditions"]))
+                {
+                    if (!string.IsNullOrEmpty(Request.Form.Get("searchValueFirst")))
+                    {
+                        string AllTableName = Request.Form["allTableName"].ToString();
+                        string[] AllTableNameArray = AllTableName.Split(',');
+                        string SearchConditions = Request.Form["searchConditions"];
+                        string[] SearchConditionsArray = SearchConditions.Split(',');
+                        string searchValueFirst = Request.Form["searchValueFirst"];
+                        string[] searchValueFirstArray = searchValueFirst.Split(',');
+
+                        try
+                        {
+                            staffstemp1 = ss.AdvancedSearch(AllTableNameArray[0], SearchConditionsArray[0], searchValueFirstArray[0])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                            if (AllTableNameArray.Length > 1)
+                            {
+                                int i = 1;
+                                staffstemp = ss.AdvancedSearch(AllTableNameArray[i], SearchConditionsArray[i], searchValueFirstArray[i])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                foreach (var temp in staffstemp)
+                                {
+                                    if (staffstemp1.FirstOrDefault(s => s.nr.Equals(temp.nr)) != null) Result.Add(temp);
+                                }
+                                if (AllTableNameArray.Length > 2)
+                                {
+                                    for (var i1 = 2; i1 < AllTableNameArray.Length; i1++)
+                                    {
+                                        IQueryable<Staff> staffstemp2 = null;
+                                        staffstemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                        List<Staff> Resulttemp = new List<Staff>();
+
+                                        foreach (var addtemp in Result)
+                                        {
+                                            Resulttemp.Add(addtemp);
+                                        }
+
+                                        foreach (var temp in Result)
+                                        {
+                                            if (staffstemp2.FirstOrDefault(s => s.nr.Equals(temp.nr)) == null)
+                                            {
+                                                Staff removetemp = temp;
+                                                Resulttemp.Remove(Resulttemp.Where(s => s.nr == removetemp.nr).FirstOrDefault());
+                                            }
+                                        }
+                                        Result = Resulttemp;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Result = staffstemp1.ToList();
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            Result = null;
+                        }
+
+                    }
+                }
+            }
+            staffs = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            SetDropDownList(null);
+
+            return View("Ontrail", staffs);
         }
 
         // GET: Company/Create
