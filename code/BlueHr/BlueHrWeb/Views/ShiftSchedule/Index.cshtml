@@ -182,9 +182,9 @@
                 <span>班次信息</span>
                 <span id="shift_schedule_name" name = "shift_schedule_name" style="font-weight: bold; color: #2980b9;"> </span>
 
-                <div class="pull-right">
+                <!--<div class="pull-right">
                     <button class="marco-btn-primary">编辑</button>
-                </div>
+                </div>-->
             </div>
             <br />
 
@@ -255,6 +255,8 @@
                     // console.log(view);
                 },
                 eventClick: function(event, jsEvent, view) {
+                    var EventChildrens = event.childrens;
+
                     $("#shift_schedule_tbody").empty();
 
                     $("#shift_schedule_name").html(event.id.split("_")[0]+" "+event.id.split("_")[1].split(" ")[1]+" - "+event.id.split("_")[2]+" 共:"+event.id.split("_")[3]+"人");
@@ -264,10 +266,11 @@
                         $("<tr><td>"+event.childrens[i].staffNr+" <a href='/Staff/Delete/"+event.childrens[i].staffNr+"' class='option-icon-primary' title='员工详情' > <i class='fa fa-eye'></i> </a> </td><td>"+event.childrens[i].name+"</td><td>"+event.childrens[i].code+"</td>"+
                         "<td>"+event.childrens[i].start+"</td>"+
                         "<td>"+event.childrens[i].end+"</td><td>"+event.childrens[i].scheduleAt+"</td>"+
-                        "<td><a href='/ShiftSchedule/Edit/"+event.childrens[i].id+"' class='option-icon-primary' title='编辑该员工排班'>"+
-                        "<i class='fa fa-pencil'></i></a>"+
-                        "<i class='fa fa-trash' id='delete_shift_schedule' "+
-                        " shift_scheduleId = " + event.childrens[i].id + " style='margin-left: 5px; color: darkred; cursor: pointer; border: 2px solid darkred; border-radius: 4px; padding: 3px 4px;' title='删除该员工排班'></i></td>"+
+                        "<td>"+
+                        // "<a href='/ShiftSchedule/Edit/"+event.childrens[i].id+"' class='option-icon-primary' title='编辑该员工排班'>"+
+                        // "<i class='fa fa-pencil'></i></a>"+
+                        "<a class='option-icon-danger'><i class='fa fa-trash' id='delete_shift_schedule' "+
+                        " shift_scheduleId = " + event.childrens[i].id + " title='删除该员工排班'></i></a></td>"+
                         "</tr>").appendTo($("#shift_schedule_tbody"));
                     }
                     
@@ -309,8 +312,14 @@
                                             if(data.Success){
                                                 $(".dialogModal").find("#shift_schedule_name").html(event.id.split("_")[0]+" "+event.id.split("_")[1].split(" ")[1]+" - "+event.id.split("_")[2]+" 共:"+ (event.id.split("_")[3] - 1) +"人");
                                                 
-                                                This.parent().parent().fadeOut();
-                                                // $('#person_calendar').fullCalendar('removeEvents', [event.id]);
+                                                This.parent().parent().parent().fadeOut();
+
+                                                // console.log(EventChildrens);
+                                                // console.log(EventChildrens.length);
+                                                // console.log(typeof(EventChildrens));
+                                                // EventChildrens.remove(0);
+
+                                                // $('#shift_schedule_calendar').fullCalendar('removeEvents', [$(".dialogModal").find("#delete_shift_schedule").attr("shift_scheduleId")]);
                                             }
                                         },
                                         error:function(){

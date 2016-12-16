@@ -44,7 +44,7 @@ namespace BlueHrWeb.Controllers
 
         [RoleAndDataAuthorizationAttribute]
 
-        public ActionResult Search([Bind(Include = "DateAtFrom,DateAtTo, DateType")] WorkAndRestSearchModel q)
+        public ActionResult Search([Bind(Include = "DateAtFrom, DateAtTo, DateType")] WorkAndRestSearchModel q)
         {
             int pageIndex = 0;
             int.TryParse(Request.QueryString.Get("page"), out pageIndex);
@@ -205,6 +205,126 @@ namespace BlueHrWeb.Controllers
             {
                 return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpGet]
+        [RoleAndDataAuthorization]
+        public JsonResult GetWorkAndRest(DateTime? dateAtFrom, DateTime? dateAtTo, int? dateTypeId)
+        {
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+            IWorkAndRestService wrs = new WorkAndRestService(Settings.Default.db);
+
+            WorkAndRestSearchModel q = new WorkAndRestSearchModel();
+            q.DateAtFrom = dateAtFrom;
+            q.DateAtTo = dateAtTo;
+            q.DateType = dateTypeId;
+
+            List<WorkAndRest> workAndRests = wrs.Search(q).ToList();
+
+            foreach(var workAndRest in workAndRests)
+            {
+                Dictionary<string, string> days = new Dictionary<string, string>();
+                days.Add("id", workAndRest.id.ToString());
+                days.Add("title", workAndRest.dateTypeDisplay);
+                days.Add("allDay", "true");
+                days.Add("dateAt", workAndRest.dateAt.ToString());
+                days.Add("dateType", workAndRest.dateTypeDisplay);
+                days.Add("dateTypeId", workAndRest.dateType.ToString());
+                if(workAndRest.dateType == 200)
+                {
+                    days.Add("backgroundColor", "#f1c40f");
+                    days.Add("textColor", "#222d32");
+                }
+                else if(workAndRest.dateType == 300)
+                {
+                    days.Add("backgroundColor", "#e74c3c");
+                }else
+                {
+                    //days.Add("backgroundColor", "#e74c3c");
+                }
+                days.Add("start", workAndRest.dateAt.ToString());
+                days.Add("remark", workAndRest.remark);
+
+                Result.Add(days);
+            }
+
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
+
+        [RoleAndDataAuthorization]
+        [HttpPost]
+        public JsonResult SetWorkAndRestDay(DateTime beginDay, DateTime endDay)
+        {
+            IWorkAndRestService wrs = new WorkAndRestService(Settings.Default.db);
+            bool Result = false;
+            int Days = new TimeSpan(endDay.Ticks).Subtract(new TimeSpan(beginDay.Ticks)).Duration().Days;
+            for(var currentDay = 0; currentDay < Days+1; currentDay++)
+            {
+                WorkAndRest workAndRest = new WorkAndRest();
+
+                DateTime CurrentTime = beginDay.AddDays(currentDay);
+
+                workAndRest.dateAt = CurrentTime;
+
+                if (CurrentTime.Month == 1 && CurrentTime.Day >= 1 && CurrentTime.Day <= 3)
+                {
+                    //国庆节
+                    workAndRest.dateType = 300;
+                    workAndRest.remark = "元旦/节假日";
+                }
+                else if (CurrentTime.Month == 5 && CurrentTime.Day >= 1 && CurrentTime.Day <= 3)
+                {
+                    //国庆节
+                    workAndRest.dateType = 300;
+                    workAndRest.remark = "劳动节/节假日";
+                }
+                else if (CurrentTime.Month == 10 && CurrentTime.Day>=1 && CurrentTime.Day<= 7)
+                {
+                    //国庆节
+                    workAndRest.dateType = 300;
+                    workAndRest.remark = "国庆节/节假日";
+                }
+                else
+                {
+                    if (CurrentTime.DayOfWeek == DayOfWeek.Saturday || CurrentTime.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        //双休日
+                        workAndRest.dateType = 200;
+                        workAndRest.remark = "双休日/周末/公休日";
+                    }
+                    else
+                    {
+                        //工作日
+                        workAndRest.dateType = 100;
+                        workAndRest.remark = "工作日";
+                    }
+                }
+
+                Result = wrs.Create(workAndRest);
+
+                if (!Result)
+                {
+                    break;
+                }
+            }
+
+            return Json(Result, JsonRequestBehavior.DenyGet);
+        }
+
+        [HttpPost]
+        [RoleAndDataAuthorization]
+        public JsonResult EditWorkAndRest(int id, int dateTypeId, string remark)
+        {
+            IWorkAndRestService wrs = new WorkAndRestService(Settings.Default.db);
+
+            WorkAndRest workAndRest = wrs.FindById(id);
+
+            workAndRest.dateType = dateTypeId;
+            workAndRest.remark = remark;
+
+            bool Result = wrs.Update(workAndRest);
+
+            return Json(Result, JsonRequestBehavior.DenyGet);
         }
 
         private void SetWorkAndRestTypeList(int? type, bool allowBlank = true)

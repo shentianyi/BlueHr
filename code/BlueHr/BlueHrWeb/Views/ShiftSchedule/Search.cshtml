@@ -12,6 +12,8 @@
     </li>
 </ol>
 
+<span style="position: absolute; top: 65px; right: 20px; color: lightseagreen;">Tips: 点击排班名称进行修改或删除</span>
+
 <hr class="hr-grey" />
 
 <div class="row" style="margin: 0;">
@@ -86,9 +88,9 @@
 @Html.Partial("_HandlingMsgDialog")
 
 <script type="text/javascript">
+    Layout.init();
+    
     Layout.datepicker('.date-picker');
-
-    show_handle_dialog();
 
     $("#show_shift_schedule").css({"width": $(window).width() - 255+'px', "height": $(window).height() - 220+'px'});
 
@@ -96,8 +98,10 @@
         $("#show_shift_schedule").css({"width": $(window).width() - 255+'px', "height": $(window).height() - 220+'px'});
     })
 
+    var PathNameLength = window.location.href.split('?').length;
 
-    // $(".search-btn").click(function(){
+    if(PathNameLength>1){
+        show_handle_dialog();
         $.ajax({
             url:'/ShiftSchedule/GetShiftScheduleSearch',
             type:'get',
@@ -107,7 +111,6 @@
                 ScheduleAtTo: $("#ScheduleAtEnd").val()
             },
             success:function(data){
-                console.log(data);
                 $("#shift_schedule_thead").empty();
                 $("#shift_schedule_tbody").empty();
                     
@@ -144,7 +147,7 @@
                 console.log("Somethine ROOO");
             }
         })
-    // })
+    }
 
     $('.show_shift_schedule').on('click', '.shift_schedule_changed', function(){
         var InputTag = $(this).parent().children('input');
