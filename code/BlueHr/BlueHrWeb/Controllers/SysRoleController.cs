@@ -61,8 +61,10 @@ namespace BlueHrWeb.Controllers
 
             ViewBag.Query = q;
 
-            return View("Index", jobTitles);
+            return View("TableShow", jobTitles);
         }
+
+        
 
         [RoleAndDataAuthorizationAttribute]
         // GET: SysRole/Details/5

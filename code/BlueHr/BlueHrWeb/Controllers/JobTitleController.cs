@@ -115,7 +115,7 @@ namespace BlueHrWeb.Controllers
 
             ViewBag.Query = q;
 
-            return View("Index", jobTitles);
+            return View("TableShow", jobTitles);
         }
 
         // GET: JobTitle/Details/5
