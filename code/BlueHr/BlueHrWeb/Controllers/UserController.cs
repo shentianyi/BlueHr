@@ -64,7 +64,8 @@ namespace BlueHrWeb.Controllers
             IPagedList<User> users = rrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
-
+            SetAllTableName(null);
+            SetSearchConditions(null);
             return View("Index", users);
         }
 
@@ -122,6 +123,8 @@ namespace BlueHrWeb.Controllers
             SetSysRoleList(false);
             ViewBag.TheCmpIds = "";
             ViewBag.TheDepIds = "";
+            SetAllTableName(null);
+            SetSearchConditions(null);
             return View();
         }
 
@@ -228,7 +231,8 @@ namespace BlueHrWeb.Controllers
             user.AuthDepartment = dep;
             ViewBag.TheCmpDepIds = cmpDep.Item4;
             ViewBag.TheSelCmpDepNames = cmpDep.Item5;
-
+            SetAllTableName(null);
+            SetSearchConditions(null);
             return View(user);
         }
 
@@ -354,6 +358,8 @@ namespace BlueHrWeb.Controllers
 
             //SetSysRoleList();
             //SetCmpList();
+            SetAllTableName(null);
+            SetSearchConditions(null);
             return View(user);
         }
 
@@ -1035,7 +1041,8 @@ namespace BlueHrWeb.Controllers
                 }
             }
             Users = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
-
+            SetAllTableName(null);
+            SetSearchConditions(null);
             return View("Index", Users);
         }
     }
