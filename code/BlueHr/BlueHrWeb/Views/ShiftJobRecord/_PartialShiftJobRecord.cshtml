@@ -145,7 +145,15 @@
 
     //Layout.datepicker('.datetimepicker');
     Layout.datepicker('.date-picker');
-
+    
+    //二级联动
+    $("#afterCompanyId").change(function(){
+        console.log($(this).val());
+ 
+        Layout.CompanyAndDepartment('#afterCompanyId', '#afterDepartmentId');
+    });
+ 
+    Layout.CompanyAndDepartment('#afterCompanyId', '#afterDepartmentId');
     //回调函数
     function post_return_action(data) {
         if (!data.Success) {
