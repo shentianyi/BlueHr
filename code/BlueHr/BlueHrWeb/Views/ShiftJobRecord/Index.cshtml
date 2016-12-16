@@ -340,7 +340,17 @@
             });
             return items;
         }
-
+        $('.advanced-filter-btn').click(function () {
+            $('#search_content').dialogModal({
+                onOkBut: function () {
+                },
+                onCancelBut: function () { },
+                onLoad: function () {
+                },
+                onClose: function () {
+                }
+            });
+        });
         function addCondition(){
             if($(".itm .cln").length<5){
                 $(".cln:last").after($('.cln:last').clone(true));
