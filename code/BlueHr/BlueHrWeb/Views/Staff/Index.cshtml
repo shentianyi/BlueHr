@@ -75,7 +75,10 @@
             <div class="dialogModal_header" style="background:steelblue; color:white;">
                 自定义搜索信息
             </div>
+
             <div class="dialogModal_body itm" style="margin:8px;">
+
+                @*三个字段*@
                 <div class="row cln">
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div class="marco-igroup-primary">
@@ -97,14 +100,9 @@
                             <input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />
                         </div>
                     </div>
-
-                    <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button class="marco-btn-primary pull-right" title="点击删除字段" type="button" onclick="deleteCondition(this)" style="width: 50px;height: 40px;">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div> -->
                 </div>   
             </div>
+
             <div class="dialogModal_footer row" style="margin: 0;">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <button type="submit" class="marco-btn-success pull-right">
@@ -114,10 +112,10 @@
                 </div>
 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button class="marco-btn-primary pull-right" title="点击删除字段" type="button" onclick="deleteCondition()">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
+                    <button class="marco-btn-primary pull-right" title="点击删除字段" type="button" onclick="deleteCondition()">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <button class="marco-btn-primary pull-right" title="点击添加字段" type="button" onclick="addCondition()">
@@ -746,17 +744,6 @@
                             }
                         });
 
-                        //var checkedNodes = $("#cmpTree").treeview('getChecked');
-                        //$(checkedNodes).each(function (index, element) {
-                        //    if (element.nodeId !== data.nodeId) {
-                        //         $('#cmpTree').treeview('toggleNodeChecked', [data.nodeId, { silent: true }]);
-
-                        //      //  $("#cmpTree").treeview('unselectNode', [element, { silent: true }]);
-                        //    }
-                        //});
-
-                        //check if selected
-
                         var isSel = ifCmpSelected(data.id);
                         if (!isSel) {
                             var cmpSelNode = {};
@@ -1075,23 +1062,13 @@
         if($(".itm .cln").length<5){
             $(".cln:last").after($('.cln:last').clone(true));
         }
-        // $('.itm').append($('.cln:last').clone(true));   
     }
-    // $('#deleteCondition').click(function(){
-        
-    //     console.log($(".itm .cln").length);
-    //     if($(".itm .cln").length<=2){
-
-    //     }else{
-    //         $(this).parent().parent().remove();
-    //     }
-    // });
+   
     function deleteCondition(){
         if($(".itm .cln").length<=2){
 
         }else{
             $(".cln:last").remove();
-            // $(this).parent().parent().remove();
         }
         
     }

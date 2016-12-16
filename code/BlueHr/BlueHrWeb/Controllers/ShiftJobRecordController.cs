@@ -392,7 +392,7 @@ namespace BlueHrWeb.Controllers
             List<SelectListItem> select = new List<SelectListItem>();
 
             IShiftJobRecordService lrs = new ShiftJobRecordService(Settings.Default.db);
-            ShiftJobRecordSearchModel lrsm = null;
+            ShiftJobRecordSearchModel lrsm = new ShiftJobRecordSearchModel();
             var ShiftJobRecord = lrs.Search(lrsm).ToList();
 
             if (ShiftJobRecord != null)
