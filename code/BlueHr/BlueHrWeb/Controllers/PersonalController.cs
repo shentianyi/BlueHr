@@ -318,13 +318,6 @@ namespace BlueHrWeb.Controllers
                 shiftjobs.Add("UserId", shiftJobrecord.userId.ToString());
                 shiftjobs.Add("Created", shiftJobrecord.createdAt.ToString("yyyy-MM-dd"));
                 shiftjobs.Add("Remark", shiftJobrecord.remark);
-
-                //shiftjobs.Add("BeforeCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.beforeCompanyId)).name);
-                //shiftjobs.Add("BeforeDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.beforeDepartmentId)).name);
-                //shiftjobs.Add("BeforeJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.beforeJobId)).name);
-                //shiftjobs.Add("AfterCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.afterCompanyId)).name);
-                //shiftjobs.Add("AfterDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.afterDepartmentId)).name);
-                //shiftjobs.Add("AfterJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.afterJobId)).name);
                 shiftjobs.Add("ApprovalStatus", shiftJobrecord.approvalStatus == null ? "审批中" : shiftJobrecord.approvalStatus);
                 shiftjobs.Add("approvalUserId", shiftJobrecord.approvalUserId.ToString());
                 shiftjobs.Add("ApprovalDate", shiftJobrecord.approvalAt.Value.ToString("yyyy-MM-dd"));
