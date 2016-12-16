@@ -154,7 +154,7 @@
             <li role="presentation" class="active"><a href="#on_staff" role="tab" data-toggle="tab">在职人员</a></li>
             <li role="presentation"><a href="#off_staff" role="tab" data-toggle="tab">离职人员</a></li>
             <li role="presentation"><a href="#all_staff" role="tab" data-toggle="tab">全部人员</a></li>
-            <li role="presentation"><a href="#employ_staff" role="tab" data-toggle="tab">离职回聘</a></li>
+            <!--<li role="presentation"><a href="#employ_staff" role="tab" data-toggle="tab">离职回聘</a></li>-->
         </ul>
 
         <div class="tab-content">
@@ -604,14 +604,12 @@
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "employ_staff", "回聘员工列表", "20", "employ_staff_grid_table");
     $('#employ_staff').removeClass("active");
 
-
     Layout.CompanyAndDepartment('#companyId', '#departmentId');
     Layout.rangedatepicker('#CompanyEmployAtFrom', '#CompanyEmployAtTo');
 
     // Layout.advancedfilter();
 
     $('.import-dialog-btn').click(function () {
-
         $('#dialog_content').dialogModal({
             onOkBut: function () {
             },
@@ -625,8 +623,6 @@
             
         });
     });
-
-    
 
     $("#btnEdit3").click(function () {
 
@@ -711,7 +707,6 @@
     bindCompany();
 
     function bindCompany() {
-
         RinTheValues();
 
         $.post("/User/GetCompanys", {}, function (response) {
@@ -1044,13 +1039,11 @@
 
 
     $('.advanced-filter-btn').click(function () {
-
         $('#search_content').dialogModal({
             onOkBut: function () {
             },
             onCancelBut: function () { },
             onLoad: function () {
-
             },
             onClose: function () {
             }
