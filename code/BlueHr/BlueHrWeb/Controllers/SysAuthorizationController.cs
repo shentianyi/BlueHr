@@ -355,11 +355,22 @@ namespace BlueHrWeb.Controllers
                                     {
                                         IQueryable<SysAuthorization> SysAuthorizationtemp2 = null;
                                         SysAuthorizationtemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                        foreach (var temp in Result)
+                                        List<SysAuthorization> Resulttemp = new List<SysAuthorization>();
+
+                                        foreach (var addtemp in Result)
                                         {
-                                            if (SysAuthorizationtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                            Resulttemp.Add(addtemp);
                                         }
 
+                                        foreach (var temp in Result)
+                                        {
+                                            if (SysAuthorizationtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null)
+                                            {
+                                                SysAuthorization removetemp = temp;
+                                                Resulttemp.Remove(Resulttemp.Where(s => s.id == removetemp.id).FirstOrDefault());
+                                            }
+                                        }
+                                        Result = Resulttemp;
                                     }
                                 }
                             }
@@ -370,7 +381,7 @@ namespace BlueHrWeb.Controllers
                         }
                         catch (Exception)
                         {
-                            SysAuthorizations = null;
+                            Result = null;
                         }
 
                     }
