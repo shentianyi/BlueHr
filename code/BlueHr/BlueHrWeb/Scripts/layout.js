@@ -259,8 +259,13 @@ Layout.init = function () {
             PageAction('#leaverecord', '新建请假申请', '编辑请假申请', '请假申请详情', '创建', '更新', '删除');
             break;
         case "ShiftSchedule":
-            $('.nav-shiftschedule').addClass('active');
-            $('.nav-attendance').addClass('active');
+            if(pathname[2] == "Search"){
+                $('.nav-attendance').addClass('active');
+                $('.nav-shiftschedule-search').addClass('active');
+            }else{
+                $('.nav-shiftschedule').addClass('active');
+                $('.nav-attendance').addClass('active');
+            }
             break;
         case "ShiftJobRecord":
             $('.nav-transfer').addClass('active');

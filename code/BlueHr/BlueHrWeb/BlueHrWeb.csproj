@@ -778,6 +778,7 @@
     <Content Include="Views\JobTitle\TableShow.cshtml" />
     <Content Include="Views\JobTitle\Index.cshtml" />
     <Content Include="Views\Department\TreeShow.cshtml" />
+    <Content Include="Views\WorkAndRests\Index - 复制.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

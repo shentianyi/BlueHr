@@ -8,6 +8,18 @@
 
 @*@Styles.Render("~/Content/degreetype")*@
 
+<style type="text/css">
+    .fc-row .fc-content-skeleton tbody td, .fc-row .fc-helper-skeleton tbody td{
+        height: 50px; 
+        line-height: 50px;
+        text-align: center;
+    }
+
+    .fc-event[href], .fc-event.fc-draggable{
+        border-left: 1px solid white;
+    }
+</style>
+
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>考勤管理</li>
@@ -16,7 +28,20 @@
     </li>
 </ol>
 
+<div class="pull-right" style="margin-top: -25px; margin-right: 20px;">
+    <button id="set-years" type="button" class="marco-btn-danger" title="生成2017年作息表" style="margin-left: 10px;">
+        <span> 生成2017作息表 </span>
+    </button>
+
+    <a href="/WorkAndRests/TableShow">
+        <button type="button" class="marco-btn-primary">
+            查看列表展示
+        </button>
+    </a>
+</div>
+
 <hr class="hr-grey" />
+
 <div class="search">
     <form action="/WorkAndRests/Search" method="get">
         <div class="row" style="margin:0;">
@@ -29,298 +54,29 @@
                 </div>
             </div>
 
-            <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>类型</span>
                     @Html.DropDownList("DateType", ViewData["workAndRestTypeList"] as IEnumerable<SelectListItem>)
                 </div>
-            </div> -->
+            </div> 
 
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top:5px;">
                 <button type="submit" class="marco-btn-success">
                     <i class="glyphicon glyphicon-search"></i>
                     搜索
                 </button>
-                <button type="button" class="marco-btn-primary advanced-filter-btn" title="自定义搜索">
-                    <i class="fa fa-filter"></i>
-                    <span>自定义搜索</span>
-                </button>
 
                 <button type="button" class="marco-btn-primary import-button-dialog pull-right">
                     <i class="glyphicon glyphicon-cloud-upload"></i>
                     <span>导入</span>
                 </button>
-
             </div>
         </div>
     </form>
-
 </div>
 
-<div id="search_content" class="import_content" style="display:none;">
-       <form action="/WorkAndRests/AdvancedSearch" method="post">
-            <div class="dialogModal_header" style="background:steelblue; color:white;">
-                自定义搜索信息
-            </div>
-            <div class="dialogModal_body itm" style="margin:8px;">
-                <div class="row cln">
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>字段</span>
-                            @Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>条件</span>
-                            @Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <div class="marco-igroup-primary">
-                            <span>值</span>
-                            <input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />
-                        </div>
-                    </div>
-                </div>   
-            </div>
-            <div class="dialogModal_footer row" style="margin: 0;">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <button type="submit" class="marco-btn-success pull-right">
-                        <i class="fa fa-search"></i>
-                        <span>搜索</span>
-                    </button>
-                </div>
-
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button class="marco-btn-primary pull-right" title="点击删除字段" type="button" onclick="deleteCondition()">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <button class="marco-btn-primary pull-right" title="点击添加字段" type="button" onclick="addCondition()">
-                        <i class="fa fa-plus"></i>
-                    </button>
-                </div>
-            </div> 
-        </form>
-</div>
-
-<hr class="hr-primary" />
-<div style="margin:10px;">
-    <div class="minitor-show marco-tabs-default">
-
-        <a href="/WorkAndRests/Create" class="pull-right" style="margin-top: -10px;">
-            <button class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>创建</span>
-            </button>
-        </a>
-
-        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-
-            <li role="presentation" class="active"><a href="#all_WorkAndRests" role="tab" data-toggle="tab">所有作息表</a></li>
-            <li role="presentation"><a href="#workday_WorkAndRests" role="tab" data-toggle="tab">工作日作息表</a></li>
-            <li role="presentation"><a href="#unworkday_WorkAndRests" role="tab" data-toggle="tab">双休日作息表</a></li>
-            <li role="presentation"><a href="#holiday_WorkAndRests" role="tab" data-toggle="tab">节假日作息表</a></li>
-
-        </ul>
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane  active" id="all_WorkAndRests">
-                <div id="all_WorkAndRests_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-                            @*<th>NO</th>*@
-                            <th>日期</th>
-                            <th>类型</th>
-                            <th>备注</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            int i = 0;
-
-                            foreach (var item in Model)
-                            {
-                                <tr>
-                                    @*<td>@(i += 1)</td>*@
-                                    <td>
-                                        <span>@(@item.dateAt.HasValue?@item.dateAt.Value.ToString("yyyy-MM-dd"):"")</span>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.dateTypeDisplay)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.remark)
-                                    </td>
-                                    <td>
-                                        <a href="/WorkAndRests/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-
-                                        <a href="/WorkAndRests/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="workday_WorkAndRests">
-                <div id="workday_WorkAndRests_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-                            
-                            <th>日期</th>
-                            <th>类型</th>
-                            <th>备注</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            int i = 0;
-
-                            foreach (var item in Model)
-                            {
-                                if (item.dateType == 100)
-                                {
-                                <tr>
-                                    
-                                    <td>
-                                        <span>@(@item.dateAt.HasValue?@item.dateAt.Value.ToString("yyyy-MM-dd"):"")</span>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.dateTypeDisplay)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.remark)
-                                    </td>
-                                    <td>
-                                        <a href="/WorkAndRests/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-
-                                        <a href="/WorkAndRests/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                }
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="unworkday_WorkAndRests">
-                <div id="unworkday_WorkAndRests_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-                            
-                            <th>日期</th>
-                            <th>类型</th>
-                            <th>备注</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            int i = 0;
-
-                            foreach (var item in Model)
-                            {
-                                if (item.dateType == 200)
-                                {
-                                <tr>
-                                    
-                                    <td>
-                                        <span>@(@item.dateAt.HasValue?@item.dateAt.Value.ToString("yyyy-MM-dd"):"")</span>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.dateTypeDisplay)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.remark)
-                                    </td>
-                                    <td>
-                                        <a href="/WorkAndRests/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-
-                                        <a href="/WorkAndRests/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                }
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="holiday_WorkAndRests">
-                <div id="holiday_WorkAndRests_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-
-                            <th>日期</th>
-                            <th>类型</th>
-                            <th>备注</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            int i = 0;
-
-                            foreach (var item in Model)
-                            {
-                                if (item.dateType == 300)
-                                {
-                                    <tr>
-
-                                        <td>
-                                            <span>@(@item.dateAt.HasValue?@item.dateAt.Value.ToString("yyyy-MM-dd"):"")</span>
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.dateTypeDisplay)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.remark)
-                                        </td>
-                                        <td>
-                                            <a href="/WorkAndRests/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-
-                                            <a href="/WorkAndRests/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+<div id="workAndRest_calendar" style="padding: 20px;"></div>
 
 <div id="dialog_content" class="import_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
@@ -336,55 +92,181 @@
     </div>
 </div>
 
+<!--编辑当天内容-->
+<div id="EditWorkAndRestScheduleModal" class="approval_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue; color:white;">
+        <span>作息表编辑</span>
+    </div>
+
+    <div class="dialogModal_content">
+        <div class="marco-nbody row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span id="currentDateAt"></span> 
+                <span id="currentDateType" style="margin-left: 10px;"></span>
+                <span id="currentRemark" style="margin-left: 10px;"></span>
+            </div>
+
+            <hr class="hr-primary" />
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span style="color: steelblue;">编辑</span>
+
+                <div class="marco-igroup-primary">
+                    <span>作息类型</span>
+                    @Html.DropDownList("dateTypeId", ViewData["workAndRestTypeList"] as IEnumerable<SelectListItem>)
+                </div>
+                <br />
+
+                <div class="marco-textarea">
+                    <span>备注</span>
+                    <textarea name="Remark" id="Remark"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dialogModal_footer">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+            <button type="button" class="marco-btn-primary pull-right" data-dialogmodalbut="ok">
+                修改
+            </button>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/fullcalendar")
 <script type="text/javascript">
     Layout.init();
-    $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_WorkAndRests", "所有作息表列表", "20", "all_WorkAndRests_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "workday_WorkAndRests", "工作日作息表列表", "20", "workday_WorkAndRests_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unworkday_WorkAndRests", "双休日作息表列表", "20", "unworkday_WorkAndRests_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "holiday_WorkAndRests", "节假日作息表列表", "20", "holiday_WorkAndRests_grid_table");
-    })
-
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_WorkAndRests", "所有作息表列表", "20", "all_WorkAndRests_grid_table");
-
-    //$('a[href="#locked_user"]').click(function () {
-    $('#workday_WorkAndRests').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "workday_WorkAndRests", "工作日作息表列表", "20", "workday_WorkAndRests_grid_table");
-    $('#workday_WorkAndRests').removeClass("active");
-    //});
-
-    //$('a[href="#all_user"]').click(function () {
-    $('#unworkday_WorkAndRests').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unworkday_WorkAndRests", "双休日作息表列表", "20", "unworkday_WorkAndRests_grid_table");
-    $('#unworkday_WorkAndRests').removeClass("active");
-
-    $('#holiday_WorkAndRests').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "holiday_WorkAndRests", "双休日作息表列表", "20", "holiday_WorkAndRests_grid_table");
-    $('#holiday_WorkAndRests').removeClass("active");
-    //});
-    // Layout.advancedfilter();
-
-
     Layout.datepicker('.date_picker')
-  
-  //自定义搜索弹出框
-    $('.advanced-filter-btn').click(function () {
-        $('#search_content').dialogModal({
-            onOkBut: function () {
-            },
-            onCancelBut: function () { 
 
-            },
-            onLoad: function () {
+    //显示日历
+    $("#workAndRest_calendar").css({"height":$(window).height()-300+'px', "width": $(window).width()-300+'px'});
 
-            },
-            onClose: function () {
+    $.ajax({
+        url:'/WorkAndRests/GetWorkAndRest',
+        type:'get',
+        data:{
+            dateAtFrom: $("#DateAtFrom").val(),
+            dateAtTo: $("#DateAtTo").val(),
+            dateTypeId: $("#DateType").val()
+        },
+        success:function(data){
+            console.log(data);
+            $('#workAndRest_calendar').fullCalendar({
+                header: {
+                    left: 'prev, next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay,listDay,listWeek,listMonth'
+                },
+                views: {
+                    listDay: { buttonText: '天列表' },
+                    listWeek: { buttonText: '周列表' },
+                    listMonth: { buttonText: '月列表' }
+                },
+                // weekends:false,
+                defaultDate: new Date(),
+                firstDay: 1,
+                locale: 'zh-cn',
+                editable: false,
+                timeFormat: 'H:mm',
+                axisFormat: 'H:mm',
+                weekNumbers: true,
+                weekNumbersWithinDays: true,
+                selectable: true,
+                selectHelper: true,
+                select: function(start, end) {
+                    $('#workAndRest_calendar').fullCalendar('unselect');
+                },
+                dayClick: function(date, allDay, jsEvent, view){
+                    // console.log(view);
+                },
+                eventClick: function(event, jsEvent, view) {
+                    // 弹出框  修改  作息表模板
+                    var ID = event.id;
+                    var DateAt = event.dateAt;
+                    var DateType = event.dateType;
+                    var DateTypeId = event.datgeTypeId;
+                    var Remark = event.remark;
+                    var titlte = event.title;
 
-            },
-        });
+                    $('#EditWorkAndRestScheduleModal').dialogModal({
+                        onOkBut: function () {
+                            var NewDateTypeId = $(".dialogModal").find("#dateTypeId").val();
+                            var NewRemark = $(".dialogModal").find("#Remark").val();
+                            if(NewDateTypeId == ""){
+                                Layout.popModal('popModal-danger', "类型不能为空");
+                                return false;
+                            }
+
+                            $.ajax({
+                                url:'/WorkAndRests/EditWorkAndRest',
+                                type:'post',
+                                data:{
+                                    id: ID,
+                                    dateTypeId: NewDateTypeId,
+                                    remark: NewRemark
+                                },
+                                success:function(data){
+                                    if(data){
+                                        window.location.reload();
+                                    }else{
+                                        Layout.popMsg("popMsg-danger", "出现错误");
+                                    }
+                                },
+                                error:function(){
+                                    // console.log("Something Error!");
+                                }
+                            })
+                        },
+                        onCancelBut: function () { 
+                        },
+                        onLoad: function () {
+                            $(".dialogModal").find("#currentDateAt").html("日期："+ new Date(DateAt).Format("yyyy-MM-dd") );
+                            $(".dialogModal").find("#currentDateType").html("类型："+DateType);
+                            $(".dialogModal").find("#currentRemark").html("备注："+Remark);
+                            $(".dialogModal").find("#Remark").html(Remark);
+                        },
+                        onClose: function () {
+                        }
+                    });
+
+                    $('#workAndRest_calendar').fullCalendar('defaultDate', DateAt);
+                },
+                eventMouseover: function(event, jsEvent, View){
+                    // console.log(event);
+                },
+                events: data
+            });
+        },
+        error:function (){
+            // console.log("Something Error!");
+        }
     });
 
-//导入弹出框
+    $("#set-years").click(function(){
+        Layout.popMsg("popMsg-primary", "正在生成作息表");
+        $.ajax({
+            url:'/WorkAndRests/SetWorkAndRestDay',
+            type:'post',
+            data:{
+                beginDay: '2017-1-1',
+                endDay: '2017-12-31'
+            },
+            success:function(data){
+                if(data){
+                    Layout.popMsg("popMsg-success", "作息表生成成功");
+                    window.location.reload();
+                }else{
+                    Layout.popMsg("popMsg-danger", "作息表已经生成");
+                }
+            },
+            error: function(){
+                // console.log("VVVDDDDDDDD");
+            }
+        })
+    })
+
+    //导入弹出框
     $('.import-button-dialog').click(function () {
         $('#dialog_content').dialogModal({
             onOkBut: function () {
@@ -398,18 +280,4 @@
             }
         });
     });
-
-    function addCondition(){
-        if($(".itm .cln").length<5){
-            $(".cln:last").after($('.cln:last').clone(true));
-        }   
-    }
-    
-    function deleteCondition(){
-        if($(".itm .cln").length<=2){
-
-        }else{
-            $(".cln:last").remove();
-        }
-    }
 </script>
