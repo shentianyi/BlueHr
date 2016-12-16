@@ -33,7 +33,8 @@ namespace BlueHrWeb.Controllers
             IPagedList<LeaveRecord> leaveRecords = lrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
-
+            SetAllTableName(false);
+            SetSearchConditions(null);
             return View(leaveRecords);
         }
 
@@ -49,7 +50,8 @@ namespace BlueHrWeb.Controllers
             IPagedList<LeaveRecord> leaveRecords = rrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
-
+            SetAllTableName(false);
+            SetSearchConditions(null);
             return View("Index", leaveRecords);
         }
 
@@ -319,7 +321,8 @@ namespace BlueHrWeb.Controllers
                 }
             }
             LeaveRecords = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
-
+            SetAllTableName(false);
+            SetSearchConditions(null);
             return View("Index", LeaveRecords);
         }
 
@@ -370,7 +373,7 @@ namespace BlueHrWeb.Controllers
             List<SelectListItem> select = new List<SelectListItem>();
 
             ILeaveRecordService lrs = new LeaveRecordService(Settings.Default.db);
-            LeaveRecordSearchModel lrsm = null;
+            LeaveRecordSearchModel lrsm = new LeaveRecordSearchModel();
             var LeaveRecord = lrs.Search(lrsm).ToList();
 
             if (LeaveRecord != null)
