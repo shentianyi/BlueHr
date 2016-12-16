@@ -152,8 +152,6 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-
-
         // POST: ShiftJobRecord/Approval/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]

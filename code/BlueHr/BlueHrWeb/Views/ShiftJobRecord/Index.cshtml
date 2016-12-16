@@ -182,7 +182,6 @@
                                     <td>
 
                                         @if(item.approvalStatus==null){
-                                        
                                             <a href="/ShiftJobRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
@@ -194,7 +193,6 @@
                                             <a title="审批"class="option-icon-danger" onclick="shShiftJobRecord(@item.id)">
                                                 <i class="fa fa-check"></i>
                                             </a>
-                                        
                                         }
                                     </td>
                                 </tr>
@@ -204,9 +202,7 @@
                 </table>
             </div>
         </div>
-        
     </div>
-    
 
     <div id="approval_content" class="approval_content" style="display:none;">
         <div class="dialogModal_header" style="background:steelblue;color:white;">

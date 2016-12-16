@@ -54,34 +54,37 @@
                 </div>
                 @if (Model != null)
                 {
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>调岗前部门</span>
-                        @Html.DropDownList("beforeDepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>调岗前部门</span>
+                            @Html.DropDownList("beforeDepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
+                        </div>
                     </div>
-                </div>
                 }
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>调岗后部门</span>
-                        @Html.DropDownList("afterDepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>调岗后部门</span>
+                            @Html.DropDownList("afterDepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
+                        </div>
                     </div>
-                </div>
+
                 @if (Model != null)
                 {
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>调岗前职位</span>
-                        @Html.DropDownList("beforeJobId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>调岗前职位</span>
+                            @Html.DropDownList("beforeJobId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
+                        </div>
                     </div>
-                </div>
                 }
+
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>调岗后职位</span>
                         @Html.DropDownList("afterJobId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
                     </div>
                 </div>
+                
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>申请备注</span>
@@ -145,6 +148,15 @@
 
     //Layout.datepicker('.datetimepicker');
     Layout.datepicker('.date-picker');
+
+    //二级联动
+    $("#afterCompanyId").change(function(){
+        console.log($(this).val());
+
+        Layout.CompanyAndDepartment('#afterCompanyId', '#afterDepartmentId');
+    });
+
+    Layout.CompanyAndDepartment('#afterCompanyId', '#afterDepartmentId');
 
     //回调函数
     function post_return_action(data) {
