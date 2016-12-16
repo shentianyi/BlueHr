@@ -365,7 +365,7 @@ namespace BlueHrWeb.Controllers
                             }
                             else
                             {
-                                SysAuthorizations = SysAuthorizationtemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = SysAuthorizationtemp1.ToList();
                             }
                         }
                         catch (Exception)

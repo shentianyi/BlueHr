@@ -368,7 +368,7 @@ namespace BlueHrWeb.Controllers
                             }
                             else
                             {
-                                WorkAndRests = WorkAndResttemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = WorkAndResttemp1.ToList();
                             }
                         }
                         catch (Exception)

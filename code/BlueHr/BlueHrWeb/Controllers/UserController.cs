@@ -998,7 +998,7 @@ namespace BlueHrWeb.Controllers
                             }
                             else
                             {
-                                Users = Usertemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = Usertemp1.ToList();
                             }
                         }
                         catch (Exception)

@@ -823,7 +823,7 @@ namespace BlueHrWeb.Controllers
                             }
                             else
                             {
-                                SysRoleAuthorizations = SysRoleAuthorizationtemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = SysRoleAuthorizationtemp1.ToList();
                             }
                         }
                         catch (Exception)

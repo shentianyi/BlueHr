@@ -296,7 +296,7 @@ namespace BlueHrWeb.Controllers
                             }
                             else
                             {
-                                LeaveRecords = LeaveRecordtemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = LeaveRecordtemp1.ToList();
                             }
                         }
                         catch (Exception)
