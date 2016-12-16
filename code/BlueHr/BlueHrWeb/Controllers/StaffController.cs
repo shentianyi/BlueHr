@@ -152,11 +152,22 @@ namespace BlueHrWeb.Controllers
                                     {
                                         IQueryable<Staff> staffstemp2 = null;
                                         staffstemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                        foreach (var temp in Result)
+                                        List<Staff> Resulttemp = new List<Staff>();
+
+                                        foreach (var addtemp in Result)
                                         {
-                                            if (staffstemp2.FirstOrDefault(s => s.nr.Equals(temp.nr)) == null) Result.Remove(temp);
+                                            Resulttemp.Add(addtemp);
                                         }
 
+                                        foreach (var temp in Result)
+                                        {
+                                            if (staffstemp2.FirstOrDefault(s => s.nr.Equals(temp.nr)) == null)
+                                            {
+                                                Staff removetemp = temp;
+                                                Resulttemp.Remove(Resulttemp.Where(s => s.nr == removetemp.nr).FirstOrDefault());
+                                            }
+                                        }
+                                        Result = Resulttemp;
                                     }
                                 }
                             }
@@ -167,7 +178,7 @@ namespace BlueHrWeb.Controllers
                         }
                         catch (Exception)
                         {
-                            staffs = null;
+                            Result = null;
                         }
                        
                     }

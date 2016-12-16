@@ -988,11 +988,22 @@ namespace BlueHrWeb.Controllers
                                     {
                                         IQueryable<User> Usertemp2 = null;
                                         Usertemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                        foreach (var temp in Result)
+                                        List<User> Resulttemp = new List<User>();
+
+                                        foreach (var addtemp in Result)
                                         {
-                                            if (Usertemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                            Resulttemp.Add(addtemp);
                                         }
 
+                                        foreach (var temp in Result)
+                                        {
+                                            if (Usertemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null)
+                                            {
+                                                User removetemp = temp;
+                                                Resulttemp.Remove(Resulttemp.Where(s => s.id == removetemp.id).FirstOrDefault());
+                                            }
+                                        }
+                                        Result = Resulttemp;
                                     }
                                 }
                             }
@@ -1003,7 +1014,7 @@ namespace BlueHrWeb.Controllers
                         }
                         catch (Exception)
                         {
-                            Users = null;
+                            Result = null;
                         }
 
                     }

@@ -223,13 +223,24 @@ namespace BlueHrWeb.Controllers
                                 {
                                     for (var i1 = 2; i1 < AllTableNameArray.Length; i1++)
                                     {
-                                        IQueryable<ExtraWorkRecordView> ExtraWorkRecordViewtemp2 = null;
-                                        ExtraWorkRecordViewtemp2 = ewrs.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                        foreach (var temp in Result)
+                                        IQueryable<ExtraWorkRecordView> ExtraWorkRecordtemp2 = null;
+                                        ExtraWorkRecordtemp2 = ewrs.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
+                                        List<ExtraWorkRecordView> Resulttemp = new List<ExtraWorkRecordView>();
+
+                                        foreach (var addtemp in Result)
                                         {
-                                            if (ExtraWorkRecordViewtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                            Resulttemp.Add(addtemp);
                                         }
 
+                                        foreach (var temp in Result)
+                                        {
+                                            if (ExtraWorkRecordtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null)
+                                            {
+                                                ExtraWorkRecordView removetemp = temp;
+                                                Resulttemp.Remove(Resulttemp.Where(s => s.id == removetemp.id).FirstOrDefault());
+                                            }
+                                        }
+                                        Result = Resulttemp;
                                     }
                                 }
                             }
@@ -240,7 +251,7 @@ namespace BlueHrWeb.Controllers
                         }
                         catch (Exception)
                         {
-                            extraWorkRecords = null;
+                            Result = null;
                         }
 
                     }

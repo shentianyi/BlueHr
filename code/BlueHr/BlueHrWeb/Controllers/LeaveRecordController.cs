@@ -286,11 +286,22 @@ namespace BlueHrWeb.Controllers
                                     {
                                         IQueryable<LeaveRecord> LeaveRecordtemp2 = null;
                                         LeaveRecordtemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                        foreach (var temp in Result)
+                                        List<LeaveRecord> Resulttemp = new List<LeaveRecord>();
+
+                                        foreach (var addtemp in Result)
                                         {
-                                            if (LeaveRecordtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                            Resulttemp.Add(addtemp);
                                         }
 
+                                        foreach (var temp in Result)
+                                        {
+                                            if (LeaveRecordtemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null)
+                                            {
+                                                LeaveRecord removetemp = temp;
+                                                Resulttemp.Remove(Resulttemp.Where(s => s.id == removetemp.id).FirstOrDefault());
+                                            }
+                                        }
+                                        Result = Resulttemp;
                                     }
                                 }
                             }
@@ -301,7 +312,7 @@ namespace BlueHrWeb.Controllers
                         }
                         catch (Exception)
                         {
-                            LeaveRecords = null;
+                            Result = null;
                         }
 
                     }
