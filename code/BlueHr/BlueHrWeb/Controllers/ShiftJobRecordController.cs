@@ -312,7 +312,7 @@ namespace BlueHrWeb.Controllers
                             }
                             else
                             {
-                                ShiftJobRecords = ShiftJobRecordtemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = ShiftJobRecordtemp1.ToList();
                             }
                         }
                         catch (Exception)

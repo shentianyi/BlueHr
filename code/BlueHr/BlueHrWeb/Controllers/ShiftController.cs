@@ -439,7 +439,7 @@ namespace BlueHrWeb.Controllers
                             }
                             else
                             {
-                                Shifts = Shifttemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = Shifttemp1.ToList();
                             }
                         }
                         catch (Exception)

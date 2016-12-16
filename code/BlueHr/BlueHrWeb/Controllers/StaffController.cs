@@ -162,7 +162,7 @@ namespace BlueHrWeb.Controllers
                             }
                             else
                             {
-                                staffs = staffstemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = staffstemp1.ToList();
                             }
                         }
                         catch (Exception)

@@ -235,7 +235,7 @@ namespace BlueHrWeb.Controllers
                             }
                             else
                             {
-                                extraWorkRecords = extraWorkRecordtemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = extraWorkRecordtemp1.ToList();
                             }
                         }
                         catch (Exception)
