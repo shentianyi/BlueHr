@@ -23,23 +23,21 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>工号</span>
-                    <input type="text" name="Nr" id="Nr" placeholder="工号" value="@ViewBag.Query.staffNr" />
+                    <input type="text" name="staffNr" id="staffNr" placeholder="工号" value="@ViewBag.Query.staffNr" />
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
-                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                    <button type="submit" class="marco-btn-success pull-left">
+                
+                    <button type="submit" class="marco-btn-success pull-left" style="margin-right: 5px;">
                         <i class="fa fa-search"></i>
                         <span>搜索</span>
                     </button>
-                </div>
-                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                
                     <button type="button" class="marco-btn-primary advanced-filter-btn" title="自定义搜索">
                         <i class="fa fa-filter"></i>
                         <span>自定义搜索</span>
                     </button>
-                </div>
             </div>
         </div>
     </form>
@@ -55,7 +53,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div class="marco-igroup-primary">
                             <span>字段</span>
-                            @Html.DropDownList("setAllTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)
+                            @Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)
                         </div>
                     </div>
 
