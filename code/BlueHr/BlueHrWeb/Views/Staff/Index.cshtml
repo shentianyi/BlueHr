@@ -628,21 +628,7 @@
         });
     });
 
-    $('.advanced-filter-btn').click(function () {
-
-        $('#search_content').dialogModal({
-            onOkBut: function () {
-            },
-            onCancelBut: function () { },
-            onLoad: function () {
-
-            },
-            onClose: function () {
-                window.location.reload();
-            }
-            
-        });
-    });
+    
 
     $("#btnEdit3").click(function () {
 
@@ -1068,6 +1054,22 @@
     if (window.location.pathname.split("/")[2] == "Search") {
         $("#Back").css("display", "block");
     }
+
+
+    $('.advanced-filter-btn').click(function () {
+
+        $('#search_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+
+            },
+            onClose: function () {
+            }
+            
+        });
+    });
 
     function addCondition(){
         if($(".itm .cln").length<5){

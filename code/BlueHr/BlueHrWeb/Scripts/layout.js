@@ -526,3 +526,24 @@ Layout.openNewWindow = function(pageURL, height, width, top, left, toolbar, menu
 
     NewWindow.focus();
 }
+//点击删除搜索条件
+// Layout.deleteCondition=function(){
+//     $('#delete').click(function(){
+//         if($(".itm .cln").length<=2){
+
+//         }else{
+//             $(".cln:last").remove();
+//         }
+//     });
+// }
+//点击添加搜索条件
+// Layout.addCondition=function(){
+//     $('#add').click(function(){
+//         if($(".itm .cln").length<5){
+//             $(".cln:last").after($('.cln:last').clone(true));
+//         }
+//     });  
+// }
+
+
+

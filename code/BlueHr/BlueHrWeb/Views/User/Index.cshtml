@@ -51,43 +51,55 @@
 
  @* 自定义搜索 *@
 <div id="search_content" class="import_content" style="display:none;">
-    <form action="/User/AdvancedSearch" method="post">
-        <div class="dialogModal_header" style="background:steelblue; color:white;">
-            自定义搜索信息
-        </div>
-        <div class="advanced-filter row" style="margin:8px;">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>字段</span>
-                    @Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)
-                </div>
+       <form action="/User/AdvancedSearch" method="post">
+            <div class="dialogModal_header" style="background:steelblue; color:white;">
+                自定义搜索信息
             </div>
+            <div class="dialogModal_body itm" style="margin:8px;">
+                <div class="row cln">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>字段</span>
+                            @Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>条件</span>
-                    @Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)
-                </div>
-            </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>条件</span>
+                            @Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)
+                        </div>
+                    </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>值</span>
-                    <input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />
-                </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="marco-igroup-primary">
+                            <span>值</span>
+                            <input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />
+                        </div>
+                    </div>
+                </div>   
             </div>
-   
-        </div>
-        <div class="advanced-filter row" style="margin:8px;position:relative;left:8px;bottom:5px;">
-                <span>添加查询条件：</span>
-                <select id="params" name="params"><option value="字段">字段</option>
-                    <option value="条件1">条件1</option>
-                    <option value="条件2">条件2</option>
-                    <option value="条件3">条件3</option>
-                    <option value="条件4">条件4</option>
-                </select>
-        </div> 
-    </form>
+            <div class="dialogModal_footer row" style="margin: 0;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button type="submit" class="marco-btn-success pull-right">
+                        <i class="fa fa-search"></i>
+                        <span>搜索</span>
+                    </button>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <button class="marco-btn-primary pull-right" title="点击删除字段" type="button" onclick="deleteCondition()">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button class="marco-btn-primary pull-right" title="点击添加字段" type="button" onclick="addCondition()">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div> 
+        </form>
 </div>
 
 <hr class="hr-primary" />
@@ -333,10 +345,8 @@
             },
             onCancelBut: function () { },
             onLoad: function () {
-                // data_upload(".item-data-uploader");
             },
             onClose: function () {
-                window.location.reload();
             }
         });
     });
@@ -366,6 +376,20 @@
                     alert('操作失败：'+data.Content);
                 }
             },'json');
+        }
+    }
+
+    function addCondition(){
+        if($(".itm .cln").length<5){
+            $(".cln:last").after($('.cln:last').clone(true));
+        }   
+    }
+    
+    function deleteCondition(){
+        if($(".itm .cln").length<=2){
+
+        }else{
+            $(".cln:last").remove();
         }
     }
 </script>
