@@ -22,7 +22,15 @@ namespace BlueHrLib.Data.Repository.Implement
         public IQueryable<User> Search(UserSearchModel searchModel)
         {
             IQueryable<User> users = this.context.User;
-         
+
+            if (!string.IsNullOrEmpty(searchModel.name))
+            {
+                users = users.Where(c => c.name.Contains(searchModel.name.Trim()));
+            }
+            if (!string.IsNullOrEmpty(searchModel.roleType))
+            {
+                users = users.Where(c => c.roleStr.Contains(searchModel.roleType.Trim()));
+            }
             return users;
         }
 

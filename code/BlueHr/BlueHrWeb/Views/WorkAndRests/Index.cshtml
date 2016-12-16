@@ -28,6 +28,18 @@
     </li>
 </ol>
 
+<div class="pull-right" style="margin-top: -25px; margin-right: 20px;">
+    <button id="set-years" type="button" class="marco-btn-danger" title="生成2017年作息表" style="margin-left: 10px;">
+        <span> 生成2017作息表 </span>
+    </button>
+
+    <a href="/WorkAndRests/TableShow">
+        <button type="button" class="marco-btn-primary">
+            查看列表展示
+        </button>
+    </a>
+</div>
+
 <hr class="hr-grey" />
 
 <div class="search">
@@ -42,21 +54,17 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>类型</span>
                     @Html.DropDownList("DateType", ViewData["workAndRestTypeList"] as IEnumerable<SelectListItem>)
                 </div>
-            </div>
+            </div> 
 
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top:5px;">
                 <button type="submit" class="marco-btn-success">
                     <i class="glyphicon glyphicon-search"></i>
                     搜索
-                </button>
-
-                <button id="set-years" type="button" class="marco-btn-primary" title="设置2017年作息表" style="margin-left: 10px;">
-                    <span> 2017 </span>
                 </button>
 
                 <button type="button" class="marco-btn-primary import-button-dialog pull-right">
@@ -231,7 +239,7 @@
             });
         },
         error:function (){
-            console.log("Something Error!");
+            // console.log("Something Error!");
         }
     });
 
@@ -245,34 +253,18 @@
                 endDay: '2017-12-31'
             },
             success:function(data){
-                console.log(data);
                 if(data){
                     Layout.popMsg("popMsg-success", "作息表生成成功");
                     window.location.reload();
+                }else{
+                    Layout.popMsg("popMsg-danger", "作息表已经生成");
                 }
             },
             error: function(){
-                console.log("VVVDDDDDDDD");
+                // console.log("VVVDDDDDDDD");
             }
         })
     })
-
-    //自定义搜索弹出框
-    $('.advanced-filter-btn').click(function () {
-        $('#search_content').dialogModal({
-            onOkBut: function () {
-            },
-            onCancelBut: function () { 
-
-            },
-            onLoad: function () {
-
-            },
-            onClose: function () {
-
-            },
-        });
-    });
 
     //导入弹出框
     $('.import-button-dialog').click(function () {

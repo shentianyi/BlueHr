@@ -42,8 +42,28 @@ namespace BlueHrWeb.Controllers
             return View(workAndRests);
         }
 
-        [RoleAndDataAuthorizationAttribute]
+        [RoleAndDataAuthorization]
+        [UserAuthorize]
+        public ActionResult TableShow(int? page)
+        {
+            int pageIndex = PagingHelper.GetPageIndex(page);
 
+            WorkAndRestSearchModel q = new WorkAndRestSearchModel();
+
+            IWorkAndRestService wrs = new WorkAndRestService(Settings.Default.db);
+
+            IPagedList<WorkAndRest> workAndRests = wrs.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
+
+            ViewBag.Query = q;
+
+            SetWorkAndRestTypeList(null);
+            SetAllTableName(null);
+            SetSearchConditions(null);
+
+            return View(workAndRests);
+        }
+
+        [RoleAndDataAuthorizationAttribute]
         public ActionResult Search([Bind(Include = "DateAtFrom, DateAtTo, DateType")] WorkAndRestSearchModel q)
         {
             int pageIndex = 0;
@@ -478,22 +498,33 @@ namespace BlueHrWeb.Controllers
                                     {
                                         IQueryable<WorkAndRest> WorkAndResttemp2 = null;
                                         WorkAndResttemp2 = ss.AdvancedSearch(AllTableNameArray[i1], SearchConditionsArray[i1], searchValueFirstArray[i1])/*.ToPagedList(pageIndex, Settings.Default.pageSize)*/;
-                                        foreach (var temp in Result)
+                                        List<WorkAndRest> Resulttemp = new List<WorkAndRest>();
+
+                                        foreach (var addtemp in Result)
                                         {
-                                            if (WorkAndResttemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null) Result.Remove(temp);
+                                            Resulttemp.Add(addtemp);
                                         }
 
+                                        foreach (var temp in Result)
+                                        {
+                                            if (WorkAndResttemp2.FirstOrDefault(s => s.id.Equals(temp.id)) == null)
+                                            {
+                                                WorkAndRest removetemp = temp;
+                                                Resulttemp.Remove(Resulttemp.Where(s => s.id == removetemp.id).FirstOrDefault());
+                                            }
+                                        }
+                                        Result = Resulttemp;
                                     }
                                 }
                             }
                             else
                             {
-                                WorkAndRests = WorkAndResttemp1.ToPagedList(pageIndex, Settings.Default.pageSize);
+                                Result = WorkAndResttemp1.ToList();
                             }
                         }
                         catch (Exception)
                         {
-                            WorkAndRests = null;
+                            Result = null;
                         }
 
                     }
