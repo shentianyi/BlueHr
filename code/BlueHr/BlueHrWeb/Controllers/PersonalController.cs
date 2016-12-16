@@ -126,12 +126,37 @@ namespace BlueHrWeb.Controllers
 
                 shiftjobs.Add("ID", shiftJobrecord.id.ToString());
                 shiftjobs.Add("StaffNr", shiftJobrecord.staffNr);
-                shiftjobs.Add("BeforeCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.beforeCompanyId)).name);
-                shiftjobs.Add("BeforeDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.beforeDepartmentId)).name);
-                shiftjobs.Add("BeforeJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.beforeJobId)).name);
-                shiftjobs.Add("AfterCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.afterCompanyId)).name);
-                shiftjobs.Add("AfterDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.afterDepartmentId)).name);
-                shiftjobs.Add("AfterJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.afterJobId)).name);
+
+                if (shiftJobrecord.beforeCompanyId.HasValue)
+                {
+                    shiftjobs.Add("BeforeCompanyName", cs.FindById(shiftJobrecord.beforeCompanyId.Value).name);
+                }
+
+                if(shiftJobrecord.beforeDepartmentId.HasValue)
+                {
+                    shiftjobs.Add("BeforeDepartmentName", ds.FindById(shiftJobrecord.beforeDepartmentId.Value).name);
+                }
+
+                if (shiftJobrecord.beforeJobId.HasValue)
+                {
+                    shiftjobs.Add("BeforeJobName", jts.FindById(shiftJobrecord.beforeJobId.Value).name);
+                }
+
+                if (shiftJobrecord.afterCompanyId.HasValue)
+                {
+                    shiftjobs.Add("AfterCompanyName", cs.FindById(shiftJobrecord.afterCompanyId.Value).name);
+                }
+
+                if (shiftJobrecord.afterDepartmentId.HasValue)
+                {
+                    shiftjobs.Add("AfterDepartmentName", ds.FindById(shiftJobrecord.afterDepartmentId.Value).name);
+                }
+
+                if (shiftJobrecord.afterJobId.HasValue)
+                {
+                    shiftjobs.Add("AfterJobName", jts.FindById(shiftJobrecord.afterJobId.Value).name);
+                }
+
                 shiftjobs.Add("ApprovalStatus", shiftJobrecord.approvalStatus == null ? "审批中" : shiftJobrecord.approvalStatus);
                 shiftjobs.Add("approvalUserId", shiftJobrecord.approvalUserId.ToString());
                 shiftjobs.Add("ApprovalRemark", shiftJobrecord.approvalRemark);
@@ -252,14 +277,57 @@ namespace BlueHrWeb.Controllers
 
                 shiftjobs.Add("ID", shiftJobrecord.id.ToString());
                 shiftjobs.Add("StaffNr", shiftJobrecord.staffNr);
-                shiftjobs.Add("BeforeCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.beforeCompanyId)).name);
-                shiftjobs.Add("BeforeDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.beforeDepartmentId)).name);
-                shiftjobs.Add("BeforeJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.beforeJobId)).name);
-                shiftjobs.Add("AfterCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.afterCompanyId)).name);
-                shiftjobs.Add("AfterDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.afterDepartmentId)).name);
-                shiftjobs.Add("AfterJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.afterJobId)).name);
+
+                string Company = string.Empty;
+                string Department = string.Empty;
+                string JobTitle = string.Empty;
+
+                if (shiftJobrecord.beforeCompanyId.HasValue)
+                {
+                    Company += cs.FindById(shiftJobrecord.beforeCompanyId.Value).name;
+                }
+
+                if (shiftJobrecord.beforeDepartmentId.HasValue)
+                {
+                    Department += ds.FindById(shiftJobrecord.beforeDepartmentId.Value).name;
+                }
+
+                if (shiftJobrecord.beforeJobId.HasValue)
+                {
+                    JobTitle += jts.FindById(shiftJobrecord.beforeJobId.Value).name;
+                }
+
+                if (shiftJobrecord.afterCompanyId.HasValue)
+                {
+                    Company += " -> " + cs.FindById(shiftJobrecord.afterCompanyId.Value).name;
+                }
+
+                if (shiftJobrecord.afterDepartmentId.HasValue)
+                {
+                    Department += " -> " + ds.FindById(shiftJobrecord.afterDepartmentId.Value).name;
+                }
+
+                if (shiftJobrecord.afterJobId.HasValue)
+                {
+                    JobTitle += " -> " + jts.FindById(shiftJobrecord.afterJobId.Value).name;
+                }
+
+                shiftjobs.Add("Company", Company);
+                shiftjobs.Add("Department", Department);
+                shiftjobs.Add("JobTitle", JobTitle);
+                shiftjobs.Add("UserId", shiftJobrecord.userId.ToString());
+                shiftjobs.Add("Created", shiftJobrecord.createdAt.ToString("yyyy-MM-dd"));
+                shiftjobs.Add("Remark", shiftJobrecord.remark);
+
+                //shiftjobs.Add("BeforeCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.beforeCompanyId)).name);
+                //shiftjobs.Add("BeforeDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.beforeDepartmentId)).name);
+                //shiftjobs.Add("BeforeJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.beforeJobId)).name);
+                //shiftjobs.Add("AfterCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.afterCompanyId)).name);
+                //shiftjobs.Add("AfterDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.afterDepartmentId)).name);
+                //shiftjobs.Add("AfterJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.afterJobId)).name);
                 shiftjobs.Add("ApprovalStatus", shiftJobrecord.approvalStatus == null ? "审批中" : shiftJobrecord.approvalStatus);
                 shiftjobs.Add("approvalUserId", shiftJobrecord.approvalUserId.ToString());
+                shiftjobs.Add("ApprovalDate", shiftJobrecord.approvalAt.Value.ToString("yyyy-MM-dd"));
                 shiftjobs.Add("ApprovalRemark", shiftJobrecord.approvalRemark);
 
                 AllShiftJobRecords.Add(shiftjobs);
@@ -379,14 +447,50 @@ namespace BlueHrWeb.Controllers
 
                 shiftjobs.Add("ID", shiftJobrecord.id.ToString());
                 shiftjobs.Add("StaffNr", shiftJobrecord.staffNr);
-                shiftjobs.Add("BeforeCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.beforeCompanyId)).name);
-                shiftjobs.Add("BeforeDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.beforeDepartmentId)).name);
-                shiftjobs.Add("BeforeJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.beforeJobId)).name);
-                shiftjobs.Add("AfterCompanyName", cs.FindById(Convert.ToInt16(shiftJobrecord.afterCompanyId)).name);
-                shiftjobs.Add("AfterDepartmentName", ds.FindById(Convert.ToInt16(shiftJobrecord.afterDepartmentId)).name);
-                shiftjobs.Add("AfterJobName", jts.FindById(Convert.ToInt16(shiftJobrecord.afterJobId)).name);
+
+                string Company = string.Empty;
+                string Department = string.Empty;
+                string JobTitle = string.Empty;
+
+                if (shiftJobrecord.beforeCompanyId.HasValue)
+                {
+                    Company += cs.FindById(shiftJobrecord.beforeCompanyId.Value).name;
+                }
+
+                if (shiftJobrecord.beforeDepartmentId.HasValue)
+                {
+                    Department += ds.FindById(shiftJobrecord.beforeDepartmentId.Value).name;
+                }
+
+                if (shiftJobrecord.beforeJobId.HasValue)
+                {
+                    JobTitle += jts.FindById(shiftJobrecord.beforeJobId.Value).name;
+                }
+
+                if (shiftJobrecord.afterCompanyId.HasValue)
+                {
+                    Company += " -> " + cs.FindById(shiftJobrecord.afterCompanyId.Value).name;
+                }
+
+                if (shiftJobrecord.afterDepartmentId.HasValue)
+                {
+                    Department += " -> " + ds.FindById(shiftJobrecord.afterDepartmentId.Value).name;
+                }
+
+                if (shiftJobrecord.afterJobId.HasValue)
+                {
+                    JobTitle += " -> " + jts.FindById(shiftJobrecord.afterJobId.Value).name;
+                }
+
+                shiftjobs.Add("Company", Company);
+                shiftjobs.Add("Department", Department);
+                shiftjobs.Add("JobTitle", JobTitle);
+                shiftjobs.Add("UserId", shiftJobrecord.userId.ToString());
+                shiftjobs.Add("CreatedAt", shiftJobrecord.createdAt.ToString("yyyy-MM-dd"));
+                shiftjobs.Add("Remark", shiftJobrecord.remark);
+                shiftjobs.Add("ApprovalUserId", shiftJobrecord.approvalUserId.ToString());
+                shiftjobs.Add("ApprovalDate", shiftJobrecord.approvalAt.Value.ToString("yyyy-MM-dd"));
                 shiftjobs.Add("ApprovalStatus", shiftJobrecord.approvalStatus == null ? "审批中" : shiftJobrecord.approvalStatus);
-                shiftjobs.Add("approvalUserId", shiftJobrecord.approvalUserId.ToString());
                 shiftjobs.Add("ApprovalRemark", shiftJobrecord.approvalRemark);
 
                 AllShiftJobRecords.Add(shiftjobs);
