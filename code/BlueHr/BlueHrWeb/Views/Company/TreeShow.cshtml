@@ -12,7 +12,7 @@
 
 <hr class="hr-grey" />
 
-<div class="row" style="margin: 0 10px; 0 10px">
+<div class="row" style="margin: 0 10px 0 10px">
     <div class="col-lg-3 col-md-3 col-xs-6 col-sm-6">
         <button id="zoomToFit" class="marco-btn-primary">显示全部</button>
         <button id="centerRoot" class="marco-btn-primary">根节点</button>
@@ -25,12 +25,13 @@
     </div>
 </div>
 
-<div class="OrganizationShow" style="margin: 0 10px 0 10px;"></div>
+<div class="OrganizationShow" style="margin: 0 10px 0 10px;">
+
+</div>
 
 @Html.Partial("_HandlingMsgDialog")
                       
  @Scripts.Render("~/bundles/go")
-
 <script type="text/javascript">
     Layout.init();
 
@@ -57,8 +58,7 @@
                 error: function () {
                     console.log("NNMVNMNDMNDM");
                 }
-            }
-        )
+            })
     }
 
     function init(data) {
