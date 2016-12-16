@@ -1,0 +1,384 @@
+﻿@using MvcPaging
+
+@model IPagedList<BlueHrLib.Data.WorkAndRest>
+
+@{
+    ViewBag.Title = "作息时间";
+}
+
+@*@Styles.Render("~/Content/degreetype")*@
+
+<ol class="breadcrumb current-position" style="margin-top:10px;">
+    您的位置：
+    <li>考勤管理</li>
+    <li>
+        <strong>作息时间</strong>
+    </li>
+</ol>
+
+<hr class="hr-grey" />
+<div class="search">
+    <form action="/WorkAndRests/Search" method="get">
+        <div class="row" style="margin:0;">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>日期</span>
+                    <input type="text" class="date_picker" name="DateAtFrom" id="DateAtFrom" placeholder="起始日期" value="@ViewBag.Query.DateAtFrom" />
+                    <span>~</span>
+                    <input type="text" class="date_picker" name="DateAtTo" id="DateAtTo" placeholder="终止日期" value="@ViewBag.Query.DateAtTo" />
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>类型</span>
+                    @Html.DropDownList("DateType", ViewData["workAndRestTypeList"] as IEnumerable<SelectListItem>)
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top:5px;">
+                <button type="submit" class="marco-btn-success">
+                    <i class="glyphicon glyphicon-search"></i>
+                    搜索
+                </button>
+                <button type="button" class="marco-btn-primary advanced-filter-btn" title="自定义搜索">
+                    <i class="fa fa-filter"></i>
+                    <span>自定义搜索</span>
+                </button>
+
+                <button type="button" class="marco-btn-primary import-button-dialog pull-right">
+                    <i class="glyphicon glyphicon-cloud-upload"></i>
+                    <span>导入</span>
+                </button>
+
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div id="search_content" class="import_content" style="display:none;">
+    <form action="/WorkAndRests/AdvancedSearch" method="post">
+        <div class="dialogModal_header" style="background:steelblue; color:white;">
+            自定义搜索信息
+        </div>
+        <div class="advanced-filter row" style="margin:8px;">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>字段</span>
+                    @Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>条件</span>
+                    @Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="marco-igroup-primary">
+                    <span>值</span>
+                    <input type="text" name="searchValueFirst" value="@ViewBag.searchValueFirst" />
+                </div>
+            </div>
+        
+        </div>
+        <div style="width:80px;height:40px;line-height:40px;background:steelblue; color:white;margin-left:550px;text-align:center;position:absolute;bottom:5px;">
+            <span>添加</span>
+                 <!--@Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)-->
+        </div>
+    </form>
+</div>
+
+<hr class="hr-primary" />
+<div style="margin:10px;">
+    <div class="minitor-show marco-tabs-default">
+
+        <a href="/WorkAndRests/Create" class="pull-right" style="margin-top: -10px;">
+            <button class="marco-btn-primary">
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                <span>创建</span>
+            </button>
+        </a>
+
+        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
+
+            <li role="presentation" class="active"><a href="#all_WorkAndRests" role="tab" data-toggle="tab">所有作息表</a></li>
+            <li role="presentation"><a href="#workday_WorkAndRests" role="tab" data-toggle="tab">工作日作息表</a></li>
+            <li role="presentation"><a href="#unworkday_WorkAndRests" role="tab" data-toggle="tab">双休日作息表</a></li>
+            <li role="presentation"><a href="#holiday_WorkAndRests" role="tab" data-toggle="tab">节假日作息表</a></li>
+
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane  active" id="all_WorkAndRests">
+                <div id="all_WorkAndRests_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            @*<th>NO</th>*@
+                            <th>日期</th>
+                            <th>类型</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            int i = 0;
+
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    @*<td>@(i += 1)</td>*@
+                                    <td>
+                                        <span>@(@item.dateAt.HasValue?@item.dateAt.Value.ToString("yyyy-MM-dd"):"")</span>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.dateTypeDisplay)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.remark)
+                                    </td>
+                                    <td>
+                                        <a href="/WorkAndRests/Delete/@item.id" class="option-icon-primary" title="详情">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+
+                                        <a href="/WorkAndRests/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="workday_WorkAndRests">
+                <div id="workday_WorkAndRests_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            
+                            <th>日期</th>
+                            <th>类型</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            int i = 0;
+
+                            foreach (var item in Model)
+                            {
+                                if (item.dateType == 100)
+                                {
+                                <tr>
+                                    
+                                    <td>
+                                        <span>@(@item.dateAt.HasValue?@item.dateAt.Value.ToString("yyyy-MM-dd"):"")</span>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.dateTypeDisplay)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.remark)
+                                    </td>
+                                    <td>
+                                        <a href="/WorkAndRests/Delete/@item.id" class="option-icon-primary" title="详情">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+
+                                        <a href="/WorkAndRests/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="unworkday_WorkAndRests">
+                <div id="unworkday_WorkAndRests_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            
+                            <th>日期</th>
+                            <th>类型</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            int i = 0;
+
+                            foreach (var item in Model)
+                            {
+                                if (item.dateType == 200)
+                                {
+                                <tr>
+                                    
+                                    <td>
+                                        <span>@(@item.dateAt.HasValue?@item.dateAt.Value.ToString("yyyy-MM-dd"):"")</span>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.dateTypeDisplay)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.remark)
+                                    </td>
+                                    <td>
+                                        <a href="/WorkAndRests/Delete/@item.id" class="option-icon-primary" title="详情">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+
+                                        <a href="/WorkAndRests/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="holiday_WorkAndRests">
+                <div id="holiday_WorkAndRests_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+
+                            <th>日期</th>
+                            <th>类型</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            int i = 0;
+
+                            foreach (var item in Model)
+                            {
+                                if (item.dateType == 300)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            <span>@(@item.dateAt.HasValue?@item.dateAt.Value.ToString("yyyy-MM-dd"):"")</span>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.dateTypeDisplay)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.remark)
+                                        </td>
+                                        <td>
+                                            <a href="/WorkAndRests/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+
+                                            <a href="/WorkAndRests/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dialog_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        导入作息表记录
+    </div>
+    <div class="dialogModal_content">
+        <strong>选择数据文件:</strong>
+        <hr />
+        <input class="item-data-uploader" type="file" name="files[]" data-url="/WorkAndRests/Import" />
+        <div class="item-data-uploader-preview" style="display:none;"></div>
+        <hr />
+        <a href="~/Template/作息表模板.xlsx" target="_blank">下载作息表模板</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    Layout.init();
+    $(window).resize(function () {
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_WorkAndRests", "所有作息表列表", "20", "all_WorkAndRests_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "workday_WorkAndRests", "工作日作息表列表", "20", "workday_WorkAndRests_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unworkday_WorkAndRests", "双休日作息表列表", "20", "unworkday_WorkAndRests_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "holiday_WorkAndRests", "节假日作息表列表", "20", "holiday_WorkAndRests_grid_table");
+    })
+
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_WorkAndRests", "所有作息表列表", "20", "all_WorkAndRests_grid_table");
+
+    //$('a[href="#locked_user"]').click(function () {
+    $('#workday_WorkAndRests').addClass("active");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "workday_WorkAndRests", "工作日作息表列表", "20", "workday_WorkAndRests_grid_table");
+    $('#workday_WorkAndRests').removeClass("active");
+    //});
+
+    //$('a[href="#all_user"]').click(function () {
+    $('#unworkday_WorkAndRests').addClass("active");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unworkday_WorkAndRests", "双休日作息表列表", "20", "unworkday_WorkAndRests_grid_table");
+    $('#unworkday_WorkAndRests').removeClass("active");
+
+    $('#holiday_WorkAndRests').addClass("active");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "holiday_WorkAndRests", "双休日作息表列表", "20", "holiday_WorkAndRests_grid_table");
+    $('#holiday_WorkAndRests').removeClass("active");
+    //});
+    // Layout.advancedfilter();
+
+
+    Layout.datepicker('.date_picker')
+  
+  //自定义搜索弹出框
+    $('.advanced-filter-btn').click(function () {
+        $('#search_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { 
+
+            },
+            onLoad: function () {
+
+            },
+            onClose: function () {
+
+            },
+        });
+    });
+
+//导入弹出框
+    $('.import-button-dialog').click(function () {
+        $('#dialog_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+                data_upload(".item-data-uploader");
+            },
+            onClose: function () {
+                window.location.reload();
+            }
+        });
+    });
+</script>
