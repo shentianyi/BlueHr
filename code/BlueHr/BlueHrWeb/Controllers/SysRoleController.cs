@@ -61,24 +61,10 @@ namespace BlueHrWeb.Controllers
 
             ViewBag.Query = q;
 
-            return View("Index", jobTitles);
-        }
-
-        [RoleAndDataAuthorizationAttribute]
-        public ActionResult SearchOnTableShow([Bind(Include = "Name")] SysRoleSearchModel q)
-        {
-            int pageIndex = 0;
-            int.TryParse(Request.QueryString.Get("page"), out pageIndex);
-            pageIndex = PagingHelper.GetPageIndex(pageIndex);
-
-            ISysRoleService ss = new SysRoleService(Settings.Default.db);
-
-            IPagedList<SysRole> jobTitles = ss.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
-
-            ViewBag.Query = q;
-
             return View("TableShow", jobTitles);
         }
+
+        
 
         [RoleAndDataAuthorizationAttribute]
         // GET: SysRole/Details/5
