@@ -178,7 +178,6 @@ namespace BlueHrWeb.Controllers
                 string oldJobTitle = staff.JobTitle == null ? string.Empty : staff.JobTitle.name;
                 string oldJobStr = string.Format("{0}-{1}-{2}", oldCompany, oldDepartment, oldJobTitle);
 
-
                 User user = System.Web.HttpContext.Current.Session["user"] as User;
                 shiftJobRecord.approvalAt = DateTime.Now;
                 shiftJobRecord.approvalUserId = user.id;
@@ -206,7 +205,7 @@ namespace BlueHrWeb.Controllers
                 catch { }
 
                 msg.Success = isSucceed;
-                msg.Content = isSucceed ? "" : "更新失败";
+                msg.Content = isSucceed ? "审批成功" : "审批失败";
 
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
