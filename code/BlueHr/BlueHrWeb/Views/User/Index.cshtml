@@ -21,7 +21,7 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>姓名</span>
-                    <input type="text" name="name" id="name" value="@ViewBag.Query.name"" placeholder="姓名" />
+                    <input type="text" name="name" id="name" value="@ViewBag.Query.name" placeholder="姓名" />
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -333,6 +333,8 @@
 @*@Scripts.Render("~/bundles/degreetype")*@
 <script type="text/javascript">
     Layout.init();
+
+
     $(window).resize(function () {
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_user", "所有用户列表", "20", "all_user_grid_table");
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "locked_user", "已锁定用户列表", "20", "locked_user_grid_table");

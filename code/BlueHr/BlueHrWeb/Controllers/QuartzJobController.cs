@@ -60,7 +60,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = cs.Create(job);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "添加成功" : "添加失败";
+                    msg.Content = isSucceed ? "创建成功" : "创建失败";
 
                     // 重启任务服务
                     TaskDispatcher dtt = new TaskDispatcher(Settings.Default.queue);

@@ -114,12 +114,13 @@
 else
 {
   //如果没有当前用户名登录，进入登录界面
-   <div style="background-image:url('/Images/back1.jpg'); background-repeat:no-repeat; position:absolute; top:0; left:0px;right:0;bottom:0;opacity:0.8;"></div>
+   <div style="background-image:url('/Images/back1.jpg'); background-repeat:no-repeat; position:absolute; z-index:1; top:0; left:0px;right:0;bottom:0;"></div>
     using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div style="width:600px;height:400px;background:#f7f5f6;position:absolute;left:50%;top:50%;margin-top:-200px;margin-left:-300px; border-radius:4px 120px 4px 120px; border:1px solid #808080;box-shadow:2px 2px 30px #ebe4e3; ">
+
+        <div style="width:600px;height:400px;background:#f7f5f6;position:absolute;z-index:1;left:50%;top:50%;margin-top:-200px;margin-left:-300px; border-radius:4px 120px 4px 120px; border:1px solid #808080;box-shadow:2px 2px 30px #ebe4e3; ">
             <div class="header1">德晋HR系统</div>
             <div class="div_input1">
                 <label for="Email">邮箱</label>
@@ -137,5 +138,6 @@ else
                 </button>
             </div>
        </div>
+
     }
  }

@@ -313,7 +313,7 @@ namespace BlueHrWeb.Controllers
                     si.Creates(userDataAuth);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "添加成功" : "添加失败";
+                    msg.Content = isSucceed ? "更新成功" : "更新失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }

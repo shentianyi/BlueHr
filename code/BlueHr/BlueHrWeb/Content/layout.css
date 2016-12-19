@@ -310,7 +310,7 @@ body {
     padding: 7px;
     height: 38px;
     width: 100%;
-    line-height: 10px; }
+    line-height: 17px; }
     .marco-igroup input[disabled], .marco-igroup select[disabled] {
       cursor: not-allowed;
       background: #ecf0f1;
@@ -348,7 +348,7 @@ body {
     padding: 7px;
     height: 38px;
     width: 100%;
-    line-height: 10px; }
+    line-height: 17px; }
     .marco-igroup-normal input[disabled], .marco-igroup-normal select[disabled] {
       cursor: not-allowed;
       background: #ecf0f1;
@@ -386,7 +386,7 @@ body {
     padding: 7px;
     height: 38px;
     width: 100%;
-    line-height: 10px; }
+    line-height: 17px; }
     .marco-igroup-default input[disabled], .marco-igroup-default select[disabled] {
       cursor: not-allowed;
       background: #ecf0f1;
@@ -424,7 +424,7 @@ body {
     padding: 7px;
     height: 38px;
     width: 100%;
-    line-height: 10px; }
+    line-height: 17px; }
     .marco-igroup-primary input[disabled], .marco-igroup-primary select[disabled] {
       cursor: not-allowed;
       background: #ecf0f1;
@@ -462,7 +462,7 @@ body {
     padding: 7px;
     height: 38px;
     width: 100%;
-    line-height: 10px; }
+    line-height: 17px; }
     .marco-igroup-success input[disabled], .marco-igroup-success select[disabled] {
       cursor: not-allowed;
       background: #ecf0f1;
@@ -500,7 +500,7 @@ body {
     padding: 7px;
     height: 38px;
     width: 100%;
-    line-height: 10px; }
+    line-height: 17px; }
     .marco-igroup-warning input[disabled], .marco-igroup-warning select[disabled] {
       cursor: not-allowed;
       background: #ecf0f1;
@@ -538,7 +538,7 @@ body {
     padding: 7px;
     height: 38px;
     width: 100%;
-    line-height: 10px; }
+    line-height: 17px; }
     .marco-igroup-danger input[disabled], .marco-igroup-danger select[disabled] {
       cursor: not-allowed;
       background: #ecf0f1;

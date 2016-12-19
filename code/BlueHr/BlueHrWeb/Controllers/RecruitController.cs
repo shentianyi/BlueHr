@@ -97,7 +97,7 @@ namespace BlueHrWeb.Controllers
                     IRecruitService raps = new RecruitService(Settings.Default.db);
                     bool isSucceed = raps.Create(Recruit);
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "添加失败";
+                    msg.Content = isSucceed ? "创建成功" : "创建失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
