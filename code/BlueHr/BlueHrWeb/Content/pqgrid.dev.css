@@ -58,10 +58,6 @@ div.pq-toolbar{
     overflow:hidden;		
 }
 
-div.pq-toolbar .ui-button
-{
-}   
-
 div.pq-toolbar *
 {
     text-align:left;
@@ -159,10 +155,7 @@ div.pq-header-outer{
 .pq-cont .pq-grid-norows{
     text-align:center;padding:3px;
 }
-.pq-grid-header td{
-}
-.pq-grid-header td.pq-col-sort-asc,.pq-grid-header td.pq-col-sort-desc{
-}
+
 td.pq-col-sort-asc .pq-col-sort-icon,td.pq-col-sort-desc .pq-col-sort-icon{	
     display:inline;	
     padding-right:16px;
@@ -223,8 +216,6 @@ table.pq-grid-header-table div.pq-td-div{
     position:relative;
     text-align:center;
 }			
-table.pq-grid-header-table td{
-}
 div.ui-resizable-handle{
     z-index:1;
 }
@@ -250,22 +241,14 @@ td.pq-grid-number-col{
     margin-bottom:-3px;
     float: left;
 }
-tr.pq-group-row div.pq-td-div, tr.pq-summary-row div.pq-td-div{
-}
-.pq-grid .pq-drag-accept .pq-drag-icon{
-}
 .pq-grid td.pq-drop-hover, .pq-grid .pq-drop-hover{
     background-image:url("");
 }
-div.pq-grid-col-resize-handle{
-}
+
 tr.pq-row-hidden{
     visibility:hidden;
     height:1px;
 }
-div.pq-grid tr{
-}			
-
 
 td.pq-grid-cell{
     overflow:hidden;
@@ -439,15 +422,10 @@ div.pq-hvscroll-square{
 .pq-tree-icon{
     cursor:pointer;position:absolute;width:18px;height:16px;right:0px;top:-2px;
 }
-tr.pq-grid-row-hover td
-{
-}     
+    
 div.pq-grid tr.pq-row-select{
     border-width:0px;
 } 
-tr.pq-row-select > td
-{
-}
 div.pq-grid tr td.pq-grid-cell-hover
 {
     border-width:0px;	 
@@ -456,13 +434,11 @@ div.pq-grid tr td.pq-cell-select
 {    
     border-width:0px;
 }    
-span.ui-sortable-placeholder{
-}
+
 tr.pq-group-row{
     cursor:pointer;
 }
-tr.pq-group-row td.pq-grid-cell{
-}
+
 tr.pq-group-row td span{
     float:left;margin-top:-2px;margin-right:3px;
 }

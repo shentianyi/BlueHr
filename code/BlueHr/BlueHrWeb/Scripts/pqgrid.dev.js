@@ -1236,7 +1236,6 @@
 					col = initH;
 					if (col > finalH) {
 						throw ("initH>finalH");
-						break
 					}
 				}
 				var column = thisColModel[col];
@@ -1439,7 +1438,6 @@
 				col = initH;
 				if (col > finalH) {
 					throw ("initH>finalH");
-					break
 				}
 			}
 			var column = CM[col];
@@ -6969,7 +6967,6 @@
 					cur_pos = parseInt(options.cur_pos);
 				if (isNaN(cur_pos) || cur_pos < 0) {
 					throw ("cur_pos NA");
-					this.initV = 0
 				}
 				this.scrollCurPos = cur_pos;
 				var noRowsInView = this._bufferObj_minRowsPerGrid();
@@ -7671,7 +7668,6 @@
 					col = initH;
 					if (col > finalH) {
 						throw ("initH>finalH");
-						break
 					}
 				}
 				this._createHeaderCell(row, col, headerCells, buffer, const_cls, freezeCols, initH, depth)
