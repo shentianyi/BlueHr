@@ -92,20 +92,6 @@
     }
 </div>
 <script type="text/javascript">
-    //回调函数
-    function Success(data) {
-        if (!data.Success) {
-            Layout.popMsg('popMsg-danger', data.Content);
-            return false;
-        }
-        else {
-            Layout.popMsg('popMsg-success', data.Content);
-            setTimeout(function(){
-                window.close();
-            }, 2000);
-        }
-    }
-
     Layout.init();
 
     //控制textarea高度

@@ -97,7 +97,7 @@ namespace BlueHrWeb.Controllers
                     IRecruitService raps = new RecruitService(Settings.Default.db);
                     bool isSucceed = raps.Create(Recruit);
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "添加失败";
+                    msg.Content = isSucceed ? "创建成功" : "创建失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -142,7 +142,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = raps.Update(Recruit);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "更新失败";
+                    msg.Content = isSucceed ? "更新成功" : "更新失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -175,7 +175,7 @@ namespace BlueHrWeb.Controllers
                 IRecruitService raps = new RecruitService(Settings.Default.db);
                 bool isSucceed = raps.DeleteById(id);
                 msg.Success = isSucceed;
-                msg.Content = isSucceed ? "" : "删除失败";
+                msg.Content = isSucceed ? "删除成功" : "删除失败";
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

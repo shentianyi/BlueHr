@@ -10,7 +10,7 @@
 
     <hr class="hr-grey" />
 
-    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action"}))
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "Success" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -167,15 +167,6 @@
                 //}               
     });
     
-    //回调函数
-    function post_return_action(data) {
-        if (data.Success) {
-            location.href = '/Shift/Index';
-        }
-        else {
-            Layout.popMsg('popMsg-danger', data.Content);
-            
-        }
-    }
+    
   
 </script>

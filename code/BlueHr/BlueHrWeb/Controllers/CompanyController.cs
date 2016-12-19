@@ -124,7 +124,7 @@ namespace BlueHrWeb.Controllers
                 ICompanyService cs = new CompanyService(Settings.Default.db);
                 bool isSucceed = cs.Update(company);
                 msg.Success = isSucceed;
-                msg.Content = isSucceed ? "编辑成功" : "编辑失败";
+                msg.Content = isSucceed ? "更新成功" : "更新失败";
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
