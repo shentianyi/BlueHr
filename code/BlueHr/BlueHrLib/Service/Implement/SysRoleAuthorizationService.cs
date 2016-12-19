@@ -83,10 +83,10 @@ namespace BlueHrLib.Service.Implement
 
             var q = from sra in dc.Context.GetTable<SysRoleAuthorization>()
                     join
-sa in dc.Context.GetTable<SysAuthorization>()
-on sra.authId equals sa.id
+                    sa in dc.Context.GetTable<SysAuthorization>()
+                    on sra.authId equals sa.id
                     select new { roleId = sra.roleId, controller = sa.controlName, action = sa.actionName }
-                   into ssra
+                    into ssra
                     where ssra.roleId == roleId
                     && ssra.action == action && ssra.controller == controller
                     select ssra;
