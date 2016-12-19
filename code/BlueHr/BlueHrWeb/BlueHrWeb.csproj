@@ -737,14 +737,6 @@
     <Content Include="Views\RewardsAndPenalty\Delete.cshtml" />
     <Content Include="Views\RewardsAndPenalty\Create.cshtml" />
     <Content Include="Views\RewardsAndPenalty\_PartialRewardsAndPenalty.cshtml" />
-    <Content Include="Views\Recruit\Index.cshtml" />
-    <Content Include="Views\Recruit\Edit.cshtml" />
-    <Content Include="Views\Recruit\Delete.cshtml" />
-    <Content Include="Views\Recruit\Create.cshtml" />
-    <Content Include="Views\Recruit\Delete.cshtml" />
-    <Content Include="Views\Recruit\Edit.cshtml" />
-    <Content Include="Views\Recruit\Index.cshtml" />
-    <Content Include="Views\Recruit\_PartialRecruit.cshtml" />
     <Content Include="Views\Personal\Schedule.cshtml" />
     <Content Include="Views\Personal\Approval.cshtml" />
     <Content Include="Views\Personal\Application.cshtml" />
@@ -779,6 +771,11 @@
     <Content Include="Views\JobTitle\Index.cshtml" />
     <Content Include="Views\Department\TreeShow.cshtml" />
     <Content Include="Views\WorkAndRests\TableShow.cshtml" />
+    <Content Include="Views\Recruit\Create.cshtml" />
+    <Content Include="Views\Recruit\Delete.cshtml" />
+    <Content Include="Views\Recruit\Edit.cshtml" />
+    <Content Include="Views\Recruit\Index.cshtml" />
+    <Content Include="Views\Recruit\_PartialRecruit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

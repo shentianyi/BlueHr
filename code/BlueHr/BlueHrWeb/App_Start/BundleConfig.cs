@@ -95,7 +95,7 @@ namespace BlueHrWeb
                      "~/Content/site.css",
                      "~/Content/bootstrap.css",
                      "~/Content/font-awesome.css",
-                     "~/Content/input-style.css",
+                     //"~/Content/input-style.css",
                      "~/Content/pagination.css",
                      "~/Content/jquery-popModal.css",
                      "~/Content/jquery.datetimepicker.css",
