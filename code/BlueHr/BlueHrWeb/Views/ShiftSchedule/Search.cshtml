@@ -12,7 +12,7 @@
     </li>
 </ol>
 
-<span style="position: absolute; top: 65px; right: 20px; color: lightseagreen;">Tips: 点击排班名称进行修改或删除</span>
+<span style="position: absolute; z-index:5;top: 65px; right: 20px; color: lightseagreen;">Tips: 点击排班名称进行修改或删除</span>
 
 <hr class="hr-grey" />
 
@@ -22,15 +22,24 @@
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>员工号</span>
-                    <input type="text" name="StaffNr" id="StaffNr" value="@ViewBag.Query.StaffNr" placeholder="员工号" />
+                    <select name="staffNrSelect" id="staffNrSelect"></select>
+                    <input type="hidden" id="StaffNr" name="StaffNr" placeholder="员工号" value="@ViewBag.Query.StaffNr"  />
                 </div>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>排班日期</span>
-                    <input type="text" name="ScheduleAtFrom" id="ScheduleAtFrom" value="@ViewBag.Query.ScheduleAtFrom" placeholder="开始日期" class="date-picker"/>
+                    @if(ViewBag.Query.ScheduleAtFrom!=null){
+                        <input type="text" name="ScheduleAtFrom" id="ScheduleAtFrom" value="@ViewBag.Query.ScheduleAtFrom.ToString("yyyy-MM-dd")" placeholder="开始日期" class="date-picker"/>
+                    }else{
+                        <input type="text" name="ScheduleAtFrom" id="ScheduleAtFrom" value="" placeholder="开始日期" class="date-picker"/>
+                    }
                     <span>~</span>
-                    <input type="text" name="ScheduleAtEnd" id="ScheduleAtEnd" value="@ViewBag.Query.ScheduleAtEnd" placeholder="截止日期" class="date-picker"/>
+                    @if(ViewBag.Query.ScheduleAtEnd!=null){
+                        <input type="text" name="ScheduleAtEnd" id="ScheduleAtEnd" value="@ViewBag.Query.ScheduleAtEnd.ToString("yyyy-MM-dd")" placeholder="截止日期" class="date-picker"/>
+                    }else{
+                        <input type="text" name="ScheduleAtEnd" id="ScheduleAtEnd" value="" placeholder="截止日期" class="date-picker"/>
+                    }
                     <span>
                         <button type="submit" class="marco-btn-primary search-btn" style="margin:0;">搜索</button>
                     </span>
@@ -89,7 +98,11 @@
 
 <script type="text/javascript">
     Layout.init();
-    
+
+    $("<option value=''> </option>").appendTo($("#staffNrSelect"));
+
+    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'StaffNr');
+
     Layout.datepicker('.date-picker');
 
     $("#show_shift_schedule").css({"width": $(window).width() - 255+'px', "height": $(window).height() - 220+'px'});
@@ -102,6 +115,7 @@
 
     if(PathNameLength>1){
         show_handle_dialog();
+
         $.ajax({
             url:'/ShiftSchedule/GetShiftScheduleSearch',
             type:'get',
@@ -111,40 +125,47 @@
                 ScheduleAtTo: $("#ScheduleAtEnd").val()
             },
             success:function(data){
-                $("#shift_schedule_thead").empty();
-                $("#shift_schedule_tbody").empty();
-                    
-                // 绘制表头
-                var TheadHtml = "<tr><th>员工 / 日期 </th>";
-                for(var i = 0; i < data["thead"].length; i++){
-                    TheadHtml += "<th>"+data["thead"][i]+"</th>"
-                }
-                TheadHtml += "</tr>";
-                $(TheadHtml).appendTo($("#shift_schedule_thead"));
-
-                var TbodyHtml="";
-                for(var j = 0; j < data["tbody"].length; j++){
-                    TbodyHtml += "<tr><td>"+data["tbody"][j].staffNr+"</td>"
-                    for(var child = 0; child < data["tbody"][j].childrens.length; child++){
-                        var ShiftScheduleData = data["tbody"][j].childrens[child];
-                        for(var childs2 in ShiftScheduleData){
-                            if(ShiftScheduleData[childs2].id!= undefined){
-                                TbodyHtml += "<td style='cursor: pointer;'><b class='shift_schedule_changed'>"+ ShiftScheduleData[childs2].name +"</b><br /> "+
-                                "<span style='font-size: 0.8em; color: steelblue;'>"+ShiftScheduleData[childs2].startAt +" - " +ShiftScheduleData[childs2].endAt +"</span>"+
-                                "<input type='hidden' id="+ShiftScheduleData[childs2].id+" staffNr="+data["tbody"][j].staffNr+" scheduleAt = "+ShiftScheduleData[childs2].scheduleAt+"> </td>"
-                                }else{
-                                TbodyHtml += "<td style='cursor: pointer;'><input type='hidden' id='new_shift_schedule' staffNr="+data["tbody"][j].staffNr + " scheduleAt = "+ShiftScheduleData[childs2].scheduleAt+"></td>"
-                            }
-                        }
+                if(data["thead"]!=undefined){
+                    $("#shift_schedule_thead").empty();
+                    $("#shift_schedule_tbody").empty();
+                        
+                    // 绘制表头
+                    var TheadHtml = "<tr><th>员工 / 日期 </th>";
+                    for(var i = 0; i < data["thead"].length; i++){
+                        TheadHtml += "<th>"+data["thead"][i]+"</th>"
                     }
-                    TheadHtml += "</tr>"
+                    TheadHtml += "</tr>";
+                    $(TheadHtml).appendTo($("#shift_schedule_thead"));
+
+                    if(data["tbody"]!=undefined){
+                        var TbodyHtml="";
+                        for(var j = 0; j < data["tbody"].length; j++){
+                            TbodyHtml += "<tr><td>"+data["tbody"][j].staffNr+"</td>"
+                            for(var child = 0; child < data["tbody"][j].childrens.length; child++){
+                                var ShiftScheduleData = data["tbody"][j].childrens[child];
+                                for(var childs2 in ShiftScheduleData){
+                                    if(ShiftScheduleData[childs2].id!= undefined){
+                                        TbodyHtml += "<td style='cursor: pointer;'><b class='shift_schedule_changed'>"+ ShiftScheduleData[childs2].name +"</b><br /> "+
+                                        "<span style='font-size: 0.8em; color: steelblue;'>"+ShiftScheduleData[childs2].startAt +" - " +ShiftScheduleData[childs2].endAt +"</span>"+
+                                        "<input type='hidden' id="+ShiftScheduleData[childs2].id+" staffNr="+data["tbody"][j].staffNr+" scheduleAt = "+ShiftScheduleData[childs2].scheduleAt+"> </td>"
+                                        }else{
+                                        TbodyHtml += "<td style='cursor: pointer;'><input type='hidden' id='new_shift_schedule' staffNr="+data["tbody"][j].staffNr + " scheduleAt = "+ShiftScheduleData[childs2].scheduleAt+"></td>"
+                                    }
+                                }
+                            }
+                            TheadHtml += "</tr>"
+                        }
+                        $(TbodyHtml).appendTo($("#shift_schedule_tbody"));
+                    }
+                }else{
+                    Layout.popMsg("popMsg-danger", "没有查询到排班信息");
                 }
-                $(TbodyHtml).appendTo($("#shift_schedule_tbody"));
 
                 hide_handle_dialog();
             },
             error:function(){
-                console.log("Somethine ROOO");
+                hide_handle_dialog();
+                // console.log("Somethine ROOO");
             }
         })
     }

@@ -172,11 +172,11 @@ namespace BlueHrLib.Data.Repository.Implement
             }
         }
 
-        public List<ExtraWorkRecord> GetAllTableName()
+        public List<ExtraWorkRecordView> GetAllTableName()
         {
             try
             {
-                return (this.context.GetTable<ExtraWorkRecord>()).ToList();
+                return (this.context.GetTable<ExtraWorkRecordView>()).ToList();
             }
             catch (Exception)
             {

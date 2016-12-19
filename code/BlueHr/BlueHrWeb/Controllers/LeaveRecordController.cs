@@ -430,17 +430,18 @@ namespace BlueHrWeb.Controllers
             {
                 select.Add(new SelectListItem { Text = "", Value = "" });
             }
-
+            int i = 1;
             foreach (var it in item)
             {
-                if (type.HasValue && type.ToString().Equals(it.Value))
+                if (type.HasValue && type.ToString().Equals(it.Value)&&i<=12)
                 {
                     select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
                 }
-                else
+                else if(i<=12)
                 {
                     select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
                 }
+                i++;
             }
             ViewData["searchConditionsList"] = select;
         }

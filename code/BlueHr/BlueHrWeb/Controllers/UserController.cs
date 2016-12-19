@@ -922,17 +922,18 @@ namespace BlueHrWeb.Controllers
                 User.Add(tempUser);
             }
             //获取当前记录的属性
+            int i = 1;
             foreach (var property in User[0].GetType().GetProperties())
             {
-                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
+                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name)&&i<=6&& property.Name!="pwd")
                 {
                     select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
                 }
-                else
+                else if (i<=6 && property.Name != "pwd")
                 {
                     select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
                 }
-
+                i++;
             }
 
             ViewData["getAllTableNameList"] = select;

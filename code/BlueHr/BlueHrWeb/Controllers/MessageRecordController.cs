@@ -86,7 +86,7 @@ namespace BlueHrWeb.Controllers
             foreach (var i in mrs.FindBystaffNrShiftJob(staffNr))
             {
                 Dictionary<string, string> detail = new Dictionary<string, string>();
-                detail.Add("调岗日期", i.createdAt.ToString());
+                detail.Add("调岗日期", i.createdAt.Value.ToString("yyyy-MM-dd"));
                 detail.Add("调岗描述", i.text);
                 Result.Add(detail);
             }

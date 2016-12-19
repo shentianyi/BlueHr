@@ -73,9 +73,9 @@ namespace BlueHrWeb.Controllers
 
                 resigns.Add("ID", resignRecord.id.ToString());
                 resigns.Add("StaffNr", resignRecord.staffNr);
-                resigns.Add("ResignAt", resignRecord.resignAt.ToString());
+                resigns.Add("ResignAt", resignRecord.resignAt.ToString("yyyy-MM-dd"));
                 resigns.Add("ResignReason", resignType.name);
-                resigns.Add("CreateAt", resignRecord.createdAt.ToString());
+                resigns.Add("CreateAt", resignRecord.createdAt.HasValue ? resignRecord.createdAt.Value.ToString("yyyy-MM-dd") : string.Empty);
                 resigns.Add("ApprovalStatus", resignRecord.approvalStatus == null ? "审批中" : resignRecord.approvalStatus);
                 resigns.Add("ResignChecker", resignRecord.resignChecker);
                 resigns.Add("ApprovalRemark", resignRecord.approvalRemark);
@@ -100,7 +100,7 @@ namespace BlueHrWeb.Controllers
                 fullMembers.Add("StaffNr", fullMemberRecord.staffNr);
                 fullMembers.Add("isPassCheck", fullMemberRecord.isPassCheck?"通过":"未通过");
                 fullMembers.Add("checkScore", fullMemberRecord.checkScore.ToString());
-                fullMembers.Add("beFullAt", fullMemberRecord.beFullAt.ToString());
+                fullMembers.Add("beFullAt", fullMemberRecord.beFullAt.HasValue ? fullMemberRecord.beFullAt.Value.ToString("yyyy-MM-dd") : string.Empty);
                 fullMembers.Add("ApprovalStatus", fullMemberRecord.approvalStatus == null ? "审批中" : fullMemberRecord.approvalStatus);
                 fullMembers.Add("approvalUserId", fullMemberRecord.approvalUserId.ToString());
                 fullMembers.Add("ApprovalRemark", fullMemberRecord.approvalRemark);
@@ -127,38 +127,48 @@ namespace BlueHrWeb.Controllers
                 shiftjobs.Add("ID", shiftJobrecord.id.ToString());
                 shiftjobs.Add("StaffNr", shiftJobrecord.staffNr);
 
+                string Company = string.Empty;
+                string Department = string.Empty;
+                string JobTitle= string.Empty;
+
                 if (shiftJobrecord.beforeCompanyId.HasValue)
                 {
-                    shiftjobs.Add("BeforeCompanyName", cs.FindById(shiftJobrecord.beforeCompanyId.Value).name);
-                }
-
-                if(shiftJobrecord.beforeDepartmentId.HasValue)
-                {
-                    shiftjobs.Add("BeforeDepartmentName", ds.FindById(shiftJobrecord.beforeDepartmentId.Value).name);
-                }
-
-                if (shiftJobrecord.beforeJobId.HasValue)
-                {
-                    shiftjobs.Add("BeforeJobName", jts.FindById(shiftJobrecord.beforeJobId.Value).name);
+                    Company = cs.FindById(shiftJobrecord.beforeCompanyId.Value).name;
                 }
 
                 if (shiftJobrecord.afterCompanyId.HasValue)
                 {
-                    shiftjobs.Add("AfterCompanyName", cs.FindById(shiftJobrecord.afterCompanyId.Value).name);
+                    Company += " -> " + cs.FindById(shiftJobrecord.afterCompanyId.Value).name;
+                }
+
+                if (shiftJobrecord.beforeDepartmentId.HasValue)
+                {
+                    Department = ds.FindById(shiftJobrecord.beforeDepartmentId.Value).name;
                 }
 
                 if (shiftJobrecord.afterDepartmentId.HasValue)
                 {
-                    shiftjobs.Add("AfterDepartmentName", ds.FindById(shiftJobrecord.afterDepartmentId.Value).name);
+                    Department += " -> " + ds.FindById(shiftJobrecord.afterDepartmentId.Value).name;
+                }
+
+                if (shiftJobrecord.beforeJobId.HasValue)
+                {
+                    JobTitle = jts.FindById(shiftJobrecord.beforeJobId.Value).name;
                 }
 
                 if (shiftJobrecord.afterJobId.HasValue)
                 {
-                    shiftjobs.Add("AfterJobName", jts.FindById(shiftJobrecord.afterJobId.Value).name);
+                    JobTitle += "->" + jts.FindById(shiftJobrecord.afterJobId.Value).name;
                 }
 
+                shiftjobs.Add("Company", Company);
+                shiftjobs.Add("Department", Department);
+                shiftjobs.Add("JobTitle", JobTitle);
+                shiftjobs.Add("Remark", shiftJobrecord.remark);
+                shiftjobs.Add("CreatedAt", shiftJobrecord.createdAt.ToString("yyyy-MM-dd"));
                 shiftjobs.Add("ApprovalStatus", shiftJobrecord.approvalStatus == null ? "审批中" : shiftJobrecord.approvalStatus);
                 shiftjobs.Add("approvalUserId", shiftJobrecord.approvalUserId.ToString());
+                shiftjobs.Add("ApprovalDate", shiftJobrecord.approvalAt.HasValue ? shiftJobrecord.approvalAt.Value.ToString("yyyy-MM-dd") : string.Empty);
                 shiftjobs.Add("ApprovalRemark", shiftJobrecord.approvalRemark);
 
                 AllShiftJobRecords.Add(shiftjobs);
@@ -223,9 +233,9 @@ namespace BlueHrWeb.Controllers
 
                 resigns.Add("ID", resignRecord.id.ToString());
                 resigns.Add("StaffNr", resignRecord.staffNr);
-                resigns.Add("ResignAt", resignRecord.resignAt.ToString());
+                resigns.Add("ResignAt", resignRecord.resignAt.ToString("yyyy-MM-dd"));
                 resigns.Add("ResignReason", resignRecord.resignReason);
-                resigns.Add("CreateAt", resignRecord.createdAt.ToString());
+                resigns.Add("CreateAt", resignRecord.createdAt.HasValue ? resignRecord.createdAt.Value.ToString("yyyy-MM-dd") : string.Empty);
                 resigns.Add("ApprovalStatus", resignRecord.approvalStatus == null ? "审批中" : resignRecord.approvalStatus);
                 resigns.Add("ResignChecker", resignRecord.resignChecker);
                 resigns.Add("ApprovalRemark", resignRecord.approvalRemark);
@@ -250,7 +260,7 @@ namespace BlueHrWeb.Controllers
                 fullMembers.Add("StaffNr", fullMemberRecord.staffNr);
                 fullMembers.Add("isPassCheck", fullMemberRecord.isPassCheck ? "通过" : "未通过");
                 fullMembers.Add("checkScore", fullMemberRecord.checkScore.ToString());
-                fullMembers.Add("beFullAt", fullMemberRecord.beFullAt.ToString());
+                fullMembers.Add("beFullAt", fullMemberRecord.beFullAt.HasValue ? fullMemberRecord.beFullAt.Value.ToString() : string.Empty);
                 fullMembers.Add("ApprovalStatus", fullMemberRecord.approvalStatus == null ? "审批中" : fullMemberRecord.approvalStatus);
                 fullMembers.Add("approvalUserId", fullMemberRecord.approvalUserId.ToString());
                 fullMembers.Add("ApprovalRemark", fullMemberRecord.approvalRemark);
@@ -320,7 +330,7 @@ namespace BlueHrWeb.Controllers
                 shiftjobs.Add("Remark", shiftJobrecord.remark);
                 shiftjobs.Add("ApprovalStatus", shiftJobrecord.approvalStatus == null ? "审批中" : shiftJobrecord.approvalStatus);
                 shiftjobs.Add("approvalUserId", shiftJobrecord.approvalUserId.ToString());
-                shiftjobs.Add("ApprovalDate", shiftJobrecord.approvalAt.Value.ToString("yyyy-MM-dd"));
+                shiftjobs.Add("ApprovalDate", shiftJobrecord.approvalAt.HasValue ? shiftJobrecord.approvalAt.Value.ToString("yyyy-MM-dd") : string.Empty);
                 shiftjobs.Add("ApprovalRemark", shiftJobrecord.approvalRemark);
 
                 AllShiftJobRecords.Add(shiftjobs);
@@ -389,7 +399,7 @@ namespace BlueHrWeb.Controllers
                 resigns.Add("StaffNr", resignRecord.staffNr);
                 resigns.Add("ResignAt", resignRecord.resignAt.ToString());
                 resigns.Add("ResignReason", resignRecord.resignReason);
-                resigns.Add("CreateAt", resignRecord.createdAt.ToString());
+                resigns.Add("CreateAt", resignRecord.createdAt.HasValue ? resignRecord.createdAt.Value.ToString("yyyy-MM-dd") : string.Empty);
                 resigns.Add("ApprovalStatus", resignRecord.approvalStatus == null ? "审批中" : resignRecord.approvalStatus);
                 resigns.Add("ResignChecker", resignRecord.resignChecker);
                 resigns.Add("ApprovalRemark", resignRecord.approvalRemark);
@@ -414,7 +424,7 @@ namespace BlueHrWeb.Controllers
                 fullMembers.Add("StaffNr", fullMemberRecord.staffNr);
                 fullMembers.Add("isPassCheck", fullMemberRecord.isPassCheck ? "通过" : "未通过");
                 fullMembers.Add("checkScore", fullMemberRecord.checkScore.ToString());
-                fullMembers.Add("beFullAt", fullMemberRecord.beFullAt.ToString());
+                fullMembers.Add("beFullAt", fullMemberRecord.beFullAt.HasValue ? fullMemberRecord.beFullAt.Value.ToString("yyyy-MM-dd") : string.Empty);
                 fullMembers.Add("ApprovalStatus", fullMemberRecord.approvalStatus == null ? "审批中" : fullMemberRecord.approvalStatus);
                 fullMembers.Add("approvalUserId", fullMemberRecord.approvalUserId.ToString());
                 fullMembers.Add("ApprovalRemark", fullMemberRecord.approvalRemark);
@@ -478,7 +488,7 @@ namespace BlueHrWeb.Controllers
                 shiftjobs.Add("Company", Company);
                 shiftjobs.Add("Department", Department);
                 shiftjobs.Add("JobTitle", JobTitle);
-                shiftjobs.Add("UserId", shiftJobrecord.userId.ToString());
+                //shiftjobs.Add("UserId", shiftJobrecord.userId.ToString());
                 shiftjobs.Add("CreatedAt", shiftJobrecord.createdAt.ToString("yyyy-MM-dd"));
                 shiftjobs.Add("Remark", shiftJobrecord.remark);
                 shiftjobs.Add("ApprovalUserId", shiftJobrecord.approvalUserId.ToString());

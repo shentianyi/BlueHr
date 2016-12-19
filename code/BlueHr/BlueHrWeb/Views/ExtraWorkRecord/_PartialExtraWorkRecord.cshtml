@@ -30,7 +30,12 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>加班日期</span>
-                        @Html.EditorFor(model => model.otTime, new { htmlAttributes = new { @class = "date-picker" } })
+                        @if(Model!=null){
+                            <input type="text" name="otTime" id="otTime" class="date-picker" value="@Model.otTime.Value.ToString("yyyy-MM-dd")" />
+                        }else{
+                            <input type="text" name="otTime" id="otTime" class="date-picker" />
+                        }
+                        <!--@Html.EditorFor(model => model.otTime, new { htmlAttributes = new { @class = "date-picker" } })-->
                     </div>
                 </div>
 
@@ -39,11 +44,14 @@
                         <span>员工号 </span>
                         @if (Model != null)
                         {
-                            @Html.EditorFor(model => model.staffNr)
+                            <select name="staffNrSelect" id="staffNrSelect"></select>
+                            <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" value="@Model.staffNr"  />
+                            <!--@Html.EditorFor(model => model.staffNr)-->
                         }
                         else
                         {
-                            <input type="text" name="staffNr" placeholder="员工号" />
+                            <select name="staffNrSelect" id="staffNrSelect"></select>
+                            <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" />
                         }
                     </div>
                 </div>
@@ -82,7 +90,6 @@
                 }
             </div>
         </div>
-
     }
 </div>
 <script type="text/javascript">
@@ -109,4 +116,7 @@
             //location.href = '/ExtraWorkRecord/Index';
         }
     }
+
+
+    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr');
 </script>
