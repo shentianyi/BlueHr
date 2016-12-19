@@ -17,7 +17,7 @@
 </ol>
 
 <hr class="hr-grey" />
-<div class="search">
+<div class="search" style="margin: 10px"">
     <form action="/WorkAndRests/Search" method="get">
         <div class="row" style="margin:0;">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -57,7 +57,7 @@
 
 </div>
 
-<div id="search_content" class="import_content" style="display:none;">
+<div id="search_content" class="import_content" style="display:none;>
     <form action="/WorkAndRests/AdvancedSearch" method="post">
         <div class="dialogModal_header" style="background:steelblue; color:white;">
             自定义搜索信息
@@ -93,7 +93,7 @@
 </div>
 
 <hr class="hr-primary" />
-<div style="margin:10px;">
+<div style="margin:20px;">
     <div class="minitor-show marco-tabs-default">
 
         <a href="/WorkAndRests/Create" class="pull-right" style="margin-top: -10px;">
@@ -322,27 +322,27 @@
 <script type="text/javascript">
     Layout.init();
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_WorkAndRests", "所有作息表列表", "20", "all_WorkAndRests_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "workday_WorkAndRests", "工作日作息表列表", "20", "workday_WorkAndRests_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unworkday_WorkAndRests", "双休日作息表列表", "20", "unworkday_WorkAndRests_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "holiday_WorkAndRests", "节假日作息表列表", "20", "holiday_WorkAndRests_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "all_WorkAndRests", "所有作息表列表", "20", "all_WorkAndRests_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "workday_WorkAndRests", "工作日作息表列表", "20", "workday_WorkAndRests_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "unworkday_WorkAndRests", "双休日作息表列表", "20", "unworkday_WorkAndRests_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "holiday_WorkAndRests", "节假日作息表列表", "20", "holiday_WorkAndRests_grid_table");
     })
 
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_WorkAndRests", "所有作息表列表", "20", "all_WorkAndRests_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "all_WorkAndRests", "所有作息表列表", "20", "all_WorkAndRests_grid_table");
 
     //$('a[href="#locked_user"]').click(function () {
     $('#workday_WorkAndRests').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "workday_WorkAndRests", "工作日作息表列表", "20", "workday_WorkAndRests_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "workday_WorkAndRests", "工作日作息表列表", "20", "workday_WorkAndRests_grid_table");
     $('#workday_WorkAndRests').removeClass("active");
     //});
 
     //$('a[href="#all_user"]').click(function () {
     $('#unworkday_WorkAndRests').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unworkday_WorkAndRests", "双休日作息表列表", "20", "unworkday_WorkAndRests_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "unworkday_WorkAndRests", "双休日作息表列表", "20", "unworkday_WorkAndRests_grid_table");
     $('#unworkday_WorkAndRests').removeClass("active");
 
     $('#holiday_WorkAndRests').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "holiday_WorkAndRests", "双休日作息表列表", "20", "holiday_WorkAndRests_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "holiday_WorkAndRests", "双休日作息表列表", "20", "holiday_WorkAndRests_grid_table");
     $('#holiday_WorkAndRests').removeClass("active");
     //});
     // Layout.advancedfilter();

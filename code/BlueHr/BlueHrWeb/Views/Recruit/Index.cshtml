@@ -119,7 +119,7 @@
                             <th>申请人</th>
                             <th>流程状态</th>
                             <th>审核记录</th>
-                            <th>流程查看</th>
+                            <!-- <th>流程查看</th> -->
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -156,9 +156,9 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.auditRecord)
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         @Html.DisplayFor(modelItem => item.auditView)
-                                    </td>
+                                    </td> -->
                                     <td>
                                         <a href="/Recruit/Delete/@item.id" class="option-icon-primary" title="详情">
                                             <i class="fa fa-eye"></i>

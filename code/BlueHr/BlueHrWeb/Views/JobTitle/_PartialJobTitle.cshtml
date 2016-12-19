@@ -9,7 +9,7 @@
 
     <hr class="hr-grey" />
 
-    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -90,8 +90,6 @@
     $(window).resize(function () {
         $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     });
-
-    //回调函数
     function post_return_action(data) {
 
         if (!data.Success) {
@@ -99,9 +97,9 @@
             return false;
         }
         else {
-
-            location.href = '/JobTitle/Index';
+            Layout.popMsg('popMsg-success', data.Content);
+            window.location.href = '/JobTitle/TableShow';
         }
     }
-
+    
 </script>

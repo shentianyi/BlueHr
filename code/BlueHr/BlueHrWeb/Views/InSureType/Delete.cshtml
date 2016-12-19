@@ -1,63 +1,15 @@
-﻿@model BlueHrLib.Data.InsureType
-<div id="insuretype" style="margin:10px;">
-    <ol class="breadcrumb current-position">
-        您的位置：
-        <li>@Html.ActionLink("保险类别管理", "Index")</li>
-        <li>{{action}}</li>
-    </ol>
-    <hr class="hr-grey" />
-    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+﻿@{
+    ViewBag.Title = "Delete";
+}
 
-        if (Model != null)
-        {
-            @Html.HiddenFor(model => model.id)
-        }
-
-        <div class="marco-npanel-primary">
-            <div class="marco-nheading">
-                {{action}}
-                <div class="pull-right">
-                    <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px; background:#c0392b;">
-                        <i class="fa fa-check-circle-o"></i>
-                        <span>{{actionBtn}}</span>
-                    </button>
-                </div>
-            </div>
-            <div class="marco-nbody">
-                <div class="marco-igroup-primary">
-                    <label for="name">保险类别名称*</label>
-                    <input type="text" name="name" placeholder="保险类别名称" disabled value="@Model.name" />
-                </div>
-                <div class="marco-textarea">
-                    <label for="remark">备注</label>
-                    <textarea name="remark" placeholder="备注" disabled>@Model.remark</textarea>
-                </div>
-            </div>
-        </div>
-    }
-</div>
+@Html.Partial("_PartialInSureType")
 <script type="text/javascript">
-    Layout.init();
-
-    //控制textarea高度
-    $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
-    $(window).resize(function () {
-        $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
-    });
-
-    //回调函数
-    function post_return_action(data) {
-
-        if (!data.Success) {
-            Layout.popMsg('popMsg-danger', data.Content);
-            return false;
-        }
-        else {
-
-            location.href = '/InSureType/Index';
-        }
-    }
+    //使之不可编辑
+    $('input').attr('disabled', 'disabled');
+    $('select').attr('disabled', 'disabled');
+    $('textarea').attr('disabled', 'disabled');
+    $('button[type="submit"]').removeClass('marco-btn-primary');
+    $('button[type="submit"]').addClass('marco-btn-danger');
+    $('.remove-card').attr('disabled', 'disabled');
+    $('.remove-family').attr('disabled', 'disabled');
 </script>
