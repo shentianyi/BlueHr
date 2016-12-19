@@ -130,7 +130,7 @@ namespace BlueHrWeb.Controllers
                     }
                     bool isSucceed = this.departmentService.Update(department);
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "编辑成功" : "编辑失败";
+                    msg.Content = isSucceed ? "更新成功" : "更新失败";
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
                 return Json(new ResultMessage() { Success = false, Content = "编辑失败" }, JsonRequestBehavior.AllowGet);
