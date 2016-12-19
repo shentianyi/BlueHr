@@ -529,6 +529,70 @@ namespace BlueHrWeb.Controllers
                 return View();
             }
         }
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult NextOrPreviousStaff(string nr,bool nextOrPrevious)
+        {
+            try
+            {
+                IStaffService ss = new StaffService(Settings.Default.db);
+                StaffSearchModel q = new StaffSearchModel();
+                if (nextOrPrevious == true && nr != ss.Search(q).FirstOrDefault().nr)
+                {
+                    Staff staff = new Staff();
+                    long longNr = Convert.ToInt64(nr);
+                    do
+                    {
+                        staff = ss.FindByNr(Convert.ToString(longNr));
+                        longNr++;
+                    } while (staff != null);
+
+                    SetDropDownList(staff);
+                    try
+                    {
+                        q.companyId = staff.companyId;
+                        q.departmentId = staff.departmentId;
+                    }
+                    catch (Exception)
+                    {
+                        q.companyId = null;
+                        q.departmentId = null;
+                    }
+                    ViewBag.Query = q;
+
+                    return View("Delete", staff);
+                }
+                else if (nextOrPrevious == false && nr != ss.Search(q).LastOrDefault().nr)
+                {
+                    Staff staff = new Staff();
+                    long longNr = Convert.ToInt64(nr);
+                    do
+                    {
+                        staff = ss.FindByNr(Convert.ToString(longNr));
+                        longNr--;
+                    } while (staff != null);
+
+                    SetDropDownList(staff);
+                    try
+                    {
+                        q.companyId = staff.companyId;
+                        q.departmentId = staff.departmentId;
+                    }
+                    catch (Exception)
+                    {
+                        q.companyId = null;
+                        q.departmentId = null;
+                    }
+                    ViewBag.Query = q;
+
+                    return View("Delete", staff);
+                }
+                else
+                {
+                    return null;
+                }
+            }catch { return null; }
+        }
 
         // GET: Company/Delete/5
         [UserAuthorize]
