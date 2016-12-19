@@ -183,7 +183,7 @@ namespace BlueHrWeb.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new ResultMessage() { Success = false, Content = "请先删除与该部门有关的数据" }, JsonRequestBehavior.AllowGet);
             }
         }
 
