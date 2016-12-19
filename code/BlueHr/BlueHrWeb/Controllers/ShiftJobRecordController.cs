@@ -161,7 +161,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = cs.Update(shiftJobRecord);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "更新失败";
+                    msg.Content = isSucceed ? "更新成功" : "更新失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -419,10 +419,12 @@ namespace BlueHrWeb.Controllers
             }
             if (ShiftJobRecord != null)
             {
+                int i = 1;
                 //获取当前记录的属性
                 foreach (var property in ShiftJobRecord[0].GetType().GetProperties())
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name });
+                    if (i <= 15) select.Add(new SelectListItem { Text = property.Name, Value = property.Name });
+                    i++;
                 }
             }
 

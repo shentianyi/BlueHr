@@ -84,7 +84,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = ards.Create(ard);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "可能员工打卡时间已经存在";
+                    msg.Content = isSucceed ? "创建成功" : "可能员工打卡时间已经存在";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -128,7 +128,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = ards.Update(attendanceRecordDetail);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "可能员工打卡时间已经存在";
+                    msg.Content = isSucceed ? "更新成功" : "可能员工打卡时间已经存在";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -164,7 +164,7 @@ namespace BlueHrWeb.Controllers
                 bool isSucceed = ards.DeleteById(id);
 
                 msg.Success = isSucceed;
-                msg.Content = isSucceed ? "" : "删除失败";
+                msg.Content = isSucceed ? "删除成功" : "删除失败";
 
                 return Json(msg, JsonRequestBehavior.AllowGet);
 

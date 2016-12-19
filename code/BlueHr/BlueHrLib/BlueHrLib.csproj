@@ -108,6 +108,9 @@
     <Compile Include="Data\ExtraWorkRecord.cs" />
     <Compile Include="Data\ExtraWorkRecordView.cs" />
     <Compile Include="Data\JobTitle.cs" />
+    <Compile Include="Data\FullMemberRecord.cs" />
+    <Compile Include="Data\Recruit.cs" />
+    <Compile Include="Data\ResignRecord.cs" />
     <Compile Include="Data\LeaveRecord.cs" />
     <Compile Include="Data\MessageRecordView.cs" />
     <Compile Include="Data\Message\ImportMessage.cs" />
@@ -165,6 +168,7 @@
     <Compile Include="Data\Repository\Interface\ISysRoleRepository.cs" />
     <Compile Include="Data\Repository\Interface\ISysUserDataAuthRepository.cs" />
     <Compile Include="Data\Repository\Interface\IWorkAndRestRepository.cs" />
+    <Compile Include="Data\ShiftJobRecord.cs" />
     <Compile Include="Data\StaffView.cs" />
     <Compile Include="Data\RewardsAndPenalty.cs" />
     <Compile Include="Data\WorkAndRest.cs" />

@@ -150,7 +150,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = cs.Update(fullMemberRecord);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "更新失败";
+                    msg.Content = isSucceed ? "更新成功" : "更新失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -235,7 +235,7 @@ namespace BlueHrWeb.Controllers
                 IFullMemberRecordService mrs = new FullMemberRecordService(Settings.Default.db);
                 bool isSucceed = mrs.DeleteById(id);
                 msg.Success = isSucceed;
-                msg.Content = isSucceed ? "" : "删除失败";
+                msg.Content = isSucceed ? "删除成功" : "删除失败";
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

@@ -137,7 +137,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = cs.Update(leaveRecord);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "更新失败";
+                    msg.Content = isSucceed ? "更新成功" : "更新失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -187,7 +187,7 @@ namespace BlueHrWeb.Controllers
                 bool isSucceed = lrs.Update(leaveRecord);
 
                 msg.Success = isSucceed;
-                msg.Content = isSucceed ? "" : "更新失败";
+                msg.Content = isSucceed ? "更新成功" : "更新失败";
 
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }

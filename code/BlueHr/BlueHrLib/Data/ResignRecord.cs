@@ -8,14 +8,10 @@ using BlueHrLib.Data.Repository.Interface;
 
 namespace BlueHrLib.Data
 {
-    public partial class LeaveRecord
+    public partial class ResignRecord
     {
         private IUserRepository userRep;
-
-        public TimeSpan? duration
-        {
-            get { return (this.leaveEnd-this.leaveStart); }
-        }
+        private IResignTypeRepository resignTypeRep;
         public string userName
         {
             get
@@ -23,13 +19,13 @@ namespace BlueHrLib.Data
                 return userRep.FindById(Convert.ToInt32(this.userId)).name;
             }
         }
-
-        public string approvalUserName
+        public string resignTypeDisplay
         {
             get
             {
-                return userRep.FindById(Convert.ToInt32(this.approvalUserId)).name;
+                return resignTypeRep.FindById(Convert.ToInt32(this.resignTypeId)).name;
             }
         }
+
     }
 }
