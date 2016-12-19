@@ -150,16 +150,16 @@
                                             </a>
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.leaveStart)
+                                            @(@item.leaveStart.HasValue ? @item.leaveStart.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.leaveEnd)
+                                            @(@item.leaveEnd.HasValue ? @item.leaveEnd.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.remark)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.createdAt)
+                                            @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.userId)
@@ -168,7 +168,7 @@
                                             @Html.DisplayFor(modelItem => item.approvalUserId)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.approvalAt)
+                                            @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         @if (item.approvalStatus == null)
                                         {
@@ -234,65 +234,65 @@
                                 if (item.approvalStatus != null){
                                     if(item.isDelete==false){
                                         <tr>
+                                        <td>
+                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                                @Html.DisplayFor(modelItem => item.staffNr)
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @(@item.leaveStart.HasValue ? @item.leaveStart.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @(@item.leaveEnd.HasValue ? @item.leaveEnd.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.remark)
+                                        </td>
+                                        <td>
+                                            @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.userId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalUserId)
+                                        </td>
+                                        <td>
+                                            @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        @if (item.approvalStatus == null)
+                                        {
+                                            <td>未审批</td>
+                                        }
+                                        else
+                                        {
                                             <td>
-                                                <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
-                                                    @Html.DisplayFor(modelItem => item.staffNr)
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
+                                                @Html.DisplayFor(modelItem => item.approvalStatus)
                                             </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.leaveStart)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.leaveEnd)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.remark)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.createdAt)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.userId)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalUserId)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalAt)
-                                            </td>
+                                        }
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalRemark)
+                                        </td>
+                                        <td>
                                             @if (item.approvalStatus == null)
                                             {
-                                                <td>未审批</td>
+                                                <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
                                             }
-                                            else
-                                            {
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.approvalStatus)
-                                                </td>
-                                            }
-
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalRemark)
-                                            </td>
-                                            <td>
-                                                @if (item.approvalStatus == null)
-                                                {
-                                                    <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
-                                                    <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
-                                                        <i class="fa fa-check"></i>
-                                                    </a>
-                                                }
-                                                    <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
-                                            </td>
-                                        </tr>
+                                                <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                        </td>
+                                    </tr>
                                     }
                                 }
                             }
@@ -327,64 +327,65 @@
                                 {
                                     if(item.isDelete==false){
                                         <tr>
+                                        <td>
+                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                                @Html.DisplayFor(modelItem => item.staffNr)
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @(@item.leaveStart.HasValue ? @item.leaveStart.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @(@item.leaveEnd.HasValue ? @item.leaveEnd.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.remark)
+                                        </td>
+                                        <td>
+                                            @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.userId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalUserId)
+                                        </td>
+                                        <td>
+                                            @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        @if (item.approvalStatus == null)
+                                        {
+                                            <td>未审批</td>
+                                        }
+                                        else
+                                        {
                                             <td>
-                                                <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
-                                                    @Html.DisplayFor(modelItem => item.staffNr)
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
+                                                @Html.DisplayFor(modelItem => item.approvalStatus)
                                             </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.leaveStart)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.leaveEnd)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.remark)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.createdAt)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.userId)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalUserId)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalAt)
-                                            </td>
+                                        }
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalRemark)
+                                        </td>
+                                        <td>
                                             @if (item.approvalStatus == null)
                                             {
-                                                <td>未审批</td>
+                                                <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
                                             }
-                                            else
-                                            {
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.approvalStatus)
-                                                </td>
-                                            }
-
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalRemark)
-                                            </td>
-                                            <td>
-                                                
-                                                    <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
-                                                    <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
-                                                        <i class="fa fa-check"></i>
-                                                    </a>
-                                                
-                                                    <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
-                                            </td>
-                                        </tr>
+                                                <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                        </td>
+                                    </tr>
                                     }
                                 }
                             }
@@ -426,16 +427,16 @@
                                             </a>
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.leaveStart)
+                                            @(@item.leaveStart.HasValue ? @item.leaveStart.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.leaveEnd)
+                                            @(@item.leaveEnd.HasValue ? @item.leaveEnd.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.remark)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.createdAt)
+                                            @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.userId)
@@ -444,7 +445,7 @@
                                             @Html.DisplayFor(modelItem => item.approvalUserId)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.approvalAt)
+                                            @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         @if (item.approvalStatus == null)
                                         {
@@ -456,11 +457,11 @@
                                                 @Html.DisplayFor(modelItem => item.approvalStatus)
                                             </td>
                                         }
-                                        
+
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalRemark)
                                         </td>
-                                        @*<td>
+                                        <td>
                                             @if (item.approvalStatus == null)
                                             {
                                                 <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
@@ -473,7 +474,10 @@
                                                     <i class="fa fa-check"></i>
                                                 </a>
                                             }
-                                        </td>*@
+                                                <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                        </td>
                                     </tr>
                                 }
                             }
@@ -508,62 +512,65 @@
                                 {
                                     if(item.isDelete==true){
                                         <tr>
+                                        <td>
+                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                                @Html.DisplayFor(modelItem => item.staffNr)
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @(@item.leaveStart.HasValue ? @item.leaveStart.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @(@item.leaveEnd.HasValue ? @item.leaveEnd.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.remark)
+                                        </td>
+                                        <td>
+                                            @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.userId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalUserId)
+                                        </td>
+                                        <td>
+                                            @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        @if (item.approvalStatus == null)
+                                        {
+                                            <td>未审批</td>
+                                        }
+                                        else
+                                        {
                                             <td>
-                                                <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
-                                                    @Html.DisplayFor(modelItem => item.staffNr)
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
+                                                @Html.DisplayFor(modelItem => item.approvalStatus)
                                             </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.leaveStart)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.leaveEnd)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.remark)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.createdAt)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.userId)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalUserId)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalAt)
-                                            </td>
+                                        }
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalRemark)
+                                        </td>
+                                        <td>
                                             @if (item.approvalStatus == null)
                                             {
-                                                <td>未审批</td>
+                                                <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
                                             }
-                                            else
-                                            {
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.approvalStatus)
-                                                </td>
-                                            }
-                                            
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalRemark)
-                                            </td>
-                                            @*<td>
-                                                @if (item.approvalStatus == null)
-                                                {
-                                                    <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
-                                                    <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
-                                                        <i class="fa fa-check"></i>
-                                                    </a>
-                                                }
-                                            </td>*@
-                                        </tr>
+                                                <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                        </td>
+                                    </tr>
                                     }
                                 }
                             }
@@ -597,62 +604,65 @@
                                 if (item.approvalStatus == null){
                                     if(item.isDelete==true){
                                         <tr>
+                                        <td>
+                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                                @Html.DisplayFor(modelItem => item.staffNr)
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @(@item.leaveStart.HasValue ? @item.leaveStart.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @(@item.leaveEnd.HasValue ? @item.leaveEnd.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.remark)
+                                        </td>
+                                        <td>
+                                            @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.userId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalUserId)
+                                        </td>
+                                        <td>
+                                            @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        @if (item.approvalStatus == null)
+                                        {
+                                            <td>未审批</td>
+                                        }
+                                        else
+                                        {
                                             <td>
-                                                <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
-                                                    @Html.DisplayFor(modelItem => item.staffNr)
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
+                                                @Html.DisplayFor(modelItem => item.approvalStatus)
                                             </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.leaveStart)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.leaveEnd)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.remark)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.createdAt)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.userId)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalUserId)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalAt)
-                                            </td>
+                                        }
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalRemark)
+                                        </td>
+                                        <td>
                                             @if (item.approvalStatus == null)
                                             {
-                                                <td>未审批</td>
+                                                <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
                                             }
-                                            else
-                                            {
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.approvalStatus)
-                                                </td>
-                                            }
-                                            
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalRemark)
-                                            </td>
-                                            @*<td>
-                                                @if (item.approvalStatus == null)
-                                                {
-                                                    <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
-                                                    <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
-                                                        <i class="fa fa-check"></i>
-                                                    </a>
-                                                }
-                                            </td>*@
-                                        </tr>
+                                                <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                        </td>
+                                    </tr>
                                     }
                                 }
                             }
