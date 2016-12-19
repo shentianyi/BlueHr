@@ -547,6 +547,37 @@ Layout.openNewWindow = function(pageURL, height, width, top, left, toolbar, menu
 
     NewWindow.focus();
 }
+
+Layout.SetTypeStaffNr = function (type, selectId, staffNr){
+    $.ajax({
+        url:'/Staff/GetTypeStaff',
+        type:'get',
+        data:{
+            type: type
+        },
+        success:function(data){
+            for(var i =0; i< data.length; i++){
+                var Html = "<option id="+data[i].id+" value="+data[i].nr+">"+data[i].nr+" -> "+data[i].name+"</option>";
+                $(Html).appendTo($("#"+selectId));
+            }
+
+            if($("#"+staffNr).val()!=null&&$("#"+staffNr).val()!=""){
+                //循环填充数据 ， 设置选中
+                $("#"+selectId).find("option[value="+$("#"+staffNr).val()+"]").attr("selected",true);
+            }
+
+            $('#'+selectId).comboSelect();
+        },
+        error:function(){
+            // console.log("SomeghtksjkdEError");
+        }
+    })
+
+    $("button[type=submit]").click(function(){
+        $("#"+staffNr).val($("#"+selectId).val());
+    })
+}
+
 //点击删除搜索条件
 // Layout.deleteCondition=function(){
 //     $('#delete').click(function(){

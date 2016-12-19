@@ -38,7 +38,16 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <span>工号</span>
-                            @Html.EditorFor(model => model.staffNr)
+                            @if (Model != null)
+                            {
+                                <select name="staffNrSelect" id="staffNrSelect"></select>
+                                <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" value="@Model.staffNr"  />
+                            }
+                            else
+                            {
+                                <select name="staffNrSelect" id="staffNrSelect"></select>
+                                <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" />
+                            }
                         </div>
                     </div>
 
@@ -83,7 +92,7 @@
     Layout.datepicker('.date-picker');
 
     $(".submit-btn").click(function () {
-        $("#resignTypeName").val($(".combo-input").val());
+        $("#resignTypeName").val($("#resignTypeId").parent().find(".combo-input").val());
         if ($("#resignTypeName").val() == "" || $("#resignTypeName").val() == null) {
             Layout.popMsg("popMsg-danger", "离职原因不能为空");
             return false;
@@ -129,4 +138,6 @@
             //location.href = '/ExtraWorkRecord/Index';
         }
     };
+
+    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr');
 </script>

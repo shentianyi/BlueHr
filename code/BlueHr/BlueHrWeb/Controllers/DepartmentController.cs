@@ -218,6 +218,12 @@ namespace BlueHrWeb.Controllers
             return Json(msg, "text/html");
         }
 
+        [RoleAndDataAuthorization]
+        [UserAuthorize]
+        public ActionResult TreeShow()
+        {
+            return View();
+        }
 
         [HttpGet]
         public JsonResult DepartmentTree(int companyId)
@@ -249,7 +255,6 @@ namespace BlueHrWeb.Controllers
             }
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
-
 
         private void SetCompanyList(int? type, bool allowBlank = true)
         {

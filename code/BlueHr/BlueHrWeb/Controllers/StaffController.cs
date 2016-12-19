@@ -756,6 +756,65 @@ namespace BlueHrWeb.Controllers
             return Json(msg, JsonRequestBehavior.DenyGet);
         }
 
+        [HttpGet]
+        [UserAuthorize]
+        [RoleAndDataAuthorization]
+        public JsonResult GetTypeStaff(int? type)
+        {
+            IStaffService ss = new StaffService(Settings.Default.db);
+            StaffSearchModel q = new StaffSearchModel();
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+
+            try
+            {
+                List<Staff> staffs = new List<Staff>();
+
+                //如果没有值， 就说明是 要获取全部的员工
+                //如果有值， 就说明是只获取某一类型的员工
+                if (!type.HasValue)
+                {
+                    staffs = ss.Search(q).ToList();
+                }
+                else
+                {
+                    //100 在职
+                    if(type.Value == 100)
+                    {
+                        q.WorkStatus = 100;
+                        q.IsOnTrial = false;
+                        staffs = ss.Search(q).ToList();
+                    }else if(type.Value == 200)
+                    {
+                        q.WorkStatus = 200;
+                        staffs = ss.Search(q).ToList();
+                    }else
+                    {
+                        staffs = null;
+                    }
+                }
+
+                foreach (var staff in staffs)
+                {
+                    Dictionary<string, string> tempStaff = new Dictionary<string, string>();
+
+                    tempStaff.Add("id", staff.id.ToString());
+                    tempStaff.Add("nr", staff.nr);
+                    tempStaff.Add("name", staff.name);
+                    tempStaff.Add("sex", staff.sexDisplay);
+                    tempStaff.Add("companyName", staff.companyName);
+                    tempStaff.Add("departmentName", staff.departmentName);
+
+                    Result.Add(tempStaff);
+                }
+
+                return Json(Result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(Result, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         private void SetDropDownList(Staff staff)
         {
             if (staff != null)
