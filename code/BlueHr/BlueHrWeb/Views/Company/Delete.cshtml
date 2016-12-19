@@ -1,56 +1,15 @@
-﻿@model BlueHrLib.Data.Company
-
-@{
+﻿@{
     ViewBag.Title = "Delete";
 }
 
-@*<ol class="breadcrumb current-position">
-    您的位置：
-    <li>@Html.ActionLink("公司管理", "Index")</li>
-    <li>公司信息详情</li>
-</ol>
-
-<hr class="hr-grey" />
-
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-
-    <div class="marco-npanel-primary">
-        <div class="marco-nheading">
-            公司详情
-            <div class="pull-right">
-                <button type="submit" class="marco-btn-danger" style="margin-top:-10px; padding: 0 10px;">
-                    <i class="fa fa-check-circle-o"></i>
-                    <span>删除</span>
-                </button>
-            </div>
-        </div>
-
-        <div class="marco-nbody">
-            <div class="marco-igroup-primary">
-                <label for="name">公司名称</label>
-                @Html.EditorFor(model => model.name, new { @disabled="true" })
-            </div>
-
-            <div class="marco-textarea">
-                <label for="address">公司地址</label>
-                @Html.TextAreaFor(model => model.address)
-            </div>
-
-            <div class="marco-textarea">
-                <label for="remark">公司备注</label>
-                @Html.TextAreaFor(model => model.remark)
-            </div>
-        </div>
-    </div>
-}*@
-
 @Html.Partial("_PartialCompany")
-
 <script type="text/javascript">
-    $('#name').attr("disabled", "disabled");
-    $('#address').attr("disabled", "disabled");
-    $('#remark').attr("disabled", "disabled");
+    //使之不可编辑
+    $('input').attr('disabled', 'disabled');
+    $('select').attr('disabled', 'disabled');
+    $('textarea').attr('disabled', 'disabled');
     $('button[type="submit"]').removeClass('marco-btn-primary');
     $('button[type="submit"]').addClass('marco-btn-danger');
+    $('.remove-card').attr('disabled', 'disabled');
+    $('.remove-family').attr('disabled', 'disabled');
 </script>

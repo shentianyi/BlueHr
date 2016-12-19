@@ -173,19 +173,20 @@
                 return false;
             });
 
+
             $("#current_jobTitleContent ul").unbind('mouseover').on('mouseover', 'li', function () {
                 $("#current_jobTitleContent>ul li").not($(this)).find('i').css("display", "none");
-                $(this).find('i').fadeIn(300);
+                $(this).find('i').fadeIn(0);
             })
 
             $("#history_jobTitleContent ul").unbind('mouseover').on('mouseover', 'li', function () {
                 $("#history_jobTitleContent>ul li").not($(this)).find('i').css("display", "none");
-                $(this).find('i').fadeIn(300);
+                $(this).find('i').fadeIn(0);
             })
 
             $("#all_jobTitleContent ul").unbind('mouseover').on('mouseover', 'li', function () {
                 $("#all_jobTitleContent>ul li").not($(this)).find('i').css("display", "none");
-                $(this).find('i').fadeIn(300);
+                $(this).find('i').fadeIn(0);
             })
 
             $("body").bind("click", function (evt) {

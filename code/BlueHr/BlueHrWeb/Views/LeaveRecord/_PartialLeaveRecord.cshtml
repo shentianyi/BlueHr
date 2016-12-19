@@ -9,7 +9,7 @@
 
     <hr class="hr-grey" />
 
-    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action(data)"/*, OnBegin = "return validate_page_info()"*/ }))
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "Success" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -113,17 +113,4 @@
 
     //Layout.datepicker('.datetimepicker');
     Layout.datepicker('.date-picker');
-
-    //回调函数
-    function post_return_action(data) {
-
-        if (!data.Success) {
-            Layout.popMsg('popMsg-danger', data.Content);
-            return false;
-        }
-        else {
-
-            location.href = '/LeaveRecord/Index';
-        }
-    }
 </script>

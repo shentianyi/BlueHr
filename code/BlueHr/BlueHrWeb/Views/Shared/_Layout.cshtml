@@ -518,6 +518,20 @@
                 Layout.openNewWindow($(this).parent().attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
                 return false;
             });
+
+            //回调函数
+            function Success(data) {
+                if (!data.Success) {
+                    Layout.popMsg('popMsg-danger', data.Content);
+                    return false;
+                }
+                else {
+                    Layout.popMsg('popMsg-success', data.Content);
+                    setTimeout(function(){
+                        window.close();
+                    }, 2000);
+                }
+            }
     </script>
 }
 

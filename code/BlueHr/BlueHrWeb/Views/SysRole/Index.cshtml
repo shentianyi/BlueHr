@@ -148,7 +148,7 @@
 
             $("#sysRoleContent>ul").unbind('mouseover').on('mouseover', 'li', function () {
                 $("#sysRoleContent>ul li").not($(this)).find('i').css("display", "none");
-                $(this).find('i').fadeIn(300);
+                $(this).find('i').fadeIn(0);
             })
 
             $("#sysRoleContent>ul").unbind('click').on('click', 'li', function () {

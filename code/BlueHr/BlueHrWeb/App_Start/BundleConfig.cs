@@ -17,7 +17,6 @@ namespace BlueHrWeb
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery-ui-1.9.1.custom.min.js",
-                        "~/Scripts/jquery.unobtrusive-ajax.js",
                         "~/Scripts/jquery.unobtrusive-ajax.min.js"
                         ));
 

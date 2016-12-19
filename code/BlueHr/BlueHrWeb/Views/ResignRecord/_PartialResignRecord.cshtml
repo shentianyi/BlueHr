@@ -11,7 +11,7 @@
 
     <input type="hidden" id="error_info" value="@ViewBag.ErrorMsg" />
 
-    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "post_return_action"}))
+    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "Success" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -126,18 +126,6 @@
         Layout.popMsg("popMsg-danger", $("#error_info").val());
     };
 
-     //回调函数
-    function post_return_action(data) {
-        console.log(data.Success);
-        if (!data.Success) {
-            Layout.popMsg('popMsg-danger', data.Content);
-            return false;
-        }
-        else {
-            window.close();
-            //location.href = '/ExtraWorkRecord/Index';
-        }
-    };
 
     Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr');
 </script>
