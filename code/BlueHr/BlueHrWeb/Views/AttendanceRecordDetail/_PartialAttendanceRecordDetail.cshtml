@@ -37,7 +37,15 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>日期</span>
-                        @Html.EditorFor(model => model.recordAt, new { htmlAttributes = new { @class = "datetime-picker" } })
+                        @if (Model != null)
+                        {
+                            <input id="recordAt" name="recordAt" value="@Model.recordAt.ToString("yyyy-MM-dd")" class="date-picker" />
+                        }
+                        else
+                        {
+                            <input id="recordAt" name="recordAt" value="" class="date-picker" />
+                        }
+                        <!--@Html.EditorFor(model => model.recordAt, new { htmlAttributes = new { @class = "datetime-picker" } })-->
                     </div>
                 </div>
 
