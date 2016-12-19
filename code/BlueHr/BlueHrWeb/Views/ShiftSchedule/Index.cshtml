@@ -43,83 +43,9 @@
     bool canImport = MenuAuthHelper.CanShow("ShiftSchedule", "Import");
 }
 
-<!--<div class="search">
-    @* 简单搜索 *@
-    <form action="/ShiftSchedule/Search" method="get">
-        <div class="row" style="margin:0;">
-            <div class="col-lg-3 col-md-3 col-sm-5 col-xs-5">
-                <div class="marco-igroup-primary">
-                    <span>员工号(模糊)</span>
-                    <input type="text" name="staffNr" id="StaffNr" placeholder="员工号" value="@ViewBag.Query.StaffNr" />
-                </div>
-            </div>
+<div style="position:absolute; z-index:6; padding: 0 30px;"><div id="shift_schedule_calendar"></div></div>
 
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-5">
-                <div class="marco-igroup-primary">
-                    <span>员工号(精确)</span>
-                    <input type="text" name="StaffNrAct" id="StaffNrAct" placeholder="员工号" value="@ViewBag.Query.StaffNrAct" />
-                </div>
-            </div>
-
-            <div class="col-lg-6 col-md-6 col-sm-11 col-xs-11">
-                <div class="marco-igroup-primary">
-                    <span>排班日期</span>
-                    <input type="text" name="ScheduleAtFrom" id="ScheduleAtFrom" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.ScheduleAtFrom" />
-
-                    <span style="margin-left: 5px;"> ~ </span>
-                    <input type="text" name="ScheduleAtEnd" id="ScheduleAtEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.ScheduleAtEnd" />
-
-                    <span class="marco-label-success" style="padding:0;">
-                        <button type="submit" class="marco-btn-success" style="padding:10px; margin:0;">
-                            <i class="fa fa-search"></i>
-                            搜索
-                        </button>
-                    </span>
-                </div>
-            </div>
-
-        </div>
-    </form>
-
-    @* 自定义搜索 *@
-    <form action="/ShiftSchedule/AdvancedSearch" method="post">
-        <div class="advanced-filter row" style="margin:0; display:none;">
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>字段</span>
-                    @*@Html.DropDownList("allTableName", ViewData["getAllTableNameList"] as IEnumerable<SelectListItem>)*@
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>条件</span>
-                    @*@Html.DropDownList("searchConditions", ViewData["searchConditionsList"] as IEnumerable<SelectListItem>)*@
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>值1</span>
-                    <input type="text" name="searchValueFirst" value="" />
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                <div class="marco-igroup-primary">
-                    <span>值2</span>
-                    <input type="text" name="searchValueSecond" value="" />
-                    <span><button type="submit" class="marco-btn-primary" style="margin:0;background:transparent;border-color:transparent;">确定</button></span>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>-->
-
-<!--<hr class="hr-primary" />-->
-
-<div style="position:absolute; z-index:5; padding: 0 30px;"><div id="shift_schedule_calendar"></div></div>
-
+<!--新建排班弹出框内容-->
 <div id="NewShiftScheduleModal" class="new_shift_schedule_content" style="display:none;">
     <div class="dialogModal_header" style="background:steelblue;color:white;">
         <span>新建排班</span>
@@ -152,7 +78,11 @@
                 <button class="marco-btn-primary" id="deselect_all_staff">全不选</button>
 
                 <br />
-                <select name="allStaff" id="allStaff" multiple='multiple'></select>
+
+                <!--所有员工显示列表-->
+                <select name="allStaff" id="allStaff" multiple='multiple'>
+
+                </select>
             </div>
         </div>
     </div>
@@ -181,18 +111,12 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <span>班次信息</span>
                 <span id="shift_schedule_name" name = "shift_schedule_name" style="font-weight: bold; color: #2980b9;"> </span>
-
-                <!--<div class="pull-right">
-                    <button class="marco-btn-primary">编辑</button>
-                </div>-->
             </div>
             <br />
-
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="max-height: 490px; overflow:auto;">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <!--<th> <input type="checkbox" id="shif_schedule_check_all" style="width: 18px; height: 16px;"> </th>-->
                             <th>员工号</th>
                             <th>名称</th>
                             <th>代码</th>
@@ -202,7 +126,9 @@
                             <th>操作</th>
                         </tr>
                     </thead>
-                    <tbody id="shift_schedule_tbody"></tbody>
+                    <tbody id="shift_schedule_tbody">
+
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -347,6 +273,7 @@
         }
     })
 
+    //弹出新建排班的新窗口
     $("#createBtn").click(function(){
         $("#NewShiftScheduleModal").dialogModal({
             onOkBut: function () {
@@ -354,8 +281,6 @@
                 var StartTime = $(".dialogModal").find("#startTime").val()
                 var EndTime = $(".dialogModal").find("#endTime").val()
                 var StaffNrs = $(".dialogModal").find("#allStaff").val()
-
-
                 $.ajax({
                     url:'/ShiftSchedule/MoreEasyCreate',
                     type:'post',
@@ -366,20 +291,20 @@
                         staffNrs: StaffNrs
                     },
                     success:function(data){
-                        // console.log(data);
                         if(data.Success){
                             window.location.reload();
                         }
                     },
                     error:function(){
-                        // console.log("Something Error!");
+                        return false;
                     }
                 })
-
-
             },
+
             onCancelBut: function () { 
+
             },
+
             onLoad: function () {
                 Layout.datepicker(".date-picker");
                 //初始化选择框
@@ -400,14 +325,14 @@
                             that.$selectableUl.focus();
                             return false;
                         }
-                        });
+                    });
 
                         that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
                         .on('keydown', function(e){
-                        if (e.which == 40){
-                            that.$selectionUl.focus();
-                            return false;
-                        }
+                            if (e.which == 40){
+                                that.$selectionUl.focus();
+                                return false;
+                            }
                         });
                     },
                     afterSelect: function(values){
@@ -415,11 +340,12 @@
                     }
                 });
 
+                //全选按钮点击事件
                 $(".dialogModal").find('#select_all_staff').click(function(){
                     $(".dialogModal").find('#allStaff').multiSelect('select_all');
                     return false;
                 });
-
+                //全不选按钮点击事件
                 $(".dialogModal").find('#deselect_all_staff').click(function(){
                     $(".dialogModal").find('#allStaff').multiSelect('deselect_all');
                     return false;
@@ -430,6 +356,7 @@
         });
     })
 
+    //异步请求所有员工数据
     $.ajax({
         url:'/ShiftSchedule/GetAllStaff',
         type:'get',

@@ -541,13 +541,12 @@ Layout.TransferTableToGrid = function (width, height, editable, divID, title, rP
 
 // 在新的页面打开任意界面的内容
 Layout.openNewWindow = function(pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook){
-    NewWindow = window.open (pageURL, 'newwindow', 'height='+height+', width='+width+', top = '+top+',left= '+left+
+    NewWindow = window.open (pageURL, 'newwindow', 'height='+height+', width='+width+', top = '+top+', left= '+left+
     ', toolbar='+toolbar+', menubar='+menubar+', scrollbars='+scrollbars+', resizable='+resizable+',location='+location+', status='+status+
     ', alwaysRaised='+alwaysRaised+', zLook='+zLook+' ');
 
     NewWindow.focus();
 }
-
 Layout.SetTypeStaffNr = function (type, selectId, staffNr){
     $.ajax({
         url:'/Staff/GetTypeStaff',

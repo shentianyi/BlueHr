@@ -1,4 +1,4 @@
-use BlueHrV1
+use DerjinHr
 go
 
 -- 建立默认的证照类别
@@ -39,7 +39,7 @@ GO
 
 -- 建立自动任务
 -- 每天23:30分运行QuartzJob, 计算转正提醒
-INSERT INTO [BlueHrV1].[dbo].[QuartzJob]
+INSERT INTO [DerjinHr].[dbo].[QuartzJob]
            ([cronSchedule]
            ,[params]
            ,[jobType])
@@ -52,7 +52,7 @@ GO
 
 -- 建立用户
 
-INSERT INTO [BlueHrV1].[dbo].[User]
+INSERT INTO [DerjinHr].[dbo].[User]
            ([name]
            ,[email]
            ,[pwd]
@@ -66,7 +66,7 @@ INSERT INTO [BlueHrV1].[dbo].[User]
            ,100)
 GO
 
-use BlueHrV1
+use DerjinHr
 go
 delete from AbsenceType;
 insert into AbsenceType(code,name,systemCode) values('放','放班',100);
@@ -82,7 +82,7 @@ insert into AbsenceType(code,name,systemCode) values('旷','旷工',1000);
 --insert into AbsenceType(code,name,systemCode) values('离','离职',1100);
 
 
-use BlueHrV1
+use DerjinHr
 go
 
 delete from ExtraWorkType;
