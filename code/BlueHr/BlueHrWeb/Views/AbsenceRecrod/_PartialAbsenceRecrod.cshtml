@@ -118,13 +118,11 @@
     Layout.timepicker('.time-picker');
     //回调函数
     function post_return_action(data) {
-
         if (!data.Success) {
             Layout.popMsg('popMsg-danger', data.Content);
             return false;
         }
         else {
-
             location.href = '/AbsenceRecrod/Index';
         }
     }
