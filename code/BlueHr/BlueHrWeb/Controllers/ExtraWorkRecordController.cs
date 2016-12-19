@@ -111,6 +111,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = cs.Create(model);
 
                     msg.Success = isSucceed;
+
                     msg.Content = isSucceed ? "加班申请提交成功" : "加班申请提交失败， 请检查";
 
                     return Json(msg, JsonRequestBehavior.DenyGet);
@@ -155,7 +156,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = cs.Update(model);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "更新失败";
+                    msg.Content = isSucceed ? "加班申请更新成功" : "加班申请更新失败，请检查";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -288,7 +289,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = cs.DeleteById(id);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "删除失败";
+                    msg.Content = isSucceed ? "加班记录删除成功" : "加班记录删除失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }

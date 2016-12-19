@@ -60,7 +60,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = cs.Create(job);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "添加失败";
+                    msg.Content = isSucceed ? "添加成功" : "添加失败";
 
                     // 重启任务服务
                     TaskDispatcher dtt = new TaskDispatcher(Settings.Default.queue);
@@ -91,7 +91,7 @@ namespace BlueHrWeb.Controllers
                 bool isSucceed = js.Delete(id);
 
                 msg.Success = isSucceed;
-                msg.Content = isSucceed ? "" : "删除失败";
+                msg.Content = isSucceed ? "删除成功" : "删除失败";
                 // 重启任务服务
                 TaskDispatcher dtt = new TaskDispatcher(Settings.Default.queue);
                 dtt.SendRestartSvcMessage();
