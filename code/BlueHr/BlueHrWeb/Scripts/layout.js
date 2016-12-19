@@ -547,6 +547,7 @@ Layout.openNewWindow = function(pageURL, height, width, top, left, toolbar, menu
 
     NewWindow.focus();
 }
+
 //点击删除搜索条件
 // Layout.deleteCondition=function(){
 //     $('#delete').click(function(){
