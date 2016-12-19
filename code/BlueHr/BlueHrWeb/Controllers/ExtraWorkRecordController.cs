@@ -88,7 +88,7 @@ namespace BlueHrWeb.Controllers
         // POST: ExtraWorkRecord/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public ActionResult Create([Bind(Include = "extraWorkTypeId,staffNr,otTime,startHour,endHour,duration,durationType,otReason")] ExtraWorkRecord model)
+        public JsonResult Create([Bind(Include = "extraWorkTypeId,staffNr,otTime,startHour,endHour,duration,durationType,otReason")] ExtraWorkRecord model)
         {
             ResultMessage msg = new ResultMessage();
 
@@ -111,17 +111,17 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = cs.Create(model);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "添加成功" : "添加失败";
 
-                    return Json(msg, JsonRequestBehavior.AllowGet);
+                    msg.Content = isSucceed ? "加班申请提交成功" : "加班申请提交失败， 请检查";
+
+                    return Json(msg, JsonRequestBehavior.DenyGet);
                 } 
             }
             catch (Exception ex)
             {
-                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.DenyGet);
             }
         }
-
 
         // GET: ExtraWorkRecord/Edit/5
         [RoleAndDataAuthorizationAttribute]
@@ -156,7 +156,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = cs.Update(model);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "更新成功" : "更新失败";
+                    msg.Content = isSucceed ? "加班申请更新成功" : "加班申请更新失败，请检查";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -289,7 +289,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = cs.DeleteById(id);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "删除成功" : "删除失败";
+                    msg.Content = isSucceed ? "加班记录删除成功" : "加班记录删除失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
