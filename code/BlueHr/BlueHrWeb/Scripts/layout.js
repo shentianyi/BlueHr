@@ -428,7 +428,7 @@ Layout.TbodyHeight = function (cls, height) {
 Layout.datepicker = function (date_picker) {
     $(date_picker).datetimepicker({
         format: 'Y-m-d',
-        //scrollInput: false,
+        scrollInput: false,
         timepicker: false
     });
 }
@@ -437,13 +437,14 @@ Layout.timepicker = function (time_picker) {
     $(time_picker).datetimepicker({
         format: 'H:i',
         defaultTime: '00:00',
-        datepicker: false
+        datepicker: false,
+        scrollInput: false
     });
 }
 
 Layout.datetimepicker = function (date_time_picker) {
     $(date_time_picker).datetimepicker({
-        //scrollInput: false
+        scrollInput: false
     });
 }
 
@@ -508,7 +509,6 @@ function FutureDate(day) {
 //自定义搜索按钮控制内容的上下显示
 Layout.advancedfilter = function () {
     $('.advanced-filter-btn').click(function () {
-
         var Display = $('.advanced-filter').css('display');
 
         if (Display === "none") {
@@ -518,7 +518,6 @@ Layout.advancedfilter = function () {
         }
     });
 }
-
 
 Layout.TransferTableToGrid = function (width, height, editable, divID, title, rPP, gridID) {
     var tb = $("#" + divID + ">table");

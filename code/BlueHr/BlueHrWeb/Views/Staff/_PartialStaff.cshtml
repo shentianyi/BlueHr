@@ -51,7 +51,11 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                         <div class="marco-igroup-danger">
                                             <span id="staffnr">&nbsp;&nbsp;&nbsp;工&nbsp;号 *&nbsp;</span>
-                                            @Html.EditorFor(model => model.nr)
+                                            @if(Model!=null){
+                                                @Html.EditorFor(model => model.nr, new { htmlAttributes = new { @disabled = "disabled" }})
+                                            }else{
+                                                @Html.EditorFor(model => model.nr)
+                                            }
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -202,7 +206,7 @@
 
                                                 @Html.EditorFor(model => model.photo, new { htmlAttributes = new { type = "hidden" } })
                                             </div>
-                                            <div class="marco-igroup-warning" style="visibility:hidden;">
+                                            <div class="marco-igroup-danger" style="visibility:hidden;">
                                                 <span id="photoName"></span>
                                             </div>
                                         </div>

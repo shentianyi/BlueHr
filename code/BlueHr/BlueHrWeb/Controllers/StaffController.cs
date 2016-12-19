@@ -318,12 +318,25 @@ namespace BlueHrWeb.Controllers
         // POST: Company/Create
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
+        public JsonResult Create([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
             "companySeniority, WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
             "Speciality, ResidenceAddress, Address, Id, Phone, ContactName, ContactPhone, ContactFamilyMemberType, Domicile, "+
             "ResidenceType, inSureTypeId, IsPayCPF, contractExpireStr, ContractCount,totalSeniority, Ethnic, Remark, workingYears")] Staff staff)
         {
             // TODO: Add insert logic here
+            ResultMessage msg = new ResultMessage();
+            msg.Success = false;
+            msg.Content = "创建失败";
+            //先判断员工号是否存在
+            IStaffService ss = new StaffService(Settings.Default.db);
+
+            Staff staffExist = ss.FindByNr(staff.nr);
+
+            if (staffExist != null)
+            {
+                msg.Content = "员工号已经存在， 不能进行创建";
+                return Json(msg, JsonRequestBehavior.DenyGet);
+            }
 
             List<BankCard> bankInfo = new List<BankCard>();
 
@@ -409,13 +422,11 @@ namespace BlueHrWeb.Controllers
                 staff.photo = base64Photo;
             }
 
-            IStaffService ss = new StaffService(Settings.Default.db);
-
             bool result = ss.Create(staff);
-
+            msg.Success = result;
             if (result)
             {
-                SetDropDownList(staff);
+                //SetDropDownList(staff);
 
                 //添加银行卡和子女信息
                 IBankCardService bcs = new BankCardService(Settings.Default.db);
@@ -426,8 +437,10 @@ namespace BlueHrWeb.Controllers
 
                     if (!bankResult)
                     {
-                        SetDropDownList(null);
-                        return View();
+                        //SetDropDownList(null);
+                        //return View();
+
+                        msg.Content = "员工创建成功， 但银行卡信息创建失败";
                     }
                 }
 
@@ -439,17 +452,23 @@ namespace BlueHrWeb.Controllers
 
                     if (!familyResult)
                     {
-                        SetDropDownList(null);
-                        return View();
+                        //SetDropDownList(null);
+                        //return View();
+                        msg.Content = "员工创建成功， 但家庭成员添加失败";
                     }
                 }
 
-                return RedirectToAction("Index");
+                msg.Content = "员工创建成功";
+
+                return Json(msg, JsonRequestBehavior.DenyGet);
             }
             else
             {
-                SetDropDownList(null);
-                return View();
+                //SetDropDownList(null);
+                //return View();
+                msg.Content = "员工创建失败";
+
+                return Json(msg, JsonRequestBehavior.DenyGet);
             }
         }
 
@@ -482,11 +501,14 @@ namespace BlueHrWeb.Controllers
         // POST: Company/Edit/5
         [HttpPost]
         [RoleAndDataAuthorizationAttribute]
-        public ActionResult Edit([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
+        public JsonResult Edit([Bind(Include = "Nr, Name, Sex, BirthDay, FirstCompanyEmployAt,totalCompanySeniority, CompanyEmployAt,"+
             "companySeniority, WorkStatus, IsOnTrial, TrialOverAt, CompanyId, DepartmentId, jobTitleId, Photo, StaffTypeId, DegreeTypeId, "+
             "Speciality, ResidenceAddress, Address, Id, Phone, ContactName, ContactPhone, ContactFamilyMemberType, Domicile, "+
             "ResidenceType, inSureTypeId, IsPayCPF, contractExpireStr, ContractCount,totalSeniority, Ethnic, Remark, workingYears")] Staff staff)
         {
+            ResultMessage msg = new ResultMessage();
+            msg.Success = false;
+            msg.Content = "编辑失败";
             try
             {
                 // TODO: Add update logic here
@@ -513,20 +535,14 @@ namespace BlueHrWeb.Controllers
 
                 bool updateResult = cs.Update(staff);
 
-                if (!updateResult)
-                {
-                    SetDropDownList(staff);
-                    return View();
-                }
-                else
-                {
-                    return RedirectToAction("Index");
-                }
+                msg.Success = updateResult;
+                msg.Content = updateResult ? "更新成功" : "更新失败";
+
+                return Json(msg, JsonRequestBehavior.DenyGet);
             }
             catch
             {
-                SetDropDownList(null);
-                return View();
+                return Json(msg, JsonRequestBehavior.DenyGet);
             }
         }
         [UserAuthorize]
@@ -625,22 +641,19 @@ namespace BlueHrWeb.Controllers
         // POST: Company/Delete/5
         [HttpPost]
         [RoleAndDataAuthorizationAttribute]
-        public ActionResult Delete(string nr, FormCollection collection)
+        public JsonResult Delete(string nr, FormCollection collection)
         {
+            ResultMessage msg = new ResultMessage();
+            msg.Success = false;
+            msg.Content = "删除失败";
             // TODO: Add delete logic here
             IStaffService ss = new StaffService(Settings.Default.db);
 
             bool result = ss.DeleteByNr(nr);
-
-            if (result)
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                SetDropDownList(null);
-                return View();
-            }
+           
+            msg.Success = result;
+            msg.Content = result ? "删除成功" : "已对该员工进行操作， 无法删除";
+            return Json(msg, JsonRequestBehavior.DenyGet);
         }
 
         //可以考虑 写入银行卡的Controller
