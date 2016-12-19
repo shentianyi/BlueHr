@@ -381,6 +381,11 @@ namespace BlueHrLib.Data.Repository.Implement
         {
             try
             {
+                //var staffTable = context.Mapping.GetTables();
+                //foreach(var col in staffTable.FirstOrDefault(p => p.TableName.Equals("dbo.Staff")).RowType.DataMembers)
+                //{
+                //    string show = col.MappedName+"  ";
+                //}
                 return (this.context.GetTable<Staff>()).ToList();
             }
             catch (Exception)

@@ -571,22 +571,22 @@ namespace BlueHrWeb.Controllers
             var extraWorkRecords = ss.GetAllTableName();
             if (extraWorkRecords.Count == 0)
             {
-                ExtraWorkRecord ewrtemp = new ExtraWorkRecord();
+                ExtraWorkRecordView ewrtemp = new ExtraWorkRecordView();
                 extraWorkRecords.Add(ewrtemp);
             }
-
+            int i = 1;
             //获取当前记录的属性
             foreach (var property in extraWorkRecords[0].GetType().GetProperties())
             {
-                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
+                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name)&&i<=54)
                 {
                     select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
                 }
-                else
+                else if(i<=54)
                 {
                     select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
                 }
-
+                i++;
             }
 
 
