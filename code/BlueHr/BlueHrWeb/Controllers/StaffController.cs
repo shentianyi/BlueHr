@@ -927,17 +927,62 @@ namespace BlueHrWeb.Controllers
                 Staff tempstaff = new Staff();
                 Staffs.Add(tempstaff);
             }
+            string showName="";
             //获取当前记录的属性
             int i = 1;
             foreach (var property in Staffs[0].GetType().GetProperties())
             {
-                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name) && i <= 39)
+                switch (i)
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
-                }
+                    case 1: showName = "员工号"; break;
+                    case 2: showName = "姓名"; break;
+                    case 3: showName = "性别"; break;
+                    case 4: showName = "生日"; break;
+                    case 5: showName = "名族"; break;
+                    case 6: showName = "初次雇佣时间"; break;
+                    case 7: showName = "工龄"; break;
+                    case 8: showName = "本公司雇佣时间"; break;
+                    case 9: showName = "本公司工龄"; break;
+                    case 10: showName = "工作状态"; break;
+                    case 11: showName = "是否在试用期"; break;
+                    case 12: showName = "试用期结束时间"; break;
+                    case 13: showName = "公司ID"; break;
+                    case 14: showName = "部门ID"; break;
+                    case 15: showName = "职位ID"; break;
+                    case 16: showName = "照片"; break;
+                    case 17: showName = "员工类型ID"; break;
+                    case 18: showName = "学历ID"; break;
+                    case 19: showName = "专业"; break;
+                    case 20: showName = "居住地址"; break;
+                    case 21: showName = "所处地址"; break;
+                    case 22: showName = "身份证号"; break;
+                    case 23: showName = "是否通过试用"; break;
+                    case 24: showName = "电话"; break;
+                    case 25: showName = "紧急联系人姓名"; break;
+                    case 26: showName = "紧急联系人电话"; break;
+                    case 27: showName = "紧急联系人与员工关系"; break;
+                    case 28: showName = "户口地址"; break;
+                    case 29: showName = "户口类型"; break;
+                    case 30: showName = "保险类型ID"; break;
+                    case 31: showName = "是否支付"; break;
+                    case 32: showName = "合同到期时间"; break;
+                    case 33: showName = "合同签订次数"; break;
+                    case 34: showName = "总资历"; break;
+                    case 35: showName = "备注"; break;
+                    case 36: showName = "工作年限"; break;
+                    case 37: showName = "合同到期时间"; break;
+                    case 38: showName = "离职时间"; break;
+                    case 39: showName = "上级领导员工号"; break;
+                    default:
+                        break; }
+                    if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name) && i <= 39)
+                    { 
+                    select.Add(new SelectListItem { Text = showName, Value = property.Name, Selected = true });
+
+                    }
                 else if (i <= 39)
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                    select.Add(new SelectListItem { Text = showName, Value = property.Name, Selected = false });
                 }
                 i++;
             }
