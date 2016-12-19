@@ -80,15 +80,26 @@ namespace BlueHrWeb.Controllers
             Dictionary<string, List<object>> Result = new Dictionary<string, List<object>>();
 
             ShiftScheduleSearchModel q = new ShiftScheduleSearchModel();
-            q.StaffNr = StaffNr;
+            //q.StaffNr = StaffNr;
             q.ScheduleAtFrom = ScheduleAtFrom;
             q.ScheduleAtEnd = ScheduleAtTo;
 
             IShiftScheduleService ss = new ShiftSheduleService(Settings.Default.db);
             IQueryable<ShiftScheduleView> ShiftScheduleView = ss.SearchView(q);
 
+            if (!string.IsNullOrWhiteSpace(StaffNr))
+            {
+                ShiftScheduleView = ShiftScheduleView.Where(c => c.staffNr.Equals(StaffNr));
+            }
+
             //获取所有的内容
             var shiftScheduleViews = ShiftScheduleView.GroupBy(c => new { c.staffNr }).ToList();
+
+            if (shiftScheduleViews.Count == 0)
+            {
+                //员工号 没有相应的排班
+                return Json(Result, JsonRequestBehavior.AllowGet);
+            }
 
             if (!ScheduleAtFrom.HasValue || !ScheduleAtTo.HasValue)
             {

@@ -81,7 +81,7 @@ namespace BlueHrLib.Service.Implement
             return rep.ApprovalTheRecord(extralApproval);
         }
 
-        public List<ExtraWorkRecord> GetAllTableName()
+        public List<ExtraWorkRecordView> GetAllTableName()
         {
             return rep.GetAllTableName();
         }

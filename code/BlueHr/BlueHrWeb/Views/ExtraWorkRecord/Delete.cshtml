@@ -30,7 +30,8 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>加班时间</span>
-                        @Html.EditorFor(model => model.otTime, new { htmlAttributes = new { @class = "date-picker", @disabled = "disable" } })
+                        <input type="text" name="otTime" id="otTime" disabled value="@Model.otTime.Value.ToString("yyyy-MM-dd")">
+                        <!--@Html.EditorFor(model => model.otTime, new { htmlAttributes = new { @class = "date-picker", @disabled = "disable" } })-->
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -43,7 +44,7 @@
                     <div class="marco-igroup-primary">
                         <span>加班起讫 </span>
                         @Html.EditorFor(model => model.startHour, new { htmlAttributes = new { @class = "time-picker", @disabled = "disable" } })
-                        ~
+                        <span>~</span>
                         @Html.EditorFor(model => model.endHour, new { htmlAttributes = new { @class = "time-picker", @disabled = "disable" } })
                     </div>
                 </div>
@@ -85,6 +86,8 @@
 
     //Layout.datepicker('.datetimepicker');
     Layout.datepicker('.date-picker');
+
+    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr');
 
     //回调函数
     function post_return_action(data) {

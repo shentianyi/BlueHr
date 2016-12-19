@@ -411,17 +411,18 @@ namespace BlueHrWeb.Controllers
                 WorkAndRest.Add(wartemp);
             }
             //获取当前记录的属性
+            int i = 1;
             foreach (var property in WorkAndRest[0].GetType().GetProperties())
             {
-                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
+                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name)&&i<=4)
                 {
                     select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
                 }
-                else
+                else if(i<=4)
                 {
                     select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
                 }
-
+                i++;
             }
 
             ViewData["getAllTableNameList"] = select;

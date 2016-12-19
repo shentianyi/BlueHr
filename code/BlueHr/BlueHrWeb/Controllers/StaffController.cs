@@ -529,6 +529,70 @@ namespace BlueHrWeb.Controllers
                 return View();
             }
         }
+        [UserAuthorize]
+        [RoleAndDataAuthorizationAttribute]
+        public ActionResult NextOrPreviousStaff(string nr,bool nextOrPrevious)
+        {
+            try
+            {
+                IStaffService ss = new StaffService(Settings.Default.db);
+                StaffSearchModel q = new StaffSearchModel();
+                if (nextOrPrevious == true && nr != ss.Search(q).FirstOrDefault().nr)
+                {
+                    Staff staff = new Staff();
+                    long longNr = Convert.ToInt64(nr);
+                    do
+                    {
+                        staff = ss.FindByNr(Convert.ToString(longNr));
+                        longNr++;
+                    } while (staff != null);
+
+                    SetDropDownList(staff);
+                    try
+                    {
+                        q.companyId = staff.companyId;
+                        q.departmentId = staff.departmentId;
+                    }
+                    catch (Exception)
+                    {
+                        q.companyId = null;
+                        q.departmentId = null;
+                    }
+                    ViewBag.Query = q;
+
+                    return View("Delete", staff);
+                }
+                else if (nextOrPrevious == false && nr != ss.Search(q).LastOrDefault().nr)
+                {
+                    Staff staff = new Staff();
+                    long longNr = Convert.ToInt64(nr);
+                    do
+                    {
+                        staff = ss.FindByNr(Convert.ToString(longNr));
+                        longNr--;
+                    } while (staff != null);
+
+                    SetDropDownList(staff);
+                    try
+                    {
+                        q.companyId = staff.companyId;
+                        q.departmentId = staff.departmentId;
+                    }
+                    catch (Exception)
+                    {
+                        q.companyId = null;
+                        q.departmentId = null;
+                    }
+                    ViewBag.Query = q;
+
+                    return View("Delete", staff);
+                }
+                else
+                {
+                    return null;
+                }
+            }catch { return null; }
+        }
 
         // GET: Company/Delete/5
         [UserAuthorize]
@@ -756,6 +820,65 @@ namespace BlueHrWeb.Controllers
             return Json(msg, JsonRequestBehavior.DenyGet);
         }
 
+        [HttpGet]
+        [UserAuthorize]
+        [RoleAndDataAuthorization]
+        public JsonResult GetTypeStaff(int? type)
+        {
+            IStaffService ss = new StaffService(Settings.Default.db);
+            StaffSearchModel q = new StaffSearchModel();
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+
+            try
+            {
+                List<Staff> staffs = new List<Staff>();
+
+                //如果没有值， 就说明是 要获取全部的员工
+                //如果有值， 就说明是只获取某一类型的员工
+                if (!type.HasValue)
+                {
+                    staffs = ss.Search(q).ToList();
+                }
+                else
+                {
+                    //100 在职
+                    if(type.Value == 100)
+                    {
+                        q.WorkStatus = 100;
+                        q.IsOnTrial = false;
+                        staffs = ss.Search(q).ToList();
+                    }else if(type.Value == 200)
+                    {
+                        q.WorkStatus = 200;
+                        staffs = ss.Search(q).ToList();
+                    }else
+                    {
+                        staffs = null;
+                    }
+                }
+
+                foreach (var staff in staffs)
+                {
+                    Dictionary<string, string> tempStaff = new Dictionary<string, string>();
+
+                    tempStaff.Add("id", staff.id.ToString());
+                    tempStaff.Add("nr", staff.nr);
+                    tempStaff.Add("name", staff.name);
+                    tempStaff.Add("sex", staff.sexDisplay);
+                    tempStaff.Add("companyName", staff.companyName);
+                    tempStaff.Add("departmentName", staff.departmentName);
+
+                    Result.Add(tempStaff);
+                }
+
+                return Json(Result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(Result, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         private void SetDropDownList(Staff staff)
         {
             if (staff != null)
@@ -805,17 +928,18 @@ namespace BlueHrWeb.Controllers
                 Staffs.Add(tempstaff);
             }
             //获取当前记录的属性
+            int i = 1;
             foreach (var property in Staffs[0].GetType().GetProperties())
             {
-                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
+                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name) && i <= 39)
                 {
                     select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
                 }
-                else
+                else if (i <= 39)
                 {
                     select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
                 }
-
+                i++;
             }
             //foreach (var col in Staffs.DataMembers)
             //{

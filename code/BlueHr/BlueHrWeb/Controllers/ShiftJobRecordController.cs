@@ -77,15 +77,33 @@ namespace BlueHrWeb.Controllers
         public JsonResult Create([Bind(Include = "staffNr, afterCompanyId, afterDepartmentId, afterJobId, remark")] ShiftJobRecord shiftJobRecord)
         {
             ResultMessage msg = new ResultMessage();
-            //shiftJobRecord.afterDepartmentId = 1;
 
             msg = DoValidation(shiftJobRecord);
+
             if (!msg.Success)
             {
                 return Json(msg, JsonRequestBehavior.DenyGet);
             }
+
+            //先判断是否与已经提交申请了
+            IShiftJobRecordService lrs = new ShiftJobRecordService(Settings.Default.db);
+
+            ShiftJobRecordSearchModel q = new ShiftJobRecordSearchModel();
+
+            ShiftJobRecord shiftJobRecordExist = lrs.Search(q).FirstOrDefault(c => c.staffNr.Equals(shiftJobRecord.staffNr));
+
+            if (shiftJobRecordExist != null&& !shiftJobRecordExist.approvalUserId.HasValue)
+            {
+                //如果没有值， 将可以再次提交申请
+                msg.Success = false;
+                msg.Content = "该员工已经提交申请， 请等待审核";
+                return Json(msg, JsonRequestBehavior.DenyGet);
+            }
+
+            //可以进行查询了，准备进行填充数据
             IStaffService ss = new StaffService(Settings.Default.db);
-            Staff tempstaff = ss.FindByNrThis(shiftJobRecord.staffNr);
+            Staff tempstaff = ss.FindByNr(shiftJobRecord.staffNr);
+
             shiftJobRecord.beforeCompanyId = tempstaff.companyId;
             shiftJobRecord.beforeDepartmentId = tempstaff.departmentId;
             shiftJobRecord.beforeJobId = tempstaff.jobTitleId;
@@ -94,9 +112,9 @@ namespace BlueHrWeb.Controllers
             shiftJobRecord.userId = user.id;
 
             shiftJobRecord.createdAt = DateTime.Now;
+
             try
             {
-                IShiftJobRecordService lrs = new ShiftJobRecordService(Settings.Default.db);
 
                 bool isSucceed = lrs.Create(shiftJobRecord);
                 msg.Success = isSucceed;
@@ -106,7 +124,9 @@ namespace BlueHrWeb.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+                msg.Success = false;
+                msg.Content = ex.Message;
+                return Json(msg, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -342,6 +362,23 @@ namespace BlueHrWeb.Controllers
         {
             ResultMessage msg = new ResultMessage();
 
+            if (string.IsNullOrEmpty(shiftJobRecord.staffNr))
+            {
+                msg.Success = false;
+                msg.Content = "员工号不能为空";
+
+                return msg;
+            }
+
+            IStaffService ss = new StaffService(Settings.Default.db);
+            if (ss.FindByNr(shiftJobRecord.staffNr) == null)
+            {
+                msg.Success = false;
+                msg.Content = "员工号不存在";
+
+                return msg;
+            }
+
             if (shiftJobRecord.afterCompanyId == null)
             {
                 msg.Success = false;
@@ -357,30 +394,14 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            if (shiftJobRecord.afterJobId == null)
-            {
-                msg.Success = false;
-                msg.Content = "职位不可为空";
+            //if (shiftJobRecord.afterJobId == null)
+            //{
+            //    msg.Success = false;
+            //    msg.Content = "职位不可为空";
 
-                return msg;
-            }
+            //    return msg;
+            //}
 
-            if (string.IsNullOrEmpty(shiftJobRecord.staffNr))
-            {
-                msg.Success = false;
-                msg.Content = "员工不能为空";
-
-                return msg;
-            }
-
-            IStaffService ss = new StaffService(Settings.Default.db);
-            if (ss.FindByNr(shiftJobRecord.staffNr) == null)
-            {
-                msg.Success = false;
-                msg.Content = "员工号不存在";
-
-                return msg;
-            }
             return new ResultMessage() { Success = true, Content = "" };
         }
 
@@ -452,7 +473,6 @@ namespace BlueHrWeb.Controllers
                 SetSearchConditions(null);
             }
         }
-
 
         private void SetJobTitleList(int? type, bool allowBlank = true)
         {

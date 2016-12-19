@@ -29,7 +29,7 @@ namespace BlueHrLib.Service.Interface
         ExtraWorkRecord FindByStaffNrAndDete(string staffNr, DateTime date);
 
         bool ApprovalTheRecord(ExtraWorkRecordApproval extralApproval);
-        List<ExtraWorkRecord> GetAllTableName();
+        List<ExtraWorkRecordView> GetAllTableName();
 
         IQueryable<ExtraWorkRecordView> ExtraWorkViewSearch(ExtraWorkRecordSearchModel searchModel);
         IQueryable<ExtraWorkRecordView> AdvancedSearch(string v1, string v2, string v3);
