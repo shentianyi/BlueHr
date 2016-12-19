@@ -44,7 +44,7 @@ div.pq-grid-top{
     display:inline-block;
 }
 div.pq-grid-title{    
-    border-bottom:1px solid #3498db;
+    /*border-bottom:1px solid #3498db;*/
     zoom:1;
     padding:5px;	
     height:40px;	
@@ -58,16 +58,13 @@ div.pq-toolbar{
     overflow:hidden;		
 }
 
-.
 div.pq-toolbar .ui-button
 {
 }   
-div.pq-toolbar
-{
-    text-align:left;
-}
+
 div.pq-toolbar *
 {
+    text-align:left;
     vertical-align:middle;       
 }
 div.pq-toolbar select
@@ -417,10 +414,11 @@ div.pq-vscroll{
     right:0px;
     bottom:17px;
     z-index:4;
+    top: 0;
 }			
 div.pq-hscroll{
     height:17px;
-    border:0px solid blue;
+    /*border:0px solid blue;*/
     position:absolute;
     right:17px;
     bottom:0px;
@@ -429,7 +427,7 @@ div.pq-hscroll{
 div.pq-hvscroll-square{
     height:17px;
     width:17px;
-    border:0px solid blue;
+    /*border:0px solid blue;*/
     position:absolute;
     right:0px;    
     bottom:0px;
@@ -495,6 +493,7 @@ tr.pq-group-row td span{
 div.pq-pager span,div.pq-pager select{
     margin-right:5px;
     border-width:1px;
+    color: white;
 }
 .pq-pager .pq-page-placeholder{
     vertical-align:top;
@@ -714,4 +713,41 @@ div.pq-filter-dialog *{
     margin:2px 4px;
 }
 
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover{
+    border: none;
+    background: #2c3e50;
+    /*color: steelblue;*/
+}
 
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br{
+    /*color: white;*/
+    outline:none;
+    /*background: #2980b9;*/
+}
+
+.ui-widget.ui-widget-content {
+    border: 1px solid #2980b9;
+}
+
+.ui-widget-header{
+    background: #2980b9;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{
+    background: #dff0d8;
+    border-color:#dff0d8;
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{
+    border-radius: 0;
+}
+
+.pq-pager input{
+    color:black;
+    /*border: 1px solid white;*/
+    background: white;
+}
+
+.ui-corner-all option{
+    background: #2980b9;
+}

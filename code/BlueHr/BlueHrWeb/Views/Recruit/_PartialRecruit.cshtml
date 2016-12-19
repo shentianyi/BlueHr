@@ -2,7 +2,7 @@
 
 <div id="recruit" style="margin:20px;">
     <ol class="breadcrumb current-position">
-        您的位置：  
+        您的位置：
         <li>@Html.ActionLink("招聘需求", "Index")</li>
         <li>{{action}}</li>
     </ol>
@@ -59,7 +59,14 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>用工日期</span>
-                        @Html.EditorFor(model => model.requirementAt, new { htmlAttributes = new { @class = "date-picker" } })
+                        @if (Model != null)
+                        {
+                            <input id="requirementAt" name="requirementAt" value="@Model.requirementAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                        }
+                        else
+                        {
+                            <input id="requirementAt" name="requirementAt" value="" class="date-picker" />
+                        }
                     </div>
                 </div>
                 @if (Model != null)
@@ -71,7 +78,7 @@
                                 @Html.EditorFor(model => model.createAt, new { htmlAttributes = new { @class = "date-picker" } })
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
                                 <span>申请人</span>
@@ -87,7 +94,7 @@
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
                                 <span>审核记录</span>
-                                <input type="text" name="rewardsandpenaltiesAt" class="date-picker"/>
+                                <input type="text" name="rewardsandpenaltiesAt" class="date-picker" />
                             </div>
                         </div>
                         <!-- <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -97,7 +104,7 @@
                             </div>
                         </div>  --> 
                     </div>
-                }           
+                }
             </div>
         </div>
     }

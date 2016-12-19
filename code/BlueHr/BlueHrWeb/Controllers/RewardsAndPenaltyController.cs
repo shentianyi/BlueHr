@@ -100,7 +100,7 @@ namespace BlueHrWeb.Controllers
                     IRewardsAndPenaltyService raps = new RewardsAndPenaltyService(Settings.Default.db);
                     bool isSucceed = raps.Create(rewardsAndPenalties);
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "添加失败";
+                    msg.Content = isSucceed ? "奖惩申请提交成功" : "奖惩申请提交失败，请检查";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -201,7 +201,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = raps.Update(rewardsAndPenalties);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "更新失败";
+                    msg.Content = isSucceed ? "奖惩申请更新成功" : "奖惩申请更新失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -234,7 +234,7 @@ namespace BlueHrWeb.Controllers
                 IRewardsAndPenaltyService raps = new RewardsAndPenaltyService(Settings.Default.db);
                 bool isSucceed = raps.DeleteById(id);
                 msg.Success = isSucceed;
-                msg.Content = isSucceed ? "" : "删除失败";
+                msg.Content = isSucceed ? "奖惩记录删除成功" : "奖惩记录删除失败";
                 return Json(msg, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

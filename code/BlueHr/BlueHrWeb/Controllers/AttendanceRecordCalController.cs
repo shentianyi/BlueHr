@@ -90,7 +90,7 @@ namespace BlueHrWeb.Controllers
                     bool isSucceed = arcs.Create(arc);
 
                     msg.Success = isSucceed;
-                    msg.Content = isSucceed ? "" : "创建失败";
+                    msg.Content = isSucceed ? "创建成功" : "创建失败";
 
                     return Json(msg, JsonRequestBehavior.AllowGet);
                 }
@@ -180,7 +180,7 @@ namespace BlueHrWeb.Controllers
                 bool isSucceed = arcs.DeleteById(id);
 
                 msg.Success = isSucceed;
-                msg.Content = isSucceed ? "" : "删除失败";
+                msg.Content = isSucceed ? "删除成功" : "删除失败";
 
                 return Json(msg, JsonRequestBehavior.AllowGet);
 

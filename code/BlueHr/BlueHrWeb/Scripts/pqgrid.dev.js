@@ -225,12 +225,14 @@
 			text: false
 		}).bind("click", function(evt) {
 			var val = that.options.curPage + 1;
-			if (that._trigger("change", evt, {
-				curPage: val
-			}) !== false) {
-				that.option({
+			if(val <= that.options.totalPages){
+				if (that._trigger("change", evt, {
 					curPage: val
-				})
+				}) !== false) {
+					that.option({
+						curPage: val
+					})
+				}
 			}
 		});
 		this.last = $("<button type='button' title='" + this.options.strLastPage + "'>末页</button>").appendTo(this.element).button({
@@ -1704,7 +1706,8 @@
 			o = this.options,
 			CP = o.collapsible;
 		if (CP.on && !CP.$collapsible) {
-			var $collapsible = $(["<div class='pq-slider-icon' style='z-index:5;' >", "<span class='ui-icon ui-icon-circle-triangle-n'></span>", "</div>"].join("")).appendTo($top);
+			var $collapsible = $(["", "", ""].join("")).appendTo($top);
+			// var $collapsible = $(["<div class='pq-slider-icon' style='z-index:5;' >", "<span class='ui-icon ui-icon-circle-triangle-n'></span>", "</div>"].join("")).appendTo($top);
 			CP.$collapsible = $collapsible;
 			$collapsible.mouseover(function(evt) {
 				$collapsible.addClass("ui-state-hover")
