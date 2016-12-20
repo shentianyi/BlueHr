@@ -22,7 +22,7 @@ namespace BlueHrLib.Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BlueHr")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="DerjinHr")]
 	public partial class BlueHrDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -153,10 +153,13 @@ namespace BlueHrLib.Data
     partial void InsertShiftJobRecord(ShiftJobRecord instance);
     partial void UpdateShiftJobRecord(ShiftJobRecord instance);
     partial void DeleteShiftJobRecord(ShiftJobRecord instance);
+    partial void InsertPartTimeJob(PartTimeJob instance);
+    partial void UpdatePartTimeJob(PartTimeJob instance);
+    partial void DeletePartTimeJob(PartTimeJob instance);
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.BlueHrConnectionString10, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.DerjinHrConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -582,6 +585,14 @@ namespace BlueHrLib.Data
 			get
 			{
 				return this.GetTable<ShiftJobRecord>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PartTimeJob> PartTimeJob
+		{
+			get
+			{
+				return this.GetTable<PartTimeJob>();
 			}
 		}
 	}
@@ -17387,6 +17398,236 @@ namespace BlueHrLib.Data
 					this._approvalRemark = value;
 					this.SendPropertyChanged("approvalRemark");
 					this.OnapprovalRemarkChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PartTimeJob")]
+	public partial class PartTimeJob : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _staffNr;
+		
+		private int _companyId;
+		
+		private int _departmentId;
+		
+		private int _jobTitleId;
+		
+		private System.Nullable<System.DateTime> _startTime;
+		
+		private System.Nullable<System.DateTime> _endTime;
+		
+		private bool _isDelete;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnstaffNrChanging(string value);
+    partial void OnstaffNrChanged();
+    partial void OncompanyIdChanging(int value);
+    partial void OncompanyIdChanged();
+    partial void OndepartmentIdChanging(int value);
+    partial void OndepartmentIdChanged();
+    partial void OnjobTitleIdChanging(int value);
+    partial void OnjobTitleIdChanged();
+    partial void OnstartTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnstartTimeChanged();
+    partial void OnendTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnendTimeChanged();
+    partial void OnisDeleteChanging(bool value);
+    partial void OnisDeleteChanged();
+    #endregion
+		
+		public PartTimeJob()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_staffNr", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string staffNr
+		{
+			get
+			{
+				return this._staffNr;
+			}
+			set
+			{
+				if ((this._staffNr != value))
+				{
+					this.OnstaffNrChanging(value);
+					this.SendPropertyChanging();
+					this._staffNr = value;
+					this.SendPropertyChanged("staffNr");
+					this.OnstaffNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyId", DbType="Int NOT NULL")]
+		public int companyId
+		{
+			get
+			{
+				return this._companyId;
+			}
+			set
+			{
+				if ((this._companyId != value))
+				{
+					this.OncompanyIdChanging(value);
+					this.SendPropertyChanging();
+					this._companyId = value;
+					this.SendPropertyChanged("companyId");
+					this.OncompanyIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departmentId", DbType="Int NOT NULL")]
+		public int departmentId
+		{
+			get
+			{
+				return this._departmentId;
+			}
+			set
+			{
+				if ((this._departmentId != value))
+				{
+					this.OndepartmentIdChanging(value);
+					this.SendPropertyChanging();
+					this._departmentId = value;
+					this.SendPropertyChanged("departmentId");
+					this.OndepartmentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_jobTitleId", DbType="Int NOT NULL")]
+		public int jobTitleId
+		{
+			get
+			{
+				return this._jobTitleId;
+			}
+			set
+			{
+				if ((this._jobTitleId != value))
+				{
+					this.OnjobTitleIdChanging(value);
+					this.SendPropertyChanging();
+					this._jobTitleId = value;
+					this.SendPropertyChanged("jobTitleId");
+					this.OnjobTitleIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> startTime
+		{
+			get
+			{
+				return this._startTime;
+			}
+			set
+			{
+				if ((this._startTime != value))
+				{
+					this.OnstartTimeChanging(value);
+					this.SendPropertyChanging();
+					this._startTime = value;
+					this.SendPropertyChanged("startTime");
+					this.OnstartTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> endTime
+		{
+			get
+			{
+				return this._endTime;
+			}
+			set
+			{
+				if ((this._endTime != value))
+				{
+					this.OnendTimeChanging(value);
+					this.SendPropertyChanging();
+					this._endTime = value;
+					this.SendPropertyChanged("endTime");
+					this.OnendTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isDelete", DbType="Bit NOT NULL")]
+		public bool isDelete
+		{
+			get
+			{
+				return this._isDelete;
+			}
+			set
+			{
+				if ((this._isDelete != value))
+				{
+					this.OnisDeleteChanging(value);
+					this.SendPropertyChanging();
+					this._isDelete = value;
+					this.SendPropertyChanged("isDelete");
+					this.OnisDeleteChanged();
 				}
 			}
 		}
