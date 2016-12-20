@@ -36,6 +36,7 @@ namespace BlueHrWeb.Controllers
 
             RecruitInfoModel info = rs.GetRecruitInfo(q);
             ViewBag.Info = info;
+            SetDropDownList(null);
 
             return View(Recruit);
         }
@@ -52,6 +53,7 @@ namespace BlueHrWeb.Controllers
             IPagedList<Recruit> Recruit = raps.Search(q).ToPagedList(pageIndex, Settings.Default.pageSize);
 
             ViewBag.Query = q;
+            SetDropDownList(null);
 
             return View("Index", Recruit);
         }

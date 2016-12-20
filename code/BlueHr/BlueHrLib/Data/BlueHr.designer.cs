@@ -1905,6 +1905,12 @@ namespace BlueHrLib.Data
 		
 		private EntitySet<Staff> _Staffs;
 		
+		private EntitySet<Recruit> _Recruit;
+		
+		private EntitySet<ShiftJobRecord> _ShiftJobRecord;
+		
+		private EntitySet<ShiftJobRecord> _ShiftJobRecord1;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1923,6 +1929,9 @@ namespace BlueHrLib.Data
 		{
 			this._Department = new EntitySet<Department>(new Action<Department>(this.attach_Department), new Action<Department>(this.detach_Department));
 			this._Staffs = new EntitySet<Staff>(new Action<Staff>(this.attach_Staffs), new Action<Staff>(this.detach_Staffs));
+			this._Recruit = new EntitySet<Recruit>(new Action<Recruit>(this.attach_Recruit), new Action<Recruit>(this.detach_Recruit));
+			this._ShiftJobRecord = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord));
+			this._ShiftJobRecord1 = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord1), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord1));
 			OnCreated();
 		}
 		
@@ -2032,6 +2041,45 @@ namespace BlueHrLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Recruit", Storage="_Recruit", ThisKey="id", OtherKey="companyId")]
+		public EntitySet<Recruit> Recruit
+		{
+			get
+			{
+				return this._Recruit;
+			}
+			set
+			{
+				this._Recruit.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_ShiftJobRecord", Storage="_ShiftJobRecord", ThisKey="id", OtherKey="beforeCompanyId")]
+		public EntitySet<ShiftJobRecord> ShiftJobRecord
+		{
+			get
+			{
+				return this._ShiftJobRecord;
+			}
+			set
+			{
+				this._ShiftJobRecord.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_ShiftJobRecord1", Storage="_ShiftJobRecord1", ThisKey="id", OtherKey="afterCompanyId")]
+		public EntitySet<ShiftJobRecord> ShiftJobRecord1
+		{
+			get
+			{
+				return this._ShiftJobRecord1;
+			}
+			set
+			{
+				this._ShiftJobRecord1.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2074,6 +2122,42 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.Company = null;
+		}
+		
+		private void attach_Recruit(Recruit entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company = this;
+		}
+		
+		private void detach_Recruit(Recruit entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company = null;
+		}
+		
+		private void attach_ShiftJobRecord(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company = this;
+		}
+		
+		private void detach_ShiftJobRecord(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company = null;
+		}
+		
+		private void attach_ShiftJobRecord1(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company1 = this;
+		}
+		
+		private void detach_ShiftJobRecord1(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company1 = null;
 		}
 	}
 	
@@ -2235,6 +2319,12 @@ namespace BlueHrLib.Data
 		
 		private EntitySet<Staff> _Staffs;
 		
+		private EntitySet<Recruit> _Recruit;
+		
+		private EntitySet<ShiftJobRecord> _ShiftJobRecord;
+		
+		private EntitySet<ShiftJobRecord> _ShiftJobRecord1;
+		
 		private EntityRef<Company> _Company;
 		
 		private EntityRef<Department> _ParentDepartment;
@@ -2259,6 +2349,9 @@ namespace BlueHrLib.Data
 		{
 			this._ChildDepartments = new EntitySet<Department>(new Action<Department>(this.attach_ChildDepartments), new Action<Department>(this.detach_ChildDepartments));
 			this._Staffs = new EntitySet<Staff>(new Action<Staff>(this.attach_Staffs), new Action<Staff>(this.detach_Staffs));
+			this._Recruit = new EntitySet<Recruit>(new Action<Recruit>(this.attach_Recruit), new Action<Recruit>(this.detach_Recruit));
+			this._ShiftJobRecord = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord));
+			this._ShiftJobRecord1 = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord1), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord1));
 			this._Company = default(EntityRef<Company>);
 			this._ParentDepartment = default(EntityRef<Department>);
 			OnCreated();
@@ -2398,6 +2491,45 @@ namespace BlueHrLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Department_Recruit", Storage="_Recruit", ThisKey="id", OtherKey="departmentId")]
+		public EntitySet<Recruit> Recruit
+		{
+			get
+			{
+				return this._Recruit;
+			}
+			set
+			{
+				this._Recruit.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Department_ShiftJobRecord", Storage="_ShiftJobRecord", ThisKey="id", OtherKey="beforeDepartmentId")]
+		public EntitySet<ShiftJobRecord> ShiftJobRecord
+		{
+			get
+			{
+				return this._ShiftJobRecord;
+			}
+			set
+			{
+				this._ShiftJobRecord.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Department_ShiftJobRecord1", Storage="_ShiftJobRecord1", ThisKey="id", OtherKey="afterDepartmentId")]
+		public EntitySet<ShiftJobRecord> ShiftJobRecord1
+		{
+			get
+			{
+				return this._ShiftJobRecord1;
+			}
+			set
+			{
+				this._ShiftJobRecord1.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Department", Storage="_Company", ThisKey="companyId", OtherKey="id", IsForeignKey=true)]
 		public Company Company
 		{
@@ -2508,6 +2640,42 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.Department = null;
+		}
+		
+		private void attach_Recruit(Recruit entity)
+		{
+			this.SendPropertyChanging();
+			entity.Department = this;
+		}
+		
+		private void detach_Recruit(Recruit entity)
+		{
+			this.SendPropertyChanging();
+			entity.Department = null;
+		}
+		
+		private void attach_ShiftJobRecord(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Department = this;
+		}
+		
+		private void detach_ShiftJobRecord(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Department = null;
+		}
+		
+		private void attach_ShiftJobRecord1(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Department1 = this;
+		}
+		
+		private void detach_ShiftJobRecord1(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.Department1 = null;
 		}
 	}
 	
@@ -12975,6 +13143,24 @@ namespace BlueHrLib.Data
 		
 		private EntitySet<SysUserDataAuth> _SysUserDataAuth;
 		
+		private EntitySet<ShiftJobRecord> _ShiftJobRecord;
+		
+		private EntitySet<ShiftJobRecord> _ShiftJobRecord1;
+		
+		private EntitySet<ResignRecord> _ResignRecord;
+		
+		private EntitySet<FullMemberRecord> _FullMemberRecord;
+		
+		private EntitySet<FullMemberRecord> _FullMemberRecord1;
+		
+		private EntitySet<LeaveRecord> _LeaveRecord;
+		
+		private EntitySet<LeaveRecord> _LeaveRecord1;
+		
+		private EntitySet<RewardsAndPenalty> _RewardsAndPenalty;
+		
+		private EntitySet<RewardsAndPenalty> _RewardsAndPenalty1;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -13000,6 +13186,15 @@ namespace BlueHrLib.Data
 			this._AbsenceRecordApproval = new EntitySet<AbsenceRecordApproval>(new Action<AbsenceRecordApproval>(this.attach_AbsenceRecordApproval), new Action<AbsenceRecordApproval>(this.detach_AbsenceRecordApproval));
 			this._ExtraWorkRecordApproval = new EntitySet<ExtraWorkRecordApproval>(new Action<ExtraWorkRecordApproval>(this.attach_ExtraWorkRecordApproval), new Action<ExtraWorkRecordApproval>(this.detach_ExtraWorkRecordApproval));
 			this._SysUserDataAuth = new EntitySet<SysUserDataAuth>(new Action<SysUserDataAuth>(this.attach_SysUserDataAuth), new Action<SysUserDataAuth>(this.detach_SysUserDataAuth));
+			this._ShiftJobRecord = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord));
+			this._ShiftJobRecord1 = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord1), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord1));
+			this._ResignRecord = new EntitySet<ResignRecord>(new Action<ResignRecord>(this.attach_ResignRecord), new Action<ResignRecord>(this.detach_ResignRecord));
+			this._FullMemberRecord = new EntitySet<FullMemberRecord>(new Action<FullMemberRecord>(this.attach_FullMemberRecord), new Action<FullMemberRecord>(this.detach_FullMemberRecord));
+			this._FullMemberRecord1 = new EntitySet<FullMemberRecord>(new Action<FullMemberRecord>(this.attach_FullMemberRecord1), new Action<FullMemberRecord>(this.detach_FullMemberRecord1));
+			this._LeaveRecord = new EntitySet<LeaveRecord>(new Action<LeaveRecord>(this.attach_LeaveRecord), new Action<LeaveRecord>(this.detach_LeaveRecord));
+			this._LeaveRecord1 = new EntitySet<LeaveRecord>(new Action<LeaveRecord>(this.attach_LeaveRecord1), new Action<LeaveRecord>(this.detach_LeaveRecord1));
+			this._RewardsAndPenalty = new EntitySet<RewardsAndPenalty>(new Action<RewardsAndPenalty>(this.attach_RewardsAndPenalty), new Action<RewardsAndPenalty>(this.detach_RewardsAndPenalty));
+			this._RewardsAndPenalty1 = new EntitySet<RewardsAndPenalty>(new Action<RewardsAndPenalty>(this.attach_RewardsAndPenalty1), new Action<RewardsAndPenalty>(this.detach_RewardsAndPenalty1));
 			OnCreated();
 		}
 		
@@ -13182,6 +13377,123 @@ namespace BlueHrLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ShiftJobRecord", Storage="_ShiftJobRecord", ThisKey="id", OtherKey="userId")]
+		public EntitySet<ShiftJobRecord> ShiftJobRecord
+		{
+			get
+			{
+				return this._ShiftJobRecord;
+			}
+			set
+			{
+				this._ShiftJobRecord.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ShiftJobRecord1", Storage="_ShiftJobRecord1", ThisKey="id", OtherKey="approvalUserId")]
+		public EntitySet<ShiftJobRecord> ShiftJobRecord1
+		{
+			get
+			{
+				return this._ShiftJobRecord1;
+			}
+			set
+			{
+				this._ShiftJobRecord1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ResignRecord", Storage="_ResignRecord", ThisKey="id", OtherKey="userId")]
+		public EntitySet<ResignRecord> ResignRecord
+		{
+			get
+			{
+				return this._ResignRecord;
+			}
+			set
+			{
+				this._ResignRecord.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_FullMemberRecord", Storage="_FullMemberRecord", ThisKey="id", OtherKey="userId")]
+		public EntitySet<FullMemberRecord> FullMemberRecord
+		{
+			get
+			{
+				return this._FullMemberRecord;
+			}
+			set
+			{
+				this._FullMemberRecord.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_FullMemberRecord1", Storage="_FullMemberRecord1", ThisKey="id", OtherKey="approvalUserId")]
+		public EntitySet<FullMemberRecord> FullMemberRecord1
+		{
+			get
+			{
+				return this._FullMemberRecord1;
+			}
+			set
+			{
+				this._FullMemberRecord1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_LeaveRecord", Storage="_LeaveRecord", ThisKey="id", OtherKey="userId")]
+		public EntitySet<LeaveRecord> LeaveRecord
+		{
+			get
+			{
+				return this._LeaveRecord;
+			}
+			set
+			{
+				this._LeaveRecord.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_LeaveRecord1", Storage="_LeaveRecord1", ThisKey="id", OtherKey="approvalUserId")]
+		public EntitySet<LeaveRecord> LeaveRecord1
+		{
+			get
+			{
+				return this._LeaveRecord1;
+			}
+			set
+			{
+				this._LeaveRecord1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_RewardsAndPenalty", Storage="_RewardsAndPenalty", ThisKey="id", OtherKey="createdUserId")]
+		public EntitySet<RewardsAndPenalty> RewardsAndPenalty
+		{
+			get
+			{
+				return this._RewardsAndPenalty;
+			}
+			set
+			{
+				this._RewardsAndPenalty.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_RewardsAndPenalty1", Storage="_RewardsAndPenalty1", ThisKey="id", OtherKey="approvalUserId")]
+		public EntitySet<RewardsAndPenalty> RewardsAndPenalty1
+		{
+			get
+			{
+				return this._RewardsAndPenalty1;
+			}
+			set
+			{
+				this._RewardsAndPenalty1.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -13236,6 +13548,114 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
+		}
+		
+		private void attach_ShiftJobRecord(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_ShiftJobRecord(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
+		private void attach_ShiftJobRecord1(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.User1 = this;
+		}
+		
+		private void detach_ShiftJobRecord1(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.User1 = null;
+		}
+		
+		private void attach_ResignRecord(ResignRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_ResignRecord(ResignRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
+		private void attach_FullMemberRecord(FullMemberRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_FullMemberRecord(FullMemberRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
+		private void attach_FullMemberRecord1(FullMemberRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.User1 = this;
+		}
+		
+		private void detach_FullMemberRecord1(FullMemberRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.User1 = null;
+		}
+		
+		private void attach_LeaveRecord(LeaveRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_LeaveRecord(LeaveRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
+		private void attach_LeaveRecord1(LeaveRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.User1 = this;
+		}
+		
+		private void detach_LeaveRecord1(LeaveRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.User1 = null;
+		}
+		
+		private void attach_RewardsAndPenalty(RewardsAndPenalty entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_RewardsAndPenalty(RewardsAndPenalty entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
+		private void attach_RewardsAndPenalty1(RewardsAndPenalty entity)
+		{
+			this.SendPropertyChanging();
+			entity.User1 = this;
+		}
+		
+		private void detach_RewardsAndPenalty1(RewardsAndPenalty entity)
+		{
+			this.SendPropertyChanging();
+			entity.User1 = null;
 		}
 	}
 	
@@ -15087,6 +15507,10 @@ namespace BlueHrLib.Data
 		
 		private string _auditView;
 		
+		private EntityRef<Department> _Department;
+		
+		private EntityRef<Company> _Company;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -15117,6 +15541,8 @@ namespace BlueHrLib.Data
 		
 		public Recruit()
 		{
+			this._Department = default(EntityRef<Department>);
+			this._Company = default(EntityRef<Company>);
 			OnCreated();
 		}
 		
@@ -15171,6 +15597,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._companyId != value))
 				{
+					if (this._Company.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OncompanyIdChanging(value);
 					this.SendPropertyChanging();
 					this._companyId = value;
@@ -15191,6 +15621,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._departmentId != value))
 				{
+					if (this._Department.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OndepartmentIdChanging(value);
 					this.SendPropertyChanging();
 					this._departmentId = value;
@@ -15336,6 +15770,74 @@ namespace BlueHrLib.Data
 					this._auditView = value;
 					this.SendPropertyChanged("auditView");
 					this.OnauditViewChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Department_Recruit", Storage="_Department", ThisKey="departmentId", OtherKey="id", IsForeignKey=true)]
+		public Department Department
+		{
+			get
+			{
+				return this._Department.Entity;
+			}
+			set
+			{
+				Department previousValue = this._Department.Entity;
+				if (((previousValue != value) 
+							|| (this._Department.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Department.Entity = null;
+						previousValue.Recruit.Remove(this);
+					}
+					this._Department.Entity = value;
+					if ((value != null))
+					{
+						value.Recruit.Add(this);
+						this._departmentId = value.id;
+					}
+					else
+					{
+						this._departmentId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Department");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Recruit", Storage="_Company", ThisKey="companyId", OtherKey="id", IsForeignKey=true)]
+		public Company Company
+		{
+			get
+			{
+				return this._Company.Entity;
+			}
+			set
+			{
+				Company previousValue = this._Company.Entity;
+				if (((previousValue != value) 
+							|| (this._Company.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Company.Entity = null;
+						previousValue.Recruit.Remove(this);
+					}
+					this._Company.Entity = value;
+					if ((value != null))
+					{
+						value.Recruit.Add(this);
+						this._companyId = value.id;
+					}
+					else
+					{
+						this._companyId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Company");
 				}
 			}
 		}
@@ -15643,6 +16145,10 @@ namespace BlueHrLib.Data
 		
 		private System.Nullable<System.DateTime> _approvalAt;
 		
+		private EntityRef<User> _User;
+		
+		private EntityRef<User> _User1;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -15673,6 +16179,8 @@ namespace BlueHrLib.Data
 		
 		public RewardsAndPenalty()
 		{
+			this._User = default(EntityRef<User>);
+			this._User1 = default(EntityRef<User>);
 			OnCreated();
 		}
 		
@@ -15807,6 +16315,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._createdUserId != value))
 				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OncreatedUserIdChanging(value);
 					this.SendPropertyChanging();
 					this._createdUserId = value;
@@ -15827,6 +16339,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._approvalUserId != value))
 				{
+					if (this._User1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnapprovalUserIdChanging(value);
 					this.SendPropertyChanging();
 					this._approvalUserId = value;
@@ -15896,6 +16412,74 @@ namespace BlueHrLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_RewardsAndPenalty", Storage="_User", ThisKey="createdUserId", OtherKey="id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.RewardsAndPenalty.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.RewardsAndPenalty.Add(this);
+						this._createdUserId = value.id;
+					}
+					else
+					{
+						this._createdUserId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_RewardsAndPenalty1", Storage="_User1", ThisKey="approvalUserId", OtherKey="id", IsForeignKey=true)]
+		public User User1
+		{
+			get
+			{
+				return this._User1.Entity;
+			}
+			set
+			{
+				User previousValue = this._User1.Entity;
+				if (((previousValue != value) 
+							|| (this._User1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User1.Entity = null;
+						previousValue.RewardsAndPenalty1.Remove(this);
+					}
+					this._User1.Entity = value;
+					if ((value != null))
+					{
+						value.RewardsAndPenalty1.Add(this);
+						this._approvalUserId = value.id;
+					}
+					else
+					{
+						this._approvalUserId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("User1");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -15953,6 +16537,8 @@ namespace BlueHrLib.Data
 		
 		private EntityRef<ResignType> _ResignType;
 		
+		private EntityRef<User> _User;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -15990,6 +16576,7 @@ namespace BlueHrLib.Data
 		public ResignRecord()
 		{
 			this._ResignType = default(EntityRef<ResignType>);
+			this._User = default(EntityRef<User>);
 			OnCreated();
 		}
 		
@@ -16268,6 +16855,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._userId != value))
 				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnuserIdChanging(value);
 					this.SendPropertyChanging();
 					this._userId = value;
@@ -16307,6 +16898,40 @@ namespace BlueHrLib.Data
 						this._resignTypeId = default(int);
 					}
 					this.SendPropertyChanged("ResignType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ResignRecord", Storage="_User", ThisKey="userId", OtherKey="id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.ResignRecord.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.ResignRecord.Add(this);
+						this._userId = value.id;
+					}
+					else
+					{
+						this._userId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("User");
 				}
 			}
 		}
@@ -16364,6 +16989,10 @@ namespace BlueHrLib.Data
 		
 		private EntityRef<Staff> _Staff;
 		
+		private EntityRef<User> _User;
+		
+		private EntityRef<User> _User1;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -16397,6 +17026,8 @@ namespace BlueHrLib.Data
 		public FullMemberRecord()
 		{
 			this._Staff = default(EntityRef<Staff>);
+			this._User = default(EntityRef<User>);
+			this._User1 = default(EntityRef<User>);
 			OnCreated();
 		}
 		
@@ -16535,6 +17166,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._approvalUserId != value))
 				{
+					if (this._User1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnapprovalUserIdChanging(value);
 					this.SendPropertyChanging();
 					this._approvalUserId = value;
@@ -16635,6 +17270,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._userId != value))
 				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnuserIdChanging(value);
 					this.SendPropertyChanging();
 					this._userId = value;
@@ -16674,6 +17313,74 @@ namespace BlueHrLib.Data
 						this._staffNr = default(string);
 					}
 					this.SendPropertyChanged("Staff");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_FullMemberRecord", Storage="_User", ThisKey="userId", OtherKey="id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.FullMemberRecord.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.FullMemberRecord.Add(this);
+						this._userId = value.id;
+					}
+					else
+					{
+						this._userId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_FullMemberRecord1", Storage="_User1", ThisKey="approvalUserId", OtherKey="id", IsForeignKey=true)]
+		public User User1
+		{
+			get
+			{
+				return this._User1.Entity;
+			}
+			set
+			{
+				User previousValue = this._User1.Entity;
+				if (((previousValue != value) 
+							|| (this._User1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User1.Entity = null;
+						previousValue.FullMemberRecord1.Remove(this);
+					}
+					this._User1.Entity = value;
+					if ((value != null))
+					{
+						value.FullMemberRecord1.Add(this);
+						this._approvalUserId = value.id;
+					}
+					else
+					{
+						this._approvalUserId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("User1");
 				}
 			}
 		}
@@ -16729,6 +17436,10 @@ namespace BlueHrLib.Data
 		
 		private System.Nullable<bool> _isDelete;
 		
+		private EntityRef<User> _User;
+		
+		private EntityRef<User> _User1;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -16761,6 +17472,8 @@ namespace BlueHrLib.Data
 		
 		public LeaveRecord()
 		{
+			this._User = default(EntityRef<User>);
+			this._User1 = default(EntityRef<User>);
 			OnCreated();
 		}
 		
@@ -16895,6 +17608,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._userId != value))
 				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnuserIdChanging(value);
 					this.SendPropertyChanging();
 					this._userId = value;
@@ -16915,6 +17632,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._approvalUserId != value))
 				{
+					if (this._User1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnapprovalUserIdChanging(value);
 					this.SendPropertyChanging();
 					this._approvalUserId = value;
@@ -17004,6 +17725,74 @@ namespace BlueHrLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_LeaveRecord", Storage="_User", ThisKey="userId", OtherKey="id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.LeaveRecord.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.LeaveRecord.Add(this);
+						this._userId = value.id;
+					}
+					else
+					{
+						this._userId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_LeaveRecord1", Storage="_User1", ThisKey="approvalUserId", OtherKey="id", IsForeignKey=true)]
+		public User User1
+		{
+			get
+			{
+				return this._User1.Entity;
+			}
+			set
+			{
+				User previousValue = this._User1.Entity;
+				if (((previousValue != value) 
+							|| (this._User1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User1.Entity = null;
+						previousValue.LeaveRecord1.Remove(this);
+					}
+					this._User1.Entity = value;
+					if ((value != null))
+					{
+						value.LeaveRecord1.Add(this);
+						this._approvalUserId = value.id;
+					}
+					else
+					{
+						this._approvalUserId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("User1");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -17061,6 +17850,18 @@ namespace BlueHrLib.Data
 		
 		private string _approvalRemark;
 		
+		private EntityRef<Company> _Company;
+		
+		private EntityRef<Company> _Company1;
+		
+		private EntityRef<Department> _Department;
+		
+		private EntityRef<Department> _Department1;
+		
+		private EntityRef<User> _User;
+		
+		private EntityRef<User> _User1;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -17099,6 +17900,12 @@ namespace BlueHrLib.Data
 		
 		public ShiftJobRecord()
 		{
+			this._Company = default(EntityRef<Company>);
+			this._Company1 = default(EntityRef<Company>);
+			this._Department = default(EntityRef<Department>);
+			this._Department1 = default(EntityRef<Department>);
+			this._User = default(EntityRef<User>);
+			this._User1 = default(EntityRef<User>);
 			OnCreated();
 		}
 		
@@ -17153,6 +17960,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._beforeCompanyId != value))
 				{
+					if (this._Company.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnbeforeCompanyIdChanging(value);
 					this.SendPropertyChanging();
 					this._beforeCompanyId = value;
@@ -17173,6 +17984,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._beforeDepartmentId != value))
 				{
+					if (this._Department.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnbeforeDepartmentIdChanging(value);
 					this.SendPropertyChanging();
 					this._beforeDepartmentId = value;
@@ -17213,6 +18028,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._afterCompanyId != value))
 				{
+					if (this._Company1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnafterCompanyIdChanging(value);
 					this.SendPropertyChanging();
 					this._afterCompanyId = value;
@@ -17233,6 +18052,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._afterDepartmentId != value))
 				{
+					if (this._Department1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnafterDepartmentIdChanging(value);
 					this.SendPropertyChanging();
 					this._afterDepartmentId = value;
@@ -17273,6 +18096,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._userId != value))
 				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnuserIdChanging(value);
 					this.SendPropertyChanging();
 					this._userId = value;
@@ -17333,6 +18160,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._approvalUserId != value))
 				{
+					if (this._User1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnapprovalUserIdChanging(value);
 					this.SendPropertyChanging();
 					this._approvalUserId = value;
@@ -17398,6 +18229,210 @@ namespace BlueHrLib.Data
 					this._approvalRemark = value;
 					this.SendPropertyChanged("approvalRemark");
 					this.OnapprovalRemarkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_ShiftJobRecord", Storage="_Company", ThisKey="beforeCompanyId", OtherKey="id", IsForeignKey=true)]
+		public Company Company
+		{
+			get
+			{
+				return this._Company.Entity;
+			}
+			set
+			{
+				Company previousValue = this._Company.Entity;
+				if (((previousValue != value) 
+							|| (this._Company.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Company.Entity = null;
+						previousValue.ShiftJobRecord.Remove(this);
+					}
+					this._Company.Entity = value;
+					if ((value != null))
+					{
+						value.ShiftJobRecord.Add(this);
+						this._beforeCompanyId = value.id;
+					}
+					else
+					{
+						this._beforeCompanyId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Company");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_ShiftJobRecord1", Storage="_Company1", ThisKey="afterCompanyId", OtherKey="id", IsForeignKey=true)]
+		public Company Company1
+		{
+			get
+			{
+				return this._Company1.Entity;
+			}
+			set
+			{
+				Company previousValue = this._Company1.Entity;
+				if (((previousValue != value) 
+							|| (this._Company1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Company1.Entity = null;
+						previousValue.ShiftJobRecord1.Remove(this);
+					}
+					this._Company1.Entity = value;
+					if ((value != null))
+					{
+						value.ShiftJobRecord1.Add(this);
+						this._afterCompanyId = value.id;
+					}
+					else
+					{
+						this._afterCompanyId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Company1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Department_ShiftJobRecord", Storage="_Department", ThisKey="beforeDepartmentId", OtherKey="id", IsForeignKey=true)]
+		public Department Department
+		{
+			get
+			{
+				return this._Department.Entity;
+			}
+			set
+			{
+				Department previousValue = this._Department.Entity;
+				if (((previousValue != value) 
+							|| (this._Department.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Department.Entity = null;
+						previousValue.ShiftJobRecord.Remove(this);
+					}
+					this._Department.Entity = value;
+					if ((value != null))
+					{
+						value.ShiftJobRecord.Add(this);
+						this._beforeDepartmentId = value.id;
+					}
+					else
+					{
+						this._beforeDepartmentId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Department");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Department_ShiftJobRecord1", Storage="_Department1", ThisKey="afterDepartmentId", OtherKey="id", IsForeignKey=true)]
+		public Department Department1
+		{
+			get
+			{
+				return this._Department1.Entity;
+			}
+			set
+			{
+				Department previousValue = this._Department1.Entity;
+				if (((previousValue != value) 
+							|| (this._Department1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Department1.Entity = null;
+						previousValue.ShiftJobRecord1.Remove(this);
+					}
+					this._Department1.Entity = value;
+					if ((value != null))
+					{
+						value.ShiftJobRecord1.Add(this);
+						this._afterDepartmentId = value.id;
+					}
+					else
+					{
+						this._afterDepartmentId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Department1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ShiftJobRecord", Storage="_User", ThisKey="userId", OtherKey="id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.ShiftJobRecord.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.ShiftJobRecord.Add(this);
+						this._userId = value.id;
+					}
+					else
+					{
+						this._userId = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ShiftJobRecord1", Storage="_User1", ThisKey="approvalUserId", OtherKey="id", IsForeignKey=true)]
+		public User User1
+		{
+			get
+			{
+				return this._User1.Entity;
+			}
+			set
+			{
+				User previousValue = this._User1.Entity;
+				if (((previousValue != value) 
+							|| (this._User1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User1.Entity = null;
+						previousValue.ShiftJobRecord1.Remove(this);
+					}
+					this._User1.Entity = value;
+					if ((value != null))
+					{
+						value.ShiftJobRecord1.Add(this);
+						this._approvalUserId = value.id;
+					}
+					else
+					{
+						this._approvalUserId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("User1");
 				}
 			}
 		}

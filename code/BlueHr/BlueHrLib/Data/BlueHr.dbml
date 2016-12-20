@@ -71,6 +71,9 @@
       <Column Name="address" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="Company_Department" Member="Department" ThisKey="id" OtherKey="companyId" Type="Department" />
       <Association Name="Company_Staff" Member="Staffs" ThisKey="id" OtherKey="companyId" Type="Staff" />
+      <Association Name="Company_Recruit" Member="Recruit" ThisKey="id" OtherKey="companyId" Type="Recruit" />
+      <Association Name="Company_ShiftJobRecord" Member="ShiftJobRecord" ThisKey="id" OtherKey="beforeCompanyId" Type="ShiftJobRecord" />
+      <Association Name="Company_ShiftJobRecord1" Member="ShiftJobRecord1" ThisKey="id" OtherKey="afterCompanyId" Type="ShiftJobRecord" />
     </Type>
   </Table>
   <Table Name="dbo.DegreeType" Member="DegreeType">
@@ -90,6 +93,9 @@
       <Column Name="parentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Department_Department" Member="ChildDepartments" ThisKey="id" OtherKey="parentId" Type="Department" />
       <Association Name="Department_Staff" Member="Staffs" ThisKey="id" OtherKey="departmentId" Type="Staff" />
+      <Association Name="Department_Recruit" Member="Recruit" ThisKey="id" OtherKey="departmentId" Type="Recruit" />
+      <Association Name="Department_ShiftJobRecord" Member="ShiftJobRecord" ThisKey="id" OtherKey="beforeDepartmentId" Type="ShiftJobRecord" />
+      <Association Name="Department_ShiftJobRecord1" Member="ShiftJobRecord1" ThisKey="id" OtherKey="afterDepartmentId" Type="ShiftJobRecord" />
       <Association Name="Company_Department" Member="Company" ThisKey="companyId" OtherKey="id" Type="Company" IsForeignKey="true" />
       <Association Name="Department_Department" Member="ParentDepartment" ThisKey="parentId" OtherKey="id" Type="Department" IsForeignKey="true" />
     </Type>
@@ -656,6 +662,15 @@
       <Association Name="User_AbsenceRecordApproval" Member="AbsenceRecordApproval" ThisKey="id" OtherKey="userId" Type="AbsenceRecordApproval" />
       <Association Name="User_ExtraWorkRecordApproval" Member="ExtraWorkRecordApproval" ThisKey="id" OtherKey="userId" Type="ExtraWorkRecordApproval" />
       <Association Name="User_SysUserDataAuth" Member="SysUserDataAuth" ThisKey="id" OtherKey="userId" Type="SysUserDataAuth" />
+      <Association Name="User_ShiftJobRecord" Member="ShiftJobRecord" ThisKey="id" OtherKey="userId" Type="ShiftJobRecord" />
+      <Association Name="User_ShiftJobRecord1" Member="ShiftJobRecord1" ThisKey="id" OtherKey="approvalUserId" Type="ShiftJobRecord" />
+      <Association Name="User_ResignRecord" Member="ResignRecord" ThisKey="id" OtherKey="userId" Type="ResignRecord" />
+      <Association Name="User_FullMemberRecord" Member="FullMemberRecord" ThisKey="id" OtherKey="userId" Type="FullMemberRecord" />
+      <Association Name="User_FullMemberRecord1" Member="FullMemberRecord1" ThisKey="id" OtherKey="approvalUserId" Type="FullMemberRecord" />
+      <Association Name="User_LeaveRecord" Member="LeaveRecord" ThisKey="id" OtherKey="userId" Type="LeaveRecord" />
+      <Association Name="User_LeaveRecord1" Member="LeaveRecord1" ThisKey="id" OtherKey="approvalUserId" Type="LeaveRecord" />
+      <Association Name="User_RewardsAndPenalty" Member="RewardsAndPenalty" ThisKey="id" OtherKey="createdUserId" Type="RewardsAndPenalty" />
+      <Association Name="User_RewardsAndPenalty1" Member="RewardsAndPenalty1" ThisKey="id" OtherKey="approvalUserId" Type="RewardsAndPenalty" />
     </Type>
   </Table>
   <Table Name="dbo.SysRoleAuthView" Member="SysRoleAuthView">
@@ -774,6 +789,8 @@
       <Column Name="status" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="auditRecord" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="auditView" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Association Name="Department_Recruit" Member="Department" ThisKey="departmentId" OtherKey="id" Type="Department" IsForeignKey="true" />
+      <Association Name="Company_Recruit" Member="Company" ThisKey="companyId" OtherKey="id" Type="Company" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.PersonSchedule" Member="PersonSchedule">
@@ -802,6 +819,8 @@
       <Column Name="approvalStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="approvalRemark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="approvalAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="User_RewardsAndPenalty" Member="User" ThisKey="createdUserId" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="User_RewardsAndPenalty1" Member="User1" ThisKey="approvalUserId" OtherKey="id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ResignRecord" Member="ResignRecord">
@@ -821,6 +840,7 @@
       <Column Name="remark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="ResignType_ResignRecord" Member="ResignType" ThisKey="resignTypeId" OtherKey="id" Type="ResignType" IsForeignKey="true" />
+      <Association Name="User_ResignRecord" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.FullMemberRecord" Member="FullMemberRecord">
@@ -838,6 +858,8 @@
       <Column Name="createdAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="userId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Staff_FullMemberRecord" Member="Staff" ThisKey="staffNr" OtherKey="nr" Type="Staff" IsForeignKey="true" />
+      <Association Name="User_FullMemberRecord" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="User_FullMemberRecord1" Member="User1" ThisKey="approvalUserId" OtherKey="id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.LeaveRecord" Member="LeaveRecord">
@@ -854,6 +876,8 @@
       <Column Name="approvalStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="approvalRemark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="isDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="User_LeaveRecord" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="User_LeaveRecord1" Member="User1" ThisKey="approvalUserId" OtherKey="id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ShiftJobRecord" Member="ShiftJobRecord">
@@ -873,6 +897,12 @@
       <Column Name="approvalAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="approvalStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="approvalRemark" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Company_ShiftJobRecord" Member="Company" ThisKey="beforeCompanyId" OtherKey="id" Type="Company" IsForeignKey="true" />
+      <Association Name="Company_ShiftJobRecord1" Member="Company1" ThisKey="afterCompanyId" OtherKey="id" Type="Company" IsForeignKey="true" />
+      <Association Name="Department_ShiftJobRecord" Member="Department" ThisKey="beforeDepartmentId" OtherKey="id" Type="Department" IsForeignKey="true" />
+      <Association Name="Department_ShiftJobRecord1" Member="Department1" ThisKey="afterDepartmentId" OtherKey="id" Type="Department" IsForeignKey="true" />
+      <Association Name="User_ShiftJobRecord" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="User_ShiftJobRecord1" Member="User1" ThisKey="approvalUserId" OtherKey="id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.PartTimeJob" Member="PartTimeJob">
