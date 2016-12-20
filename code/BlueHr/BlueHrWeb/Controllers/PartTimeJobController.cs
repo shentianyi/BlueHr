@@ -340,14 +340,13 @@ namespace BlueHrWeb.Controllers
 
                 return msg;
             }
+            if (partTimeJob.jobTitleId == null)
+            {
+                msg.Success = false;
+                msg.Content = "职位不可为空";
 
-            //if (partTimeJob.afterJobId == null)
-            //{
-            //    msg.Success = false;
-            //    msg.Content = "职位不可为空";
-
-            //    return msg;
-            //}
+                return msg;
+            }
 
             return new ResultMessage() { Success = true, Content = "" };
         }
