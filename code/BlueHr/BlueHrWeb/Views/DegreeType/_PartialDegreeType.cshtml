@@ -1,4 +1,10 @@
 ﻿@model BlueHrLib.Data.DegreeType
+@using BlueHrWeb.Helpers.View
+@{
+    bool canDelete = MenuAuthHelper.CanShow("DegreeType", "Delete");
+}
+
+<input type="hidden" id="can" value="@canDelete.ToString()">
 
 <div id="degreetype" style="margin:20px;">
     <ol class="breadcrumb current-position">

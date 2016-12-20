@@ -1,11 +1,16 @@
 ﻿@using MvcPaging
 
 @model IPagedList<BlueHrLib.Data.SysRole>
-
+@using BlueHrWeb.Helpers.View
 @{
     ViewBag.Title = "角色管理";
 }
-
+@{
+    bool canCreate = MenuAuthHelper.CanShow("SysRole", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("SysRole", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("SysRole", "Delete");
+    bool canAssignAuth = MenuAuthHelper.CanShow("SysRole", "AssignAuth");
+}
 @Styles.Render("~/Content/multi-select")
 
 <style type="text/css">
@@ -59,14 +64,19 @@
 <hr class="hr-grey" />
 
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <button class="marco-btn-success create-sysRole">新建角色</button>
+    @if(canCreate)
+    {
+        <button class="marco-btn-success create-sysRole">新建角色</button>
+    }
     <a href="/SysRole/TableShow">
         <button class="marco-btn-primary">角色列表展示</button>
     </a>
-
-    <a href="/SysRole/AssignAuth">
-        <button class="marco-btn-primary assign-sysRole-to-auth">给角色分配权限</button>
-    </a>
+    @if(canAssignAuth)
+    {
+        <a href="/SysRole/AssignAuth">
+            <button class="marco-btn-primary assign-sysRole-to-auth">给角色分配权限</button>
+        </a>
+    }
 </div>
 
 <div class="row" style="border-top: 1px solid #3498db; margin:-6px 15px 0 18px;">
@@ -130,8 +140,8 @@
 
             for (var i = 0; i < data.length; i++) {
                 var Html = "<li id=" + data[i].id + " title=" + data[i].remark + "> <div></div><p>" + data[i].name + "</p>" +
-                "<i class='fa fa-pencil editRole' title='编辑角色' style='margin-left: -30px;'></i>" +
-                "<i class='fa fa-trash removeRole' title='删除角色' style='color: darkred; margin-left: 10px;'></i>" +
+                "@if(canEdit){<i class='fa fa-pencil editRole' title='编辑角色' style='margin-left: -30px;'></i>}" +
+                "@if(canDelete){<i class='fa fa-trash removeRole' title='删除角色' style='color: darkred; margin-left: 10px;'></i>}" +
                 // "<i class='fa fa-users assignUser' title='分配用户' style='color: orange; margin-left: 10px;'></i>"+
                 "</li>";
 

@@ -1,4 +1,11 @@
 ﻿@model BlueHrLib.Data.User
+@using BlueHrWeb.Helpers.View
+@{
+    bool canDelete = MenuAuthHelper.CanShow("User", "Delete");
+}
+
+<input type="hidden" id="can" value="@canDelete.ToString()">
+
 <div id="user" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：

@@ -1,9 +1,11 @@
 ﻿@model BlueHrLib.Data.SysRole
-
+@using BlueHrWeb.Helpers.View
 @{
     ViewBag.Title = "角色管理";
 }
-
+@{
+    bool canAssignAuth = MenuAuthHelper.CanShow("SysRole", "AssignAuth");
+}
 <style type="text/css">
     .ztree li a.curSelectedNode {
         color: white;
@@ -52,12 +54,13 @@
         <hr class="hr-grey" />
 
         <span class="marco-badge">角色权限</span>
-
-        <button id="assign-auth" class="marco-btn-success pull-right" style="margin-top: -5px; display:none;">
-            <i class="fa fa-check"></i>
-            <span>分配权限</span>
-        </button>
-
+        @if(canAssignAuth)
+        {
+            <button id="assign-auth" class="marco-btn-success pull-right" style="margin-top: -5px; display:none;">
+                <i class="fa fa-check"></i>
+                <span>分配权限</span>
+            </button>
+        }
         <div class="marco-igroup-primary pull-right" style="margin-top: -5px; height:30px; margin-right:5px; display:none;">
             <select id="treeTypeSelect" style="padding:0; height:28px;">
                 <option value="1">按动作显示</option>

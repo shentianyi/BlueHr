@@ -149,10 +149,10 @@ Layout.init = function () {
             $('.nav-attendancesetting').addClass('active');
             PageAction('#quartzjob', '新建考勤计算设置', '编辑考勤计算设置', '考勤计算设置详情', '创建', '更新', '删除');
             break;
-        case "SysAuthorization":
-            $('.nav-userAuthorization').addClass('active');
-            PageAction('#sysauthorization', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
-            break;
+        // case "SysAuthorization":
+        //     $('.nav-userAuthorization').addClass('active');
+        //     PageAction('#sysauthorization', '新建权限', '编辑权限', '权限详情', '创建', '更新', '删除');
+        //     break;
         case "Staff":
             if(pathname[2] == "Idcard"){
                 $('.nav-manage').addClass('active');
@@ -224,10 +224,10 @@ Layout.init = function () {
                 $('.nav-myThing').addClass('active');
             }
             break;
-        case "SysRoleAuthorization":
-            $('.nav-sysRole').addClass('active');
-            PageAction('#sysauthorization', '新建角色权限', '编辑角色权限', '角色权限详情', '创建', '更新', '删除');
-            break;
+        // case "SysRoleAuthorization":
+        //     $('.nav-sysRole').addClass('active');
+        //     PageAction('#sysauthorization', '新建角色权限', '编辑角色权限', '角色权限详情', '创建', '更新', '删除');
+        //     break;
         case "TaskRound":
             $('.nav-taskround').addClass('active');
             break;
