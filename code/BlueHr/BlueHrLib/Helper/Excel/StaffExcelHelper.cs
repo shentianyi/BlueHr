@@ -196,98 +196,179 @@ namespace BlueHrLib.Helper.Excel
                                 //公司
                                 if (!string.IsNullOrWhiteSpace(records[i].CompanyIdStr))
                                 {
+                                    ICompanyService cs = new CompanyService(this.DbString);
                                     try
                                     {
-                                        ICompanyService cs = new CompanyService(this.DbString);
                                         Company company = cs.FindByName(records[i].CompanyIdStr);
 
                                         records[i].CompanyId = company.id;
                                     }
-                                    catch (Exception e)
+                                    catch (Exception)
                                     {
-                                        Console.Write(e);
-                                        records[i].CompanyId = null;
+                                        //如果公司不存在， 那么新建公司
+
+                                        Company company = new Company();
+                                        company.name = records[i].CompanyIdStr;
+                                        company.remark = "该公司不存在， 导入员工" + records[i].Nr + "->" + records[i].Name + "时所创建";
+                                        bool Result = cs.Create(company);
+
+                                        if (Result)
+                                        {
+                                            Company NewCompany = cs.FindByName(records[i].CompanyIdStr);
+                                            records[i].CompanyId = NewCompany.id;
+                                        }else
+                                        {
+                                            records[i].CompanyId = null;
+                                        }
                                     }
                                 }
 
                                 //部门
                                 if (!string.IsNullOrWhiteSpace(records[i].DepartmentIdStr))
                                 {
+                                    IDepartmentService ds = new DepartmentService(this.DbString);
+
                                     try
                                     {
-                                        IDepartmentService ds = new DepartmentService(this.DbString);
-                                        Data.Department department = ds.FindByIdWithCompanyId(records[i].CompanyId, records[i].DepartmentIdStr);
-
+                                        Department department = ds.FindByIdWithCompanyId(records[i].CompanyId, records[i].DepartmentIdStr);
                                         records[i].DepartmentId = department.id;
                                     }
                                     catch
                                     {
-                                        records[i].DepartmentId = null;
+                                        //新增部门
+                                        Department department = new Department();
+                                        department.name = records[i].DepartmentIdStr;
+                                        department.remark = "该部门不存在， 导入员工" + records[i].Nr + "->" + records[i].Name + "时所创建";
+                                        department.companyId = records[i].CompanyId;
+
+                                        bool Result = ds.Create(department);
+
+                                        if (Result)
+                                        {
+                                            Department NewDepartment = ds.FindByIdWithCompanyId(records[i].CompanyId, records[i].DepartmentIdStr);
+                                            records[i].DepartmentId = NewDepartment.id;
+                                        }else
+                                        {
+                                            records[i].DepartmentId = null;
+                                        }
+
                                     }
                                 }
 
                                 //职位
                                 if (!string.IsNullOrWhiteSpace(records[i].JobTitleIdStr))
                                 {
+                                    IJobTitleService jts = new JobTitleService(this.DbString);
+
                                     try
                                     {
-                                        IJobTitleService jts = new JobTitleService(this.DbString);
                                         JobTitle jobtitle = jts.FindByName(records[i].JobTitleIdStr);
                                         records[i].JobTitleId = jobtitle.id;
                                     }
-                                    catch (Exception e)
+                                    catch (Exception)
                                     {
-                                        Console.Write(e);
-                                        records[i].JobTitleId = null;
+                                        JobTitle jobTitle = new JobTitle();
+                                        jobTitle.name = records[i].JobTitleIdStr;
+                                        jobTitle.remark = "该职位不存在， 导入员工" + records[i].Nr + "->" + records[i].Name + "时所创建";
+
+                                        bool Result = jts.Create(jobTitle);
+                                        if (Result)
+                                        {
+                                            JobTitle NewJobTitle = jts.FindByName(records[i].JobTitleIdStr);
+                                            records[i].JobTitleId = NewJobTitle.id;
+                                        }
+                                        else {
+                                            records[i].JobTitleId = null;
+                                        }
                                     }
                                 }
 
                                 //人员类别
                                 if (!string.IsNullOrWhiteSpace(records[i].StaffTypeIdStr))
                                 {
+                                    IStaffTypeService sts = new StaffTypeService(this.DbString);
+
                                     try
                                     {
-                                        IStaffTypeService sts = new StaffTypeService(this.DbString);
                                         StaffType staffType = sts.FindByName(records[i].StaffTypeIdStr);
                                         records[i].StaffTypeId = staffType.id;
                                     }
                                     catch
                                     {
-                                        records[i].StaffTypeId = null;
+                                        StaffType staffType = new StaffType();
+                                        staffType.name = records[i].StaffTypeIdStr;
+                                        staffType.remark = "该人员类别不存在， 导入员工" + records[i].Nr + "->" + records[i].Name + "时所创建";
+
+                                        bool Result = sts.Create(staffType);
+
+                                        if (Result)
+                                        {
+                                            StaffType NewStaffType = sts.FindByName(records[i].StaffTypeIdStr);
+                                            records[i].StaffTypeId = NewStaffType.id;
+                                        }else
+                                        {
+                                            records[i].StaffTypeId = null;
+                                        }
                                     }
                                 }
 
                                 //最高学历
                                 if (!string.IsNullOrWhiteSpace(records[i].DegreeTypeIdStr))
                                 {
+                                    IDegreeTypeService dts = new DegreeTypeService(this.DbString);
+
                                     try
                                     {
-                                        IDegreeTypeService dts = new DegreeTypeService(this.DbString);
                                         DegreeType degreeType = dts.FindByName(records[i].DegreeTypeIdStr);
                                         records[i].DegreeTypeId = degreeType.id;
                                     }
                                     catch
                                     {
-                                        records[i].DegreeTypeId = null;
+                                        DegreeType degreeType = new DegreeType();
+                                        degreeType.name = records[i].DegreeTypeIdStr;
+                                        degreeType.remark = "该最高学历不存在， 导入员工" + records[i].Nr + "->" + records[i].Name + "时所创建";
+                                        bool Result = dts.Create(degreeType);
+
+                                        if (Result)
+                                        {
+                                            DegreeType NewDegreeType = dts.FindByName(records[i].DegreeTypeIdStr);
+                                            records[i].DegreeTypeId = NewDegreeType.id;
+                                        }else
+                                        {
+                                            records[i].DegreeTypeId = null;
+                                        }
                                     }
                                 }
 
                                 //保险种类
                                 if (!string.IsNullOrWhiteSpace(records[i].InsureTypeIdStr))
                                 {
+                                    IInSureTypeService ists = new InSureTypeService(this.DbString);
+
                                     try
                                     {
-                                        IInSureTypeService ists = new InSureTypeService(this.DbString);
                                         InsureType insuretype = ists.FindByName(records[i].InsureTypeIdStr);
                                         records[i].InsureTypeId = insuretype.id;
                                     }
                                     catch
                                     {
-                                        records[i].InsureTypeId = null;
+                                        InsureType insureType = new InsureType();
+                                        insureType.name = records[i].InsureTypeIdStr;
+                                        insureType.remark = "该保险类型不存在， 导入员工" + records[i].Nr + "->" + records[i].Name + "时所创建";
+                                        bool Result = ists.Create(insureType);
+
+                                        if (Result)
+                                        {
+                                            InsureType NewInsureType = ists.FindByName(records[i].InsureTypeIdStr);
+                                            records[i].InsureTypeId = NewInsureType.id;
+                                        }else
+                                        {
+                                            records[i].InsureTypeId = null;
+                                        }
                                     }
                                 }
-
                             }
+
                             List<Staff> details = StaffExcelModel.Convert(records);
 
                             for (var i = 0; i < details.Count; i++)

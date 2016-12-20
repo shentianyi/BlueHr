@@ -72,8 +72,6 @@ namespace BlueHrLib.Data.Repository.Implement
             }
             catch (Exception e)
             {
-                Console.Write(e);
-
                 return null;
             }
         }
