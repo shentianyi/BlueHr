@@ -1,10 +1,10 @@
 ﻿
 @model BlueHrLib.Data.PartTimeJob
 
-<div id="stafftype" style="margin:20px;">
+<div id="parttimejob" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：
-        <li>@Html.ActionLink("员工兼职", "Index")</li>
+        <li>@Html.ActionLink("兼职管理", "Index")</li>
         <li>{{action}}</li>
     </ol>
 
@@ -32,21 +32,57 @@
                 </div>
             </div>
 
-            <div class="marco-nbody">
-                <div class="marco-igroup-primary">
-                    <label for="name">工号</label>
-                    @if (Model != null)
-                    {
+            <div class="marco-nbody row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>工号</span>
                         @Html.EditorFor(model => model.staffNr)
-                    }
-                    else
-                    {
-                        <input type="text" name="staffNr" placeholder="工号" />
-                    }
+                    </div>
                 </div>
-
-               @* 公司， 部门， 职位， 开始时间， 结束时间 -- 填充进去 *@
-
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>公司</span>
+                        @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>部门</span>
+                        @Html.DropDownList("departmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>职位</span>
+                        @Html.DropDownList("jobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>开始日期</span>
+                        @if (Model != null)
+                        {
+                            <input id="startTime" name="startTime" value="@Model.startTime.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                        }
+                        else
+                        {
+                            <input id="startTime" name="startTime" value="" class="date-picker" />
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="marco-igroup-primary">
+                        <span>终止日期</span>
+                        @if (Model != null)
+                        {
+                            <input id="endTime" name="endTime" value="@Model.endTime.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                        }
+                        else
+                        {
+                            <input id="endTime" name="endTime" value="" class="date-picker" />
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     }
@@ -60,5 +96,15 @@
     $(window).resize(function () {
         $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     });
+    Layout.datepicker('.date-picker');
+
+    //二级联动
+    $("#companyId").change(function(){
+        console.log($(this).val());
+ 
+        Layout.CompanyAndDepartment('#companyId', '#departmentId');
+    });
+ 
+    Layout.CompanyAndDepartment('#companyId', '#departmentId');
 
 </script>

@@ -1,12 +1,14 @@
 ﻿@using MvcPaging
 
 @model IPagedList<BlueHrLib.Data.CertificateType>
-
+@using BlueHrWeb.Helpers.View
 @{
     ViewBag.Title = "证照管理";
 }
-
-@*@Styles.Render("~/Content/company")*@
+@{
+    bool canCreate = MenuAuthHelper.CanShow("CertificateType", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("CertificateType", "Edit");
+}
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
@@ -43,12 +45,15 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        <a href="/CertificateType/Create" class="pull-right" style="margin-top: -10px;">
-            <button class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>创建</span>
-            </button>
-        </a>
+        @if(canCreate)
+        {
+            <a href="/CertificateType/Create" class="pull-right" style="margin-top: -10px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#all_CertificateType" role="tab" data-toggle="tab">所有证照</a></li>
         </ul>
@@ -83,10 +88,12 @@
                                         <a href="/CertificateType/Delete/@item.id" class="option-icon-primary" title="详情">
                                             <i class="fa fa-eye"></i>
                                         </a>
-
-                                        <a href="/CertificateType/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
+                                        @if(canEdit)
+                                        {
+                                            <a href="/CertificateType/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        }
                                     </td>
                                 </tr>
                             }

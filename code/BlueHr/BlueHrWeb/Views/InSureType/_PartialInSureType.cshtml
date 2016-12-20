@@ -1,4 +1,10 @@
 ﻿@model BlueHrLib.Data.InsureType
+@using BlueHrWeb.Helpers.View
+@{
+    bool canDelete = MenuAuthHelper.CanShow("InsureType", "Delete");
+}
+
+<input type="hidden" id="can" value="@canDelete.ToString()">
 
 <div id="insuretype" style="margin:20px;">
     <ol class="breadcrumb current-position">

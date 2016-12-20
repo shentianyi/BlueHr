@@ -1,5 +1,11 @@
-﻿
-@model BlueHrLib.Data.StaffType
+﻿@model BlueHrLib.Data.StaffType
+@using BlueHrWeb.Helpers.View
+
+@{
+    bool canDelete = MenuAuthHelper.CanShow("StaffType", "Delete");
+}
+
+<input type="hidden" id="can" value="@canDelete.ToString()">
 
 <div id="stafftype" style="margin:20px;">
     <ol class="breadcrumb current-position">

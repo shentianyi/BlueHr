@@ -6,13 +6,12 @@
     ViewBag.Title = "员工兼职信息";
 }
 
-@*@Styles.Render("~/Content/degreetype")*@
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>人事信息管理</li>
     <li>
-        <strong>员工兼职</strong>
+        <strong>兼职管理</strong>
     </li>
 </ol>
 
@@ -48,11 +47,11 @@
         </a>
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#all_StaffType" role="tab" data-toggle="tab">所有人员类型</a></li>
+            <li role="presentation" class="active"><a href="#all_PartTimeJob" role="tab" data-toggle="tab">所有兼职记录</a></li>
         </ul>
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane  active" id="all_StaffType">
-                <div id="all_StaffType_grid_table" style="margin:auto;"></div>
+            <div role="tabpanel" class="tab-pane  active" id="all_PartTimeJob">
+                <div id="all_PartTimeJob_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -60,8 +59,8 @@
                             <th>公司</th>
                             <th>部门</th>
                             <th>职位</th>
-                            <th>开始时间</th>
-                            <th>终止时间</th>
+                            <th>开始日期</th>
+                            <th>终止日期</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -72,8 +71,10 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.staffNr)
-                                        @* 此处填充 链接， 链接到Staff详情 *@
+                                        <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                            @Html.DisplayFor(modelItem => item.staffNr)
+                                            <i class="fa fa-eye"></i>
+                                        </a>
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Company.name)
@@ -121,9 +122,9 @@
     //命名ID需要进行修改
 
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_StaffType", "所有人员类型列表", "20", "all_StaffType_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_PartTimeJob", "所有兼职记录列表", "20", "all_PartTimeJob_grid_table");
 
     })
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_StaffType", "所有人员类型列表", "20", "all_StaffType_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_PartTimeJob", "所有兼职记录列表", "20", "all_PartTimeJob_grid_table");
     
 </script>

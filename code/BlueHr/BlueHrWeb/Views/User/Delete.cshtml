@@ -8,5 +8,8 @@
 <script type="text/javascript">
     $('input').attr("disabled", "disabled");
     $('button').not("button[type='submit']").attr("disabled", "disabled");
+    if($('#can').val()!="True"){  
+    	$('.pull-right').remove();     
+    }
 </script>
 
