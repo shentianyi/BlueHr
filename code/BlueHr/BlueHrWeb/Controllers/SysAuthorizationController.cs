@@ -266,19 +266,33 @@ namespace BlueHrWeb.Controllers
                 SysAuthorization tempSysAuthorization = new SysAuthorization();
                 SysAuthorization.Add(tempSysAuthorization);
             }
-
+            int i = 1;
+            string showName = "";
             //获取当前记录的属性
             foreach (var property in SysAuthorization[0].GetType().GetProperties())
             {
+                switch (i)
+                {
+                    case 1: showName = "ID"; break;
+                    case 2: showName = "权限名"; break;
+                    case 3: showName = "模块"; break;
+                    case 4: showName = "操作"; break;
+                    case 5: showName = "上级ID"; break;
+                    case 6: showName = "代码"; break;
+                    case 7: showName = "是否删除"; break;
+                    case 8: showName = "备注"; break;
+                    default:
+                        break;
+                }
                 if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
+                    select.Add(new SelectListItem { Text = showName, Value = property.Name, Selected = true });
                 }
                 else
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                    select.Add(new SelectListItem { Text = showName, Value = property.Name, Selected = false });
                 }
-
+                i++;
             }
 
             ViewData["getAllTableNameList"] = select;

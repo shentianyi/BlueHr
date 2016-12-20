@@ -575,16 +575,39 @@ namespace BlueHrWeb.Controllers
                 extraWorkRecords.Add(ewrtemp);
             }
             int i = 1;
+            string showName = "";
             //获取当前记录的属性
             foreach (var property in extraWorkRecords[0].GetType().GetProperties())
             {
-                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name)&&i<=54)
+                switch (i)
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
+                    case 1: showName = "ID"; break;
+                    case 2: showName = "加班类型ID"; break;
+                    case 3: showName = "员工号"; break;
+                    case 4: showName = "加班持续时长"; break;
+                    case 5: showName = "原因"; break;
+                    case 6: showName = "时间"; break;
+                    case 7: showName = "开始时间（小时）"; break;
+                    case 8: showName = "结束时间（小时）"; break;
+                    case 9: showName = "系统代码"; break;
+                    case 10: showName = "名称"; break;
+                    case 11: showName = "员工号"; break;
+                    case 12: showName = "员工姓名"; break;
+                    case 49: showName = "创建用户ID"; break;
+                    case 51: showName = "审批时间"; break;
+                    case 52: showName = "审批用户ID"; break;
+                    case 53: showName = "审批状态"; break;
+                    case 54: showName = "备注"; break;
+                    default:
+                        break;
                 }
-                else if(i<=54)
+                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name)&&showName!="")
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                    select.Add(new SelectListItem { Text = showName, Value = property.Name, Selected = true });
+                }
+                else if(showName != "")
+                {
+                    select.Add(new SelectListItem { Text = showName, Value = property.Name, Selected = false });
                 }
                 i++;
             }
