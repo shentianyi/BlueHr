@@ -109,7 +109,11 @@
     <Compile Include="Data\ExtraWorkRecordView.cs" />
     <Compile Include="Data\JobTitle.cs" />
     <Compile Include="Data\FullMemberRecord.cs" />
+    <Compile Include="Data\Model\PageViewModel\PartTimeJobInfoModel.cs" />
+    <Compile Include="Data\Model\Search\PartTimeJobSearchModel.cs" />
     <Compile Include="Data\Recruit.cs" />
+    <Compile Include="Data\Repository\Implement\PartTimeJobRepository.cs" />
+    <Compile Include="Data\Repository\Interface\IPartTimeJobRepository.cs" />
     <Compile Include="Data\ResignRecord.cs" />
     <Compile Include="Data\LeaveRecord.cs" />
     <Compile Include="Data\MessageRecordView.cs" />
@@ -168,6 +172,7 @@
     <Compile Include="Data\Repository\Interface\ISysRoleRepository.cs" />
     <Compile Include="Data\Repository\Interface\ISysUserDataAuthRepository.cs" />
     <Compile Include="Data\Repository\Interface\IWorkAndRestRepository.cs" />
+    <Compile Include="Data\PartTimeJob.cs" />
     <Compile Include="Data\ShiftJobRecord.cs" />
     <Compile Include="Data\StaffView.cs" />
     <Compile Include="Data\RewardsAndPenalty.cs" />
@@ -329,6 +334,7 @@
     <Compile Include="Service\Implement\DegreeTypeService.cs" />
     <Compile Include="Service\Implement\InSureTypeService.cs" />
     <Compile Include="Service\Implement\BankCardService.cs" />
+    <Compile Include="Service\Implement\PartTimeJobService.cs" />
     <Compile Include="Service\Implement\ShiftJobRecordService.cs" />
     <Compile Include="Service\Implement\MessageRecordService.cs" />
     <Compile Include="Service\Implement\ExtraWorkTypeService.cs" />
@@ -372,6 +378,7 @@
     <Compile Include="Service\Interface\IFullMemberRecordService.cs" />
     <Compile Include="Service\Interface\IInSureTypeService.cs" />
     <Compile Include="Service\Interface\IBankCardService.cs" />
+    <Compile Include="Service\Interface\IPartTimeJobService.cs" />
     <Compile Include="Service\Interface\IShiftJobRecordService.cs" />
     <Compile Include="Service\Interface\ILeaveRecordService.cs" />
     <Compile Include="Service\Interface\IMessageRecordService.cs" />
@@ -402,7 +409,6 @@
     <None Include="app.config" />
     <None Include="Data\BlueHr.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>BlueHr.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="log4.config" />

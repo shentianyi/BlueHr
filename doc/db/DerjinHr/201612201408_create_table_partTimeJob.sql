@@ -11,7 +11,7 @@ GO
 USE [DerjinHr]
 GO
 
-/****** Object:  Table [dbo].[PartTimeJob]    Script Date: 12/20/2016 14:07:16 ******/
+/****** Object:  Table [dbo].[PartTimeJob]    Script Date: 12/20/2016 16:08:46 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PartTimeJob]') AND type in (N'U'))
 DROP TABLE [dbo].[PartTimeJob]
 GO
@@ -19,7 +19,7 @@ GO
 USE [DerjinHr]
 GO
 
-/****** Object:  Table [dbo].[PartTimeJob]    Script Date: 12/20/2016 14:07:16 ******/
+/****** Object:  Table [dbo].[PartTimeJob]    Script Date: 12/20/2016 16:08:46 ******/
 SET ANSI_NULLS ON
 GO
 

@@ -159,7 +159,7 @@ namespace BlueHrLib.Data
     #endregion
 		
 		public BlueHrDataContext() : 
-				base(global::BlueHrLib.Properties.Settings.Default.DerjinHrConnectionString, mappingSource)
+				base(global::BlueHrLib.Properties.Settings.Default.DerjinHrConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -1911,6 +1911,8 @@ namespace BlueHrLib.Data
 		
 		private EntitySet<ShiftJobRecord> _ShiftJobRecord1;
 		
+		private EntitySet<PartTimeJob> _PartTimeJob;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1932,6 +1934,7 @@ namespace BlueHrLib.Data
 			this._Recruit = new EntitySet<Recruit>(new Action<Recruit>(this.attach_Recruit), new Action<Recruit>(this.detach_Recruit));
 			this._ShiftJobRecord = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord));
 			this._ShiftJobRecord1 = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord1), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord1));
+			this._PartTimeJob = new EntitySet<PartTimeJob>(new Action<PartTimeJob>(this.attach_PartTimeJob), new Action<PartTimeJob>(this.detach_PartTimeJob));
 			OnCreated();
 		}
 		
@@ -2080,6 +2083,19 @@ namespace BlueHrLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_PartTimeJob", Storage="_PartTimeJob", ThisKey="id", OtherKey="companyId")]
+		public EntitySet<PartTimeJob> PartTimeJob
+		{
+			get
+			{
+				return this._PartTimeJob;
+			}
+			set
+			{
+				this._PartTimeJob.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2158,6 +2174,18 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.Company1 = null;
+		}
+		
+		private void attach_PartTimeJob(PartTimeJob entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company = this;
+		}
+		
+		private void detach_PartTimeJob(PartTimeJob entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company = null;
 		}
 	}
 	
@@ -2325,6 +2353,8 @@ namespace BlueHrLib.Data
 		
 		private EntitySet<ShiftJobRecord> _ShiftJobRecord1;
 		
+		private EntitySet<PartTimeJob> _PartTimeJob;
+		
 		private EntityRef<Company> _Company;
 		
 		private EntityRef<Department> _ParentDepartment;
@@ -2352,6 +2382,7 @@ namespace BlueHrLib.Data
 			this._Recruit = new EntitySet<Recruit>(new Action<Recruit>(this.attach_Recruit), new Action<Recruit>(this.detach_Recruit));
 			this._ShiftJobRecord = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord));
 			this._ShiftJobRecord1 = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord1), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord1));
+			this._PartTimeJob = new EntitySet<PartTimeJob>(new Action<PartTimeJob>(this.attach_PartTimeJob), new Action<PartTimeJob>(this.detach_PartTimeJob));
 			this._Company = default(EntityRef<Company>);
 			this._ParentDepartment = default(EntityRef<Department>);
 			OnCreated();
@@ -2530,6 +2561,19 @@ namespace BlueHrLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Department_PartTimeJob", Storage="_PartTimeJob", ThisKey="id", OtherKey="departmentId")]
+		public EntitySet<PartTimeJob> PartTimeJob
+		{
+			get
+			{
+				return this._PartTimeJob;
+			}
+			set
+			{
+				this._PartTimeJob.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Department", Storage="_Company", ThisKey="companyId", OtherKey="id", IsForeignKey=true)]
 		public Company Company
 		{
@@ -2676,6 +2720,18 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.Department1 = null;
+		}
+		
+		private void attach_PartTimeJob(PartTimeJob entity)
+		{
+			this.SendPropertyChanging();
+			entity.Department = this;
+		}
+		
+		private void detach_PartTimeJob(PartTimeJob entity)
+		{
+			this.SendPropertyChanging();
+			entity.Department = null;
 		}
 	}
 	
@@ -13143,9 +13199,9 @@ namespace BlueHrLib.Data
 		
 		private EntitySet<SysUserDataAuth> _SysUserDataAuth;
 		
-		private EntitySet<ShiftJobRecord> _ShiftJobRecord;
+		private EntitySet<RewardsAndPenalty> _RewardsAndPenalty;
 		
-		private EntitySet<ShiftJobRecord> _ShiftJobRecord1;
+		private EntitySet<RewardsAndPenalty> _RewardsAndPenalty1;
 		
 		private EntitySet<ResignRecord> _ResignRecord;
 		
@@ -13157,9 +13213,9 @@ namespace BlueHrLib.Data
 		
 		private EntitySet<LeaveRecord> _LeaveRecord1;
 		
-		private EntitySet<RewardsAndPenalty> _RewardsAndPenalty;
+		private EntitySet<ShiftJobRecord> _ShiftJobRecord;
 		
-		private EntitySet<RewardsAndPenalty> _RewardsAndPenalty1;
+		private EntitySet<ShiftJobRecord> _ShiftJobRecord1;
 		
     #region 可扩展性方法定义
     partial void OnLoaded();
@@ -13186,15 +13242,15 @@ namespace BlueHrLib.Data
 			this._AbsenceRecordApproval = new EntitySet<AbsenceRecordApproval>(new Action<AbsenceRecordApproval>(this.attach_AbsenceRecordApproval), new Action<AbsenceRecordApproval>(this.detach_AbsenceRecordApproval));
 			this._ExtraWorkRecordApproval = new EntitySet<ExtraWorkRecordApproval>(new Action<ExtraWorkRecordApproval>(this.attach_ExtraWorkRecordApproval), new Action<ExtraWorkRecordApproval>(this.detach_ExtraWorkRecordApproval));
 			this._SysUserDataAuth = new EntitySet<SysUserDataAuth>(new Action<SysUserDataAuth>(this.attach_SysUserDataAuth), new Action<SysUserDataAuth>(this.detach_SysUserDataAuth));
-			this._ShiftJobRecord = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord));
-			this._ShiftJobRecord1 = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord1), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord1));
+			this._RewardsAndPenalty = new EntitySet<RewardsAndPenalty>(new Action<RewardsAndPenalty>(this.attach_RewardsAndPenalty), new Action<RewardsAndPenalty>(this.detach_RewardsAndPenalty));
+			this._RewardsAndPenalty1 = new EntitySet<RewardsAndPenalty>(new Action<RewardsAndPenalty>(this.attach_RewardsAndPenalty1), new Action<RewardsAndPenalty>(this.detach_RewardsAndPenalty1));
 			this._ResignRecord = new EntitySet<ResignRecord>(new Action<ResignRecord>(this.attach_ResignRecord), new Action<ResignRecord>(this.detach_ResignRecord));
 			this._FullMemberRecord = new EntitySet<FullMemberRecord>(new Action<FullMemberRecord>(this.attach_FullMemberRecord), new Action<FullMemberRecord>(this.detach_FullMemberRecord));
 			this._FullMemberRecord1 = new EntitySet<FullMemberRecord>(new Action<FullMemberRecord>(this.attach_FullMemberRecord1), new Action<FullMemberRecord>(this.detach_FullMemberRecord1));
 			this._LeaveRecord = new EntitySet<LeaveRecord>(new Action<LeaveRecord>(this.attach_LeaveRecord), new Action<LeaveRecord>(this.detach_LeaveRecord));
 			this._LeaveRecord1 = new EntitySet<LeaveRecord>(new Action<LeaveRecord>(this.attach_LeaveRecord1), new Action<LeaveRecord>(this.detach_LeaveRecord1));
-			this._RewardsAndPenalty = new EntitySet<RewardsAndPenalty>(new Action<RewardsAndPenalty>(this.attach_RewardsAndPenalty), new Action<RewardsAndPenalty>(this.detach_RewardsAndPenalty));
-			this._RewardsAndPenalty1 = new EntitySet<RewardsAndPenalty>(new Action<RewardsAndPenalty>(this.attach_RewardsAndPenalty1), new Action<RewardsAndPenalty>(this.detach_RewardsAndPenalty1));
+			this._ShiftJobRecord = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord));
+			this._ShiftJobRecord1 = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord1), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord1));
 			OnCreated();
 		}
 		
@@ -13377,29 +13433,29 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ShiftJobRecord", Storage="_ShiftJobRecord", ThisKey="id", OtherKey="userId")]
-		public EntitySet<ShiftJobRecord> ShiftJobRecord
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_RewardsAndPenalty", Storage="_RewardsAndPenalty", ThisKey="id", OtherKey="createdUserId")]
+		public EntitySet<RewardsAndPenalty> RewardsAndPenalty
 		{
 			get
 			{
-				return this._ShiftJobRecord;
+				return this._RewardsAndPenalty;
 			}
 			set
 			{
-				this._ShiftJobRecord.Assign(value);
+				this._RewardsAndPenalty.Assign(value);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ShiftJobRecord1", Storage="_ShiftJobRecord1", ThisKey="id", OtherKey="approvalUserId")]
-		public EntitySet<ShiftJobRecord> ShiftJobRecord1
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_RewardsAndPenalty1", Storage="_RewardsAndPenalty1", ThisKey="id", OtherKey="approvalUserId")]
+		public EntitySet<RewardsAndPenalty> RewardsAndPenalty1
 		{
 			get
 			{
-				return this._ShiftJobRecord1;
+				return this._RewardsAndPenalty1;
 			}
 			set
 			{
-				this._ShiftJobRecord1.Assign(value);
+				this._RewardsAndPenalty1.Assign(value);
 			}
 		}
 		
@@ -13468,29 +13524,29 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_RewardsAndPenalty", Storage="_RewardsAndPenalty", ThisKey="id", OtherKey="createdUserId")]
-		public EntitySet<RewardsAndPenalty> RewardsAndPenalty
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ShiftJobRecord", Storage="_ShiftJobRecord", ThisKey="id", OtherKey="userId")]
+		public EntitySet<ShiftJobRecord> ShiftJobRecord
 		{
 			get
 			{
-				return this._RewardsAndPenalty;
+				return this._ShiftJobRecord;
 			}
 			set
 			{
-				this._RewardsAndPenalty.Assign(value);
+				this._ShiftJobRecord.Assign(value);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_RewardsAndPenalty1", Storage="_RewardsAndPenalty1", ThisKey="id", OtherKey="approvalUserId")]
-		public EntitySet<RewardsAndPenalty> RewardsAndPenalty1
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ShiftJobRecord1", Storage="_ShiftJobRecord1", ThisKey="id", OtherKey="approvalUserId")]
+		public EntitySet<ShiftJobRecord> ShiftJobRecord1
 		{
 			get
 			{
-				return this._RewardsAndPenalty1;
+				return this._ShiftJobRecord1;
 			}
 			set
 			{
-				this._RewardsAndPenalty1.Assign(value);
+				this._ShiftJobRecord1.Assign(value);
 			}
 		}
 		
@@ -13550,25 +13606,25 @@ namespace BlueHrLib.Data
 			entity.User = null;
 		}
 		
-		private void attach_ShiftJobRecord(ShiftJobRecord entity)
+		private void attach_RewardsAndPenalty(RewardsAndPenalty entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = this;
 		}
 		
-		private void detach_ShiftJobRecord(ShiftJobRecord entity)
+		private void detach_RewardsAndPenalty(RewardsAndPenalty entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
 		}
 		
-		private void attach_ShiftJobRecord1(ShiftJobRecord entity)
+		private void attach_RewardsAndPenalty1(RewardsAndPenalty entity)
 		{
 			this.SendPropertyChanging();
 			entity.User1 = this;
 		}
 		
-		private void detach_ShiftJobRecord1(ShiftJobRecord entity)
+		private void detach_RewardsAndPenalty1(RewardsAndPenalty entity)
 		{
 			this.SendPropertyChanging();
 			entity.User1 = null;
@@ -13634,25 +13690,25 @@ namespace BlueHrLib.Data
 			entity.User1 = null;
 		}
 		
-		private void attach_RewardsAndPenalty(RewardsAndPenalty entity)
+		private void attach_ShiftJobRecord(ShiftJobRecord entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = this;
 		}
 		
-		private void detach_RewardsAndPenalty(RewardsAndPenalty entity)
+		private void detach_ShiftJobRecord(ShiftJobRecord entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
 		}
 		
-		private void attach_RewardsAndPenalty1(RewardsAndPenalty entity)
+		private void attach_ShiftJobRecord1(ShiftJobRecord entity)
 		{
 			this.SendPropertyChanging();
 			entity.User1 = this;
 		}
 		
-		private void detach_RewardsAndPenalty1(RewardsAndPenalty entity)
+		private void detach_ShiftJobRecord1(ShiftJobRecord entity)
 		{
 			this.SendPropertyChanging();
 			entity.User1 = null;
@@ -13938,6 +13994,8 @@ namespace BlueHrLib.Data
 		
 		private EntitySet<Staff> _Staff;
 		
+		private EntitySet<PartTimeJob> _PartTimeJob;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -13956,6 +14014,7 @@ namespace BlueHrLib.Data
 		{
 			this._JobCertificate = new EntitySet<JobCertificate>(new Action<JobCertificate>(this.attach_JobCertificate), new Action<JobCertificate>(this.detach_JobCertificate));
 			this._Staff = new EntitySet<Staff>(new Action<Staff>(this.attach_Staff), new Action<Staff>(this.detach_Staff));
+			this._PartTimeJob = new EntitySet<PartTimeJob>(new Action<PartTimeJob>(this.attach_PartTimeJob), new Action<PartTimeJob>(this.detach_PartTimeJob));
 			OnCreated();
 		}
 		
@@ -14065,6 +14124,19 @@ namespace BlueHrLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_PartTimeJob", Storage="_PartTimeJob", ThisKey="id", OtherKey="jobTitleId")]
+		public EntitySet<PartTimeJob> PartTimeJob
+		{
+			get
+			{
+				return this._PartTimeJob;
+			}
+			set
+			{
+				this._PartTimeJob.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -14104,6 +14176,18 @@ namespace BlueHrLib.Data
 		}
 		
 		private void detach_Staff(Staff entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle = null;
+		}
+		
+		private void attach_PartTimeJob(PartTimeJob entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle = this;
+		}
+		
+		private void detach_PartTimeJob(PartTimeJob entity)
 		{
 			this.SendPropertyChanging();
 			entity.JobTitle = null;
@@ -18480,6 +18564,12 @@ namespace BlueHrLib.Data
 		
 		private bool _isDelete;
 		
+		private EntityRef<Company> _Company;
+		
+		private EntityRef<Department> _Department;
+		
+		private EntityRef<JobTitle> _JobTitle;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -18504,6 +18594,9 @@ namespace BlueHrLib.Data
 		
 		public PartTimeJob()
 		{
+			this._Company = default(EntityRef<Company>);
+			this._Department = default(EntityRef<Department>);
+			this._JobTitle = default(EntityRef<JobTitle>);
 			OnCreated();
 		}
 		
@@ -18558,6 +18651,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._companyId != value))
 				{
+					if (this._Company.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OncompanyIdChanging(value);
 					this.SendPropertyChanging();
 					this._companyId = value;
@@ -18578,6 +18675,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._departmentId != value))
 				{
+					if (this._Department.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OndepartmentIdChanging(value);
 					this.SendPropertyChanging();
 					this._departmentId = value;
@@ -18598,6 +18699,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._jobTitleId != value))
 				{
+					if (this._JobTitle.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnjobTitleIdChanging(value);
 					this.SendPropertyChanging();
 					this._jobTitleId = value;
@@ -18663,6 +18768,108 @@ namespace BlueHrLib.Data
 					this._isDelete = value;
 					this.SendPropertyChanged("isDelete");
 					this.OnisDeleteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_PartTimeJob", Storage="_Company", ThisKey="companyId", OtherKey="id", IsForeignKey=true)]
+		public Company Company
+		{
+			get
+			{
+				return this._Company.Entity;
+			}
+			set
+			{
+				Company previousValue = this._Company.Entity;
+				if (((previousValue != value) 
+							|| (this._Company.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Company.Entity = null;
+						previousValue.PartTimeJob.Remove(this);
+					}
+					this._Company.Entity = value;
+					if ((value != null))
+					{
+						value.PartTimeJob.Add(this);
+						this._companyId = value.id;
+					}
+					else
+					{
+						this._companyId = default(int);
+					}
+					this.SendPropertyChanged("Company");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Department_PartTimeJob", Storage="_Department", ThisKey="departmentId", OtherKey="id", IsForeignKey=true)]
+		public Department Department
+		{
+			get
+			{
+				return this._Department.Entity;
+			}
+			set
+			{
+				Department previousValue = this._Department.Entity;
+				if (((previousValue != value) 
+							|| (this._Department.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Department.Entity = null;
+						previousValue.PartTimeJob.Remove(this);
+					}
+					this._Department.Entity = value;
+					if ((value != null))
+					{
+						value.PartTimeJob.Add(this);
+						this._departmentId = value.id;
+					}
+					else
+					{
+						this._departmentId = default(int);
+					}
+					this.SendPropertyChanged("Department");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_PartTimeJob", Storage="_JobTitle", ThisKey="jobTitleId", OtherKey="id", IsForeignKey=true)]
+		public JobTitle JobTitle
+		{
+			get
+			{
+				return this._JobTitle.Entity;
+			}
+			set
+			{
+				JobTitle previousValue = this._JobTitle.Entity;
+				if (((previousValue != value) 
+							|| (this._JobTitle.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._JobTitle.Entity = null;
+						previousValue.PartTimeJob.Remove(this);
+					}
+					this._JobTitle.Entity = value;
+					if ((value != null))
+					{
+						value.PartTimeJob.Add(this);
+						this._jobTitleId = value.id;
+					}
+					else
+					{
+						this._jobTitleId = default(int);
+					}
+					this.SendPropertyChanged("JobTitle");
 				}
 			}
 		}

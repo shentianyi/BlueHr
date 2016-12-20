@@ -260,6 +260,7 @@
     <Compile Include="Controllers\RecruitController.cs" />
     <Compile Include="Controllers\ResignRecordController.cs" />
     <Compile Include="Controllers\RewardsAndPenaltyController.cs" />
+    <Compile Include="Controllers\PartTimeJobController.cs" />
     <Compile Include="Controllers\ShiftJobRecordController.cs" />
     <Compile Include="Controllers\SysRoleAuthorizationController.cs" />
     <Compile Include="Controllers\SysRoleController.cs" />
@@ -776,6 +777,11 @@
     <Content Include="Views\Recruit\Edit.cshtml" />
     <Content Include="Views\Recruit\Index.cshtml" />
     <Content Include="Views\Recruit\_PartialRecruit.cshtml" />
+    <Content Include="Views\PartTimeJob\_PartialPartTimeJob.cshtml" />
+    <Content Include="Views\PartTimeJob\Create.cshtml" />
+    <Content Include="Views\PartTimeJob\Delete.cshtml" />
+    <Content Include="Views\PartTimeJob\Edit.cshtml" />
+    <Content Include="Views\PartTimeJob\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
