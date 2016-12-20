@@ -553,7 +553,10 @@ namespace BlueHrWeb.Controllers
             {
                 IStaffService ss = new StaffService(Settings.Default.db);
                 StaffSearchModel q = new StaffSearchModel();
-                if (nextOrPrevious == true && nr != ss.Search(q).FirstOrDefault().nr)
+                IQueryable<Staff> orderStaff = ss.Search(q).OrderBy(s => s.nr);
+                string beginStaffNr = orderStaff.FirstOrDefault().nr;
+                string endStaffNr = orderStaff.LastOrDefault().nr;
+                if (nextOrPrevious == true && nr != beginStaffNr)
                 {
                     Staff staff = new Staff();
                     long longNr = Convert.ToInt64(nr);
@@ -578,7 +581,7 @@ namespace BlueHrWeb.Controllers
 
                     return View("Delete", staff);
                 }
-                else if (nextOrPrevious == false && nr != ss.Search(q).LastOrDefault().nr)
+                else if (nextOrPrevious == false && nr != endStaffNr)
                 {
                     Staff staff = new Staff();
                     long longNr = Convert.ToInt64(nr);

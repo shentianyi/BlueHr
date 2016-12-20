@@ -31,8 +31,8 @@
             <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
                 <div class="marco-igroup-primary">
                     <span>招聘部门</span>
-
-                    <input type="text" name="departmentId" id="Department" placeholder="招聘部门" value="@ViewBag.Query.departmentId" />
+                    @Html.DropDownList("Department", ViewData["departmentList"] as IEnumerable<SelectListItem>)
+                    <!--<input type="text" name="departmentId" id="Department" placeholder="招聘部门" value="@ViewBag.Query.departmentId" />-->
                 </div>
             </div>
             <!--<div class="col-lg-4 col-md-4 col-sm-6 ol-xs-12">
@@ -151,7 +151,6 @@
     
     $(window).resize(function () {
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Recruitment", "所有需求列表", "20", "all_Recruitment_grid_table");
-        
     })
 
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Recruitment", "所有需求列表", "20", "all_Recruitment_grid_table");

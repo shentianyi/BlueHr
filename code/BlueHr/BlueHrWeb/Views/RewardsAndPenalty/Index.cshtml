@@ -18,6 +18,7 @@
             <div class="col-lg-3 col-md-3 col-sm-6 ol-xs-12">
                 <div class="marco-igroup-primary">
                     <span>工号</span>
+                    
                     <input type="text" name="staffNr" id="staffNr" placeholder="工号" value="@ViewBag.Query.staffNr" />
                 </div>
             </div>
@@ -48,203 +49,14 @@
         </a>
         <ul class="nav nav-tabs" role="tablist" style="width: 600px;">
 
-            <li role="presentation" class="active"><a href="#already_Rewards" role="tab" data-toggle="tab">奖励已审批</a></li>
-            <li role="presentation"><a href="#already_Penalties" role="tab" data-toggle="tab">惩罚已审批</a></li>
-
-            <li role="presentation"><a href="#not_Rewards" role="tab" data-toggle="tab">奖励未审批</a></li>
-            <li role="presentation"><a href="#not_Penalties" role="tab" data-toggle="tab">惩罚未审批</a></li>
-
-            <li role="presentation"><a href="#all_Rewards" role="tab" data-toggle="tab">奖励记录</a></li>
-            <li role="presentation"><a href="#all_Penalties" role="tab" data-toggle="tab">惩罚记录</a></li>
+            <li role="presentation" class="active"><a href="#not_Rewards" role="tab" data-toggle="tab">未审批</a></li>
+            <li role="presentation"><a href="#already_Rewards" role="tab" data-toggle="tab">已审批</a></li>
             <li role="presentation"><a href="#all_RewardsAndPenalty" role="tab" data-toggle="tab">所有记录</a></li>
 
         </ul>
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane  active" id="already_Rewards">
-                <div id="already_Rewards_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-                            @*<th></th>*@
-                            <th>工号</th>
-                            <th>奖惩类型</th>
-                            <th>奖惩项目</th>
-                            <th>奖惩描述</th>
-                            <th>申请日期</th>
-                            <th>申请人</th>
-                            <th>审批人</th>
-                            <th>审批状态</th>
-                            <th>审批日期</th>
-                            <th>备注</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model)
-                            {
-                                if (item.type == 0)
-                                {
-                                    if(item.approvalStatus!=null){
-                                        <tr>
-                                            @*@if(item.approvalStatus==null){
-                                            <td>
-                                                <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
-                                            </td>
-                                            }else{
-                                                <td></td>
-                                            }*@
-                                            <td>
-                                                <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
-                                                    @Html.DisplayFor(modelItem => item.staffNr)
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.typeStr)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.project)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.description)
-                                            </td>
-                                            <td>
-                                                <span>@(@item.createdAt.HasValue?@item.createdAt.Value.ToString("yyyy-MM-dd"):"")</span>
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.createdUserId)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalUserId)
-                                            </td>
-                                                @if(item.approvalStatus==null){
-                                                    <td>未审批</td>
-                                                }else{
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.approvalStatus)
-                                                </td>
-                                                }
-                                            <td>
-                                                <span>@(@item.approvalAt.HasValue?@item.approvalAt.Value.ToString("yyyy-MM-dd"):"")</span>
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalRemark)
-                                            </td>
-                                            <td>
-                                                @if(item.approvalStatus==null){
-                                                <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                                <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
-                                                    <i class="fa fa-check"></i>
-                                                </a>
-                                                }
-                                            </td>
-                                        </tr>
-                                    }
-                                }
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="already_Penalties">
-                <div id="already_Penalties_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-                            @*<th></th>*@
-                            <th>工号</th>
-                            <th>奖惩类型</th>
-                            <th>奖惩项目</th>
-                            <th>奖惩描述</th>
-                            <th>申请日期</th>
-                            <th>申请人</th>
-                            <th>审批人</th>
-                            <th>审批状态</th>
-                            <th>审批日期</th>
-                            <th>备注</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model)
-                            {
-                                if(item.approvalStatus!=null){
-                                    if (item.type == 1)
-                                    {
-                                        <tr>
-                                            @*@if(item.approvalStatus==null){
-                                            <td>
-                                                <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
-                                            </td>
-                                            }else{
-                                                <td></td>
-                                            }*@
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.staffNr)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.typeStr)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.project)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.description)
-                                            </td>
-                                            <td>
-                                                <span>@(@item.createdAt.HasValue?@item.createdAt.Value.ToString("yyyy-MM-dd"):"")</span>
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.createdUserId)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalUserId)
-                                            </td>
-                                                @if(item.approvalStatus==null){
-                                                    <td>未审批</td>
-                                                }else{
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.approvalStatus)
-                                                </td>
-                                                }
-                                            <td>
-                                                <span>@(@item.approvalAt.HasValue?@item.approvalAt.Value.ToString("yyyy-MM-dd"):"")</span>
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalRemark)
-                                            </td>
-                                            <td>
-                                                @if(item.approvalStatus==null){
-                                                <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                                <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
-                                                    <i class="fa fa-check"></i>
-                                                </a>
-                                                }
-                                            </td>
-                                        </tr>
-                                    }
-                                }
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
 
-            <div role="tabpanel" class="tab-pane" id="not_Rewards">
+            <div role="tabpanel" class="tab-pane  active" id="not_Rewards">
                 <div id="not_Rewards_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
@@ -269,8 +81,6 @@
                             foreach (var item in Model)
                             {
                                 if(item.approvalStatus==null){
-                                if (item.type == 0)
-                                {
                                     <tr>
                                         @*@if(item.approvalStatus==null){
                                         <td>
@@ -331,14 +141,13 @@
                                         </td>
                                     </tr>
                                 }
-                                }
                             }
                         }
                     </tbody>
                 </table>
             </div>
-            <div role="tabpanel" class="tab-pane" id="not_Penalties">
-                <div id="not_Penalties_grid_table" style="margin:auto;"></div>
+             <div role="tabpanel" class="tab-pane" id="already_Rewards">
+                <div id="already_Rewards_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -361,19 +170,13 @@
                         {
                             foreach (var item in Model)
                             {
-                                if(item.approvalStatus==null){
-                                    if (item.type == 1)
-                                    {
+                                    if(item.approvalStatus!=null){
                                         <tr>
-                                            @*@if(item.approvalStatus==null){
                                             <td>
-                                                <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
-                                            </td>
-                                            }else{
-                                                <td></td>
-                                            }*@
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.staffNr)
+                                                <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                                    @Html.DisplayFor(modelItem => item.staffNr)
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.typeStr)
@@ -407,7 +210,7 @@
                                                 @Html.DisplayFor(modelItem => item.approvalRemark)
                                             </td>
                                             <td>
-                                            
+                                                @if(item.approvalStatus==null){
                                                 <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
@@ -417,10 +220,10 @@
                                                 <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
                                                     <i class="fa fa-check"></i>
                                                 </a>
-                                                
+                                                }
                                             </td>
                                         </tr>
-                                    }
+                                   
                                 }
                             }
                         }
@@ -428,186 +231,6 @@
                 </table>
             </div>
 
-            <div role="tabpanel" class="tab-pane" id="all_Rewards">
-                <div id="all_Rewards_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-                            @*<th></th>*@
-                            <th>工号</th>
-                            <th>奖惩类型</th>
-                            <th>奖惩项目</th>
-                            <th>奖惩描述</th>
-                            <th>申请日期</th>
-                            <th>申请人</th>
-                            <th>审批人</th>
-                            <th>审批状态</th>
-                            <th>审批日期</th>
-                            <th>备注</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model)
-                            {
-                                if (item.type == 0)
-                                {
-                                    <tr>
-                                        @*@if(item.approvalStatus==null){
-                                        <td>
-                                            <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
-                                        </td>
-                                        }else{
-                                            <td></td>
-                                        }*@
-                                        <td>
-                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
-                                                @Html.DisplayFor(modelItem => item.staffNr)
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.typeStr)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.project)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.description)
-                                        </td>
-                                        <td>
-                                            <span>@(@item.createdAt.HasValue?@item.createdAt.Value.ToString("yyyy-MM-dd"):"")</span>
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.createdUserId)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalUserId)
-                                        </td>
-                                            @if(item.approvalStatus==null){
-                                                <td>未审批</td>
-                                            }else{
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalStatus)
-                                            </td>
-                                            }
-                                        <td>
-                                            <span>@(@item.approvalAt.HasValue?@item.approvalAt.Value.ToString("yyyy-MM-dd"):"")</span>
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalRemark)
-                                        </td>
-                                        <td>
-                                            @if(item.approvalStatus==null){
-                                            <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
-                                                <i class="fa fa-check"></i>
-                                            </a>
-                                            }
-                                        </td>
-                                    </tr>
-                                }
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="all_Penalties">
-                <div id="all_Penalties_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-                            @*<th></th>*@
-                            <th>工号</th>
-                            <th>奖惩类型</th>
-                            <th>奖惩项目</th>
-                            <th>奖惩描述</th>
-                            <th>申请日期</th>
-                            <th>申请人</th>
-                            <th>审批人</th>
-                            <th>审批状态</th>
-                            <th>审批日期</th>
-                            <th>备注</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model)
-                            {
-                                if (item.type == 1)
-                                {
-                                    <tr>
-                                        @*@if(item.approvalStatus==null){
-                                        <td>
-                                            <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
-                                        </td>
-                                        }else{
-                                            <td></td>
-                                        }*@
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.staffNr)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.typeStr)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.project)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.description)
-                                        </td>
-                                        <td>
-                                            <span>@(@item.createdAt.HasValue?@item.createdAt.Value.ToString("yyyy-MM-dd"):"")</span>
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.createdUserId)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalUserId)
-                                        </td>
-                                            @if(item.approvalStatus==null){
-                                                <td>未审批</td>
-                                            }else{
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalStatus)
-                                            </td>
-                                            }
-                                        <td>
-                                            <span>@(@item.approvalAt.HasValue?@item.approvalAt.Value.ToString("yyyy-MM-dd"):"")</span>
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalRemark)
-                                        </td>
-                                        <td>
-                                            @if(item.approvalStatus==null){
-                                            <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
-                                                <i class="fa fa-check"></i>
-                                            </a>
-                                            }
-                                        </td>
-                                    </tr>
-                                }
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-            
             <div role="tabpanel" class="tab-pane" id="all_RewardsAndPenalty">
                 <div id="all_RewardsAndPenalty_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
@@ -633,13 +256,7 @@
                             foreach (var item in Model)
                             {
                                 <tr>
-                                    @*@if(item.approvalStatus==null){
-                                    <td>
-                                        <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
-                                    </td>
-                                    }else{
-                                        <td></td>
-                                    }*@
+                                    
                                     <td>
                                         @Html.DisplayFor(modelItem => item.staffNr)
                                     </td>
@@ -734,44 +351,21 @@
     </div>
 </div>
  
-
 <script type="text/javascript">
     Layout.init();
 
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Rewards", "奖励记录列表", "20", "all_Rewards_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_Rewards", "奖励已审批列表", "20", "already_Rewards_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not_Rewards", "奖励未审批列表", "20", "not_Rewards_grid_table");
-
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Penalties", "惩罚记录列表", "20", "all_Penalties_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_Penalties", "惩罚已审批列表", "20", "already_Penalties_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not_Penalties", "惩罚未审批列表", "20", "not_Penalties_grid_table");
-
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not_Rewards", "未审批列表", "20", "not_Rewards_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Rewards", "已审批列表", "20", "all_Rewards_grid_table");
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_RewardsAndPenalty", "所有记录列表", "20", "all_RewardsAndPenalty_grid_table");
         
     })
 
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_Rewards", "奖励已审批列表", "20", "already_Rewards_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not_Rewards", "未审批列表", "20", "not_Rewards_grid_table");
 
-    $('#all_Rewards').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_Rewards", "奖励记录列表", "20", "all_Rewards_grid_table");
-    $('#all_Rewards').removeClass("active");
-
-    $('#not_Rewards').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not_Rewards", "奖励未审批列表", "20", "not_Rewards_grid_table");
-    $('#not_Rewards').removeClass("active");
-
-    $('#all_Penalties').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_Penalties", "惩罚记录列表", "20", "all_Penalties_grid_table");
-    $('#all_Penalties').removeClass("active");
-    
-    $('#already_Penalties').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_Penalties", "惩罚已审批列表", "20", "already_Penalties_grid_table");
-    $('#already_Penalties').removeClass("active");
-
-    $('#not_Penalties').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not_Penalties", "惩罚未审批列表", "20", "not_Penalties_grid_table");
-    $('#not_Penalties').removeClass("active");
+    $('#already_Rewards').addClass("active");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_Rewards", "已审批列表", "20", "already_Rewards_grid_table");
+    $('#already_Rewards').removeClass("active");
 
     $('#all_RewardsAndPenalty').addClass("active");
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_RewardsAndPenalty", "所有记录列表", "20", "all_RewardsAndPenalty_grid_table");
