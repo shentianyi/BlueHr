@@ -239,6 +239,8 @@ body{
   display: table;
   margin: 5px 0;
   height: 40px;
+  line-height:30px;
+  background:#fff;
   span, label {
     width: 1%;
     min-width: 60px;
@@ -266,7 +268,7 @@ body{
     margin: 0;
     padding: 7px;
     height: 38px;
-    width: 100%;
+    width: 300px;
     line-height: 38px;
     &[disabled] {
       cursor: not-allowed;

@@ -64,7 +64,16 @@
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="marco-igroup-primary">
                 <span>工号</span>
-                <input type="text" name="StaffNr" id="StaffNr" placeholder="工号" value="@ViewBag.Query.StaffNr" />
+                @if (Model != null)
+                {
+                    <select name="staffNrSelect" id="staffNrSelect"></select>
+                    <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" value="@ViewBag.Query.StaffNr" />
+                }
+                else
+                {
+                    <select name="staffNrSelect" id="staffNrSelect"></select>
+                    <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" />
+                }
             </div>
         </div>
 
@@ -210,13 +219,9 @@
             </div>
         </div>
     </div>
+</div>
+        <!--<div id="dialog_cal_att_content" class="cal_att_content" style="display:none;">
 
-
-
-    <div id="dialog_cal_att_content" class="cal_att_content" style="display:none;">
-        @*<blockquote class="marco-blockquote-primary">
-                导出考勤报表
-            </blockquote>*@
         <div>
             <div style="display:inline-block; height:30px">
                 @Html.Partial("Search/_CompanyAndDepartmentBar", new ViewDataDictionary() { new KeyValuePair<string, object>("companyId", "CompanyId1"), new KeyValuePair<string, object>("departmentId", "DepartmentId1") })
@@ -225,9 +230,7 @@
             <br />
 
             <div style="margin-left:15px;max-width:400px;">
-
                 <div class="marco-igroup-primary">
-
                     <span>日期*</span>
                     <input type="text" name="startDate" id="startDate" class="datepicker" placeholder="开始" /><span>~ </span><input type="text" name="endDate" id="endDate" class="datepicker" placeholder="结束" />
                 </div>
@@ -236,14 +239,41 @@
         <hr class="hr-grey" />
         <button type="submit" class="btn btn-primary ff btn-open" style="width:200px;" onclick="exportReport(100)">导出汇总报表</button>
         <button type="submit" class="btn btn-info ff btn-open" style="width:200px;" onclick="exportReport(200)">导出考勤详细记录</button>
-        <button type="button" class="pull-right marco-btn-warning" style="width:100px;" onclick="closeDialog()">取消</button>
-        <button type="button" class="pull-right marco-btn-warning" style="width:100px;" onclick="closeDialog()">确定</button>
+        <button type="button" class="pull-right marco-btn-warning" style="width:60px; background:#0094ff;margin-right:10px;" onclick="closeDialog()">取消</button>
+        <button type="button" class="pull-right marco-btn-warning" style="width:60px; background:#0094ff;margin-left:10px;" onclick="closeDialog()">确定</button>-->
         
-
+        <!--导入数据-->
+    <div id="dialog_content" class="import_content" style="display:none;">
+        <div class="dialogModal_header" style="background:steelblue;color:white;">
+            导入考勤列表
+        </div>
+        <div class="dialogModal_content">
+            <div style="display:inline-block; height:30px; width:100%;margin-bottom:10px;">
+                @Html.Partial("Search/_CompanyAndDepartmentBar")
+                <!--@Html.Partial("Search/_CompanyAndDepartmentBar", new ViewDataDictionary() { new KeyValuePair<string, object>("companyId", "CompanyId1"), new KeyValuePair<string, object>("departmentId", "DepartmentId1") })-->
+            </div>
+            <div style="margin-left:15px;max-width:400px;">
+                <div class="marco-igroup-primary">
+                    <span>日期*</span>
+                    <input type="text" name="startDate" id="startDate" class="datepicker" placeholder="开始" /><span>~ </span><input type="text" name="endDate" id="endDate" class="datepicker" placeholder="结束" />
+                </div>
+            </div>
+            <br />
+            <div class="dialogModal_footer">
+                <div class="row">
+                    <button type="submit" class="pull-left btn btn-primary ff btn-open" style="width:150px;" onclick="exportReport(100)">导出汇总报表</button>
+                    <button type="submit" class="pull-left btn btn-info ff btn-open" style="width:150px;" onclick="exportReport(200)">导出考勤详细记录</button>
+                    <button type="button" class="pull-right marco-btn-warning" style="width:80px; background:#2980b9;margin-right:20px;color:#fff;margin-top:10px;" onclick="closeDialog()">取消</button>
+                    <button type="button" class="pull-right marco-btn-warning" style="width:80px; background:#2980b9;margin-left:20px;color:#fff;margin-top:10px;" onclick="closeDialog()">确定</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript">
         Layout.init();
+
+        Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr');
 
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_cal_type", "统计记录管理", "20", "all_cal_type_grid_table");
 
@@ -286,15 +316,25 @@
 
         dialog = $(".cal_att_content").dialog({
             autoOpen: false,
-            height: 300,
+            height: 500,
             width: 700,
             modal: true
         });
 
+
         $('.export-button-dialog').click(function () {
-            if (dialog != null)
-                dialog.dialog("open");
+        $('#dialog_content').dialogModal({
+            onOkBut: function () {
+            },
+            onCancelBut: function () { },
+            onLoad: function () {
+
+            },
+            onClose: function () {
+                window.location.reload();
+            }
         });
+    });
 
         function closeDialog() {
             if (dialog != null)

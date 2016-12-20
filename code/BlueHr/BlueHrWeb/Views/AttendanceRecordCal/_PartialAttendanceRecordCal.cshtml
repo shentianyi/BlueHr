@@ -30,7 +30,18 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="marco-igroup-danger">
                         <span>员工号</span>
-                        @Html.EditorFor(model => model.staffNr)
+                        @if (Model != null)
+                        {
+                            <select name="staffNrSelect" id="staffNrSelect"></select>
+                            <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" value="@Model.staffNr"  />
+                            <!--@Html.EditorFor(model => model.staffNr)-->
+                        }
+                        else
+                        {
+                            <select name="staffNrSelect" id="staffNrSelect"></select>
+                            <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" />
+                        }
+                        <!--@Html.EditorFor(model => model.staffNr)-->
                     </div>
                 </div>
 
@@ -78,4 +89,6 @@
 
 <script type="text/javascript">
     Layout.init();
+
+    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr');
 </script>

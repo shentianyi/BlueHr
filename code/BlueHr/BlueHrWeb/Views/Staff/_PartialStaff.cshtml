@@ -99,7 +99,15 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                         <div class="marco-igroup-primary">
                                             <span>出生日期</span>
-                                            @Html.EditorFor(model => model.birthday, new { htmlAttributes = new { @class = "date-picker" } })
+                                            @if (Model.birthday.HasValue)
+                                            {
+                                                <input id="birthday" name="birthday" value="@Model.birthday.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                            }
+                                            else
+                                            {
+                                                <input id="birthday" name="birthday" value="" class="date-picker" />
+                                            }
+                                            <!--@Html.EditorFor(model => model.birthday, new { htmlAttributes = new { @class = "date-picker" } })-->
                                         </div>
                                     </div>
 
@@ -309,7 +317,15 @@
                                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                     <div class="marco-igroup-primary">
                                         <span>最初进厂日期</span>
-                                        @Html.EditorFor(model => model.firstCompanyEmployAt)
+                                        @if (Model.firstCompanyEmployAt.HasValue)
+                                        {
+                                            <input id="firstCompanyEmployAt" name="firstCompanyEmployAt" value="@Model.firstCompanyEmployAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                        }
+                                        else
+                                        {
+                                            <input id="firstCompanyEmployAt" name="firstCompanyEmployAt" value="" class="date-picker" />
+                                        }
+                                        <!--@Html.EditorFor(model => model.firstCompanyEmployAt)-->
                                     </div>
                                 </div>
 
@@ -324,7 +340,15 @@
                                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                     <div class="marco-igroup-primary">
                                         <span>进厂日期</span>
-                                        @Html.EditorFor(model => model.companyEmployAt)
+                                        @if (Model.companyEmployAt.HasValue)
+                                        {
+                                            <input id="companyEmployAt" name="companyEmployAt" value="@Model.companyEmployAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                        }
+                                        else
+                                        {
+                                            <input id="companyEmployAt" name="companyEmployAt" value="" class="date-picker" />
+                                        }
+                                        <!--@Html.EditorFor(model => model.companyEmployAt)-->
                                     </div>
                                 </div>
 
@@ -339,7 +363,15 @@
                                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                     <div class="marco-igroup-primary">
                                         <span>参加工作年限</span>
-                                        @Html.EditorFor(model => model.workingYearsAt)
+                                        @if (Model.workingYearsAt.HasValue)
+                                        {
+                                            <input id="workingYearsAt" name="workingYearsAt" value="@Model.workingYearsAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                        }
+                                        else
+                                        {
+                                            <input id="workingYearsAt" name="workingYearsAt" value="" class="date-picker" />
+                                        }
+                                        <!--@Html.EditorFor(model => model.workingYearsAt)-->
                                     </div>
                                 </div>
 
@@ -508,6 +540,7 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                         <div class="marco-igroup-success">
                                             <span>出生日期 *</span>
+                                            
                                             <input type="text" id="add_familyBirthday" class="date-picker" />
                                             <span class="createFamilyBtn" style="cursor:pointer;">
                                                 <i class="fa fa-plus-circle"></i>

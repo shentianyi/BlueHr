@@ -25,6 +25,7 @@
     bool canCreate = MenuAuthHelper.CanShow("Staff", "Create");
     bool canEdit = MenuAuthHelper.CanShow("Staff", "Edit");
     bool canShow = MenuAuthHelper.CanShow("Staff", "Show");
+
 }
 @*<button id="Back" style="display:none;" class="marco-btn-primary">Back</button>*@
 
@@ -223,27 +224,34 @@
 
                                         <td>
                                             @if (item.IsHasAllCertificate)
-                                    {
+                                            {
                                                 <span class="marco-label-success" title="证照信息已经备齐" style="cursor:help;">已备齐</span>
-                                    }
-                                    else
-                                    {
+                                            }
+                                            else
+                                            {
                                                 <span class="marco-label-danger" title="证照信息尚未备齐" style="cursor:help;">尚未备齐</span>
-                                    }
+                                            }
                                         </td>
 
                                         <td>
                                             @if (canShow)
-                                    {
+                                            {
                                                 <a href="/Staff/Delete/@item.nr" target="window_name" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                    }
+                                            }
                                             @if (canEdit)
-                                    {
+                                            {
                                                 <a href="/Staff/Edit/@item.nr" class="option-icon-warning" title="编辑">
                                                     <i class="fa fa-pencil"></i>
-                                                </a>}
+                                                </a>
+                                            }
+                                             
+                                                <a href="/Certificate?nr=@item.nr" title="证照管理" class="option-icon-success">
+                                                    <i class="fa fa-newspaper-o"></i>
+                                                </a>
+                                           
+                                            
                                         </td>
                                     </tr>
                             }
@@ -329,16 +337,19 @@
 
                                         <td>
                                             @if (canShow)
-                                        {
+                                            {
                                                 <a href="/Staff/Delete/@off_item.nr" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                        }
+                                            }
                                             @if (canEdit)
-                                        {
-                                                <a href="/Staff/Edit/@off_item.nr" class="option-icon-warning" title="编辑">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>}
+                                            {
+                                            <a href="/Staff/Edit/@off_item.nr" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            }
+
+                                            
                                         </td>
                                     </tr>
                             }
@@ -431,7 +442,12 @@
                                         {
                                             <a href="/Staff/Edit/@item.nr" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
-                                            </a>}
+                                            </a>
+                                        }
+                                        
+                                        <a href="/Certificate?nr=@item.nr" title="证照管理" class="option-icon-success">
+                                            <i class="fa fa-newspaper-o"></i>
+                                        </a>
                                     </td>
                                 </tr>
                         }
