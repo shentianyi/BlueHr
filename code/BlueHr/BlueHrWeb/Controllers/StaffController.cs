@@ -579,7 +579,7 @@ namespace BlueHrWeb.Controllers
                     }
                     ViewBag.Query = q;
 
-                    return View("Delete", staff);
+                    return View(staff);
                 }
                 else if (nextOrPrevious == false && nr != endStaffNr)
                 {
@@ -604,7 +604,7 @@ namespace BlueHrWeb.Controllers
                     }
                     ViewBag.Query = q;
 
-                    return View("Delete", staff);
+                    return View(staff);
                 }
                 else
                 {

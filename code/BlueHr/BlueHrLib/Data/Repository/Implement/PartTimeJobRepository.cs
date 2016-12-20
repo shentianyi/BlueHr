@@ -88,12 +88,12 @@ namespace BlueHrLib.Data.Repository.Implement
             if (updatedlr != null)
             {
                 updatedlr.staffNr = lr.staffNr == null ? updatedlr.staffNr : lr.staffNr;
-                updatedlr.companyId = lr.companyId == null ? updatedlr.companyId : lr.companyId;
-                updatedlr.departmentId = lr.departmentId == null ? updatedlr.departmentId : lr.departmentId;
-                updatedlr.jobTitleId = lr.jobTitleId == null ? updatedlr.jobTitleId : lr.jobTitleId;
+                updatedlr.companyId = lr.companyId == 0 ? updatedlr.companyId : lr.companyId;
+                updatedlr.departmentId = lr.departmentId == 0 ? updatedlr.departmentId : lr.departmentId;
+                updatedlr.jobTitleId = lr.jobTitleId == 0 ? updatedlr.jobTitleId : lr.jobTitleId;
                 updatedlr.startTime = lr.startTime == null ? updatedlr.startTime : lr.startTime;
                 updatedlr.endTime = lr.endTime == null ? updatedlr.endTime : lr.endTime;
-                updatedlr.isDelete = lr.isDelete == null ? updatedlr.isDelete : lr.isDelete;
+                updatedlr.isDelete = lr.isDelete == false ? updatedlr.isDelete : lr.isDelete;
 
                 this.context.SubmitChanges();
                 return true;
