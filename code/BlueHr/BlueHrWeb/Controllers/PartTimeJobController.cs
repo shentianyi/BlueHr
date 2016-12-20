@@ -156,7 +156,7 @@ namespace BlueHrWeb.Controllers
             }
         }
 
-        // POST: PartTimeJob/Approval/5
+        // POST: PartTimeJob/SetIsDelete/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
         public JsonResult SetIsDelete(int id)
@@ -326,21 +326,21 @@ namespace BlueHrWeb.Controllers
                 return msg;
             }
 
-            if (partTimeJob.companyId == null)
+            if (partTimeJob.companyId ==0)
             {
                 msg.Success = false;
                 msg.Content = "公司不可为空";
 
                 return msg;
             }
-            if (partTimeJob.departmentId == null)
+            if (partTimeJob.departmentId == 0)
             {
                 msg.Success = false;
                 msg.Content = "部门不可为空";
 
                 return msg;
             }
-            if (partTimeJob.jobTitleId == null)
+            if (partTimeJob.jobTitleId == 0)
             {
                 msg.Success = false;
                 msg.Content = "职位不可为空";

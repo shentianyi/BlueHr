@@ -191,35 +191,35 @@
         <elementListCompartment Id="c8721948-12a9-4f81-96a5-d667c2e7aaf1" absoluteBounds="6.89, 15.335, 1.9700000000000002, 7.697235107421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(7.8125025 : 23.1322351074219); (7.8125025 : 38.6158713785807); (8.88541416666667 : 38.6158713785807 : JumpStart); (9.08332833333333 : 38.6158713785807 : JumpEnd); (9.25 : 38.6158713785807)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(7.8125025 : 23.1322351074219); (7.8125025 : 38.6158713785807); (9.25 : 38.6158713785807)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/Staff/Staff_AttendanceRecordCal" />
       <nodes>
         <classShapeMoniker Id="d4695881-305e-4fd0-921d-f28f823e8d35" />
         <classShapeMoniker Id="f7410711-d27c-428b-8187-50c848f8c20d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.875 : 19.4473024495443); (8.88541416666667 : 19.4473024495443 : JumpStart); (9.23958583333333 : 19.4473024495443 : JumpEnd); (9.25 : 19.4473024495443)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.875 : 19.4473024495443); (8.94791416666667 : 19.4473024495443 : JumpStart); (9.23958583333333 : 19.4473024495443 : JumpEnd); (9.25 : 19.4473024495443)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/Staff/Staff_AttendanceRecordDetail" />
       <nodes>
         <classShapeMoniker Id="d4695881-305e-4fd0-921d-f28f823e8d35" />
         <classShapeMoniker Id="05426d94-f351-477e-b948-f31474255dbb" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.875 : 22.1911175537109); (8.88541416666667 : 22.1911175537109 : JumpStart); (9.11458083333333 : 22.1911175537109 : JumpEnd); (9.25 : 22.1911175537109)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.875 : 22.1911175537109); (8.91666166666667 : 22.1911175537109 : JumpStart); (9.23958583333333 : 22.1911175537109 : JumpEnd); (9.25 : 22.1911175537109)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/Staff/Staff_BankCard" />
       <nodes>
         <classShapeMoniker Id="d4695881-305e-4fd0-921d-f28f823e8d35" />
         <classShapeMoniker Id="1aa62fd4-02da-45c4-a693-b11b93229598" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.06249875 : 14.875); (8.06249875 : 13.968748); (9.25 : 13.968748)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.06249875 : 14.875); (8.06249875 : 13.968748); (8.69791666666667 : 13.968748 : JumpStart); (8.86458333333333 : 13.968748 : JumpEnd); (8.88541416666667 : 13.968748 : JumpStart); (9.23958583333333 : 13.968748 : JumpEnd); (9.25 : 13.968748)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/Staff/Staff_FamilyMemeber" />
       <nodes>
         <classShapeMoniker Id="d4695881-305e-4fd0-921d-f28f823e8d35" />
         <classShapeMoniker Id="8e028a6a-cd2c-4dc2-841d-32756fa3fd5b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.875 : 18.171875); (8.88541416666667 : 18.171875 : JumpStart); (9.05208083333333 : 18.171875 : JumpEnd); (12.25 : 18.171875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.875 : 18.171875); (9.07291916666667 : 18.171875 : JumpStart); (9.23958583333333 : 18.171875 : JumpEnd); (11.3229166666667 : 18.171875 : JumpStart); (11.4895833333333 : 18.171875 : JumpEnd); (12.25 : 18.171875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/Staff/Staff_ShiftSchedule" />
       <nodes>
         <classShapeMoniker Id="d4695881-305e-4fd0-921d-f28f823e8d35" />
@@ -240,14 +240,14 @@
         <classShapeMoniker Id="d4695881-305e-4fd0-921d-f28f823e8d35" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 25.6312827555339); (6.74479291666667 : 25.6312827555339 : JumpStart); (6.91145958333333 : 25.6312827555339 : JumpEnd); (7.375 : 25.6312827555339); (7.375 : 23.1322351074219)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.75 : 25.6312827555339); (6.41666416666667 : 25.6312827555339 : JumpStart); (6.70833333333333 : 25.6312827555339 : JumpEnd); (6.74479291666667 : 25.6312827555339 : JumpStart); (6.91145958333333 : 25.6312827555339 : JumpEnd); (7.375 : 25.6312827555339); (7.375 : 23.1322351074219)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/Department/Department_Staff" />
       <nodes>
         <classShapeMoniker Id="ea9aa0eb-be28-47ac-aa9b-9758393d2806" />
         <classShapeMoniker Id="d4695881-305e-4fd0-921d-f28f823e8d35" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 15.8152630615234); (6.29166666666667 : 15.8152630615234 : JumpStart); (6.45833333333333 : 15.8152630615234 : JumpEnd); (6.875 : 15.8152630615234)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.75 : 15.8152630615234); (6.875 : 15.8152630615234)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/InsureType/InsureType_Staff" />
       <nodes>
         <classShapeMoniker Id="d0618bdf-f81d-4a06-85c5-cc67e264c89a" />
@@ -267,7 +267,7 @@
         <elementListCompartment Id="376e27bc-758a-424d-85bb-b4cb9d237558" absoluteBounds="12.39, 21.085, 1.9700000000000002, 1.7756245930989583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(14.375 : 22.0489005533854); (15 : 22.0489005533854)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(14.375 : 22.0489005533854); (14.3854166666667 : 22.0489005533854 : JumpStart); (14.5520833333333 : 22.0489005533854 : JumpEnd); (15 : 22.0489005533854)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/Certificate/Certificate_Attachment" />
       <nodes>
         <classShapeMoniker Id="1b69e489-96be-40fe-8a6b-67651c7fafe3" />
@@ -281,7 +281,7 @@
         <classShapeMoniker Id="1b69e489-96be-40fe-8a6b-67651c7fafe3" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.875 : 20.90625); (8.88541416666667 : 20.90625 : JumpStart); (9.11458083333333 : 20.90625 : JumpEnd); (11.3229166666667 : 20.90625 : JumpStart); (11.4895833333333 : 20.90625 : JumpEnd); (12.375 : 20.90625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.875 : 20.90625); (8.94791416666667 : 20.90625 : JumpStart); (9.23958583333333 : 20.90625 : JumpEnd); (11.3229166666667 : 20.90625 : JumpStart); (11.4895833333333 : 20.90625 : JumpEnd); (12.375 : 20.90625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/Staff/Staff_Certificate" />
       <nodes>
         <classShapeMoniker Id="d4695881-305e-4fd0-921d-f28f823e8d35" />
@@ -294,14 +294,14 @@
         <elementListCompartment Id="913355c8-a76f-4517-8cf2-2f376a19a785" absoluteBounds="6.64, 11.46, 1.9700000000000002, 1.393585205078125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.625 : 12.08099609375); (3.59375 : 12.08099609375); (3.59375 : 17.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(6.625 : 12.08099609375); (6.45833333333333 : 12.08099609375 : JumpStart); (6.29166666666667 : 12.08099609375 : JumpEnd); (3.59375 : 12.08099609375); (3.59375 : 17.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/CertificateType/CertificateType_JobCertificate" />
       <nodes>
         <classShapeMoniker Id="69750a5e-f631-400e-b98f-531d8a9d9424" />
         <classShapeMoniker Id="73e1d8cd-9a20-421b-8fc5-656ad9b8e2cd" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.625 : 11.9815991210937); (8.88541416666667 : 11.9815991210937 : JumpStart); (9.11458083333333 : 11.9815991210937 : JumpEnd); (9.625 : 11.9815991210937); (9.625 : 12.875); (11.5 : 12.875); (11.5 : 20.25); (13.375 : 20.25); (13.375 : 20.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.625 : 11.9815991210937); (8.94791416666667 : 11.9815991210937 : JumpStart); (9.23958583333333 : 11.9815991210937 : JumpEnd); (9.625 : 11.9815991210937); (9.625 : 12.875); (11.5 : 12.875); (11.5 : 20.25); (13.375 : 20.25); (13.375 : 20.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/CertificateType/CertificateType_Certificate" />
       <nodes>
         <classShapeMoniker Id="69750a5e-f631-400e-b98f-531d8a9d9424" />
@@ -327,7 +327,7 @@
         <classShapeMoniker Id="5956e644-7641-44e8-931d-15eec09f5a23" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.78125 : 14.875); (8.78125 : 13.0392926025391); (8.88541416666667 : 13.0392926025391 : JumpStart); (9.11458083333333 : 13.0392926025391 : JumpEnd); (13 : 13.0392926025391)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.78125 : 14.875); (8.78125 : 13.0392926025391); (8.88541416666667 : 13.0392926025391 : JumpStart); (9.23958583333333 : 13.0392926025391 : JumpEnd); (11.4166666666667 : 13.0392926025391 : JumpStart); (11.5833333333333 : 13.0392926025391 : JumpEnd); (13 : 13.0392926025391)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/Staff/Staff_AbsenceRecrod" />
       <nodes>
         <classShapeMoniker Id="d4695881-305e-4fd0-921d-f28f823e8d35" />
@@ -416,14 +416,14 @@
         <elementListCompartment Id="c37d2cda-de9e-4c35-8d7d-3bcea910249c" absoluteBounds="0.515, 20.21, 1.9700000000000002, 1.0115458170572915" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(0.53125 : 19.75); (0.53125 : 18.5847192382813); (2.69791666666667 : 18.5847192382813 : JumpStart); (2.86458333333333 : 18.5847192382813 : JumpEnd); (3.16666666666667 : 18.5847192382813 : JumpStart); (3.45833333333333 : 18.5847192382813 : JumpEnd); (3.5 : 18.5847192382813)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.5 : 19.75); (1.5 : 18.5847192382813); (1.94791866666667 : 18.5847192382813 : JumpStart); (2.11458533333333 : 18.5847192382813 : JumpEnd); (3.04166666666667 : 18.5847192382813 : JumpStart); (3.33333333333333 : 18.5847192382813 : JumpEnd); (3.5 : 18.5847192382813)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/JobTitle/JobTitle_JobCertificate" />
       <nodes>
         <classShapeMoniker Id="a3bb7378-c870-456e-b07f-2416051bfe23" />
         <classShapeMoniker Id="73e1d8cd-9a20-421b-8fc5-656ad9b8e2cd" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 19.96875); (2.69791666666667 : 19.96875 : JumpStart); (2.86458333333333 : 19.96875 : JumpEnd); (3.16666666666667 : 19.96875 : JumpStart); (3.45833333333333 : 19.96875 : JumpEnd); (6.29166666666667 : 19.96875 : JumpStart); (6.45833333333333 : 19.96875 : JumpEnd); (6.875 : 19.96875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.5 : 19.96875); (3.04166666666667 : 19.96875 : JumpStart); (3.33333333333333 : 19.96875 : JumpEnd); (6.29166666666667 : 19.96875 : JumpStart); (6.45833333333333 : 19.96875 : JumpEnd); (6.875 : 19.96875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/JobTitle/JobTitle_Staff" />
       <nodes>
         <classShapeMoniker Id="a3bb7378-c870-456e-b07f-2416051bfe23" />
@@ -450,7 +450,7 @@
         <classShapeMoniker Id="703fc91c-e6ba-4c27-b43b-616024f09b9a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.875 : 20.5458437093099); (8.88541416666667 : 20.5458437093099 : JumpStart); (9.08332833333333 : 20.5458437093099 : JumpEnd); (11.3229166666667 : 20.5458437093099 : JumpStart); (11.4895833333333 : 20.5458437093099 : JumpEnd); (17.1249975 : 20.5458437093099); (17.1249975 : 20.1460697428385)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.875 : 20.5458437093099); (8.88541416666667 : 20.5458437093099 : JumpStart); (9.23958583333333 : 20.5458437093099 : JumpEnd); (11.3229166666667 : 20.5458437093099 : JumpStart); (11.4895833333333 : 20.5458437093099 : JumpEnd); (14.3854166666667 : 20.5458437093099 : JumpStart); (14.5520833333333 : 20.5458437093099 : JumpEnd); (17.1249975 : 20.5458437093099); (17.1249975 : 20.1460697428385)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/Staff/Staff_ExtraWorkRecord" />
       <nodes>
         <classShapeMoniker Id="d4695881-305e-4fd0-921d-f28f823e8d35" />
@@ -540,7 +540,7 @@
         <classShapeMoniker Id="21f37f08-61a7-455b-973c-89042107e854" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.75 : 22.6562505); (3.45833333333333 : 22.6562505 : JumpStart); (3.16666666666667 : 22.6562505 : JumpEnd); (0.84375 : 22.6562505); (0.84375 : 33.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3.75 : 22.6562505); (3.33333333333333 : 22.6562505 : JumpStart); (3.16666666666667 : 22.6562505 : JumpEnd); (0.84375 : 22.6562505); (0.84375 : 33.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/Company/Company_Recruit" />
       <nodes>
         <classShapeMoniker Id="2752ab95-ba22-4128-8d73-1aa2fc96232f" />
@@ -610,59 +610,59 @@
         <classShapeMoniker Id="02ea4162-4793-4520-ad24-b9698383b1d4" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.9687475 : 7.14460489908854); (8.9687475 : 41.071973063151); (6.91145958333333 : 41.071973063151 : JumpStart); (6.74479291666667 : 41.071973063151 : JumpEnd); (6.58333083333333 : 41.071973063151 : JumpStart); (6.41666416666667 : 41.071973063151 : JumpEnd); (6.375 : 41.071973063151)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.9687475 : 7.14460489908854); (8.9687475 : 41.071973063151); (6.91145958333333 : 41.071973063151 : JumpStart); (6.74479291666667 : 41.071973063151 : JumpEnd); (6.70833333333333 : 41.071973063151 : JumpStart); (6.54166666666667 : 41.071973063151 : JumpEnd); (6.375 : 41.071973063151)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/User/User_LeaveRecord" />
       <nodes>
         <classShapeMoniker Id="6c6846e6-2d00-44e1-9c24-6aa8b07a847b" />
         <classShapeMoniker Id="2a0d8328-d196-4a93-93ba-af52727f683b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.1562525 : 7.14460489908854); (9.1562525 : 40.7143554101563); (9.11458083333333 : 40.7143554101563 : JumpStart); (8.88541416666667 : 40.7143554101563 : JumpEnd); (6.91145958333333 : 40.7143554101563 : JumpStart); (6.74479291666667 : 40.7143554101563 : JumpEnd); (6.70833333333333 : 40.7143554101563 : JumpStart); (6.41666416666667 : 40.7143554101563 : JumpEnd); (6.375 : 40.7143554101563)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(9.1562525 : 7.14460489908854); (9.1562525 : 40.7143554101563); (6.375 : 40.7143554101563)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/User/User_LeaveRecord1" />
       <nodes>
         <classShapeMoniker Id="6c6846e6-2d00-44e1-9c24-6aa8b07a847b" />
         <classShapeMoniker Id="2a0d8328-d196-4a93-93ba-af52727f683b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.01562125 : 7.14460489908854); (9.01562125 : 35.53125); (7.89583583333333 : 35.53125 : JumpStart); (7.72916916666667 : 35.53125 : JumpEnd); (6.91145958333333 : 35.53125 : JumpStart); (6.74479291666667 : 35.53125 : JumpEnd); (6.70833333333333 : 35.53125 : JumpStart); (6.41666416666667 : 35.53125 : JumpEnd); (5.5 : 35.53125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(9.01562125 : 7.14460489908854); (9.01562125 : 35.53125); (7.89583583333333 : 35.53125 : JumpStart); (7.72916916666667 : 35.53125 : JumpEnd); (6.91145958333333 : 35.53125 : JumpStart); (6.74479291666667 : 35.53125 : JumpEnd); (6.70833333333333 : 35.53125 : JumpStart); (6.54166666666667 : 35.53125 : JumpEnd); (5.5 : 35.53125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/User/User_RewardsAndPenalty" />
       <nodes>
         <classShapeMoniker Id="6c6846e6-2d00-44e1-9c24-6aa8b07a847b" />
         <classShapeMoniker Id="fae30073-eca0-4cd7-94fb-ee9ee8fd590e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.04687375 : 7.14460489908854); (9.04687375 : 34.8593725); (7.89583583333333 : 34.8593725 : JumpStart); (7.72916916666667 : 34.8593725 : JumpEnd); (7.11458583333333 : 34.8593725 : JumpStart); (6.94791916666667 : 34.8593725 : JumpEnd); (6.91145958333333 : 34.8593725 : JumpStart); (6.74479291666667 : 34.8593725 : JumpEnd); (6.70833333333333 : 34.8593725 : JumpStart); (6.41666416666667 : 34.8593725 : JumpEnd); (5.5 : 34.8593725)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(9.04687375 : 7.14460489908854); (9.04687375 : 34.8593725); (7.89583583333333 : 34.8593725 : JumpStart); (7.72916916666667 : 34.8593725 : JumpEnd); (6.91145958333333 : 34.8593725 : JumpStart); (6.74479291666667 : 34.8593725 : JumpEnd); (5.5 : 34.8593725)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/User/User_RewardsAndPenalty1" />
       <nodes>
         <classShapeMoniker Id="6c6846e6-2d00-44e1-9c24-6aa8b07a847b" />
         <classShapeMoniker Id="fae30073-eca0-4cd7-94fb-ee9ee8fd590e" />
       </nodes>
     </associationConnector>
-    <classShape Id="6784911e-50d6-4bbe-bc95-d38fd92b1e4a" absoluteBounds="0.875, 2.75, 2, 2.3356245930989585">
+    <classShape Id="3941265b-f92a-4615-bbd6-132f2ca7490a" absoluteBounds="0.75, 2.625, 2, 2.3356245930989585">
       <DataClassMoniker Name="/BlueHrDataContext/PartTimeJob" />
       <nestedChildShapes>
-        <elementListCompartment Id="a63e02fb-19a2-427d-a1f4-8031c51175ce" absoluteBounds="0.88999999999999968, 3.21, 1.9700000000000002, 1.7756245930989585" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="fb3cfb84-69a3-4224-ace3-096302d56c03" absoluteBounds="0.76500000000000012, 3.085, 1.9700000000000002, 1.7756245930989585" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.75 : 23.3326501585287); (3.45833333333333 : 23.3326501585287 : JumpStart); (3.29166666666667 : 23.3326501585287 : JumpEnd); (3.25 : 23.3326501585287); (3.25 : 5.46062459309896); (2.86458333333333 : 5.46062459309896 : JumpStart); (2.69791666666667 : 5.46062459309896 : JumpEnd); (2.48958533333333 : 5.46062459309896 : JumpStart); (2.32291866666667 : 5.46062459309896 : JumpEnd); (1.875 : 5.46062459309896); (1.875 : 5.08562459309896)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.75 : 22.375); (3.375 : 22); (3.33333333333333 : 22 : JumpStart); (3.16666666666667 : 22 : JumpEnd); (3.125 : 22); (3.125 : 5.33562459309896); (2.75 : 4.96062459309896)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BlueHrDataContext/Company/Company_PartTimeJob" />
       <nodes>
         <classShapeMoniker Id="2752ab95-ba22-4128-8d73-1aa2fc96232f" />
-        <classShapeMoniker Id="6784911e-50d6-4bbe-bc95-d38fd92b1e4a" />
+        <classShapeMoniker Id="3941265b-f92a-4615-bbd6-132f2ca7490a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.75 : 25.1593893777669); (3.375 : 25.1593893777669); (3.375 : 5.71062459309896); (3.33333333333333 : 5.71062459309896 : JumpStart); (3.16666666666667 : 5.71062459309896 : JumpEnd); (2.86458333333333 : 5.71062459309896 : JumpStart); (2.69791666666667 : 5.71062459309896 : JumpEnd); (2.406252 : 5.71062459309896); (2.406252 : 5.08562459309896)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.75 : 25.1593893777669); (3.25 : 25.1593893777669); (3.25 : 5.33562459309896); (1.718748 : 5.33562459309896); (1.718748 : 4.96062459309896)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/BlueHrDataContext/Department/Department_PartTimeJob" />
       <nodes>
         <classShapeMoniker Id="ea9aa0eb-be28-47ac-aa9b-9758393d2806" />
-        <classShapeMoniker Id="6784911e-50d6-4bbe-bc95-d38fd92b1e4a" />
+        <classShapeMoniker Id="3941265b-f92a-4615-bbd6-132f2ca7490a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 20.6764004085287); (2.78125 : 20.6764004085287); (2.78125 : 5.08562459309896)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.031252 : 19.75); (2.031252 : 18.4764123535156); (0.375 : 18.4764123535156); (0.375 : 3.79281229654948); (0.75 : 3.79281229654948)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/BlueHrDataContext/JobTitle/JobTitle_PartTimeJob" />
       <nodes>
         <classShapeMoniker Id="a3bb7378-c870-456e-b07f-2416051bfe23" />
-        <classShapeMoniker Id="6784911e-50d6-4bbe-bc95-d38fd92b1e4a" />
+        <classShapeMoniker Id="3941265b-f92a-4615-bbd6-132f2ca7490a" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

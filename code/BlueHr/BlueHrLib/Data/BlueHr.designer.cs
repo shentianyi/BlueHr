@@ -18552,17 +18552,17 @@ namespace BlueHrLib.Data
 		
 		private string _staffNr;
 		
-		private System.Nullable<int> _companyId;
+		private int _companyId;
 		
-		private System.Nullable<int> _departmentId;
+		private int _departmentId;
 		
-		private System.Nullable<int> _jobTitleId;
+		private int _jobTitleId;
 		
 		private System.Nullable<System.DateTime> _startTime;
 		
 		private System.Nullable<System.DateTime> _endTime;
 		
-		private System.Nullable<bool> _isDelete;
+		private bool _isDelete;
 		
 		private EntityRef<Company> _Company;
 		
@@ -18578,17 +18578,17 @@ namespace BlueHrLib.Data
     partial void OnidChanged();
     partial void OnstaffNrChanging(string value);
     partial void OnstaffNrChanged();
-    partial void OncompanyIdChanging(System.Nullable<int> value);
+    partial void OncompanyIdChanging(int value);
     partial void OncompanyIdChanged();
-    partial void OndepartmentIdChanging(System.Nullable<int> value);
+    partial void OndepartmentIdChanging(int value);
     partial void OndepartmentIdChanged();
-    partial void OnjobTitleIdChanging(System.Nullable<int> value);
+    partial void OnjobTitleIdChanging(int value);
     partial void OnjobTitleIdChanged();
     partial void OnstartTimeChanging(System.Nullable<System.DateTime> value);
     partial void OnstartTimeChanged();
     partial void OnendTimeChanging(System.Nullable<System.DateTime> value);
     partial void OnendTimeChanged();
-    partial void OnisDeleteChanging(System.Nullable<bool> value);
+    partial void OnisDeleteChanging(bool value);
     partial void OnisDeleteChanged();
     #endregion
 		
@@ -18640,8 +18640,8 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyId", DbType="Int")]
-		public System.Nullable<int> companyId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_companyId", DbType="Int NOT NULL")]
+		public int companyId
 		{
 			get
 			{
@@ -18664,8 +18664,8 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departmentId", DbType="Int")]
-		public System.Nullable<int> departmentId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_departmentId", DbType="Int NOT NULL")]
+		public int departmentId
 		{
 			get
 			{
@@ -18688,8 +18688,8 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_jobTitleId", DbType="Int")]
-		public System.Nullable<int> jobTitleId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_jobTitleId", DbType="Int NOT NULL")]
+		public int jobTitleId
 		{
 			get
 			{
@@ -18752,8 +18752,8 @@ namespace BlueHrLib.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isDelete", DbType="Bit")]
-		public System.Nullable<bool> isDelete
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isDelete", DbType="Bit NOT NULL")]
+		public bool isDelete
 		{
 			get
 			{
@@ -18799,7 +18799,7 @@ namespace BlueHrLib.Data
 					}
 					else
 					{
-						this._companyId = default(Nullable<int>);
+						this._companyId = default(int);
 					}
 					this.SendPropertyChanged("Company");
 				}
@@ -18833,7 +18833,7 @@ namespace BlueHrLib.Data
 					}
 					else
 					{
-						this._departmentId = default(Nullable<int>);
+						this._departmentId = default(int);
 					}
 					this.SendPropertyChanged("Department");
 				}
@@ -18867,7 +18867,7 @@ namespace BlueHrLib.Data
 					}
 					else
 					{
-						this._jobTitleId = default(Nullable<int>);
+						this._jobTitleId = default(int);
 					}
 					this.SendPropertyChanged("JobTitle");
 				}
