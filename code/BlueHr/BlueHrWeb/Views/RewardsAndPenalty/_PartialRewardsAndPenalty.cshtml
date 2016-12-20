@@ -62,7 +62,15 @@
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
                                 <span>申请日期</span>
-                                @Html.EditorFor(model => model.createdAt, new { htmlAttributes = new { @class = "date-picker" } })
+                                @if (Model.createdAt.HasValue)
+                                {
+                                    <input id="createdAt" name="createdAt" value="@Model.createdAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                }
+                                else
+                                {
+                                    <input id="createdAt" name="createdAt" value="" class="date-picker" />
+                                }
+                                <!--@Html.EditorFor(model => model.createdAt, new { htmlAttributes = new { @class = "date-picker" } })-->
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -86,7 +94,15 @@
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
                                 <span>审批日期</span>
-                                @Html.EditorFor(model => model.approvalAt, new { htmlAttributes = new { @class = "date-picker" } })
+                                @if (Model.approvalAt.HasValue)
+                                {
+                                    <input id="approvalAt" name="approvalAt" value="@Model.approvalAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                }
+                                else
+                                {
+                                    <input id="approvalAt" name="approvalAt" value="" class="date-picker" />
+                                }
+                                <!--@Html.EditorFor(model => model.approvalAt, new { htmlAttributes = new { @class = "date-picker" } })-->
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
