@@ -260,6 +260,7 @@
     <Compile Include="Controllers\RecruitController.cs" />
     <Compile Include="Controllers\ResignRecordController.cs" />
     <Compile Include="Controllers\RewardsAndPenaltyController.cs" />
+    <Compile Include="Controllers\PartTimeJobController.cs" />
     <Compile Include="Controllers\ShiftJobRecordController.cs" />
     <Compile Include="Controllers\SysRoleAuthorizationController.cs" />
     <Compile Include="Controllers\SysRoleController.cs" />
