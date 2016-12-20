@@ -345,15 +345,28 @@ namespace BlueHrWeb.Controllers
             }
             //获取当前记录的属性
             int i = 1;
+            string showName = "";
             foreach (var property in Shifts[0].GetType().GetProperties())
             {
+                switch (i)
+                {
+                    case 1: showName = "ID"; break;
+                    case 2: showName = "代码"; break;
+                    case 3: showName = "名称"; break;
+                    case 4: showName = "开始时间"; break;
+                    case 5: showName = "结束时间"; break;
+                    case 6: showName = "班次类型"; break;
+                    case 7: showName = "备注"; break;
+                    default:
+                        break;
+                }
                 if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name)&&i<=7)
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
+                    select.Add(new SelectListItem { Text = showName, Value = property.Name, Selected = true });
                 }
                 else if (i<=7)
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                    select.Add(new SelectListItem { Text = showName, Value = property.Name, Selected = false });
                 }
                 i++;
             }
