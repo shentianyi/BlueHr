@@ -10,12 +10,11 @@ namespace BlueHrLib.Data
 {
     public partial class FullMemberRecord
     {
-        private IUserRepository userRep;
         public string userName
         {
             get
             {
-                return userRep.FindById(Convert.ToInt32(this.userId)).name;
+                return this.User.name;
             }
         }
 
@@ -23,7 +22,7 @@ namespace BlueHrLib.Data
         {
             get
             {
-                return userRep.FindById(Convert.ToInt32(this.approvalUserId)).name;
+                return this.User1.name;
             }
         }
     }

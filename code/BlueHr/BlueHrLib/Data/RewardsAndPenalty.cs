@@ -16,18 +16,11 @@ namespace BlueHrLib.Data
 {
     public partial class RewardsAndPenalty
     {
-        IUserService ss = new UserService(Settings.Default.BlueHrConnectionString10);
-
-        
         public string userName
         {
             get
             {
-                return ss.FindById(Convert.ToInt32(this.createdUserId)).name;
-            }
-            set
-            {
-                this.userName = ss.FindById(Convert.ToInt32(this.createdUserId)).name;
+                return this.User.name;
             }
         }
         public string typeStr
@@ -42,7 +35,7 @@ namespace BlueHrLib.Data
         {
             get
             {
-                return ss.FindById(Convert.ToInt32(this.approvalUserId)).name;
+                return this.User1.name;
             }
         }
 
