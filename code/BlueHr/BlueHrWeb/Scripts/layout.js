@@ -365,6 +365,14 @@ Layout.init = function () {
                 $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
             })
         }
+        // else if(pathname[1] == "Certificate"){
+        //     $(".main-header").remove();
+        //     $(".main-sidebar").remove();
+        //     $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+
+        //     $(window).resize(function(){
+        //         $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+        //     })
     }
 }
 

@@ -107,18 +107,17 @@
 
         <ul class="nav nav-tabs" role="tablist" style="width: 600px;">
 
-            <li role="presentation"><a href="#already_LeaveRecord" role="tab" data-toggle="tab">请假已审批</a></li>
-            <li role="presentation"><a href="#cancel_already_LeaveRecord" role="tab" data-toggle="tab">销假已审批</a></li>
-            <li role="presentation"><a href="#not_LeaveRecord" role="tab" data-toggle="tab">请假未审批</a></li>
-            <li role="presentation"><a href="#cancel_not_LeaveRecord" role="tab" data-toggle="tab">销假未审批</a></li>
-            <li role="presentation" class="active"><a href="#all_LeaveRecord" role="tab" data-toggle="tab">请假记录</a></li>
+            <!--<li role="presentation" class="active"><a href="#already_LeaveRecord" role="tab" data-toggle="tab">请假已审批</a></li>-->
+            <!--<li role="presentation"><a href="#not_LeaveRecord" role="tab" data-toggle="tab">请假未审批</a></li>-->
+            <li role="presentation" class="active"><a href="#cancel_not_LeaveRecord" role="tab" data-toggle="tab">未审批</a></li>
+            <li role="presentation"><a href="#cancel_already_LeaveRecord" role="tab" data-toggle="tab">已审批</a></li>
+            <!--<li role="presentation"><a href="#all_LeaveRecord" role="tab" data-toggle="tab">请假记录</a></li>-->
             <li role="presentation"><a href="#cancel_LeaveRecord" role="tab" data-toggle="tab">销假记录</a></li>
 
         </ul>
         <div class="tab-content">
 
-
-            <div role="tabpanel" class="tab-pane  active" id="all_LeaveRecord">
+            <!--<div role="tabpanel" class="tab-pane" id="all_LeaveRecord">
                 <div id="all_LeaveRecord_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
@@ -207,8 +206,8 @@
                         }
                     </tbody>
                 </table>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="already_LeaveRecord">
+            </div>-->
+            <!--<div role="tabpanel" class="tab-pane  active" id="already_LeaveRecord">
                 <div id="already_LeaveRecord_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
@@ -299,8 +298,8 @@
                         }
                     </tbody>
                 </table>
-            </div>
-             <div role="tabpanel" class="tab-pane" id="not_LeaveRecord">
+            </div>-->
+             <!--<div role="tabpanel" class="tab-pane" id="not_LeaveRecord">
                 <div id="not_LeaveRecord_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
@@ -392,11 +391,10 @@
                         }
                     </tbody>
                 </table>
-            </div>
+            </div>-->
 
-
-            <div role="tabpanel" class="tab-pane" id="cancel_LeaveRecord">
-                <div id="cancel_LeaveRecord_grid_table" style="margin:auto;"></div>
+            <div role="tabpanel" class="tab-pane active" id="cancel_not_LeaveRecord">
+                <div id="cancel_not_LeaveRecord_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -418,8 +416,9 @@
                         {
                             foreach (var item in Model)
                             {
-                                if(item.isDelete==true){
-                                    <tr>
+                                if (item.approvalStatus == null){
+                                    if(item.isDelete==true){
+                                        <tr>
                                         <td>
                                             <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
                                                 @Html.DisplayFor(modelItem => item.staffNr)
@@ -479,6 +478,7 @@
                                                 </a>
                                         </td>
                                     </tr>
+                                    }
                                 }
                             }
                         }
@@ -578,8 +578,8 @@
                     </tbody>
                 </table>
             </div>
-            <div role="tabpanel" class="tab-pane" id="cancel_not_LeaveRecord">
-                <div id="cancel_not_LeaveRecord_grid_table" style="margin:auto;"></div>
+            <div role="tabpanel" class="tab-pane" id="cancel_LeaveRecord">
+                <div id="cancel_LeaveRecord_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -601,9 +601,8 @@
                         {
                             foreach (var item in Model)
                             {
-                                if (item.approvalStatus == null){
-                                    if(item.isDelete==true){
-                                        <tr>
+                                if(item.isDelete==true){
+                                    <tr>
                                         <td>
                                             <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
                                                 @Html.DisplayFor(modelItem => item.staffNr)
@@ -663,13 +662,14 @@
                                                 </a>
                                         </td>
                                     </tr>
-                                    }
                                 }
                             }
                         }
                     </tbody>
                 </table>
             </div>
+            
+            
         </div>
     </div>
 </div>
@@ -715,39 +715,27 @@
     Layout.init();
 
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_LeaveRecord", "请假记录列表", "20", "all_LeaveRecord_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_LeaveRecord", "请假已审批列表", "20", "already_LeaveRecord_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not_LeaveRecord", "请假未审批列表", "20", "not_LeaveRecord_grid_table");
-        
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "cancel_LeaveRecord", "销假记录列表", "20", "cancel_LeaveRecord_grid_table");
+        //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_LeaveRecord", "请假已审批列表", "20", "already_LeaveRecord_grid_table");
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "cancel_already_LeaveRecord", "销假已审批列表", "20", "cancel_already_LeaveRecord_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "cancel_not_LeaveRecord", "销假未审批列表", "20", "cancel_not_LeaveRecord_grid_table");
+        //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not_LeaveRecord", "请假未审批列表", "20", "not_LeaveRecord_grid_table");
         
-    })
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "cancel_not_LeaveRecord", "销假未审批列表", "20", "cancel_not_LeaveRecord_grid_table");
+        //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_LeaveRecord", "请假记录列表", "20", "all_LeaveRecord_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "cancel_LeaveRecord", "销假记录列表", "20", "cancel_LeaveRecord_grid_table");
+   })
 
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_LeaveRecord", "请假记录列表", "20", "all_LeaveRecord_grid_table");
+    //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "already_LeaveRecord", "请假已审批列表", "20", "already_LeaveRecord_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_not_LeaveRecord", "未审批列表", "20", "cancel_not_LeaveRecord_grid_table");
 
-    $('#already_LeaveRecord').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "already_LeaveRecord", "已审批列表", "20", "already_LeaveRecord_grid_table");
-    $('#already_LeaveRecord').removeClass("active");
-
-     $('#not_LeaveRecord').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "not_LeaveRecord", "未审批列表", "20", "not_LeaveRecord_grid_table");
-    $('#not_LeaveRecord').removeClass("active");
-
+    $('#cancel_already_LeaveRecord').addClass("active");    
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_already_LeaveRecord", "已审批列表", "20", "cancel_already_LeaveRecord_grid_table");
+    $('#cancel_already_LeaveRecord').removeClass("active");
 
     $('#cancel_LeaveRecord').addClass("active");
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_LeaveRecord", "销假记录列表", "20", "cancel_LeaveRecord_grid_table");
     $('#cancel_LeaveRecord').removeClass("active");
 
-    $('#cancel_already_LeaveRecord').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_already_LeaveRecord", "销假已审批列表", "20", "cancel_already_LeaveRecord_grid_table");
-    $('#cancel_already_LeaveRecord').removeClass("active");
     
-    $('#cancel_not_LeaveRecord').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_not_LeaveRecord", "销假未审批列表", "20", "cancel_not_LeaveRecord_grid_table");
-    $('#cancel_not_LeaveRecord').removeClass("active");
-
     function shLeaveRecord(id) {
         $('#approval_content').dialogModal({
             onOkBut: function () {
