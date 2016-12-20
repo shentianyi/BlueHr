@@ -548,18 +548,34 @@ namespace BlueHrLib.Data.Model.Excel
         /// <param name="model"></param>
         /// <param name="dbString"></param>
         public void Validate(string dbString)
-        {
+        {   
             ValidateMessage msg = new ValidateMessage();
 
-            if ( string.IsNullOrEmpty(this.Nr))
+            IStaffService ss = new StaffService(dbString);
+
+            if (string.IsNullOrEmpty(this.Nr))
             {
-                msg.Contents.Add("员工号不可空");
+                msg.Contents.Add("【员工号不可空】");
+            }else
+            {
+                Staff staff =  ss.FindByNr(this.Nr);
+                if(staff != null)
+                {
+                    msg.Contents.Add("【员工号" + this.Nr + "已经被" + staff.nr + "->" + staff.name + "使用, 请检查】");
+                }
             }
 
-            //if (string.IsNullOrEmpty(this.Id))
-            //{
-            //    msg.Contents.Add("身份证号码不可空");
-            //}
+            if (string.IsNullOrEmpty(this.Id))
+            {
+                msg.Contents.Add("【身份证号码不可空】");
+            }else
+            {
+                Staff staff = ss.FindByStaffId(this.Id);
+                if (staff != null)
+                {
+                    msg.Contents.Add("【身份证号码跟员工" + staff.nr + " -> " + staff.name + "重复, 请检查】");
+                }
+            }
 
             msg.Success = msg.Contents.Count == 0;
 

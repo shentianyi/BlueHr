@@ -360,6 +360,7 @@ namespace BlueHrWeb.Controllers
 
             foreach (var it in item)
             {
+
                 if (type.HasValue && type.ToString().Equals(it.Value))
                 {
                     select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
@@ -412,15 +413,25 @@ namespace BlueHrWeb.Controllers
             }
             //获取当前记录的属性
             int i = 1;
+            string showName = "";
             foreach (var property in WorkAndRest[0].GetType().GetProperties())
             {
+                switch (i)
+                {
+                    case 1: showName = "ID"; break;
+                    case 2: showName = "日期"; break;
+                    case 3: showName = "类型"; break;
+                    case 4: showName = "备注"; break;
+                    default:
+                        break;
+                }
                 if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name)&&i<=4)
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
+                    select.Add(new SelectListItem { Text = showName, Value = property.Name, Selected = true });
                 }
                 else if(i<=4)
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                    select.Add(new SelectListItem { Text = showName, Value = property.Name, Selected = false });
                 }
                 i++;
             }

@@ -1,29 +1,36 @@
-﻿using System;
+﻿using BlueHrLib.Data.Repository.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BlueHrLib.Data.Enum;
-using BlueHrLib.Helper;
-using BlueHrLib.Data.Repository.Interface;
 
 namespace BlueHrLib.Data
 {
-    public partial class Recruit
+
+    public partial class PartTimeJob
     {
-        public string companyName
+
+        public string CompanyName
         {
             get
             {
                 return this.Company.name;
             }
         }
-        public string departmentName
+        public string DepartmentName
         {
             get
             {
                 return this.Department.name;
             }
         }
-
+        
+        public string JobTitleName
+        {
+            get
+            {
+                return this.JobTitle.name;
+            }
+        }
     }
 }

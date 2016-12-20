@@ -142,9 +142,6 @@ namespace BlueHrWeb.Controllers
 
             SetExtraWorkTypeList(record.extraworkType);
 
-
-
-
             if (record != null)
             { 
                 AbsenceRecordView absenceRecord = new AbsenceRecordService(Settings.Default.db).FindViewByStaffNrAndDate(record.staffNr, record.attendanceDate);

@@ -400,17 +400,36 @@ namespace BlueHrWeb.Controllers
                 LeaveRecords.Add(LeaveRecord);
             }
             //获取当前记录的属性
+            int i = 1;
+            string showName = "";
             foreach (var property in LeaveRecords[0].GetType().GetProperties())
             {
-                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name))
+                switch (i)
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = true });
+                    case 1: showName = "ID"; break;
+                    case 2: showName = "员工号"; break;
+                    case 3: showName = "请假开始时间"; break;
+                    case 4: showName = "请假结束时间"; break;
+                    case 5: showName = "备注"; break;
+                    case 6: showName = "创建时间"; break;
+                    case 7: showName = "创建用户ID"; break;
+                    case 8: showName = "审批用户ID"; break;
+                    case 9: showName = "审批时间"; break;
+                    case 10: showName = "审批状态"; break;
+                    case 11: showName = "审批备注"; break;
+                    case 12: showName = "是否销假"; break;
+                    default:
+                        break;
                 }
-                else
+                if (!string.IsNullOrWhiteSpace(type) && type.Equals(property.Name) && i <= 12)
                 {
-                    select.Add(new SelectListItem { Text = property.Name, Value = property.Name, Selected = false });
+                    select.Add(new SelectListItem { Text = showName, Value = property.Name, Selected = true });
                 }
-
+                else if(i <= 12)
+                {
+                    select.Add(new SelectListItem { Text = showName, Value = property.Name, Selected = false });
+                }
+                i++;
             }
             //foreach (var col in Staffs.DataMembers)
             //{
@@ -430,18 +449,16 @@ namespace BlueHrWeb.Controllers
             {
                 select.Add(new SelectListItem { Text = "", Value = "" });
             }
-            int i = 1;
             foreach (var it in item)
             {
-                if (type.HasValue && type.ToString().Equals(it.Value)&&i<=12)
+                if (type.HasValue && type.ToString().Equals(it.Value))
                 {
                     select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = true });
                 }
-                else if(i<=12)
+                else
                 {
                     select.Add(new SelectListItem { Text = it.Text, Value = it.Value.ToString(), Selected = false });
                 }
-                i++;
             }
             ViewData["searchConditionsList"] = select;
         }

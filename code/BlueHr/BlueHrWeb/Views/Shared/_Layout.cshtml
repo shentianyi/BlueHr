@@ -332,15 +332,15 @@
                             }
 
                             <!--<li class="nav-department-tree">
-                                <a href="/Department/TreeShow">
-                                    <i class="fa fa-sitemap"></i>
-                                    部门架构视图
-                                </a>
-                            </li>-->
-                            
+                        <a href="/Department/TreeShow">
+                            <i class="fa fa-sitemap"></i>
+                            部门架构视图
+                        </a>
+                    </li>-->
+
                         </ul>
                     </li>
-               
+
                     <li class="nav-laborrelations">
                         <a href="#">
                             <i class="fa fa-hourglass-start"></i>
@@ -402,18 +402,18 @@
                             }
 
                             @*<li class="nav-rehire">
-                                <a href="#">
-                                    <i class="fa fa-anchor"></i>
-                                    回聘管理
-                                </a>
-                            </li>*@
+                            <a href="#">
+                                <i class="fa fa-anchor"></i>
+                                回聘管理
+                            </a>
+                        </li>*@
 
                             @*<li class="nav-retired">
-                                <a href="#">
-                                    <i class="fa fa-anchor"></i>
-                                    员工退休
-                                </a>
-                            </li>*@
+                            <a href="#">
+                                <i class="fa fa-anchor"></i>
+                                员工退休
+                            </a>
+                        </li>*@
                         </ul>
                     </li>
 
@@ -444,7 +444,6 @@
                                         排班概览
                                     </a>
                                 </li>
-
                                 <li class="nav-shiftschedule-search">
                                     <a href="/ShiftSchedule/Search" >
                                         <i class="fa fa-search"></i>
@@ -523,18 +522,18 @@
                             }
 
                             @*<li class="nav-business">
-                                <a href="#">
-                                    <i class="fa fa-anchor"></i>
-                                    出差管理
-                                </a>
-                            </li>
+                            <a href="#">
+                                <i class="fa fa-anchor"></i>
+                                出差管理
+                            </a>
+                        </li>
 
-                            <li class="nav-BLeave">
-                                <a href="#">
-                                    <i class="fa fa-anchor"></i>
-                                    公出管理
-                                </a>
-                            </li>*@
+                        <li class="nav-BLeave">
+                            <a href="#">
+                                <i class="fa fa-anchor"></i>
+                                公出管理
+                            </a>
+                        </li>*@
                         </ul>
                     </li>
 
@@ -548,6 +547,7 @@
                         </a>
 
                         <ul class="treeview-menu">
+
                             @if(canStaff)
                             {
                                 <li class="nav-staff">
@@ -563,6 +563,13 @@
                                     </a>
                                 </li>
                             }
+
+                            <li class="nav-parttimejob">
+                                <a href="/PartTimeJob/Index">
+                                    <i class="fa fa-credit-card"></i>
+                                    兼职管理
+                                </a>
+                            </li>
                             
                             @if(canRecruit)
                             {
@@ -584,19 +591,35 @@
                                 </li>
                             }
 
-                            @*<li class="nav-cv">
-                                <a href="#">
-                                    <i class="fa fa-table"></i>
-                                    简历管理
-                                </a>
-                            </li>*@
-
                             @*<li class="nav-train">
-                                <a href="#">
-                                    <i class="fa fa-anchor"></i>
-                                    培训管理
-                                </a>
-                            </li>*@
+                            <a href="#">
+                                <i class="fa fa-anchor"></i>
+                                培训管理
+                            </a>
+                        </li>*@
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-systemsetting">
+                        <a href="#">
+                            <i class="fa fa-users"></i>
+                            <span>系统设置</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="treeview-menu">
+                            @if (MenuAuthHelper.CanShow("TaskRound", "Index"))
+                            {
+                                <li class="nav-taskround">
+                                    <a href="/TaskRound/Index">
+                                        <i class="fa fa-tasks"></i>
+                                        <span>系统任务</span>
+                                    </a>
+                                </li>
+                            }
                         </ul>
                     </li>
                 </ul>

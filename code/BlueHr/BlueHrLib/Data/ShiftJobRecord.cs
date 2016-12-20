@@ -9,32 +9,42 @@ namespace BlueHrLib.Data
 
     public partial class ShiftJobRecord
     {
-        private ICompanyRepository companyRep;
-        private IDepartmentRepository departmentRep;
-        private IUserRepository userRep;
 
         public string beforeCompanyName
         {
-            get { return companyRep.FindById(Convert.ToInt32(this.beforeCompanyId)).name; }
+            get
+            {
+                return this.Company.name;
+            }
         }
         public string afterCompanyName
         {
-            get { return companyRep.FindById(Convert.ToInt32(this.afterCompanyId)).name; }
+            get
+            {
+                return this.Company1.name;
+            }
         }
 
         public string beforeDepartmentName
         {
-            get { return departmentRep.FindById(Convert.ToInt32(this.beforeDepartmentId)).name; }
+            get
+            {
+                return this.Department.name;
+            }
         }
         public string afterDepartmentName
         {
-            get { return departmentRep.FindById(Convert.ToInt32(this.afterDepartmentId)).name; }
+            get
+            {
+                return this.Department1.name;
+            }
         }
         public string userName
         {
             get
             {
-                return userRep.FindById(Convert.ToInt32(this.userId)).name;
+                return this.User.name;
+
             }
         }
 
@@ -42,7 +52,7 @@ namespace BlueHrLib.Data
         {
             get
             {
-                return userRep.FindById(Convert.ToInt32(this.approvalUserId)).name;
+                return this.User1.name;
             }
         }
     }
