@@ -1,4 +1,4 @@
-USE [BlueHr]
+USE Derjinhr
 GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_PartTimeJob_isDelete]') AND type = 'D')
@@ -8,7 +8,7 @@ END
 
 GO
 
-USE [BlueHr]
+USE Derjinhr
 GO
 
 /****** Object:  Table [dbo].[PartTimeJob]    Script Date: 12/20/2016 16:10:08 ******/
@@ -17,7 +17,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PartT
 DROP TABLE [dbo].[PartTimeJob]
 GO
 
-USE [BlueHr]
+USE Derjinhr
 GO
 
 
