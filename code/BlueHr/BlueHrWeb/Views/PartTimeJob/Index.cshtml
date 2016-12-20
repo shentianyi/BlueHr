@@ -3,7 +3,7 @@
 @model IPagedList<BlueHrLib.Data.PartTimeJob>
 
 @{
-    ViewBag.Title = "员工兼职信息";
+    ViewBag.Title = "员工兼职管理";
 }
 
 
@@ -47,11 +47,12 @@
         </a>
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#all_PartTimeJob" role="tab" data-toggle="tab">所有兼职记录</a></li>
+            <li role="presentation" class="active"><a href="#current_PartTimeJob" role="tab" data-toggle="tab">当前兼职记录</a></li>
+            <li role="presentation"><a href="#history_PartTimeJob" role="tab" data-toggle="tab">历史兼职记录</a></li>
         </ul>
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane  active" id="all_PartTimeJob">
-                <div id="all_PartTimeJob_grid_table" style="margin:auto;"></div>
+            <div role="tabpanel" class="tab-pane  active" id="current_PartTimeJob">
+                <div id="current_PartTimeJob_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -69,44 +70,98 @@
                         {
                             foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
-                                            @Html.DisplayFor(modelItem => item.staffNr)
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Company.name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Department.name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.JobTitle.name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.startTime)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.endTime)
-                                    </td>
+                                if(!item.isDelete){
+                                    <tr>
+                                        <td>
+                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                                @Html.DisplayFor(modelItem => item.staffNr)
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Company.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Department.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.JobTitle.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.startTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.endTime)
+                                        </td>
+                                        <td>
+                                            <a href="/PartTimeJob/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
 
-                                    @* 通过这个字段进行判断， 分两个Tab 进行处理： 当前、 历史 *@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.isDelete)
-                                    </td>
+                                            <a href="/PartTimeJob/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="history_PartTimeJob">
+                <div id="history_PartTimeJob_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>员工号</th>
+                            <th>公司</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>开始日期</th>
+                            <th>终止日期</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                if(item.isDelete){
+                                    <tr>
+                                        <td>
+                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                                @Html.DisplayFor(modelItem => item.staffNr)
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Company.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Department.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.JobTitle.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.startTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.endTime)
+                                        </td>
+                                        <td>
+                                            <a href="/PartTimeJob/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
 
-                                    <td>
-                                        <a href="/PartTimeJob/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-
-                                        <a href="/PartTimeJob/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                            <a href="/PartTimeJob/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
                             }
                         }
                     </tbody>
@@ -122,9 +177,14 @@
     //命名ID需要进行修改
 
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_PartTimeJob", "所有兼职记录列表", "20", "all_PartTimeJob_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "current_PartTimeJob", "当前兼职记录列表", "20", "current_PartTimeJob_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "history_PartTimeJob", "历史兼职记录列表", "20", "history_PartTimeJob_grid_table");
 
     })
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_PartTimeJob", "所有兼职记录列表", "20", "all_PartTimeJob_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "current_PartTimeJob", "当前兼职记录列表", "20", "current_PartTimeJob_grid_table");
+    
+    $('#history_PartTimeJob').addClass("active");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "history_PartTimeJob", "历史兼职记录列表", "20", "history_PartTimeJob_grid_table");
+    $('#history_PartTimeJob').removeClass("active");
     
 </script>
