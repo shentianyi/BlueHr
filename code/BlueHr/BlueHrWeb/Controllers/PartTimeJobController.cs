@@ -297,7 +297,10 @@ namespace BlueHrWeb.Controllers
                     }
                 }
             }
-            PartTimeJobs = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            try
+            {
+                PartTimeJobs = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            }catch { PartTimeJobs = null; }
 
             SetDropDownList(null);
             return View("Index", PartTimeJobs);

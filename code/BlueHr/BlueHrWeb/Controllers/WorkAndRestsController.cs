@@ -542,7 +542,10 @@ namespace BlueHrWeb.Controllers
                     }
                 }
             }
-            WorkAndRests = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            try
+            {
+                WorkAndRests = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            }catch { WorkAndRests = null; }
 
             return View("Index", WorkAndRests);
         }

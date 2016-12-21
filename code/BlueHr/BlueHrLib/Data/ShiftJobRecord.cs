@@ -55,5 +55,19 @@ namespace BlueHrLib.Data
                 return this.User1.name;
             }
         }
+        public string beforeJobName
+        {
+            get
+            {
+                return this.JobTitle.name;
+            }
+        }
+        public string afterJobName
+        {
+            get
+            {
+                return this.JobTitle1.name;
+            }
+        }
     }
 }

@@ -351,7 +351,10 @@ namespace BlueHrWeb.Controllers
                     }
                 }
             }
-            ShiftJobRecords = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            try
+            {
+                ShiftJobRecords = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            }catch { ShiftJobRecords = null; }
 
             SetDropDownList(null);
             return View("Index", ShiftJobRecords);

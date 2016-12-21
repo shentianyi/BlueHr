@@ -5,11 +5,15 @@ using System.Text;
 using BlueHrLib.Data.Enum;
 using BlueHrLib.Helper;
 using BlueHrLib.Data.Repository.Interface;
+using BlueHrLib.Service.Interface;
+using BlueHrLib.Service.Implement;
+using BlueHrLib.Helper.Excel;
 
 namespace BlueHrLib.Data
 {
     public partial class FullMemberRecord
     {
+
         public string userName
         {
             get

@@ -13996,6 +13996,10 @@ namespace BlueHrLib.Data
 		
 		private EntitySet<PartTimeJob> _PartTimeJob;
 		
+		private EntitySet<ShiftJobRecord> _ShiftJobRecord;
+		
+		private EntitySet<ShiftJobRecord> _ShiftJobRecord1;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -14015,6 +14019,8 @@ namespace BlueHrLib.Data
 			this._JobCertificate = new EntitySet<JobCertificate>(new Action<JobCertificate>(this.attach_JobCertificate), new Action<JobCertificate>(this.detach_JobCertificate));
 			this._Staff = new EntitySet<Staff>(new Action<Staff>(this.attach_Staff), new Action<Staff>(this.detach_Staff));
 			this._PartTimeJob = new EntitySet<PartTimeJob>(new Action<PartTimeJob>(this.attach_PartTimeJob), new Action<PartTimeJob>(this.detach_PartTimeJob));
+			this._ShiftJobRecord = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord));
+			this._ShiftJobRecord1 = new EntitySet<ShiftJobRecord>(new Action<ShiftJobRecord>(this.attach_ShiftJobRecord1), new Action<ShiftJobRecord>(this.detach_ShiftJobRecord1));
 			OnCreated();
 		}
 		
@@ -14137,6 +14143,32 @@ namespace BlueHrLib.Data
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_ShiftJobRecord", Storage="_ShiftJobRecord", ThisKey="id", OtherKey="beforeJobId")]
+		public EntitySet<ShiftJobRecord> ShiftJobRecord
+		{
+			get
+			{
+				return this._ShiftJobRecord;
+			}
+			set
+			{
+				this._ShiftJobRecord.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_ShiftJobRecord1", Storage="_ShiftJobRecord1", ThisKey="id", OtherKey="afterJobId")]
+		public EntitySet<ShiftJobRecord> ShiftJobRecord1
+		{
+			get
+			{
+				return this._ShiftJobRecord1;
+			}
+			set
+			{
+				this._ShiftJobRecord1.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -14191,6 +14223,30 @@ namespace BlueHrLib.Data
 		{
 			this.SendPropertyChanging();
 			entity.JobTitle = null;
+		}
+		
+		private void attach_ShiftJobRecord(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle = this;
+		}
+		
+		private void detach_ShiftJobRecord(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle = null;
+		}
+		
+		private void attach_ShiftJobRecord1(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle1 = this;
+		}
+		
+		private void detach_ShiftJobRecord1(ShiftJobRecord entity)
+		{
+			this.SendPropertyChanging();
+			entity.JobTitle1 = null;
 		}
 	}
 	
@@ -17946,6 +18002,10 @@ namespace BlueHrLib.Data
 		
 		private EntityRef<User> _User1;
 		
+		private EntityRef<JobTitle> _JobTitle;
+		
+		private EntityRef<JobTitle> _JobTitle1;
+		
     #region 可扩展性方法定义
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -17990,6 +18050,8 @@ namespace BlueHrLib.Data
 			this._Department1 = default(EntityRef<Department>);
 			this._User = default(EntityRef<User>);
 			this._User1 = default(EntityRef<User>);
+			this._JobTitle = default(EntityRef<JobTitle>);
+			this._JobTitle1 = default(EntityRef<JobTitle>);
 			OnCreated();
 		}
 		
@@ -18092,6 +18154,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._beforeJobId != value))
 				{
+					if (this._JobTitle.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnbeforeJobIdChanging(value);
 					this.SendPropertyChanging();
 					this._beforeJobId = value;
@@ -18160,6 +18226,10 @@ namespace BlueHrLib.Data
 			{
 				if ((this._afterJobId != value))
 				{
+					if (this._JobTitle1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnafterJobIdChanging(value);
 					this.SendPropertyChanging();
 					this._afterJobId = value;
@@ -18517,6 +18587,74 @@ namespace BlueHrLib.Data
 						this._approvalUserId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("User1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_ShiftJobRecord", Storage="_JobTitle", ThisKey="beforeJobId", OtherKey="id", IsForeignKey=true)]
+		public JobTitle JobTitle
+		{
+			get
+			{
+				return this._JobTitle.Entity;
+			}
+			set
+			{
+				JobTitle previousValue = this._JobTitle.Entity;
+				if (((previousValue != value) 
+							|| (this._JobTitle.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._JobTitle.Entity = null;
+						previousValue.ShiftJobRecord.Remove(this);
+					}
+					this._JobTitle.Entity = value;
+					if ((value != null))
+					{
+						value.ShiftJobRecord.Add(this);
+						this._beforeJobId = value.id;
+					}
+					else
+					{
+						this._beforeJobId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("JobTitle");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="JobTitle_ShiftJobRecord1", Storage="_JobTitle1", ThisKey="afterJobId", OtherKey="id", IsForeignKey=true)]
+		public JobTitle JobTitle1
+		{
+			get
+			{
+				return this._JobTitle1.Entity;
+			}
+			set
+			{
+				JobTitle previousValue = this._JobTitle1.Entity;
+				if (((previousValue != value) 
+							|| (this._JobTitle1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._JobTitle1.Entity = null;
+						previousValue.ShiftJobRecord1.Remove(this);
+					}
+					this._JobTitle1.Entity = value;
+					if ((value != null))
+					{
+						value.ShiftJobRecord1.Add(this);
+						this._afterJobId = value.id;
+					}
+					else
+					{
+						this._afterJobId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("JobTitle1");
 				}
 			}
 		}
