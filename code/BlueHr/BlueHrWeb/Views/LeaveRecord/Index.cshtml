@@ -128,7 +128,7 @@
                             <th>审批时间</th>
                             <th>审批状态</th>
                             <th>备注</th>
-                            @*<th>操作</th>*@
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -218,7 +218,7 @@
                             <th>审批时间</th>
                             <th>审批状态</th>
                             <th>备注</th>
-                            @*<th>操作</th>*@
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -248,10 +248,10 @@
                                             @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.userId)
+                                            @Html.DisplayFor(modelItem => item.userName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.approvalUserId)
+                                            @Html.DisplayFor(modelItem => item.approvalUserName)
                                         </td>
                                         <td>
                                             @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
@@ -309,7 +309,7 @@
                             <th>审批时间</th>
                             <th>审批状态</th>
                             <th>备注</th>
-                            @*<th>操作</th>*@
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -337,10 +337,10 @@
                                             @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.userId)
+                                            @Html.DisplayFor(modelItem => item.userName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.approvalUserId)
+                                            @Html.DisplayFor(modelItem => item.approvalUserName)
                                         </td>
                                         <td>
                                             @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")

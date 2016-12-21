@@ -79,19 +79,19 @@
                                             </a>
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Company.name)
+                                            @Html.DisplayFor(modelItem => item.CompanyName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Department.name)
+                                            @Html.DisplayFor(modelItem => item.DepartmentName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.JobTitle.name)
+                                            @Html.DisplayFor(modelItem => item.JobTitleName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.startTime)
+                                            @(@item.startTime.HasValue ? @item.startTime.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.endTime)
+                                            @(@item.endTime.HasValue ? @item.endTime.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
                                             <a href="/PartTimeJob/Delete/@item.id" class="option-icon-primary" title="详情">
