@@ -8,6 +8,7 @@
 @{
     bool canCreate = MenuAuthHelper.CanShow("DegreeType", "Create");
     bool canEdit = MenuAuthHelper.CanShow("DegreeType", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("DegreeType", "Delete");
 }
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
@@ -79,9 +80,12 @@
                                         @Html.DisplayFor(modelItem => item.remark)
                                     </td>
                                     <td>
-                                        <a href="/DegreeType/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
+                                        @if(canDelete)
+                                        {
+                                            <a href="/DegreeType/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
 
                                         @if(canEdit)
                                         {

@@ -1,9 +1,15 @@
 ﻿@using MvcPaging
 @model IPagedList<BlueHrLib.Data.AbsenceType>
+@using BlueHrWeb.Helpers.View
 @{
     ViewBag.Title = "缺勤类型";
 }
-@*@Styles.Render("~/Content/degreetype")*@
+@{
+    bool canCreate = MenuAuthHelper.CanShow("AbsenceType", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("AbsenceType", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("AbsenceType", "Delete");
+}
+
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>基础信息管理</li>
@@ -39,13 +45,15 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-
-        <a href="/AbsenceType/Create" class="pull-right" style="margin-top: -10px;">
-            <button class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>创建</span>
-            </button>
-        </a>
+        @if(canCreate)
+        {
+            <a href="/AbsenceType/Create" class="pull-right" style="margin-top: -10px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#all_AbsenceType" role="tab" data-toggle="tab">所有缺勤类型</a></li>
@@ -79,12 +87,17 @@
                                         @Html.DisplayFor(modelItem => item.remark)
                                     </td>
                                     <td>
-                                        <a href="/AbsenceType/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="/AbsenceType/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
+                                        @if(canDelete){
+                                            <a href="/AbsenceType/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
+                                        @if(canEdit)
+                                        {
+                                            <a href="/AbsenceType/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        }
                                     </td>
                                 </tr>
                             }

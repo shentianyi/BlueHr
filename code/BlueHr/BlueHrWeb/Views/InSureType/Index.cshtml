@@ -9,6 +9,7 @@
 @{
     bool canCreate = MenuAuthHelper.CanShow("InsureType", "Create");
     bool canEdit = MenuAuthHelper.CanShow("InsureType", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("InsureType", "Delete");
 }
 
 
@@ -87,9 +88,12 @@
                                         @Html.DisplayFor(modelItem => item.remark)
                                     </td>
                                     <td>
-                                        <a href="/InSureType/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
+                                        @if(canDelete)
+                                        {
+                                            <a href="/InSureType/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
                                         @if(canEdit)
                                         {
                                             <a href="/InSureType/Edit/@item.id" class="option-icon-warning" title="编辑">

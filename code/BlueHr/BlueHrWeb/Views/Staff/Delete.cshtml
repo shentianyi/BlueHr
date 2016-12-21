@@ -4,169 +4,10 @@
 @{
     ViewBag.Title = "Delete";
 }
-<div>
-    @{
-        bool canDelete = MenuAuthHelper.CanShow("Staff", "Delete");
-        <!--bool canFullMemeber = MenuAuthHelper.CanShow("Staff", "ToFullMemeber");-->
-        <!--bool canResign = MenuAuthHelper.CanShow("Staff", "Resign");-->
-        <!--bool canChangeJob = MenuAuthHelper.CanShow("Staff", "changeJob");-->
-        bool canCert = MenuAuthHelper.CanShow("Certificate", "Index");
-    }
-
-    <div style="position:fixed; bottom:0; right:80px;z-index:99999;">
-        @if (canCert)
-        {
-            <a href="/Certificate?nr=@Model.nr" title="证照管理">
-                <button class="marco-btn-warning pull-right">
-                    <i class="glyphicon glyphicon-picture"></i>
-                    <span>证 照</span>
-                </button>
-            </a>
-        }
-    </div>
-</div>
-
-<div id="change_job_content" style="display:none; width: 50%; position:fixed; top: 30%; left: 25%;z-index: 999999;">
-    <div class="marco-npanel-primary">
-        <div class="marco-nheading">
-            调岗
-            <i class="fa fa-close pull-right close-change-job"></i>
-        </div>
-
-        <div class="marco-nbody" style="background: #f2f2f2;">
-            <div class="row">
-                @* 公司没有问题， 部门需要二级联动 ，职位不需要*@
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>公司</span>
-                        @Html.DropDownList("companyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>部门</span>
-                        <select id="departmentId" name="departmentId">
-
-                        </select>
-                        @*@Html.DropDownList("departmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)*@
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>职位</span>
-                        @Html.DropDownList("JobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-            </div>
-
-            <hr class="hr-grey" />
-            <div class="row" style="margin:0;">
-                <span class="pull-left error-msg" style="color:red; margin-left:10px;"></span>
-                <button type="button" class="marco-btn-primary pull-right change-job-btn">确定</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="fullpage-overlay"></div>
 
 @Html.Partial("_PartialStaff")
 
 <script type="text/javascript">
-    $.ajax({
-        url:'/Certificate/GetCertificateByStaffNr',
-        type:'get',
-        data:{
-            staffNr: $("#nr").val()
-        },
-        success:function(data){
-            for(var i =0; i < data.length; i++){
-                console.log(data[i])
-                var Html = "<tr><td>"+data[i].certificateName+"</td><td>"+data[i].certiLevel+"</td>"+
-                "<td>"+data[i].effectiveFrom+"</td><td>"+data[i].effectiveEnd+"</td><td>"+data[i].institution+"</td>"+
-                "<td>"+data[i].remark+"</td></tr>";
-                $(Html).appendTo($(".tbody-certificates"));
-            }
-
-        },
-        error:function(){
-            console.log("Something Error!");
-        }
-    })
-
-    Staff.other_image_preview('#photoName', '#photo', '#photopreview');
-
-    $('.change-job').click(function () {
-        //调岗
-        $('#change_job_content select').removeAttr('disabled');
-        $('#fullpage-overlay').css({ display: 'block' });
-        $('#change_job_content').show();
-
-        $('.close-change-job').click(function () {
-            $('#change_job_content').css({ display: 'none' });
-            $('#fullpage-overlay').css({ display: 'none' });
-        });
-
-        Layout.CompanyAndDepartment("#companyId", "#departmentId");
-
-        $('.change-job-btn').click(function () {
-            var Dialog = $(this).parent().parent();
-
-            var CompanyID = Dialog.find('#companyId').val();
-            var DepartmentID = Dialog.find('#departmentId').val();
-            var JobTitleID = Dialog.find('#JobTitleId').val();
-
-            var StaffNr = $('#nr').val();
-            
-            if (Layout.IsStringNull(StaffNr)) {
-                $('.error-msg').html("员工号找不到");
-                return false;
-            }
-
-            //这三个是否要进行 空值 判断？
-            // 调岗必须填写岗位信息
-            if (Layout.IsStringNull(CompanyID)) {
-                $('.error-msg').html("公司不能为空");
-                return false;
-            }
-
-            if (Layout.IsStringNull(DepartmentID)) {
-                $('.error-msg').html("部门不能为空");
-                return false;
-            }
-
-            if (Layout.IsStringNull(JobTitleID)) {
-                $('.error-msg').html("职位不能为空");
-                return false;
-            }
-
-            //发送ajax请求
-            var Jobs = [StaffNr, CompanyID, DepartmentID, JobTitleID];
-
-            $.ajax({
-                url: '/Staff/changeJob',
-                type: 'post',
-                data: {
-                    changeJob: Jobs
-                },
-                success: function (data) {
-                    console.log(data);
-                    if (data.Success) {
-                        Layout.popMsg('popModal-success', data.Content);
-                        window.location.reload();
-                    } else {
-                        Layout.popMsg('popModal-danger', data.Content);
-                    }
-                },
-                error: function () {
-                    console.log("Something Error!");
-                    Layout.popMsg('.popModal-danger', "Ajax 请求失败！");
-                }
-            });
-
-        });
-    });
-
     //使之不可编辑
     $('.none').css({ display: 'none' });
     $('input').attr('disabled', 'disabled');
@@ -176,7 +17,7 @@
     $('button[type="submit"]').addClass('marco-btn-danger');
     $('.remove-card').attr('disabled', 'disabled');
     $('.remove-family').attr('disabled', 'disabled');
-
+    $('#hidden').attr('disabled', 'disabled');
     $('.createBankCardBtn').attr('disabled', 'disabled');
     $('.createFamilyBtn').attr('disabled', 'disabled');
 </script>

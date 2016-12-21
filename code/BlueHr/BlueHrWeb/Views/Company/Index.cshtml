@@ -1,13 +1,16 @@
 ﻿@using MvcPaging
 @using BlueHrWeb.Helpers.View
-
-
 @model IPagedList<BlueHrLib.Data.Company>
 
 @{
     ViewBag.Title = "公司管理";
 }
-
+@{
+    bool canCreate = MenuAuthHelper.CanShow("Company", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("Company", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("Company", "Delete");
+    bool canImport = MenuAuthHelper.CanShow("Company", "Import");
+}
 @Styles.Render("~/Content/company")
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
@@ -19,12 +22,7 @@
 </ol>
 
 <hr class="hr-grey" />
-@{
-    bool canDelete = MenuAuthHelper.CanShow("Company", "Delete");
-    bool canEdit = MenuAuthHelper.CanShow("Company", "Edit");
-    bool canCreate = MenuAuthHelper.CanShow("Company", "Create");
 
-}
 <div class="row" style="margin:0;">
     <form action="/Company/Search" method="get">
         <div class="row" style="margin:0;">
