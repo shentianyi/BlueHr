@@ -108,10 +108,10 @@
                                             <span>@(@item.createdAt.HasValue?@item.createdAt.Value.ToString("yyyy-MM-dd"):"")</span>
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.createdUserId)
+                                            @Html.DisplayFor(modelItem => item.userName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.approvalUserId)
+                                            @Html.DisplayFor(modelItem => item.approvalUserName)
                                         </td>
                                             @if(item.approvalStatus==null){
                                                 <td>未审批</td>
@@ -191,10 +191,10 @@
                                                 <span>@(@item.createdAt.HasValue?@item.createdAt.Value.ToString("yyyy-MM-dd"):"")</span>
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.createdUserId)
+                                                @Html.DisplayFor(modelItem => item.userName)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.approvalUserId)
+                                                @Html.DisplayFor(modelItem => item.approvalUserName)
                                             </td>
                                                 @if(item.approvalStatus==null){
                                                     <td>未审批</td>
@@ -253,7 +253,7 @@
                                         @Html.DisplayFor(modelItem => item.staffNr)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.type)
+                                        @Html.DisplayFor(modelItem => item.typeStr)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.project)
@@ -265,10 +265,10 @@
                                         <span>@(@item.createdAt.HasValue?@item.createdAt.Value.ToString("yyyy-MM-dd"):"")</span>
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.createdUserId)
+                                        @Html.DisplayFor(modelItem => item.userName)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.approvalUserId)
+                                        @Html.DisplayFor(modelItem => item.approvalUserName)
                                     </td>
                                    
                                         @if(item.approvalStatus==null){
