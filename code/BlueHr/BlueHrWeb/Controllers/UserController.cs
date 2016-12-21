@@ -411,35 +411,41 @@ namespace BlueHrWeb.Controllers
         [RoleAndDataAuthorizationAttribute]
         // GET: User/Create
         [HttpPost]
-        public ActionResult ChangePwd(int id, string pwd, string pwdcompare)
+        public JsonResult ChangePwd(int id, string pwd, string pwdcompare)
         {
+            ResultMessage msg = new ResultMessage();
+
             ViewBag.id = id;
             IUserService cs = new UserService(Settings.Default.db);
             if (string.IsNullOrEmpty(pwd.Trim()))
             {
-                ViewBag.error = "密码不可为空";
-                return View("ChangePwd");
+                msg.Success = false;
+                msg.Content = "密码不可为空";
+                return Json(msg, JsonRequestBehavior.DenyGet);
             }
             else
             {
                 if (pwd == pwdcompare)
                 {
                     try
-                    {
+                    { 
                         bool b = cs.ChangePwd(id, pwd);
-                        ViewBag.error = "修改成功";
-                        return View("ChangePwd");
+                        msg.Success = b;
+                        msg.Content = "修改成功";
+                        return Json(msg, JsonRequestBehavior.DenyGet);
                     }
                     catch (Exception ex)
                     {
-                        ViewBag.error = ex.Message;
-                        return View("ChangePwd");
+                        msg.Success = false;
+                        msg.Content = ex.Message;
+                        return Json(msg, JsonRequestBehavior.DenyGet);
                     }
                 }
                 else
                 {
-                    ViewBag.error = "密码不一致";
-                    return View("ChangePwd");
+                    msg.Success = false;
+                    msg.Content = "密码不一致";
+                    return Json(msg, JsonRequestBehavior.DenyGet);
                 }
             }
         }
@@ -1053,7 +1059,10 @@ namespace BlueHrWeb.Controllers
                     }
                 }
             }
-            Users = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            try
+            {
+                Users = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            }catch { Users = null; }
             SetAllTableName(null);
             SetSearchConditions(null);
             return View("Index", Users);

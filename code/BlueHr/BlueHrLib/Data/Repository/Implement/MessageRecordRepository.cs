@@ -35,7 +35,7 @@ namespace BlueHrLib.Data.Repository.Implement
 
         public List<MessageRecord> FindBystaffNrShiftJob(string staffNr)
         {
-            var q = this.context.MessageRecord.Where(s => s.messageType == 203).ToList();
+            var q = this.context.MessageRecord.Where(s => s.messageType == 203).Where(s => s.staffNr == staffNr).ToList();
             return q;
         }
 
