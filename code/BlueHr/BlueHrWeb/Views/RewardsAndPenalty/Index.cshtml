@@ -107,7 +107,7 @@
                                             <span>@(@item.createdAt.HasValue?@item.createdAt.Value.ToString("yyyy-MM-dd"):"")</span>
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.createdUserId)
+                                            @Html.DisplayFor(modelItem => item.userName)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalUserName)
@@ -190,7 +190,7 @@
                                                 <span>@(@item.createdAt.HasValue?@item.createdAt.Value.ToString("yyyy-MM-dd"):"")</span>
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.createdUserId)
+                                                @Html.DisplayFor(modelItem => item.userName)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.approvalUserName)
@@ -252,7 +252,7 @@
                                         @Html.DisplayFor(modelItem => item.staffNr)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.type)
+                                        @Html.DisplayFor(modelItem => item.typeStr)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.project)
@@ -264,7 +264,7 @@
                                         <span>@(@item.createdAt.HasValue?@item.createdAt.Value.ToString("yyyy-MM-dd"):"")</span>
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.createdUserId)
+                                        @Html.DisplayFor(modelItem => item.userName)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalUserName)

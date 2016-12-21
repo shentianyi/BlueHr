@@ -249,10 +249,10 @@
                                             @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.userId)
+                                            @Html.DisplayFor(modelItem => item.userName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.approvalUserId)
+                                            @Html.DisplayFor(modelItem => item.approvalUserName)
                                         </td>
                                         <td>
                                             @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
@@ -339,10 +339,10 @@
                                             @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.userId)
+                                            @Html.DisplayFor(modelItem => item.userName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.approvalUserId)
+                                            @Html.DisplayFor(modelItem => item.approvalUserName)
                                         </td>
                                         <td>
                                             @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")

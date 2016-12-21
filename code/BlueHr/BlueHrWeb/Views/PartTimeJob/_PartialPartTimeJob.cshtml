@@ -67,7 +67,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>开始日期</span>
-                        @if (Model != null)
+                        @if (Model != null&& Model.startTime.HasValue)
                         {
                             <input id="startTime" name="startTime" value="@Model.startTime.Value.ToString("yyyy-MM-dd")" class="date-picker" />
                         }
@@ -80,7 +80,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>终止日期</span>
-                        @if (Model != null)
+                        @if (Model != null&& Model.endTime.HasValue)
                         {
                             <input id="endTime" name="endTime" value="@Model.endTime.Value.ToString("yyyy-MM-dd")" class="date-picker" />
                         }
