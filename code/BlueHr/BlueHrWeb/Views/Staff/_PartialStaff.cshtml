@@ -99,9 +99,10 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                         <div class="marco-igroup-primary">
                                             <span>出生日期</span>
-                                            @if (Model.birthday.HasValue)
+                                            @if (Model != null&& Model.birthday.HasValue)
                                             {
-                                                <input id="birthday" name="birthday" value="@Model.birthday.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                                <input id="birthday" name="birthday" value="@Model.birthday.Value
+                                                       .ToString("yyyy-MM-dd")" class="date-picker" />
                                             }
                                             else
                                             {
@@ -317,7 +318,7 @@
                                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                     <div class="marco-igroup-primary">
                                         <span>最初进厂日期</span>
-                                        @if (Model.firstCompanyEmployAt.HasValue)
+                                        @if (Model != null && Model.firstCompanyEmployAt.HasValue)
                                         {
                                             <input id="firstCompanyEmployAt" name="firstCompanyEmployAt" value="@Model.firstCompanyEmployAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
                                         }
@@ -340,7 +341,7 @@
                                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                     <div class="marco-igroup-primary">
                                         <span>进厂日期</span>
-                                        @if (Model.companyEmployAt.HasValue)
+                                        @if (Model != null && Model.companyEmployAt.HasValue)
                                         {
                                             <input id="companyEmployAt" name="companyEmployAt" value="@Model.companyEmployAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
                                         }
@@ -363,7 +364,7 @@
                                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                     <div class="marco-igroup-primary">
                                         <span>参加工作年限</span>
-                                        @if (Model.workingYearsAt.HasValue)
+                                        @if (Model != null && Model.workingYearsAt.HasValue)
                                         {
                                             <input id="workingYearsAt" name="workingYearsAt" value="@Model.workingYearsAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
                                         }
