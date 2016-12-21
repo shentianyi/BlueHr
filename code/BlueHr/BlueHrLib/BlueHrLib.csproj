@@ -410,6 +410,7 @@
     <None Include="Data\BlueHr.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <SubType>Designer</SubType>
+      <LastGenOutput>BlueHr.designer.cs</LastGenOutput>
     </None>
     <None Include="log4.config" />
     <None Include="packages.config" />
