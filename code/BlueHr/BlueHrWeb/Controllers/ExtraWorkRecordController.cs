@@ -257,7 +257,10 @@ namespace BlueHrWeb.Controllers
                     }
                 }
             }
-            extraWorkRecords = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            try
+            {
+                extraWorkRecords = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            }catch { extraWorkRecords = null; }
             SetDropDownList(null);
 
             return View("Index", extraWorkRecords);
