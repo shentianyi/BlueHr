@@ -1053,7 +1053,10 @@ namespace BlueHrWeb.Controllers
                     }
                 }
             }
-            Users = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            try
+            {
+                Users = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            }catch { Users = null; }
             SetAllTableName(null);
             SetSearchConditions(null);
             return View("Index", Users);

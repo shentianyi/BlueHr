@@ -475,7 +475,10 @@ namespace BlueHrWeb.Controllers
                     }
                 }
             }
-            Shifts = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            try
+            {
+                Shifts = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            }catch { Shifts = null; }
             SetDropDownList(null);
 
             return View("Index", Shifts);

@@ -320,7 +320,13 @@ namespace BlueHrWeb.Controllers
                     }
                 }
             }
-            LeaveRecords = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            try
+            {
+                LeaveRecords = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            }catch
+            {
+                LeaveRecords = null;
+            }
             SetAllTableName(null);
             SetSearchConditions(null);
             return View("Index", LeaveRecords);

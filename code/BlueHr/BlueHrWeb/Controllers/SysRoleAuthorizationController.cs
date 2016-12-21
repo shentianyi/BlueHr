@@ -845,7 +845,14 @@ namespace BlueHrWeb.Controllers
                     }
                 }
             }
-            SysRoleAuthorizations = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            try
+            {
+                SysRoleAuthorizations = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            }
+            catch
+            {
+                SysRoleAuthorizations = null;
+            }
 
             return View("Index", SysRoleAuthorizations);
         }

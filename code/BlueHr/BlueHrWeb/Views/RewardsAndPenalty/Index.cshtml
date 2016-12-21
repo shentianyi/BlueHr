@@ -210,17 +210,9 @@
                                                 @Html.DisplayFor(modelItem => item.approvalRemark)
                                             </td>
                                             <td>
-                                                @if(item.approvalStatus==null){
                                                 <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                                <a href="/RewardsAndPenalty/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a title="审批" id="shRewardsAndPenalty" class="option-icon-danger" onclick="shRewardsAndPenalty(@item.id)">
-                                                    <i class="fa fa-check"></i>
-                                                </a>
-                                                }
                                             </td>
                                         </tr>
                                    

@@ -216,7 +216,13 @@ namespace BlueHrWeb.Controllers
                     }
                 }
             }
-            staffs = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            try
+            {
+                staffs = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            }catch
+            {
+                staffs = null;
+            }
             SetDropDownList(null);
 
             return View("Index", staffs);
@@ -301,7 +307,10 @@ namespace BlueHrWeb.Controllers
                     }
                 }
             }
-            staffs = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            try
+            {
+                staffs = Result.Distinct().ToPagedList(pageIndex, Settings.Default.pageSize);
+            }catch { staffs = null; }
             SetDropDownList(null);
 
             return View("Ontrail", staffs);
