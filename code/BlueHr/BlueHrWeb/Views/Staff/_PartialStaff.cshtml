@@ -28,7 +28,7 @@
                     <li role="presentation" class="active"><a href="#basic" role="tab" data-toggle="tab">基本信息</a></li>
                     <li role="presentation"><a href="#additional" role="tab" data-toggle="tab">附加信息</a></li>
                     <li role="presentation"><a href="#position" role="tab" data-toggle="tab">职位信息</a></li>
-                    <li role="presentation"><a href="#partTimeJob" role="tab" data-toggle="tab">兼职管理</a></li>
+                    
                     <li role="presentation"><a href="#experience" role="tab" data-toggle="tab">工作经历</a></li>
                     <li role="presentation"><a href="#contract" role="tab" data-toggle="tab">合同信息</a></li>
                     <li role="presentation"><a href="#bankcard" role="tab" data-toggle="tab">银行卡信息</a></li>
@@ -36,6 +36,7 @@
                     @if (Model != null)
                     {
                         <li role="presentation"><a href="#change" role="tab" data-toggle="tab">调动记录</a></li>
+                        <li role="presentation"><a href="#part" role="tab" data-toggle="tab">兼职信息</a></li>
                         <li role="presentation"><a href="#certificatecard" role="tab" data-toggle="tab">证照信息</a></li>
                         <li role="presentation"><a href="#reword" role="tab" data-toggle="tab">奖惩记录</a></li>
                     }
@@ -303,21 +304,368 @@
                                             @Html.DropDownList("jobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="marco-igroup-primary">
-                                            <span>兼职</span>
-                                            @Html.DropDownList("jobTitleId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
-                                        </div>
-                                    </div>
 
                                 </div>
                             </div>
                         </div>                                     
                     </div>
-                   <div role="tabpanel" class="tab-pane" id="reword">
+
+                    <div role="tabpanel" class="tab-pane" id="experience">
                         <div class="marco-npanel-normal">
                             <div class="marco-nheading">
-                                <span>兼职管理</span>
+                                <span>工作经历</span>
+                            </div>
+
+                            <div class="marco-nbody row">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>最初进厂日期</span>
+                                        @if (Model != null && Model.firstCompanyEmployAt.HasValue)
+                                        {
+                                            <input id="firstCompanyEmployAt" name="firstCompanyEmployAt" value="@Model.firstCompanyEmployAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                        }
+                                        else
+                                        {
+                                            <input id="firstCompanyEmployAt" name="firstCompanyEmployAt" value="" class="date-picker" />
+                                        }
+                                        <!--@Html.EditorFor(model => model.firstCompanyEmployAt)-->
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>进厂总工龄</span>
+                                        @Html.EditorFor(model => model.firstCompanyEmployAtCalDisplay, new { htmlAttributes = new { @readonly = true } })
+                                        @*<span class="marco-label-default">年</span>*@
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>进厂日期</span>
+                                        @if (Model != null && Model.companyEmployAt.HasValue)
+                                        {
+                                            <input id="companyEmployAt" name="companyEmployAt" value="@Model.companyEmployAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                        }
+                                        else
+                                        {
+                                            <input id="companyEmployAt" name="companyEmployAt" value="" class="date-picker" />
+                                        }
+                                        <!--@Html.EditorFor(model => model.companyEmployAt)-->
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>工龄</span>
+                                        @Html.EditorFor(model => model.companyEmployAtCalDisplay, new { htmlAttributes = new { @readonly = true } })
+                                        @*<span class="marco-label-default">年</span>*@
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>参加工作年限</span>
+                                        @if (Model != null && Model.workingYearsAt.HasValue)
+                                        {
+                                            <input id="workingYearsAt" name="workingYearsAt" value="@Model.workingYearsAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                        }
+                                        else
+                                        {
+                                            <input id="workingYearsAt" name="workingYearsAt" value="" class="date-picker" />
+                                        }
+                                        <!--@Html.EditorFor(model => model.workingYearsAt)-->
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>累计工龄</span>
+                                        @Html.EditorFor(model => model.workingYearsAtCalDisplay, new { htmlAttributes = new { @readonly = true } })
+                                        @*<span class="marco-label-default">年</span>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="contract">
+                        <div class="marco-npanel-normal">
+                                <div class="marco-nheading">
+                                    <span>合同信息</span>
+                                </div>
+
+                                <div class="marco-nbody row">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-danger">
+                                            <span>&nbsp;&nbsp;是否在试用&nbsp;&nbsp;</span>
+                                            @Html.DropDownList("isOnTrial", ViewData["isOnTrialList"] as IEnumerable<SelectListItem>)
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-primary">
+                                            <span>试用到期日期</span>
+                                            @if(Model !=null){
+                                                <input type="text" value="@Model.trialOverAt" class="date-picker"> 
+                                            }else{
+                                                <input type="text" class="date-picker">
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-primary">
+                                            <span>&nbsp;&nbsp;&nbsp;保险种类&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                                            @Html.DropDownList("insureTypeId", ViewData["inSureTypeList"] as IEnumerable<SelectListItem>)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-danger">
+                                            <span>是否交公积金</span>
+
+                                            @Html.DropDownList("isPayCPF", ViewData["isPayCPFList"] as IEnumerable<SelectListItem>)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-primary">
+                                            <span>合同到期</span>
+                                            @Html.EditorFor(model => model.contractExpireStr)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-primary">
+                                            <span>合同签订次数</span>
+                                            @Html.EditorFor(model => model.contractCount)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="bankcard">
+                        <div class="marco-npanel-normal">
+                            <div class="marco-nheading">
+                                <span>银行卡信息</span>
+                                <span style="font-size:.9em;color:#2980b9;"> （<code>银行</code>和<code>卡号</code>必填） </span>
+                            </div>
+
+                            <div class="marco-nbody">
+                                <div class="row  none">
+                                    <div class="add-bankCard">
+                                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                            <div class="marco-igroup-success">
+                                                <span>银行 *</span>
+                                                <input type="text" id="add_bank" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                            <div class="marco-igroup-success">
+                                                <span>卡号 *</span>
+                                                <input type="text" id="add_bankCard" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                            <div class="marco-igroup-primary">
+                                                <span>开户行地址</span>
+                                                <input type="text" id="add_bankAddress" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                            <div class="marco-igroup-primary">
+                                                <span>备注</span>
+                                                <input type="text" id="add_bankRemark" />
+
+                                                <span class="createBankCardBtn" style="cursor:pointer;">
+                                                    <i class="fa fa-plus-circle"></i>
+                                                    添加
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="hr-grey" />
+
+                                <div class="row bank-show">
+                                    @*Edit Delete 显示 信息 *@
+                                    @if (Model != null)
+                                    {
+                                        foreach (var bankCard in Model.BankCards)
+                                        {
+                                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 card-box-primary">
+                                                <div class="card-box">
+                                                    <div class="card-heading">
+                                                        <span>@bankCard.bank</span>
+                                                        <i class="pull-right fa fa-close remove-card" id="@bankCard.id" style="color:#c0392b;"></i>
+                                                        <input type="hidden" name="bank" value="@bankCard.bank" />
+                                                    </div>
+                                                    <div class="card-body">
+                                                        @bankCard.nr
+                                                        <input type="hidden" name="bankCard" value="@bankCard.nr" />
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        @bankCard.bankAddress
+                                                        <input type="hidden" name="bankAddress" value="@bankCard.bankAddress" />
+                                                        <i class="pull-right fa fa-question-circle" title="备注信息： @bankCard.remark"></i>
+                                                        <input type="hidden" name="bankRemark" value="@bankCard.remark" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="children">
+                        <div class="marco-npanel-normal">
+                            <div class="marco-nheading">
+                                <span>子女信息</span>
+                            </div>
+
+                            <div class="marco-nbody">
+
+                                <div class="row  none">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-success">
+                                            <span>姓名 *</span>
+                                            <input type="text" id="add_familyName" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-success">
+                                            <span>关系 *</span>
+                                            <input type="text" id="add_familyType" placeholder="女儿/儿子" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="marco-igroup-success">
+                                            <span>出生日期 *</span>
+                                            
+                                            <input type="text" id="add_familyBirthday" class="date-picker" />
+                                            <span class="createFamilyBtn" style="cursor:pointer;">
+                                                <i class="fa fa-plus-circle"></i>
+                                                添加
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="hr-grey" />
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>姓名</th>
+                                            <th>关系</th>
+                                            <th>出生日期</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbody-family">
+                                        @*Edit Delete 显示 信息 *@
+                                        @if (Model != null)
+                                        {
+                                            foreach (var family in Model.FamilyMemebers)
+                                            {
+                                                <tr>
+                                                    <td><input type="text" class="marco-input-primary" name="familyName" value="@family.memberName" /></td>
+                                                    <td><input type="text" class="marco-input-primary" name="familyType" value="@family.familyMemberType" /></td>
+                                                    <td><input type="text" class="marco-input-primary date-picker" name="familyBirthday" value="@family.birthday" /></td>
+                                                    <td class="option-icon-danger"><i class='fa fa-close remove-family' id="@family.id" style='margin-top:3px;'></i></td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div role="tabpanel" class="tab-pane" id="part">
+                        <div class="marco-npanel-normal">
+                            <div class="marco-nheading">
+                                <span>兼职记录</span>
+                            </div>
+
+                            <div class="marco-nbody">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>                                     
+                                            <th>兼职公司</th>
+                                            <th>兼职工作</th>
+                                            <th>兼职部门</th>
+                                            <th>开始时间</th>
+                                            <th>结束时间</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="partTime">
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="change">
+                        <div class="marco-npanel-normal">
+                            <div class="marco-nheading">
+                                <span>调动记录</span>
+                            </div>
+
+                            <div class="marco-nbody">                           
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>调岗日期</th>
+                                            <th>调岗描述</th>                                    
+                                        </tr>
+                                    </thead>
+                                    <tbody id="messagerecord">
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* 证照类型？ *@
+                    @if (Model != null) { 
+                        <div role="tabpanel" class="tab-pane" id="certificatecard">
+                            <div class="marco-npanel-normal">
+                                <div class="marco-nheading">
+                                    <span>证照信息</span>
+                                </div>
+
+                                <div class="marco-nbody">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>证照类别</th>
+                                                <th>证照级别</th>
+                                                <th>有效期从</th>
+                                                <th>有效期到</th>
+                                                <th>发证单位</th>
+                                                <th>备注</th>
+                                                <!--<th>附件</th>-->
+                                                <!--<th>操作</th>-->
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody-certificates">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div role="tabpanel" class="tab-pane" id="reword">
+                        <div class="marco-npanel-normal">
+                            <div class="marco-nheading">
+                                <span>奖惩记录</span>
                             </div>
 
                             <div class="marco-nbody">
@@ -339,6 +687,8 @@
                             </div>
                         </div>
                     </div>
+
+                </div>
             </div>
             <button class="submit-btn marco-btn-primary" type="submit" style="position:fixed; bottom:0; right:20px;">
                 <span>{{actionBtn}}</span>
@@ -766,22 +1116,6 @@
                             $("#departmentId").val(data.id);
                         }
 
-                        //选中所有子节点
-                        //if (data.nodes != null && data.nodes.length > 0) {
-                        //    for (var xxk = 0; xxk < data.nodes.length; xxk++) {
-
-                        //        $('#depTree').treeview('checkNode', [data.nodes[xxk].nodeId, { silent: true }]);
-
-                        //        var isSel = ifDepSelected(cmpId, data.nodes[xxk].id);
-
-                        //        if (!isSel) {
-                        //            var depSelNode = {};
-                        //            depSelNode.depId = data.nodes[xxk].id;
-                        //            depSelNode.depName = data.nodes[xxk].text;
-                        //            pushDeps(cmpId, depSelNode);
-                        //        }
-                        //    }
-                        //}
                     },
 
                     onNodeSelected: function (event, data) { },
@@ -838,6 +1172,7 @@
             if(data.length>0){
                 for(var i =0; i< data.length; i++){
                     var Html = "<tr><td > "+data[i].奖惩类型+" </td><td > "+data[i].奖惩项目+" </td><td > "+data[i].奖惩描述+" </td><td > "+data[i].奖惩日期+" </td><td > "+data[i].审批人+" </td></tr>";
+                    
                     $(Html).appendTo($("#RAPMessages"));
                 }
             }
@@ -847,18 +1182,18 @@
         }
     });
 
-    //员工兼职信息
+    //每个员工的兼职信息
     $.ajax({
-        url: '/PartTimeJob/FindBystaffNrPartTimeJob ',
+        url: '/PartTimeJob/FindBystaffNrPartTimeJob',
         type: 'get',
         data:{staffNr:$('#nr').val()},
         success: function (data) {
             console.log(data);
-            $("#RAPMessages").empty();
+            $("#partTime").empty();
             if(data.length>0){
                 for(var i =0; i< data.length; i++){
-                    var Html = "<tr><td > "+data[i].奖惩类型+" </td><td > "+data[i].奖惩项目+" </td><td > "+data[i].奖惩描述+" </td><td > "+data[i].奖惩日期+" </td><td > "+data[i].审批人+" </td></tr>";
-                    $(Html).appendTo($("#RAPMessages"));
+                    var Html = "<tr><td > "+data[i].兼职公司+" </td><td > "+data[i].兼职工作+" </td><td > "+data[i].兼职部门+" </td><td > "+data[i].开始时间+" </td><td > "+data[i].结束时间+" </td></tr>";
+                    Html.appendTo($("#partTime"));
                 }
             }
         },
@@ -866,7 +1201,8 @@
             // console.log("CCCCCCCC");
         }
     });
-    //员工调度信息
+
+    //员工调岗信息
     $.ajax({
         url: '/MessageRecord/FindBystaffNrShiftJob',
         type: 'get',

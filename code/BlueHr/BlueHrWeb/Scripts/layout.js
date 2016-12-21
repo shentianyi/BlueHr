@@ -564,6 +564,8 @@ Layout.openNewWindow = function(pageURL, height, width, top, left, toolbar, menu
 
     NewWindow.focus();
 }
+
+// 详情界面员工号下拉框
 Layout.SetTypeStaffNr = function (type, selectId, staffNr){
     $.ajax({
         url:'/Staff/GetTypeStaff',
