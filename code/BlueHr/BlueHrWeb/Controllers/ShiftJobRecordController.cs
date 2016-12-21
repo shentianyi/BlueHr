@@ -464,9 +464,12 @@ namespace BlueHrWeb.Controllers
         {
             if (shiftJobRecord != null)
             {
+                SetJobTitleList(shiftJobRecord.beforeJobId);
                 SetJobTitleList(shiftJobRecord.afterJobId);
+                SetCompanyList(shiftJobRecord.beforeCompanyId);
                 SetCompanyList(shiftJobRecord.afterCompanyId);
                 SetDepartmentList(shiftJobRecord.afterCompanyId, shiftJobRecord.afterDepartmentId);
+                SetDepartmentList(shiftJobRecord.beforeCompanyId, shiftJobRecord.beforeDepartmentId);
                 SetAllTableName(false);
                 SetSearchConditions(null);
             }
