@@ -37,6 +37,8 @@ namespace BlueHrWeb.Controllers
             JobTitleInfoModel info = ss.GetJobTitleInfo(q);
             ViewBag.Info = info;
 
+            SetDropDownList(null);
+
             return View(jobTitles);
         }
 

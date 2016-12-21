@@ -44,23 +44,20 @@
                     }
                 </div>
 
-                <div class="marco-igroup-primary" style="height:120px;">
+                <div class="marco-igroup-primary">
                     <label for="name">证照类别</label>
                     <ul>
                         @foreach (var i in ViewData["jobCertificateTypeList"] as IEnumerable<SelectListItem>)
                         {
-                            <li style="background:none; list-style:none">
-                                <div class="marco-igroup-normal" style="background:none;">
-                                        @if (i.Selected)
-                                        {
-                                           <span style="background:none;"><input type="checkbox" checked name="jobCertificateType" value="@i.Value" /></span> <span style="background:none; color:black">@i.Text</span>
-                                        }
-                                        else
-                                        {
-                                           <span style="background:none;"> <input type="checkbox" name="jobCertificateType" value="@i.Value" /></span ><span style="background:none;color:black">@i.Text</span>
-                                        }
-                                    
-                                </div>
+                            <li style="list-style:none; float: left; width: 120px; margin-top: 10px;">
+                                    @if (i.Selected)
+                                    {
+                                        <input type="checkbox" style="width: 20px; height: 20px;" checked name="jobCertificateType" value="@i.Value" /> <b>@i.Text</b>
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" style="width: 20px; height: 20px;" name="jobCertificateType" value="@i.Value" /> <b>@i.Text</b>
+                                    }
                             </li>
                         }
                     </ul>
@@ -91,14 +88,14 @@
         $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     });
     function post_return_action(data) {
-
         if (!data.Success) {
             Layout.popMsg('popMsg-danger', data.Content);
             return false;
         }
         else {
             Layout.popMsg('popMsg-success', data.Content);
-            window.location.href = '/JobTitle/TableShow';
+            // window.close();
+            // window.location.href = '/JobTitle/TableShow';
         }
     }
     

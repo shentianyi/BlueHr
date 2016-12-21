@@ -175,10 +175,20 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-
-
                                 <td>
                                     @Html.DisplayFor(modelItem => item.id)
+                                    @if (item.isIdChecked)
+                                    {
+                                        <span class="pull-right marco-label-success" title="身份证已经通过验证" style="cursor:help;">
+                                            已验证
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="pull-right marco-label-danger" title="身份证还未验证, 请使用客户端进行验证" style="cursor:help;">
+                                            未验证
+                                        </span>
+                                    }
                                 </td>
 
                                 <td>
