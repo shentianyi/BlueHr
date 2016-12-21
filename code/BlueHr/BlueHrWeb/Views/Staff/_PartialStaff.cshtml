@@ -326,7 +326,9 @@
                                         <tr>                                     
                                             <th>奖惩类型</th>
                                             <th>奖惩项目</th>
-                                        
+                                            <th>奖惩描述</th>
+                                            <th>奖惩日期</th>
+                                            <th>审批人</th>
                                         </tr>
                                     </thead>
                                     <tbody id="RAPMessages">
@@ -831,6 +833,26 @@
         type: 'get',
         data:{staffNr:$('#nr').val()},
         success: function (data) {
+            $("#RAPMessages").empty();
+            if(data.length>0){
+                for(var i =0; i< data.length; i++){
+                    var Html = "<tr><td > "+data[i].奖惩类型+" </td><td > "+data[i].奖惩项目+" </td><td > "+data[i].奖惩描述+" </td><td > "+data[i].奖惩日期+" </td><td > "+data[i].审批人+" </td></tr>";
+                    $(Html).appendTo($("#RAPMessages"));
+                }
+            }
+        },
+        error: function () {
+            // console.log("CCCCCCCC");
+        }
+    });
+
+    //员工兼职信息
+    $.ajax({
+        url: '/PartTimeJob/FindBystaffNrPartTimeJob ',
+        type: 'get',
+        data:{staffNr:$('#nr').val()},
+        success: function (data) {
+            console.log(data);
             $("#RAPMessages").empty();
             if(data.length>0){
                 for(var i =0; i< data.length; i++){
