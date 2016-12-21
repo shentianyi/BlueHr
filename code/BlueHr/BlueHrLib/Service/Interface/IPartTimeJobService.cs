@@ -23,6 +23,7 @@ namespace BlueHrLib.Service.Interface
 
         bool DeleteById(int id);
         IQueryable<PartTimeJob> AdvancedSearch(string v1, string v2, string v3);
+        List<PartTimeJob> FindBystaffNrPartTimeJob(string staffNr);
         //DateTime CalculateTime(int id);
     }
 }

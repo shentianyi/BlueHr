@@ -72,7 +72,7 @@ namespace BlueHrLib.Data.Repository.Implement
             if (cp != null)
             {
                 cp.remark = rsr.remark == null ? cp.remark : rsr.remark;
-                cp.resignChecker = rsr.resignChecker == null ? cp.remark : rsr.remark;
+                cp.resignChecker = rsr.resignChecker == null ? cp.resignChecker : rsr.resignChecker;
                 //cp.resignTypeId = rsr.resignTypeId;
                 cp.resignEffectiveAt = rsr.resignEffectiveAt == null ? cp.resignEffectiveAt : rsr.resignEffectiveAt;
                 cp.resignReason = rsr.resignReason == null ? cp.resignReason : rsr.resignReason;

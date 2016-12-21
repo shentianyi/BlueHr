@@ -62,7 +62,23 @@ namespace BlueHrWeb.Controllers
             SetDropDownList(pjs.FindById(id));
             return View(pjs.FindById(id));
         }
-
+        [HttpGet]
+        public JsonResult FindBystaffNrPartTimeJob(string staffNr)
+        {
+            IPartTimeJobService pjs = new PartTimeJobService(Settings.Default.db);
+            List<Dictionary<string, string>> Result = new List<Dictionary<string, string>>();
+            foreach (var i in pjs.FindBystaffNrPartTimeJob(staffNr))
+            {
+                Dictionary<string, string> detail = new Dictionary<string, string>();
+                detail.Add("兼职公司", i.CompanyName);
+                detail.Add("兼职部门", i.DepartmentName);
+                detail.Add("兼职工作", i.JobTitleName);
+                detail.Add("开始时间", i.startTime.Value.ToString("yyyy-MM-dd"));
+                detail.Add("结束时间", i.endTime.Value.ToString("yyyy-MM-dd"));
+                Result.Add(detail);
+            }
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
         // GET: PartTimeJob/Create
         [RoleAndDataAuthorizationAttribute]
         public ActionResult Create()

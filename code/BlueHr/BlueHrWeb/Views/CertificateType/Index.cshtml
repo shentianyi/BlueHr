@@ -8,6 +8,7 @@
 @{
     bool canCreate = MenuAuthHelper.CanShow("CertificateType", "Create");
     bool canEdit = MenuAuthHelper.CanShow("CertificateType", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("CertificateType", "Delete");
 }
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
@@ -66,7 +67,7 @@
                     <thead>
                         <tr>
                             <th>证照名称</th>
-                            @*<th>证照备注</th>*@
+                            <th>是否必须</th>
                             <th>备注</th>
                             <th>操作</th>
                         </tr>
@@ -81,13 +82,21 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.name)
                                     </td>
+                                    @if(item.isNecessary){
+                                        <td>是</td>
+                                    }else{
+                                        <td>否</td>
+                                    }
                                     <td>
                                         @Html.DisplayFor(modelItem => item.remark)
                                     </td>
                                     <td>
-                                        <a href="/CertificateType/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
+                                        @if(canDelete)
+                                        {
+                                            <a href="/CertificateType/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
                                         @if(canEdit)
                                         {
                                             <a href="/CertificateType/Edit/@item.id" class="option-icon-warning" title="编辑">

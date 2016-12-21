@@ -8,6 +8,8 @@
 @{
     bool canCreate = MenuAuthHelper.CanShow("StaffType", "Create");
     bool canEdit = MenuAuthHelper.CanShow("StaffType", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("StaffType", "Delete");
+    bool canDeleted = MenuAuthHelper.CanShow("StaffType", "Deleted");
 }
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
@@ -78,9 +80,12 @@
                                         @Html.DisplayFor(modelItem => item.remark)
                                     </td>
                                     <td>
-                                        <a href="/StaffType/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
+                                        @if(canDelete)
+                                        {
+                                            <a href="/StaffType/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
                                         @if(canEdit)
                                         {
                                             <a href="/StaffType/Edit/@item.id" class="option-icon-warning" title="编辑">

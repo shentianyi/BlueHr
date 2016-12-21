@@ -3,7 +3,7 @@
 <div id="shiftjobrecord" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：
-        <li>@Html.ActionLink("请假管理", "Index")</li>
+        <li>@Html.ActionLink("员工调岗", "Index")</li>
         <li>{{action}}</li>
     </ol>
 
@@ -30,125 +30,138 @@
                 </div>
             </div>
 
-            <div class="marco-nbody row">
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>工号</span>
-                        @if (Model != null)
-                        {
-                            <select name="staffNrSelect" id="staffNrSelect"></select>
-                            <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" value="@Model.staffNr"  />
-                            <!--@Html.EditorFor(model => model.staffNr)-->
-                        }
-                        else
-                        {
-                            <select name="staffNrSelect" id="staffNrSelect"></select>
-                            <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" />
-                        }
-                        <!--@Html.EditorFor(model => model.staffNr)-->
-                    </div>
-                </div>
-                @if (Model != null)
-                {
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>调岗前公司</span>
-                        @Html.DropDownList("beforeCompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-                }
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>调岗后公司</span>
-                        @Html.DropDownList("afterCompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-                @if (Model != null)
-                {
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>调岗前部门</span>
-                        @Html.DropDownList("beforeDepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-                }
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>调岗后部门</span>
-                        @Html.DropDownList("afterDepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-                @if (Model != null)
-                {
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>调岗前职位</span>
-                        @Html.DropDownList("beforeJobId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-                }
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>调岗后职位</span>
-                        @Html.DropDownList("afterJobId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="marco-igroup-primary">
-                        <span>申请备注</span>
-                        @Html.EditorFor(model => model.remark)
-                    </div>
-                </div>
-                @if (Model != null)
-                {
-                    <div id="approval-prp">
+            <div class="marco-nbody">
+                <div class="row" style="margin:0;">
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
-                                <span>申请日期</span>
+                                <span>工号</span>
                                 @if (Model != null)
                                 {
-                                    <input id="createdAt" name="createdAt" value="@Model.createdAt.ToString("yyyy-MM-dd")" class="date-picker" />
+                                    <select name="staffNrSelect" id="staffNrSelect"></select>
+                                    <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" value="@Model.staffNr"  />
+                                    <!--@Html.EditorFor(model => model.staffNr)-->
                                 }
                                 else
                                 {
-                                    <input id="createdAt" name="createdAt" value="" class="date-picker" />
+                                    <select name="staffNrSelect" id="staffNrSelect"></select>
+                                    <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号" />
                                 }
-                                <!--@Html.EditorFor(model => model.createdAt, new { htmlAttributes = new { @class = "date-picker" } })-->
+                                <!--@Html.EditorFor(model => model.staffNr)-->
                             </div>
                         </div>
+                        @if (Model != null)
+                        {
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
-                                <span>申请人</span>
-                                @Html.EditorFor(model => model.userId)
+                                <span>调岗前公司</span>
+                                @Html.DropDownList("beforeCompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
                             </div>
                         </div>
+                        }
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
-                                <span>审批人</span>
-                                @Html.EditorFor(model => model.approvalUserId)
+                                <span>调岗后公司</span>
+                                @Html.DropDownList("afterCompanyId", ViewData["companyList"] as IEnumerable<SelectListItem>)
                             </div>
                         </div>
+                        @if (Model != null)
+                        {
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
-                                <span>审批状态</span>
-                                @Html.EditorFor(model => model.approvalStatus)
+                                <span>调岗前部门</span>
+                                @Html.DropDownList("beforeDepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
                             </div>
                         </div>
+                        }
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
-                                <span>审批日期</span>
-
-                                @Html.EditorFor(model => model.approvalAt, new { htmlAttributes = new { @class = "date-picker" } })
+                                <span>调岗后部门</span>
+                                @Html.DropDownList("afterDepartmentId", ViewData["departmentList"] as IEnumerable<SelectListItem>)
                             </div>
                         </div>
+                        @if (Model != null)
+                        {
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <div class="marco-textarea">
-                                <span>备注</span>
-                                @Html.TextAreaFor(model => model.approvalRemark)
+                            <div class="marco-igroup-primary">
+                                <span>调岗前职位</span>
+                                @Html.DropDownList("beforeJobId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
                             </div>
+                        </div>
+                        }
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="marco-igroup-primary">
+                                <span>调岗后职位</span>
+                                @Html.DropDownList("afterJobId", ViewData["jobTitleList"] as IEnumerable<SelectListItem>)
+                            </div>
+                        </div>
+                        @if (Model != null)
+                        {
+                            <div class="approval-prp">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>申请日期</span>
+                                        @if (Model != null)
+                                        {
+                                            <input id="createdAt" name="createdAt" value="@Model.createdAt.ToString("yyyy-MM-dd")" class="date-picker" />
+                                        }
+                                        else
+                                        {
+                                            <input id="createdAt" name="createdAt" value="" class="date-picker" />
+                                        }
+                                        <!--@Html.EditorFor(model => model.createdAt, new { htmlAttributes = new { @class = "date-picker" } })-->
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>申请人</span>
+                                        @Html.EditorFor(model => model.userName)
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>审批人</span>
+                                        @Html.EditorFor(model => model.approvalUserName)
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>审批状态</span>
+                                        @Html.EditorFor(model => model.approvalStatus)
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="marco-igroup-primary">
+                                        <span>审批日期</span>
+                                        @if (Model.approvalAt.HasValue)
+                                        {
+                                            <input id="approvalAt" name="approvalAt" value="@Model.approvalAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                        }
+                                        else
+                                        {
+                                            <input id="approvalAt" name="approvalAt" value="" class="date-picker" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                </div>
+                <div class="row" style="margin:0;">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="marco-textarea">
+                            <span style="padding:3px 10px; height: 35px; margin-bottom: -2px;">申请备注</span>
+                            @Html.TextAreaFor(model => model.remark)
                         </div>
                     </div>
-                }
+                    @if (Model != null)
+                    {
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 approval-prp">
+                        <div class="marco-textarea">
+                            <span style="padding:3px 10px; height: 35px; margin-bottom: -2px;">审批备注</span>
+                            @Html.TextAreaFor(model => model.approvalRemark)
+                        </div>
+                    </div>
+                    }
+                </div>
             </div>
         </div>
     }

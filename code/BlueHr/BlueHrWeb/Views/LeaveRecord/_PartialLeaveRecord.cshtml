@@ -52,13 +52,29 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>起始日期</span>
-                        @Html.EditorFor(model => model.leaveStart, new { htmlAttributes = new { @class = "date-picker" } })
+                        @if (Model.leaveStart.HasValue)
+                        {
+                            <input id="leaveStart" name="leaveStart" value="@Model.leaveStart.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                        }
+                        else
+                        {
+                            <input id="leaveStart" name="leaveStart" value="" class="date-picker" />
+                        }
+                        <!--@Html.EditorFor(model => model.leaveStart, new { htmlAttributes = new { @class = "date-picker" } })-->
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>结束日期</span>
-                        @Html.EditorFor(model => model.leaveEnd, new { htmlAttributes = new { @class = "date-picker" } })
+                        @if (Model.leaveEnd.HasValue)
+                        {
+                            <input id="leaveEnd" name="leaveEnd" value="@Model.leaveEnd.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                        }
+                        else
+                        {
+                            <input id="leaveEnd" name="leaveEnd" value="" class="date-picker" />
+                        }
+                        <!--@Html.EditorFor(model => model.leaveEnd, new { htmlAttributes = new { @class = "date-picker" } })-->
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -73,19 +89,27 @@
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
                                 <span>申请时间</span>
-                                @Html.EditorFor(model => model.createdAt, new { htmlAttributes = new { @class = "date-picker" } })
+                                @if (Model.createdAt.HasValue)
+                                {
+                                    <input id="createdAt" name="createdAt" value="@Model.createdAt.Value.ToString("yyyy-MM-dd")" class="date-picker" />
+                                }
+                                else
+                                {
+                                    <input id="createdAt" name="createdAt" value="" class="date-picker" />
+                                }
+                                <!--@Html.EditorFor(model => model.createdAt, new { htmlAttributes = new { @class = "date-picker" } })-->
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
                                 <span>申请人</span>
-                                @Html.EditorFor(model => model.userId)
+                                @Html.EditorFor(model => model.userName)
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
                                 <span>审批人</span>
-                                @Html.EditorFor(model => model.approvalUserId)
+                                @Html.EditorFor(model => model.approvalUserName)
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">

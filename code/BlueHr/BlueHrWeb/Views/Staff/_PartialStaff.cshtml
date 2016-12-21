@@ -28,6 +28,7 @@
                     <li role="presentation" class="active"><a href="#basic" role="tab" data-toggle="tab">基本信息</a></li>
                     <li role="presentation"><a href="#additional" role="tab" data-toggle="tab">附加信息</a></li>
                     <li role="presentation"><a href="#position" role="tab" data-toggle="tab">职位信息</a></li>
+                    
                     <li role="presentation"><a href="#experience" role="tab" data-toggle="tab">工作经历</a></li>
                     <li role="presentation"><a href="#contract" role="tab" data-toggle="tab">合同信息</a></li>
                     <li role="presentation"><a href="#bankcard" role="tab" data-toggle="tab">银行卡信息</a></li>
@@ -35,6 +36,7 @@
                     @if (Model != null)
                     {
                         <li role="presentation"><a href="#change" role="tab" data-toggle="tab">调动记录</a></li>
+                        <li role="presentation"><a href="#part" role="tab" data-toggle="tab">兼职信息</a></li>
                         <li role="presentation"><a href="#certificatecard" role="tab" data-toggle="tab">证照信息</a></li>
                         <li role="presentation"><a href="#reword" role="tab" data-toggle="tab">奖惩记录</a></li>
                     }
@@ -288,7 +290,7 @@
                                             }
 
                                             <span>
-                                                <button type="button" onclick="asignCmpDepConfirm(-1)" class="marco-btn-primary" style="margin: 0; background:transparent; border-color:transparent;">
+                                                <button type="button" id="hidden" onclick="asignCmpDepConfirm(-1)" class="marco-btn-primary" style="margin: 0; background:transparent; border-color:transparent;">
                                                     选择公司和部门
                                                 </button>
                                             </span>
@@ -582,6 +584,31 @@
                         </div>
                     </div>
 
+                     <div role="tabpanel" class="tab-pane" id="part">
+                        <div class="marco-npanel-normal">
+                            <div class="marco-nheading">
+                                <span>兼职记录</span>
+                            </div>
+
+                            <div class="marco-nbody">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>                                     
+                                            <th>兼职公司</th>
+                                            <th>兼职工作</th>
+                                            <th>兼职部门</th>
+                                            <th>开始时间</th>
+                                            <th>结束时间</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="partTime">
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                     <div role="tabpanel" class="tab-pane" id="change">
                         <div class="marco-npanel-normal">
                             <div class="marco-nheading">
@@ -589,7 +616,6 @@
                             </div>
 
                             <div class="marco-nbody">                           
-
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -1090,22 +1116,6 @@
                             $("#departmentId").val(data.id);
                         }
 
-                        //选中所有子节点
-                        //if (data.nodes != null && data.nodes.length > 0) {
-                        //    for (var xxk = 0; xxk < data.nodes.length; xxk++) {
-
-                        //        $('#depTree').treeview('checkNode', [data.nodes[xxk].nodeId, { silent: true }]);
-
-                        //        var isSel = ifDepSelected(cmpId, data.nodes[xxk].id);
-
-                        //        if (!isSel) {
-                        //            var depSelNode = {};
-                        //            depSelNode.depId = data.nodes[xxk].id;
-                        //            depSelNode.depName = data.nodes[xxk].text;
-                        //            pushDeps(cmpId, depSelNode);
-                        //        }
-                        //    }
-                        //}
                     },
 
                     onNodeSelected: function (event, data) { },
@@ -1162,6 +1172,7 @@
             if(data.length>0){
                 for(var i =0; i< data.length; i++){
                     var Html = "<tr><td > "+data[i].奖惩类型+" </td><td > "+data[i].奖惩项目+" </td><td > "+data[i].奖惩描述+" </td><td > "+data[i].奖惩日期+" </td><td > "+data[i].审批人+" </td></tr>";
+                    
                     $(Html).appendTo($("#RAPMessages"));
                 }
             }
@@ -1170,7 +1181,28 @@
             // console.log("CCCCCCCC");
         }
     });
-    //员工调度信息
+
+    //每个员工的兼职信息
+    $.ajax({
+        url: '/PartTimeJob/FindBystaffNrPartTimeJob',
+        type: 'get',
+        data:{staffNr:$('#nr').val()},
+        success: function (data) {
+            console.log(data);
+            $("#partTime").empty();
+            if(data.length>0){
+                for(var i =0; i< data.length; i++){
+                    var Html = "<tr><td > "+data[i].兼职公司+" </td><td > "+data[i].兼职工作+" </td><td > "+data[i].兼职部门+" </td><td > "+data[i].开始时间+" </td><td > "+data[i].结束时间+" </td></tr>";
+                    Html.appendTo($("#partTime"));
+                }
+            }
+        },
+        error: function () {
+            // console.log("CCCCCCCC");
+        }
+    });
+
+    //员工调岗信息
     $.ajax({
         url: '/MessageRecord/FindBystaffNrShiftJob',
         type: 'get',

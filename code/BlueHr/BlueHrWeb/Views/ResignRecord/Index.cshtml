@@ -92,7 +92,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.resignTypeId)
+                                            @Html.DisplayFor(modelItem => item.resignTypeDisplay)
                                         </td>
 
                                         <td>
@@ -100,7 +100,7 @@
                                             <span>@item.resignAt.ToString("yyyy-MM-dd")</span>
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem =>item.userId)
+                                            @Html.DisplayFor(modelItem =>item.userName)
                                         </td>
                                         <td>
                                             <!--值可为空-->
@@ -195,7 +195,7 @@
                                             <span>@item.resignAt.ToString("yyyy-MM-dd")</span>
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem =>item.userId)
+                                            @Html.DisplayFor(modelItem =>item.userName)
                                         </td>
                                         <td>
                                             <!--值可为空-->
