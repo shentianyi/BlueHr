@@ -1,12 +1,11 @@
 ﻿@model BlueHrLib.Data.StaffType
 @using BlueHrWeb.Helpers.View
-
 @{
-    bool canDelete = MenuAuthHelper.CanShow("StaffType", "Delete");
+    bool canDeleted = MenuAuthHelper.CanShow("StaffType", "Deleted");
 }
 
-<input type="hidden" id="can" value="@canDelete.ToString()">
 
+<input type="hidden" id="can" value="@canDeleted.ToString()">
 <div id="stafftype" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：
@@ -29,7 +28,6 @@
         <div class="marco-npanel-primary">
             <div class="marco-nheading">
                 {{action}}
-
                 <div class="pull-right">
                     <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;">
                         <i class="fa fa-check-circle-o"></i>

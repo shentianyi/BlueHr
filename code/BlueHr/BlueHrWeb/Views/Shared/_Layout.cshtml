@@ -48,15 +48,19 @@
     bool canExtraWorkType = MenuAuthHelper.CanShow("ExtraWorkType", "Index");
     bool canWorkAndRests = MenuAuthHelper.CanShow("WorkAndRests", "Index");
     bool canCompany = MenuAuthHelper.CanShow("Company", "Index");
+    bool canTreeShow = MenuAuthHelper.CanShow("Company", "TreeShow");
     bool canDepartment = MenuAuthHelper.CanShow("Department", "Index");
     bool canStaff = MenuAuthHelper.CanShow("Staff", "Index");
+    bool canOntrail = MenuAuthHelper.CanShow("Staff", "Ontrail");
     bool canCreate = MenuAuthHelper.CanShow("Staff", "Create");
+    bool canIdcard = MenuAuthHelper.CanShow("Staff", "Idcard");
     bool canShiftJobRecord = MenuAuthHelper.CanShow("ShiftJobRecord", "Index");
     bool canResignRecord = MenuAuthHelper.CanShow("ResignRecord", "Index");
     bool canFullMemberRecord = MenuAuthHelper.CanShow("FullMemberRecord", "Index");
     bool canLeaveRecord = MenuAuthHelper.CanShow("LeaveRecord", "Index");
     bool canShift = MenuAuthHelper.CanShow("Shift", "Index");
     bool canShiftSchedule = MenuAuthHelper.CanShow("ShiftSchedule", "Index");
+    bool canSearch = MenuAuthHelper.CanShow("ShiftSchedule", "Search");
     bool canAttendanceRecordDetail = MenuAuthHelper.CanShow("AttendanceRecordDetail", "Index");
     bool canAttendanceRecordCal = MenuAuthHelper.CanShow("AttendanceRecordCal", "Index");
     bool canExceptionList = MenuAuthHelper.CanShow("AttendanceRecordCal", "ExceptionList");
@@ -65,6 +69,8 @@
     bool canMessageRecord = MenuAuthHelper.CanShow("MessageRecord", "Index");
     bool canRecruit = MenuAuthHelper.CanShow("Recruit", "Index");
     bool canRewardsAndPenalty = MenuAuthHelper.CanShow("RewardsAndPenalty", "Index");
+    bool canPartTimeJob = MenuAuthHelper.CanShow("PartTimeJob", "Index");
+    bool canTaskRound = MenuAuthHelper.CanShow("TaskRound", "Index");
 }
 
 <body class="skin-blue fixed sidebar-mini"">
@@ -313,6 +319,9 @@
                                         公司架构列表
                                     </a>
                                 </li>
+                            }
+                            @if(canTreeShow)
+                            {
                                 <li class="nav-organizationTreeShow">
                                     <a href="/Company/TreeShow">
                                         <i class="fa fa-sitemap"></i>
@@ -381,7 +390,7 @@
                                 </li>
                             }
                             
-                            @if(canStaff)
+                            @if(canOntrail)
                             {
                                 <li class="nav-ontrail">
                                     <a href="/Staff/Ontrail">
@@ -444,6 +453,9 @@
                                         排班概览
                                     </a>
                                 </li>
+                            }
+                            @if(canSearch)
+                            {
                                 <li class="nav-shiftschedule-search">
                                     <a href="/ShiftSchedule/Search" >
                                         <i class="fa fa-search"></i>
@@ -556,6 +568,9 @@
                                         员工管理
                                     </a>
                                 </li>
+                            }
+                            @if(canIdcard)
+                            {
                                 <li class="nav-idcard">
                                     <a href="/Staff/Idcard">
                                         <i class="fa fa-credit-card"></i>
@@ -563,13 +578,16 @@
                                     </a>
                                 </li>
                             }
-
-                            <li class="nav-parttimejob">
-                                <a href="/PartTimeJob/Index">
-                                    <i class="fa fa-magnet"></i>
-                                    兼职管理
-                                </a>
-                            </li>
+                            
+                            @if(canPartTimeJob)
+                            {
+                                <li class="nav-parttimejob">
+                                    <a href="/PartTimeJob/Index">
+                                        <i class="fa fa-magnet"></i>
+                                        兼职管理
+                                    </a>
+                                </li>
+                            }
                             
                             @if(canRecruit)
                             {
@@ -611,13 +629,15 @@
                         </a>
 
                         <ul class="treeview-menu">
-                            
+                            @if(canTaskRound)
+                            {
                                 <li class="nav-taskround">
                                     <a href="/TaskRound/Index">
                                         <i class="fa fa-tasks"></i>
                                         <span>系统任务</span>
                                     </a>
                                 </li>
+                            }
                             
                         </ul>
                     </li>
@@ -654,13 +674,17 @@
                     }
                 },"json");
             });
+    </script>
+}
 
+
+<script type="">
             //添加pq-grid类名弹出新窗口
             
-            $('.pq-grid').on('click', 'a', function () {
+            $('.pq-grid-cell').on('click', 'a', function () {
                 //1920* 1200  1068 * 677 刚刚好
                 //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
-
+                console.log("ccccccccc");
                 if ($(this).attr("href") == undefined || $(this).attr("href") == "" || $(this).attr("href") == "#" || $(this).attr("href").split("/") == "undefined") {
 
                 }else {
@@ -685,9 +709,8 @@
                     Layout.popMsg('popMsg-success', data.Content);
                     setTimeout(function(){
                         window.close();
-                    }, 2000);
+                    }, 1000);
                 }
             }
-    </script>
-}
+</script>
 

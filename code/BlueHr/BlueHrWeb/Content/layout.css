@@ -401,7 +401,7 @@ body {
   display: table;
   margin: 5px 0;
   height: 40px; 
-  line-height: 30px;
+  line-height: normal;
   background: #fff;
   }
   .marco-igroup-primary span, .marco-igroup-primary label {

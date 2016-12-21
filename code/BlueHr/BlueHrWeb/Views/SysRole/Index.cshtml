@@ -10,6 +10,7 @@
     bool canEdit = MenuAuthHelper.CanShow("SysRole", "Edit");
     bool canDelete = MenuAuthHelper.CanShow("SysRole", "Delete");
     bool canAssignAuth = MenuAuthHelper.CanShow("SysRole", "AssignAuth");
+    bool canTableShow = MenuAuthHelper.CanShow("SysRole", "TableShow");
 }
 @Styles.Render("~/Content/multi-select")
 
@@ -68,9 +69,12 @@
     {
         <button class="marco-btn-success create-sysRole">新建角色</button>
     }
-    <a href="/SysRole/TableShow">
-        <button class="marco-btn-primary">角色列表展示</button>
-    </a>
+    @if(canTableShow)
+    {
+        <a href="/SysRole/TableShow">
+            <button class="marco-btn-primary">角色列表展示</button>
+        </a>
+    }
     @if(canAssignAuth)
     {
         <a href="/SysRole/AssignAuth">
