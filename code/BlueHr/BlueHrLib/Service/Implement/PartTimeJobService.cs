@@ -70,5 +70,10 @@ namespace BlueHrLib.Service.Implement
         {
             return rep.AdvancedSearch(v1, v2, v3);
         }
+
+        public List<PartTimeJob> FindBystaffNrPartTimeJob(string staffNr)
+        {
+            return rep.FindBystaffNrPartTimeJob(staffNr);
+        }
     }
 }

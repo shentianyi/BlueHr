@@ -702,6 +702,8 @@
       <Association Name="JobTitle_JobCertificate" Member="JobCertificate" ThisKey="id" OtherKey="jobTitleId" Type="JobCertificate" />
       <Association Name="JobTitle_Staff" Member="Staff" ThisKey="id" OtherKey="jobTitleId" Type="Staff" />
       <Association Name="JobTitle_PartTimeJob" Member="PartTimeJob" ThisKey="id" OtherKey="jobTitleId" Type="PartTimeJob" />
+      <Association Name="JobTitle_ShiftJobRecord" Member="ShiftJobRecord" ThisKey="id" OtherKey="beforeJobId" Type="ShiftJobRecord" />
+      <Association Name="JobTitle_ShiftJobRecord1" Member="ShiftJobRecord1" ThisKey="id" OtherKey="afterJobId" Type="ShiftJobRecord" />
     </Type>
   </Table>
   <Table Name="dbo.ExtraWorkRecord" Member="ExtraWorkRecord">
@@ -906,6 +908,8 @@
       <Association Name="Department_ShiftJobRecord1" Member="Department1" ThisKey="afterDepartmentId" OtherKey="id" Type="Department" IsForeignKey="true" />
       <Association Name="User_ShiftJobRecord" Member="User" ThisKey="userId" OtherKey="id" Type="User" IsForeignKey="true" />
       <Association Name="User_ShiftJobRecord1" Member="User1" ThisKey="approvalUserId" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="JobTitle_ShiftJobRecord" Member="JobTitle" ThisKey="beforeJobId" OtherKey="id" Type="JobTitle" IsForeignKey="true" />
+      <Association Name="JobTitle_ShiftJobRecord1" Member="JobTitle1" ThisKey="afterJobId" OtherKey="id" Type="JobTitle" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.PartTimeJob" Member="PartTimeJob">
