@@ -469,7 +469,6 @@ tr.pq-group-row td span{
 div.pq-pager span,div.pq-pager select{
     margin-right:5px;
     border-width:1px;
-    color: white;
 }
 .pq-pager .pq-page-placeholder{
     vertical-align:top;

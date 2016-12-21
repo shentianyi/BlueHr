@@ -23,6 +23,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="marco-igroup-primary">
                     <span>工号</span>
+
                     <input type="text" name="staffNr" id="staffNr" placeholder="工号" value="@ViewBag.Query.staffNr" />
                 </div>
             </div>
@@ -88,10 +89,20 @@
                                             @Html.DisplayFor(modelItem => item.JobTitleName)
                                         </td>
                                         <td>
+<<<<<<< HEAD
+                                            <span>@(@item.startTime.HasValue?@item.startTime.Value.ToString("yyyy-MM-dd"):"")</span>
+
+                                            <!--@Html.DisplayFor(modelItem => item.startTime)-->
+                                        </td>
+                                        <td>
+                                            <span>@(@item.startTime.HasValue?@item.startTime.Value.ToString("yyyy-MM-dd"):"")</span>
+                                            <!--@Html.DisplayFor(modelItem => item.endTime)-->
+=======
                                             @(@item.startTime.HasValue ? @item.startTime.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
                                             @(@item.endTime.HasValue ? @item.endTime.Value.ToString("yyyy-MM-dd") : "")
+>>>>>>> 3257d7cf3b9abb8941b26c9a7bdbdafe340618e6
                                         </td>
                                         <td>
                                             <a href="/PartTimeJob/Delete/@item.id" class="option-icon-primary" title="详情">

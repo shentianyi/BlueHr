@@ -43,8 +43,8 @@
         color: darkred;
     }
     .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget .btn-open {  
-        background-color:#ffffff;
-        color:#808080;
+        background-color:#2980b9;
+        color:#fff;
         border:1px solid #808080;
     }
 
@@ -258,6 +258,7 @@
                     <input type="text" name="startDate" id="startDate" class="datepicker" placeholder="开始" /><span>~ </span><input type="text" name="endDate" id="endDate" class="datepicker" placeholder="结束" />
                 </div>
             </div>
+
             <br />
             <div class="dialogModal_footer">
                 <div class="row">
@@ -275,7 +276,7 @@
 
         Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr');
 
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_cal_type", "统计记录管理", "20", "all_cal_type_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 320, false, "all_cal_type", "统计记录管理", "20", "all_cal_type_grid_table");
 
         Layout.datepicker('.datetimepicker');
 

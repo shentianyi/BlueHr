@@ -48,7 +48,15 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="marco-igroup-danger">
                         <span>日期</span>
-                        @Html.EditorFor(model => model.attendanceDate, new { htmlAttributes = new { @class = "date-picker" } })
+                        @if (Model!=null)
+                        {
+                            <input id="attendanceDate" name="attendanceDate" value="@Model.attendanceDate.ToString("yyyy-MM-dd")" class="date-picker" />
+                        }
+                        else
+                        {
+                            <input id="attendanceDate" name="attendanceDate" value="" class="date-picker" />
+                        }
+                        <!--@Html.EditorFor(model => model.attendanceDate, new { htmlAttributes = new { @class = "date-picker" } })-->
                     </div>
                 </div>
 

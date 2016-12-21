@@ -39,8 +39,16 @@
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <label for="name">员工号 *</label>
-                            <!--@Html.EditorFor(model => model.staffNr)-->
-                            @Html.DropDownList("staffNr", ViewData["onTrialStaff"] as IEnumerable<SelectListItem>)
+                             @if(Model != null)
+                             {
+                                <select name="staffNrSelect" id="staffNrSelect"></select>
+                                <input type="hidden" name="staffNr" id="staffNr" placeholder="员工号" value="@Model.staffNr">
+                            }
+                            else{
+                                <select name="staffNrSelect" id="staffNrSelect"></select>
+                                <input type="hidden" name="staffNr" id="staffNr" placeholder="员工号">
+                            }
+                            <!--@Html.DropDownList("staffNr", ViewData["onTrialStaff"] as IEnumerable<SelectListItem>)-->
                         </div>
                     </div>
 
@@ -90,6 +98,7 @@
     Layout.init();
 
     Layout.datepicker(".date-picker"); 
+    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr');
 
     $(".submit-btn").click(function(){
         $("#resignTypeName").val($(".combo-input").val());
