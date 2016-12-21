@@ -1,11 +1,17 @@
 ﻿@using MvcPaging
-
 @model IPagedList<BlueHrLib.Data.JobTitle>
-
+@using BlueHrWeb.Helpers.View
 @{
     ViewBag.Title = "职位管理";
 }
 
+@{
+    bool canCreate = MenuAuthHelper.CanShow("JobTitle", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("JobTitle", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("JobTitle", "Delete");
+    bool canSet = MenuAuthHelper.CanShow("JobTitle", "Set");
+    bool canTableShow = MenuAuthHelper.CanShow("JobTitle", "TableShow");
+}
 <style type="text/css">
     #current_jobTitleContent > ul , #history_jobTitleContent > ul, #all_jobTitleContent > ul{
         list-style: none;
@@ -63,11 +69,17 @@
 <hr class="hr-grey" />
 
 <div class="row" style="margin:0 10px 0 0;">
-    <div class="pull-right">    
-        <button class="marco-btn-success create-jobTitle">新建职位</button>
-        <a href="/JobTitle/TableShow">
-            <button class="marco-btn-primary">职位列表展示</button>
-        </a>
+    <div class="pull-right">
+        @if(canCreate)
+        {    
+            <button class="marco-btn-success create-jobTitle">新建职位</button>
+        }
+        @if(canTableShow)
+        {
+            <a href="/JobTitle/TableShow">
+                <button class="marco-btn-primary">职位列表展示</button>
+            </a>
+        }
     </div>
 </div>
 
@@ -127,11 +139,11 @@
     </div>
 
     <div class="dialogModal_footer">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
-            <button type="button" class="marco-btn-primary pull-right" data-dialogmodalbut="ok" />
-                确认
-            </button>
-        </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+                <button type="button" class="marco-btn-primary pull-right" data-dialogmodalbut="ok" />
+                    确认
+                </button>
+            </div>
     </div>
 </div>
 <div class=""></div>
@@ -147,18 +159,18 @@
             for (var i = 0; i < data.length; i++) {
                 if(data[i].IsRevoked == "False"){
                     var Html = "<li id=" + data[i].id + " title=" + data[i].remark + "> <div></div><p>" + data[i].name + "</p>" +
-                    "<i class='fa fa-pencil editJobTitle' title='编辑职位' style='margin-left: -45px;'></i>" +
-                    "<i class='fa fa-trash removeJobTitle' title='删除职位' style='color: darkred; margin-left: -15px;'></i>" +
-                    "<i class='fa fa-share-square-o setHistoryJobTitle' title='设置为历史职位' style='color: lightseagreen; margin-left: 15px; padding-top:5px;'></i>" +
+                    "@if(canEdit){<i class='fa fa-pencil editJobTitle' title='编辑职位' style='margin-left: -45px;'></i>}" +
+                    "@if(canDelete){<i class='fa fa-trash removeJobTitle' title='删除职位' style='color: darkred; margin-left: -15px;'></i>}" +
+                    "@if(canSet){<i class='fa fa-share-square-o setHistoryJobTitle' title='设置为历史职位' style='color: lightseagreen; margin-left: 15px; padding-top:5px;'></i>}" +
                     "</li>";
 
                     $(Html).appendTo($("#current_jobTitleContent>ul"));
                     $(Html).appendTo($("#all_jobTitleContent>ul"));
                 }else{
                     var Html = "<li id=" + data[i].id + " title=" + data[i].remark + "> <div></div><p>" + data[i].name + "</p>" +
-                    "<i class='fa fa-pencil editJobTitle' title='编辑职位' style='margin-left: -45px;'></i>" +
-                    "<i class='fa fa-trash removeJobTitle' title='删除职位' style='color: darkred; margin-left: -15px;'></i>" +
-                    "<i class='fa fa-share-square-o reSetHistoryJobTitle' title='重新启用' style='color: lightseagreen; margin-left: 15px; padding-top:5px;'></i>" +
+                    "@if(canEdit){<i class='fa fa-pencil editJobTitle' title='编辑职位' style='margin-left: -45px;'></i>}" +
+                    "@if(canDelete){<i class='fa fa-trash removeJobTitle' title='删除职位' style='color: darkred; margin-left: -15px;'></i>}" +
+                    "@if(canSet){<i class='fa fa-share-square-o reSetHistoryJobTitle' title='重新启用' style='color: lightseagreen; margin-left: 15px; padding-top:5px;'></i>}" +
                     "</li>";
 
                     $(Html).appendTo($("#history_jobTitleContent>ul"));

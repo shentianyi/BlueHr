@@ -9,6 +9,8 @@
     bool canEdit = MenuAuthHelper.CanShow("User", "Edit");
     bool canChangepwd = MenuAuthHelper.CanShow("User", "Changepwd");
     bool canLock = MenuAuthHelper.CanShow("User", "Lock");
+    bool canDelete = MenuAuthHelper.CanShow("User", "Delete");
+
 }
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
@@ -170,9 +172,12 @@
                                         @Html.DisplayFor(modelItem => item.AuthDepartment)
                                     </td>
                                     <td>
-                                        <a href="/User/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
+                                        @if(canDelete)
+                                        {
+                                            <a href="/User/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
                                         @if(canEdit)
                                         {
                                             <a href="/User/Edit/@item.id" class="option-icon-warning" title="编辑">
@@ -243,9 +248,12 @@
                                         @Html.DisplayFor(modelItem => item.AuthDepartment)
                                     </td>
                                     <td>
-                                        <a href="/User/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
+                                        @if(canDelete)
+                                        {
+                                            <a href="/User/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
                                         @if(canEdit)
                                         {
                                             <a href="/User/Edit/@item.id" class="option-icon-warning" title="编辑">
@@ -319,9 +327,12 @@
                                         @Html.DisplayFor(modelItem => item.AuthDepartment)
                                     </td>
                                     <td>
-                                        <a href="/User/Delete/@item.id" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
+                                       @if(canDelete)
+                                        {
+                                            <a href="/User/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
                                         @if(canEdit)
                                         {
                                             <a href="/User/Edit/@item.id" class="option-icon-warning" title="编辑">

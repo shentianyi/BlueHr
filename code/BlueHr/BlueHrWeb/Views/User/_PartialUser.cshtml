@@ -1,10 +1,4 @@
 ﻿@model BlueHrLib.Data.User
-@using BlueHrWeb.Helpers.View
-@{
-    bool canDelete = MenuAuthHelper.CanShow("User", "Delete");
-}
-
-<input type="hidden" id="can" value="@canDelete.ToString()">
 
 <div id="user" style="margin:20px;">
     <ol class="breadcrumb current-position">
@@ -27,7 +21,7 @@
             <div class="marco-nheading">
                 {{action}}  <!--编辑用户-->
                 <div class="pull-right">
-                    <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px; background:#c0392b;">
+                    <button type="submit" class="marco-btn-primary" style="margin-top:-10px; padding: 0 10px;">
                         <i class="fa fa-check-circle-o"></i>
                         <span>{{actionBtn}}</span> <!--更新-->
                     </button>
@@ -49,7 +43,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
-                        <label for="email">邮箱地址*</label>
+                        <label for="email">邮箱*</label>
                         @if (Model != null)
                         {
                             @Html.EditorFor(model => model.email)
@@ -60,6 +54,17 @@
                         }
                     </div>
                 </div>
+                @if (Model == null)
+                {
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" id="password">
+                        <div class="marco-igroup-primary">
+                            <label for="pwd">密码*</label>
+                            
+                            <input type="text" name="pwd" placeholder="密码" />
+                            
+                        </div>
+                    </div>
+                }
                 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="row">
