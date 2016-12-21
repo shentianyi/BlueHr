@@ -1,5 +1,4 @@
 ﻿@using MvcPaging
-
 @model IPagedList<BlueHrLib.Data.Staff>
 @using BlueHrWeb.Helpers.View
 @{
@@ -13,10 +12,9 @@
     </li>
 </ol>
 @{
-    bool canImport = MenuAuthHelper.CanShow("Staff", "Import");
     bool canCreate = MenuAuthHelper.CanShow("Staff", "Create");
     bool canEdit = MenuAuthHelper.CanShow("Staff", "Edit");
-    bool canShow = MenuAuthHelper.CanShow("Staff", "Show");
+    bool canDelete = MenuAuthHelper.CanShow("Staff", "Delete");
 }
 <hr class="hr-grey" />
 
@@ -118,12 +116,15 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        <a href="/Staff/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
-            <button class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>创建</span>
-            </button>
-        </a>
+        @if (canCreate)
+        {
+            <a href="/Staff/Create" class="pull-right" style="margin-top: -10px; margin-right:5px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#try_Ontrail" role="tab" data-toggle="tab">试用期员工</a></li>
@@ -208,7 +209,7 @@
                                         </td>
 
                                         <td>
-                                            @if (canShow)
+                                            @if (canDelete)
                                             {
                                                 <a href="/Staff/Delete/@item.nr" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
@@ -306,7 +307,7 @@
                                         </td>
 
                                         <td>
-                                            @if (canShow)
+                                            @if (canDelete)
                                             {
                                                 <a href="/Staff/Delete/@item.nr" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>

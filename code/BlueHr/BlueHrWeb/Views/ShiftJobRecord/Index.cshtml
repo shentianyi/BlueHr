@@ -5,6 +5,12 @@
 @{
     ViewBag.Title = "员工调岗";
 }
+@{
+    bool canCreate = MenuAuthHelper.CanShow("ShiftJobRecord", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("ShiftJobRecord", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("ShiftJobRecord", "Delete");
+    bool canApproval = MenuAuthHelper.CanShow("ShiftJobRecord", "Approval");
+}
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
@@ -93,12 +99,15 @@
 <hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        <a href="/ShiftJobRecord/Create" class="pull-right" style="margin-top: -10px;">
-            <button type="button" class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>创建</span>
-            </button>
-        </a>
+        @if (canCreate)
+        {
+            <a href="/ShiftJobRecord/Create" class="pull-right" style="margin-top: -10px;">
+                <button type="button" class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#Not_Approve" role="tab" data-toggle="tab">未审批</a></li>
@@ -182,19 +191,25 @@
                                         @Html.DisplayFor(modelItem => item.approvalRemark)
                                     </td>
                                     <td>
-                                       
+                                        @if (canDelete)
+                                        {
                                             <a href="/ShiftJobRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                       
+                                         }
+                                         @if (canEdit)
+                                         {
                                             <a href="/ShiftJobRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                       
+                                         }
+                                         @if (canApproval)
+                                         {
                                             <a title="审批"class="option-icon-danger" onclick="shShiftJobRecord(@item.id)">
                                                 <i class="fa fa-check"></i>
                                             </a>
-                                       
+                                         }
+
                                     </td>
                                 </tr>
                                  }
@@ -219,7 +234,7 @@
                             <th>审批日期</th>
                             <th>审批状态</th>
                             <th>备注</th>
-                            <th>操作</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -277,22 +292,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalRemark)
                                     </td>
-                                    <td>
-
-                                       @if(item.approvalStatus==null){
-                                            <a href="/ShiftJobRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                       
-                                            <a href="/ShiftJobRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                       
-                                            <a title="审批"class="option-icon-danger" onclick="shShiftJobRecord(@item.id)">
-                                                <i class="fa fa-check"></i>
-                                            </a>
-                                       }
-                                    </td>
+                                    
                                 </tr>
                                 }
                             }
@@ -377,17 +377,24 @@
                                     <td>
 
                                         @if(item.approvalStatus==null){
-                                            <a href="/ShiftJobRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                       
-                                            <a href="/ShiftJobRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                       
-                                            <a title="审批"class="option-icon-danger" onclick="shShiftJobRecord(@item.id)">
-                                                <i class="fa fa-check"></i>
-                                            </a>
+                                            if (canDelete)
+                                            {
+                                                <a href="/ShiftJobRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            if (canEdit)
+                                            {
+                                                <a href="/ShiftJobRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
+                                            if (canApproval)
+                                            {
+                                                <a title="审批" class="option-icon-danger" onclick="shShiftJobRecord(@item.id)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            }
                                         }
                                     </td>
                                 </tr>

@@ -44,17 +44,22 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        <button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -5px;">
-            <i class="fa fa-cloud-upload"></i>
-            <span>上传</span>
-        </button>
-
-        <a href="/Company/Create" class="pull-right" style="margin-top: -10px;margin-right: 5px;">
-            <button class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>创建</span>
+        @if (canImport)
+        {
+            <button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -5px;">
+                <i class="fa fa-cloud-upload"></i>
+                <span>上传</span>
             </button>
-        </a>
+        }
+        @if (canCreate)
+        {
+            <a href="/Company/Create" class="pull-right" style="margin-top: -10px;margin-right: 5px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">所有公司</a></li>

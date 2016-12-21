@@ -6,7 +6,12 @@
 @{
     ViewBag.Title = "员工离职";
 }
-
+@{
+    bool canCreate = MenuAuthHelper.CanShow("ResignRecord", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("ResignRecord", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("ResignRecord", "Delete");
+    bool canApproval = MenuAuthHelper.CanShow("ResignRecord", "Approval");
+}
 @Styles.Render("~/Content/company")
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
@@ -43,18 +48,20 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-
-        <a href="/ResignRecord/Create" class="pull-right" style="margin-top: -10px;">
-            <button class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>创建</span>
-            </button>
-        </a>
+        @if (canCreate)
+        {
+            <a href="/ResignRecord/Create" class="pull-right" style="margin-top: -10px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#Not_Approve" role="tab" data-toggle="tab">未审批</a></li>
             <li role="presentation"><a href="#Already_Approve" role="tab" data-toggle="tab">已审批</a></li>
-            <li role="presentation"><a href="#all_ResignRecord" role="tab" data-toggle="tab">离职申请</a></li>
+            <li role="presentation"><a href="#all_ResignRecord" role="tab" data-toggle="tab">全部离职申请</a></li>
             
         </ul>
 
@@ -119,33 +126,30 @@
                                                 @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
                                             </span>
                                         </td>
-                                            @if (item.approvalStatus == null)
-                                            {
-                                                <td>未审批</td>
-                                            }
-                                            else
-                                            {
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.approvalStatus)
-                                                </td>
-                                            }
-
+                                        <td>未审批</td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalRemark)
                                         </td>
 
                                         <td>
-                                           
+                                            @if (canDelete)
+                                            {
                                                 <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
+                                            }
+                                            @if (canEdit)
+                                            {
                                                 <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                            }
+                                            @if (canApproval)
+                                            {
                                                 <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">
                                                     <i class="fa fa-check"></i>
                                                 </a>
-                                            
+                                            }
                                         </td>
                                     </tr>
                                 }
@@ -170,7 +174,6 @@
                             <th>审批时间</th>
                             <th>审批状态</th>
                             <th>审批备注</th>
-                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -187,7 +190,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.resignTypeId)
+                                            @Html.DisplayFor(modelItem => item.resignTypeDisplay)
                                         </td>
 
                                         <td>
@@ -214,33 +217,11 @@
                                                 @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
                                             </span>
                                         </td>
-                                            @if (item.approvalStatus == null)
-                                            {
-                                                <td>未审批</td>
-                                            }
-                                            else
-                                            {
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.approvalStatus)
-                                                </td>
-                                            }
-
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalStatus)
+                                        </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalRemark)
-                                        </td>
-
-                                        <td>
-                                            @if (item.approvalStatus == null){
-                                                <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                                <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">
-                                                    <i class="fa fa-check"></i>
-                                                </a>
-                                            }
                                         </td>
                                     </tr>
                                 }
@@ -281,7 +262,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.resignTypeId)
+                                        @Html.DisplayFor(modelItem => item.resignTypeDisplay)
                                     </td>
 
                                     <td>
@@ -289,7 +270,7 @@
                                         <span>@item.resignAt.ToString("yyyy-MM-dd")</span>
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem =>item.userId)
+                                        @Html.DisplayFor(modelItem =>item.userName)
                                     </td>
                                     <td>
                                         <!--值可为空-->
@@ -326,15 +307,24 @@
                                     <td>
                                         @if (item.approvalStatus == null)
                                         {
-                                            <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">
-                                                <i class="fa fa-check"></i>
-                                            </a>
+                                            if (canDelete)
+                                            {
+                                                <a href="/ResignRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            if (canEdit)
+                                            {
+                                                <a href="/ResignRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
+                                            if (canApproval)
+                                            {
+                                                <a title="审批" id="shResignRecord" class="option-icon-danger" onclick="shResignRecord(@item.id)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            }
                                         }
                                     </td>
                                 </tr>
@@ -390,7 +380,7 @@
     $(window).resize(function () {
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "Not_Approve", "未审批列表", "20", "Not_Approve_grid_table");
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "Already_Approve", "已审批列表", "20", "Already_Approve_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_ResignRecord", "离职申请列表", "20", "all_ResignRecord_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_ResignRecord", "全部离职申请列表", "20", "all_ResignRecord_grid_table");
         
     })
     Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "Not_Approve", "未审批列表", "20", "Not_Approve_grid_table");
@@ -399,7 +389,7 @@
     $('#Already_Approve').removeClass("active");
     
     $('#all_ResignRecord').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_ResignRecord", "离职申请列表", "20", "all_ResignRecord_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_ResignRecord", "全部离职申请列表", "20", "all_ResignRecord_grid_table");
     $('#all_ResignRecord').removeClass("active");
 
     function shResignRecord(id) {

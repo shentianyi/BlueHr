@@ -6,8 +6,16 @@
 @Html.Partial("_PartialUser")
 
 <script type="text/javascript">
-    $('input').attr("disabled", "disabled");
-    $('button').not("button[type='submit']").attr("disabled", "disabled");
-    $('.pull-right>.marco-btn-primary').css("background","#c0392b");
+    //使之不可编辑 
+    $('input').attr('disabled', 'disabled');
+    $('select').attr('disabled', 'disabled');
+    $('textarea').attr('disabled', 'disabled');
+    $('button[type="submit"]').removeClass('marco-btn-primary');
+    $('button[type="submit"]').addClass('marco-btn-danger');
+    $('.remove-card').attr('disabled', 'disabled');
+    $('.remove-family').attr('disabled', 'disabled');
+    if ($('#can').val() != "True") {
+        $('.pull-right').remove();
+    }
 </script>
 

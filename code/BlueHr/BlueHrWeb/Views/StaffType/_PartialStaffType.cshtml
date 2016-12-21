@@ -1,11 +1,5 @@
 ﻿@model BlueHrLib.Data.StaffType
-@using BlueHrWeb.Helpers.View
-@{
-    bool canDeleted = MenuAuthHelper.CanShow("StaffType", "Deleted");
-}
 
-
-<input type="hidden" id="can" value="@canDeleted.ToString()">
 <div id="stafftype" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：

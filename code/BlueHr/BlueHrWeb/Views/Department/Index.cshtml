@@ -1,13 +1,16 @@
 ﻿@using MvcPaging
 @using BlueHrWeb.Helpers.View
-
-
 @model IPagedList<BlueHrLib.Data.Department>
 
 @{
     ViewBag.Title = "部门架构列表";
 }
-
+@{
+    bool canCreate = MenuAuthHelper.CanShow("Department", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("Department", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("Department", "Delete");
+    bool canImport = MenuAuthHelper.CanShow("Department", "Import");
+}
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>组织架构</li>
@@ -17,12 +20,7 @@
 </ol>
 
 <hr class="hr-grey" />
-@{
-    bool canDelete = MenuAuthHelper.CanShow("Department", "Delete");
-    bool canEdit = MenuAuthHelper.CanShow("Department", "Edit");
-    bool canCreate = MenuAuthHelper.CanShow("Department", "Create");
-    bool canImport = MenuAuthHelper.CanShow("Department", "Import");
-}
+
 
 <div class="search">
     <form action="/Department/Search" method="get">
@@ -62,12 +60,15 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        <a href="/Department/Create" class="pull-right" style="margin-top: -10px;">
-            <button class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>创建</span>
-            </button>
-        </a>
+        @if (canCreate)
+        {
+            <a href="/Department/Create" class="pull-right" style="margin-top: -10px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#all_Department" role="tab" data-toggle="tab">所有部门</a></li>

@@ -11,4 +11,7 @@
     $('select').attr('disabled', 'disabled');
     $('button[type="submit"]').removeClass('marco-btn-primary');
     $('button[type="submit"]').addClass('marco-btn-danger');
+    if ($('#can').val() != "True") {
+        $('.pull-right').remove();
+    }
 </script>

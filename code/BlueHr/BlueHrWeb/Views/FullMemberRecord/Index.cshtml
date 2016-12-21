@@ -1,12 +1,16 @@
 ﻿@using MvcPaging
 @using BlueHrWeb.Helpers.View
-
 @model IPagedList<BlueHrLib.Data.FullMemberRecord>
 
 @{
     ViewBag.Title = "转正管理";
 }
-
+@{
+    bool canCreate = MenuAuthHelper.CanShow("FullMemberRecord", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("FullMemberRecord", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("FullMemberRecord", "Delete");
+    bool canApproval = MenuAuthHelper.CanShow("FullMemberRecord", "Approval");
+}
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>劳动关系管理</li>
@@ -38,13 +42,15 @@
 <hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-
-        <a href="/FullMemberRecord/Create" class="pull-right" style="margin-top: -10px;">
-            <button class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>创建</span>
-            </button>
-        </a>
+        @if (canCreate)
+        {
+            <a href="/FullMemberRecord/Create" class="pull-right" style="margin-top: -10px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#Not_Approve" role="tab" data-toggle="tab">未审批</a></li>
@@ -119,29 +125,31 @@
                                             </span>
                                             <!--@Html.DisplayFor(modelItem => item.approvalAt)-->
                                         </td>
-                                        @if (item.approvalStatus == null)
-                                        {
-                                            <td>未审批</td>
-                                        }
-                                        else
-                                        {
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalStatus)
-                                            </td>
-                                        }
+                                        
+                                         <td>未审批</td>
+
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalRemark)
                                         </td>
                                         <td>
+                                            @if (canDelete)
+                                            {
                                                 <a href="/FullMemberRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
+                                            }
+                                            @if (canEdit)
+                                            {
                                                 <a href="/FullMemberRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                            }
+                                            @if (canApproval)
+                                            {
                                                 <a title="审批" class="option-icon-danger" onclick="shFullMemberRecord(@item.id)">
                                                     <i class="fa fa-check"></i>
                                                 </a>
+                                            }
                                         </td>
                                     </tr>
                                 }
@@ -166,7 +174,6 @@
                             <th>审批时间</th>
                             <th>审核状态</th>
                             <th>审核备注</th>
-                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -215,33 +222,15 @@
                                         </span>
                                         <!--@Html.DisplayFor(modelItem => item.approvalAt)-->
                                     </td>
-                                    @if (item.approvalStatus == null)
-                                    {
-                                        <td>未审批</td>
-                                    }
-                                    else
-                                    {
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalStatus)
-                                        </td>
-                                    }
+                                    
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalStatus)
+                                    </td>
+
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalRemark)
                                     </td>
-                                    <td>
-                                        @if (item.approvalStatus == null)
-                                        {
-                                            <a href="/FullMemberRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            <a href="/FullMemberRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <a title="审批" class="option-icon-danger" onclick="shFullMemberRecord(@item.id)">
-                                                <i class="fa fa-check"></i>
-                                            </a>
-                                        }
-                                    </td>
+                                    
                                 </tr>
                                 }
                             }
@@ -328,15 +317,24 @@
                                     <td>
                                         @if (item.approvalStatus == null)
                                         {
-                                            <a href="/FullMemberRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            <a href="/FullMemberRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <a title="审批" class="option-icon-danger" onclick="shFullMemberRecord(@item.id)">
-                                                <i class="fa fa-check"></i>
-                                            </a>
+                                            if (canDelete)
+                                            {
+                                                <a href="/FullMemberRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            if (canEdit)
+                                            {
+                                                <a href="/FullMemberRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
+                                            if (canApproval)
+                                            {
+                                                <a title="审批" class="option-icon-danger" onclick="shFullMemberRecord(@item.id)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            }
                                         }
                                     </td>
                                 </tr>

@@ -1,5 +1,9 @@
 ﻿@model BlueHrLib.Data.Company
-
+@using BlueHrWeb.Helpers.View
+@{ 
+    bool canDeleted = MenuAuthHelper.CanShow("Company", "Deleted");
+}
+<input type="hidden" id="can" value="@canDeleted.ToString()">
 <div id="company" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：

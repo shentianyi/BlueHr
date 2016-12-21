@@ -1,10 +1,4 @@
 ﻿@model BlueHrLib.Data.CertificateType
-@using BlueHrWeb.Helpers.View
-@{
-    bool canDelete = MenuAuthHelper.CanShow("CertificateType", "Delete");
-}
-
-<input type="hidden" id="can" value="@canDelete.ToString()">
 
 <div id="certificatetype" style="margin:20px;">
     <ol class="breadcrumb current-position">

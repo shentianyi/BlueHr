@@ -1,4 +1,10 @@
 ﻿@model BlueHrLib.Data.ResignRecord
+@using BlueHrWeb.Helpers.View
+@{
+    bool canDeleted = MenuAuthHelper.CanShow("ResignRecord", "Deleted");
+}
+
+<input type="hidden" id="can" value="@canDeleted.ToString()">
 
 <div id="resignrecord" style="margin:20px;">
     <ol class="breadcrumb current-position">
@@ -35,7 +41,7 @@
 
             <div class="marco-nbody">
                 <div class="row" style="margin:0;">
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <span>工号</span>
                             @if (Model != null)
@@ -51,7 +57,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <span>离职原因</span>
                             <select name="resignTypeId" id="resignTypeId"></select>
@@ -59,7 +65,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <span>申请日期 *</span>
                             @if (Model != null&&Model.createdAt.HasValue)
@@ -74,7 +80,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
                             <span>离职生效日期</span>
                             @if (Model != null&&Model.createdAt.HasValue)
@@ -91,7 +97,7 @@
                     @if (Model != null)
                     {
                     <div class="approval-prp">
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
                                 <span>申请日期</span>
                                 @if (Model.createdAt.HasValue)
@@ -105,25 +111,25 @@
                                 <!--@Html.EditorFor(model => model.createdAt, new { htmlAttributes = new { @class = "date-picker" } })-->
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
                                 <span>申请人</span>
                                 @Html.EditorFor(model => model.userName)
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
                                 <span>审批人</span>
                                 @Html.EditorFor(model => model.resignChecker)
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
                                 <span>审批状态</span>
                                 @Html.EditorFor(model => model.approvalStatus)
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="marco-igroup-primary">
                                 <span>审批日期</span>
                                 @if (Model.approvalAt.HasValue)
@@ -137,7 +143,7 @@
                             </div>
                         </div>
                     </div>
-                }
+                    }
                 </div>
                 <div class="row" style="margin:0;">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">

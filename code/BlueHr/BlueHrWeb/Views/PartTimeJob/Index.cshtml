@@ -89,20 +89,10 @@
                                             @Html.DisplayFor(modelItem => item.JobTitleName)
                                         </td>
                                         <td>
-<<<<<<< HEAD
-                                            <span>@(@item.startTime.HasValue?@item.startTime.Value.ToString("yyyy-MM-dd"):"")</span>
-
-                                            <!--@Html.DisplayFor(modelItem => item.startTime)-->
-                                        </td>
-                                        <td>
-                                            <span>@(@item.startTime.HasValue?@item.startTime.Value.ToString("yyyy-MM-dd"):"")</span>
-                                            <!--@Html.DisplayFor(modelItem => item.endTime)-->
-=======
                                             @(@item.startTime.HasValue ? @item.startTime.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
                                             @(@item.endTime.HasValue ? @item.endTime.Value.ToString("yyyy-MM-dd") : "")
->>>>>>> 3257d7cf3b9abb8941b26c9a7bdbdafe340618e6
                                         </td>
                                         <td>
                                             <a href="/PartTimeJob/Delete/@item.id" class="option-icon-primary" title="详情">
