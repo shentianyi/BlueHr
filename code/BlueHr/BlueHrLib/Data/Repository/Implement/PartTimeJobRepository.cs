@@ -71,6 +71,12 @@ namespace BlueHrLib.Data.Repository.Implement
             return cp;
         }
 
+        public List<PartTimeJob> FindBystaffNrPartTimeJob(string staffNr)
+        {
+            var q = this.context.PartTimeJob.Where(p => p.staffNr == staffNr).ToList();
+            return q;
+        }
+
         public IQueryable<PartTimeJob> Search(PartTimeJobSearchModel searchModel)
         {
             IQueryable<PartTimeJob> PartTimeJobs = this.context.PartTimeJob;
