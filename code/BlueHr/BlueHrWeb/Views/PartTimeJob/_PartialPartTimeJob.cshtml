@@ -36,7 +36,14 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>工号</span>
-                        @Html.EditorFor(model => model.staffNr)
+
+                        @if(Model !=null){
+                            <select name="staffNrSelect" id="staffNrSelect"></select>
+                            <input type="hidden" id="staffNr" name="staffNr" palceholder="员工号" value="@Model.staffNr"/>
+                        }else{
+                            <select name="staffNrSelect" id="staffNrSelect"></select>
+                            <input type="hidden" id="staffNr" name="staffNr" placeholder="员工号">
+                        }
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -90,6 +97,8 @@
 
 <script type="text/javascript">
     Layout.init();
+
+    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr')
 
     //控制textarea高度
     $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });

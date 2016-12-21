@@ -128,7 +128,7 @@
                             <th>审批时间</th>
                             <th>审批状态</th>
                             <th>备注</th>
-                            @*<th>操作</th>*@
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -191,10 +191,11 @@
                                                 <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
                                                     <i class="fa fa-check"></i>
                                                 </a>
-                                            }
+                                            
                                                 <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
                                                     <i class="fa fa-times"></i>
                                                 </a>
+                                                }
                                         </td>
                                     </tr>
                                 }
@@ -218,7 +219,7 @@
                             <th>审批时间</th>
                             <th>审批状态</th>
                             <th>备注</th>
-                            @*<th>操作</th>*@
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -286,6 +287,7 @@
                                                 <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
                                                     <i class="fa fa-times"></i>
                                                 </a>
+                                                
                                         </td>
                                     </tr>
                                 }
@@ -309,7 +311,7 @@
                             <th>审批时间</th>
                             <th>审批状态</th>
                             <th>备注</th>
-                            @*<th>操作</th>*@
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -375,6 +377,7 @@
                                                 <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
                                                     <i class="fa fa-times"></i>
                                                 </a>
+                                                
                                         </td>
                                     </tr>
                             }
@@ -446,7 +449,7 @@
     $('#cancel_already_LeaveRecord').removeClass("active");
 
     $('#cancel_LeaveRecord').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_LeaveRecord", "销假记录列表", "20", "cancel_LeaveRecord_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_LeaveRecord", "所有记录列表", "20", "cancel_LeaveRecord_grid_table");
     $('#cancel_LeaveRecord').removeClass("active");
 
     
