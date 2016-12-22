@@ -87,8 +87,6 @@
         $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     });
 
-    console.log($("#error_info").val());
-    
     if ($("#error_info").val() != "" && $("#error_info").val() != undefined) {
         Layout.popMsg("popMsg-danger", $("#error_info").val());
     }

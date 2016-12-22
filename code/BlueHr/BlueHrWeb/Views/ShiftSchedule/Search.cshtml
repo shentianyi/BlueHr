@@ -41,7 +41,7 @@
                         <input type="text" name="ScheduleAtEnd" id="ScheduleAtEnd" value="" placeholder="截止日期" class="date-picker"/>
                     }
                     <span>
-                        <button type="submit" class="marco-btn-primary search-btn" style="margin:0;">搜索</button>
+                        <button type="submit" class="marco-btn-primary search-btn" style="margin:0; padding: 0;">搜索</button>
                     </span>
                 </div>
             </div>
@@ -104,11 +104,17 @@
     Layout.SetTypeStaffNr(100, 'staffNrSelect', 'StaffNr');
 
     Layout.datepicker('.date-picker');
+    
+    var TableWidth = $(window).width() - 255;
 
-    $("#show_shift_schedule").css({"width": $(window).width() - 255+'px', "height": $(window).height() - 220+'px'});
+    if($.cookie('left_sidebar')=="true"){
+        TableWidth  = $(window).width() - 110;
+    }
+
+    $("#show_shift_schedule").css({"width":TableWidth + 'px', "height": $(window).height() - 220+'px'});
 
     $(window).resize(function(){
-        $("#show_shift_schedule").css({"width": $(window).width() - 255+'px', "height": $(window).height() - 220+'px'});
+        $("#show_shift_schedule").css({"width": TableWidth + 'px', "height": $(window).height() - 220+'px'});
     })
 
     var PathNameLength = window.location.href.split('?').length;

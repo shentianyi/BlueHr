@@ -127,9 +127,8 @@
             <li role="presentation"><a href="#all_user" role="tab" data-toggle="tab">所有用户</a></li> 
         </ul>
         <div class="tab-content">
-            
             <div role="tabpanel" class="tab-pane" id="locked_user">
-                <div id="locked_user_grid_table" style="margin:auto;"></div>
+                <div id="locked_user_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -206,7 +205,7 @@
                 </table>
             </div>
             <div role="tabpanel" class="tab-pane  active" id="unlocked_user">
-                <div id="unlocked_user_grid_table" style="margin:auto;"></div>
+                <div id="unlocked_user_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -281,7 +280,7 @@
                 </table>
             </div>
             <div role="tabpanel" class="tab-pane" id="all_user">
-                <div id="all_user_grid_table" style="margin:auto;"></div>
+                <div id="all_user_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -377,7 +376,6 @@
 <script type="text/javascript">
     Layout.init();
 
-
     $(window).resize(function () {
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_user", "所有用户列表", "20", "all_user_grid_table");
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "locked_user", "已锁定用户列表", "20", "locked_user_grid_table");
@@ -388,29 +386,31 @@
         $('#search_content').dialogModal({
             onOkBut: function () {
             },
-            onCancelBut: function () { },
+            onCancelBut: function () { 
+            },
             onLoad: function () {
             },
             onClose: function () {
             }
         });
     });
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unlocked_user", "未锁定用户列表", "20", "unlocked_user_grid_table");
-
-    //$('a[href="#locked_user"]').click(function () {
-        $('#locked_user').addClass("active");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "locked_user", "已锁定用户列表", "20", "locked_user_grid_table");
-        $('#locked_user').removeClass("active");
-    //});
-
-    //$('a[href="#all_user"]').click(function () {
-        $('#all_user').addClass("active");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_user", "所有用户列表", "20", "all_user_grid_table");
-        $('#all_user').removeClass("active");
-    //});
-
-    //Layout.advancedfilter();
     
+    var TableWidth = $(window).width() - 290;
+
+    if($.cookie('left_sidebar')=="true"){
+        TableWidth  = $(window).width() - 110;
+    }
+
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 300,  false, "unlocked_user", "未锁定用户列表", "20", "unlocked_user_grid_table");
+
+    $('#locked_user').addClass("active");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 300, false, "locked_user", "已锁定用户列表", "20", "locked_user_grid_table");
+    $('#locked_user').removeClass("active");
+
+    $('#all_user').addClass("active");
+    Layout.TransferTableToGrid(TableWidth,  $(window).height() - 300, false, "all_user", "所有用户列表", "20", "all_user_grid_table");
+    $('#all_user').removeClass("active");
+
     function lock(id){
         if(confirm('确定操作？')){
             $.post('/User/LockUnLock',{id: id},function(data){

@@ -45,7 +45,6 @@
             </button>
         </div>
     </div>
-
 </div>
 
 
@@ -53,8 +52,12 @@
 
 <script type="text/javascript">
     Layout.init();
-
-    $("#person_calendar").css({"height":$(window).height()-300+'px', "width": $(window).width()-300+'px'});
+    
+    if($.cookie('left_sidebar')=="true"){
+        $("#person_calendar").css({"height":$(window).height()-300+'px', "width": $(window).width()-100+'px'});
+    }else{
+        $("#person_calendar").css({"height":$(window).height()-300+'px', "width": $(window).width()-300+'px'});
+    }
 
     $.ajax({
         url:'/Personal/AllPersonSchedule',

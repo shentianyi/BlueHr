@@ -231,7 +231,7 @@
                 </table>
             </div>
             <div role="tabpanel" class="tab-pane" id="all_ResignRecord">
-                <div id="all_ResignRecord_grid_table" style="margin:auto;"></div>
+                <div id="all_ResignRecord_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -377,19 +377,26 @@
 
 <script type="text/javascript">
     Layout.init();
+
+    var TableWidth = $(window).width() - 280;
+
+    if($.cookie('left_sidebar')=="true"){
+        TableWidth  = $(window).width() - 110;
+    }
+
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "Not_Approve", "未审批列表", "20", "Not_Approve_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "Already_Approve", "已审批列表", "20", "Already_Approve_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_ResignRecord", "全部离职申请列表", "20", "all_ResignRecord_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Not_Approve", "未审批列表", "20", "Not_Approve_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Already_Approve", "已审批列表", "20", "Already_Approve_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "all_ResignRecord", "全部离职申请列表", "20", "all_ResignRecord_grid_table");
         
     })
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "Not_Approve", "未审批列表", "20", "Not_Approve_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Not_Approve", "未审批列表", "20", "Not_Approve_grid_table");
     $('#Already_Approve').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "Already_Approve", "已审批列表", "20", "Already_Approve_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Already_Approve", "已审批列表", "20", "Already_Approve_grid_table");
     $('#Already_Approve').removeClass("active");
     
     $('#all_ResignRecord').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_ResignRecord", "全部离职申请列表", "20", "all_ResignRecord_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "all_ResignRecord", "全部离职申请列表", "20", "all_ResignRecord_grid_table");
     $('#all_ResignRecord').removeClass("active");
 
     function shResignRecord(id) {
