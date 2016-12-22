@@ -53,7 +53,7 @@
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane  active" id="current_PartTimeJob">
-                <div id="current_PartTimeJob_grid_table" style="margin:auto;"></div>
+                <div id="current_PartTimeJob_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -111,7 +111,7 @@
                 </table>
             </div>
             <div role="tabpanel" class="tab-pane" id="history_PartTimeJob">
-                <div id="history_PartTimeJob_grid_table" style="margin:auto;"></div>
+                <div id="history_PartTimeJob_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -177,15 +177,19 @@
 
     //命名ID需要进行修改
 
+    var TableWidth = $(window).width() - 300;
+    if($.cookie('left_sidebar')=="true"){
+        TableWidth = $(window).width() -110;
+    }
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "current_PartTimeJob", "当前兼职记录列表", "20", "current_PartTimeJob_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "history_PartTimeJob", "历史兼职记录列表", "20", "history_PartTimeJob_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "current_PartTimeJob", "当前兼职记录列表", "20", "current_PartTimeJob_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "history_PartTimeJob", "历史兼职记录列表", "20", "history_PartTimeJob_grid_table");
 
     })
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "current_PartTimeJob", "当前兼职记录列表", "20", "current_PartTimeJob_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "current_PartTimeJob", "当前兼职记录列表", "20", "current_PartTimeJob_grid_table");
     
     $('#history_PartTimeJob').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "history_PartTimeJob", "历史兼职记录列表", "20", "history_PartTimeJob_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "history_PartTimeJob", "历史兼职记录列表", "20", "history_PartTimeJob_grid_table");
     $('#history_PartTimeJob').removeClass("active");
     
 </script>

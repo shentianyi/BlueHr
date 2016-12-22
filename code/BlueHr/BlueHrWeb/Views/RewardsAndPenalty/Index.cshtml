@@ -56,7 +56,7 @@
         <div class="tab-content">
 
             <div role="tabpanel" class="tab-pane  active" id="not_Rewards">
-                <div id="not_Rewards_grid_table" style="margin:auto;"></div>
+                <div id="not_Rewards_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -146,7 +146,7 @@
                 </table>
             </div>
              <div role="tabpanel" class="tab-pane" id="already_Rewards">
-                <div id="already_Rewards_grid_table" style="margin:auto;"></div>
+                <div id="already_Rewards_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -223,7 +223,7 @@
             </div>
 
             <div role="tabpanel" class="tab-pane" id="all_RewardsAndPenalty">
-                <div id="all_RewardsAndPenalty_grid_table" style="margin:auto;"></div>
+                <div id="all_RewardsAndPenalty_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -345,21 +345,25 @@
 <script type="text/javascript">
     Layout.init();
 
+    var TableWidth = $(window).width() -300;
+    if($.cookie("left_sidebar")=="true"){
+        TableWidth = $(window).width() - 110;
+    }
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not_Rewards", "未审批列表", "20", "not_Rewards_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Rewards", "已审批列表", "20", "all_Rewards_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_RewardsAndPenalty", "所有记录列表", "20", "all_RewardsAndPenalty_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "not_Rewards", "未审批列表", "20", "not_Rewards_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "all_Rewards", "已审批列表", "20", "all_Rewards_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "all_RewardsAndPenalty", "所有记录列表", "20", "all_RewardsAndPenalty_grid_table");
         
     })
 
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not_Rewards", "未审批列表", "20", "not_Rewards_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "not_Rewards", "未审批列表", "20", "not_Rewards_grid_table");
 
     $('#already_Rewards').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_Rewards", "已审批列表", "20", "already_Rewards_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "already_Rewards", "已审批列表", "20", "already_Rewards_grid_table");
     $('#already_Rewards').removeClass("active");
 
     $('#all_RewardsAndPenalty').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_RewardsAndPenalty", "所有记录列表", "20", "all_RewardsAndPenalty_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "all_RewardsAndPenalty", "所有记录列表", "20", "all_RewardsAndPenalty_grid_table");
     $('#all_RewardsAndPenalty').removeClass("active");
 
     Layout.advancedfilter();

@@ -72,7 +72,13 @@
     <script type="text/javascript">
         Layout.init();
 
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 180, false, "all_job_type", "任务列表", "20", "all_job_type_grid_table");
+        var TableWidth = $(window).width() - 300;
+
+        if($.cookie('left_sidebar')=="true"){
+            TableWidth  = $(window).width() - 110;
+        }
+
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 180, false, "all_job_type", "任务列表", "20", "all_job_type_grid_table");
 
         function deletejob(id){
             if(confirm("确认删除？")){

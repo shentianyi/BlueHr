@@ -139,8 +139,13 @@
     Layout.init();
     Layout.datepicker('.date_picker'); 
 
+    var TableWidth = $(window).width() - 250;
+    if($.cookie('left_sidebar')=="true"){
+        TableWidth = $(window).width() - 80;
+    }
+
     //显示日历
-    $("#workAndRest_calendar").css({"height":$(window).height()-300+'px', "width": $(window).width()-300+'px'});
+    $("#workAndRest_calendar").css({"height":$(window).height()-300+'px', "width": TableWidth+'px'});
 
     var DefaultDate = new Date();
 

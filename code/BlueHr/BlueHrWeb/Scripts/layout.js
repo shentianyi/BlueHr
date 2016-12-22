@@ -576,7 +576,7 @@ Layout.SetTypeStaffNr = function (type, selectId, staffNr, allowBlank){
         },
         success:function(data){
             if(allowBlank){  //允许为空
-                $("<option value=''> </option>").appendTo($("#"+selectId));
+                $("<option value = ''> </option>").appendTo($("#"+selectId));
             }
 
             for(var i =0; i< data.length; i++){

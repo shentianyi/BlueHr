@@ -255,7 +255,13 @@
 
         Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr', true);
 
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 320, false, "all_cal_type", "统计记录管理", "20", "all_cal_type_grid_table");
+        var TableWidth = $(window).width() - 300;
+        if($.cookie('left_sidebar')=='true'){
+            TableWidth = $(window).width() - 110;
+        }
+
+
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 320, false, "all_cal_type", "统计记录管理", "20", "all_cal_type_grid_table");
 
         function exportReport(type) {
             if ($("#CompanyId1").val() == null || $("#CompanyId1").val() == "") {
