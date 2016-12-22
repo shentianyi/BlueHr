@@ -686,6 +686,7 @@
             $.cookie('left_sidebar', true, { expires: 7, path: '/' });
             $('.content-wrapper').width($(window).width() - 235 +'px');
         }
+        window.location.reload();
     })
 
     $(window).load(function(){
@@ -704,7 +705,6 @@
         //1920* 1200  1068 * 677 刚刚好
         //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
         if ($(this).attr("href") == undefined || $(this).attr("href") == "" || $(this).attr("href") == "#" || $(this).attr("href").split("/") == "undefined") {
-
         }else {
             Layout.openNewWindow($(this).attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
         }
@@ -730,6 +730,5 @@
             }, 2000);
         }
     }
-
 </script>
 
