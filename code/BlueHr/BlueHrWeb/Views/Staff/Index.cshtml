@@ -161,7 +161,7 @@
 
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="on_staff">
-                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="on_staff_grid_table" style="margin:auto;"></div>
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="on_staff_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -263,7 +263,7 @@
             </div>
 
             <div role="tabpanel" class="tab-pane" id="off_staff">
-                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="off_staff_grid_table" style="margin:auto;"></div>
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="off_staff_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -361,7 +361,7 @@
             </div>
 
             <div role="tabpanel" class="tab-pane" id="all_staff">
-                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_staff_grid_table" style="margin:auto;"></div>
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="all_staff_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -459,7 +459,7 @@
                 </table>
             </div>
              <div role="tabpanel" class="tab-pane" id="employ_staff">
-                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="employ_staff_grid_table" style="margin:auto;"></div>
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="employ_staff_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -602,21 +602,26 @@
 <script type="text/javascript">
     Layout.init();
 
+    var TableWidth = $(window).width() - 300;
+    if($.cookie('left_sidebar')=='true'){
+        TableWidth = $(window).width() - 110;
+    }
+
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "employ_staff", "回聘员工列表", "20", "employ_staff_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "employ_staff", "回聘员工列表", "20", "employ_staff_grid_table");
     })
 
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "on_staff", "在职员工列表", "20", "on_staff_grid_table");
   
     $('#off_staff').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "off_staff", "离职员工列表", "20", "off_staff_grid_table");
     $('#off_staff').removeClass("active");
 
     $('#all_staff').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "all_staff", "全部员工列表", "20", "all_staff_grid_table");
     $('#all_staff').removeClass("active");
 
      $('#employ_staff').addClass("active");

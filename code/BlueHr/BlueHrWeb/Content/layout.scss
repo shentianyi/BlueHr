@@ -137,7 +137,6 @@ body{
 //Button
 @mixin marco-btn($marco-bg: $concrete, $marco-color:#f5f5f5) {
   min-width: 60px;
-  padding: 4px 9px;
   margin: 5px 0;
   background: $marco-bg;
   color: $marco-color;

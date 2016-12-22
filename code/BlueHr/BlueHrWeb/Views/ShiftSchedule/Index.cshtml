@@ -155,10 +155,17 @@
 </div>
 <script type="text/javascript">
     Layout.init();
-    $("#shift_schedule_calendar").parent().css({"width" : $(window).width() - 250 + 'px', "min-height": $(window).height()+'px'});
+
+    var TableWidth = $(window).width() - 250;
+
+    if($.cookie('left_sidebar')=="true"){
+        TableWidth  = $(window).width() - 110;
+    }
+
+    $("#shift_schedule_calendar").parent().css({"width" : TableWidth + 'px', "min-height": $(window).height()+'px'});
 
     $(window).resize(function () {
-        $("#shift_schedule_calendar").parent().css({ "width": $(window).width() - 250 + 'px' });
+        $("#shift_schedule_calendar").parent().css({ "width": TableWidth + 'px' });
     });
 
     Layout.rangedatepicker('#ScheduleAtFrom', '#ScheduleAtEnd');
@@ -300,7 +307,7 @@
             });
         },
         error:function(){
-            console.log("CCVVError");
+            // console.log("CCVVError");
         }
     })
 
@@ -331,11 +338,8 @@
                     }
                 })
             },
-
             onCancelBut: function () { 
-
             },
-
             onLoad: function () {
                 Layout.datepicker(".date-picker");
                 //初始化选择框

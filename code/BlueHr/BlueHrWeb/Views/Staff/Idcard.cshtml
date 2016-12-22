@@ -62,7 +62,7 @@
 
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane  active" id="checked_Idcard">
-                <div id="checked_Idcard_grid_table" style="margin:auto;"></div>
+                <div id="checked_Idcard_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -102,7 +102,7 @@
                 </table>
             </div>
             <div role="tabpanel" class="tab-pane" id="unchecked_Idcard">
-                <div id="unchecked_Idcard_grid_table" style="margin:auto;"></div>
+                <div id="unchecked_Idcard_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -159,7 +159,7 @@
 
             </div>
             <div role="tabpanel" class="tab-pane" id="all_Idcard">
-                <div id="all_Idcard_grid_table" style="margin:auto;"></div>
+                <div id="all_Idcard_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -215,21 +215,27 @@
 </div>
 <script type="text/javascript">
     Layout.init();
+    
+    var TableWidth = $(window).width() - 300;
+
+    if($.cookie('left_sidebar')=="true"){
+        TableWidth  = $(window).width() - 110;
+    }
 
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "checked_Idcard", "已验证身份证列表", "20", "checked_Idcard_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unchecked_Idcard", "未验证身份证列表", "20", "unchecked_Idcard_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unlocked_user", "所有身份证列表", "20", "unlocked_user_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "checked_Idcard", "已验证身份证列表", "20", "checked_Idcard_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "unchecked_Idcard", "未验证身份证列表", "20", "unchecked_Idcard_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "unlocked_user", "所有身份证列表", "20", "unlocked_user_grid_table");
     })
 
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "checked_Idcard", "已验证身份证列表", "20", "checked_Idcard_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "checked_Idcard", "已验证身份证列表", "20", "checked_Idcard_grid_table");
 
     $('#unchecked_Idcard').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "unchecked_Idcard", "未验证身份证列表", "20", "unchecked_Idcard_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "unchecked_Idcard", "未验证身份证列表", "20", "unchecked_Idcard_grid_table");
     $('#unchecked_Idcard').removeClass("active");
 
     $('#all_Idcard').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_Idcard", "所有身份证列表", "20", "all_Idcard_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "all_Idcard", "所有身份证列表", "20", "all_Idcard_grid_table");
     $('#all_Idcard').removeClass("active");
 
 </script>

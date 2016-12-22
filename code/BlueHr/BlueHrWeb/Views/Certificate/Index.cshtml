@@ -76,7 +76,7 @@
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="Certificate_staff">
-                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="Certificate_staff_grid_table" style="margin:auto;"></div>
+                <div calss="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="Certificate_staff_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -159,10 +159,16 @@
 
     Layout.init();
 
+    var TableWidth = $(window).width() - 250;
+
+    if($.cookie('left_sidebar')=="true"){
+        TableWidth  = $(window).width() - 110;
+    }
+
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 50, $(window).height() - 250, false, "Certificate_staff", "证照列表", "20", "Certificate_staff_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "Certificate_staff", "证照列表", "20", "Certificate_staff_grid_table");
     })
-     Layout.TransferTableToGrid($(window).width() - 50, $(window).height() - 250, false, "Certificate_staff", "证照列表", "20", "Certificate_staff_grid_table");
+     Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "Certificate_staff", "证照列表", "20", "Certificate_staff_grid_table");
 
     $(function ($) {
         $('.img-popup-link').magnificPopup({

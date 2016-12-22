@@ -872,6 +872,7 @@ namespace BlueHrWeb.Controllers
                         q.WorkStatus = 100;
                         q.IsOnTrial = false;
                         staffs = ss.Search(q).ToList();
+                    //200 离职
                     }else if(type.Value == 200)
                     {
                         q.WorkStatus = 200;

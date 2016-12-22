@@ -1,5 +1,9 @@
 ﻿@model BlueHrLib.Data.RewardsAndPenalty
-
+@using BlueHrWeb.Helpers.View
+@{
+    bool canDeleted = MenuAuthHelper.CanShow("RewardsAndPenalty", "Deleted");
+}
+<input type="hidden" id="can" value="@canDeleted.ToString()">
 <div id="rewardsandpenalties" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：  
@@ -129,7 +133,7 @@
     Layout.init();
 
 
-    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr');
+    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr',false);
     //控制textarea高度
     $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     $(window).resize(function () {

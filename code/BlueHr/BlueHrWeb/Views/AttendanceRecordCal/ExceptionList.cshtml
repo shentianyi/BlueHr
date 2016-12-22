@@ -95,6 +95,11 @@
         Layout.init();
         Layout.datepicker('.datetimepicker');
 
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_list_type", "异常统计列表", "20", "all_list_type_grid_table");
+        var TableWidth = $(window).width() - 300;
+        if($.cookie('left_sidebar')=="true"){
+            TableWidth = $(window).width() - 110;
+        }
+
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "all_list_type", "异常统计列表", "20", "all_list_type_grid_table");
 
     </script>

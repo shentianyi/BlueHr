@@ -39,13 +39,6 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        @if(canImport)
-        {
-            <button type="button" class="marco-btn-primary import-dialog-btn pull-right" style="margin-top: -5px;">
-                <i class="fa fa-cloud-upload"></i>
-                <span>上传</span>
-            </button>
-        }
         @if(canCreate)
         {
             <a href="/ResignType/Create" class="pull-right" style="margin-top: -10px;margin-right: 5px;">
@@ -113,36 +106,21 @@
  </div>
 </div>
 
-<!--导入数据-->
-<div id="dialog_content" class="import_content" style="display:none;">
-    <div class="dialogModal_header" style="background:steelblue;color:white;">
-        导入员工信息
-    </div>
-    <div class="dialogModal_content">
-        <strong>选择数据文件:</strong>
-        <hr />
-        <input class="item-data-uploader" type="file" name="files[]" data-url="/Staff/Import" />
-        <div class="item-data-uploader-preview" style="display:none;"></div>
-        <hr />
-        <a href="~/Template/员工信息导入文件模板.xlsx" target="_blank">下载文件模板</a>
-    </div>
-</div>
-
 @*@Scripts.Render("~/bundles/degreetype")*@
 <script type="text/javascript">
     Layout.init();
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 230, false, "all_inter_type", "离职类型", "20", "all_inter_type_grid_table");
-    $('.import-dialog-btn').click(function () {
-        $('#dialog_content').dialogModal({
-            onOkBut: function () {
-            },
-            onCancelBut: function () { },
-            onLoad: function () {
-                data_upload(".item-data-uploader");
-            },
-            onClose: function () {
-                window.location.reload();
-            }
-        });
-    });
+
+    var TableWidth = $(window).width() - 300;
+
+    if($.cookie('left_sidebar')=="true"){
+        TableWidth  = $(window).width() - 105;
+    }
+
+    //resize()：调整浏览器窗口大小的方法
+    $(window).resize(function () {
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 230, false, "all_inter_type", "离职类型", "20", "all_inter_type_grid_table");
+    })
+
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 230, false, "all_inter_type", "离职类型", "20", "all_inter_type_grid_table");
+ 
 </script>

@@ -107,7 +107,7 @@
 
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane  active" id="all_detail_type">
-                <div id="all_detail_type_grid_table" style="margin:auto;"></div>
+                <div id="all_detail_type_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -213,7 +213,12 @@
 <script type="text/javascript">
 Layout.init();
 
-Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 300, false, "all_detail_type", "详细记录管理", "20", "all_detail_type_grid_table");
+var TableWidth = $(window).width() - 300;
+if($.cookie('left_sidebar')=="true"){
+    TableWidth = $(window).width() -110;
+}
+
+Layout.TransferTableToGrid(TableWidth, $(window).height() - 300, false, "all_detail_type", "详细记录管理", "20", "all_detail_type_grid_table");
 
 $('.datetimepicker').datetimepicker({
     format: 'Y-m-d H:i',

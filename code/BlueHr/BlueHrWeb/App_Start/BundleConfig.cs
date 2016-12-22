@@ -26,7 +26,7 @@ namespace BlueHrWeb
                    "~/Scripts/jquery.file.upload/jquery.fileupload.js",
                    "~/Scripts/jquery.file.upload/jquery.iframe-transport.js",
                    "~/Scripts/jquery.file.upload/upload.file.data.js",
-                //    "~/Scripts/jquery.cookie.js",
+                    "~/Scripts/jquery.cookie.js",
                    "~/Scripts/highcharts/highcharts.js"
                    ));
 
