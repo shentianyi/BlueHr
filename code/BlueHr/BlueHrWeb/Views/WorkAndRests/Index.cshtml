@@ -137,10 +137,16 @@
 @Scripts.Render("~/bundles/fullcalendar")
 <script type="text/javascript">
     Layout.init();
-    Layout.datepicker('.date_picker')
+    Layout.datepicker('.date_picker'); 
 
     //显示日历
     $("#workAndRest_calendar").css({"height":$(window).height()-300+'px', "width": $(window).width()-300+'px'});
+
+    var DefaultDate = new Date();
+
+    if($.cookie('changed_calendar')!=undefined){
+        DefaultDate = $.cookie('changed_calendar');
+    }
 
     $.ajax({
         url:'/WorkAndRests/GetWorkAndRest',
@@ -151,7 +157,6 @@
             dateTypeId: $("#DateType").val()
         },
         success:function(data){
-            console.log(data);
             $('#workAndRest_calendar').fullCalendar({
                 header: {
                     left: 'prev, next today',
@@ -164,7 +169,7 @@
                     listMonth: { buttonText: '月列表' }
                 },
                 // weekends:false,
-                defaultDate: new Date(),
+                defaultDate: DefaultDate,
                 firstDay: 1,
                 locale: 'zh-cn',
                 editable: false,
@@ -189,6 +194,8 @@
                     var Remark = event.remark;
                     var titlte = event.title;
 
+                    $.cookie('changed_calendar', DateAt , { expires: 7, path: '/' });
+
                     $('#EditWorkAndRestScheduleModal').dialogModal({
                         onOkBut: function () {
                             var NewDateTypeId = $(".dialogModal").find("#dateTypeId").val();
@@ -209,6 +216,7 @@
                                 success:function(data){
                                     if(data){
                                         window.location.reload();
+                                        // $.cookie('changed_calendar', DateAt, { expires: 7, path: '/' });
                                     }else{
                                         Layout.popMsg("popMsg-danger", "出现错误");
                                     }
@@ -229,8 +237,6 @@
                         onClose: function () {
                         }
                     });
-
-                    $('#workAndRest_calendar').fullCalendar('defaultDate', DateAt);
                 },
                 eventMouseover: function(event, jsEvent, View){
                     // console.log(event);

@@ -117,7 +117,7 @@
 
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="Not_Approve">
-                <div id="Not_Approve_grid_table" style="margin:auto;"></div>
+                <div id="Not_Approve_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -219,7 +219,7 @@
                 </table>
             </div>
             <div role="tabpanel" class="tab-pane" id="Already_Approve">
-                <div id="Already_Approve_grid_table" style="margin:auto;"></div>
+                <div id="Already_Approve_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -301,7 +301,7 @@
                 </table>
             </div>
             <div role="tabpanel" class="tab-pane" id="ShiftJobRecord">
-                <div id="ShiftJobRecord_grid_table" style="margin:auto;"></div>
+                <div id="ShiftJobRecord_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -444,21 +444,27 @@
 
     <script type="text/javascript">
         Layout.init();
+        
+        var TableWidth = $(window).width() - 280;
+
+        if($.cookie('left_sidebar')=="true"){
+            TableWidth  = $(window).width() - 110;
+        }
 
         $(window).resize(function () {
-            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "Not_Approve", "未审批列表", "20", "Not_Approve_grid_table");
-            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "Already_Approve", "已审批列表", "20", "Already_Approve_grid_table");
-            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "ShiftJobRecord", "调岗申请列表", "20", "ShiftJobRecord_grid_table");
+            Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Not_Approve", "未审批列表", "20", "Not_Approve_grid_table");
+            Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Already_Approve", "已审批列表", "20", "Already_Approve_grid_table");
+            Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "ShiftJobRecord", "调岗申请列表", "20", "ShiftJobRecord_grid_table");
         })
 
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "Not_Approve", "未审批列表", "20", "Not_Approve_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Not_Approve", "未审批列表", "20", "Not_Approve_grid_table");
 
         $('#Already_Approve').addClass("active");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "Already_Approve", "已审批列表", "20", "Already_Approve_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "Already_Approve", "已审批列表", "20", "Already_Approve_grid_table");
         $('#Already_Approve').removeClass("active");
         
         $('#ShiftJobRecord').addClass("active");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "ShiftJobRecord", "调岗申请列表", "20", "ShiftJobRecord_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "ShiftJobRecord", "调岗申请列表", "20", "ShiftJobRecord_grid_table");
         $('#ShiftJobRecord').removeClass("active");
 
         $('.datetimepicker').datetimepicker({

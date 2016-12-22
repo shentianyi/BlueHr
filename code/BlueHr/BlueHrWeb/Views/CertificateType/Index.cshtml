@@ -62,7 +62,7 @@
 
 
             <div role="tabpanel" class="tab-pane  active" id="all_CertificateType">
-                <div id="all_CertificateType_grid_table" style="margin:auto;"></div>
+                <div id="all_CertificateType_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -110,10 +110,7 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
-
-
     </div>
 </div> 
 
@@ -122,9 +119,15 @@
 <script type="text/javascript">
     Layout.init();
 
-    $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_CertificateType", "所有证照列表", "20", "all_CertificateType_grid_table");
-    })
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_CertificateType", "所有证照列表", "20", "all_CertificateType_grid_table");
+    var TableWidth = $(window).width() - 290;
 
-</script>
+    if($.cookie('left_sidebar')=="true"){
+        TableWidth  = $(window).width() - 110;
+    }
+ 
+    $(window).resize(function () {
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "all_CertificateType", "所有证照列表", "20", "all_CertificateType_grid_table");
+    })
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "all_CertificateType", "所有证照列表", "20", "all_CertificateType_grid_table");
+
+</script>   

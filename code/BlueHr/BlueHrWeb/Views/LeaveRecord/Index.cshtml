@@ -114,7 +114,7 @@
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="cancel_not_LeaveRecord">
-                <div id="cancel_not_LeaveRecord_grid_table" style="margin:auto;"></div>
+                <div id="cancel_not_LeaveRecord_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -205,7 +205,7 @@
                 </table>
             </div>
             <div role="tabpanel" class="tab-pane" id="cancel_already_LeaveRecord">
-                <div id="cancel_already_LeaveRecord_grid_table" style="margin:auto;"></div>
+                <div id="cancel_already_LeaveRecord_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -297,7 +297,7 @@
                 </table>
             </div>
             <div role="tabpanel" class="tab-pane" id="cancel_LeaveRecord">
-                <div id="cancel_LeaveRecord_grid_table" style="margin:auto;"></div>
+                <div id="cancel_LeaveRecord_grid_table"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -431,28 +431,32 @@
 <script type="text/javascript">
     Layout.init();
 
+    var TableWidth = $(window).width() - 300;
+
+    if($.cookie('left_sidebar')=="true"){
+        TableWidth  = $(window).width() - 110;
+    }
+
     $(window).resize(function () {
-        //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_LeaveRecord", "请假已审批列表", "20", "already_LeaveRecord_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "cancel_already_LeaveRecord", "销假已审批列表", "20", "cancel_already_LeaveRecord_grid_table");
-        //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not_LeaveRecord", "请假未审批列表", "20", "not_LeaveRecord_grid_table");
-        
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "cancel_not_LeaveRecord", "销假未审批列表", "20", "cancel_not_LeaveRecord_grid_table");
-        //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_LeaveRecord", "请假记录列表", "20", "all_LeaveRecord_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "cancel_LeaveRecord", "销假记录列表", "20", "cancel_LeaveRecord_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "cancel_not_LeaveRecord", "未审批列表", "20", "cancel_not_LeaveRecord_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "cancel_already_LeaveRecord", "已审批列表", "20", "cancel_already_LeaveRecord_grid_table");
+        Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "cancel_LeaveRecord", "所有记录列表", "20", "cancel_LeaveRecord_grid_table");
+
+        // Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "cancel_already_LeaveRecord", "销假已审批列表", "20", "cancel_already_LeaveRecord_grid_table");
+        // Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "cancel_not_LeaveRecord", "销假未审批列表", "20", "cancel_not_LeaveRecord_grid_table");
+        // Layout.TransferTableToGrid(TableWidth, $(window).height() - 250, false, "cancel_LeaveRecord", "销假记录列表", "20", "cancel_LeaveRecord_grid_table");
    })
 
-    //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "already_LeaveRecord", "请假已审批列表", "20", "already_LeaveRecord_grid_table");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_not_LeaveRecord", "未审批列表", "20", "cancel_not_LeaveRecord_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "cancel_not_LeaveRecord", "未审批列表", "20", "cancel_not_LeaveRecord_grid_table");
 
     $('#cancel_already_LeaveRecord').addClass("active");    
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_already_LeaveRecord", "已审批列表", "20", "cancel_already_LeaveRecord_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "cancel_already_LeaveRecord", "已审批列表", "20", "cancel_already_LeaveRecord_grid_table");
     $('#cancel_already_LeaveRecord').removeClass("active");
 
     $('#cancel_LeaveRecord').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_LeaveRecord", "所有记录列表", "20", "cancel_LeaveRecord_grid_table");
+    Layout.TransferTableToGrid(TableWidth, $(window).height() - 260, false, "cancel_LeaveRecord", "所有记录列表", "20", "cancel_LeaveRecord_grid_table");
     $('#cancel_LeaveRecord').removeClass("active");
 
-    
     function shLeaveRecord(id) {
         $('#approval_content').dialogModal({
             onOkBut: function () {
@@ -476,14 +480,12 @@
             },
             onCancelBut: function () { },
             onLoad: function () {
-
             },
             onClose: function () {
                 //window.location.reload();
             }
         });
     }
-
 
     //销假操作
     function cancelLeaveRecord(id){
