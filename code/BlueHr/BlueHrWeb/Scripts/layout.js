@@ -566,7 +566,7 @@ Layout.openNewWindow = function(pageURL, height, width, top, left, toolbar, menu
 }
 
 // 详情界面员工号下拉框
-Layout.SetTypeStaffNr = function (type, selectId, staffNr){
+Layout.SetTypeStaffNr = function (type, selectId, staffNr, allowBlank){
     $.ajax({
         url:'/Staff/GetTypeStaff',
         type:'get',
@@ -574,6 +574,10 @@ Layout.SetTypeStaffNr = function (type, selectId, staffNr){
             type: type
         },
         success:function(data){
+            if(allowBlank){
+                $("<option value=''> </option>").appendTo($("#"+selectId));
+            }
+
             for(var i =0; i< data.length; i++){
                 var Html = "<option id="+data[i].id+" value="+data[i].nr+">"+data[i].nr+" -> "+data[i].name+"</option>";
                 $(Html).appendTo($("#"+selectId));

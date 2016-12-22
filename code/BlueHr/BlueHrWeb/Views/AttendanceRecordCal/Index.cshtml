@@ -29,8 +29,7 @@
         border-radius: 0;
     }*/
 
-    .ui-dialog {
-        padding: 0;
+    .ui-dialog {padding: 0;
     }
 
     .ui-dialog .ui-dialog-content {
@@ -87,9 +86,9 @@
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
             <div class="marco-igroup-primary">
                 <span>考勤日期</span>
-                <input type="text" name="AttendanceDateFrom" id="AttendanceDateFrom" class="datetimepicker" placeholder="开始" value="@ViewBag.Query.AttendanceDateFrom" />
+                <input type="text" name="AttendanceDateFrom" id="AttendanceDateFrom" class="datepicker" placeholder="开始" value="@ViewBag.Query.AttendanceDateFrom" />
                 <span>~ </span>
-                <input type="text" name="AttendanceDateEnd" id="AttendanceDateEnd" class="datetimepicker" placeholder="结束" value="@ViewBag.Query.AttendanceDateEnd" />
+                <input type="text" name="AttendanceDateEnd" id="AttendanceDateEnd" class="datepicker" placeholder="结束" value="@ViewBag.Query.AttendanceDateEnd" />
             </div>
         </div>
 
@@ -273,14 +272,11 @@
 
     <script type="text/javascript">
         Layout.init();
+        Layout.datepicker('.datepicker');
 
-        Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr');
+        Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr', true);
 
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 320, false, "all_cal_type", "统计记录管理", "20", "all_cal_type_grid_table");
-
-        Layout.datepicker('.datetimepicker');
-
-        Layout.datepicker('.datepicker');
 
         function exportReport(type) {
             if ($("#CompanyId1").val() == null || $("#CompanyId1").val() == "") {
@@ -329,10 +325,10 @@
             },
             onCancelBut: function () { },
             onLoad: function () {
-
+                Layout.datepicker('.datepicker');
             },
             onClose: function () {
-                window.location.reload();
+                // window.location.reload();
             }
         });
     });
