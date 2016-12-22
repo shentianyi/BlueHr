@@ -15,4 +15,7 @@
     $('.remove-card').attr('disabled', 'disabled');
     $('.remove-family').attr('disabled', 'disabled');
     $('.combo-dropdown').css('display', 'none');
+    if ($('#can').val() != "True") {
+        $('.pull-right').remove();
+    }
 </script>

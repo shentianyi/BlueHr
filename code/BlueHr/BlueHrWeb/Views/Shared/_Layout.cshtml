@@ -125,7 +125,7 @@
                             <span>我的主页</span>
                         </a>
                     </li>
-
+                    @if(canApplication||canFinished||canApproval||canSchedule){
                     <li class="nav-myThing">
                         <a href="#">
                             <i class="fa fa-user"></i>
@@ -177,6 +177,8 @@
                             }
                         </ul>
                     </li>
+                    }
+                    @if(canUser||canSysRole){
                     <li class="nav-userAuthorization">
                         <a href="#">
                             <i class="fa fa-unlock-alt"></i>
@@ -208,7 +210,8 @@
                             }
                         </ul>
                     </li>
-
+                    }
+                    @if(canStaffType||canCertificateType||canDegreeType||canInSureType||canJobTitle||canAbsenceType||canExtraWorkType||canResignType){
                     <li class="nav-basic-info">
                         <a href="#">
                             <i class="fa fa-comment"></i>
@@ -300,7 +303,8 @@
                                 }
                         </ul>
                     </li>
-
+                    }
+                    @if(canCompany||canTreeShow||canDepartment){
                     <li class="nav-organization">
                         <a href="#">
                             <i class="fa fa-cubes"></i>
@@ -340,16 +344,17 @@
                                 </li>
                             }
 
-                            <!--<li class="nav-department-tree">
-                        <a href="/Department/TreeShow">
-                            <i class="fa fa-sitemap"></i>
-                            部门架构视图
-                        </a>
-                    </li>-->
+                                        <!--<li class="nav-department-tree">
+                                    <a href="/Department/TreeShow">
+                                        <i class="fa fa-sitemap"></i>
+                                        部门架构视图
+                                    </a>
+                                </li>-->
 
                         </ul>
                     </li>
-
+                    }
+                    @if(canCreate||canShiftJobRecord||canResignRecord||canOntrail||canFullMemberRecord){
                     <li class="nav-laborrelations">
                         <a href="#">
                             <i class="fa fa-hourglass-start"></i>
@@ -425,7 +430,8 @@
                         </li>*@
                         </ul>
                     </li>
-
+                    }
+                    @if(canShift||canShiftSchedule||canSearch||canLeaveRecord||canExtraWorkRecord||canAttendanceRecordDetail||canQuartzJob||canAttendanceRecordCal||canExceptionList||canWorkAndRests){
                     <li class="nav-attendance">
                         <a href="#">
                             <i class="fa fa-cogs"></i>
@@ -548,7 +554,8 @@
                         </li>*@
                         </ul>
                     </li>
-
+                    }
+                    @if(canStaff||canIdcard||canPartTimeJob||canRecruit||canRewardsAndPenalty){
                     <li class="nav-manage">
                         <a href="#">
                             <i class="fa fa-users"></i>
@@ -617,7 +624,8 @@
                         </li>*@
                         </ul>
                     </li>
-
+                    }
+                    @if(canTaskRound){
                     <li class="nav-systemsetting">
                         <a href="#">
                             <i class="fa fa-cog"></i>
@@ -639,6 +647,7 @@
                             }
                         </ul>
                     </li>
+                    }
                 </ul>
             </section>
         </aside>
