@@ -52,7 +52,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>起始日期</span>
-                        @if (Model.leaveStart.HasValue)
+                        @if (Model!=null)
                         {
                             <input id="leaveStart" name="leaveStart" value="@Model.leaveStart.Value.ToString("yyyy-MM-dd")" class="date-picker" />
                         }
@@ -66,7 +66,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>结束日期</span>
-                        @if (Model.leaveEnd.HasValue)
+                        @if (Model!=null)
                         {
                             <input id="leaveEnd" name="leaveEnd" value="@Model.leaveEnd.Value.ToString("yyyy-MM-dd")" class="date-picker" />
                         }
@@ -139,7 +139,7 @@
 
 <script type="text/javascript">
     Layout.init();
-    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr');
+    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr', true);
     //控制textarea高度
     $('textarea').css({ height: ($(window).height() - 400) / 2 + 'px' });
     $(window).resize(function () {

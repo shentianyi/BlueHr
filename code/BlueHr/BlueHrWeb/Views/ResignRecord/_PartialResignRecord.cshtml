@@ -172,6 +172,8 @@
 
     Layout.datepicker('.date-picker');
 
+    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr', true);
+
     $(".submit-btn").click(function () {
         $("#resignTypeName").val($("#resignTypeId").parent().find(".combo-input").val());
         if ($("#resignTypeName").val() == "" || $("#resignTypeName").val() == null) {
@@ -188,8 +190,8 @@
             for (var resignType =0; resignType < data.length; resignType++) {
                 $("#resignTypeId").append("<option id="+ data[resignType].id +" value=" + data[resignType].name + "> " + data[resignType].name + "</option>");
             }
-
             $('#resignTypeId').comboSelect();
+             $('#resignTypeId').css("display","none");
         },
         error: function () {
             console.log("Error!");
@@ -208,5 +210,4 @@
     };
 
 
-    Layout.SetTypeStaffNr(100, 'staffNrSelect', 'staffNr');
 </script>

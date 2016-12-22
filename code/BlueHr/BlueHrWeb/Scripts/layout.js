@@ -443,6 +443,7 @@ Layout.TbodyHeight = function (cls, height) {
     });
 }
 
+//时间下拉组件
 Layout.datepicker = function (date_picker) {
     $(date_picker).datetimepicker({
         format: 'Y-m-d',
@@ -571,10 +572,10 @@ Layout.SetTypeStaffNr = function (type, selectId, staffNr, allowBlank){
         url:'/Staff/GetTypeStaff',
         type:'get',
         data:{
-            type: type
+            type: type   //100表示在职状态，200表示离职状态
         },
         success:function(data){
-            if(allowBlank){
+            if(allowBlank){  //允许为空
                 $("<option value=''> </option>").appendTo($("#"+selectId));
             }
 
@@ -589,6 +590,7 @@ Layout.SetTypeStaffNr = function (type, selectId, staffNr, allowBlank){
             }
 
             $('#'+selectId).comboSelect();
+            $('#'+selectId).css("display", "none");
         },
         error:function(){
             // console.log("SomeghtksjkdEError");
