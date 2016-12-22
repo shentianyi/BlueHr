@@ -50,7 +50,7 @@
 
             <li role="presentation" class="active"><a href="#not_Rewards" role="tab" data-toggle="tab">未审批</a></li>
             <li role="presentation"><a href="#already_Rewards" role="tab" data-toggle="tab">已审批</a></li>
-            <li role="presentation"><a href="#all_RewardsAndPenalty" role="tab" data-toggle="tab">所有记录</a></li>
+            <li role="presentation"><a href="#all_RewardsAndPenalty" role="tab" data-toggle="tab">全部记录</a></li>
 
         </ul>
         <div class="tab-content">
@@ -161,7 +161,7 @@
                             <th>审批状态</th>
                             <th>审批日期</th>
                             <th>备注</th>
-                            <th>操作</th>
+                            @*<th>操作</th>*@
                         </tr>
                     </thead>
                     <tbody>
@@ -208,11 +208,11 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.approvalRemark)
                                             </td>
-                                            <td>
+                                            @*<td>
                                                 <a href="/RewardsAndPenalty/Delete/@item.id" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                            </td>
+                                            </td>*@
                                         </tr>
                                    
                                 }

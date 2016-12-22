@@ -1,6 +1,10 @@
 ﻿@model BlueHrLib.Data.Staff
 @using BlueHrWeb.Helpers.View
+@{
+    bool canDeleted = MenuAuthHelper.CanShow("Staff", "Deleted");
+}
 
+<input type="hidden" id="can" value="@canDeleted.ToString()">
 <style>
     .marco-npanel-normal{
         border:1px solid #7f8c8d;

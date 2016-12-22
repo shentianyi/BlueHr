@@ -1,11 +1,15 @@
 ﻿@using MvcPaging
-
+@using BlueHrWeb.Helpers.View
 @model IPagedList<BlueHrLib.Data.PartTimeJob>
 
 @{
     ViewBag.Title = "员工兼职管理";
 }
-
+@{
+    bool canCreate = MenuAuthHelper.CanShow("PartTimeJob", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("PartTimeJob", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("PartTimeJob", "Delete");
+}
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
@@ -39,13 +43,15 @@
 <hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-
+        @if (canCreate)
+        {
         <a href="/PartTimeJob/Create" class="pull-right" style="margin-top: -10px;">
             <button class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
             </button>
         </a>
+        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#current_PartTimeJob" role="tab" data-toggle="tab">当前兼职记录</a></li>
@@ -95,13 +101,18 @@
                                             @(@item.endTime.HasValue ? @item.endTime.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
                                         <td>
-                                            <a href="/PartTimeJob/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-
+                                            @if (canDelete)
+                                            {
+                                                <a href="/PartTimeJob/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            @if (canEdit)
+                                            {
                                             <a href="/PartTimeJob/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
+                                            }
                                         </td>
                                     </tr>
                                 }
@@ -153,13 +164,18 @@
                                             @Html.DisplayFor(modelItem => item.endTime)
                                         </td>
                                         <td>
-                                            <a href="/PartTimeJob/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-
-                                            <a href="/PartTimeJob/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
+                                            @if (canDelete)
+                                            {
+                                                <a href="/PartTimeJob/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            @if (canEdit)
+                                            {
+                                                <a href="/PartTimeJob/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
                                         </td>
                                     </tr>
                                 }

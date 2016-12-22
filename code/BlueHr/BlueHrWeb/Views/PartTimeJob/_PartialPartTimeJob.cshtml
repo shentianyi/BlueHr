@@ -1,6 +1,9 @@
-﻿
-@model BlueHrLib.Data.PartTimeJob
-
+﻿@model BlueHrLib.Data.PartTimeJob
+@using BlueHrWeb.Helpers.View
+@{
+    bool canDeleted = MenuAuthHelper.CanShow("PartTimeJob", "Deleted");
+}
+<input type="hidden" id="can" value="@canDeleted.ToString()">
 <div id="parttimejob" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：

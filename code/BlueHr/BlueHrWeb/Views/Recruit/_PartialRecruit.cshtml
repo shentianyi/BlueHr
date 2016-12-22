@@ -1,5 +1,10 @@
 ﻿@model BlueHrLib.Data.Recruit
+@using BlueHrWeb.Helpers.View
+@{
+    bool canDeleted = MenuAuthHelper.CanShow("Recruit", "Deleted");
+}
 
+<input type="hidden" id="can" value="@canDeleted.ToString()">
 <div id="recruit" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：

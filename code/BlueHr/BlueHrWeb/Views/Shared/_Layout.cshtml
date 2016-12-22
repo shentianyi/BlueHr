@@ -682,10 +682,11 @@
     $('.pq-grid').on('click', 'a', function () {
         //1920* 1200  1068 * 677 刚刚好
         //pageURL, height, width, top, left, toolbar, menubar, scrollbars, resizable, location, status, alwaysRaised, zLook
-        console.log("ccccccccc");
         if ($(this).attr("href") == undefined || $(this).attr("href") == "" || $(this).attr("href") == "#" || $(this).attr("href").split("/") == "undefined") {
 
-        }else {
+        }else if($(this).attr("id")=="noopennew"){
+            window.location.href($(this).attr("href"));
+        }else{
             Layout.openNewWindow($(this).attr("href"), $(window).height() - 100, $(window).width() - 200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
         }
 

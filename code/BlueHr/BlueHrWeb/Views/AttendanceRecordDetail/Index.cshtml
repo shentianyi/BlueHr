@@ -10,7 +10,6 @@
     bool canDelete = MenuAuthHelper.CanShow("AttendanceRecordDetail", "Delete");
     bool canEdit = MenuAuthHelper.CanShow("AttendanceRecordDetail", "Edit");
     bool canCreate = MenuAuthHelper.CanShow("AttendanceRecordDetail", "Create");
-
     bool canImport = MenuAuthHelper.CanShow("AttendanceRecordDetail", "Import");
     bool canCal = MenuAuthHelper.CanShow("AttendanceRecordDetail", "Calculate");
 }
@@ -78,18 +77,21 @@
 </div>
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        <a href="/AttendanceRecordDetail/Create" class="pull-right" style="margin-top: -10px;">
-            <button class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>创建</span>
-            </button>
-        </a>
+        @if (canCreate)
+        {
+            <a href="/AttendanceRecordDetail/Create" class="pull-right" style="margin-top: -10px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
         @if (canCal)
         {
-        <button type="button" class="marco-btn-danger cal-att-button-dialog pull-right" style="margin-top: -5px; margin-right:5px;">
-            <i class="glyphicon glyphicon-dashboard"></i>
-            计算任务
-        </button>
+            <button type="button" class="marco-btn-danger cal-att-button-dialog pull-right" style="margin-top: -5px; margin-right:5px;">
+                <i class="glyphicon glyphicon-dashboard"></i>
+                计算任务
+            </button>
         }
         @if (canImport)
         {

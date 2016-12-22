@@ -1,12 +1,18 @@
 ﻿@using MvcPaging
-
+@using BlueHrWeb.Helpers.View
 @model IPagedList<BlueHrLib.Data.LeaveRecord>
 
 @{
     ViewBag.Title = "请假管理";
 }
 
-@*@Styles.Render("~/Content/degreetype")*@
+@{
+    bool canCreate = MenuAuthHelper.CanShow("LeaveRecord", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("LeaveRecord", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("LeaveRecord", "Delete");
+    bool canApproval = MenuAuthHelper.CanShow("LeaveRecord", "Approval");
+    bool canCancel = MenuAuthHelper.CanShow("LeaveRecord", "Cancel");
+}
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
@@ -97,24 +103,26 @@
 <hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-
-        <a href="/LeaveRecord/Create" class="pull-right" style="margin-top: -10px;">
-            <button class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>创建</span>
-            </button>
-        </a>
+        @if (canCreate)
+        {
+            <a href="/LeaveRecord/Create" class="pull-right" style="margin-top: -10px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 600px;">
 
-            <li role="presentation" class="active"><a href="#cancel_not_LeaveRecord" role="tab" data-toggle="tab">未审批</a></li>
-            <li role="presentation"><a href="#cancel_already_LeaveRecord" role="tab" data-toggle="tab">已审批</a></li>
-            <li role="presentation"><a href="#cancel_LeaveRecord" role="tab" data-toggle="tab">所有记录</a></li>
-
+            <li role="presentation" class="active"><a href="#not_LeaveRecord" role="tab" data-toggle="tab">未审批</a></li>
+            <li role="presentation"><a href="#already_LeaveRecord" role="tab" data-toggle="tab">已审批</a></li>
+            <li role="presentation"><a href="#cancel_LeaveRecord" role="tab" data-toggle="tab">销假记录</a></li>
+            <li role="presentation"><a href="#all_LeaveRecord" role="tab" data-toggle="tab">所有记录</a></li>
         </ul>
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="cancel_not_LeaveRecord">
-                <div id="cancel_not_LeaveRecord_grid_table" style="margin:auto;"></div>
+            <div role="tabpanel" class="tab-pane active" id="not_LeaveRecord">
+                <div id="not_LeaveRecord_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -136,98 +144,7 @@
                         {
                             foreach (var item in Model)
                             {
-                                if (item.approvalStatus == null){
-                                    <tr>
-                                        <td>
-                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
-                                                @Html.DisplayFor(modelItem => item.staffNr)
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            @(@item.leaveStart.HasValue ? @item.leaveStart.Value.ToString("yyyy-MM-dd") : "")
-                                        </td>
-                                        <td>
-                                            @(@item.leaveEnd.HasValue ? @item.leaveEnd.Value.ToString("yyyy-MM-dd") : "")
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.remark)
-                                        </td>
-                                        <td>
-                                            @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.userName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalUserName)
-                                        </td>
-                                        <td>
-                                            @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
-                                        </td>
-                                        @if (item.approvalStatus == null)
-                                        {
-                                            <td>未审批</td>
-                                        }
-                                        else
-                                        {
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalStatus)
-                                            </td>
-                                        }
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalRemark)
-                                        </td>
-                                        <td>
-                                            @if (item.approvalStatus == null)
-                                            {
-                                                <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                                <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
-                                                    <i class="fa fa-check"></i>
-                                                </a>
-                                            
-                                                <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                                }
-                                        </td>
-                                    </tr>
-                                }
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="cancel_already_LeaveRecord">
-                <div id="cancel_already_LeaveRecord_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-                            <th>工号</th>
-                            <th>起始日期</th>
-                            <th>结束日期</th>
-                            <th>请假原因</th>
-                            <th>申请时间</th>
-                            <th>申请人</th>
-                            <th>审批人</th>
-                            <th>审批时间</th>
-                            <th>审批状态</th>
-                            <th>备注</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model)
-                            {
-                                if (item.approvalStatus != null)
+                                if (item.approvalStatus == null && !item.isDelete.Value)
                                 {
                                     <tr>
                                         <td>
@@ -257,37 +174,38 @@
                                         <td>
                                             @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
                                         </td>
-                                        @if (item.approvalStatus == null)
-                                        {
-                                            <td>未审批</td>
-                                        }
-                                        else
-                                        {
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.approvalStatus)
-                                            </td>
-                                        }
-
+                                        
+                                         <td>未审批</td>
+                                       
                                         <td>
                                             @Html.DisplayFor(modelItem => item.approvalRemark)
                                         </td>
                                         <td>
-                                            @if (item.approvalStatus == null)
+                                            @if (canDelete)
                                             {
                                                 <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
+                                            }
+                                            @if (canEdit)
+                                            {
                                                 <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                            }
+                                            @if (canApproval)
+                                            {
                                                 <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
                                                     <i class="fa fa-check"></i>
                                                 </a>
                                             }
+                                            @if (canCancel)
+                                            {
                                                 <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
                                                     <i class="fa fa-times"></i>
                                                 </a>
-                                                
+                                            }
+
                                         </td>
                                     </tr>
                                 }
@@ -296,8 +214,84 @@
                     </tbody>
                 </table>
             </div>
-            <div role="tabpanel" class="tab-pane" id="cancel_LeaveRecord">
-                <div id="cancel_LeaveRecord_grid_table" style="margin:auto;"></div>
+            <div role="tabpanel" class="tab-pane" id="already_LeaveRecord">
+                <div id="already_LeaveRecord_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>起始日期</th>
+                            <th>结束日期</th>
+                            <th>请假原因</th>
+                            <th>申请时间</th>
+                            <th>申请人</th>
+                            <th>审批人</th>
+                            <th>审批时间</th>
+                            <th>审批状态</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                if (item.approvalStatus != null && !item.isDelete.Value)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                                @Html.DisplayFor(modelItem => item.staffNr)
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @(@item.leaveStart.HasValue ? @item.leaveStart.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @(@item.leaveEnd.HasValue ? @item.leaveEnd.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.remark)
+                                        </td>
+                                        <td>
+                                            @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.userName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalUserName)
+                                        </td>
+                                        <td>
+                                            @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                        </td>
+                                        
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalStatus)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalRemark)
+                                        </td>
+                                        <td>
+                                            @if (canCancel)
+                                            {
+                                                <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="all_LeaveRecord">
+                <div id="all_LeaveRecord_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -364,20 +358,34 @@
                                         <td>
                                             @if (item.approvalStatus == null)
                                             {
-                                                <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                                <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
-                                                    <i class="fa fa-check"></i>
-                                                </a>
+                                                if (canDelete)
+                                                {
+                                                    <a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                }
+                                                if (canEdit)
+                                                {
+                                                    <a href="/LeaveRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                }
+                                                if (canApproval)
+                                                {
+                                                    <a title="审批" class="option-icon-danger" onclick="shLeaveRecord(@item.id)">
+                                                        <i class="fa fa-check"></i>
+                                                    </a>
+                                                }
                                             }
-                                                <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                                
+                                            @if (!item.isDelete.Value)
+                                            {                                                
+                                                if (canCancel)
+                                                {
+                                                    <a title="销假" class="option-icon-danger" onclick="cancelLeaveRecord(@item.id)">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                }
+                                            }
                                         </td>
                                     </tr>
                             }
@@ -385,6 +393,89 @@
                     </tbody>
                 </table>
             </div>
+            <div role="tabpanel" class="tab-pane" id="cancel_LeaveRecord">
+                <div id="cancel_LeaveRecord_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>工号</th>
+                            <th>起始日期</th>
+                            <th>结束日期</th>
+                            <th>请假原因</th>
+                            <th>申请时间</th>
+                            <th>申请人</th>
+                            <th>审批人</th>
+                            <th>审批时间</th>
+                            <th>审批状态</th>
+                            <th>备注</th>
+                            @*<th>操作</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                if (item.isDelete.Value)
+                                {
+                                <tr>
+                                    <td>
+                                        <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary" title="员工详情">
+                                            @Html.DisplayFor(modelItem => item.staffNr)
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @(@item.leaveStart.HasValue ? @item.leaveStart.Value.ToString("yyyy-MM-dd") : "")
+                                    </td>
+                                    <td>
+                                        @(@item.leaveEnd.HasValue ? @item.leaveEnd.Value.ToString("yyyy-MM-dd") : "")
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.remark)
+                                    </td>
+                                    <td>
+                                        @(@item.createdAt.HasValue ? @item.createdAt.Value.ToString("yyyy-MM-dd") : "")
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.userName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalUserName)
+                                    </td>
+                                    <td>
+                                        @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
+                                    </td>
+                                    @if (item.approvalStatus == null)
+                                    {
+                                        <td>未审批</td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.approvalStatus)
+                                        </td>
+                                    }
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalRemark)
+                                    </td>
+                                    <td>
+                                        
+                                        @*<a href="/LeaveRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                            <i class="fa fa-eye"></i>
+                                        </a>*@
+                                                
+                                    </td>
+                                </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+
             
             
         </div>
@@ -433,23 +524,29 @@
 
     $(window).resize(function () {
         //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_LeaveRecord", "请假已审批列表", "20", "already_LeaveRecord_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "cancel_already_LeaveRecord", "销假已审批列表", "20", "cancel_already_LeaveRecord_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not_LeaveRecord", "未审批列表", "20", "not_LeaveRecord_grid_table");
         //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not_LeaveRecord", "请假未审批列表", "20", "not_LeaveRecord_grid_table");
         
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "cancel_not_LeaveRecord", "销假未审批列表", "20", "cancel_not_LeaveRecord_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_LeaveRecord", "已审批列表", "20", "already_LeaveRecord_grid_table");
         //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_LeaveRecord", "请假记录列表", "20", "all_LeaveRecord_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_LeaveRecord", "所有记录列表", "20", "all_LeaveRecord_grid_table");
+
         Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "cancel_LeaveRecord", "销假记录列表", "20", "cancel_LeaveRecord_grid_table");
    })
 
     //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "already_LeaveRecord", "请假已审批列表", "20", "already_LeaveRecord_grid_table");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_not_LeaveRecord", "未审批列表", "20", "cancel_not_LeaveRecord_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "not_LeaveRecord", "未审批列表", "20", "not_LeaveRecord_grid_table");
 
-    $('#cancel_already_LeaveRecord').addClass("active");    
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_already_LeaveRecord", "已审批列表", "20", "cancel_already_LeaveRecord_grid_table");
-    $('#cancel_already_LeaveRecord').removeClass("active");
+    $('#already_LeaveRecord').addClass("active");    
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "already_LeaveRecord", "已审批列表", "20", "already_LeaveRecord_grid_table");
+    $('#already_LeaveRecord').removeClass("active");
+
+    $('#all_LeaveRecord').addClass("active");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_LeaveRecord", "所有记录列表", "20", "all_LeaveRecord_grid_table");
+    $('#all_LeaveRecord').removeClass("active");
 
     $('#cancel_LeaveRecord').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_LeaveRecord", "所有记录列表", "20", "cancel_LeaveRecord_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "cancel_LeaveRecord", "销假记录列表", "20", "cancel_LeaveRecord_grid_table");
     $('#cancel_LeaveRecord').removeClass("active");
 
     

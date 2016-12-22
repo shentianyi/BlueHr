@@ -1,4 +1,9 @@
 ﻿@model BlueHrLib.Data.ExtraWorkRecord
+@using BlueHrWeb.Helpers.View
+@{
+    bool canDeleted = MenuAuthHelper.CanShow("ExtraWorkRecord", "Deleted");
+}
+<input type="hidden" id="can" value="@canDeleted.ToString()">
 <div id="extrawordrecord" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：

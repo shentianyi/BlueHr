@@ -1,12 +1,16 @@
 ﻿@using MvcPaging
-
+@using BlueHrWeb.Helpers.View
 @model IPagedList<BlueHrLib.Data.WorkAndRest>
 
 @{
     ViewBag.Title = "作息时间";
 }
-
-@*@Styles.Render("~/Content/degreetype")*@
+@{
+    bool canMake = MenuAuthHelper.CanShow("WorkAndRest", "Make");
+    bool canEdit = MenuAuthHelper.CanShow("WorkAndRest", "Edit");
+    bool canImport = MenuAuthHelper.CanShow("WorkAndRest", "Import");
+    bool canTableShow = MenuAuthHelper.CanShow("WorkAndRest", "TableShow");
+}
 
 <style type="text/css">
     .fc-row .fc-content-skeleton tbody td, .fc-row .fc-helper-skeleton tbody td{
@@ -29,15 +33,20 @@
 </ol>
 
 <div class="pull-right" style="margin-top: -25px; margin-right: 20px;">
+    @if (canMake)
+    {
     <button id="set-years" type="button" class="marco-btn-danger" title="生成2017年作息表" style="margin-left: 10px;">
         <span> 生成2017作息表 </span>
     </button>
-
+    }
+    @if (canTableShow)
+    {
     <a href="/WorkAndRests/TableShow">
         <button type="button" class="marco-btn-primary">
             查看列表展示
         </button>
     </a>
+    }
 </div>
 
 <hr class="hr-grey" />
@@ -66,11 +75,13 @@
                     <i class="glyphicon glyphicon-search"></i>
                     搜索
                 </button>
-
+                @if (canImport)
+                {
                 <button type="button" class="marco-btn-primary import-button-dialog pull-right">
                     <i class="glyphicon glyphicon-cloud-upload"></i>
                     <span>导入</span>
                 </button>
+                }
             </div>
         </div>
     </form>
@@ -126,11 +137,14 @@
     </div>
 
     <div class="dialogModal_footer">
+        @if (canEdit)
+        {
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
             <button type="button" class="marco-btn-primary pull-right" data-dialogmodalbut="ok">
                 修改
             </button>
         </div>
+        }
     </div>
 </div>
 

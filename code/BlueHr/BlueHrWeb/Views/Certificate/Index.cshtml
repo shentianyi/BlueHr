@@ -1,13 +1,21 @@
 ﻿@using MvcPaging
+@using BlueHrWeb.Helpers.View
 @model IPagedList<BlueHrLib.Data.Certificate>
 @{
     ViewBag.Title = "证照管理";
 }
-
+@{
+    bool canCreate = MenuAuthHelper.CanShow("Certificate", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("Certificate", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("Certificate", "Delete");
+}
 
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
-    <li>证照信息</li>
+    <li>员工管理</li>
+    <li>
+        <strong>证照管理</strong>
+    </li>
 </ol>
 <hr class="hr-grey" />
 
@@ -52,9 +60,17 @@
 </div>
 <hr class="hr-grey" />
 
-<div style="margin:10px;">
+<div style="margin:20px;">
     <div class="minitor-show marco-tabs-default">
-
+            @if (canCreate)
+            {
+            <a href="/Certificate/Create" class="pull-right" style="margin-top: -10px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+            }
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#Certificate_staff" role="tab" data-toggle="tab">证照列表</a></li>
         </ul>
@@ -68,6 +84,7 @@
                             <th>有效期至</th>
                             <th>有效期到</th>
                             <th>发证单位</th>
+                            <th>备注</th>
                             <th>附件</th>
                             <th>操作</th>
                         </tr>
@@ -92,6 +109,9 @@
                                         @Html.DisplayFor(modelItem => item.institution)
                                     </td>
                                     <td>
+                                        @Html.DisplayFor(modelItem => item.remark)
+                                    </td>
+                                    <td>
                                         @{
                                             List<string> imgTypes = new List<string>() { ".jpg", ".png", ".jpeg", ".bmp", ".gif" };
                                             foreach (var atch in item.Attachments)
@@ -110,12 +130,18 @@
                                         }
                                     </td>
                                     <td>
-                                        <a href="/Certificate/Delete/@item.id?nr=@ViewBag.StfModel.nr" class="option-icon-primary" title="详情">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="/Certificate/Edit/@item.id?nr=@ViewBag.StfModel.nr" class="option-icon-warning" title="编辑">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
+                                        @if (canDelete)
+                                        {
+                                            <a href="/Certificate/Delete/@item.id?nr=@ViewBag.StfModel.nr" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
+                                        @if (canEdit)
+                                        {
+                                            <a href="/Certificate/Edit/@item.id?nr=@ViewBag.StfModel.nr" class="option-icon-warning" title="编辑">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        }
                                     </td>
                                 </tr>
                                 }

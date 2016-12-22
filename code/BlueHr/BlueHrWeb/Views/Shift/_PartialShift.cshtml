@@ -1,4 +1,9 @@
 ﻿@model BlueHrLib.Data.Shift
+@using BlueHrWeb.Helpers.View
+@{
+    bool canDeleted = MenuAuthHelper.CanShow("ResignType", "Deleted");
+}
+<input type="hidden" id="can" value="@canDeleted.ToString()">
 
 <div id="shift" style="margin:20px;">
     <ol class="breadcrumb current-position">

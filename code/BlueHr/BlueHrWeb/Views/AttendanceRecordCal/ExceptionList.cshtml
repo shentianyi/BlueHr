@@ -1,9 +1,12 @@
 ﻿@model IEnumerable<BlueHrLib.Data.AttendanceRecordCalExceptionView>
-
+@using BlueHrWeb.Helpers.View
 @{
     ViewBag.Title = "异常统计列表";
 }
-
+@{
+    bool canCreate = MenuAuthHelper.CanShow("AttendanceRecordCal", "Create");
+    bool canIndex = MenuAuthHelper.CanShow("AttendanceRecordCal", "Index");
+}
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>考勤管理</li>
@@ -36,13 +39,16 @@
 
 
 <div style="margin:10px;">
-    <div class="minitor-show marco-tabs-default">        
+    <div class="minitor-show marco-tabs-default">  
+        @if (canCreate)
+        {
         <a href="/AttendanceRecordCal/Create" class="pull-right" style="margin-top: -10px; margin-right:14px;">
             <button class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
             </button>
         </a>
+        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">异常统计列表</a></li>
@@ -61,9 +67,9 @@
                     </thead>
                     <tbody>
                         @if (Model != null)
-            {
-                foreach (var item in Model)
-                {
+                        {
+                            foreach (var item in Model)
+                            {
                                 <tr>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.attendanceDateStr)
@@ -72,7 +78,10 @@
                                         @Html.DisplayFor(modelItem => item.isExceptionHandledCount)
                                     </td>
                                     <td>
-                                        <a href="/AttendanceRecordCal/Search?IsException=True&IsExceptionHandled=False&AttendanceDateFrom=@item.attendanceDate&AttendanceDateEnd=@item.attendanceDate">处理</a>
+                                        @if (canIndex)
+                                        {
+                                        <a href="/AttendanceRecordCal/Search?IsException=True&IsExceptionHandled=False&AttendanceDateFrom=@item.attendanceDate&AttendanceDateEnd=@item.attendanceDate" id="noopennew" style="color:cornflowerblue">查看</a>
+                                        }
                                     </td>
                                 </tr>
                             }

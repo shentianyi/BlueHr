@@ -1,10 +1,13 @@
-﻿
+﻿@using BlueHrWeb.Helpers.View
 @model IEnumerable<BlueHrLib.Data.QuartzJob>
 
 @{
     ViewBag.Title = "考勤计算设置";
 }
-@*@Styles.Render("~/Content/degreetype")*@
+@{
+    bool canDelete = MenuAuthHelper.CanShow("QuartzJob", "Delete");
+    bool canCreate = MenuAuthHelper.CanShow("QuartzJob", "Create");
+}
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>考勤管理</li>
@@ -16,13 +19,15 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-
+        @if (canCreate)
+        {
         <a href="/QuartzJob/Create" class="pull-right" style="margin-top: -10px;">
             <button class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
             </button>
         </a>
+        }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#inter" role="tab" data-toggle="tab">任务列表</a></li>
@@ -55,9 +60,12 @@
                                         </td>*@
 
                                     <td>
+                                        @if (canDelete)
+                                        {
                                         <a href="#" id="msg-@item.id" class="option-icon-warning" onclick="deletejob(@item.id)" title="删除">
                                             <i class="fa fa-remove"></i>
                                         </a>
+                                        }
                                     </td>
                                 </tr>
                             }

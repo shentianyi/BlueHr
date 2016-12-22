@@ -1,5 +1,9 @@
 ﻿@model BlueHrLib.Data.LeaveRecord
-
+@using BlueHrWeb.Helpers.View
+@{
+    bool canDeleted = MenuAuthHelper.CanShow("LeaveRecord", "Deleted");
+}
+<input type="hidden" id="can" value="@canDeleted.ToString()">
 <div id="leaverecord" style="margin:20px;">
     <ol class="breadcrumb current-position">
         您的位置：
@@ -52,7 +56,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>起始日期</span>
-                        @if (Model.leaveStart.HasValue)
+                        @if (Model != null && Model.leaveStart.HasValue)
                         {
                             <input id="leaveStart" name="leaveStart" value="@Model.leaveStart.Value.ToString("yyyy-MM-dd")" class="date-picker" />
                         }
@@ -60,13 +64,14 @@
                         {
                             <input id="leaveStart" name="leaveStart" value="" class="date-picker" />
                         }
+                        
                         <!--@Html.EditorFor(model => model.leaveStart, new { htmlAttributes = new { @class = "date-picker" } })-->
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="marco-igroup-primary">
                         <span>结束日期</span>
-                        @if (Model.leaveEnd.HasValue)
+                        @if (Model != null && Model.leaveEnd.HasValue)
                         {
                             <input id="leaveEnd" name="leaveEnd" value="@Model.leaveEnd.Value.ToString("yyyy-MM-dd")" class="date-picker" />
                         }

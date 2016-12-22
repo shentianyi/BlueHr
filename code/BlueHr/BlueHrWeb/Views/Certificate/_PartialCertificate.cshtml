@@ -1,5 +1,9 @@
 ﻿@model BlueHrLib.Data.Certificate
-
+@using BlueHrWeb.Helpers.View
+@{
+    bool canDeleted = MenuAuthHelper.CanShow("Certificate", "Deleted");
+}
+<input type="hidden" id="can" value="@canDeleted.ToString()">
 @Styles.Render("~/Content/magnific-popup")
 
 <div id="certificate" style="margin:20px;">
@@ -30,9 +34,6 @@
                 </div>
             </div>
             <div class="marco-npanel-normal">
-                <div class="marco-nheading">
-                    <span>基础信息</span>
-                </div>
                 <div class="marco-nbody row">
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <div class="marco-igroup-primary">
@@ -82,9 +83,6 @@
                 </div>
             </div>
             <div class="marco-npanel-normal">
-                <div class="marco-nheading">
-                    <span>证照附件</span>
-                </div>
                 <div class="marco-nbody">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">

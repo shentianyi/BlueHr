@@ -20,4 +20,7 @@
     $('#hidden').attr('disabled', 'disabled');
     $('.createBankCardBtn').attr('disabled', 'disabled');
     $('.createFamilyBtn').attr('disabled', 'disabled');
+    if ($('#can').val() != "True") {
+        $('.submit-btn').remove();
+    }
 </script>

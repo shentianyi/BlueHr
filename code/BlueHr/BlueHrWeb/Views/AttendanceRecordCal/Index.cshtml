@@ -8,11 +8,10 @@
 }
 
 @{
-    bool canShow = MenuAuthHelper.CanShow("AttendanceRecordCal", "Show");
-    bool canEdit = MenuAuthHelper.CanShow("AttendanceRecordCal", "Edit");
     bool canCreate = MenuAuthHelper.CanShow("AttendanceRecordCal", "Create");
-
-    bool canExport = MenuAuthHelper.CanShow("AttendanceRecordCal", "ExportReport");
+    bool canEdit = MenuAuthHelper.CanShow("AttendanceRecordCal", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("AttendanceRecordCal", "Delete");
+    bool canExportReport = MenuAuthHelper.CanShow("AttendanceRecordCal", "ExportReport");
 }
 <style type="text/css">
     .ui-widget-header {
@@ -111,15 +110,17 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
+        @if (canCreate)
+        {
         <a href="/AttendanceRecordCal/Create" class="pull-right" style="margin-top: -10px;">
             <button class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
             </button>           
         </a>
-        @if (canExport)
+        }
+        @if (canExportReport)
         {
-                
             <button class="marco-btn-primary export-button-dialog pull-right" title="Export" style="margin-top: -5px; margin-right:5px;" type="button">
                 <i class="glyphicon glyphicon-dashboard"></i>
                 导出考勤报表
@@ -197,7 +198,7 @@
                                             @Html.DisplayFor(modelItem => item.isExceptionHandledStr)
                                         </td>
                                         <td>
-                                            @if (canShow)
+                                            @if (canDelete)
                                             {
                                                 <a href="/AttendanceRecordCal/Delete/@item.id" class="option-icon-primary" title="详情">
                                                     <i class="fa fa-eye"></i>

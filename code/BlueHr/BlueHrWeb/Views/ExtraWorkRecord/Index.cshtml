@@ -1,6 +1,5 @@
 ﻿@using MvcPaging
 @using BlueHrWeb.Helpers.View
-
 @model IPagedList<BlueHrLib.Data.ExtraWorkRecordView>
 @{
     ViewBag.Title = "加班管理";
@@ -18,7 +17,7 @@
     bool canDelete = MenuAuthHelper.CanShow("ExtraWorkRecord", "Delete");
     bool canEdit = MenuAuthHelper.CanShow("ExtraWorkRecord", "Edit");
     bool canCreate = MenuAuthHelper.CanShow("ExtraWorkRecord", "Create");
-    bool canApp = MenuAuthHelper.CanShow("ExtraWorkRecord", "ApprovalExtraWorkRecord");
+    bool canApproval = MenuAuthHelper.CanShow("ExtraWorkRecord", "Approval");
     bool canImport = MenuAuthHelper.CanShow("ExtraWorkRecord", "Import");
 }
 
@@ -113,17 +112,22 @@
 <hr class="hr-primary" />
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        <a href="/ExtraWorkRecord/Create" class="pull-right" style="margin-top: -10px;">
-            <button type="button" class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>创建</span>
+        @if (canCreate)
+        {
+            <a href="/ExtraWorkRecord/Create" class="pull-right" style="margin-top: -10px;">
+                <button type="button" class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
+        @if (canApproval)
+        {
+            <button type="button" class="marco-btn-success pull-right" style="margin-top: -5px; margin-right:5px;" onclick="shBatchAbsenceRecord()">
+                <i class="fa fa-pencil"></i>
+                <span>批量审批</span>
             </button>
-        </a>
-
-        <button type="button" class="marco-btn-success pull-right" style="margin-top: -5px; margin-right:5px;" onclick="shBatchAbsenceRecord()">
-            <i class="fa fa-pencil"></i>
-            <span>批量审批</span>
-        </button>
+        }
 
         @if (canImport)
         {
@@ -134,16 +138,114 @@
         }
 
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#all_extra_type" role="tab" data-toggle="tab">加班申请</a></li>
-            <li role="presentation"><a href="#already_extra_type" role="tab" data-toggle="tab">已审批</a></li>
-            <li role="presentation"><a href="#not_extra_type" role="tab" data-toggle="tab">未审批</a></li>
+            
+            
+            <li role="presentation" class="active"><a href="#not" role="tab" data-toggle="tab">未审批</a></li>
+            <li role="presentation"><a href="#already" role="tab" data-toggle="tab">已审批</a></li>
+            <li role="presentation"><a href="#all" role="tab" data-toggle="tab">加班申请</a></li>
             
         </ul>
 
         <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="not">
+                <div id="not_grid_table" style="margin:auto;"></div>
+                <table class="table table-bordered" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>日期</th>
+                            <th>工号</th>
+                            <th>起讫</th>
+                            <th>加班时长(小时)</th>
+                            <th>加班类别</th>
+                            <th>加班原因</th>
+                            <th>审批状态</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                if (item.approvalStatus == null)
+                                {
+                                    <tr>
+                                        @if (item.approvalStatus == null)
+                                        {
+                                            <td style="width: 100px;">
+                                                <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+                                        <td>
 
-            <div role="tabpanel" class="tab-pane active" id="all_extra_type">
-                <div id="all_extra_type_grid_table" style="margin:auto;"></div>
+                                            @Html.DisplayFor(modelItem => item.otTimeStr)
+                                        </td>
+                                        <td>
+                                            <a href="/Staff/Delete/@item.nr" class="option-icon-primary">
+                                                @Html.DisplayFor(modelItem => item.staffNr)
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.startEndHourStr)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.duration)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.otReason)
+                                        </td>
+                                        @if (item.approvalStatus == null)
+                                        {
+                                            <td>未审批</td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.approvalStatus)
+                                            </td>
+                                        }
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.remarks)
+                                        </td>
+                                        <td>
+                                            @if (canDelete)
+                                            {
+                                                <a href="/ExtraWorkRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            @if (canEdit)
+                                            {
+                                                <a href="/ExtraWorkRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
+                                            @if (canApproval)
+                                            {
+                                                <a title="审批" id="shAbsenceRecord" class="option-icon-danger" onclick="shAbsenceRecord(@item.id)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="all">
+                <div id="all_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -209,18 +311,25 @@
 
                                         @if(item.approvalStatus==null){
                                         
-                                            <a href="/ExtraWorkRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                       
-                                            <a href="/ExtraWorkRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                       
-                                            <a title="审批" id="shAbsenceRecord" class="option-icon-danger" onclick="shAbsenceRecord(@item.id)">
-                                                <i class="fa fa-check"></i>
-                                            </a>
-                                        
+                                            if (canDelete)
+                                            {
+                                                <a href="/ExtraWorkRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            }
+                                            if (canEdit)
+                                            {
+                                                <a href="/ExtraWorkRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            }
+                                            if (canApproval)
+                                            {
+                                                <a title="审批" id="shAbsenceRecord" class="option-icon-danger" onclick="shAbsenceRecord(@item.id)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            }
+
                                         }
                                     </td>
                                 </tr>
@@ -229,8 +338,8 @@
                     </tbody>
                 </table>
             </div>
-            <div role="tabpanel" class="tab-pane" id="already_extra_type">
-                <div id="already_extra_type_grid_table" style="margin:auto;"></div>
+            <div role="tabpanel" class="tab-pane" id="already">
+                <div id="already_grid_table" style="margin:auto;"></div>
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
@@ -243,7 +352,7 @@
                             <th>加班原因</th>
                             <th>审批状态</th>
                             <th>备注</th>
-                            <th>操作</th>
+                            @*<th>操作</th>*@
                         </tr>
                     </thead>
                     <tbody>
@@ -293,7 +402,7 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.remarks)
                                         </td>
-                                        <td>
+                                        @*<td>
 
                                             @if(item.approvalStatus==null){
                                             
@@ -310,7 +419,7 @@
                                                 </a>
                                             
                                             }
-                                        </td>
+                                        </td>*@
                                     </tr>
                                 }
                             }
@@ -318,89 +427,7 @@
                     </tbody>
                 </table>
             </div>
-            <div role="tabpanel" class="tab-pane" id="not_extra_type">
-                <div id="not_extra_type_grid_table" style="margin:auto;"></div>
-                <table class="table table-bordered" style="display:none;">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>日期</th>
-                            <th>工号</th>                            
-                            <th>起讫</th>
-                            <th>加班时长(小时)</th>
-                            <th>加班类别</th>
-                            <th>加班原因</th>
-                            <th>审批状态</th>
-                            <th>备注</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model)
-                            {
-                                if(item.approvalStatus==null){
-                                <tr>
-                                    @if(item.approvalStatus==null){
-                                    <td style="width: 100px;">
-                                        <input type="checkbox" id="@item.id" name="record-approve" class="record-approve" />
-                                    </td>
-                                    }else{
-                                        <td></td>
-                                    }
-                                    <td>
-                                       
-                                        @Html.DisplayFor(modelItem => item.otTimeStr)
-                                    </td>
-                                    <td>
-                                        <a href="/Staff/Delete/@item.nr" class="option-icon-primary">
-                                            @Html.DisplayFor(modelItem => item.staffNr)
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.startEndHourStr)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.duration)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.otReason)
-                                    </td>
-                                        @if(item.approvalStatus==null){
-                                            <td>未审批</td>
-                                        }else{
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalStatus)
-                                        </td>
-                                        }
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.remarks)
-                                    </td>
-                                    <td>
-                                            <a href="/ExtraWorkRecord/Delete/@item.id" class="option-icon-primary" title="详情">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                       
-                                            <a href="/ExtraWorkRecord/Edit/@item.id" class="option-icon-warning" title="编辑">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                       
-                                            <a title="审批" id="shAbsenceRecord" class="option-icon-danger" onclick="shAbsenceRecord(@item.id)">
-                                                <i class="fa fa-check"></i>
-                                            </a>
-                                    </td>
-                                </tr>
-                            }
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
+            
         </div>
         
     </div>
@@ -458,20 +485,19 @@
     <script type="text/javascript">
         Layout.init();
         $(window).resize(function () {
-            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_extra_type", "加班申请列表", "20", "all_extra_type_grid_table");
-            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already_extra_type", "已审批列表", "20", "already_extra_type_grid_table");
-            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not_extra_type", "未审批列表", "20", "not_extra_type_grid_table");
+            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all", "加班申请列表", "20", "all_grid_table");
+            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "already", "已审批列表", "20", "already_grid_table");
+            Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "not", "未审批列表", "20", "not_grid_table");
                         
         })
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "not", "未审批列表", "20", "not_grid_table");
+        $('#already').addClass("active");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "already", "已审批列表", "20", "already_grid_table");
+        $('#already').removeClass("active");
 
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all_extra_type", "加班申请列表", "20", "all_extra_type_grid_table");
-        $('#already_extra_type').addClass("active");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "already_extra_type", "已审批列表", "20", "already_extra_type_grid_table");
-        $('#already_extra_type').removeClass("active");
-
-        $('#not_extra_type').addClass("active");
-        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "not_extra_type", "未审批列表", "20", "not_extra_type_grid_table");
-        $('#not_extra_type').removeClass("active");
+        $('#all').addClass("active");
+        Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 260, false, "all", "加班申请列表", "20", "all_grid_table");
+        $('#all').removeClass("active");
 
         $('.datetimepicker').datetimepicker({
             format: 'Y-m-d',

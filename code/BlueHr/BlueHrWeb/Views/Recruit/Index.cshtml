@@ -1,9 +1,14 @@
 ﻿@using MvcPaging
 @model IPagedList<BlueHrLib.Data.Recruit>
+@using BlueHrWeb.Helpers.View
 @{
     ViewBag.Title = "招聘管理";
 }
-@*@Styles.Render("~/Content/degreetype")*@
+@{
+    bool canCreate = MenuAuthHelper.CanShow("Recruit", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("Recruit", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("Recruit", "Delete");
+}
 <ol class="breadcrumb current-position" style="margin-top:10px;">
     您的位置：
     <li>人事信息管理</li>
@@ -58,13 +63,15 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-
+        @if (canCreate)
+        {
         <a href="/Recruit/Create" class="pull-right" style="margin-top: -10px;">
             <button class="marco-btn-primary">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>创建</span>
             </button>
         </a>
+        }
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
 
             <li role="presentation" class="active"><a href="#all_Recruitment" role="tab" data-toggle="tab">所有需求</a></li>
@@ -127,13 +134,18 @@
                                         @Html.DisplayFor(modelItem => item.auditView)
                                     </td> -->
                                     <td>
+                                        @if (canDelete)
+                                        {
                                         <a href="/Recruit/Delete/@item.id" class="option-icon-primary" title="详情">
                                             <i class="fa fa-eye"></i>
                                         </a>
+                                        }
+                                        @if (canEdit)
+                                        {
                                         <a href="/Recruit/Edit/@item.id" class="option-icon-warning" title="编辑">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-
+                                        }
                                     </td>
                                 </tr>
                             }

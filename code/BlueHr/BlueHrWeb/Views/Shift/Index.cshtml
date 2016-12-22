@@ -15,9 +15,9 @@
 </ol>
 <hr class="hr-grey" />
 @{
-    bool canDelete = MenuAuthHelper.CanShow("Shift", "Delete");
-    bool canEdit = MenuAuthHelper.CanShow("Shift", "Edit");
     bool canCreate = MenuAuthHelper.CanShow("Shift", "Create");
+    bool canEdit = MenuAuthHelper.CanShow("Shift", "Edit");
+    bool canDelete = MenuAuthHelper.CanShow("Shift", "Delete");
 }
 <div class="search">
     @* 简单搜索 *@
@@ -98,12 +98,15 @@
 
 <div style="margin:10px;">
     <div class="minitor-show marco-tabs-default">
-        <a href="/Shift/Create" class="pull-right" style="margin-top: -10px;">
-            <button class="marco-btn-primary">
-                <i class="glyphicon glyphicon-plus-sign"></i>
-                <span>创建</span>
-            </button>
-        </a>
+        @if (canCreate)
+        {
+            <a href="/Shift/Create" class="pull-right" style="margin-top: -10px;">
+                <button class="marco-btn-primary">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
+                    <span>创建</span>
+                </button>
+            </a>
+        }
         <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
             <li role="presentation" class="active"><a href="#all_shift" role="tab" data-toggle="tab">所有班次管理</a></li>           
         </ul>

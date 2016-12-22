@@ -180,13 +180,9 @@
                                         <!--值可为空-->
                                         @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
                                     </td>
-                                        @if(item.approvalStatus == null){
-                                            <td>未审批</td>
-                                        }else{
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalStatus)
-                                        </td>
-                                        }
+
+                                    <td>未审批</td>
+                                        
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalRemark)
                                     </td>
@@ -209,7 +205,6 @@
                                                 <i class="fa fa-check"></i>
                                             </a>
                                          }
-
                                     </td>
                                 </tr>
                                  }
@@ -234,7 +229,7 @@
                             <th>审批日期</th>
                             <th>审批状态</th>
                             <th>备注</th>
-                            
+                            @*<th>操作</th>*@
                         </tr>
                     </thead>
                     <tbody>
@@ -282,17 +277,22 @@
                                         <!--值可为空-->
                                         @(@item.approvalAt.HasValue ? @item.approvalAt.Value.ToString("yyyy-MM-dd") : "")
                                     </td>
-                                        @if(item.approvalStatus == null){
-                                            <td>未审批</td>
-                                        }else{
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.approvalStatus)
-                                        </td>
-                                        }
+                                        
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.approvalStatus)
+                                    </td>
+                                        
                                     <td>
                                         @Html.DisplayFor(modelItem => item.approvalRemark)
                                     </td>
-                                    
+                                    @*<td>
+                                        @if (canDelete)
+                                        {
+                                            <a href="/ShiftJobRecord/Delete/@item.id" class="option-icon-primary" title="详情">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        }
+                                    </td>*@
                                 </tr>
                                 }
                             }
@@ -324,7 +324,6 @@
                         {
                             foreach (var item in Model)
                             {
-
                                 <tr>
                                     <td>
                                         <a href="/Staff/Delete/@item.staffNr" class="option-icon-primary">
@@ -375,8 +374,9 @@
                                         @Html.DisplayFor(modelItem => item.approvalRemark)
                                     </td>
                                     <td>
-
-                                        @if(item.approvalStatus==null){
+                                        
+                                        @if (item.approvalStatus == null)
+                                        {
                                             if (canDelete)
                                             {
                                                 <a href="/ShiftJobRecord/Delete/@item.id" class="option-icon-primary" title="详情">
