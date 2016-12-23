@@ -12,6 +12,9 @@
     bool canSet = MenuAuthHelper.CanShow("JobTitle", "Set");
     bool canTableShow = MenuAuthHelper.CanShow("JobTitle", "TableShow");
 }
+<input type="hidden" id="canEdit" value="@canEdit.ToString()">
+<input type="hidden" id="canDelete" value="@canDelete.ToString()">
+<input type="hidden" id="canSet" value="@canSet.ToString()">
 <style type="text/css">
     #current_jobTitleContent > ul , #history_jobTitleContent > ul, #all_jobTitleContent > ul{
         list-style: none;

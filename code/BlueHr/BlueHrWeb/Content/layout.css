@@ -94,6 +94,7 @@ body {
 .marco-btn {
   min-width: 60px;
   margin: 5px 0;
+  padding: 4px 9px;
   background: #95a5a6;
   color: #f5f5f5;
   border: 1px solid #95a5a6; }
@@ -119,6 +120,7 @@ body {
 .marco-btn-default {
   min-width: 60px;
   margin: 5px 0;
+  padding: 4px 9px;
   background: #34495e;
   color: #f5f5f5;
   border: 1px solid #34495e; }
@@ -144,6 +146,7 @@ body {
 .marco-btn-primary {
   min-width: 60px;
   margin: 5px 0;
+  padding: 4px 9px;
   background: #2980b9;
   color: #f5f5f5;
   border: 1px solid #2980b9; }
@@ -169,6 +172,7 @@ body {
 .marco-btn-success {
   min-width: 60px;
   margin: 5px 0;
+  padding: 4px 9px;
   background: #16a085;
   color: #f5f5f5;
   border: 1px solid #16a085; }
@@ -194,6 +198,7 @@ body {
 .marco-btn-warning {
   min-width: 60px;
   margin: 5px 0;
+  padding: 4px 9px;
   background: #faebcc;
   color: #8a6d3b;
   border: 1px solid #faebcc; }
@@ -219,6 +224,7 @@ body {
 .marco-btn-danger {
   min-width: 60px;
   margin: 5px 0;
+  padding: 4px 9px;
   background: #c0392b;
   color: #f5f5f5;
   border: 1px solid #c0392b; }
@@ -305,7 +311,7 @@ body {
     margin: 0;
     padding: 7px;
     height: 38px;
-    width: 300px;
+    width: 100%;
     line-height: 38px; }
     .marco-igroup input[disabled], .marco-igroup select[disabled] {
       cursor: not-allowed;
@@ -345,7 +351,7 @@ body {
     margin: 0;
     padding: 7px;
     height: 38px;
-    width: 300px;
+    width: 100%;
     line-height: 38px; }
     .marco-igroup-normal input[disabled], .marco-igroup-normal select[disabled] {
       cursor: not-allowed;
@@ -385,7 +391,7 @@ body {
     margin: 0;
     padding: 7px;
     height: 38px;
-    width: 300px;
+    width: 100%;
     line-height: 38px; }
     .marco-igroup-default input[disabled], .marco-igroup-default select[disabled] {
       cursor: not-allowed;
@@ -425,8 +431,8 @@ body {
     margin: 0;
     padding: 7px;
     height: 38px;
-    width:250px;
-    outline: none;
+
+    width: 100%;
     line-height: 38px; }
     .marco-igroup-primary input[disabled], .marco-igroup-primary select[disabled] {
       cursor: not-allowed;
@@ -466,7 +472,7 @@ body {
     margin: 0;
     padding: 7px;
     height: 38px;
-    width: 300px;
+    width: 100%;
     line-height: 38px; }
     .marco-igroup-success input[disabled], .marco-igroup-success select[disabled] {
       cursor: not-allowed;
@@ -506,7 +512,7 @@ body {
     margin: 0;
     padding: 7px;
     height: 38px;
-    width: 300px;
+    width: 100%;
     line-height: 38px; }
     .marco-igroup-warning input[disabled], .marco-igroup-warning select[disabled] {
       cursor: not-allowed;
@@ -546,7 +552,11 @@ body {
     margin: 0;
     padding: 7px;
     height: 38px;
+<<<<<<< HEAD
     width: 200px;
+=======
+    width: 100%;
+>>>>>>> 77eba8d7b9b8166e22b8e9fcb24afe61aad88d24
     line-height: 38px; }
     .marco-igroup-danger input[disabled], .marco-igroup-danger select[disabled] {
       cursor: not-allowed;
