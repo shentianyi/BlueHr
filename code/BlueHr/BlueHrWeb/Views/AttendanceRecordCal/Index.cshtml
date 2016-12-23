@@ -264,14 +264,7 @@
 
         Layout.TransferTableToGrid(TableWidth, $(window).height() - 320, false, "all_cal_type", "统计记录管理", "20", "all_cal_type_grid_table");
 
-        //二级联动
-        $("#CompanyId").change(function () {
-            console.log($(this).val());
 
-            Layout.CompanyAndDepartment('#CompanyId', '#DepartmentId');
-        });
-
-        Layout.CompanyAndDepartment('#CompanyId', '#DepartmentId');
         function exportReport(type) {
             if ($("#CompanyId1").val() == null || $("#CompanyId1").val() == "") {
                 alert("请选择公司");

@@ -32,7 +32,6 @@
  @*sidebar-collapse*@
 
 @{
-    bool canHome = MenuAuthHelper.CanShow("Home", "Index");
     bool canApplication = MenuAuthHelper.CanShow("Personal", "Application");
     bool canFinished = MenuAuthHelper.CanShow("Personal", "Finished");
     bool canApproval = MenuAuthHelper.CanShow("Personal", "Approval");
@@ -120,15 +119,12 @@
             <section class="sidebar">
 
                 <ul class="sidebar-menu">
-                    @if(canHome)
-                    {
-                        <li class="nav-myHome">
-                            <a href="/Home/Index">
-                                <i class="fa fa-home"></i>
-                                <span>我的主页</span>
-                            </a>
-                        </li>
-                    }
+                    <li class="nav-myHome">
+                        <a href="/Home/Index">
+                            <i class="fa fa-home"></i>
+                            <span>我的主页</span>
+                        </a>
+                    </li>
                     @if(canApplication||canFinished||canApproval||canSchedule){
                     <li class="nav-myThing">
                         <a href="#">
