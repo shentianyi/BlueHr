@@ -341,6 +341,7 @@
     <Content Include="Images\person.png" />
     <Content Include="Images\switch.png" />
     <Content Include="Images\treeIcon\diy\company.png" />
+	<Content Include="Content\input-style.css" />
     <Content Include="Content\jquery-popModal.css" />
     <Content Include="Content\jquery-tree.css" />
     <Content Include="Content\jquery-ui.css" />

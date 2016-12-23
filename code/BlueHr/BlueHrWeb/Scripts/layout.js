@@ -345,10 +345,10 @@ Layout.init = function () {
         }else if(pathname[2] == "changepwd"){
             $(".main-header").remove();
             $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
 
             $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 100});
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 50});
             })
             
         }else if(pathname[2] == "UserMsg"){
