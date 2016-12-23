@@ -1,4 +1,5 @@
-﻿@{
+﻿@using BlueHrWeb.Helpers.View
+@{
     ViewBag.Title = "我的主页";
 }
 
@@ -11,69 +12,87 @@
         font-weight: 800;
     }
 </style>
-
+@{
+    bool canStaff = MenuAuthHelper.CanShow("Staff", "Index");
+    bool canCompany = MenuAuthHelper.CanShow("Company", "TreeShow");
+    bool canOntrail = MenuAuthHelper.CanShow("Staff", "Ontrail");
+    bool canBirthday = MenuAuthHelper.CanShow("Home", "Birthday");
+}
 <div style="margin: 10px;">
     @* 简单的显示 *@
     <div class="row" style="margin-top:20px;">
         <!--离职/在职-->
-        <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-default">
-            <div class="dashboard-box" title="点击查看员工状态">
-                <a href="/Staff/Index">
-                    <div class="dashboard-icon">
-                        <i class="fa fa-users"></i>
-                    </div>
-                    <div class="dashboard-content">
-                        <p>离职 / 在职</p>
-                        <div class="show"><span id="OutWork">无</span> / <span id="InWork">无</span></div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <!--公司部门-->
-        <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-primary">
-            <div class="dashboard-box" title="公司部门">
-                <a href="/Company/TreeShow">
-                    <div class="dashboard-icon">
-                        <i class="fa fa-bank"></i>
-                    </div>
-                    <div class="dashboard-content">
-                        <p id="companyName"> </p>
-                        <div class="show">
-                            <span id="departmentNum">  </span>
+        @if (canStaff)
+        {
+            <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-default">
+                <div class="dashboard-box" title="点击查看员工状态">
+                    <a href="/Staff/Index">
+                        <div class="dashboard-icon">
+                            <i class="fa fa-users"></i>
                         </div>
-                    </div>
-                </a>
+                        <div class="dashboard-content">
+                            <p>离职 / 在职</p>
+                            <div class="show"><span id="OutWork">无</span> / <span id="InWork">无</span></div>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
-        <!--员工将转正/已转正-->
-        <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-warning">
-            <div class="dashboard-box" title="点击查看转正员工">
-                <a href="/Staff/Ontrail">
-                    <div class="dashboard-icon">
-                        <i class="fa fa-user"></i>
-                    </div>
-                    <div class="dashboard-content">
-                        <p>将转正 / 待转正</p>
-                        <div class="show"><span id="willNum">无</span> / <span id="waitNum">无</span></div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <!--今天生日-->
-        <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-success">
-            <div class="dashboard-box" title="点击查看生日员工">
-                <a href="#birthday">
-                    <div class="dashboard-icon">
-                        <i class="fa fa-birthday-cake"></i>
-                    </div>
-                    <div class="dashboard-content">
-                        <p>今天生日</p>
-                        <div class="show"><span id="birthDayNum">无</span></div>
-                    </div>
-                </a>
-            </div>
-        </div>
+        }
         
+        <!--公司部门-->
+        @if (canCompany)
+        {
+            <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-primary">
+                <div class="dashboard-box" title="公司部门">
+                    <a href="/Company/TreeShow">
+                        <div class="dashboard-icon">
+                            <i class="fa fa-bank"></i>
+                        </div>
+                        <div class="dashboard-content">
+                            <p id="companyName"> </p>
+                            <div class="show">
+                                <span id="departmentNum">  </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+        <!--员工将转正/已转正-->
+        @if (canOntrail)
+        {
+            <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-warning">
+                <div class="dashboard-box" title="点击查看转正员工">
+                    <a href="/Staff/Ontrail">
+                        <div class="dashboard-icon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="dashboard-content">
+                            <p>将转正 / 待转正</p>
+                            <div class="show"><span id="willNum">无</span> / <span id="waitNum">无</span></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+        <!--今天生日-->
+        @if (canBirthday)
+        {
+            <div class="col-lg-3 col-md-3 col-xs-6 col-sm-12 dashboard-box-success">
+                <div class="dashboard-box" title="点击查看生日员工">
+                    <a href="#birthday">
+                        <div class="dashboard-icon">
+                            <i class="fa fa-birthday-cake"></i>
+                        </div>
+                        <div class="dashboard-content">
+                            <p>今天生日</p>
+                            <div class="show"><span id="birthDayNum">无</span></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+
     </div>
 
     <hr class="hr-grey" />

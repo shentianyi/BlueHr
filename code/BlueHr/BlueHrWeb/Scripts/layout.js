@@ -23,7 +23,15 @@ Layout.init = function () {
 
     switch (pathname[1]) {
         case "Home":
-            $('.nav-myHome').addClass('active');       
+            $('.nav-myHome').addClass('active');
+            if(pathname[2] == "NoAuthPage"){
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
+            }       
             break;
         case "SysRole":
             // 跳转界面
@@ -144,6 +152,16 @@ Layout.init = function () {
             $(window).resize(function(){
                 $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
             })
+            break;
+        case "MessageRecord":
+            if(pathname[2] == "Index"){
+                $(".main-header").remove();
+                $(".main-sidebar").remove();
+                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                $(window).resize(function(){
+                    $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
+                })
+            }
             break;
         case "AbsenceRecrod":
             $('.nav-absencerecrod').addClass('active');
@@ -294,7 +312,6 @@ Layout.init = function () {
                 actionBtn: newBtn
             }
         });
-
         if (pathname[2] == "Edit") {
             $(".main-header").remove();
             $(".main-sidebar").remove();
@@ -367,14 +384,6 @@ Layout.init = function () {
                 $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
             })
         }else if(pathname[1] == "JobTitle"&&pathname[2] == "Search"){
-            $(".main-header").remove();
-            $(".main-sidebar").remove();
-            $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-
-            $(window).resize(function(){
-                $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});
-            })
-        }else if(pathname[2] == "NoAuthPage"){
             $(".main-header").remove();
             $(".main-sidebar").remove();
             $(".content-wrapper").css({width: $(window).width(), height: $(window).height(), maxHeight: $(window).width(), paddingTop: 0, marginLeft: 0});

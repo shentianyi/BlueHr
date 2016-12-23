@@ -79,7 +79,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.name)
                                         <span class="badge pull-right marco-badge" title="公司部门">
-                                            <a href="@Url.Action("Search", "Department", new { CompanyId = item.id})">
+                                            <a href="@Url.Action("Search", "Department", new { CompanyId = item.id})" id="todepartment">
                                                 @item.departmentCound 部门
                                             </a>
                                         </span>
