@@ -2,7 +2,7 @@
 @model IPagedList<BlueHrLib.Data.JobTitle>
 @using BlueHrWeb.Helpers.View
 @{
-    ViewBag.Title = "Ö°Î»¹ÜÀí";
+    ViewBag.Title = "Ö°Î»ï¿½ï¿½ï¿½ï¿½";
 }
 @{
     bool canCreate = MenuAuthHelper.CanShow("JobTitle", "Create");
@@ -10,10 +10,10 @@
     bool canDelete = MenuAuthHelper.CanShow("JobTitle", "Delete");
 }
 <ol class="breadcrumb current-position" style="margin-top:10px;">
-    ÄúµÄÎ»ÖÃ£º
-    <li>»ù´¡ÐÅÏ¢¹ÜÀí</li>
+    ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã£ï¿½
+    <li>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½</li>
     <li>
-        <strong>Ö°Î»¹ÜÀí</strong>
+        <strong>Ö°Î»ï¿½ï¿½ï¿½ï¿½</strong>
     </li>
 </ol>
 
@@ -23,14 +23,14 @@
     <form action="/JobTitle/Search" method="get">
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="marco-igroup-primary">
-                <span>Ö°Î»Ãû³Æ</span>
-                <input type="text" name="Name" id="Name" placeholder="Ö°Î»Ãû³Æ" value="@ViewBag.Query.Name" />
+                <span>Ö°Î»ï¿½ï¿½ï¿½ï¿½</span>
+                <input type="text" name="Name" id="Name" placeholder="Ö°Î»ï¿½ï¿½ï¿½ï¿½" value="@ViewBag.Query.Name" />
             </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:5px;">
             <button type="submit" class="marco-btn-success">
                 <i class="glyphicon glyphicon-search"></i>
-                ËÑË÷
+                ï¿½ï¿½ï¿½ï¿½
             </button>
         </div>
     </form>
@@ -44,15 +44,15 @@
             <a href="/JobTitle/Create" class="pull-right" style="margin-top: -10px;">
                 <button class="marco-btn-primary">
                     <i class="glyphicon glyphicon-plus-sign"></i>
-                    <span>´´½¨</span>
+                    <span>ï¿½ï¿½ï¿½ï¿½</span>
                 </button>
             </a>
         }
 
-        <ul class="nav nav-tabs" role="tablist" style="width: 400px;">
-            <li role="presentation" class="active"><a href="#on_job" role="tab" data-toggle="tab">µ±Ç°Ö°Î»</a></li>
-            <li role="presentation"><a href="#off_job" role="tab" data-toggle="tab">ÀúÊ·Ö°Î»</a></li>
-            <li role="presentation"><a href="#all_job" role="tab" data-toggle="tab">È«²¿Ö°Î»</a></li>
+        <ul class="nav nav-tabs" role="tablist" style="width: 600px;">
+            <li role="presentation" class="active"><a href="#on_job" role="tab" data-toggle="tab">ï¿½ï¿½Ç°Ö°Î»</a></li>
+            <li role="presentation"><a href="#off_job" role="tab" data-toggle="tab">ï¿½ï¿½Ê·Ö°Î»</a></li>
+            <li role="presentation"><a href="#all_job" role="tab" data-toggle="tab">È«ï¿½ï¿½Ö°Î»</a></li>
         </ul>
 
         <div class="tab-content">
@@ -61,10 +61,10 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
-                            <th>Ö°Î»Ãû³Æ</th>
-                            <th>±ØÐëÖ¤ÕÕ</th>
-                            <th>±¸×¢</th>
-                            <th>²Ù×÷</th>
+                            <th>Ö°Î»ï¿½ï¿½ï¿½ï¿½</th>
+                            <th>ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½</th>
+                            <th>ï¿½ï¿½×¢</th>
+                            <th>ï¿½ï¿½ï¿½ï¿½</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,13 +88,13 @@
                                     <td>
                                         @if(canDelete)
                                         {
-                                            <a href="/JobTitle/Delete/@item.id" class="option-icon-primary" title="ÏêÇé">
+                                            <a href="/JobTitle/Delete/@item.id" class="option-icon-primary" title="ï¿½ï¿½ï¿½ï¿½">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         }
                                         @if (canEdit)
                                         {
-                                            <a href="/JobTitle/Edit/@item.id" class="option-icon-warning" title="±à¼­">
+                                            <a href="/JobTitle/Edit/@item.id" class="option-icon-warning" title="ï¿½à¼­">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                         }
@@ -113,10 +113,10 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
-                            <th>Ö°Î»Ãû³Æ</th>
-                            <th>±ØÐëÖ¤ÕÕ</th>
-                            <th>±¸×¢</th>
-                            <th>²Ù×÷</th>
+                            <th>Ö°Î»ï¿½ï¿½ï¿½ï¿½</th>
+                            <th>ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½</th>
+                            <th>ï¿½ï¿½×¢</th>
+                            <th>ï¿½ï¿½ï¿½ï¿½</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -141,14 +141,14 @@
                                     <td>
                                         @if(canDelete)
                                         {
-                                            <a href="/JobTitle/Delete/@item.id" class="option-icon-primary" title="ÏêÇé">
+                                            <a href="/JobTitle/Delete/@item.id" class="option-icon-primary" title="ï¿½ï¿½ï¿½ï¿½">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         }
 
                                         @if (canEdit)
                                         {
-                                            <a href="/JobTitle/Edit/@item.id" class="option-icon-warning" title="±à¼­">
+                                            <a href="/JobTitle/Edit/@item.id" class="option-icon-warning" title="ï¿½à¼­">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                         }
@@ -167,10 +167,10 @@
                 <table class="table table-bordered" style="display:none;">
                     <thead>
                         <tr>
-                            <th>Ö°Î»Ãû³Æ</th>
-                            <th>±ØÐëÖ¤ÕÕ</th>
-                            <th>±¸×¢</th>
-                            <th>²Ù×÷</th>
+                            <th>Ö°Î»ï¿½ï¿½ï¿½ï¿½</th>
+                            <th>ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½</th>
+                            <th>ï¿½ï¿½×¢</th>
+                            <th>ï¿½ï¿½ï¿½ï¿½</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -192,14 +192,14 @@
                                     <td>
                                         @if(canDelete)
                                         {
-                                            <a href="/JobTitle/Delete/@item.id" class="option-icon-primary" title="ÏêÇé">
+                                            <a href="/JobTitle/Delete/@item.id" class="option-icon-primary" title="ï¿½ï¿½ï¿½ï¿½">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         }
 
                                         @if (canEdit)
                                         {
-                                            <a href="/JobTitle/Edit/@item.id" class="option-icon-warning" title="±à¼­">
+                                            <a href="/JobTitle/Edit/@item.id" class="option-icon-warning" title="ï¿½à¼­">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                         }
@@ -223,21 +223,21 @@
     Layout.init();
 
     $(window).resize(function () {
-        Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "on_job", "µ±Ç°Ö°Î»ÁÐ±í", "20", "on_job_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "off_job", "ÀúÊ·Ö°Î»ÁÐ±í", "20", "off_job_grid_table");
-        Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "all_job", "ËùÓÐÖ°Î»ÁÐ±í", "20", "all_job_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "on_job", "ï¿½ï¿½Ç°Ö°Î»ï¿½Ð±ï¿½", "20", "on_job_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "off_job", "ï¿½ï¿½Ê·Ö°Î»ï¿½Ð±ï¿½", "20", "off_job_grid_table");
+        Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "all_job", "ï¿½ï¿½ï¿½ï¿½Ö°Î»ï¿½Ð±ï¿½", "20", "all_job_grid_table");
     })
 
-    Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "on_job", "µ±Ç°Ö°Î»ÁÐ±í", "20", "on_job_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "on_job", "ï¿½ï¿½Ç°Ö°Î»ï¿½Ð±ï¿½", "20", "on_job_grid_table");
 
 
     $('#off_job').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, true, "off_job", "ÀúÊ·Ö°Î»ÁÐ±í", "20", "off_job_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, true, "off_job", "ï¿½ï¿½Ê·Ö°Î»ï¿½Ð±ï¿½", "20", "off_job_grid_table");
     $('#off_job').removeClass("active");
 
     $('#all_job').addClass("active");
-    Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "all_job", "ËùÓÐÖ°Î»ÁÐ±í", "20", "all_job_grid_table");
-    //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_job", "ÀúÊ·Ö°Î»ÁÐ±í", "20", "all_job_grid_table");
+    Layout.TransferTableToGrid($(window).width() - 100, $(window).height() - 180, false, "all_job", "ï¿½ï¿½ï¿½ï¿½Ö°Î»ï¿½Ð±ï¿½", "20", "all_job_grid_table");
+    //Layout.TransferTableToGrid($(window).width() - 300, $(window).height() - 250, false, "all_job", "ï¿½ï¿½Ê·Ö°Î»ï¿½Ð±ï¿½", "20", "all_job_grid_table");
     $('#all_job').removeClass("active");
 
 
