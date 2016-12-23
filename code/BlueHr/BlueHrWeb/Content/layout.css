@@ -425,7 +425,8 @@ body {
     margin: 0;
     padding: 7px;
     height: 38px;
-    width: 300px;
+    width:230px;
+    outline: none;
     line-height: 38px; }
     .marco-igroup-primary input[disabled], .marco-igroup-primary select[disabled] {
       cursor: not-allowed;
