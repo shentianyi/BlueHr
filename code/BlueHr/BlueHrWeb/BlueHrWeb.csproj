@@ -767,7 +767,6 @@
     <Content Include="Views\ShiftJobRecord\Edit.cshtml" />
     <Content Include="Views\ShiftJobRecord\Index.cshtml" />
     <Content Include="Views\ShiftSchedule\Search.cshtml" />
-    <Content Include="Views\JobTitle\TableShow.cshtml" />
     <Content Include="Views\JobTitle\Index.cshtml" />
     <Content Include="Views\Department\TreeShow.cshtml" />
     <Content Include="Views\WorkAndRests\TableShow.cshtml" />
@@ -781,6 +780,7 @@
     <Content Include="Views\PartTimeJob\Delete.cshtml" />
     <Content Include="Views\PartTimeJob\Edit.cshtml" />
     <Content Include="Views\PartTimeJob\Index.cshtml" />
+    <Content Include="Views\JobTitle\TableShow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

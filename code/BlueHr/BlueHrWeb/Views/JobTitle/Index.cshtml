@@ -185,7 +185,7 @@
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
                 if(data[i].IsRevoked == "False"){
-                    var Html = "<li id=" + data[i].id + " title=" + data[i].remark + "> <div></div><p>" + data[i].name + "</p>" +
+                    var Html = "<li id=" + data[i].id + "> <div></div><p>" + data[i].name + "</p>" +
                     "<i class='fa fa-pencil editJobTitle' title='编辑职位' style='margin-left: -45px;'></i>" +
                     "<i class='fa fa-trash removeJobTitle' title='删除职位' style='color: darkred; margin-left: -15px;'></i>" +
                     "<i class='fa fa-share-square-o setHistoryJobTitle' title='设置为历史职位' style='color: lightseagreen; margin-left: 15px; padding-top:5px;'></i>" +
@@ -194,7 +194,7 @@
                     $(Html).appendTo($("#current_jobTitleContent>ul"));
                     $(Html).appendTo($("#all_jobTitleContent>ul"));
                 }else{
-                    var Html = "<li id=" + data[i].id + " title=" + data[i].remark + "> <div></div><p>" + data[i].name + "</p>" +
+                    var Html = "<li id=" + data[i].id + "> <div></div><p>" + data[i].name + "</p>" +
                     "<i class='fa fa-pencil editJobTitle' title='编辑职位' style='margin-left: -45px;'></i>" +
                     "<i class='fa fa-trash removeJobTitle' title='删除职位' style='color: darkred; margin-left: -15px;'></i>" +
                     "<i class='fa fa-share-square-o reSetHistoryJobTitle' title='重新启用' style='color: lightseagreen; margin-left: 15px; padding-top:5px;'></i>" +

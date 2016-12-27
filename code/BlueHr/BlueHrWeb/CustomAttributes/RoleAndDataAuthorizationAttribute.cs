@@ -23,8 +23,7 @@ namespace BlueHrWeb.CustomAttributes
             if (user == null || !user.isLocked.HasValue || user.isLocked.Value)
             {
                 System.Web.HttpContext.Current.Session["user"] = null;
-                filterContext.Result =
-                 new System.Web.Mvc.RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary {{ "controller", "Account" },
+                filterContext.Result =  new RedirectToRouteResult(new System.Web.Routing.RouteValueDictionary {{ "controller", "Account" },
                                               { "action", "Login" },
                                              { "returnUrl",    filterContext.HttpContext.Request.RawUrl } });
 
@@ -43,7 +42,6 @@ namespace BlueHrWeb.CustomAttributes
                 ISysAuthorizationService authSi = new SysAuthorizationService(Settings.Default.db);
                 List<SysAuthorization> allAuths = authSi.GetSysAuthByRoleId(roldId);
 
-
                 string theRequestUrl = filterContext.HttpContext.Request.Path.ToLower();
                 if (theRequestUrl.IndexOf("search") >= 0)
                 { return; }
@@ -57,7 +55,6 @@ namespace BlueHrWeb.CustomAttributes
 
                 allAuths.ForEach(p =>
                 {
-
                     if (p.actionName.ToLower() == "index")
                     {
                         string authUrl = "/" + p.controlName + "/" + p.actionName;
@@ -66,7 +63,6 @@ namespace BlueHrWeb.CustomAttributes
                     }
                     else
                     {
-
                         string authAction = "/" + p.controlName + "/" + p.actionName;
                         dataActions.Add(authAction.ToLower());
                     }
@@ -108,18 +104,18 @@ namespace BlueHrWeb.CustomAttributes
                         }
                     });
 
-                    if (hasActionAccess <= 0)
-                    {
-                        if (filterContext.RequestContext.HttpContext.Request.ContentType == "application/x-www-form-urlencoded; charset=UTF-8")
-                        {
-                            //throw new Exception("无权操作！");
-                            var msg = new ResultMessage() { Content = "无权操作！" };
-                            filterContext.Result = new JsonResult() { Data=msg};
-                        }
-                        else {
-                            filterContext.Result = new RedirectResult("/Home/NoAuthPage/2");
-                        }
-                    }
+                    //if (hasActionAccess <= 0)
+                    //{
+                    //    if (filterContext.RequestContext.HttpContext.Request.ContentType == "application/x-www-form-urlencoded; charset=UTF-8")
+                    //    {
+                    //        //throw new Exception("无权操作！");
+                    //        var msg = new ResultMessage() { Content = "无权操作！" };
+                    //        filterContext.Result = new JsonResult() { Data=msg};
+                    //    }
+                    //    else {
+                    //        filterContext.Result = new RedirectResult("/Home/NoAuthPage/2");
+                    //    }
+                    //}
                 }
                 //3. 数据查询权限
             }
