@@ -53,10 +53,9 @@ else
                 Html += "<option value=''></option>";
             }
             for (dep in Department1[companyID]) {
-
                 
-                if (dep != "")
-                    Html += '<option value=' + dep + '>' + Department1[companyID][dep] + '</option>';
+            if (dep != "")
+                Html += '<option value=' + dep + '>' + Department1[companyID][dep] + '</option>';
             }
 
             $(Html).appendTo(departmentId);

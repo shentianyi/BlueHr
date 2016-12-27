@@ -220,34 +220,34 @@
         </div>
     </div>
 </div>
-        <!--导入数据-->
-    <div id="dialog_content" class="import_content" style="display:none;">
-        <div class="dialogModal_header" style="background:steelblue;color:white;">
-            导入考勤列表
+    <!--导出数据-->
+<div id="dialog_content" class="import_content" style="display:none;">
+    <div class="dialogModal_header" style="background:steelblue;color:white;">
+        导出考勤列表
+    </div>
+    <div class="dialogModal_content">
+        <div style="display:inline-block; height:30px; width:100%;margin-bottom:10px;">
+            @Html.Partial("Search/_CompanyAndDepartmentBar")
+            <!--@Html.Partial("Search/_CompanyAndDepartmentBar", new ViewDataDictionary() { new KeyValuePair<string, object>("companyId", "CompanyId1"), new KeyValuePair<string, object>("departmentId", "DepartmentId1") })-->
         </div>
-        <div class="dialogModal_content">
-            <div style="display:inline-block; height:30px; width:100%;margin-bottom:10px;">
-                @Html.Partial("Search/_CompanyAndDepartmentBar")
-                <!--@Html.Partial("Search/_CompanyAndDepartmentBar", new ViewDataDictionary() { new KeyValuePair<string, object>("companyId", "CompanyId1"), new KeyValuePair<string, object>("departmentId", "DepartmentId1") })-->
+        <div style="margin-left:15px;max-width:400px;">
+            <div class="marco-igroup-primary">
+                <span>日期*</span>
+                <input type="text" name="startDate" id="startDate" class="datepicker" placeholder="开始" /><span>~ </span><input type="text" name="endDate" id="endDate" class="datepicker" placeholder="结束" />
             </div>
-            <div style="margin-left:15px;max-width:400px;">
-                <div class="marco-igroup-primary">
-                    <span>日期*</span>
-                    <input type="text" name="startDate" id="startDate" class="datepicker" placeholder="开始" /><span>~ </span><input type="text" name="endDate" id="endDate" class="datepicker" placeholder="结束" />
-                </div>
-            </div>
+        </div>
 
-            <br />
-            <div class="dialogModal_footer">
-                <div class="row">
-                    <button type="submit" class="pull-left btn btn-primary ff btn-open" style="width:150px;" onclick="exportReport(100)">导出汇总报表</button>
-                    <button type="submit" class="pull-left btn btn-info ff btn-open" style="width:150px;" onclick="exportReport(200)">导出考勤详细记录</button>
-                    <button type="button" class="pull-right marco-btn-warning" style="width:80px; background:#2980b9;margin-right:20px;color:#fff;margin-top:10px;" onclick="closeDialog()">取消</button>
-                    <button type="button" class="pull-right marco-btn-warning" style="width:80px; background:#2980b9;margin-left:20px;color:#fff;margin-top:10px;" onclick="closeDialog()">确定</button>
-                </div>
+        <br />
+        <div class="dialogModal_footer">
+            <div class="row">
+                <button type="submit" class="pull-left btn btn-primary ff btn-open" style="width:150px;" onclick="exportReport(100)">导出汇总报表</button>
+                <button type="submit" class="pull-left btn btn-info ff btn-open" style="width:150px;" onclick="exportReport(200)">导出考勤详细记录</button>
+                <button type="button" class="pull-right marco-btn-warning" style="width:80px; background:#2980b9;margin-right:20px;color:#fff;margin-top:10px;" onclick="closeDialog()">取消</button>
+                <button type="button" class="pull-right marco-btn-warning" style="width:80px; background:#2980b9;margin-left:20px;color:#fff;margin-top:10px;" onclick="closeDialog()">确定</button>
             </div>
         </div>
     </div>
+</div>
 
     <script type="text/javascript">
         Layout.init();
@@ -261,29 +261,28 @@
             TableWidth = $(window).width() - 110;
         }
 
-
         Layout.TransferTableToGrid(TableWidth, $(window).height() - 320, false, "all_cal_type", "统计记录管理", "20", "all_cal_type_grid_table");
 
-
         function exportReport(type) {
-            if ($("#CompanyId1").val() == null || $("#CompanyId1").val() == "") {
+            if ($(".dialogModal").find("#CompanyId").val() == null || $(".dialogModal").find("#CompanyId").val() == "") {
                 alert("请选择公司");
                 return;
             }
 
-            if ($("#startDate").val() == "" || $("#endDate").val() == "") {
+            if ($(".dialogModal").find("#startDate").val() == "" || $(".dialogModal").find("#endDate").val() == "") {
                 alert("请选择时间");
                 return;
             }
+
             show_handle_dialog();
 
             $.get("/AttendanceRecordCal/ExportReport",
                 {
                     type: type,
-                    CompanyId: $("#CompanyId1").val(),
-                    DepartmentId: $("#DepartmentId1").val(),
-                    startDate: $("#startDate").val(),
-                    endDate: $("#endDate").val()
+                    CompanyId:  $(".dialogModal").find("#CompanyId").val(),
+                    DepartmentId: $(".dialogModal").find("#DepartmentId").val(),
+                    startDate: $(".dialogModal").find("#startDate").val(),
+                    endDate: $(".dialogModal").find("#endDate").val()
                 }, function (data) {
                     if (data.Success) {
                         hide_handle_dialog();
@@ -291,10 +290,9 @@
                     } else {
                         hide_handle_dialog();
                         alert(data.Content);
-
                     }
                 }, "json");
-        }
+            }
 
         var dialog;
 
@@ -305,14 +303,44 @@
             modal: true
         });
 
-
         $('.export-button-dialog').click(function () {
-        $('#dialog_content').dialogModal({
-            onOkBut: function () {
-            },
-            onCancelBut: function () { },
-            onLoad: function () {
-                Layout.datepicker('.datepicker');
+            $('#dialog_content').dialogModal({
+                onOkBut: function () {
+                },
+                onCancelBut: function () { },
+                onLoad: function () {
+                    Layout.datepicker('.datepicker');
+                    
+                    var Department = new Array();
+
+                    $.ajax({
+                        url: '/Staff/GetCompanyAndDepartment',
+                        type: 'get',
+                        async: false,
+                        success: function (data) {
+                            Department = data;
+                        },
+                        error: function () {
+                            // console.log("获取公司和部门信息出错");
+                        }
+                    });
+
+                 $('.dialogModal').find("#CompanyId").change(function () {
+                    $('.dialogModal').find("#DepartmentId").empty();
+
+                    var companyID = $('.dialogModal').find("#CompanyId").find("option:selected").val();
+                    var Html = "";
+
+                    if (Object.keys(Department[companyID]).length > 0) {
+                        Html += "<option value=''></option>";
+                    }
+                    for (dep in Department[companyID]) {
+                        if (dep != null && dep!="") {
+                            Html += '<option value=' + dep + '>' + Department[companyID][dep] + '</option>';
+                        }
+                    }
+                    $(Html).appendTo($('.dialogModal').find("#DepartmentId"));
+                })
             },
             onClose: function () {
                 // window.location.reload();

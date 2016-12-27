@@ -181,6 +181,54 @@ namespace BlueHrWeb.Controllers
                 return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        // POST: JobTitle/Create
+        [HttpPost]
+        [RoleAndDataAuthorizationAttribute]
+        public JsonResult AjaxCreate(string Name, string Remark, Array jobCertificateType)
+        {
+            ResultMessage msg = new ResultMessage();
+
+            JobTitle jobTitle = new JobTitle();
+            jobTitle.name = Name;
+            jobTitle.remark = Remark;
+
+            try
+            {
+                msg = DoValidation(jobTitle);
+
+                if (!msg.Success)
+                {
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    IJobTitleService cs = new JobTitleService(Settings.Default.db);
+
+                    if (jobCertificateType.Length > 0)
+                    {
+                        foreach (var jct in jobCertificateType)
+                        {
+                            jobTitle.JobCertificate.Add(new JobCertificate()
+                            {
+                                certificateTypeId = int.Parse(jct.ToString()),
+                                jobTitleId = jobTitle.id
+                            });
+                        }
+                    }
+
+                    bool isSucceed = cs.Create(jobTitle);
+
+                    msg.Success = isSucceed;
+                    msg.Content = isSucceed ? "添加成功" : "添加失败";
+
+                    return Json(msg, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResultMessage() { Success = false, Content = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         // GET: JobTitle/Edit/5
         [RoleAndDataAuthorizationAttribute]
@@ -195,7 +243,7 @@ namespace BlueHrWeb.Controllers
         // POST: JobTitle/Edit/5
         [RoleAndDataAuthorizationAttribute]
         [HttpPost]
-        public JsonResult Edit([Bind(Include = "id, name, remark,jobCertificateType")] JobTitle jobTitle)
+        public JsonResult Edit([Bind(Include = "id, name, remark, jobCertificateType")] JobTitle jobTitle)
         {
             ResultMessage msg = new ResultMessage();
 

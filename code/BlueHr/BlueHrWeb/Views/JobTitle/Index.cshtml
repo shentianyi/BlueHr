@@ -139,21 +139,20 @@
                         @foreach (var i in ViewData["jobCertificateTypeList"] as IEnumerable<SelectListItem>)
                         {
                             <li style="list-style:none; float: left; width: 120px; margin-top: 10px;">
-                                    @if (i.Selected)
-                                    {
-                                        <input type="checkbox"  class="jobTitleCertificateCls" style="width: 20px; height: 20px;" checked name="jobCertificateType" value="@i.Value" /> <b>@i.Text</b>
-                                    }
-                                    else
-                                    {
-                                        <input type="checkbox"  class="jobTitleCertificateCls" style="width: 20px; height: 20px;" name="jobCertificateType" value="@i.Value" /> <b>@i.Text</b>
-                                    }
+                                @if (i.Selected)
+                                {
+                                    <input type="checkbox"  class="jobTitleCertificateCls" style="width: 20px; height: 20px;" checked name="jobCertificateType" value="@i.Value" /> <b>@i.Text</b>
+                                }
+                                else
+                                {
+                                    <input type="checkbox"  class="jobTitleCertificateCls" style="width: 20px; height: 20px;" name="jobCertificateType" value="@i.Value" /> <b>@i.Text</b>
+                                }
                             </li>
                         }
                     </ul>
                 </div>
             </div>
             <br />
-
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="marco-textarea">
@@ -166,14 +165,13 @@
     </div>
 
     <div class="dialogModal_footer">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
-                <button type="button" class="marco-btn-primary pull-right" data-dialogmodalbut="ok" />
-                    确认
-                </button>
-            </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+            <button type="button" class="marco-btn-primary pull-right" data-dialogmodalbut="ok" />
+                确认
+            </button>
+        </div>
     </div>
 </div>
-<div class=""></div>
 
 <script type="text/javascript">
     Layout.init();
@@ -185,7 +183,7 @@
         success: function (data) {
             for (var i = 0; i < data.length; i++) {
                 if(data[i].IsRevoked == "False"){
-                    var Html = "<li id=" + data[i].id + "> <div></div><p>" + data[i].name + "</p>" +
+                    var Html = "<li id=" + data[i].id + " remarks = "+data[i].remark+"> <div></div><p>" + data[i].name + "</p>" +
                     "<i class='fa fa-pencil editJobTitle' title='编辑职位' style='margin-left: -45px;'></i>" +
                     "<i class='fa fa-trash removeJobTitle' title='删除职位' style='color: darkred; margin-left: -15px;'></i>" +
                     "<i class='fa fa-share-square-o setHistoryJobTitle' title='设置为历史职位' style='color: lightseagreen; margin-left: 15px; padding-top:5px;'></i>" +
@@ -194,7 +192,7 @@
                     $(Html).appendTo($("#current_jobTitleContent>ul"));
                     $(Html).appendTo($("#all_jobTitleContent>ul"));
                 }else{
-                    var Html = "<li id=" + data[i].id + "> <div></div><p>" + data[i].name + "</p>" +
+                    var Html = "<li id=" + data[i].id + " remarks = "+data[i].remark+"> <div></div><p>" + data[i].name + "</p>" +
                     "<i class='fa fa-pencil editJobTitle' title='编辑职位' style='margin-left: -45px;'></i>" +
                     "<i class='fa fa-trash removeJobTitle' title='删除职位' style='color: darkred; margin-left: -15px;'></i>" +
                     "<i class='fa fa-share-square-o reSetHistoryJobTitle' title='重新启用' style='color: lightseagreen; margin-left: 15px; padding-top:5px;'></i>" +
@@ -211,7 +209,6 @@
                 Layout.openNewWindow($(this).attr("href"), $(window).height()-100,$(window).width()-200, 50, 100, 'no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes');
                 return false;
             });
-
 
             $("#current_jobTitleContent ul").unbind('mouseover').on('mouseover', 'li', function () {
                 $("#current_jobTitleContent>ul li").not($(this)).find('i').css("display", "none");
@@ -238,7 +235,7 @@
             $('.editJobTitle').click(function () {
                 var ID = $(this).parent().attr("id");
                 var Name = $(this).parent().find("p").html();
-                var Remarks = $(this).parent().attr("title");
+                var Remarks = $(this).parent().attr("remarks");
 
                 $('#JobTitlePopModal').dialogModal({
                     onOkBut: function () {
@@ -249,7 +246,6 @@
                         // 判断是否是相等， 如果是相等，不需要进行请求API进行修改
 
                         if (Name == NewName && Remarks == NewRemarks) {
-
                         } else {
                             // 请求API 进行 编辑角色名称和备注
                             $.ajax({
@@ -279,6 +275,7 @@
                         // 填充数据
                         $(".jobTitleName").val(Name);
                         $(".remark").val(Remarks == "null" ? "" : Remarks);
+                        $(".dialogModal").find("#CertificateType").parent().parent().remove();
                     },
                     onClose: function () {
                     }
@@ -328,7 +325,7 @@
                             }
                         },
                         error:function(){
-                            console.log("CCCCCCCCErorr")
+                            // console.log("CCCCCCCCErorr")
                         }
                     })
                 }
@@ -350,7 +347,7 @@
                             }
                         },
                         error:function(){
-                            console.log("CCCCCCCCErorr")
+                            // console.log("CCCCCCCCErorr")
                         }
                     })
                 }
@@ -368,15 +365,26 @@
                 //进行处理
                 var Name = $(".dialogModal").find(".jobTitleName").val();
                 var Remarks = $(".dialogModal").find(".remark").val();
+                var CertificateTypeArray = new Array();
+
+                var CertificateTypeUl = $(".dialogModal").find("#CertificateType input");
+                $.each(CertificateTypeUl, function(){
+                    if($(this).attr("checked") == "checked"){
+                        CertificateTypeArray.push($(this).val());
+                    }
+                });
 
                 $.ajax({
-                    url: '/JobTitle/Create',
+                    url: '/JobTitle/AjaxCreate',
                     type: 'post',
                     data: {
-                        name: Name,
-                        remark: Remarks
+                        Name: Name,
+                        Remark: Remarks,
+                        jobCertificateType: CertificateTypeArray
                     },
                     success: function (data) {
+                        // CertificateTypeArray
+
                         if (data) {
                             window.location.reload();
                         } else {
